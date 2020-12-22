@@ -28,6 +28,8 @@ interface IOHookEvent {
 }
 
 const store = new Store<ISettings>();
+// Epic Games and itch.io have been added for future use
+let edition: 'steam' | 'microsoftstore' | 'epic' | 'itch' = 'steam';
 
 async function loadOffsets(event: Electron.IpcMainEvent): Promise<IOffsets | undefined> {
 
@@ -43,11 +45,37 @@ async function loadOffsets(event: Electron.IpcMainEvent): Promise<IOffsets | und
 			return;
 		}
 	} else {
-		event.reply('error', 'Couldn\'t determine the Among Us version - Unity analytics file doesn\'t exist. Try opening Among Us and then restarting CrewLink.');
-		return;
+		// Try to get Windows Store install location via Windows Powershell cmdlet
+		const process = spawn.sync('powershell.exe', [
+			'-nologo',
+			'-executionpolicy', 'remotesigned',
+			'-noprofile',
+			'-command', 'Get-AppxPackage -Name InnerSloth.AmongUs | ConvertTo-Json'
+		], {
+			stdio: ['ignore', 'pipe', 'ignore'],
+			encoding: 'utf8'
+		});
+		if (process.status === 0) {
+			try {
+				const appxManifest = JSON.parse(process.output[1]);
+				version = appxManifest.Version;
+				edition = 'windowsstore';
+			} catch (e) {
+				console.error(e);
+				event.reply('error', `Couldn't determine the Among Us version - ${e}. Try opening Among Us and then restarting CrewLink.`);
+				return;
+			}
+		} else {
+			event.reply('error', 'Couldn\'t determine the Among Us version - Unity analytics file or Windows Store installation doesn\'t exist. Try opening Among Us and then restarting CrewLink.');
+		}
 	}
 
 	let data: string;
+	store.set('offsets', {
+		version: '2020.12.4.0',
+		data: offsets_2020_12_9
+	});
+
 	const offsetStore = store.get('offsets') || {};
 	if (version === offsetStore.version) {
 		data = offsetStore.data;
@@ -173,6 +201,11 @@ function keyCodeMatches(key: K, ev: IOHookEvent): boolean {
 
 
 ipcMain.on('openGame', () => {
+	if(edition === 'microsoftstore') {
+		const process = spawn(path.join(steamPath.data as string, 'explorer.exe'), [
+			'shell:appsFolder\Innersloth.AmongUs_fw5x688tam7rm!Game'
+		]);
+	}
 	// Get steam path from registry
 	const steamPath = enumerateValues(HKEY.HKEY_LOCAL_MACHINE,
 		'SOFTWARE\\WOW6432Node\\Valve\\Steam')
@@ -190,7 +223,7 @@ ipcMain.on('openGame', () => {
 				dialog.showErrorBox('Error', 'Please launch the game through Steam.');
 			});
 		} catch (e) {
-			dialog.showErrorBox('Error', 'Please launch the game through Steam.');
+			dialog.showErrorBox('Error', 'Please launch the game through Steam or Microsoft Store.');
 		}
 	}
 });
