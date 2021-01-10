@@ -194,7 +194,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		other: Player,
 		audio: AudioNodes
 	): void {
-		const { pan, gain, muffle, reverbGain } = audio;
+		const { pan, gain, reverbGain } = audio;
 		if (reverbGain != null) reverbGain.gain.value = 0;
 		const audioContext = pan.context;
 
@@ -211,7 +211,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 			case GameState.TASKS:
 				gain.gain.value = 1;
 
-				if (!me.isDead && lobbySettings.commsSabotage && state.comsSabotaged && !me.isImpostor)  {
+				if (!me.isDead && lobbySettings.commsSabotage && state.comsSabotaged && !me.isImpostor) {
 					gain.gain.value = 0;
 				}
 
@@ -220,17 +220,17 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 					gain.gain.value = 0;
 				}
 
-				if (muffle) {
-					// Muffling in vents
-					if (me.inVent || other.inVent) {
-						muffle.frequency.value = 1200;
-						muffle.Q.value = 20;
-						if (gain.gain.value === 1) gain.gain.value = 0.7; // Too loud at 1
-					} else {
-						muffle.frequency.value = 20000;
-						muffle.Q.value = 0;
-					}
-				}
+				// if (muffle) {
+				// 	// Muffling in vents
+				// 	if (me.inVent || other.inVent) {
+				// 		muffle.frequency.value = 1200;
+				// 		muffle.Q.value = 20;
+				// 		if (gain.gain.value === 1) gain.gain.value = 0.7; // Too loud at 1
+				// 	} else {
+				// 		muffle.frequency.value = 20000;
+				// 		muffle.Q.value = 0;
+				// 	}
+				// }
 
 				if (!me.isDead && other.isDead && me.isImpostor && lobbySettings.haunting) {
 					gain.gain.value = gain.gain.value * 0.02; //0.005;
@@ -260,7 +260,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		// Mute players if distancte between two players is too big
 
 		if (Math.pow(panPos[0], 2) + Math.pow(panPos[1], 2) > lobbySettings.maxDistance * lobbySettings.maxDistance) {
- 			gain.gain.value = 0;
+			gain.gain.value = 0;
 		}
 
 		pan.positionX.setValueAtTime(panPos[0], audioContext.currentTime);
@@ -550,12 +550,16 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 						pan.rolloffFactor = 1;
 
 						const muffle = context.createBiquadFilter();
-						muffle.type = 'lowpass';
+						// muffle.type = 'lowpass';
+
+						// source.connect(pan);
+						// pan.connect(muffle);
+
+						// muffle.connect(gain);
+						//		gain.connect(compressor);
 
 						source.connect(pan);
-						pan.connect(muffle);
-
-						muffle.connect(gain);
+						pan.connect(gain);
 						gain.connect(compressor);
 
 						const reverb = context.createConvolver();
@@ -564,10 +568,10 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 						reverb.buffer = convolverBuffer.current;
 
 						// if (lobbySettingsRef.current.haunting) {
-							gain.connect(compressor);
-							gain.connect(reverbGain);
-							reverbGain.connect(reverb);
-							reverb.connect(compressor);
+						gain.connect(compressor);
+						gain.connect(reverbGain);
+						reverbGain.connect(reverb);
+						reverb.connect(compressor);
 						// } else {
 						// 	gain.connect(compressor);
 						// }
@@ -600,7 +604,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 							reverbGain,
 							reverb,
 							compressor,
-							muffle,
+							muffle
 						};
 					});
 					connection.on('signal', (data) => {
