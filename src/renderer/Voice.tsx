@@ -180,7 +180,13 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 	const lobbySettingsRef = useRef(lobbySettings);
 	const maxDistanceRef = useRef(2);
 	const gameState = useContext(GameStateContext);
-	const hostRef = useRef({ hostId: gameState.hostId, isHost: gameState.isHost });
+	const hostRef = useRef({
+		mobileRunning: false,
+		gamestate: gameState.gameState,
+		code: gameState.lobbyCode,
+		hostId: gameState.hostId,
+		isHost: gameState.isHost,
+	});
 	let { lobbyCode: displayedLobbyCode } = gameState;
 	if (displayedLobbyCode !== 'MENU' && settings.hideCode) displayedLobbyCode = 'LOBBY';
 	const [talking, setTalking] = useState(false);
@@ -236,6 +242,9 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		let panPos = [other.x - me.x, other.y - me.y];
 		let endGain = 0;
 		let collided = false;
+		if(other.disconnected){
+			return 0;
+		}
 		switch (state.gameState) {
 			case GameState.MENU:
 				endGain = 0;
@@ -385,6 +394,20 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		return endGain;
 	}
 
+	function notifyMobilePlayers() {
+		if (
+			settingsRef.current.mobileHost &&
+			hostRef.current.gamestate !== GameState.MENU &&
+			hostRef.current.gamestate !== GameState.UNKNOWN
+		) {
+			connectionStuff.current.socket?.emit('signal', {
+				to: hostRef.current.code + '_mobile',
+				data: { mobileHostInfo: { isHostingMobile: true, isGameHost: hostRef.current.isHost } },
+			});
+			setTimeout(() => notifyMobilePlayers(), 5000);
+		}
+	}
+
 	function disconnectAudioHtmlElement(element: HTMLAudioElement) {
 		console.log('disableing element?', element);
 		element.pause();
@@ -458,11 +481,11 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 			!gameState ||
 			!gameState.players ||
 			!connectionStuff.current.socket ||
-			(!settingsRef.current.mobileHost && !settings.obsOverlay)
+			(!hostRef.current.mobileRunning && !settings.obsOverlay)
 		) {
 			return;
 		}
-		if (settingsRef.current.mobileHost) {
+		if (hostRef.current.mobileRunning) {
 			connectionStuff.current.socket?.emit('signal', {
 				to: gameState.lobbyCode + '_mobile',
 				data: { gameState, lobbySettings },
@@ -585,6 +608,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		socket.on('disconnect', () => {
 			setConnected(false);
 		});
+		notifyMobilePlayers();
 
 		let iceConfig: RTCConfiguration = DEFAULT_ICE_CONFIG;
 		socket.on('clientPeerConfig', (clientPeerConfig: ClientPeerConfig) => {
@@ -844,6 +868,18 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 				socket.on('signal', ({ data, from }: { data: Peer.SignalData; from: string }) => {
 					//console.log('onsignal', JSON.stringify(data));
 
+					if (data.hasOwnProperty('mobilePlayerInfo')) {
+						let mobiledata = data as mobileHostInfo;
+						if (
+							mobiledata.mobilePlayerInfo.code === hostRef.current.code &&
+							hostRef.current.gamestate !== GameState.MENU
+						) {
+							hostRef.current.mobileRunning = true;
+							console.log('setting mobileRunning to true..');
+						}
+						return;
+					}
+
 					let connection: Peer.Instance;
 					if (peerConnections[from]) {
 						connection = peerConnections[from];
@@ -870,6 +906,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		);
 
 		return () => {
+			hostRef.current.mobileRunning = false;
 			socket.emit('leave');
 			Object.keys(peerConnections).forEach((k) => {
 				disconnectPeer(k);
@@ -881,6 +918,14 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		// })();
 	}, []);
 
+	interface mobileHostInfo {
+		mobilePlayerInfo: {
+			code: string;
+			askingForHost: boolean;
+		};
+	}
+
+	//data: { mobilePlayerInfo: { code: this.gamecode, askingForHost: true }
 	const myPlayer = useMemo(() => {
 		if (!gameState || !gameState.players) {
 			return undefined;
@@ -893,6 +938,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		let otherPlayers: Player[];
 		if (!gameState || !gameState.players || gameState.lobbyCode === 'MENU' || !myPlayer) return [];
 		else otherPlayers = gameState.players.filter((p) => !p.isLocal);
+
 		maxDistanceRef.current = lobbySettings.visionHearing
 			? myPlayer.isImpostor
 				? lobbySettings.maxDistance
@@ -901,7 +947,13 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		if (maxDistanceRef.current <= 0.6) {
 			maxDistanceRef.current = 1;
 		}
-		hostRef.current = { hostId: gameState.hostId, isHost: gameState.isHost };
+		hostRef.current = {
+			mobileRunning: hostRef.current.mobileRunning,
+			gamestate: gameState.gameState,
+			code: gameState.lobbyCode,
+			hostId: gameState.hostId,
+			isHost: gameState.isHost,
+		};
 		const playerSocketIds: {
 			[index: number]: string;
 		} = {};
@@ -961,6 +1013,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 			gameState.gameState === GameState.LOBBY &&
 			(gameState.oldGameState === GameState.DISCUSSION || gameState.oldGameState === GameState.TASKS)
 		) {
+			hostRef.current.mobileRunning = false;
 			connect.connect(gameState.lobbyCode, myPlayer.clientId, gameState.clientId, gameState.isHost);
 		} else if (
 			gameState.oldGameState !== GameState.UNKNOWN &&
@@ -968,6 +1021,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 			gameState.gameState === GameState.MENU
 		) {
 			// On change from a game to menu, exit from the current game properly
+			hostRef.current.mobileRunning = false; // On change from a game to menu, exit from the current game properly
 			connectionStuff.current.socket?.emit('leave');
 			Object.keys(peerConnections).forEach((k) => {
 				disconnectPeer(k);
@@ -1013,8 +1067,10 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 			audioConnected,
 			localTalking: talking,
 			localIsAlive: !myPlayer?.isDead,
+			muted: mutedState,
+			deafened: deafenedState,
 		} as VoiceState);
-	}, [otherTalking, otherDead, socketClients, audioConnected, talking]);
+	}, [otherTalking, otherDead, socketClients, audioConnected, talking, mutedState, deafenedState]);
 
 	return (
 		<div className={classes.root}>
