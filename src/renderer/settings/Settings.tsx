@@ -150,6 +150,9 @@ const store = new Store<ISettings>({
 		'2.1.4': (store) => {
 			store.set('playerConfigMap', {});
 		},
+		'2.2.0': (store) => {
+			store.set('mobileHost', true);
+		},
 	},
 	schema: {
 		alwaysOnTop: {
@@ -704,6 +707,27 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
 					>
 						<FormControlLabel
+							label="Walls block audio"
+							disabled={!canChangeLobbySettings}
+							onChange={(_, newValue: boolean) => {
+								localLobbySettings.wallsBlockAudio = newValue;
+								setLocalLobbySettings(localLobbySettings);
+
+								setSettings({
+									type: 'setLobbySetting',
+									action: ['wallsBlockAudio', newValue],
+								});
+							}}
+							value={canChangeLobbySettings ? localLobbySettings.wallsBlockAudio : lobbySettings.wallsBlockAudio}
+							checked={canChangeLobbySettings ? localLobbySettings.wallsBlockAudio : lobbySettings.wallsBlockAudio}
+							control={<Checkbox />}
+						/>
+					</DisabledTooltip>
+					<DisabledTooltip
+						disabled={!canChangeLobbySettings}
+						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
+					>
+						<FormControlLabel
 							label="Hear people in vision only"
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
@@ -849,27 +873,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
-					<DisabledTooltip
-						disabled={!canChangeLobbySettings}
-						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
-					>
-						<FormControlLabel
-							label="Walls block audio"
-							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => {
-								localLobbySettings.wallsBlockAudio = newValue;
-								setLocalLobbySettings(localLobbySettings);
-
-								setSettings({
-									type: 'setLobbySetting',
-									action: ['wallsBlockAudio', newValue],
-								});
-							}}
-							value={canChangeLobbySettings ? localLobbySettings.wallsBlockAudio : lobbySettings.wallsBlockAudio}
-							checked={canChangeLobbySettings ? localLobbySettings.wallsBlockAudio : lobbySettings.wallsBlockAudio}
-							control={<Checkbox />}
-						/>
-					</DisabledTooltip>
+					
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
 						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
