@@ -520,7 +520,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 		settings.noiseSuppression,
 		settings.echoCancellation,
 		settings.obsComptaibilityMode,
-		settings.mobileHost
+		settings.mobileHost,
 	]);
 
 	useEffect(() => {
@@ -570,6 +570,10 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 		if (k === 'Control' || k === 'Alt' || k === 'Shift') k = (ev.location === 1 ? 'L' : 'R') + k;
 
 		if (/^[0-9A-Z]$/.test(k) || /^F[0-9]{1,2}$/.test(k) || keys.has(k) || k.startsWith('Numpad')) {
+			if (k === 'Escape') {
+				console.log('disable??');
+				k = 'Disabled';
+			}
 			setSettings({
 				type: 'setOne',
 				action: [shortcut, k],
@@ -873,7 +877,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
-					
+
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
 						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
