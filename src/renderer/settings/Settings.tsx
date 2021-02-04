@@ -218,7 +218,7 @@ const store = new Store<ISettings>({
 		},
 		microphoneGain: {
 			type: 'number',
-			default: 1,
+			default: 100,
 		},
 		micSensitivity: {
 			type: 'number',
@@ -1210,24 +1210,24 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 				<Divider />
 				<Typography variant="h6">Advanced</Typography>
 				<div>
-				<FormControlLabel
-					label="NAT FIX"
-					checked={settings.natFix}
-					onChange={(_, checked: boolean) => {
-						openWarningDialog(
-							'Are you sure?',
-							'This will FIX the nat issues but will add a delay since it is using a server instead of p2p',
-							() => {
-								setSettings({
-									type: 'setOne',
-									action: ['natFix', checked],
-								});
-							},
-							checked
-						);
-					}}
-					control={<Checkbox />}
-				/>
+					<FormControlLabel
+						label="NAT FIX"
+						checked={settings.natFix}
+						onChange={(_, checked: boolean) => {
+							openWarningDialog(
+								'Are you sure?',
+								'This will FIX the nat issues but will add a delay since it is using a server instead of p2p',
+								() => {
+									setSettings({
+										type: 'setOne',
+										action: ['natFix', checked],
+									});
+								},
+								checked
+							);
+						}}
+						control={<Checkbox />}
+					/>
 				</div>
 
 				<URLInput

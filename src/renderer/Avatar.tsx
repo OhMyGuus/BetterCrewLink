@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
 		background: '#ea3c2a',
 		position: 'absolute',
 		left: '50%',
-		top: '62%',
+		top: '50%',
 		transform: 'translate(-50%, -50%)',
 		border: '2px solid #690a00',
 		borderRadius: '50%',
