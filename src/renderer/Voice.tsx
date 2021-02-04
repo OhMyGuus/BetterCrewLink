@@ -31,6 +31,7 @@ import Store from 'electron-store';
 import { ObsVoiceState } from '../common/ObsOverlay';
 import { poseCollide } from '../common/ColliderMap';
 import adapter from 'webrtc-adapter';
+import { VADOptions } from './vad';
 
 console.log(adapter.browserDetails.browser);
 
@@ -40,6 +41,13 @@ export interface ExtendedAudioElement extends HTMLAudioElement {
 
 interface PeerConnections {
 	[peer: string]: Peer.Instance;
+}
+
+interface VadNode {
+	connect: () => void;
+	destroy: () => void;
+	options: VADOptions;
+	init: () => void;
 }
 
 interface AudioNodes {
@@ -62,6 +70,9 @@ interface ConnectionStuff {
 	socket?: typeof Socket;
 	overlaySocket?: typeof Socket;
 	stream?: MediaStream;
+	microphoneGain?: GainNode;
+	micSensitivityGain?: GainNode;
+	audioListener?: VadNode;
 	pushToTalk: boolean;
 	deafened: boolean;
 	muted: boolean;
@@ -242,7 +253,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		let panPos = [other.x - me.x, other.y - me.y];
 		let endGain = 0;
 		let collided = false;
-		if(other.disconnected){
+		if (other.disconnected) {
 			return 0;
 		}
 		switch (state.gameState) {
@@ -395,6 +406,12 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 	}
 
 	function notifyMobilePlayers() {
+		console.log(
+			'notifyMobilePLayersCheck',
+			settingsRef.current.mobileHost,
+			hostRef.current.gamestate !== GameState.MENU,
+			hostRef.current.gamestate !== GameState.UNKNOWN
+		);
 		if (
 			settingsRef.current.mobileHost &&
 			hostRef.current.gamestate !== GameState.MENU &&
@@ -552,6 +569,17 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		socketClientsRef.current = socketClients;
 	}, [socketClients]);
 
+	useEffect(() => {
+		if (connectionStuff.current?.microphoneGain?.gain)
+			connectionStuff.current.microphoneGain.gain.value = settings.microphoneGain / 100;
+
+		if (connectionStuff.current?.audioListener?.options) {
+			connectionStuff.current.audioListener.options.minNoiseLevel = settings.micSensitivity;
+			connectionStuff.current.audioListener.init();
+			console.log('new sens:', connectionStuff.current.audioListener.options.minNoiseLevel);
+		}
+	}, [settings.microphoneGain, settings.micSensitivity]);
+
 	// Add lobbySettings to lobbySettingsRef
 	useEffect(() => {
 		lobbySettingsRef.current = lobbySettings;
@@ -640,10 +668,8 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		});
 
 		// Initialize variables
-		let audioListener: {
-			connect: () => void;
-			destroy: () => void;
-		};
+		let audioListener: VadNode;
+
 		const audio: MediaTrackConstraintSet = {
 			deviceId: (undefined as unknown) as string,
 			autoGainControl: false,
@@ -659,8 +685,42 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		if (settingsRef.current.microphone.toLowerCase() !== 'default') audio.deviceId = settingsRef.current.microphone;
 		navigator.getUserMedia(
 			{ video: false, audio },
-			async (stream) => {
+			async (inStream) => {
 				console.log('getuserMediacall');
+
+				const stream = (() => {
+					const ac = new AudioContext();
+					const source = ac.createMediaStreamSource(inStream);
+					const microphoneGain = ac.createGain();
+					const micSensitivityGain = ac.createGain();
+					const destination = ac.createMediaStreamDestination();
+					source.connect(microphoneGain);
+					microphoneGain.gain.value = 1;
+					connectionStuff.current.microphoneGain = microphoneGain;
+					connectionStuff.current.micSensitivityGain = micSensitivityGain;
+
+					if (settingsRef.current.vadEnabled) {
+						audioListener = VAD(ac, microphoneGain, micSensitivityGain, {
+							onVoiceStart: () => {
+								micSensitivityGain.gain.value = 1;
+								setTalking(true);
+							},
+							onVoiceStop: () => {
+								micSensitivityGain.gain.value = 0;
+								setTalking(false);
+							},
+							noiseCaptureDuration: 0,
+							stereo: false,
+						});
+						audioListener.options.minNoiseLevel = 0.15;
+						audioListener.init();
+						micSensitivityGain.gain.value = 1;
+						micSensitivityGain.connect(destination);
+						connectionStuff.current.audioListener = audioListener;
+					}
+					return destination.stream;
+				})();
+
 				connectionStuff.current.stream = stream;
 
 				stream.getAudioTracks()[0].enabled = !settings.pushToTalk;
@@ -686,21 +746,6 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 						stream.getAudioTracks()[0].enabled = pressing;
 					}
 				});
-
-				const ac = new AudioContext();
-				ac.createMediaStreamSource(stream);
-				if (settingsRef.current.vadEnabled) {
-					audioListener = VAD(ac, ac.createMediaStreamSource(stream), undefined, {
-						onVoiceStart: () => {
-							setTalking(true);
-						},
-						onVoiceStop: () => {
-							setTalking(false);
-						},
-						noiseCaptureDuration: 300,
-						stereo: false,
-					});
-				}
 
 				audioElements.current = {};
 
@@ -938,7 +983,6 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		let otherPlayers: Player[];
 		if (!gameState || !gameState.players || gameState.lobbyCode === 'MENU' || !myPlayer) return [];
 		else otherPlayers = gameState.players.filter((p) => !p.isLocal);
-
 		maxDistanceRef.current = lobbySettings.visionHearing
 			? myPlayer.isImpostor
 				? lobbySettings.maxDistance

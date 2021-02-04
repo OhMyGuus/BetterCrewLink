@@ -216,6 +216,14 @@ const store = new Store<ISettings>({
 			type: 'number',
 			default: 100,
 		},
+		microphoneGain: {
+			type: 'number',
+			default: 1,
+		},
+		micSensitivity: {
+			type: 'number',
+			default: 0.15,
+		},
 		natFix: {
 			type: 'boolean',
 			default: false,
@@ -520,7 +528,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 		settings.noiseSuppression,
 		settings.echoCancellation,
 		settings.obsComptaibilityMode,
-		settings.mobileHost
+		settings.mobileHost,
 	]);
 
 	useEffect(() => {
@@ -873,7 +881,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
-					
+
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
 						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
@@ -1034,6 +1042,40 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						}}
 						aria-labelledby="input-slider"
 					/>
+					<Typography id="input-slider" gutterBottom>
+						Microphone gain
+					</Typography>
+					<Slider
+						value={settings.microphoneGain}
+						valueLabelDisplay="auto"
+						min={0}
+						max={300}
+						step={1}
+						onChange={(_, newValue: number | number[]) => {
+							setSettings({
+								type: 'setOne',
+								action: ['microphoneGain', newValue],
+							});
+						}}
+						aria-labelledby="input-slider"
+					/>
+					<Typography id="input-slider" gutterBottom>
+						Microphone sensitivity
+					</Typography>
+					<Slider
+						value={settings.micSensitivity}
+						valueLabelDisplay="auto"
+						min={0}
+						max={1}
+						step={0.05}
+						onChange={(_, newValue: number | number[]) => {
+							setSettings({
+								type: 'setOne',
+								action: ['micSensitivity', newValue],
+							});
+						}}
+						aria-labelledby="input-slider"
+					/>
 				</div>
 				<Divider />
 				<Typography variant="h6">Keyboard Shortcuts</Typography>
@@ -1167,6 +1209,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 
 				<Divider />
 				<Typography variant="h6">Advanced</Typography>
+				<div>
 				<FormControlLabel
 					label="NAT FIX"
 					checked={settings.natFix}
@@ -1185,6 +1228,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 					}}
 					control={<Checkbox />}
 				/>
+				</div>
 
 				<URLInput
 					initialURL={settings.serverURL}
@@ -1198,141 +1242,145 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 				/>
 				<Divider />
 				<Typography variant="h6">BETA/DEBUG</Typography>
-				<FormControlLabel
-					label="Mobile host"
-					checked={settings.mobileHost}
-					onChange={(_, checked: boolean) => {
-						setSettings({
-							type: 'setOne',
-							action: ['mobileHost', checked],
-						});
-					}}
-					control={<Checkbox />}
-				/>
-				<FormControlLabel
-					label="VAD enabled"
-					checked={settings.vadEnabled}
-					onChange={(_, checked: boolean) => {
-						openWarningDialog(
-							'Are you sure?',
-							"You won't see who's talking if deactivate.",
-							() => {
-								setSettings({
-									type: 'setOne',
-									action: ['vadEnabled', checked],
-								});
-							},
-							!checked
-						);
-					}}
-					control={<Checkbox />}
-				/>
-				<FormControlLabel
-					label="Echo Cancellation"
-					checked={settings.echoCancellation}
-					onChange={(_, checked: boolean) => {
-						setSettings({
-							type: 'setOne',
-							action: ['echoCancellation', checked],
-						});
-					}}
-					control={<Checkbox />}
-				/>
-				<FormControlLabel
-					label="Spatial audio"
-					checked={settings.enableSpatialAudio}
-					onChange={(_, checked: boolean) => {
-						setSettings({
-							type: 'setOne',
-							action: ['enableSpatialAudio', checked],
-						});
-					}}
-					control={<Checkbox />}
-				/>
-				<FormControlLabel
-					label="Noise Suppression"
-					checked={settings.noiseSuppression}
-					onChange={(_, checked: boolean) => {
-						setSettings({
-							type: 'setOne',
-							action: ['noiseSuppression', checked],
-						});
-					}}
-					control={<Checkbox />}
-				/>
-				<Divider />
-				<Typography variant="h6">Streaming settings</Typography>
-				<FormControlLabel
-					label="Show Lobby Code"
-					checked={!settings.hideCode}
-					onChange={(_, checked: boolean) => {
-						setSettings({
-							type: 'setOne',
-							action: ['hideCode', !checked],
-						});
-					}}
-					control={<Checkbox />}
-				/>
-				<FormControlLabel
-					label="OBS browseroverlay"
-					checked={settings.obsOverlay}
-					onChange={(_, checked: boolean) => {
-						setSettings({
-							type: 'setOne',
-							action: ['obsOverlay', checked],
-						});
-						if (!settings.obsSecret) {
+				<div>
+					<FormControlLabel
+						label="Mobile host"
+						checked={settings.mobileHost}
+						onChange={(_, checked: boolean) => {
 							setSettings({
 								type: 'setOne',
-								action: ['obsSecret', Math.random().toString(36).substr(2, 9).toUpperCase()],
+								action: ['mobileHost', checked],
 							});
-						}
-					}}
-					control={<Checkbox />}
-				/>
-				{settings.obsOverlay && (
-					<>
-						<FormControlLabel
-							label="VS compatibility mode"
-							checked={settings.obsComptaibilityMode}
-							onChange={(_, checked: boolean) => {
-								openWarningDialog(
-									'Are you sure?',
-									'It is recommended to just change the voice server to a bettercrewlink voice server https://bettercrewl.ink for example.',
-									() => {
-										setSettings({
-											type: 'setOne',
-											action: ['obsComptaibilityMode', checked],
-										});
-									},
-									!checked
-								);
-							}}
-							control={<Checkbox />}
-						/>
+						}}
+						control={<Checkbox />}
+					/>
+					<FormControlLabel
+						label="VAD enabled"
+						checked={settings.vadEnabled}
+						onChange={(_, checked: boolean) => {
+							openWarningDialog(
+								'Are you sure?',
+								"You won't see who's talking if deactivate.",
+								() => {
+									setSettings({
+										type: 'setOne',
+										action: ['vadEnabled', checked],
+									});
+								},
+								!checked
+							);
+						}}
+						control={<Checkbox />}
+					/>
+					<FormControlLabel
+						label="Echo Cancellation"
+						checked={settings.echoCancellation}
+						onChange={(_, checked: boolean) => {
+							setSettings({
+								type: 'setOne',
+								action: ['echoCancellation', checked],
+							});
+						}}
+						control={<Checkbox />}
+					/>
+					<FormControlLabel
+						label="Spatial audio"
+						checked={settings.enableSpatialAudio}
+						onChange={(_, checked: boolean) => {
+							setSettings({
+								type: 'setOne',
+								action: ['enableSpatialAudio', checked],
+							});
+						}}
+						control={<Checkbox />}
+					/>
+					<FormControlLabel
+						label="Noise Suppression"
+						checked={settings.noiseSuppression}
+						onChange={(_, checked: boolean) => {
+							setSettings({
+								type: 'setOne',
+								action: ['noiseSuppression', checked],
+							});
+						}}
+						control={<Checkbox />}
+					/>
+				</div>
+				<Divider />
+				<Typography variant="h6">Streaming settings</Typography>
+				<div>
+					<FormControlLabel
+						label="Show Lobby Code"
+						checked={!settings.hideCode}
+						onChange={(_, checked: boolean) => {
+							setSettings({
+								type: 'setOne',
+								action: ['hideCode', !checked],
+							});
+						}}
+						control={<Checkbox />}
+					/>
+					<FormControlLabel
+						label="OBS browseroverlay"
+						checked={settings.obsOverlay}
+						onChange={(_, checked: boolean) => {
+							setSettings({
+								type: 'setOne',
+								action: ['obsOverlay', checked],
+							});
+							if (!settings.obsSecret) {
+								setSettings({
+									type: 'setOne',
+									action: ['obsSecret', Math.random().toString(36).substr(2, 9).toUpperCase()],
+								});
+							}
+						}}
+						control={<Checkbox />}
+					/>
+					{settings.obsOverlay && (
+						<>
+							<FormControlLabel
+								label="VS compatibility mode"
+								checked={settings.obsComptaibilityMode}
+								onChange={(_, checked: boolean) => {
+									openWarningDialog(
+										'Are you sure?',
+										'It is recommended to just change the voice server to a bettercrewlink voice server https://bettercrewl.ink for example.',
+										() => {
+											setSettings({
+												type: 'setOne',
+												action: ['obsComptaibilityMode', checked],
+											});
+										},
+										!checked
+									);
+								}}
+								control={<Checkbox />}
+							/>
 
-						<TextField
-							fullWidth
-							spellCheck={false}
-							label="Obs browsersource url"
-							value={`${
-								(settings.obsComptaibilityMode && !settings.serverURL.includes('bettercrewl.ink')) ||
-								settings.serverURL.includes('https')
-									? 'https'
-									: 'http'
-							}://obs.bettercrewlink.app/?compact=${settings.compactOverlay ? '1' : '0'}&position=${
-								settings.overlayPosition
-							}&meeting=${settings.meetingOverlay ? '1' : '0'}&secret=${settings.obsSecret}&server=${
-								settings.obsComptaibilityMode ? 'https://bettercrewl.ink' : settings.serverURL
-							}`}
-							variant="outlined"
-							color="primary"
-							InputProps={{
-								readOnly: true,
-							}}
-						/>
-					</>
-				)}
+							<TextField
+								fullWidth
+								spellCheck={false}
+								label="Obs browsersource url"
+								value={`${
+									(settings.obsComptaibilityMode && !settings.serverURL.includes('bettercrewl.ink')) ||
+									settings.serverURL.includes('https')
+										? 'https'
+										: 'http'
+								}://obs.bettercrewlink.app/?compact=${settings.compactOverlay ? '1' : '0'}&position=${
+									settings.overlayPosition
+								}&meeting=${settings.meetingOverlay ? '1' : '0'}&secret=${settings.obsSecret}&server=${
+									settings.obsComptaibilityMode ? 'https://bettercrewl.ink' : settings.serverURL
+								}`}
+								variant="outlined"
+								color="primary"
+								InputProps={{
+									readOnly: true,
+								}}
+							/>
+						</>
+					)}
+				</div>
 				<Alert className={classes.alert} severity="info" style={{ display: unsaved ? undefined : 'none' }}>
 					Exit Settings to apply changes
 				</Alert>
