@@ -28,9 +28,9 @@ function resetKeyHooks(): void {
 	deafenShortcut = store.get('deafenShortcut') as K;
 	muteShortcut = store.get('muteShortcut') as K;
 	keyboardWatcher.clearKeyHooks();
-	AddKeyHanlder(pushToTalkShortcut);
-	AddKeyHanlder(deafenShortcut);
-	AddKeyHanlder(muteShortcut);
+	addKeyHandler(pushToTalkShortcut);
+	addKeyHandler(deafenShortcut);
+	addKeyHandler(muteShortcut);
 }
 
 ipcMain.on(IpcHandlerMessages.RESET_KEYHOOKS, () => {
@@ -147,6 +147,7 @@ const keycodeMap = {
 	Numpad7: 0x67,
 	Numpad8: 0x68,
 	Numpad9: 0x69,
+	Disabled: -1
 };
 type K = keyof typeof keycodeMap;
 
@@ -159,10 +160,12 @@ function keyCodeMatches(key: K, keyId: number): boolean {
 	}
 }
 
-function AddKeyHanlder(key: K) {
-	if (keycodeMap[key]) {
+function addKeyHandler(key: K) {
+	
+	if (keycodeMap[key] && keycodeMap[key] !== -1) {
 		keyboardWatcher.addKeyHook(keycodeMap[key]);
 	} else if (key && key.length === 1) {
 		keyboardWatcher.addKeyHook(key.charCodeAt(0));
 	}
 }
+	
