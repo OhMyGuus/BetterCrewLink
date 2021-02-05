@@ -71,7 +71,6 @@ interface ConnectionStuff {
 	overlaySocket?: typeof Socket;
 	stream?: MediaStream;
 	microphoneGain?: GainNode;
-	micSensitivityGain?: GainNode;
 	audioListener?: VadNode;
 	pushToTalk: boolean;
 	deafened: boolean;
@@ -570,15 +569,13 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 	}, [socketClients]);
 
 	useEffect(() => {
-		if (connectionStuff.current?.microphoneGain?.gain)
+		if (connectionStuff.current?.microphoneGain?.gain && (!settingsRef.current.vadEnabled || !settingsRef.current.micSensitivityEnabled))
 			connectionStuff.current.microphoneGain.gain.value = settings.microphoneGain / 100;
 
 		if (connectionStuff.current?.audioListener?.options) {
 			connectionStuff.current.audioListener.options.minNoiseLevel = settings.micSensitivity;
 			connectionStuff.current.audioListener.init();
-			console.log('new sens:', connectionStuff.current.audioListener.options.minNoiseLevel);
 		}
-		if (connectionStuff.current.micSensitivityGain?.gain) connectionStuff.current.micSensitivityGain.gain.value = 1;
 	}, [settings.microphoneGain, settings.micSensitivity, settings.micSensitivityEnabled]);
 
 	// Add lobbySettings to lobbySettingsRef
@@ -687,48 +684,46 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		navigator.getUserMedia(
 			{ video: false, audio },
 			async (inStream) => {
-				console.log('getuserMediacall');
 
 				const stream = (() => {
 					const ac = new AudioContext();
 					const source = ac.createMediaStreamSource(inStream);
 					const microphoneGain = ac.createGain();
 					const destination = ac.createMediaStreamDestination();
-					const micSensitivityGain = ac.createGain();
 					source.connect(microphoneGain);
-					microphoneGain.gain.value = 1;
-					connectionStuff.current.microphoneGain = microphoneGain;
-					connectionStuff.current.micSensitivityGain = micSensitivityGain;
-
+					microphoneGain.gain.value = settings.microphoneGain / 100;
+					microphoneGain.connect(destination);
+					
 					if (settingsRef.current.vadEnabled) {
-						audioListener = VAD(ac, microphoneGain, micSensitivityGain, {
+						audioListener = VAD(ac, source, undefined, {
 							onVoiceStart: () => {
-								if (micSensitivityGain && settingsRef.current.micSensitivityEnabled) {
-									micSensitivityGain.gain.value = 1;
+								if (microphoneGain && settingsRef.current.micSensitivityEnabled) {
+									microphoneGain.gain.value = settings.microphoneGain / 100;
 								}
 								setTalking(true);
 							},
 							onVoiceStop: () => {
-								if (micSensitivityGain && settingsRef.current.micSensitivityEnabled) {
-									micSensitivityGain.gain.value = 0;
+								if (microphoneGain && settingsRef.current.micSensitivityEnabled) {
+									microphoneGain.gain.value = 0;
 								}
 								setTalking(false);
 							},
-							noiseCaptureDuration: 100,
+							noiseCaptureDuration: 0,
 							stereo: false,
 						});
+						console.log("sensitivity: ", settingsRef.current.micSensitivityEnabled
+						? settingsRef.current.micSensitivity
+						: 0.15)
 						audioListener.options.minNoiseLevel = settingsRef.current.micSensitivityEnabled
 							? settingsRef.current.micSensitivity
 							: 0.15;
 						audioListener.options.maxNoiseLevel = 1;
 
 						audioListener.init();
-						micSensitivityGain.gain.value = 1;
-						micSensitivityGain.connect(destination);
 						connectionStuff.current.audioListener = audioListener;
-					} else {
-						microphoneGain.connect(destination);
+						connectionStuff.current.microphoneGain = microphoneGain;
 					}
+
 					return destination.stream;
 				})();
 
