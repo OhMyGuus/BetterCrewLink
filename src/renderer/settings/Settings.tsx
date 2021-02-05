@@ -1051,7 +1051,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						aria-labelledby="input-slider"
 					/>
 					<Typography id="input-slider" gutterBottom>
-						Microphone gain
+						Microphone volume
 					</Typography>
 					<Slider
 						value={settings.microphoneGain}

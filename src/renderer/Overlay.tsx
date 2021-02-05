@@ -158,7 +158,7 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 	const players = useMemo(() => {
 		if (!gameState.players) return null;
 		const playerss = gameState.players
-			.filter((o) => !voiceState.localIsAlive || !voiceState.otherDead[o.clientId])
+			.filter((o) => !voiceState.localIsAlive || !(voiceState.otherDead[o.clientId] && !o.isLocal))
 			.slice()
 			.sort((a, b) => {
 				if (
@@ -177,11 +177,14 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 	}, [gameState.players]);
 
 	players?.forEach((player) => {
-		if (!voiceState.otherTalking[player.clientId] && !(player.isLocal && voiceState.localTalking) && compactOverlay)
+		if (!voiceState.otherTalking[player.clientId] && !(player.isLocal && voiceState.localTalking) && compactOverlay) {
 			return;
+		}
 		const peer = voiceState.playerSocketIds[player.clientId];
-		const connected = voiceState.socketClients[peer]?.clientId === player.clientId || false;
-		if (!connected && !player.isLocal) return;
+		const connected = voiceState.socketClients[peer]?.clientId === player.clientId;
+		if (!connected && !player.isLocal) {
+			return;
+		}
 		const talking =
 			!player.inVent && (voiceState.otherTalking[player.clientId] || (player.isLocal && voiceState.localTalking));
 		// const audio = voiceState.audioConnected[peer];

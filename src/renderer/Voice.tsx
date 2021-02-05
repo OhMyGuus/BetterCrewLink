@@ -714,7 +714,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 								}
 								setTalking(false);
 							},
-							noiseCaptureDuration: 0,
+							noiseCaptureDuration: 100,
 							stereo: false,
 						});
 						audioListener.options.minNoiseLevel = settingsRef.current.micSensitivityEnabled
@@ -726,6 +726,8 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 						micSensitivityGain.gain.value = 1;
 						micSensitivityGain.connect(destination);
 						connectionStuff.current.audioListener = audioListener;
+					} else {
+						microphoneGain.connect(destination);
 					}
 					return destination.stream;
 				})();
