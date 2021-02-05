@@ -163,7 +163,7 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 			.sort((a, b) => {
 				if (
 					(a.disconnected || voiceState.otherDead[a.clientId]) &&
-					(b.disconnected || voiceState.otherDead[a.clientId])
+					(b.disconnected || voiceState.otherDead[b.clientId])
 				) {
 					return a.id - b.id;
 				} else if (a.disconnected || voiceState.otherDead[a.clientId]) {
@@ -190,7 +190,7 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 				<div>
 					<Avatar
 						key={player.id}
-						// connectionState={!connected ? 'disconnected' : audio ? 'connected' : 'novoice'}
+						// connectionState={!connected ? 'disconnected' : audio ? 'connected' : 'novoice'}d
 						player={player}
 						showborder={isOnSide && !compactOverlay}
 						muted={voiceState.muted && player.isLocal}
