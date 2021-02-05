@@ -923,7 +923,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 					//console.log('onsignal', JSON.stringify(data));
 
 					if (data.hasOwnProperty('mobilePlayerInfo')) {
-						let mobiledata = data as mobileHostInfo;
+						const mobiledata = data as mobileHostInfo;
 						if (
 							mobiledata.mobilePlayerInfo.code === hostRef.current.code &&
 							hostRef.current.gamestate !== GameState.MENU
@@ -1013,9 +1013,9 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		for (const k of Object.keys(socketClients)) {
 			playerSocketIds[socketClients[k].clientId] = k;
 		}
-		let handledPeerIds: string[] = [];
+		const handledPeerIds: string[] = [];
 		for (const player of otherPlayers) {
-			let peerId = playerSocketIds[player.clientId];
+			const peerId = playerSocketIds[player.clientId];
 			const audio = player.clientId === myPlayer.clientId ? undefined : audioElements.current[peerId];
 			if (audio) {
 				handledPeerIds.push(peerId);

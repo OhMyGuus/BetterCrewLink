@@ -227,10 +227,8 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 				</div>
 			</div>
 			{(voiceState.muted || voiceState.deafened) && (
-			<div className="volumeicons">
-			{voiceState.deafened ?  (<VolumeOff />) : (<MicOff />)}
-			</div>)}
-
+				<div className="volumeicons">{voiceState.deafened ? <VolumeOff /> : <MicOff />}</div>
+			)}
 		</div>
 	);
 };

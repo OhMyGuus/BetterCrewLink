@@ -116,7 +116,7 @@ import hat90_10 from '../../static/hats/90-10.png'; // @ts-ignore
 import hat90_11 from '../../static/hats/90-11.png'; // @ts-ignore
 import hat91 from '../../static/hats/91.png'; // @ts-ignore
 import hat92 from '../../static/hats/92.png'; // @ts-ignore
-import hat93 from '../../static/hats/93.png';// @ts-ignore
+import hat93 from '../../static/hats/93.png'; // @ts-ignore
 import hat94 from '../../static/hats/94.png';
 
 // @ts-ignore

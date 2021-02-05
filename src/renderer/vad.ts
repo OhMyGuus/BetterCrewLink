@@ -126,7 +126,7 @@ export default function (
 
 		voiceScale = 1 - baseLevel;
 
-	//	console.log('VAD: base level:', options.minNoiseLevel);
+		//	console.log('VAD: base level:', options.minNoiseLevel);
 	}
 
 	function connect() {
