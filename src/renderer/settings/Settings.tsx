@@ -224,6 +224,10 @@ const store = new Store<ISettings>({
 			type: 'number',
 			default: 0.15,
 		},
+		micSensitivityEnabled: {
+			type: 'boolean',
+			default: false,
+		},
 		natFix: {
 			type: 'boolean',
 			default: false,
@@ -1059,23 +1063,48 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						}}
 						aria-labelledby="input-slider"
 					/>
+
 					<Typography id="input-slider" gutterBottom>
 						Microphone sensitivity
 					</Typography>
-					<Slider
-						value={settings.micSensitivity}
-						valueLabelDisplay="auto"
-						min={0}
-						max={1}
-						step={0.05}
-						onChange={(_, newValue: number | number[]) => {
-							setSettings({
-								type: 'setOne',
-								action: ['micSensitivity', newValue],
-							});
-						}}
-						aria-labelledby="input-slider"
-					/>
+					<Grid container spacing={2}>
+						<Grid item xs={3}>
+							<Checkbox
+								checked={settings.micSensitivityEnabled}
+								onChange={(_, checked: boolean) => {
+									setSettings({
+										type: 'setOne',
+										action: ['micSensitivityEnabled', checked],
+									});
+								}}
+							/>
+						</Grid>
+						<Grid
+							item
+							xs={9}
+							style={{
+								display: 'flex',
+								justifyContent: 'center',
+								alignItems: 'center',
+							}}
+						>
+							<Slider
+								disabled={!settings.micSensitivityEnabled}
+								value={settings.micSensitivity}
+								valueLabelDisplay="auto"
+								min={0}
+								max={1}
+								step={0.05}
+								onChange={(_, newValue: number | number[]) => {
+									setSettings({
+										type: 'setOne',
+										action: ['micSensitivity', newValue],
+									});
+								}}
+								aria-labelledby="input-slider"
+							/>
+						</Grid>
+					</Grid>
 				</div>
 				<Divider />
 				<Typography variant="h6">Keyboard Shortcuts</Typography>

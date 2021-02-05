@@ -136,6 +136,7 @@ export default function App(): JSX.Element {
 		masterVolume: 100,
 		microphoneGain: 100,
 		micSensitivity: 0.15,
+		micSensitivityEnabled: false,
 		vadEnabled: true,
 		echoCancellation: true,
 		enableSpatialAudio: true,

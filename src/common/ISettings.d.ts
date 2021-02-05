@@ -19,6 +19,7 @@ export interface ISettings {
 	masterVolume: number;
 	microphoneGain: number;
 	micSensitivity: number;
+	micSensitivityEnabled: boolean;
 	mobileHost: boolean;
 	vadEnabled: boolean;
 	echoCancellation: boolean;

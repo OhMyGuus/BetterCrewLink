@@ -406,12 +406,12 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 	}
 
 	function notifyMobilePlayers() {
-		console.log(
-			'notifyMobilePLayersCheck',
-			settingsRef.current.mobileHost,
-			hostRef.current.gamestate !== GameState.MENU,
-			hostRef.current.gamestate !== GameState.UNKNOWN
-		);
+		// console.log(
+		// 	'notifyMobilePLayersCheck',
+		// 	settingsRef.current.mobileHost,
+		// 	hostRef.current.gamestate !== GameState.MENU,
+		// 	hostRef.current.gamestate !== GameState.UNKNOWN
+		// );
 		if (
 			settingsRef.current.mobileHost &&
 			hostRef.current.gamestate !== GameState.MENU &&
@@ -578,7 +578,8 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 			connectionStuff.current.audioListener.init();
 			console.log('new sens:', connectionStuff.current.audioListener.options.minNoiseLevel);
 		}
-	}, [settings.microphoneGain, settings.micSensitivity]);
+		if (connectionStuff.current.micSensitivityGain?.gain) connectionStuff.current.micSensitivityGain.gain.value = 1;
+	}, [settings.microphoneGain, settings.micSensitivity, settings.micSensitivityEnabled]);
 
 	// Add lobbySettings to lobbySettingsRef
 	useEffect(() => {
@@ -692,8 +693,8 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 					const ac = new AudioContext();
 					const source = ac.createMediaStreamSource(inStream);
 					const microphoneGain = ac.createGain();
-					const micSensitivityGain = ac.createGain();
 					const destination = ac.createMediaStreamDestination();
+					const micSensitivityGain = ac.createGain();
 					source.connect(microphoneGain);
 					microphoneGain.gain.value = 1;
 					connectionStuff.current.microphoneGain = microphoneGain;
@@ -702,17 +703,25 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 					if (settingsRef.current.vadEnabled) {
 						audioListener = VAD(ac, microphoneGain, micSensitivityGain, {
 							onVoiceStart: () => {
-								micSensitivityGain.gain.value = 1;
+								if (micSensitivityGain && settingsRef.current.micSensitivityEnabled) {
+									micSensitivityGain.gain.value = 1;
+								}
 								setTalking(true);
 							},
 							onVoiceStop: () => {
-								micSensitivityGain.gain.value = 0;
+								if (micSensitivityGain && settingsRef.current.micSensitivityEnabled) {
+									micSensitivityGain.gain.value = 0;
+								}
 								setTalking(false);
 							},
 							noiseCaptureDuration: 0,
 							stereo: false,
 						});
-						audioListener.options.minNoiseLevel = 0.15;
+						audioListener.options.minNoiseLevel = settingsRef.current.micSensitivityEnabled
+							? settingsRef.current.micSensitivity
+							: 0.15;
+						audioListener.options.maxNoiseLevel = 1;
+
 						audioListener.init();
 						micSensitivityGain.gain.value = 1;
 						micSensitivityGain.connect(destination);
@@ -1004,11 +1013,12 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		for (const k of Object.keys(socketClients)) {
 			playerSocketIds[socketClients[k].clientId] = k;
 		}
-
+		let handledPeerIds: string[] = [];
 		for (const player of otherPlayers) {
-			const audio =
-				player.clientId === myPlayer.clientId ? undefined : audioElements.current[playerSocketIds[player.clientId]];
+			let peerId = playerSocketIds[player.clientId];
+			const audio = player.clientId === myPlayer.clientId ? undefined : audioElements.current[peerId];
 			if (audio) {
+				handledPeerIds.push(peerId);
 				let gain = calculateVoiceAudio(gameState, settingsRef.current, myPlayer, player, audio);
 
 				if (connectionStuff.current.deafened) {
@@ -1027,6 +1037,13 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 				}
 				audio.gain.gain.value = gain;
 			}
+		}
+		for (const peerId in Object.keys(audioElements.current).filter((e) => !handledPeerIds.includes(e))) {
+			const audio = audioElements.current[peerId];
+			if (audio && audio.gain) {
+				audio.gain.gain.value = 0;
+			}
+			// maybe disconnect later
 		}
 
 		return otherPlayers;
