@@ -1,4 +1,4 @@
-interface VADOptions {
+export interface VADOptions {
 	fftSize: number;
 	bufferLen: number;
 	smoothingTimeConstant: number;
@@ -48,6 +48,8 @@ export default function (
 	destination: AudioNode;
 	connect: () => void;
 	destroy: () => void;
+	init: () => void;
+	options: VADOptions;
 } {
 	opts = opts || {};
 
@@ -124,7 +126,7 @@ export default function (
 
 		voiceScale = 1 - baseLevel;
 
-		//console.log('VAD: base level:', baseLevel);
+	//	console.log('VAD: base level:', options.minNoiseLevel);
 	}
 
 	function connect() {
@@ -192,5 +194,5 @@ export default function (
 		options.onVoiceStop();
 	}
 
-	return { destination: analyser, connect, destroy };
+	return { destination: analyser, connect, destroy, options, init };
 }

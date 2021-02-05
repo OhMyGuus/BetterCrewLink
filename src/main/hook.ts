@@ -92,12 +92,10 @@ ipcMain.on('reload', async () => {
 	global.mainWindow?.reload();
 	overlayWindow?.hide();
 	global.overlay?.reload();
-	setTimeout(
-		function () {
-			overlayWindow?.show();
-		}.bind(this),
-		1000
-	); // let it load fr a second
+	setTimeout(() => {
+		global.overlay?.show();
+		overlayWindow?.show();
+	}, 1000); // let it load fr a second
 });
 
 const keycodeMap = {

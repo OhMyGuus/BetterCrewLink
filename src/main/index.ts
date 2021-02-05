@@ -14,7 +14,7 @@ import { ProgressInfo } from 'builder-util-runtime';
 const args = require('minimist')(process.argv);
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
-const devTools = (isDevelopment || args.dev === 1) && false;
+const devTools = (isDevelopment || args.dev === 1) && true;
 
 declare global {
 	namespace NodeJS {
@@ -291,7 +291,6 @@ if (!gotTheLock) {
 			overlayWindow.show();
 		} else {
 			overlayWindow.hide();
-
 			if (global.overlay?.closable) {
 				overlayWindow.stop();
 				global.overlay?.close();

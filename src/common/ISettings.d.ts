@@ -17,6 +17,9 @@ export interface ISettings {
 	localLobbySettings: ILobbySettings;
 	ghostVolume: number;
 	masterVolume: number;
+	microphoneGain: number;
+	micSensitivity: number;
+	micSensitivityEnabled: boolean;
 	mobileHost: boolean;
 	vadEnabled: boolean;
 	echoCancellation: boolean;
