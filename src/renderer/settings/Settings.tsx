@@ -220,6 +220,10 @@ const store = new Store<ISettings>({
 			type: 'number',
 			default: 100,
 		},
+		microphoneGainEnabled: {
+			type: 'boolean',
+			default: false,
+		},
 		micSensitivity: {
 			type: 'number',
 			default: 0.15,
@@ -533,6 +537,8 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 		settings.echoCancellation,
 		settings.obsComptaibilityMode,
 		settings.mobileHost,
+		settings.microphoneGainEnabled,
+		settings.micSensitivityEnabled,
 	]);
 
 	useEffect(() => {
@@ -1018,56 +1024,51 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 				>
 					<FormControlLabel label="Voice Activity" value={false} control={<Radio />} />
 					<FormControlLabel label="Push To Talk" value={true} control={<Radio />} />
-					<Divider />
 				</RadioGroup>
+				<Divider />
+
 				<div>
-					<Typography id="input-slider" gutterBottom>
-						Crew volume as ghost
-					</Typography>
-					<Slider
-						value={settings.ghostVolume}
-						valueLabelDisplay="auto"
-						onChange={(_, newValue: number | number[]) => {
-							setSettings({
-								type: 'setOne',
-								action: ['ghostVolume', newValue],
-							});
-						}}
-						aria-labelledby="input-slider"
-					/>
-					<Typography id="input-slider" gutterBottom>
-						Master volume
-					</Typography>
-					<Slider
-						value={settings.masterVolume}
-						valueLabelDisplay="auto"
-						max={200}
-						onChange={(_, newValue: number | number[]) => {
-							setSettings({
-								type: 'setOne',
-								action: ['masterVolume', newValue],
-							});
-						}}
-						aria-labelledby="input-slider"
-					/>
-					<Typography id="input-slider" gutterBottom>
+				<Typography id="input-slider" gutterBottom>
 						Microphone volume
 					</Typography>
-					<Slider
-						value={settings.microphoneGain}
-						valueLabelDisplay="auto"
-						min={0}
-						max={300}
-						step={1}
-						onChange={(_, newValue: number | number[]) => {
-							setSettings({
-								type: 'setOne',
-								action: ['microphoneGain', newValue],
-							});
-						}}
-						aria-labelledby="input-slider"
-					/>
-
+					<Grid container spacing={2}>
+						<Grid item xs={3}>
+							<Checkbox
+								checked={settings.microphoneGainEnabled}
+								onChange={(_, checked: boolean) => {
+									setSettings({
+										type: 'setOne',
+										action: ['microphoneGainEnabled', checked],
+									});
+								}}
+							/>
+						</Grid>
+						<Grid
+							item
+							xs={9}
+							style={{
+								display: 'flex',
+								justifyContent: 'center',
+								alignItems: 'center',
+							}}
+						>
+							<Slider
+								disabled={!settings.microphoneGainEnabled}
+								value={settings.microphoneGain}
+								valueLabelDisplay="auto"
+								min={0}
+								max={300}
+								step={1}
+								onChange={(_, newValue: number | number[]) => {
+									setSettings({
+										type: 'setOne',
+										action: ['microphoneGain', newValue],
+									});
+								}}
+								aria-labelledby="input-slider"
+							/>
+						</Grid>
+					</Grid>
 					<Typography id="input-slider" gutterBottom>
 						Microphone sensitivity
 					</Typography>
@@ -1109,6 +1110,38 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 							/>
 						</Grid>
 					</Grid>
+					<Divider />
+
+					<Typography id="input-slider" gutterBottom>
+						Crew volume as ghost
+					</Typography>
+					<Slider
+						value={settings.ghostVolume}
+						valueLabelDisplay="auto"
+						onChange={(_, newValue: number | number[]) => {
+							setSettings({
+								type: 'setOne',
+								action: ['ghostVolume', newValue],
+							});
+						}}
+						aria-labelledby="input-slider"
+					/>
+					<Typography id="input-slider" gutterBottom>
+						Master volume
+					</Typography>
+					<Slider
+						value={settings.masterVolume}
+						valueLabelDisplay="auto"
+						max={200}
+						onChange={(_, newValue: number | number[]) => {
+							setSettings({
+								type: 'setOne',
+								action: ['masterVolume', newValue],
+							});
+						}}
+						aria-labelledby="input-slider"
+					/>
+				
 				</div>
 				<Divider />
 				<Typography variant="h6">Keyboard Shortcuts</Typography>

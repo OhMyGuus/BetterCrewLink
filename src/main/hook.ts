@@ -5,7 +5,6 @@ import { keyboardWatcher } from 'node-keyboard-watcher';
 import Store from 'electron-store';
 import { ISettings } from '../common/ISettings';
 import { IpcHandlerMessages, IpcRendererMessages, IpcSyncMessages } from '../common/ipc-messages';
-import { overlayWindow } from 'electron-overlay-window';
 
 const store = new Store<ISettings>();
 
@@ -90,12 +89,8 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 
 ipcMain.on('reload', async () => {
 	global.mainWindow?.reload();
-	overlayWindow?.hide();
-	global.overlay?.reload();
-	setTimeout(() => {
-		global.overlay?.show();
-		overlayWindow?.show();
-	}, 1000); // let it load fr a second
+//	global.overlay?.reload();
+	
 });
 
 const keycodeMap = {

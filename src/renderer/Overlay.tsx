@@ -79,6 +79,7 @@ const playerColors = [
 const iPadRatio = 854 / 579;
 
 const Overlay: React.FC = function () {
+	
 	const [gameState, setGameState] = useState<AmongUsState>((undefined as unknown) as AmongUsState);
 	const [voiceState, setVoiceState] = useState<VoiceState>((undefined as unknown) as VoiceState);
 	const [settings, setSettings] = useState<ISettings>((undefined as unknown) as ISettings);

@@ -284,18 +284,23 @@ if (!gotTheLock) {
 	});
 
 	ipcMain.on('enableOverlay', async (_event, enable) => {
-		if (enable) {
-			if (!global.overlay) {
-				global.overlay = createOverlay();
+		try {
+			if (enable) {
+				if (!global.overlay) {
+					global.overlay = createOverlay();
+				}
+				overlayWindow.show();
+			} else {
+				overlayWindow.hide();
+				if (global.overlay?.closable) {
+					overlayWindow.stop();
+					global.overlay?.close();
+					global.overlay = null;
+				}
 			}
-			overlayWindow.show();
-		} else {
-			overlayWindow.hide();
-			if (global.overlay?.closable) {
-				overlayWindow.stop();
-				global.overlay?.close();
-				global.overlay = null;
-			}
+		} catch (exception) {
+			global.overlay?.hide();
+			global.overlay?.close();
 		}
 	});
 }

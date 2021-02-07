@@ -70,6 +70,8 @@ interface ConnectionStuff {
 	socket?: typeof Socket;
 	overlaySocket?: typeof Socket;
 	stream?: MediaStream;
+	instream?: MediaStream;
+
 	microphoneGain?: GainNode;
 	audioListener?: VadNode;
 	pushToTalk: boolean;
@@ -460,8 +462,8 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 	}
 	// Handle pushToTalk, if set
 	useEffect(() => {
-		if (!connectionStuff.current.stream) return;
-		connectionStuff.current.stream.getAudioTracks()[0].enabled = !settings.pushToTalk;
+		if (!connectionStuff.current.instream) return;
+		connectionStuff.current.instream.getAudioTracks()[0].enabled = !settings.pushToTalk;
 		connectionStuff.current.pushToTalk = settings.pushToTalk;
 	}, [settings.pushToTalk]);
 
@@ -569,14 +571,17 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 	}, [socketClients]);
 
 	useEffect(() => {
-		if (connectionStuff.current?.microphoneGain?.gain && (!settingsRef.current.vadEnabled || !settingsRef.current.micSensitivityEnabled))
-			connectionStuff.current.microphoneGain.gain.value = settings.microphoneGain / 100;
+		if (
+			connectionStuff.current?.microphoneGain?.gain &&
+			(!settingsRef.current.vadEnabled || !settingsRef.current.micSensitivityEnabled)
+		)
+			connectionStuff.current.microphoneGain.gain.value = settings.microphoneGainEnabled? settings.microphoneGain / 100 : 1;
 
 		if (connectionStuff.current?.audioListener?.options) {
 			connectionStuff.current.audioListener.options.minNoiseLevel = settings.micSensitivity;
 			connectionStuff.current.audioListener.init();
 		}
-	}, [settings.microphoneGain, settings.micSensitivity, settings.micSensitivityEnabled]);
+	}, [settings.microphoneGain, settings.micSensitivity, settings.micSensitivityEnabled, settings.microphoneGainEnabled]);
 
 	// Add lobbySettings to lobbySettingsRef
 	useEffect(() => {
@@ -684,56 +689,57 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		navigator.getUserMedia(
 			{ video: false, audio },
 			async (inStream) => {
-
-				const stream = (() => {
-					const ac = new AudioContext();
-					const source = ac.createMediaStreamSource(inStream);
-					const microphoneGain = ac.createGain();
-					const destination = ac.createMediaStreamDestination();
-					source.connect(microphoneGain);
-					microphoneGain.gain.value = settings.microphoneGain / 100;
-					microphoneGain.connect(destination);
-					
-					if (settingsRef.current.vadEnabled) {
-						audioListener = VAD(ac, source, undefined, {
-							onVoiceStart: () => {
-								if (microphoneGain && settingsRef.current.micSensitivityEnabled) {
-									microphoneGain.gain.value = settings.microphoneGain / 100;
-								}
-								setTalking(true);
-							},
-							onVoiceStop: () => {
-								if (microphoneGain && settingsRef.current.micSensitivityEnabled) {
-									microphoneGain.gain.value = 0;
-								}
-								setTalking(false);
-							},
-							noiseCaptureDuration: 0,
-							stereo: false,
-						});
-						console.log("sensitivity: ", settingsRef.current.micSensitivityEnabled
-						? settingsRef.current.micSensitivity
-						: 0.15)
-						audioListener.options.minNoiseLevel = settingsRef.current.micSensitivityEnabled
-							? settingsRef.current.micSensitivity
-							: 0.15;
-						audioListener.options.maxNoiseLevel = 1;
-
-						audioListener.init();
-						connectionStuff.current.audioListener = audioListener;
+				let stream = inStream;
+				const ac = new AudioContext();
+				let microphoneGain : GainNode | undefined;
+				const source = ac.createMediaStreamSource(inStream);
+				if (settings.microphoneGainEnabled || settings.micSensitivityEnabled) {
+					stream = (() => {
+						const microphoneGain = ac.createGain();
+						const destination = ac.createMediaStreamDestination();
+						source.connect(microphoneGain);
+						microphoneGain.gain.value = settings.microphoneGainEnabled? settings.microphoneGain / 100 : 1;
+						microphoneGain.connect(destination);
 						connectionStuff.current.microphoneGain = microphoneGain;
-					}
+						return destination.stream;
+					})();
+				}
 
-					return destination.stream;
-				})();
+				if (settingsRef.current.vadEnabled) {
+					audioListener = VAD(ac, source, undefined, {
+						onVoiceStart: () => {
+							if (microphoneGain && settingsRef.current.micSensitivityEnabled) {
+								microphoneGain.gain.value = settings.microphoneGainEnabled? settings.microphoneGain / 100 : 1;
+							}
+							setTalking(true);
+						},
+						onVoiceStop: () => {
+							if (microphoneGain && settingsRef.current.micSensitivityEnabled) {
+								microphoneGain.gain.value = 0;
+							}
+							setTalking(false);
+						},
+						noiseCaptureDuration: 0,
+						stereo: false,
+					});
+					
+					audioListener.options.minNoiseLevel = settingsRef.current.micSensitivityEnabled
+						? settingsRef.current.micSensitivity
+						: 0.15;
+					audioListener.options.maxNoiseLevel = 1;
 
+					audioListener.init();
+					connectionStuff.current.audioListener = audioListener;
+					connectionStuff.current.microphoneGain = microphoneGain;
+				}
 				connectionStuff.current.stream = stream;
+				connectionStuff.current.instream = inStream;
 
-				stream.getAudioTracks()[0].enabled = !settings.pushToTalk;
+				inStream.getAudioTracks()[0].enabled = !settings.pushToTalk;
 
 				ipcRenderer.on(IpcRendererMessages.TOGGLE_DEAFEN, () => {
 					connectionStuff.current.deafened = !connectionStuff.current.deafened;
-					stream.getAudioTracks()[0].enabled = !connectionStuff.current.deafened && !connectionStuff.current.muted;
+					inStream.getAudioTracks()[0].enabled = !connectionStuff.current.deafened && !connectionStuff.current.muted;
 					setDeafened(connectionStuff.current.deafened);
 				});
 				ipcRenderer.on(IpcRendererMessages.TOGGLE_MUTE, () => {
@@ -742,14 +748,14 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 						connectionStuff.current.deafened = false;
 						connectionStuff.current.muted = false;
 					}
-					stream.getAudioTracks()[0].enabled = !connectionStuff.current.muted && !connectionStuff.current.deafened;
+					inStream.getAudioTracks()[0].enabled = !connectionStuff.current.muted && !connectionStuff.current.deafened;
 					setMuted(connectionStuff.current.muted);
 					setDeafened(connectionStuff.current.deafened);
 				});
 				ipcRenderer.on(IpcRendererMessages.PUSH_TO_TALK, (_: unknown, pressing: boolean) => {
 					if (!connectionStuff.current.pushToTalk) return;
 					if (!connectionStuff.current.deafened) {
-						stream.getAudioTracks()[0].enabled = pressing;
+						inStream.getAudioTracks()[0].enabled = pressing;
 					}
 				});
 
