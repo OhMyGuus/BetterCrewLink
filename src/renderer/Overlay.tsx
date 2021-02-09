@@ -7,8 +7,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import './css/overlay.css';
 import Avatar from './Avatar';
 import { ISettings } from '../common/ISettings';
-import VolumeOff from '@material-ui/icons/VolumeOff';
-import MicOff from '@material-ui/icons/MicOff';
+
 
 interface UseStylesProps {
 	hudHeight: number;
