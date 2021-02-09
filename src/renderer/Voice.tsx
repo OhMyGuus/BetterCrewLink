@@ -573,15 +573,22 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 	useEffect(() => {
 		if (
 			connectionStuff.current?.microphoneGain?.gain &&
-			(!settingsRef.current.vadEnabled || !settingsRef.current.micSensitivityEnabled)
-		)
-			connectionStuff.current.microphoneGain.gain.value = settings.microphoneGainEnabled? settings.microphoneGain / 100 : 1;
+			(settingsRef.current.microphoneGainEnabled || settingsRef.current.micSensitivityEnabled)
+		) {
+			if (!settingsRef.current.micSensitivityEnabled)
+				connectionStuff.current.microphoneGain.gain.value = settings.microphoneGainEnabled
+					? settings.microphoneGain / 100
+					: 1;
 
-		if (connectionStuff.current?.audioListener?.options) {
-			connectionStuff.current.audioListener.options.minNoiseLevel = settings.micSensitivity;
-			connectionStuff.current.audioListener.init();
+			if (connectionStuff.current?.audioListener?.options) {
+				connectionStuff.current.audioListener.options.minNoiseLevel = settings.micSensitivity;
+				connectionStuff.current.audioListener.init();
+			}
 		}
-	}, [settings.microphoneGain, settings.micSensitivity, settings.micSensitivityEnabled, settings.microphoneGainEnabled]);
+	}, [
+		settings.microphoneGain,
+		settings.micSensitivity
+	]);
 
 	// Add lobbySettings to lobbySettingsRef
 	useEffect(() => {
@@ -691,14 +698,15 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 			async (inStream) => {
 				let stream = inStream;
 				const ac = new AudioContext();
-				let microphoneGain : GainNode | undefined;
+				let microphoneGain: GainNode | undefined;
 				const source = ac.createMediaStreamSource(inStream);
 				if (settings.microphoneGainEnabled || settings.micSensitivityEnabled) {
+					console.log('Microphone volume or sensitivityEnabled..');
 					stream = (() => {
-						const microphoneGain = ac.createGain();
+						microphoneGain = ac.createGain();
 						const destination = ac.createMediaStreamDestination();
 						source.connect(microphoneGain);
-						microphoneGain.gain.value = settings.microphoneGainEnabled? settings.microphoneGain / 100 : 1;
+						microphoneGain.gain.value = settings.microphoneGainEnabled ? settings.microphoneGain / 100 : 1;
 						microphoneGain.connect(destination);
 						connectionStuff.current.microphoneGain = microphoneGain;
 						return destination.stream;
@@ -709,7 +717,9 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 					audioListener = VAD(ac, source, undefined, {
 						onVoiceStart: () => {
 							if (microphoneGain && settingsRef.current.micSensitivityEnabled) {
-								microphoneGain.gain.value = settings.microphoneGainEnabled? settings.microphoneGain / 100 : 1;
+								microphoneGain.gain.value = settingsRef.current.microphoneGainEnabled
+									? settingsRef.current.microphoneGain / 100
+									: 1;
 							}
 							setTalking(true);
 						},
@@ -722,7 +732,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 						noiseCaptureDuration: 0,
 						stereo: false,
 					});
-					
+
 					audioListener.options.minNoiseLevel = settingsRef.current.micSensitivityEnabled
 						? settingsRef.current.micSensitivity
 						: 0.15;

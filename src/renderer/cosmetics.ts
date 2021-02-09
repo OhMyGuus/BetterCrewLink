@@ -258,7 +258,7 @@ export const coloredHats: { [key in string]: string | undefined } = {
 };
 
 export const hats = [
-	hat1,
+	undefined,
 	hat1,
 	hat2,
 	hat3,
