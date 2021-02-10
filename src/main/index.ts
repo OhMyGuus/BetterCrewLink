@@ -6,7 +6,7 @@ import windowStateKeeper from 'electron-window-state';
 import { join as joinPath } from 'path';
 import { format as formatUrl } from 'url';
 import './hook';
-//import { overlayWindow } from 'electron-overlay-window';
+import { overlayWindow } from 'electron-overlay-window';
 import { initializeIpcHandlers, initializeIpcListeners } from './ipc-handlers';
 import { IpcRendererMessages } from '../common/ipc-messages';
 import { ProgressInfo } from 'builder-util-runtime';
@@ -109,59 +109,59 @@ function createMainWindow() {
 	return window;
 }
 
-// function createOverlay() {
-// 	const overlay = new BrowserWindow({
-// 		title: 'Bettercrewlink-overlay',
-// 		width: 400,
-// 		height: 300,
-// 		webPreferences: {
-// 			nodeIntegration: true,
-// 			enableRemoteModule: true,
-// 			webSecurity: false,
-// 		},
-// 		fullscreenable: true,
-// 		skipTaskbar: true,
-// 		frame: false,
-// 		show: false,
-// 		transparent: true,
-// 		resizable: true,
-// 		//	...overlayWindow.WINDOW_OPTS,
-// 	});
+function createOverlay() {
+	const overlay = new BrowserWindow({
+		title: 'Bettercrewlink-overlay',
+		width: 400,
+		height: 300,
+		webPreferences: {
+			nodeIntegration: true,
+			enableRemoteModule: true,
+			webSecurity: false,
+		},
+		fullscreenable: true,
+		skipTaskbar: true,
+		frame: false,
+		show: false,
+		transparent: true,
+		resizable: true,
+		//	...overlayWindow.WINDOW_OPTS,
+	});
 
-// 	if (devTools) {
-// 		overlay.webContents.openDevTools({
-// 			mode: 'detach',
-// 		});
-// 	}
+	if (devTools) {
+		overlay.webContents.openDevTools({
+			mode: 'detach',
+		});
+	}
 
-// 	if (isDevelopment) {
-// 		overlay.loadURL(
-// 			`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}?version=${autoUpdater.currentVersion.version}&view=overlay`
-// 		);
-// 	} else {
-// 		overlay.loadURL(
-// 			formatUrl({
-// 				pathname: joinPath(__dirname, 'index.html'),
-// 				protocol: 'file',
-// 				query: {
-// 					version: autoUpdater.currentVersion.version,
-// 					view: 'overlay',
-// 				},
-// 				slashes: true,
-// 			})
-// 		);
-// 	}
-// 	overlay.setIgnoreMouseEvents(true);
-// 	overlayWindow.attachTo(overlay, 'Among Us');
+	if (isDevelopment) {
+		overlay.loadURL(
+			`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}?version=${autoUpdater.currentVersion.version}&view=overlay`
+		);
+	} else {
+		overlay.loadURL(
+			formatUrl({
+				pathname: joinPath(__dirname, 'index.html'),
+				protocol: 'file',
+				query: {
+					version: autoUpdater.currentVersion.version,
+					view: 'overlay',
+				},
+				slashes: true,
+			})
+		);
+	}
+	overlay.setIgnoreMouseEvents(true);
+	overlayWindow.attachTo(overlay, 'Among Us');
 
-// 	return overlay;
-// }
+	return overlay;
+}
 
 const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
 	app.quit();
 } else {
-	//autoUpdater.checkForUpdates();
+	autoUpdater.checkForUpdates();
 	autoUpdater.on('update-available', () => {
 		try {
 			global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
@@ -199,7 +199,7 @@ if (!gotTheLock) {
 		}
 
 		app.relaunch();
-		//autoUpdater.quitAndInstall();
+		autoUpdater.quitAndInstall();
 	});
 
 	// Mock auto-update download
@@ -284,23 +284,23 @@ if (!gotTheLock) {
 	});
 
 	ipcMain.on('enableOverlay', async (_event, enable) => {
-		// try {
-		// 	if (enable) {
-		// 		if (!global.overlay) {
-		// 			global.overlay = createOverlay();
-		// 		}
-		// 		overlayWindow.show();
-		// 	} else {
-		// 		overlayWindow.hide();
-		// 		if (global.overlay?.closable) {
-		// 			overlayWindow.stop();
-		// 			global.overlay?.close();
-		// 			global.overlay = null;
-		// 		}
-		// 	}
-		// } catch (exception) {
-		// 	global.overlay?.hide();
-		// 	global.overlay?.close();
-		// }
+		try {
+			if (enable) {
+				if (!global.overlay) {
+					global.overlay = createOverlay();
+				}
+				overlayWindow.show();
+			} else {
+				overlayWindow.hide();
+				if (global.overlay?.closable) {
+					overlayWindow.stop();
+					global.overlay?.close();
+					global.overlay = null;
+				}
+			}
+		} catch (exception) {
+			global.overlay?.hide();
+			global.overlay?.close();
+		}
 	});
 }

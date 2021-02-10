@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron';
 import GameReader from './GameReader';
 // import iohook from 'iohook';
-//import { keyboardWatcher } from 'node-keyboard-watcher';
+import { keyboardWatcher } from 'node-keyboard-watcher';
 import Store from 'electron-store';
 import { ISettings } from '../common/ISettings';
 import { IpcHandlerMessages, IpcRendererMessages, IpcSyncMessages } from '../common/ipc-messages';
@@ -26,7 +26,7 @@ function resetKeyHooks(): void {
 	pushToTalkShortcut = store.get('pushToTalkShortcut') as K;
 	deafenShortcut = store.get('deafenShortcut') as K;
 	muteShortcut = store.get('muteShortcut') as K;
-	//keyboardWatcher.clearKeyHooks();
+	keyboardWatcher.clearKeyHooks();
 	addKeyHandler(pushToTalkShortcut);
 	addKeyHandler(deafenShortcut);
 	addKeyHandler(muteShortcut);
@@ -50,25 +50,25 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 		readingGame = true;
 		resetKeyHooks();
 
-		// keyboardWatcher.on('keydown', (keyId: number) => {
-		// 	if (keyCodeMatches(pushToTalkShortcut, keyId)) {
-		// 		event.sender.send(IpcRendererMessages.PUSH_TO_TALK, true);
-		// 	}
-		// });
+		keyboardWatcher.on('keydown', (keyId: number) => {
+			if (keyCodeMatches(pushToTalkShortcut, keyId)) {
+				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, true);
+			}
+		});
 
-		// keyboardWatcher.on('keyup', (keyId: number) => {
-		// 	if (keyCodeMatches(pushToTalkShortcut, keyId)) {
-		// 		event.sender.send(IpcRendererMessages.PUSH_TO_TALK, false);
-		// 	}
-		// 	if (keyCodeMatches(deafenShortcut, keyId)) {
-		// 		event.sender.send(IpcRendererMessages.TOGGLE_DEAFEN);
-		// 	}
-		// 	if (keyCodeMatches(muteShortcut, keyId)) {
-		// 		event.sender.send(IpcRendererMessages.TOGGLE_MUTE);
-		// 	}
-		// });
+		keyboardWatcher.on('keyup', (keyId: number) => {
+			if (keyCodeMatches(pushToTalkShortcut, keyId)) {
+				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, false);
+			}
+			if (keyCodeMatches(deafenShortcut, keyId)) {
+				event.sender.send(IpcRendererMessages.TOGGLE_DEAFEN);
+			}
+			if (keyCodeMatches(muteShortcut, keyId)) {
+				event.sender.send(IpcRendererMessages.TOGGLE_MUTE);
+			}
+		});
 
-		// keyboardWatcher.start();
+		keyboardWatcher.start();
 
 		// Read game memory
 		gameReader = new GameReader(event.sender.send.bind(event.sender));
@@ -144,19 +144,19 @@ const keycodeMap = {
 };
 type K = keyof typeof keycodeMap;
 
-// function keyCodeMatches(key: K, keyId: number): boolean {
-// 	if (keycodeMap[key]) return keycodeMap[key] === keyId;
-// 	else if (key && key.length === 1) return key.charCodeAt(0) === keyId;
-// 	else {
-// 		console.error('Invalid key', key);
-// 		return false;
-// 	}
-// }
+function keyCodeMatches(key: K, keyId: number): boolean {
+	if (keycodeMap[key]) return keycodeMap[key] === keyId;
+	else if (key && key.length === 1) return key.charCodeAt(0) === keyId;
+	else {
+		console.error('Invalid key', key);
+		return false;
+	}
+}
 
 function addKeyHandler(key: K) {
-	// if (keycodeMap[key] && keycodeMap[key] !== -1) {
-	// 	keyboardWatcher.addKeyHook(keycodeMap[key]);
-	// } else if (key && key.length === 1) {
-	// 	keyboardWatcher.addKeyHook(key.charCodeAt(0));
-	// }
+	if (keycodeMap[key] && keycodeMap[key] !== -1) {
+		keyboardWatcher.addKeyHook(keycodeMap[key]);
+	} else if (key && key.length === 1) {
+		keyboardWatcher.addKeyHook(key.charCodeAt(0));
+	}
 }

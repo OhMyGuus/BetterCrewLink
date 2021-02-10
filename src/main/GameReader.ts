@@ -53,7 +53,7 @@ export default class GameReader {
 	gameCode = 'MENU';
 
 	checkProcessOpen(): void {
-		const processOpen = true;//getProcesses().find((p) => p.szExeFile === 'Among Us.exe');
+		const processOpen = getProcesses().find((p) => p.szExeFile === 'Among Us.exe');
 
 		if (!this.amongUs && processOpen) {
 			try {
@@ -62,7 +62,6 @@ export default class GameReader {
 				this.initializeoffsets();
 				this.sendIPC(IpcRendererMessages.NOTIFY_GAME_OPENED, true);
 			} catch (e) {
-				console.log(e);
 				if (processOpen && e.toString() === 'Error: unable to find process') throw Errors.OPEN_AS_ADMINISTRATOR;
 				this.amongUs = null;
 			}
