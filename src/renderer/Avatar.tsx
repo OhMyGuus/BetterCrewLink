@@ -6,7 +6,7 @@ import MicOff from '@material-ui/icons/MicOff';
 import VolumeOff from '@material-ui/icons/VolumeOff';
 import WifiOff from '@material-ui/icons/WifiOff';
 import LinkOff from '@material-ui/icons/LinkOff';
-import ErrorOutlIne from '@material-ui/icons/ErrorOutlIne';
+import ErrorOutlIne from '@material-ui/icons/ErrorOutline';
 
 // import Tooltip from '@material-ui/core/Tooltip';
 import Tooltip from 'react-tooltip-lite';
