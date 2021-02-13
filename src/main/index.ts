@@ -268,6 +268,8 @@ if (!gotTheLock) {
 		});
 	});
 
+	app.disableHardwareAcceleration();
+
 	// create main BrowserWindow when electron is ready
 	app.whenReady().then(() => {
 		initializeIpcListeners();
@@ -286,10 +288,15 @@ if (!gotTheLock) {
 	ipcMain.on('enableOverlay', async (_event, enable) => {
 		try {
 			if (enable) {
-				if (!global.overlay) {
-					global.overlay = createOverlay();
-				}
-				overlayWindow.show();
+				setTimeout(
+					function() {
+						if (!global.overlay) {
+							global.overlay = createOverlay();
+						}
+						overlayWindow.show();
+					},
+					process.platform === 'linux' ? 1000 : 0
+				)
 			} else {
 				overlayWindow.hide();
 				if (global.overlay?.closable) {
