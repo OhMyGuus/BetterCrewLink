@@ -125,6 +125,12 @@ const keys = new Set([
 	'LControl',
 ]);
 
+export enum pushToTalkOptions {
+	VOICE,
+	PUSH_TO_TALK,
+	PUSH_TO_MUTE,
+}
+
 const store = new Store<ISettings>({
 	migrations: {
 		'2.0.6': (store) => {
@@ -153,6 +159,14 @@ const store = new Store<ISettings>({
 		'2.2.0': (store) => {
 			store.set('mobileHost', true);
 		},
+		'2.2.5': (store) => {
+			const pushToTalkValue = store.get('pushToTalk');
+			if (typeof pushToTalkValue === 'boolean') {
+				store.set("pushToTalkMode", pushToTalkValue ? pushToTalkOptions.PUSH_TO_TALK : pushToTalkOptions.VOICE)
+			}
+			// @ts-ignore
+			store.delete('pushToTalk');
+		}
 	},
 	schema: {
 		alwaysOnTop: {
@@ -167,9 +181,9 @@ const store = new Store<ISettings>({
 			type: 'string',
 			default: 'Default',
 		},
-		pushToTalk: {
-			type: 'boolean',
-			default: false,
+		pushToTalkMode: {
+			type: 'number',
+			default: pushToTalkOptions.VOICE,
 		},
 		serverURL: {
 			type: 'string',
@@ -1014,16 +1028,17 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 				</TextField>
 				{open && <TestSpeakersButton speaker={settings.speaker} />}
 				<RadioGroup
-					value={settings.pushToTalk}
+					value={settings.pushToTalkMode}
 					onChange={(ev) => {
 						setSettings({
 							type: 'setOne',
-							action: ['pushToTalk', ev.target.value === 'true'],
+							action: ['pushToTalkMode', Number(ev.target.value)]
 						});
 					}}
 				>
-					<FormControlLabel label="Voice Activity" value={false} control={<Radio />} />
-					<FormControlLabel label="Push To Talk" value={true} control={<Radio />} />
+					<FormControlLabel label="Voice Activity" value={pushToTalkOptions.VOICE} control={<Radio />} />
+					<FormControlLabel label="Push To Talk" value={pushToTalkOptions.PUSH_TO_TALK} control={<Radio />} />
+					<FormControlLabel label="Push To Mute" value={pushToTalkOptions.PUSH_TO_MUTE} control={<Radio />} />
 				</RadioGroup>
 				<Divider />
 

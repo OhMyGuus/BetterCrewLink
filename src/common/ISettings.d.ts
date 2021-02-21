@@ -2,7 +2,7 @@ export interface ISettings {
 	alwaysOnTop: boolean;
 	microphone: string;
 	speaker: string;
-	pushToTalk: boolean;
+	pushToTalkMode: number;
 	serverURL: string;
 	pushToTalkShortcut: string;
 	deafenShortcut: string;
