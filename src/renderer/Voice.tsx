@@ -639,6 +639,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 			if (error.message) {
 				setError(error.message);
 			}
+			console.error("socketIO error:", error)
 		});
 		socket.on('connect', () => {
 			setConnected(true);
@@ -822,6 +823,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 							}
 						}, 1000);
 					});
+
 					connection.on('stream', async (stream: MediaStream) => {
 						console.log('ONSTREAM');
 

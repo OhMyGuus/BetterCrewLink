@@ -80,7 +80,7 @@ export default class GameReader {
 		try {
 			this.checkProcessOpen();
 		} catch (e) {
-			return e;
+			return 'Error with chcecking the process';
 		}
 		if (this.PlayerStruct && this.offsets && this.amongUs !== null && this.gameAssembly !== null) {
 			let state = GameState.UNKNOWN;
@@ -120,6 +120,8 @@ export default class GameReader {
 					? this.gameCode
 					: this.IntToGameCode(lobbyCodeInt);
 
+
+					this.gameCode = "12345";
 			const allPlayersPtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets.allPlayersPtr);
 			const allPlayers = this.readMemory<number>('ptr', allPlayersPtr, this.offsets.allPlayers);
 
@@ -275,7 +277,7 @@ export default class GameReader {
 				this.menuUpdateTimer = 20;
 			}
 			this.lastPlayerPtr = allPlayers;
-
+			state = GameState.DISCUSSION;
 			const lobbyCode = state !== GameState.MENU ? this.gameCode || 'MENU' : 'MENU';
 			const newState: AmongUsState = {
 				lobbyCode: lobbyCode,
@@ -460,8 +462,8 @@ export default class GameReader {
 			V2[Math.floor(a / 26)],
 			V2[Math.floor(b % 26)],
 			V2[Math.floor((b / 26) % 26)],
-			V2[Math.floor((b / (26 * 26)) % 26)],
-			V2[Math.floor((b / (26 * 26 * 26)) % 26)],
+			V2[Math.floor((b / 676) % 26)],
+			V2[Math.floor((b / 17576) % 26)],
 		].join('');
 	}
 
