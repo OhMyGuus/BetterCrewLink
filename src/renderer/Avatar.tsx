@@ -11,6 +11,7 @@ import ErrorOutlIne from '@material-ui/icons/ErrorOutlIne';
 // import Tooltip from '@material-ui/core/Tooltip';
 import Tooltip from 'react-tooltip-lite';
 import { SocketConfig } from '../common/ISettings';
+import Slider from '@material-ui/core/Slider';
 
 const useStyles = makeStyles(() => ({
 	canvas: {
@@ -108,26 +109,28 @@ const Avatar: React.FC<AvatarProps> = function ({
 				<div>
 					<b>{player?.name}</b>
 					<div className="slidecontainer" style={{ minWidth: '55px' }}>
-						<input
-							type="range"
-							min="0"
-							max="2"
+						<Slider
 							value={socketConfig?.volume}
-							className="relativeGainSlider"
-							style={{ width: '50px' }}
-							step="any"
+							min={0}
+							max={2}
+							step={.02}
+
+							onChange={(_, newValue: number | number[]) => {
+								if (socketConfig) {
+									socketConfig.volume = newValue as number; 
+								}
+							}}
+
+							valueLabelDisplay={'auto'}
+							valueLabelFormat={(value) => Math.floor(value*100) + '%' }
+
 							onMouseLeave={() => {
 								console.log('onmouseleave');
 								if (onConfigChange) {
 									onConfigChange();
 								}
 							}}
-							onChange={(ev): void => {
-								if (socketConfig) {
-									socketConfig.volume = parseFloat(ev.target.value.substr(0, 6));
-								}
-							}}
-						></input>
+						/>
 					</div>{' '}
 				</div>
 			}
