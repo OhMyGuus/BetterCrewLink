@@ -3,7 +3,7 @@ import Voice from './Voice';
 import Menu from './Menu';
 import { ipcRenderer } from 'electron';
 import { AmongUsState } from '../common/AmongUsState';
-import Settings, { settingsReducer, lobbySettingsReducer } from './settings/Settings';
+import Settings, { settingsReducer, lobbySettingsReducer, pushToTalkOptions } from './settings/Settings';
 import { GameStateContext, SettingsContext, LobbySettingsContext } from './contexts';
 import { ThemeProvider } from '@material-ui/core/styles';
 import {
@@ -120,7 +120,7 @@ export default function App(): JSX.Element {
 		alwaysOnTop: true,
 		microphone: 'Default',
 		speaker: 'Default',
-		pushToTalk: false,
+		pushToTalkMode: pushToTalkOptions.VOICE,
 		serverURL: 'https://crewl.ink',
 		pushToTalkShortcut: 'V',
 		deafenShortcut: 'RControl',

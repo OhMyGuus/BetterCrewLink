@@ -32,6 +32,7 @@ import { ObsVoiceState } from '../common/ObsOverlay';
 import { poseCollide } from '../common/ColliderMap';
 import adapter from 'webrtc-adapter';
 import { VADOptions } from './vad';
+import { pushToTalkOptions } from './settings/Settings';
 
 console.log(adapter.browserDetails.browser);
 
@@ -74,7 +75,7 @@ interface ConnectionStuff {
 
 	microphoneGain?: GainNode;
 	audioListener?: VadNode;
-	pushToTalk: boolean;
+	pushToTalkMode: number;
 	deafened: boolean;
 	muted: boolean;
 }
@@ -463,9 +464,9 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 	// Handle pushToTalk, if set
 	useEffect(() => {
 		if (!connectionStuff.current.instream) return;
-		connectionStuff.current.instream.getAudioTracks()[0].enabled = !settings.pushToTalk;
-		connectionStuff.current.pushToTalk = settings.pushToTalk;
-	}, [settings.pushToTalk]);
+		connectionStuff.current.instream.getAudioTracks()[0].enabled = (settings.pushToTalkMode !== pushToTalkOptions.PUSH_TO_TALK);
+		connectionStuff.current.pushToTalkMode = settings.pushToTalkMode;
+	}, [settings.pushToTalkMode]);
 
 	// Emit lobby settings to connected peers
 	useEffect(() => {
@@ -612,7 +613,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 
 	// const [audioContext] = useState<AudioContext>(() => new AudioContext());
 	const connectionStuff = useRef<ConnectionStuff>({
-		pushToTalk: settings.pushToTalk,
+		pushToTalkMode: settings.pushToTalkMode,
 		deafened: false,
 		muted: false,
 	});
@@ -745,7 +746,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 				connectionStuff.current.stream = stream;
 				connectionStuff.current.instream = inStream;
 
-				inStream.getAudioTracks()[0].enabled = !settings.pushToTalk;
+				inStream.getAudioTracks()[0].enabled = (settings.pushToTalkMode !== pushToTalkOptions.PUSH_TO_TALK);
 
 				ipcRenderer.on(IpcRendererMessages.TOGGLE_DEAFEN, () => {
 					connectionStuff.current.deafened = !connectionStuff.current.deafened;
@@ -763,9 +764,9 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 					setDeafened(connectionStuff.current.deafened);
 				});
 				ipcRenderer.on(IpcRendererMessages.PUSH_TO_TALK, (_: unknown, pressing: boolean) => {
-					if (!connectionStuff.current.pushToTalk) return;
+					if (connectionStuff.current.pushToTalkMode === pushToTalkOptions.VOICE) return;
 					if (!connectionStuff.current.deafened) {
-						inStream.getAudioTracks()[0].enabled = pressing;
+						inStream.getAudioTracks()[0].enabled = (connectionStuff.current.pushToTalkMode === pushToTalkOptions.PUSH_TO_TALK) ? pressing : !pressing;
 					}
 				});
 
