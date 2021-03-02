@@ -1042,8 +1042,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 
 				if (gain > 0) {
 					const playerVolume = playerConfigs[player.nameHash]?.volume;
-
-					gain = playerVolume === undefined ? gain : gain * playerVolume;
+					gain = playerVolume === undefined ? gain : playerVolume === 0? 0 : gain * playerVolume;
 
 					if (myPlayer.isDead && !player.isDead) {
 						gain = gain * (settings.ghostVolume / 100);
