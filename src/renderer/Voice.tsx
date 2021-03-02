@@ -749,16 +749,17 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 
 				ipcRenderer.on(IpcRendererMessages.TOGGLE_DEAFEN, () => {
 					connectionStuff.current.deafened = !connectionStuff.current.deafened;
-					inStream.getAudioTracks()[0].enabled = !connectionStuff.current.deafened && !connectionStuff.current.muted;
+					inStream.getAudioTracks()[0].enabled = !connectionStuff.current.deafened && !connectionStuff.current.muted && connectionStuff.current.pushToTalkMode !== pushToTalkOptions.PUSH_TO_TALK;
 					setDeafened(connectionStuff.current.deafened);
 				});
+				
 				ipcRenderer.on(IpcRendererMessages.TOGGLE_MUTE, () => {
 					connectionStuff.current.muted = !connectionStuff.current.muted;
 					if (connectionStuff.current.deafened) {
 						connectionStuff.current.deafened = false;
 						connectionStuff.current.muted = false;
 					}
-					inStream.getAudioTracks()[0].enabled = !connectionStuff.current.muted && !connectionStuff.current.deafened;
+					inStream.getAudioTracks()[0].enabled = !connectionStuff.current.muted && !connectionStuff.current.deafened && connectionStuff.current.pushToTalkMode !== pushToTalkOptions.PUSH_TO_TALK;
 					setMuted(connectionStuff.current.muted);
 					setDeafened(connectionStuff.current.deafened);
 				});

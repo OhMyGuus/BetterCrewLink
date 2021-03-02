@@ -47,7 +47,6 @@ ipcMain.on(IpcSyncMessages.GET_INITIAL_STATE, (event) => {
 });
 
 ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
-	console.log('READ GAMEEE!!', readingGame);
 	if (!readingGame) {
 		readingGame = true;
 		resetKeyHooks();

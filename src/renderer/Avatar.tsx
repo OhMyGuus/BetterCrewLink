@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Player } from '../common/AmongUsState';
-import { backLayerHats, hatOffsets, hats, skins, players, coloredHats } from './cosmetics';
+import { backLayerHats, hatOffsets, hats, skins, coloredHats } from './cosmetics';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import MicOff from '@material-ui/icons/MicOff';
 import VolumeOff from '@material-ui/icons/VolumeOff';
@@ -33,7 +33,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 export interface CanvasProps {
-	src: string;
 	hat: number;
 	skin: number;
 	isAlive: boolean;
