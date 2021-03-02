@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ipcRenderer } from 'electron';
 import { AmongUsState, GameState, VoiceState } from '../common/AmongUsState';
-import { IpcOverlayMessages } from '../common/ipc-messages';
+import { IpcOverlayMessages, IpcMessages } from '../common/ipc-messages';
 import ReactDOM from 'react-dom';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import './css/overlay.css';
 import Avatar from './Avatar';
 import { ISettings } from '../common/ISettings';
-
+import { DEFAULT_PLAYERCOLORS } from '../main/avatarGenerator';
 
 interface UseStylesProps {
 	hudHeight: number;
@@ -60,28 +60,13 @@ function useWindowSize() {
 	return windowSize;
 }
 
-const playerColors = [
-	['#C51111', '#7A0838'],
-	['#132ED1', '#09158E'],
-	['#117F2D', '#0A4D2E'],
-	['#ED54BA', '#AB2BAD'],
-	['#EF7D0D', '#B33E15'],
-	['#F5F557', '#C38823'],
-	['#3F474E', '#1E1F26'],
-	['#FFFFFF', '#8394BF'],
-	['#6B2FBB', '#3B177C'],
-	['#71491E', '#5E2615'],
-	['#38FEDC', '#24A8BE'],
-	['#50EF39', '#15A742'],
-];
-
 const iPadRatio = 854 / 579;
 
 const Overlay: React.FC = function () {
-	
 	const [gameState, setGameState] = useState<AmongUsState>((undefined as unknown) as AmongUsState);
 	const [voiceState, setVoiceState] = useState<VoiceState>((undefined as unknown) as VoiceState);
 	const [settings, setSettings] = useState<ISettings>((undefined as unknown) as ISettings);
+	const [playerColors, setColors] = useState<string[][]>(DEFAULT_PLAYERCOLORS);
 	useEffect(() => {
 		const onState = (_: Electron.IpcRendererEvent, newState: AmongUsState) => {
 			setGameState(newState);
@@ -90,15 +75,26 @@ const Overlay: React.FC = function () {
 			setVoiceState(newState);
 		};
 		const onSettings = (_: Electron.IpcRendererEvent, newState: ISettings) => {
+			console.log('Recieved settings..');
+
 			setSettings(newState);
+		};
+		const onColorChange = (_: Electron.IpcRendererEvent, colors: string[][]) => {
+			console.log('Recieved colors..');
+			setColors(colors);
+			console.log('new colors: ', playerColors);
 		};
 		ipcRenderer.on(IpcOverlayMessages.NOTIFY_GAME_STATE_CHANGED, onState);
 		ipcRenderer.on(IpcOverlayMessages.NOTIFY_VOICE_STATE_CHANGED, onVoiceState);
 		ipcRenderer.on(IpcOverlayMessages.NOTIFY_SETTINGS_CHANGED, onSettings);
+		ipcRenderer.on(IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, onColorChange);
+		ipcRenderer.send(IpcMessages.SEND_TO_MAINWINDOW, IpcOverlayMessages.REQUEST_INITVALUES);
+		console.log('REQUEST_INITVALUES');
 		return () => {
 			ipcRenderer.off(IpcOverlayMessages.NOTIFY_GAME_STATE_CHANGED, onState);
 			ipcRenderer.off(IpcOverlayMessages.NOTIFY_VOICE_STATE_CHANGED, onVoiceState);
 			ipcRenderer.off(IpcOverlayMessages.NOTIFY_SETTINGS_CHANGED, onSettings);
+			ipcRenderer.on(IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, onColorChange);
 		};
 	}, []);
 
@@ -107,7 +103,7 @@ const Overlay: React.FC = function () {
 	return (
 		<>
 			{settings.meetingOverlay && gameState.gameState === GameState.DISCUSSION && (
-				<MeetingHud gameState={gameState} voiceState={voiceState} />
+				<MeetingHud gameState={gameState} voiceState={voiceState} playerColors={playerColors} />
 			)}
 			{settings.overlayPosition !== 'hidden' && (
 				<AvatarOverlay
@@ -239,9 +235,10 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 interface MeetingHudProps {
 	gameState: AmongUsState;
 	voiceState: VoiceState;
+	playerColors: string[][];
 }
 
-const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState }: MeetingHudProps) => {
+const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerColors }: MeetingHudProps) => {
 	const [width, height] = useWindowSize();
 
 	let hudWidth = 0,
@@ -268,7 +265,10 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState }: Meetin
 		});
 	}, [gameState.gameState]);
 	if (!players || gameState.gameState !== GameState.DISCUSSION) return null;
+
 	const overlays = players.map((player) => {
+		const color = playerColors[player.colorId] ? playerColors[player.colorId][0] : '#C51111';
+
 		return (
 			<div
 				key={player.id}
@@ -278,7 +278,7 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState }: Meetin
 					border: 'solid',
 					borderWidth: '2px',
 					borderColor: '#00000037',
-					boxShadow: `0 0 ${hudHeight / 100}px ${hudHeight / 100}px ${playerColors[player.colorId][0]}`,
+					boxShadow: `0 0 ${hudHeight / 100}px ${hudHeight / 100}px ${color}`,
 					transition: 'opacity 400ms',
 				}}
 			/>

@@ -45,6 +45,15 @@ export const initializeIpcListeners = (): void => {
 		}
 	});
 
+	ipcMain.on(IpcMessages.SEND_TO_MAINWINDOW, (_, event: IpcOverlayMessages, ...args: unknown[]) => {
+		console.log('SEND TO MAINWINDOW CALLLED');
+		try {
+			if (global.mainWindow) global.mainWindow.webContents.send(event, ...args);
+		} catch (e) {
+			/*empty*/
+		}
+	});
+
 	ipcMain.on(IpcMessages.QUIT_CREWLINK, () => {
 		try {
 			const mainWindow = global.mainWindow;

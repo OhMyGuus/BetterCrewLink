@@ -162,11 +162,11 @@ const store = new Store<ISettings>({
 		'2.2.5': (store) => {
 			const pushToTalkValue = store.get('pushToTalk');
 			if (typeof pushToTalkValue === 'boolean') {
-				store.set("pushToTalkMode", pushToTalkValue ? pushToTalkOptions.PUSH_TO_TALK : pushToTalkOptions.VOICE)
+				store.set('pushToTalkMode', pushToTalkValue ? pushToTalkOptions.PUSH_TO_TALK : pushToTalkOptions.VOICE);
 			}
 			// @ts-ignore
 			store.delete('pushToTalk');
-		}
+		},
 	},
 	schema: {
 		alwaysOnTop: {
@@ -1032,7 +1032,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 					onChange={(ev) => {
 						setSettings({
 							type: 'setOne',
-							action: ['pushToTalkMode', Number(ev.target.value)]
+							action: ['pushToTalkMode', Number(ev.target.value)],
 						});
 					}}
 				>
@@ -1043,7 +1043,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 				<Divider />
 
 				<div>
-				<Typography id="input-slider" gutterBottom>
+					<Typography id="input-slider" gutterBottom>
 						Microphone volume
 					</Typography>
 					<Grid container spacing={2}>
@@ -1156,7 +1156,6 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						}}
 						aria-labelledby="input-slider"
 					/>
-				
 				</div>
 				<Divider />
 				<Typography variant="h6">Keyboard Shortcuts</Typography>

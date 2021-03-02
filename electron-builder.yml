@@ -9,6 +9,7 @@ files:
     filter:
       - package.json
       - app
+
 win:
   publish:
     - github

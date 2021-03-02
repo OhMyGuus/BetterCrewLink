@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; // eslint-disable-line
 
 import { autoUpdater } from 'electron-updater';
 import { app, BrowserWindow, ipcMain, session } from 'electron';
@@ -10,14 +10,15 @@ import { overlayWindow } from 'electron-overlay-window';
 import { initializeIpcHandlers, initializeIpcListeners } from './ipc-handlers';
 import { IpcRendererMessages } from '../common/ipc-messages';
 import { ProgressInfo } from 'builder-util-runtime';
+import { protocol } from 'electron';
 
-const args = require('minimist')(process.argv);
+const args = require('minimist')(process.argv); // eslint-disable-line
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const devTools = (isDevelopment || args.dev === 1) && true;
 
 declare global {
-	namespace NodeJS {
+	namespace NodeJS { // eslint-disable-line
 		interface Global {
 			mainWindow: BrowserWindow | null;
 			overlay: BrowserWindow | null;
@@ -167,7 +168,9 @@ if (!gotTheLock) {
 			global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
 				state: 'available',
 			});
-		} catch (e) {}
+		} catch (e) {
+			/* Empty block */
+		}
 	});
 	autoUpdater.on('error', (err: string) => {
 		try {
@@ -270,6 +273,11 @@ if (!gotTheLock) {
 
 	// create main BrowserWindow when electron is ready
 	app.whenReady().then(() => {
+		protocol.registerFileProtocol('file', (request, callback) => {
+			const pathname = request.url.replace('file:///', '');
+			callback(pathname);
+		});
+
 		initializeIpcListeners();
 		initializeIpcHandlers();
 		global.mainWindow = createMainWindow();

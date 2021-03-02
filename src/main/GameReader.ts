@@ -10,11 +10,12 @@ import {
 	findPattern as findPatternRaw,
 } from 'memoryjs';
 import Struct from 'structron';
-import { IpcRendererMessages } from '../common/ipc-messages';
+import { IpcOverlayMessages, IpcRendererMessages } from '../common/ipc-messages';
 import { GameState, AmongUsState, Player } from '../common/AmongUsState';
 import offsetStore, { IOffsets } from './offsetStore';
 import Errors from '../common/Errors';
 import { CameraLocation, MapType } from '../common/AmongusMap';
+import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
 
 interface ValueType<T> {
 	read(buffer: BufferSource, offset: number): T;
@@ -120,7 +121,6 @@ export default class GameReader {
 					? this.gameCode
 					: this.IntToGameCode(lobbyCodeInt);
 
-
 			const allPlayersPtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets.allPlayersPtr);
 			const allPlayers = this.readMemory<number>('ptr', allPlayersPtr, this.offsets.allPlayers);
 
@@ -182,19 +182,19 @@ export default class GameReader {
 									case MapType.POLUS:
 									case MapType.THE_SKELD: {
 										comsSabotaged =
-											this.readMemory<number>('uint32', value, this.offsets?.HudOverrideSystemType_isActive) === 1;
+											this.readMemory<number>('uint32', value, this.offsets!.HudOverrideSystemType_isActive) === 1;
 										break;
 									}
 									case MapType.MIRA_HQ: {
 										comsSabotaged =
-											this.readMemory<number>('uint32', value, this.offsets?.hqHudSystemType_CompletedConsoles) < 2;
+											this.readMemory<number>('uint32', value, this.offsets!.hqHudSystemType_CompletedConsoles) < 2;
 									}
 								}
 							} else if (key === 18 && map === MapType.MIRA_HQ) {
 								//SystemTypes Decontamination
 								const value = this.readMemory<number>('ptr', v);
-								const lowerDoorOpen = this.readMemory<number>('int', value, this.offsets?.deconDoorLowerOpen);
-								const upperDoorOpen = this.readMemory<number>('int', value, this.offsets?.deconDoorUpperOpen);
+								const lowerDoorOpen = this.readMemory<number>('int', value, this.offsets!.deconDoorLowerOpen);
+								const upperDoorOpen = this.readMemory<number>('int', value, this.offsets!.deconDoorUpperOpen);
 								if (!lowerDoorOpen) {
 									closedDoors.push(0);
 								}
@@ -204,20 +204,20 @@ export default class GameReader {
 							}
 						});
 					}
-					const minigamePtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets?.miniGame);
-					const minigameCachePtr = this.readMemory<number>('ptr', minigamePtr, this.offsets?.objectCachePtr);
+					const minigamePtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets!.miniGame);
+					const minigameCachePtr = this.readMemory<number>('ptr', minigamePtr, this.offsets!.objectCachePtr);
 
 					if (minigameCachePtr && minigameCachePtr !== 0 && localPlayer) {
 						if (map === MapType.POLUS) {
 							const currentCameraId = this.readMemory<number>(
 								'uint32',
 								minigamePtr,
-								this.offsets?.planetSurveillanceMinigame_currentCamera
+								this.offsets!.planetSurveillanceMinigame_currentCamera
 							);
 							const camarasCount = this.readMemory<number>(
 								'uint32',
 								minigamePtr,
-								this.offsets?.planetSurveillanceMinigame_camarasCount
+								this.offsets!.planetSurveillanceMinigame_camarasCount
 							);
 
 							if (currentCameraId >= 0 && currentCameraId <= 5 && camarasCount === 6) {
@@ -227,7 +227,7 @@ export default class GameReader {
 							const roomCount = this.readMemory<number>(
 								'uint32',
 								minigamePtr,
-								this.offsets?.surveillanceMinigame_FilteredRoomsCount
+								this.offsets!.surveillanceMinigame_FilteredRoomsCount
 							);
 							if (roomCount === 4) {
 								const dist = Math.sqrt(Math.pow(localPlayer.x - -12.9364, 2) + Math.pow(localPlayer.y - -2.7928, 2));
@@ -312,6 +312,7 @@ export default class GameReader {
 	}
 
 	initializeoffsets(): void {
+		console.log('INITIALIZEOFFSETS???');
 		this.is_64bit = this.isX64Version();
 		this.offsets = this.is_64bit ? offsetStore.x64 : offsetStore.x86;
 		this.PlayerStruct = new Struct();
@@ -359,6 +360,30 @@ export default class GameReader {
 		this.offsets.innerNetClient[0] = innerNetClient;
 		this.offsets.shipStatus[0] = shipStatus;
 		this.offsets.miniGame[0] = miniGame;
+
+		const palletePtr = this.readMemory<number>('ptr', this.gameAssembly!.modBaseAddr, [0x1c57fc4, 0x5c]);
+		const PlayerColorsPtr = this.readMemory<number>('ptr', palletePtr, [0xe4]);
+		const ShadowColorsPtr = this.readMemory<number>('ptr', palletePtr, [0xe8]);
+
+		const colorLength = Math.min(
+			this.readMemory<number>('int', ShadowColorsPtr, [0x0c]),
+			30
+		);
+		const playercolors = [];
+		for (let i = 0; i < colorLength; i++) {
+			const playerColor = this.readMemory<number>('uint32', PlayerColorsPtr, [0x10 + i * 0x4]);
+			const shadowColor = this.readMemory<number>('uint32', ShadowColorsPtr, [0x10 + i * 0x4]);
+			playercolors[i] = [numberToColorHex(playerColor), numberToColorHex(shadowColor)];
+		}
+
+		try {
+			this.sendIPC(IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, playercolors);
+			GenerateAvatars(playercolors)
+				.then(() => console.log('done generate'))
+				.catch((e) => console.error(e));
+		} catch (e) {
+			/* Empty block */
+		}
 	}
 
 	isX64Version(): boolean {

@@ -12,6 +12,7 @@ import ErrorOutlIne from '@material-ui/icons/ErrorOutlIne';
 import Tooltip from 'react-tooltip-lite';
 import { SocketConfig } from '../common/ISettings';
 import Slider from '@material-ui/core/Slider';
+import { remote } from 'electron';
 
 const useStyles = makeStyles(() => ({
 	canvas: {
@@ -77,9 +78,9 @@ const Avatar: React.FC<AvatarProps> = function ({
 	overflow = false,
 	onConfigChange,
 }: AvatarProps) {
-	const status = isAlive ? 'alive' : 'dead';
-	let image = players[status][player.colorId];
-	if (!image) image = players[status][0];
+	//const status = isAlive ? 'alive' : 'dead';
+	// let image = players[status][player.colorId];
+	// if (!image) image = players[status][0];
 	const classes = useStyles();
 	let icon;
 
@@ -113,17 +114,14 @@ const Avatar: React.FC<AvatarProps> = function ({
 							value={socketConfig?.volume}
 							min={0}
 							max={2}
-							step={.02}
-
+							step={0.02}
 							onChange={(_, newValue: number | number[]) => {
 								if (socketConfig) {
-									socketConfig.volume = newValue as number; 
+									socketConfig.volume = newValue as number;
 								}
 							}}
-
 							valueLabelDisplay={'auto'}
-							valueLabelFormat={(value) => Math.floor(value*100) + '%' }
-
+							valueLabelFormat={(value) => Math.floor(value * 100) + '%'}
 							onMouseLeave={() => {
 								console.log('onmouseleave');
 								if (onConfigChange) {
@@ -138,7 +136,6 @@ const Avatar: React.FC<AvatarProps> = function ({
 		>
 			<Canvas
 				className={classes.canvas}
-				src={image}
 				color={player.colorId}
 				hat={showHat === false ? -1 : player.hatId}
 				skin={player.skinId - 1}
@@ -200,7 +197,7 @@ const useCanvasStyles = makeStyles(() => ({
 	},
 }));
 
-function Canvas({ src, hat, skin, isAlive, lookLeft, size, borderColor, color, overflow }: CanvasProps) {
+function Canvas({ hat, skin, isAlive, lookLeft, size, borderColor, color, overflow }: CanvasProps) {
 	const hatImg = useRef<HTMLImageElement>(null);
 	const skinImg = useRef<HTMLImageElement>(null);
 	const image = useRef<HTMLImageElement>(null);
@@ -214,7 +211,8 @@ function Canvas({ src, hat, skin, isAlive, lookLeft, size, borderColor, color, o
 		borderColor,
 		paddingLeft: -7,
 	});
-
+	const path = remote.app.getAppPath();
+	const playerImg = isAlive ? `player${color}` : `ghost${color}`;
 	return (
 		<>
 			<div className={classes.avatar}>
@@ -228,7 +226,7 @@ function Canvas({ src, hat, skin, isAlive, lookLeft, size, borderColor, color, o
 						transform: 'unset',
 					}}
 				>
-					<img src={src} ref={image} className={classes.base} />
+					<img src={`file://${path}\\..\\generated\\${playerImg}.png`} ref={image} className={classes.base} />
 					<img src={skins[skin]} ref={skinImg} className={classes.skin} />
 
 					{overflow && <img src={coloredHats[`${hat}${color}`] || hats[hat]} ref={hatImg} className={classes.hat} />}

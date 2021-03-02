@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useReducer, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useReducer, useState, useRef } from 'react';
 import Voice from './Voice';
 import Menu from './Menu';
 import { ipcRenderer } from 'electron';
@@ -30,6 +30,7 @@ import prettyBytes from 'pretty-bytes';
 import { IpcOverlayMessages } from '../common/ipc-messages';
 import ReactDOM from 'react-dom';
 import './css/index.css';
+import { DEFAULT_PLAYERCOLORS } from '../main/avatarGenerator';
 
 let appVersion = '';
 if (typeof window !== 'undefined' && window.location) {
@@ -116,6 +117,9 @@ export default function App(): JSX.Element {
 	const [updaterState, setUpdaterState] = useState<AutoUpdaterState>({
 		state: 'unavailable',
 	});
+	const playerColors = useRef<string[][]>(DEFAULT_PLAYERCOLORS);
+	const overlayInitCount = useRef<number>(0);
+
 	const settings = useReducer(settingsReducer, {
 		alwaysOnTop: true,
 		microphone: 'Default',
@@ -162,6 +166,12 @@ export default function App(): JSX.Element {
 	const lobbySettings = useReducer(lobbySettingsReducer, settings[0].localLobbySettings);
 
 	useEffect(() => {
+		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, playerColors.current);
+		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_SETTINGS_CHANGED, settings[0]);
+		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_GAME_STATE_CHANGED, gameState);
+	}, [overlayInitCount.current]);
+
+	useEffect(() => {
 		const onOpen = (_: Electron.IpcRendererEvent, isOpen: boolean) => {
 			setState(isOpen ? AppState.VOICE : AppState.MENU);
 		};
@@ -176,6 +186,16 @@ export default function App(): JSX.Element {
 		const onAutoUpdaterStateChange = (_: Electron.IpcRendererEvent, state: AutoUpdaterState) => {
 			setUpdaterState((old) => ({ ...old, ...state }));
 		};
+		const onColorsChange = (_: Electron.IpcRendererEvent, colors: string[][]) => {
+			console.log('RECIEVED COLORS');
+			playerColors.current = colors;
+			ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, colors);
+		};
+
+		const onOverlayInit = () => {
+			overlayInitCount.current++;
+		};
+
 		let shouldInit = true;
 		ipcRenderer
 			.invoke(IpcHandlerMessages.START_HOOK)
@@ -194,11 +214,15 @@ export default function App(): JSX.Element {
 		ipcRenderer.on(IpcRendererMessages.NOTIFY_GAME_OPENED, onOpen);
 		ipcRenderer.on(IpcRendererMessages.NOTIFY_GAME_STATE_CHANGED, onState);
 		ipcRenderer.on(IpcRendererMessages.ERROR, onError);
+		ipcRenderer.on(IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, onColorsChange);
+		ipcRenderer.on(IpcOverlayMessages.REQUEST_INITVALUES, onOverlayInit);
+
 		return () => {
 			ipcRenderer.off(IpcRendererMessages.AUTO_UPDATER_STATE, onAutoUpdaterStateChange);
 			ipcRenderer.off(IpcRendererMessages.NOTIFY_GAME_OPENED, onOpen);
 			ipcRenderer.off(IpcRendererMessages.NOTIFY_GAME_STATE_CHANGED, onState);
 			ipcRenderer.off(IpcRendererMessages.ERROR, onError);
+			ipcRenderer.off(IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, onColorsChange);
 			shouldInit = false;
 		};
 	}, []);
@@ -208,8 +232,10 @@ export default function App(): JSX.Element {
 	}, [gameState]);
 
 	useEffect(() => {
+		console.log(playerColors.current);
+		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, playerColors.current);
 		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_SETTINGS_CHANGED, settings[0]);
-	}, [settings]);
+	}, [settings[0]]);
 
 	let page;
 	switch (state) {
