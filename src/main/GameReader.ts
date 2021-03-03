@@ -50,7 +50,7 @@ export default class GameReader {
 	lastState: AmongUsState = {} as AmongUsState;
 	amongUs: ProcessObject | null = null;
 	gameAssembly: ModuleObject | null = null;
-
+	colorsInitialized: boolean = false;
 	gameCode = 'MENU';
 
 	checkProcessOpen(): void {
@@ -84,6 +84,7 @@ export default class GameReader {
 			return 'Error with chcecking the process';
 		}
 		if (this.PlayerStruct && this.offsets && this.amongUs !== null && this.gameAssembly !== null) {
+			this.loadColors();
 			let state = GameState.UNKNOWN;
 			const meetingHud = this.readMemory<number>('pointer', this.gameAssembly.modBaseAddr, this.offsets.meetingHud);
 			const meetingHud_cachePtr =
@@ -311,6 +312,7 @@ export default class GameReader {
 		this.sendIPC = sendIPC;
 	}
 
+
 	initializeoffsets(): void {
 		console.log('INITIALIZEOFFSETS???');
 		this.is_64bit = this.isX64Version();
@@ -360,7 +362,13 @@ export default class GameReader {
 		this.offsets.innerNetClient[0] = innerNetClient;
 		this.offsets.shipStatus[0] = shipStatus;
 		this.offsets.miniGame[0] = miniGame;
+		this.colorsInitialized = false;
+	}
 
+	loadColors(){
+		if(this.colorsInitialized){
+			return;
+		}
 		const palletePtr = this.readMemory<number>('ptr', this.gameAssembly!.modBaseAddr, [0x1c57fc4, 0x5c]);
 		const PlayerColorsPtr = this.readMemory<number>('ptr', palletePtr, [0xe4]);
 		const ShadowColorsPtr = this.readMemory<number>('ptr', palletePtr, [0xe8]);
@@ -369,13 +377,17 @@ export default class GameReader {
 			this.readMemory<number>('int', ShadowColorsPtr, [0x0c]),
 			30
 		);
+		if(colorLength == 0){
+			return;
+		}
+		this.colorsInitialized = colorLength > 0;
+console.log("set colorInitialized to: ",colorLength > 0 )
 		const playercolors = [];
 		for (let i = 0; i < colorLength; i++) {
 			const playerColor = this.readMemory<number>('uint32', PlayerColorsPtr, [0x10 + i * 0x4]);
 			const shadowColor = this.readMemory<number>('uint32', ShadowColorsPtr, [0x10 + i * 0x4]);
 			playercolors[i] = [numberToColorHex(playerColor), numberToColorHex(shadowColor)];
 		}
-
 		try {
 			this.sendIPC(IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, playercolors);
 			GenerateAvatars(playercolors)

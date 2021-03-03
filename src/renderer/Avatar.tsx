@@ -12,7 +12,6 @@ import ErrorOutlIne from '@material-ui/icons/ErrorOutlIne';
 import Tooltip from 'react-tooltip-lite';
 import { SocketConfig } from '../common/ISettings';
 import Slider from '@material-ui/core/Slider';
-import { remote } from 'electron';
 
 const useStyles = makeStyles(() => ({
 	canvas: {
@@ -210,8 +209,8 @@ function Canvas({ hat, skin, isAlive, lookLeft, size, borderColor, color, overfl
 		borderColor,
 		paddingLeft: -7,
 	});
-	const path = remote.app.getAppPath();
 	const playerImg = isAlive ? `player${color}` : `ghost${color}`;
+	//		
 	return (
 		<>
 			<div className={classes.avatar}>
@@ -225,7 +224,8 @@ function Canvas({ hat, skin, isAlive, lookLeft, size, borderColor, color, overfl
 						transform: 'unset',
 					}}
 				>
-					<img src={`file://${path}\\..\\generated\\${playerImg}.png`} ref={image} className={classes.base} />
+			
+					<img src={`static:///generated//${playerImg}.png`} ref={image} className={classes.base} />
 					<img src={skins[skin]} ref={skinImg} className={classes.skin} />
 
 					{overflow && <img src={coloredHats[`${hat}${color}`] || hats[hat]} ref={hatImg} className={classes.hat} />}

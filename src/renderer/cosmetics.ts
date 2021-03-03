@@ -136,6 +136,11 @@ import skin13 from '../../static/skins/13.png'; // @ts-ignore
 import skin14 from '../../static/skins/14.png'; // @ts-ignore
 import skin15 from '../../static/skins/15.png';
 
+
+ // @ts-ignore
+ import rainbowBaseimg from '../../static/players/rainbow.gif';
+
+ export const rainbowBase = rainbowBaseimg;
 // // @ts-ignore
 // import redAlive from '../../static/players/red-alive.png'; // @ts-ignore
 // import blueAlive from '../../static/players/blue-alive.png'; // @ts-ignore

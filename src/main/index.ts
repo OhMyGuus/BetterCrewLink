@@ -18,7 +18,8 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 const devTools = (isDevelopment || args.dev === 1) && true;
 
 declare global {
-	namespace NodeJS { // eslint-disable-line
+	namespace NodeJS {
+		// eslint-disable-line
 		interface Global {
 			mainWindow: BrowserWindow | null;
 			overlay: BrowserWindow | null;
@@ -273,8 +274,8 @@ if (!gotTheLock) {
 
 	// create main BrowserWindow when electron is ready
 	app.whenReady().then(() => {
-		protocol.registerFileProtocol('file', (request, callback) => {
-			const pathname = request.url.replace('file:///', '');
+		protocol.registerFileProtocol('static', (request, callback) => {
+			const pathname =  app.getAppPath() + '\\..\\' + request.url.replace('static:///', '') 
 			callback(pathname);
 		});
 
