@@ -16,6 +16,7 @@ import offsetStore, { IOffsets } from './offsetStore';
 import Errors from '../common/Errors';
 import { CameraLocation, MapType } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
+import { RainbowColorId } from '../renderer/cosmetics';
 
 interface ValueType<T> {
 	read(buffer: BufferSource, offset: number): T;
@@ -51,6 +52,7 @@ export default class GameReader {
 	amongUs: ProcessObject | null = null;
 	gameAssembly: ModuleObject | null = null;
 	colorsInitialized: boolean = false;
+	rainbowColor: number = -9999;
 	gameCode = 'MENU';
 
 	checkProcessOpen(): void {
@@ -312,7 +314,6 @@ export default class GameReader {
 		this.sendIPC = sendIPC;
 	}
 
-
 	initializeoffsets(): void {
 		console.log('INITIALIZEOFFSETS???');
 		this.is_64bit = this.isX64Version();
@@ -365,8 +366,8 @@ export default class GameReader {
 		this.colorsInitialized = false;
 	}
 
-	loadColors(){
-		if(this.colorsInitialized){
+	loadColors() {
+		if (this.colorsInitialized) {
 			return;
 		}
 		const palletePtr = this.readMemory<number>('ptr', this.gameAssembly!.modBaseAddr, [0x1c57fc4, 0x5c]);
@@ -377,15 +378,18 @@ export default class GameReader {
 			this.readMemory<number>('int', ShadowColorsPtr, [0x0c]),
 			30
 		);
-		if(colorLength == 0){
+		if (colorLength == 0) {
 			return;
 		}
 		this.colorsInitialized = colorLength > 0;
-console.log("set colorInitialized to: ",colorLength > 0 )
 		const playercolors = [];
 		for (let i = 0; i < colorLength; i++) {
 			const playerColor = this.readMemory<number>('uint32', PlayerColorsPtr, [0x10 + i * 0x4]);
 			const shadowColor = this.readMemory<number>('uint32', ShadowColorsPtr, [0x10 + i * 0x4]);
+			if (playerColor === 4278190080) {
+				this.rainbowColor = i;
+			}
+			//4278190080
 			playercolors[i] = [numberToColorHex(playerColor), numberToColorHex(shadowColor)];
 		}
 		try {
@@ -542,13 +546,14 @@ console.log("set colorInitialized to: ",colorLength > 0 )
 		// }
 		const name = this.readString(data.name);
 		const nameHash = this.hashCode(name);
+		const colorId = data.color === this.rainbowColor ? RainbowColorId : data.color;
 		return {
 			ptr,
 			id: data.id,
 			clientId: clientId,
 			name,
 			nameHash,
-			colorId: data.color,
+			colorId,
 			hatId: data.hat,
 			petId: data.pet,
 			skinId: data.skin,

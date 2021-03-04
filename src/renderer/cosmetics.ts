@@ -76,18 +76,18 @@ import hat74 from '../../static/hats/74.png'; // @ts-ignore
 import hat75 from '../../static/hats/75.png'; // @ts-ignore
 import hat76 from '../../static/hats/76.png'; // @ts-ignore
 import hat77 from '../../static/hats/77.png'; // @ts-ignore
-import hat77_0 from '../../static/hats/77-0.png'; // @ts-ignore
-import hat77_1 from '../../static/hats/77-1.png'; // @ts-ignore
-import hat77_2 from '../../static/hats/77-2.png'; // @ts-ignore
-import hat77_3 from '../../static/hats/77-3.png'; // @ts-ignore
-import hat77_4 from '../../static/hats/77-4.png'; // @ts-ignore
-import hat77_5 from '../../static/hats/77-5.png'; // @ts-ignore
-import hat77_6 from '../../static/hats/77-6.png'; // @ts-ignore
-import hat77_7 from '../../static/hats/77-7.png'; // @ts-ignore
-import hat77_8 from '../../static/hats/77-8.png'; // @ts-ignore
-import hat77_9 from '../../static/hats/77-9.png'; // @ts-ignore
-import hat77_10 from '../../static/hats/77-10.png'; // @ts-ignore
-import hat77_11 from '../../static/hats/77-11.png'; // @ts-ignore
+// import hat77_0 from '../../static/hats/77-0.png'; // @ts-ignore
+// import hat77_1 from '../../static/hats/77-1.png'; // @ts-ignore
+// import hat77_2 from '../../static/hats/77-2.png'; // @ts-ignore
+// import hat77_3 from '../../static/hats/77-3.png'; // @ts-ignore
+// import hat77_4 from '../../static/hats/77-4.png'; // @ts-ignore
+// import hat77_5 from '../../static/hats/77-5.png'; // @ts-ignore
+// import hat77_6 from '../../static/hats/77-6.png'; // @ts-ignore
+// import hat77_7 from '../../static/hats/77-7.png'; // @ts-ignore
+// import hat77_8 from '../../static/hats/77-8.png'; // @ts-ignore
+// import hat77_9 from '../../static/hats/77-9.png'; // @ts-ignore
+// import hat77_10 from '../../static/hats/77-10.png'; // @ts-ignore
+// import hat77_11 from '../../static/hats/77-11.png'; // @ts-ignore
 
 import hat78 from '../../static/hats/78.png'; // @ts-ignore
 import hat79 from '../../static/hats/79.png'; // @ts-ignore
@@ -102,18 +102,18 @@ import hat87 from '../../static/hats/87.png'; // @ts-ignore
 import hat88 from '../../static/hats/88.png'; // @ts-ignore
 import hat89 from '../../static/hats/89.png'; // @ts-ignore
 import hat90 from '../../static/hats/90.png'; // @ts-ignore
-import hat90_0 from '../../static/hats/90-0.png'; // @ts-ignore
-import hat90_1 from '../../static/hats/90-1.png'; // @ts-ignore
-import hat90_2 from '../../static/hats/90-2.png'; // @ts-ignore
-import hat90_3 from '../../static/hats/90-3.png'; // @ts-ignore
-import hat90_4 from '../../static/hats/90-4.png'; // @ts-ignore
-import hat90_5 from '../../static/hats/90-5.png'; // @ts-ignore
-import hat90_6 from '../../static/hats/90-6.png'; // @ts-ignore
-import hat90_7 from '../../static/hats/90-7.png'; // @ts-ignore
-import hat90_8 from '../../static/hats/90-8.png'; // @ts-ignore
-import hat90_9 from '../../static/hats/90-9.png'; // @ts-ignore
-import hat90_10 from '../../static/hats/90-10.png'; // @ts-ignore
-import hat90_11 from '../../static/hats/90-11.png'; // @ts-ignore
+// import hat90_0 from '../../static/hats/90-0.png'; // @ts-ignore
+// import hat90_1 from '../../static/hats/90-1.png'; // @ts-ignore
+// import hat90_2 from '../../static/hats/90-2.png'; // @ts-ignore
+// import hat90_3 from '../../static/hats/90-3.png'; // @ts-ignore
+// import hat90_4 from '../../static/hats/90-4.png'; // @ts-ignore
+// import hat90_5 from '../../static/hats/90-5.png'; // @ts-ignore
+// import hat90_6 from '../../static/hats/90-6.png'; // @ts-ignore
+// import hat90_7 from '../../static/hats/90-7.png'; // @ts-ignore
+// import hat90_8 from '../../static/hats/90-8.png'; // @ts-ignore
+// import hat90_9 from '../../static/hats/90-9.png'; // @ts-ignore
+// import hat90_10 from '../../static/hats/90-10.png'; // @ts-ignore
+// import hat90_11 from '../../static/hats/90-11.png'; // @ts-ignore
 import hat91 from '../../static/hats/91.png'; // @ts-ignore
 import hat92 from '../../static/hats/92.png'; // @ts-ignore
 import hat93 from '../../static/hats/93.png'; // @ts-ignore
@@ -136,11 +136,13 @@ import skin13 from '../../static/skins/13.png'; // @ts-ignore
 import skin14 from '../../static/skins/14.png'; // @ts-ignore
 import skin15 from '../../static/skins/15.png';
 
-
- // @ts-ignore
- import rainbowBaseimg from '../../static/players/rainbow.gif';
-
- export const rainbowBase = rainbowBaseimg;
+// @ts-ignore
+import rainbowAlive from '../../static/players/rainbow-alive.png'; // @ts-ignore
+import rainbowDead from '../../static/players/rainbow-dead.png'; // @ts-ignore
+import redAliveimg from '../../static/players/red-alive.png'; // @ts-ignore
+import rainbowBalloon from '../../static/hats/77-rb.png'; // @ts-ignore
+import rainbowKid from '../../static/hats/90-rb.png';
+export const redAlive = redAliveimg;
 // // @ts-ignore
 // import redAlive from '../../static/players/red-alive.png'; // @ts-ignore
 // import blueAlive from '../../static/players/blue-alive.png'; // @ts-ignore
@@ -233,36 +235,36 @@ export const hatOffsets: { [key in number]: string | undefined } = {
 };
 
 export const backLayerHats = new Set([39, 4, 6, 15, 29, 42, 75, 85]);
+const coloredHatsIds = new Set([77, 90]);
+// export const coloredHats: { [key in string]: string | undefined } = {
+// 	77_0: hat77_0,
+// 	77_1: hat77_1,
+// 	77_2: hat77_2,
+// 	77_3: hat77_3,
+// 	77_4: hat77_4,
+// 	77_5: hat77_5,
+// 	77_6: hat77_6,
+// 	77_7: hat77_7,
+// 	77_8: hat77_8,
+// 	77_9: hat77_9,
+// 	77_10: hat77_10,
+// 	77_11: hat77_11,
 
-export const coloredHats: { [key in string]: string | undefined } = {
-	77_0: hat77_0,
-	77_1: hat77_1,
-	77_2: hat77_2,
-	77_3: hat77_3,
-	77_4: hat77_4,
-	77_5: hat77_5,
-	77_6: hat77_6,
-	77_7: hat77_7,
-	77_8: hat77_8,
-	77_9: hat77_9,
-	77_10: hat77_10,
-	77_11: hat77_11,
+// 	90_0: hat90_0,
+// 	90_1: hat90_1,
+// 	90_2: hat90_2,
+// 	90_3: hat90_3,
+// 	90_4: hat90_4,
+// 	90_5: hat90_5,
+// 	90_6: hat90_6,
+// 	90_7: hat90_7,
+// 	90_8: hat90_8,
+// 	90_9: hat90_9,
+// 	90_10: hat90_10,
+// 	90_11: hat90_11,
+// };
 
-	90_0: hat90_0,
-	90_1: hat90_1,
-	90_2: hat90_2,
-	90_3: hat90_3,
-	90_4: hat90_4,
-	90_5: hat90_5,
-	90_6: hat90_6,
-	90_7: hat90_7,
-	90_8: hat90_8,
-	90_9: hat90_9,
-	90_10: hat90_10,
-	90_11: hat90_11,
-};
-
-export const hats = [
+const hats = [
 	undefined,
 	hat1,
 	hat2,
@@ -359,3 +361,26 @@ export const hats = [
 	hat93,
 	hat94,
 ];
+
+export enum cosmeticType {
+	base,
+	hat,
+	skin,
+}
+
+export const RainbowColorId = -99234;
+export function getCosmetic(color: number, isAlive: boolean, type: cosmeticType, id: number = -1) {
+	if (type === cosmeticType.base || (type === cosmeticType.hat && coloredHatsIds.has(id))) {
+		if (color === RainbowColorId) {
+			if (type === cosmeticType.base) {
+				return isAlive ? rainbowAlive : rainbowDead;
+			} else {
+				return id === 90 ? rainbowKid : rainbowBalloon;
+			}
+		}
+		let folder = type === cosmeticType.base ? (isAlive ? `player` : `ghost`) : id;
+		return `static:///generated//${folder}//${color}.png`;
+	}else{
+		return type === cosmeticType.hat? hats[id] : skins[id];
+	}
+}

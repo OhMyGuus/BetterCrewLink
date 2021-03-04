@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Player } from '../common/AmongUsState';
-import { backLayerHats, hatOffsets, hats, skins, coloredHats } from './cosmetics';
+import { backLayerHats, hatOffsets, getCosmetic, redAlive, cosmeticType } from './cosmetics';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import MicOff from '@material-ui/icons/MicOff';
 import VolumeOff from '@material-ui/icons/VolumeOff';
@@ -109,7 +109,7 @@ const Avatar: React.FC<AvatarProps> = function ({
 					<b>{player?.name}</b>
 					<div className="slidecontainer" style={{ minWidth: '55px' }}>
 						<Slider
-							value={socketConfig?.volume ?? 1}
+							value={socketConfig?.volume || 1}
 							min={0}
 							max={2}
 							step={0.02}
@@ -209,8 +209,11 @@ function Canvas({ hat, skin, isAlive, lookLeft, size, borderColor, color, overfl
 		borderColor,
 		paddingLeft: -7,
 	});
-	const playerImg = isAlive ? `player${color}` : `ghost${color}`;
-	//		
+
+	const onerror = (e: any) => {
+		e.target.onError = null;
+		e.target.src = '';
+	};
 	return (
 		<>
 			<div className={classes.avatar}>
@@ -224,13 +227,40 @@ function Canvas({ hat, skin, isAlive, lookLeft, size, borderColor, color, overfl
 						transform: 'unset',
 					}}
 				>
-			
-					<img src={`static:///generated//${playerImg}.png`} ref={image} className={classes.base} />
-					<img src={skins[skin]} ref={skinImg} className={classes.skin} />
+					<img
+						src={getCosmetic(color, isAlive, cosmeticType.base)}
+						ref={image}
+						className={classes.base}
+						onError={(e: any) => {
+							e.target.onError = null;
+							e.target.src = redAlive;
+						}}
+					/>
 
-					{overflow && <img src={coloredHats[`${hat}${color}`] || hats[hat]} ref={hatImg} className={classes.hat} />}
+					<img
+						src={getCosmetic(color, isAlive, cosmeticType.skin, skin)}
+						ref={skinImg}
+						className={classes.skin}
+						onError={onerror}
+					/>
+
+					{overflow && (
+						<img
+							src={getCosmetic(color, isAlive, cosmeticType.hat, hat)}
+							ref={hatImg}
+							className={classes.hat}
+							onError={onerror}
+						/>
+					)}
 				</div>
-				{!overflow && <img src={coloredHats[`${hat}${color}`] || hats[hat]} ref={hatImg} className={classes.hat} />}
+				{!overflow && (
+					<img
+						src={getCosmetic(color, isAlive, cosmeticType.hat, hat)}
+						ref={hatImg}
+						className={classes.hat}
+						onError={onerror}
+					/>
+				)}
 			</div>
 		</>
 	);
