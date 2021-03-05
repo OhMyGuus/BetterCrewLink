@@ -356,6 +356,13 @@ export default class GameReader {
 			this.offsets.signatures.miniGame.addressOffset
 		);
 
+		const pallete = this.findPattern(
+			this.offsets.signatures.pallette.sig,
+			this.offsets.signatures.pallette.patternOffset,
+			this.offsets.signatures.pallette.addressOffset
+		);
+		this.offsets.pallete[0] = pallete;
+
 		this.offsets.meetingHud[0] = meetingHud;
 		this.offsets.exiledPlayerId[1] = meetingHud;
 
@@ -370,22 +377,23 @@ export default class GameReader {
 		if (this.colorsInitialized) {
 			return;
 		}
-		const palletePtr = this.readMemory<number>('ptr', this.gameAssembly!.modBaseAddr, [0x1c57fc4, 0x5c]);
-		const PlayerColorsPtr = this.readMemory<number>('ptr', palletePtr, [0xe4]);
-		const ShadowColorsPtr = this.readMemory<number>('ptr', palletePtr, [0xe8]);
+		const palletePtr = this.readMemory<number>('ptr', this.gameAssembly!.modBaseAddr, this.offsets!.pallete);
+		const PlayerColorsPtr = this.readMemory<number>('ptr', palletePtr, this.offsets!.pallete_playercolor);
+		const ShadowColorsPtr = this.readMemory<number>('ptr', palletePtr,  this.offsets!.pallete_shadowColor);
 
 		const colorLength = Math.min(
-			this.readMemory<number>('int', ShadowColorsPtr, [0x0c]),
+			this.readMemory<number>('int', ShadowColorsPtr, this.offsets!.playerCount),
 			30
 		);
+		console.log("COLOR", colorLength)
 		if (colorLength == 0) {
 			return;
 		}
 		this.colorsInitialized = colorLength > 0;
 		const playercolors = [];
 		for (let i = 0; i < colorLength; i++) {
-			const playerColor = this.readMemory<number>('uint32', PlayerColorsPtr, [0x10 + i * 0x4]);
-			const shadowColor = this.readMemory<number>('uint32', ShadowColorsPtr, [0x10 + i * 0x4]);
+			const playerColor = this.readMemory<number>('uint32', PlayerColorsPtr, [this.offsets!.playerAddrPtr + i * 0x4]);
+			const shadowColor = this.readMemory<number>('uint32', ShadowColorsPtr, [this.offsets!.playerAddrPtr + i * 0x4]);
 			if (playerColor === 4278190080) {
 				this.rainbowColor = i;
 			}

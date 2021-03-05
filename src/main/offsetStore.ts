@@ -38,6 +38,9 @@ export interface IOffsets {
 	planetSurveillanceMinigame_currentCamera: number[];
 	planetSurveillanceMinigame_camarasCount: number[];
 	surveillanceMinigame_FilteredRoomsCount: number[];
+	pallete: number[];
+	pallete_shadowColor: number[];
+	pallete_playercolor: number[];
 	player: {
 		isLocal: number[];
 		localX: number[];
@@ -72,6 +75,7 @@ export interface IOffsets {
 		gameData: ISignature;
 		shipStatus: ISignature;
 		miniGame: ISignature;
+		pallette: ISignature
 	};
 }
 
@@ -107,6 +111,9 @@ export default {
 		planetSurveillanceMinigame_camarasCount: [0xa0, 0x18],
 		surveillanceMinigame_FilteredRoomsCount: [0x70, 0x18],
 		lightRadius: [0x78, 0x34],
+		pallete: [0xffff, 0x5c],
+		pallete_playercolor: [0xE8],
+		pallete_shadowColor: [0xEC],
 		player: {
 			struct: [
 				{ type: 'SKIP', skip: 16, name: 'unused' },
@@ -164,6 +171,11 @@ export default {
 				patternOffset: 3,
 				addressOffset: 4,
 			},
+			pallette: {
+				sig: '48 8B 05 ? ? ? ? 48 8B 90 ? ? ? ? 48 C7 02 ? ? ? ? ',
+				patternOffset: 3,
+				addressOffset: 4,
+			},
 		},
 	},
 	x86: {
@@ -171,10 +183,10 @@ export default {
 		objectCachePtr: [0x8],
 		meetingHudState: [0x84],
 		innerNetClient: [0x1c57f54, 0x5c, 0x0],
-		gameState: [0x64],
-		gameCode: [0x40],
-		hostId: [0x44],
-		clientId: [0x48],
+		gameState: [0x6C],
+		gameCode: [0x48],
+		hostId: [0x4C],
+		clientId: [0x50],
 		allPlayersPtr: [0x1c57be8, 0x5c, 0, 0x24],
 		allPlayers: [0x08],
 		playerCount: [0x0c],
@@ -182,7 +194,7 @@ export default {
 		exiledPlayerId: [0xff, 0x1c573a4, 0x5c, 0, 0x94, 0x08],
 		shipStatus: [0x1c57cac, 0x5c, 0x0],
 		shipStatus_systems: [0x84],
-		shipStatus_map: [0xd4],
+		shipStatus_map: [0xE4],
 		shipstatus_allDoors: [0x7c],
 		door_doorId: 0x10,
 		door_isOpen: 0x14,
@@ -194,13 +206,18 @@ export default {
 		planetSurveillanceMinigame_currentCamera: [0x64],
 		planetSurveillanceMinigame_camarasCount: [0x50, 0x0c],
 		surveillanceMinigame_FilteredRoomsCount: [0x38, 0x0c],
+		pallete: [0xffff, 0x5c],
+		pallete_playercolor: [0xE8],
+		pallete_shadowColor: [0xEC],
 		lightRadius: [0x54, 0x1c],
 		player: {
 			struct: [
 				{ type: 'SKIP', skip: 8, name: 'unused' },
 				{ type: 'UINT', name: 'id' },
 				{ type: 'UINT', name: 'name' },
-				{ type: 'UINT', name: 'color' },
+				{ type: 'SKIP', skip: 1, name: 'unused' },
+				{ type: 'USHORT', name: 'color' },
+				{ type: 'SKIP', skip: 1, name: 'unused' },
 				{ type: 'UINT', name: 'hat' },
 				{ type: 'UINT', name: 'pet' },
 				{ type: 'UINT', name: 'skin' },
@@ -211,15 +228,15 @@ export default {
 				{ type: 'SKIP', skip: 2, name: 'unused' },
 				{ type: 'UINT', name: 'objectPtr' },
 			],
-			isLocal: [84],
-			localX: [96, 80],
-			localY: [96, 84],
-			remoteX: [96, 60],
-			remoteY: [96, 64],
+			isLocal: [0x54],
+			localX: [0x64, 80],
+			localY: [0x64, 84],
+			remoteX: [0x64, 60],
+			remoteY: [0x64, 64],
 			bufferLength: 56,
 			offsets: [0, 0],
 			inVent: [0x31],
-			clientId: [28],
+			clientId: [0x1C],
 		},
 		signatures: {
 			innerNetClient: {
@@ -247,6 +264,11 @@ export default {
 			miniGame: {
 				sig:
 					'A1 ? ? ? ? 8B 40 5C 8B 08 85 C9 0F 84 ? ? ? ? 8B 01 FF B0 ? ? ? ? 8B 80 ? ? ? ? 51 FF D0 83 C4 08 A1 ? ? ? ? 8B 40 5C',
+				patternOffset: 1,
+				addressOffset: 0,
+			},
+			pallette: {
+				sig: 'A1 ? ? ? ? 0F 57 C0 8B 5D 08 0F 11 45 A8 66 0F D6 45 ? F6 80 ? ? ? ? ?',
 				patternOffset: 1,
 				addressOffset: 0,
 			},
