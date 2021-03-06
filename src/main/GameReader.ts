@@ -17,6 +17,7 @@ import Errors from '../common/Errors';
 import { CameraLocation, MapType } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
 import { RainbowColorId } from '../renderer/cosmetics';
+import { TempFixOffsets } from './offsetStore';
 
 interface ValueType<T> {
 	read(buffer: BufferSource, offset: number): T;
@@ -147,8 +148,6 @@ export default class GameReader {
 			let map = MapType.UNKNOWN;
 			const closedDoors: number[] = [];
 			let localPlayer = undefined;
-			this.gameCode = "a";
-			state = GameState.TASKS;
 			if (this.gameCode && playerCount) {
 				for (let i = 0; i < Math.min(playerCount, 20); i++) {
 					const { address, last } = this.offsetAddress(playerAddrPtr, this.offsets.player.offsets);
@@ -211,7 +210,6 @@ export default class GameReader {
 					}
 					const minigamePtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets!.miniGame);
 					const minigameCachePtr = this.readMemory<number>('ptr', minigamePtr, this.offsets!.objectCachePtr);
-					console.log("minigameCachePtr: ", minigameCachePtr)
 
 					if (minigameCachePtr && minigameCachePtr !== 0 && localPlayer) {
 						if (map === MapType.POLUS) {
@@ -225,7 +223,6 @@ export default class GameReader {
 								minigamePtr,
 								this.offsets!.planetSurveillanceMinigame_camarasCount
 							);
-							console.log("currentCameraId: ", currentCameraId)
 
 							if (currentCameraId >= 0 && currentCameraId <= 5 && camarasCount === 6) {
 								currentCamera = currentCameraId as CameraLocation;
@@ -322,17 +319,6 @@ export default class GameReader {
 		console.log('INITIALIZEOFFSETS???');
 		this.is_64bit = this.isX64Version();
 		this.offsets = this.is_64bit ? offsetStore.x64 : offsetStore.x86;
-		this.PlayerStruct = new Struct();
-		for (const member of this.offsets.player.struct) {
-			if (member.type === 'SKIP' && member.skip) {
-				this.PlayerStruct = this.PlayerStruct.addMember(Struct.TYPES.SKIP(member.skip), member.name);
-			} else {
-				this.PlayerStruct = this.PlayerStruct.addMember<unknown>(
-					Struct.TYPES[member.type] as ValueType<unknown>,
-					member.name
-				);
-			}
-		}
 
 		const innerNetClient = this.findPattern(
 			this.offsets.signatures.innerNetClient.sig,
@@ -365,30 +351,30 @@ export default class GameReader {
 			this.offsets.signatures.palette.patternOffset,
 			this.offsets.signatures.palette.addressOffset
 		);
-		console.log(
-			'innernetclient',
-			innerNetClient.toString(16),
-			'meetingHud',
-			meetingHud.toString(16),
-			'gameData',
-			gameData.toString(16),
-			'shipStatus',
-			shipStatus.toString(16),
-			'miniGame',
-			miniGame.toString(16),
-			'palette',
-			palette.toString(16)
-		);
-		this.offsets.palette[0] = palette;
 
+		this.offsets.palette[0] = palette;
 		this.offsets.meetingHud[0] = meetingHud;
 		this.offsets.exiledPlayerId[1] = meetingHud;
-
 		this.offsets.allPlayersPtr[0] = gameData;
 		this.offsets.innerNetClient[0] = innerNetClient;
 		this.offsets.shipStatus[0] = shipStatus;
 		this.offsets.miniGame[0] = miniGame;
 		this.colorsInitialized = false;
+		if (innerNetClient === 0x1c57f54) {
+			// temp fix for older game until I added more sigs..
+			this.offsets = TempFixOffsets(this.offsets);
+		}
+		this.PlayerStruct = new Struct();
+		for (const member of this.offsets.player.struct) {
+			if (member.type === 'SKIP' && member.skip) {
+				this.PlayerStruct = this.PlayerStruct.addMember(Struct.TYPES.SKIP(member.skip), member.name);
+			} else {
+				this.PlayerStruct = this.PlayerStruct.addMember<unknown>(
+					Struct.TYPES[member.type] as ValueType<unknown>,
+					member.name
+				);
+			}
+		}
 	}
 
 	loadColors() {
@@ -400,7 +386,6 @@ export default class GameReader {
 		const ShadowColorsPtr = this.readMemory<number>('ptr', palletePtr, this.offsets!.palette_shadowColor);
 
 		const colorLength = Math.min(this.readMemory<number>('int', ShadowColorsPtr, this.offsets!.playerCount), 30);
-		console.log('COLOR', colorLength);
 		if (colorLength == 0) {
 			return;
 		}
@@ -438,7 +423,7 @@ export default class GameReader {
 			this.gameAssembly.modBaseAddr + optionalHeader_offset + 0x18,
 			'short'
 		);
-		console.log(optionalHeader_magic, 'optionalHeader_magic');
+	//	console.log(optionalHeader_magic, 'optionalHeader_magic');
 		return optionalHeader_magic === 0x20b;
 	}
 
