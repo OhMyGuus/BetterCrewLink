@@ -123,7 +123,7 @@ export default class GameReader {
 					: lobbyCodeInt === this.lastState.lobbyCodeInt
 					? this.gameCode
 					: this.IntToGameCode(lobbyCodeInt);
-
+			//console.log('state: ', gameState, 'code:', this.IntToGameCode(lobbyCodeInt), '');
 			const allPlayersPtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets.allPlayersPtr);
 			const allPlayers = this.readMemory<number>('ptr', allPlayersPtr, this.offsets.allPlayers);
 
@@ -147,6 +147,8 @@ export default class GameReader {
 			let map = MapType.UNKNOWN;
 			const closedDoors: number[] = [];
 			let localPlayer = undefined;
+			this.gameCode = "a";
+			state = GameState.TASKS;
 			if (this.gameCode && playerCount) {
 				for (let i = 0; i < Math.min(playerCount, 20); i++) {
 					const { address, last } = this.offsetAddress(playerAddrPtr, this.offsets.player.offsets);
@@ -209,6 +211,7 @@ export default class GameReader {
 					}
 					const minigamePtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets!.miniGame);
 					const minigameCachePtr = this.readMemory<number>('ptr', minigamePtr, this.offsets!.objectCachePtr);
+					console.log("minigameCachePtr: ", minigameCachePtr)
 
 					if (minigameCachePtr && minigameCachePtr !== 0 && localPlayer) {
 						if (map === MapType.POLUS) {
@@ -222,6 +225,7 @@ export default class GameReader {
 								minigamePtr,
 								this.offsets!.planetSurveillanceMinigame_camarasCount
 							);
+							console.log("currentCameraId: ", currentCameraId)
 
 							if (currentCameraId >= 0 && currentCameraId <= 5 && camarasCount === 6) {
 								currentCamera = currentCameraId as CameraLocation;
@@ -356,12 +360,26 @@ export default class GameReader {
 			this.offsets.signatures.miniGame.addressOffset
 		);
 
-		const pallete = this.findPattern(
-			this.offsets.signatures.pallette.sig,
-			this.offsets.signatures.pallette.patternOffset,
-			this.offsets.signatures.pallette.addressOffset
+		const palette = this.findPattern(
+			this.offsets.signatures.palette.sig,
+			this.offsets.signatures.palette.patternOffset,
+			this.offsets.signatures.palette.addressOffset
 		);
-		this.offsets.pallete[0] = pallete;
+		console.log(
+			'innernetclient',
+			innerNetClient.toString(16),
+			'meetingHud',
+			meetingHud.toString(16),
+			'gameData',
+			gameData.toString(16),
+			'shipStatus',
+			shipStatus.toString(16),
+			'miniGame',
+			miniGame.toString(16),
+			'palette',
+			palette.toString(16)
+		);
+		this.offsets.palette[0] = palette;
 
 		this.offsets.meetingHud[0] = meetingHud;
 		this.offsets.exiledPlayerId[1] = meetingHud;
@@ -377,15 +395,12 @@ export default class GameReader {
 		if (this.colorsInitialized) {
 			return;
 		}
-		const palletePtr = this.readMemory<number>('ptr', this.gameAssembly!.modBaseAddr, this.offsets!.pallete);
-		const PlayerColorsPtr = this.readMemory<number>('ptr', palletePtr, this.offsets!.pallete_playercolor);
-		const ShadowColorsPtr = this.readMemory<number>('ptr', palletePtr,  this.offsets!.pallete_shadowColor);
+		const palletePtr = this.readMemory<number>('ptr', this.gameAssembly!.modBaseAddr, this.offsets!.palette);
+		const PlayerColorsPtr = this.readMemory<number>('ptr', palletePtr, this.offsets!.palette_playercolor);
+		const ShadowColorsPtr = this.readMemory<number>('ptr', palletePtr, this.offsets!.palette_shadowColor);
 
-		const colorLength = Math.min(
-			this.readMemory<number>('int', ShadowColorsPtr, this.offsets!.playerCount),
-			30
-		);
-		console.log("COLOR", colorLength)
+		const colorLength = Math.min(this.readMemory<number>('int', ShadowColorsPtr, this.offsets!.playerCount), 30);
+		console.log('COLOR', colorLength);
 		if (colorLength == 0) {
 			return;
 		}
@@ -423,6 +438,7 @@ export default class GameReader {
 			this.gameAssembly.modBaseAddr + optionalHeader_offset + 0x18,
 			'short'
 		);
+		console.log(optionalHeader_magic, 'optionalHeader_magic');
 		return optionalHeader_magic === 0x20b;
 	}
 

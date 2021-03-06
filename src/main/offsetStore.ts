@@ -38,9 +38,9 @@ export interface IOffsets {
 	planetSurveillanceMinigame_currentCamera: number[];
 	planetSurveillanceMinigame_camarasCount: number[];
 	surveillanceMinigame_FilteredRoomsCount: number[];
-	pallete: number[];
-	pallete_shadowColor: number[];
-	pallete_playercolor: number[];
+	palette: number[];
+	palette_shadowColor: number[];
+	palette_playercolor: number[];
 	player: {
 		isLocal: number[];
 		localX: number[];
@@ -75,7 +75,7 @@ export interface IOffsets {
 		gameData: ISignature;
 		shipStatus: ISignature;
 		miniGame: ISignature;
-		pallette: ISignature
+		palette: ISignature
 	};
 }
 
@@ -85,11 +85,10 @@ export default {
 		objectCachePtr: [0x10],
 		meetingHudState: [0xc0],
 		innerNetClient: [0x1c57f54, 0xb8, 0x0],
-
 		gameState: [0xac],
-		gameCode: [0x74],
-		hostId: [0x78],
-		clientId: [0x7c],
+		gameCode: [0x84],
+		hostId: [0x88],
+		clientId: [0x8C],
 		allPlayersPtr: [0x21d0e60, 0xb8, 0, 0x30],
 		allPlayers: [0x10],
 		playerCount: [0x18],
@@ -97,7 +96,7 @@ export default {
 		exiledPlayerId: [0xff, 0x21d03e0, 0xb8, 0, 0xe0, 0x10],
 		shipStatus: [0x21d0ce0, 0xb8, 0x0],
 		shipStatus_systems: [0xc0],
-		shipStatus_map: [0x154],
+		shipStatus_map: [0x174],
 		shipstatus_allDoors: [0xb0],
 		door_doorId: 0x1c,
 		door_isOpen: 0x20,
@@ -107,13 +106,14 @@ export default {
 		hqHudSystemType_CompletedConsoles: [0x18, 0x20], // OAMJKPNKGBM
 		HudOverrideSystemType_isActive: [0x10],
 		miniGame: [0x1c57cac, 0xb8, 0x0],
-		planetSurveillanceMinigame_currentCamera: [0xc8],
-		planetSurveillanceMinigame_camarasCount: [0xa0, 0x18],
-		surveillanceMinigame_FilteredRoomsCount: [0x70, 0x18],
+		planetSurveillanceMinigame_currentCamera: [0xD0],
+		planetSurveillanceMinigame_camarasCount: [0xA8, 0x18],
+		surveillanceMinigame_FilteredRoomsCount: [0x78, 0x18],
 		lightRadius: [0x78, 0x34],
-		pallete: [0xffff, 0x5c],
-		pallete_playercolor: [0xE8],
-		pallete_shadowColor: [0xEC],
+		palette: [0xffff, 0xb8],
+		palette_playercolor: [0xF0],
+		palette_shadowColor: [0xF8],
+		
 		player: {
 			struct: [
 				{ type: 'SKIP', skip: 16, name: 'unused' },
@@ -135,19 +135,19 @@ export default {
 				{ type: 'UINT', name: 'objectPtr' },
 				{ type: 'SKIP', skip: 4, name: 'unused' },
 			],
-			isLocal: [120],
-			localX: [144, 108],
-			localY: [144, 112],
-			remoteX: [144, 88],
-			remoteY: [144, 92],
+			isLocal: [0x78],
+			localX: [0x98, 0x6C],
+			localY: [0x98, 0x70],
+			remoteX: [0x98, 0x58],
+			remoteY: [0x98, 0x5C],
 			bufferLength: 80,
 			offsets: [0, 0],
-			inVent: [61],
+			inVent: [0x3D],
 			clientId: [0x28],
 		},
 		signatures: {
 			innerNetClient: {
-				sig: '48 8B 05 ? ? ? ? 48 8B 88 ? ? ? ? 48 8B 01 48 85 C0 0F 84 ? ? ? ? 66 66 66 0F 1F 84 00 ? ? ? ?',
+				sig: '48 8B 05 ? ? ? ? 48 8B 88 ? ? ? ? 48 8B 09 48 85 C9 0F 84 ? ? ? ? 8B 81 ? ? ? ? ',
 				patternOffset: 3,
 				addressOffset: 4,
 			},
@@ -167,12 +167,12 @@ export default {
 				addressOffset: 4,
 			},
 			miniGame: {
-				sig: '48 8B 05 ? ? ? ? 48 8B 90 ? ? ? ? 48 C7 02 ? ? ? ? ',
+				sig: '48 8B 05 ? ? ? ? 4C 8B 80 ? ? ? ? 49 89 38 48 89 5F 20 48 85 DB 75 04 33 C0 EB 35 48 8B 15 ? ? ? ?',
 				patternOffset: 3,
 				addressOffset: 4,
 			},
-			pallette: {
-				sig: '48 8B 05 ? ? ? ? 48 8B 90 ? ? ? ? 48 C7 02 ? ? ? ? ',
+			palette: {
+				sig: '48 8B 05 ? ? ? ? 48 8B 80 ? ? ? ? 4C 8D 44 24 ? 0F 28 DF 66 0F 7F 74 24 ? 48 8D 54 24 ? 48 89 74 24 ? 48 8D 4C 24 ? 0F 10 40 40 0F 29 44 24 ? ',
 				patternOffset: 3,
 				addressOffset: 4,
 			},
@@ -203,12 +203,12 @@ export default {
 		hqHudSystemType_CompletedConsoles: [0xc, 0x10],
 		HudOverrideSystemType_isActive: [0x8],
 		miniGame: [0x1c57cac, 0x5c, 0x0],
-		planetSurveillanceMinigame_currentCamera: [0x64],
-		planetSurveillanceMinigame_camarasCount: [0x50, 0x0c],
-		surveillanceMinigame_FilteredRoomsCount: [0x38, 0x0c],
-		pallete: [0xffff, 0x5c],
-		pallete_playercolor: [0xE8],
-		pallete_shadowColor: [0xEC],
+		planetSurveillanceMinigame_currentCamera: [0x6C],
+		planetSurveillanceMinigame_camarasCount: [0x58, 0x0c],
+		surveillanceMinigame_FilteredRoomsCount: [0x40, 0x0c],
+		palette: [0xffff, 0x5c],
+		palette_playercolor: [0xE8],
+		palette_shadowColor: [0xEC],
 		lightRadius: [0x54, 0x1c],
 		player: {
 			struct: [
@@ -267,7 +267,7 @@ export default {
 				patternOffset: 1,
 				addressOffset: 0,
 			},
-			pallette: {
+			palette: {
 				sig: 'A1 ? ? ? ? 0F 57 C0 8B 5D 08 0F 11 45 A8 66 0F D6 45 ? F6 80 ? ? ? ? ?',
 				patternOffset: 1,
 				addressOffset: 0,
