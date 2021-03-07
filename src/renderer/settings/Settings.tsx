@@ -167,11 +167,9 @@ const store = new Store<ISettings>({
 			// @ts-ignore
 			store.delete('pushToTalk');
 		},
-		'2.3.5': (store) => {
-            if (store.get('serverURL') === 'https://crewl.ink') {
-                store.set('serverURL', 'https://bettercrewl.ink');
-            }
-        },
+		'2.3.6': (store) => {
+			store.set('serverURL', 'https://bettercrewl.ink');
+		},
 	},
 	schema: {
 		alwaysOnTop: {
@@ -468,7 +466,7 @@ const URLInput: React.FC<URLInputProps> = function ({ initialURL, onValidURL, cl
 						onClick={() => {
 							setOpen(false);
 							setURLValid(true);
-							onValidURL('https://bettercrewl.ink/');
+							onValidURL('https://bettercrewl.ink');
 						}}
 					>
 						Reset to default
