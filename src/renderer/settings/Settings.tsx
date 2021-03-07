@@ -187,7 +187,7 @@ const store = new Store<ISettings>({
 		},
 		serverURL: {
 			type: 'string',
-			default: 'https://crewl.ink',
+			default: 'https://bettercrewl.ink',
 			format: 'uri',
 		},
 		pushToTalkShortcut: {
@@ -463,7 +463,7 @@ const URLInput: React.FC<URLInputProps> = function ({ initialURL, onValidURL, cl
 						onClick={() => {
 							setOpen(false);
 							setURLValid(true);
-							onValidURL('https://crewl.ink');
+							onValidURL('https://bettercrewl.ink/');
 						}}
 					>
 						Reset to default
