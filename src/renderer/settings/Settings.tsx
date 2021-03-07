@@ -167,6 +167,11 @@ const store = new Store<ISettings>({
 			// @ts-ignore
 			store.delete('pushToTalk');
 		},
+		'2.3.5': (store) => {
+            if (store.get('serverURL') === 'https://crewl.ink') {
+                store.set('serverURL', 'https://bettercrewl.ink');
+            }
+        },
 	},
 	schema: {
 		alwaysOnTop: {
@@ -187,7 +192,7 @@ const store = new Store<ISettings>({
 		},
 		serverURL: {
 			type: 'string',
-			default: 'https://crewl.ink',
+			default: 'https://bettercrewl.ink',
 			format: 'uri',
 		},
 		pushToTalkShortcut: {
@@ -463,7 +468,7 @@ const URLInput: React.FC<URLInputProps> = function ({ initialURL, onValidURL, cl
 						onClick={() => {
 							setOpen(false);
 							setURLValid(true);
-							onValidURL('https://crewl.ink');
+							onValidURL('https://bettercrewl.ink/');
 						}}
 					>
 						Reset to default

@@ -125,7 +125,7 @@ export default function App(): JSX.Element {
 		microphone: 'Default',
 		speaker: 'Default',
 		pushToTalkMode: pushToTalkOptions.VOICE,
-		serverURL: 'https://crewl.ink',
+		serverURL: 'https://bettercrewl.ink/',
 		pushToTalkShortcut: 'V',
 		deafenShortcut: 'RControl',
 		muteShortcut: 'RAlt',
