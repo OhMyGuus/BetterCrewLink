@@ -167,6 +167,11 @@ const store = new Store<ISettings>({
 			// @ts-ignore
 			store.delete('pushToTalk');
 		},
+		'2.3.5': (store) => {
+            if (store.get('serverURL') === 'https://crewl.ink') {
+                store.set('serverURL', 'https://bettercrewl.ink');
+            }
+        },
 	},
 	schema: {
 		alwaysOnTop: {
