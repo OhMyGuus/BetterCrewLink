@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 		height: 40,
 	},
 	scroll: {
-		paddingTop: theme.spacing(3),
+		paddingTop: theme.spacing(1),
 		paddingLeft: theme.spacing(2),
 		paddingRight: theme.spacing(2),
 		overflowY: 'auto',
@@ -708,8 +708,10 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 							</Button>
 						</DialogActions>
 					</Dialog>
-					<Typography variant="h6">Lobby Settings</Typography>
-					<Typography gutterBottom>
+				</div>
+				<Typography variant="h6">Lobby Settings</Typography>
+				<div>
+					<Typography id="input-slider" gutterBottom>
 						<i>
 							{canChangeLobbySettings
 								? localLobbySettings.visionHearing
@@ -741,12 +743,14 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 							}}
 						/>
 					</DisabledTooltip>
+				</div>
+				<div>
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
 						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
 					>
 						<FormControlLabel
-							label="Walls block audio"
+							label="Walls Block Audio"
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
 								localLobbySettings.wallsBlockAudio = newValue;
@@ -767,7 +771,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
 					>
 						<FormControlLabel
-							label="Hear people in vision only"
+							label="Hear People in Vision Only"
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
 								console.log('new vlaue of setting: ', newValue);
@@ -818,7 +822,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
 					>
 						<FormControlLabel
-							label="Hear Impostors In Vents"
+							label="Hear Impostors in Vents"
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
 								localLobbySettings.hearImpostorsInVents = newValue;
@@ -843,7 +847,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
 					>
 						<FormControlLabel
-							label="Private talk in vents"
+							label="Private Talk in Vents"
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
 								localLobbySettings.impostersHearImpostersInvent = newValue;
@@ -894,7 +898,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
 					>
 						<FormControlLabel
-							label="Hear through cameras"
+							label="Hear Through Cameras"
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
 								localLobbySettings.hearThroughCameras = newValue;
@@ -918,7 +922,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
 					>
 						<FormControlLabel
-							label="Only ghost can talk/hear"
+							label="Only Ghosts Can Talk/Hear"
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
 								console.log('new vlaue of setting: ', newValue);
@@ -951,7 +955,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
 					>
 						<FormControlLabel
-							label="Meetings &amp; lobby only"
+							label="Meetings/Lobby Only"
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
 								console.log('new vlaue of setting: ', newValue);
@@ -1047,7 +1051,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 
 				<div>
 					<Typography id="input-slider" gutterBottom>
-						Microphone volume
+						Microphone Volume
 					</Typography>
 					<Grid container spacing={2}>
 						<Grid item xs={3}>
@@ -1088,7 +1092,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						</Grid>
 					</Grid>
 					<Typography id="input-slider" gutterBottom>
-						Microphone sensitivity
+						Microphone Sensitivity
 					</Typography>
 					<Grid container spacing={2}>
 						<Grid item xs={3}>
@@ -1131,7 +1135,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 					<Divider />
 
 					<Typography id="input-slider" gutterBottom>
-						Crew volume as ghost
+						Crew Volume as Ghost
 					</Typography>
 					<Slider
 						value={settings.ghostVolume}
@@ -1145,7 +1149,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						aria-labelledby="input-slider"
 					/>
 					<Typography id="input-slider" gutterBottom>
-						Master volume
+						Master Volume
 					</Typography>
 					<Slider
 						value={settings.masterVolume}
@@ -1217,7 +1221,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 				<Divider />
 				<Typography variant="h6">Overlay</Typography>
 				<FormControlLabel
-					label="Crewlink on top"
+					label="Crewlink on Top"
 					checked={settings.alwaysOnTop}
 					onChange={(_, checked: boolean) => {
 						setSettings({
@@ -1241,7 +1245,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 				{settings.enableOverlay && (
 					<>
 						<FormControlLabel
-							label="compact Overlay"
+							label="Compact Overlay"
 							checked={settings.compactOverlay}
 							onChange={(_, checked: boolean) => {
 								setSettings({
@@ -1294,7 +1298,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 				<Typography variant="h6">Advanced</Typography>
 				<div>
 					<FormControlLabel
-						label="NAT FIX"
+						label="NAT Fix"
 						checked={settings.natFix}
 						onChange={(_, checked: boolean) => {
 							openWarningDialog(
@@ -1327,7 +1331,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 				<Typography variant="h6">BETA/DEBUG</Typography>
 				<div>
 					<FormControlLabel
-						label="Mobile host"
+						label="Mobile Host"
 						checked={settings.mobileHost}
 						onChange={(_, checked: boolean) => {
 							setSettings({
@@ -1338,7 +1342,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
-						label="VAD enabled"
+						label="VAD Enabled"
 						checked={settings.vadEnabled}
 						onChange={(_, checked: boolean) => {
 							openWarningDialog(
@@ -1367,7 +1371,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
-						label="Spatial audio"
+						label="Spatial Audio"
 						checked={settings.enableSpatialAudio}
 						onChange={(_, checked: boolean) => {
 							setSettings({
@@ -1404,7 +1408,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
-						label="OBS browseroverlay"
+						label="OBS Browser Overlay"
 						checked={settings.obsOverlay}
 						onChange={(_, checked: boolean) => {
 							setSettings({
