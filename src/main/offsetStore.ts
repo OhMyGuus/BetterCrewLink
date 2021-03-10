@@ -95,7 +95,7 @@ export default {
 		playerAddrPtr: 0x20,
 		exiledPlayerId: [0xff, 0x21d03e0, 0xb8, 0, 0xe0, 0x10],
 		shipStatus: [0x21d0ce0, 0xb8, 0x0],
-		shipStatus_systems: [0xc0],
+		shipStatus_systems: [0xD0],
 		shipStatus_map: [0x174],
 		shipstatus_allDoors: [0xb0],
 		door_doorId: 0x1c,
@@ -195,7 +195,7 @@ export default {
 		playerAddrPtr: 0x10,
 		exiledPlayerId: [0xff, 0x1c573a4, 0x5c, 0, 0x94, 0x08],
 		shipStatus: [0x1c57cac, 0x5c, 0x0],
-		shipStatus_systems: [0x84],
+		shipStatus_systems: [0x8C],
 		shipStatus_map: [0xe4],
 		shipstatus_allDoors: [0x7c],
 		door_doorId: 0x10,
@@ -295,6 +295,7 @@ export function TempFixOffsets(offsetsOld: IOffsets): IOffsets {
 	offsets!.palette[0] = 0x1c57fc4;
 	offsets!.palette_playercolor[0] = 0xe4;
 	offsets!.palette_shadowColor[0] = 0xe8;
+	offsets!.shipStatus_systems[0] = 0x84;
 
 	return offsets;
 }

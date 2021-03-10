@@ -84,7 +84,7 @@ export default class GameReader {
 		try {
 			this.checkProcessOpen();
 		} catch (e) {
-			return 'Error with chcecking the process';
+			return `Error with chcecking the process, ${e.toString()}`;
 		}
 		if (this.PlayerStruct && this.offsets && this.amongUs !== null && this.gameAssembly !== null) {
 			this.loadColors();
