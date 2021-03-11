@@ -631,6 +631,14 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 		}
 	};
 
+	const resetDefaults = () => {
+		store.clear();
+		setSettings({
+			type: 'set',
+			action: store.store,
+		});
+	};
+
 	const microphones = devices.filter((d) => d.kind === 'audioinput');
 	const speakers = devices.filter((d) => d.kind === 'audiooutput');
 	const [localLobbySettings, setLocalLobbySettings] = useState(settings.localLobbySettings);
@@ -638,10 +646,11 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 	useEffect(() => {
 		setLocalLobbySettings(settings.localLobbySettings);
 	}, [settings.localLobbySettings]);
-
+	
 	const isInMenuOrLobby = gameState?.gameState === GameState.LOBBY || gameState?.gameState === GameState.MENU;
 	const canChangeLobbySettings =
 		gameState?.gameState === GameState.MENU || (gameState?.isHost && gameState?.gameState === GameState.LOBBY);
+	const isInMenuOrGameClosed = (gameState.gameState === undefined) || (gameState.gameState === GameState.MENU);
 
 	const [warningDialog, setWarningDialog] = React.useState({ open: false } as IConfirmDialog);
 
@@ -1475,6 +1484,21 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 							/>
 						</>
 					)}
+				</div>
+				<Divider />
+				<Typography variant="h6">Troubleshooting</Typography>
+				<div>
+					<DisabledTooltip
+						disabled={!isInMenuOrGameClosed}
+						title={"Not available while in lobby"}
+					>
+						<Button
+							disabled={!isInMenuOrGameClosed}
+							variant="contained" 
+							color="secondary"
+							onClick={() => resetDefaults()}
+						>Restore Defaults</Button>
+					</DisabledTooltip>
 				</div>
 				<Alert className={classes.alert} severity="info" style={{ display: unsaved ? undefined : 'none' }}>
 					Exit Settings to apply changes
