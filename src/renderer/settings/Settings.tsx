@@ -632,11 +632,24 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 	};
 
 	const resetDefaults = () => {
-		store.clear();
-		setSettings({
-			type: 'set',
-			action: store.store,
-		});
+		openWarningDialog(
+			'Are you sure?',
+			'This will reset ALL settings to their default values.',
+			() => {
+				store.clear();
+				setSettings({
+					type: 'set',
+					action: store.store,
+				});
+
+				// I'm like 90% sure this isn't necessary but whenever you click the mic/speaker dropdown it is called, so it may be necessary
+				// updateDevices(); 
+
+				// This is necessary for resetting hotkeys properly, the main thread needs to be notified to reset the hooks
+				ipcRenderer.send(IpcHandlerMessages.RESET_KEYHOOKS);
+			},
+			true
+		);
 	};
 
 	const microphones = devices.filter((d) => d.kind === 'audioinput');
@@ -646,7 +659,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 	useEffect(() => {
 		setLocalLobbySettings(settings.localLobbySettings);
 	}, [settings.localLobbySettings]);
-	
+
 	const isInMenuOrLobby = gameState?.gameState === GameState.LOBBY || gameState?.gameState === GameState.MENU;
 	const canChangeLobbySettings =
 		gameState?.gameState === GameState.MENU || (gameState?.isHost && gameState?.gameState === GameState.LOBBY);
