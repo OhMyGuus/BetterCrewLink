@@ -1117,17 +1117,25 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						>
 							<Slider
 								disabled={!settings.micSensitivityEnabled}
-								value={settings.micSensitivity}
+								value={+((1 - settings.micSensitivity).toFixed(2))}
 								valueLabelDisplay="auto"
 								min={0}
 								max={1}
+								color={settings.micSensitivity < 0.3? "primary" : "secondary"}
 								step={0.05}
 								onChange={(_, newValue: number | number[]) => {
-									setSettings({
-										type: 'setOne',
-										action: ['micSensitivity', newValue],
-									});
-								}}
+									openWarningDialog(
+										'Are you sure?',
+										'If you set the sensitivity any lower it might not work.',
+										() => {
+											setSettings({
+												type: 'setOne',
+												action: ['micSensitivity', (1 - (newValue as number))],
+											});
+										},
+										newValue == 0.7 && settings.micSensitivity < 0.3
+									);
+							}}
 								aria-labelledby="input-slider"
 							/>
 						</Grid>
