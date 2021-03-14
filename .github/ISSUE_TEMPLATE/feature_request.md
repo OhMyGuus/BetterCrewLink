@@ -13,7 +13,7 @@ Please use this checklist to avoid spamming:
 2. [ ] I have checked that someone else has not suggested this using the [search bar](https://github.com/OhMyGuus/BetterCrewLink/issues?q=is%3Aissue)
 3. [ ] My feature request is not one of the **commonly suggested features**:
 - Linux/MacOS support (is already being development and you can follow this development [clicking here](https://github.com/OhMyGuus/BetterCrewLink/pull/29)
--iOS app (its already being development)
+- iOS app (its already being development)
 
 **Is your feature request related to a problem? Please describe.**
 <!-- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
