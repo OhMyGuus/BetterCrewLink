@@ -9,8 +9,8 @@ assignees: ''
 # Pre-Flight Checklist
 Please use this checklist to avoid spamming:
 
-1. [ ] I am not asking a question => use the [Discord](https://discord.gg/9mwuVNA) if you are
-2. [ ] I have checked that someone else has not suggested this using the [search bar](https://github.com/ottomated/CrewLink/issues?q=is%3Aissue)
+1. [ ] I am not asking a question => use the [Discord](https://discord.gg/qDqTzvj4SH) if you are
+2. [ ] I have checked that someone else has not suggested this using the [search bar](https://github.com/OhMyGuus/BetterCrewLink/issues?q=is%3Aissue)
 3. [ ] My feature request is not one of the **commonly suggested features**:
 - Adjustable voice radius
 - Mobile support
