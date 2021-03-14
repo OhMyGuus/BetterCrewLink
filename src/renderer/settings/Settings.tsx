@@ -631,6 +631,27 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 		}
 	};
 
+	const resetDefaults = () => {
+		openWarningDialog(
+			'Are you sure?',
+			'This will reset ALL settings to their default values.',
+			() => {
+				store.clear();
+				setSettings({
+					type: 'set',
+					action: store.store,
+				});
+
+				// I'm like 90% sure this isn't necessary but whenever you click the mic/speaker dropdown it is called, so it may be necessary
+				// updateDevices(); 
+
+				// This is necessary for resetting hotkeys properly, the main thread needs to be notified to reset the hooks
+				ipcRenderer.send(IpcHandlerMessages.RESET_KEYHOOKS);
+			},
+			true
+		);
+	};
+
 	const microphones = devices.filter((d) => d.kind === 'audioinput');
 	const speakers = devices.filter((d) => d.kind === 'audiooutput');
 	const [localLobbySettings, setLocalLobbySettings] = useState(settings.localLobbySettings);
@@ -642,6 +663,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 	const isInMenuOrLobby = gameState?.gameState === GameState.LOBBY || gameState?.gameState === GameState.MENU;
 	const canChangeLobbySettings =
 		gameState?.gameState === GameState.MENU || (gameState?.isHost && gameState?.gameState === GameState.LOBBY);
+	const isInMenuOrGameClosed = (gameState.gameState === undefined) || (gameState.gameState === GameState.MENU);
 
 	const [warningDialog, setWarningDialog] = React.useState({ open: false } as IConfirmDialog);
 
@@ -1475,6 +1497,21 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 							/>
 						</>
 					)}
+				</div>
+				<Divider />
+				<Typography variant="h6">Troubleshooting</Typography>
+				<div>
+					<DisabledTooltip
+						disabled={!isInMenuOrGameClosed}
+						title={"Not available while in lobby"}
+					>
+						<Button
+							disabled={!isInMenuOrGameClosed}
+							variant="contained" 
+							color="secondary"
+							onClick={() => resetDefaults()}
+						>Restore Defaults</Button>
+					</DisabledTooltip>
 				</div>
 				<Alert className={classes.alert} severity="info" style={{ display: unsaved ? undefined : 'none' }}>
 					Exit Settings to apply changes
