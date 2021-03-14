@@ -6,7 +6,7 @@
   <a href="https://github.com/OhMyGuus/BetterCrewLink">
     <img src="logo.png" alt="Logo" width="80" height="80">
   </a>
-  <h3 align="center">BetterCrewLink a Crewlink fork with extra features & better support</h3>
+  <h3 align="center">BetterCrewLink a CrewLink fork with extra features & better support</h3>
 
 
   <p align="center">
