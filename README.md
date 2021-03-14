@@ -30,7 +30,7 @@
   
 <b>Notes:</b><br />
 
- - For issues with this fork you can message me on discord (ThaGuus#2140) and I will do my best to resolve it.
+ - For issues with this fork you can message me on Discord (ThaGuus#2140) or reporting in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) and I will do my best to resolve it.
 
   -  To get the most of BetterCrewLink use the voice server: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
 
