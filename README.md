@@ -16,10 +16,10 @@
     ·
     <a href="https://github.com/OhMyGuus/CrewLink/issues">Request Feature</a>
     ·
-    <a href="#installation"><b>Installation Instructions</b></a>
+    <a href="#installation"><b>Installation Instructions</a>
   </p>
   <p align="center">
-    <b><a href="https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ">DONATE TO BETTERCREWLINK</a></b></br>
+    <b><a href="https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ">Donate to BetterCrewLink</a></b></br>
   (all donations will be used for the apple developer license and extra servers)</br>
    <b><a href="https://paypal.me/ottomated">Donate to ottomated (offical crewlink)</a></b>
   </p>
