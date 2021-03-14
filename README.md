@@ -55,28 +55,32 @@
 <!-- EXTRA FEATURES-->
 ## Extra features/fixes in this fork
 ```
-- Volume sliders
-- It doesn't break when someone leaves/disconnects
+- OBS browsersource overlay.
+- Hear people in vision only.
+- Walls block audio. 
+- Volume sliders.
+- It doesn't break when someone leaves/disconnects.
 - It works on any network even with upnp disabled (Strict NAT)
-- More fun settings like hearing through cameras 
-- You can actually disable the overlay
-- 32bit support, windows 7 support
-- U can change the volume of alive players after u died. 
-- U can set bettercrewlink to topmost
-- Settings actually sync between players and not half. 
-- CPU usage is lower than original Crewlink. 
-- U can actually press the mute key/deafen key while clicked on Bettercrewlink 
-- Your mouse doesn't start to lagg because of the buggy input hook. 
-- Changing the speaker setting does actually something unlike original crewlink where it is always using the default output. 
-- compatible with Crewlink 2.0 
-- Microphone echo cancellation 
-- Microphone noise suppression. 
-- more overlay positions and you can set the overlay to the top/bottom and you can set it so it shows everyone even when they aren't talking
+- More fun settings like hearing through cameras.
+- You can actually disable the overlay.
+- 32bit support, windows 7 support.
+- You can change the volume of alive players after u died.
+- You can set BetterCrewLink to topmost.
+- Settings actually sync between players and not half.
+- CPU usage is lower than original CrewLink.
+- You can actually press the mute key/deafen key while clicked on BetterCrewLink.
+- Your mouse doesn't start to lagg because of the buggy input hook.
+- Changing the speaker setting does actually something unlike original CrewLink where it is always using the default output.
+- Compatible with CrewLink 2.0 
+- Microphone echo cancellation.
+- Microphone noise suppression.
+- More overlay positions and you can set the overlay to the top/bottom and you can set it so it shows everyone even when they aren't talking.
 - You can set the lobby up so only death people can talk (normal lobbies but then with death talk)
-
+- Support for new version of Among Us (v2021.3.5)
+- Support for custom colors (mods that add more colors)
 - Support for mobile (BETA)
 ```
-**If I missed something u can dm me it so I can add it**
+**If I missed something you can DM me on Discord (ThaGuus#2140) it so I can add it**
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
