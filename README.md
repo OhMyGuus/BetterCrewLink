@@ -79,7 +79,7 @@
 - Support for custom colors (mods that add more colors)
 - Support for mobile (BETA)
 ```
-**If I missed something you can DM me on Discord (ThaGuus#2140) it so I can add it**
+**If I missed something you can DM me on Discord (ThaGuus#2140) or in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) it so I can add it**
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
