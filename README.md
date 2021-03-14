@@ -12,11 +12,11 @@
   <p align="center">
     Free, open, Among Us proximity voice chat.
     <br />
-    <a href="https://github.com/OhMyGuus/CrewLink/issues">Report Bug</a>
+    <a href="https://github.com/OhMyGuus/BetterCrewLink/issues">Report Bug</a>
     ·
-    <a href="https://github.com/OhMyGuus/CrewLink/issues">Request Feature</a>
+    <a href="https://github.com/OhMyGuus/BetterCrewLink/issues">Request Feature</a>
     ·
-    <a href="#installation"><b>Installation Instructions</a>
+    <a href="#installation">Installation Instructions</a>
   </p>
   <p align="center">
     <b><a href="https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ">Donate to BetterCrewLink</a></b></br>
