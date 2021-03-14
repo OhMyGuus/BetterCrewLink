@@ -32,7 +32,8 @@
 
  - For issues with this fork u can message me on discord (ThaGuus#2140) and I will do
    my best to resolve it.
-  -  To get the most of BetterCrewLink use the voice server`https://bettercrewl.ink`
+
+  -  To get the most of BetterCrewLink use the voice server: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
 
 </p>
 <a href="https://discord.gg/qDqTzvj4SH"> <img src="https://i.imgur.com/XpnBhTW.png" width="150px" /> </a>
@@ -75,7 +76,7 @@
 
 - Support for mobile (BETA)
 ```
-***If I missed something u can dm me it so I can add it ***
+**If I missed something u can dm me it so I can add it**
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -113,7 +114,7 @@ npm install yarn -g
 1. Clone the repo
 ```sh
 git clone https://github.com/OhMyGuus/BetterCrewLink.git
-cd CrewLink
+cd BetterCrewLink
 ```
 2. Install NPM packages
 ```sh
