@@ -16,7 +16,7 @@
     ·
     <a href="https://github.com/OhMyGuus/CrewLink/issues">Request Feature</a>
     ·
-    <a href="#installation"><b>INSTALLATION INSTRUCTIONS</b></a>
+    <a href="#installation"><b>Installation Instructions</b></a>
   </p>
   <p align="center">
     <b><a href="https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ">DONATE TO BETTERCREWLINK</a></b></br>
@@ -43,7 +43,7 @@
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
-* [Extra features in this fork](#extra-features-in-this-fork)
+* [Extra features in this fork](#extra-featuresfixes-in-this-fork)
 * [About the Project](#about-the-project)
 * [Installation](#installation)
 * [Development](#development)
@@ -139,7 +139,7 @@ Any contributions you make are greatly appreciated.
 
 ## License
 
-Distributed under the GNU General Public License v3.0. See `LICENSE` for more information.
+Distributed under the GNU General Public License v3.0. See <a href="https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE">`LICENSE`</a> for more information.
 
 
 [license-shield]: https://img.shields.io/github/license/OhMyGuus/BetterCrewLink.svg?style=flat-square
