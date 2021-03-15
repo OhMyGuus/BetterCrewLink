@@ -6,22 +6,22 @@
   <a href="https://github.com/OhMyGuus/BetterCrewLink">
     <img src="logo.png" alt="Logo" width="80" height="80">
   </a>
-  <h3 align="center">BetterCrewLink a Crewlink fork with extra features & better support</h3>
+  <h3 align="center">BetterCrewLink a CrewLink fork with extra features & better support</h3>
 
 
   <p align="center">
     Free, open, Among Us proximity voice chat.
     <br />
-    <a href="https://github.com/OhMyGuus/CrewLink/issues">Report Bug</a>
+    <a href="https://github.com/OhMyGuus/BetterCrewLink/issues">Report Bug</a>
     ·
-    <a href="https://github.com/OhMyGuus/CrewLink/issues">Request Feature</a>
+    <a href="https://github.com/OhMyGuus/BetterCrewLink/issues">Request Feature</a>
     ·
-    <a href="#installation"><b>INSTALLATION INSTRUCTIONS</b></a>
+    <a href="#installation">Installation Instructions</a>
   </p>
   <p align="center">
-    <b><a href="https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ">DONATE TO BETTERCREWLINK</a></b></br>
+    <b><a href="https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ">Donate to BetterCrewLink</a></b></br>
   (all donations will be used for the apple developer license and extra servers)</br>
-   <b><a href="https://paypal.me/ottomated">Donate to ottomated (offical crewlink)</a></b>
+   <b><a href="https://paypal.me/ottomated">Donate to ottomated (offical CrewLink)</a></b>
   </p>
 </p>
 <hr />
@@ -30,9 +30,9 @@
   
 <b>Notes:</b><br />
 
- - For issues with this fork u can message me on discord (ThaGuus#2140) and I will do
-   my best to resolve it.
-  -  To get the most of BetterCrewLink use the voice server`https://bettercrewl.ink`
+ - For issues with this fork you can message me on Discord (ThaGuus#2140) or reporting in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) and I will do my best to resolve it.
+
+  -  To get the most of BetterCrewLink use the voice server: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
 
 </p>
 <a href="https://discord.gg/qDqTzvj4SH"> <img src="https://i.imgur.com/XpnBhTW.png" width="150px" /> </a>
@@ -42,7 +42,7 @@
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
-* [Extra features in this fork](#extra-features-in-this-fork)
+* [Extra features in this fork](#extra-featuresfixes-in-this-fork)
 * [About the Project](#about-the-project)
 * [Installation](#installation)
 * [Development](#development)
@@ -54,28 +54,32 @@
 <!-- EXTRA FEATURES-->
 ## Extra features/fixes in this fork
 ```
-- Volume sliders
-- It doesn't break when someone leaves/disconnects
+- OBS browsersource overlay.
+- Hear people in vision only.
+- Walls block audio. 
+- Volume sliders.
+- It doesn't break when someone leaves/disconnects.
 - It works on any network even with upnp disabled (Strict NAT)
-- More fun settings like hearing through cameras 
-- You can actually disable the overlay
-- 32bit support, windows 7 support
-- U can change the volume of alive players after u died. 
-- U can set bettercrewlink to topmost
-- Settings actually sync between players and not half. 
-- CPU usage is lower than original Crewlink. 
-- U can actually press the mute key/deafen key while clicked on Bettercrewlink 
-- Your mouse doesn't start to lagg because of the buggy input hook. 
-- Changing the speaker setting does actually something unlike original crewlink where it is always using the default output. 
-- compatible with Crewlink 2.0 
-- Microphone echo cancellation 
-- Microphone noise suppression. 
-- more overlay positions and you can set the overlay to the top/bottom and you can set it so it shows everyone even when they aren't talking
+- More fun settings like hearing through cameras.
+- You can actually disable the overlay.
+- 32bit support, windows 7 support.
+- You can change the volume of alive players after u died.
+- You can set BetterCrewLink to topmost.
+- Settings actually sync between players and not half.
+- CPU usage is lower than original CrewLink.
+- You can actually press the mute key/deafen key while clicked on BetterCrewLink.
+- Your mouse doesn't start to lagg because of the buggy input hook.
+- Changing the speaker setting does actually something unlike original CrewLink where it is always using the default output.
+- Compatible with CrewLink 2.0 
+- Microphone echo cancellation.
+- Microphone noise suppression.
+- More overlay positions and you can set the overlay to the top/bottom and you can set it so it shows everyone even when they aren't talking.
 - You can set the lobby up so only death people can talk (normal lobbies but then with death talk)
-
+- Support for new version of Among Us (v2021.3.5)
+- Support for custom colors (mods that add more colors)
 - Support for mobile (BETA)
 ```
-***If I missed something u can dm me it so I can add it ***
+**If I missed something you can DM me on Discord (ThaGuus#2140) or in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) it so I can add it**
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -84,7 +88,7 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 
 ## Installation
 
-Download the latest version from [releases](https://github.com/OhMyGuus/CrewLink/releases) and run the `BetterCrewLink-Setup-X.X.X.exe` file. You may get antivirus warnings, because this program hooks into the Among Us process to read game data.
+Download the latest version from [releases](https://github.com/OhMyGuus/BetterCrewLink/releases/latest) and run the `BetterCrewLink-Setup-X.X.X.exe` file. You may get antivirus warnings, because this program hooks into the Among Us process to read game data.
 
 If you can, you should use a private server by deploying [this repository](https://github.com/OhMyGuus/BetterCrewLink-server).
 
@@ -113,7 +117,7 @@ npm install yarn -g
 1. Clone the repo
 ```sh
 git clone https://github.com/OhMyGuus/BetterCrewLink.git
-cd CrewLink
+cd BetterCrewLink
 ```
 2. Install NPM packages
 ```sh
@@ -138,7 +142,7 @@ Any contributions you make are greatly appreciated.
 
 ## License
 
-Distributed under the GNU General Public License v3.0. See `LICENSE` for more information.
+Distributed under the GNU General Public License v3.0. See <a href="https://github.com/OhMyGuus/BetterCrewLink/blob/master/LICENSE">`LICENSE`</a> for more information.
 
 
 [license-shield]: https://img.shields.io/github/license/OhMyGuus/BetterCrewLink.svg?style=flat-square
