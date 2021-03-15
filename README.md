@@ -108,7 +108,7 @@ Download the latest version from [Play Store](https://play.google.com/store/apps
 
 ## iOS
 
-An iOS version has not yet come out but you can use a [web version](https://web.bettercrewl.ink) (requires a PC player)
+An iOS version has not yet come out but you can use a [web version](https://web.bettercrewl.ink). (requires a PC player)
 
 ### Setup Instructions (click)
 
