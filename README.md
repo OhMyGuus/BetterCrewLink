@@ -42,9 +42,13 @@
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
-* [Extra features in this fork](#extra-featuresfixes-in-this-fork)
+* [Extra features/fixes in this fork](#extra-featuresfixes-in-this-fork)
 * [About the Project](#about-the-project)
 * [Installation](#installation)
+  * [Windows](#pc)
+  * [Linux](#linux)
+  * [Android](#android)
+  * [iOS](#ios)
 * [Development](#development)
   * [Prerequisites](#prerequisites)
   * [Setup](#setup)
@@ -94,7 +98,7 @@ Download the latest version from [releases](https://github.com/OhMyGuus/BetterCr
 
 ## Linux
 
-A version for [Linux] is already being developed but nothing has been released yet.
+A version for [Linux](https://github.com/OhMyGuus/BetterCrewLink/pull/29) is already being developed but nothing has been released yet.
 
 ## Android
 
