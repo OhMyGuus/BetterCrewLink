@@ -104,8 +104,6 @@ Download the latest version from [Play Store](https://play.google.com/store/apps
 
 An iOS version has not yet come out but you can use a [web version](https://web.bettercrewl.ink) (requires a PC player)
 
-If you can, you should use a private server by deploying [this repository](https://github.com/OhMyGuus/BetterCrewLink-server).
-
 ### Setup Instructions (click)
 
 [![Setup Video](https://img.youtube.com/vi/_8F4f5iQEIc/0.jpg)](https://www.youtube.com/watch?v=_8F4f5iQEIc "CrewLink Setup Instructions")
