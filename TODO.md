@@ -1,4 +1,4 @@
-# TODO before CrewLink 2.0.0
+# TODO
 
 ## Server
 
