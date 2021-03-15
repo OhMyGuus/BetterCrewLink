@@ -20,7 +20,7 @@
 - [x] Add individual adjustment sliders to each of the players.
 - [x] Add a OBS Overlay
 - [x] Add a Android support
-- [] Add a iOS Support 
+- [ ] Add a iOS Support 
 - [x] Add a option in "Host Settings" Can hear through cams.
 - [x] Add a option in "Host Settings" No talking through walls.
 - [x] Handle all RTC errors to make it unnecessary to ever re-open an RTC connection.
