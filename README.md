@@ -88,7 +88,21 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 
 ## Installation
 
+## Windows
+
 Download the latest version from [releases](https://github.com/OhMyGuus/BetterCrewLink/releases/latest) and run the `BetterCrewLink-Setup-X.X.X.exe` file. You may get antivirus warnings, because this program hooks into the Among Us process to read game data.
+
+## Linux
+
+A version for [Linux] is already being developed but nothing has been released yet.
+
+## Android
+
+Download the latest version from [Play Store](https://play.google.com/store/apps/details?id=io.bettercrewlink.app) and run the `BetterCrewlink` application. (requires a PC player)
+
+## iOS
+
+An iOS version has not yet come out but you can use a [web version](https://web.bettercrewl.ink) (requires a PC player)
 
 If you can, you should use a private server by deploying [this repository](https://github.com/OhMyGuus/BetterCrewLink-server).
 
