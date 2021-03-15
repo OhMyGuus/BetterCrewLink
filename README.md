@@ -30,6 +30,8 @@
   
 <b>Notes:</b><br />
 
+- This is a unofficial fork of CrewLink, so any problem, issue or suggestion you have with BetterCrewLink talk to us on our [Discord](https://discord.gg/qDqTzvj4SH) or [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues), it will not report any problems to Discord nor the official GitHub project of CrewLink they will not support you.
+
  - For issues with this fork you can message me on Discord (ThaGuus#2140) or reporting in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) and I will do my best to resolve it.
 
   -  To get the most of BetterCrewLink use the voice server: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
