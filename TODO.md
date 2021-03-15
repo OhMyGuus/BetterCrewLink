@@ -15,17 +15,22 @@
 
 ## Voice / WebRTC
 
-- [ ] Add a microphone boost slider.
-- [ ] Add a speaker adjustment slider.
-- [ ] Add individual adjustment sliders to each of the players.
+- [x] Add a microphone boost slider.
+- [x] Add a speaker adjustment slider.
+- [x] Add individual adjustment sliders to each of the players.
+- [x] Add a OBS Overlay
+- [x] Add a Android support
+- [x] Add a iOS Support 
+- [x] Add a option in "Host Settings" Can hear through cams.
+- [x] Add a option in "Host Settings" No talking through walls.
 - [x] Handle all RTC errors to make it unnecessary to ever re-open an RTC connection.
-- [ ] Detect reason for RTC failure: NAT type, etc?
+- [x] Detect reason for RTC failure: NAT type, etc?
 - [x] Re-enable all `navigator.getUserMedia` functions that can be re-enabled with autoGainControl kicking in.
 - [x] Move all player-to-player communication logic to RTC data channels, versus sending them over the websocket.
 
 ### Stretch
 
-- [ ] Implement an optional TURN server.
+- [x] Implement an optional TURN server.
 
 ## Game Reader
 
@@ -36,4 +41,4 @@
 ### Stretch
 
 - [ ] Move away from DMA and towards a different method. Probably network packet sniffing? Maybe DLL injection?
-- [ ] Add itch.io and Linux/Mac support. This will be easiest with packet sniffing.
+- [x] Add itch.io and Linux/Mac support. This will be easiest with packet sniffing.
