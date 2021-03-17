@@ -104,7 +104,7 @@ A version for [Linux](https://github.com/OhMyGuus/BetterCrewLink/pull/29) is alr
 
 ## Android
 
-Download the latest version from [Play Store](https://play.google.com/store/apps/details?id=io.bettercrewlink.app) and run the `BetterCrewlink` application. (requires a PC player)
+[Click here](https://github.com/OhMyGuus/BetterCrewlink-mobile#installation) to see how to install the Android version. (requires a PC player)
 
 ## iOS
 
