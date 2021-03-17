@@ -30,6 +30,8 @@
   
 <b>Notes:</b><br />
 
+- This is an unofficial fork of CrewLink, for any problem, issue or suggestion you have with BetterCrewLink talk to us on our [Discord](https://discord.gg/qDqTzvj4SH) or [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues), do not report any problems to the official Discord or GitHub project of CrewLink as they will not support you.
+
  - For issues with this fork you can message me on Discord (ThaGuus#2140) or reporting in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) and I will do my best to resolve it.
 
   -  To get the most of BetterCrewLink use the voice server: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
@@ -42,9 +44,13 @@
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
-* [Extra features in this fork](#extra-featuresfixes-in-this-fork)
+* [Extra features/fixes in this fork](#extra-featuresfixes-in-this-fork)
 * [About the Project](#about-the-project)
 * [Installation](#installation)
+  * [Windows](#pc)
+  * [Linux](#linux)
+  * [Android](#android)
+  * [iOS](#ios)
 * [Development](#development)
   * [Prerequisites](#prerequisites)
   * [Setup](#setup)
@@ -88,9 +94,21 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 
 ## Installation
 
+## Windows
+
 Download the latest version from [releases](https://github.com/OhMyGuus/BetterCrewLink/releases/latest) and run the `BetterCrewLink-Setup-X.X.X.exe` file. You may get antivirus warnings, because this program hooks into the Among Us process to read game data.
 
-If you can, you should use a private server by deploying [this repository](https://github.com/OhMyGuus/BetterCrewLink-server).
+## Linux
+
+A version for [Linux](https://github.com/OhMyGuus/BetterCrewLink/pull/29) is already being developed but nothing has been released yet.
+
+## Android
+
+[Click here](https://github.com/OhMyGuus/BetterCrewlink-mobile#installation) to see how to install the Android version. (requires a PC player)
+
+## iOS
+
+An iOS version has not yet come out but you can use the [web version](https://web.bettercrewl.ink). (requires a PC player)
 
 ### Setup Instructions (click)
 
@@ -98,7 +116,7 @@ If you can, you should use a private server by deploying [this repository](https
 
 ## Development
 
-You only need to follow the below instructions if you are trying to modify this software. Otherwise, please download the latest version from the [github releases](https://github.com/OhMyGuus/CrewLink/releases).
+You only need to follow the below instructions if you are trying to modify this software. Otherwise, please download the latest version from the [github releases](https://github.com/OhMyGuus/BetterCrewLink/releases).
 
 Server code is located at [OhMyGuus/BetterCrewLink-server](https://github.com/OhMyGuus/BetterCrewLink-server). Please use a local server for development purposes.
 
