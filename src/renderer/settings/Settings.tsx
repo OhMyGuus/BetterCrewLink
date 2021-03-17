@@ -647,6 +647,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 
 				// This is necessary for resetting hotkeys properly, the main thread needs to be notified to reset the hooks
 				ipcRenderer.send(IpcHandlerMessages.RESET_KEYHOOKS);
+				location.reload();
 			},
 			true
 		);
@@ -663,7 +664,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 	const isInMenuOrLobby = gameState?.gameState === GameState.LOBBY || gameState?.gameState === GameState.MENU;
 	const canChangeLobbySettings =
 		gameState?.gameState === GameState.MENU || (gameState?.isHost && gameState?.gameState === GameState.LOBBY);
-	const isInMenuOrGameClosed = (gameState.gameState === undefined) || (gameState.gameState === GameState.MENU);
+	const canResetSettings = (gameState.gameState === undefined) || !gameState?.isHost || ((gameState.gameState === GameState.MENU || gameState.gameState === GameState.LOBBY));
 
 	const [warningDialog, setWarningDialog] = React.useState({ open: false } as IConfirmDialog);
 
@@ -1502,11 +1503,11 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 				<Typography variant="h6">Troubleshooting</Typography>
 				<div>
 					<DisabledTooltip
-						disabled={!isInMenuOrGameClosed}
-						title={"Not available while in lobby"}
+						disabled={!canResetSettings}
+						title={"Not available as host in game!"}
 					>
 						<Button
-							disabled={!isInMenuOrGameClosed}
+							disabled={!canResetSettings}
 							variant="contained" 
 							color="secondary"
 							onClick={() => resetDefaults()}

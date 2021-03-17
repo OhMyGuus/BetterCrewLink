@@ -4570,6 +4570,11 @@ electron-devtools-installer@^2.2.4:
     rimraf "^2.5.2"
     semver "^5.3.0"
 
+electron-log@^4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/electron-log/-/electron-log-4.3.2.tgz#213334c69f0498fac677a7a73eae4a61fb69949e"
+  integrity sha512-PJPWE8JDzQ137UlxX9K917nI8GTcwgiJpE2PMPXZo+I6C4AaZU+JWQ3lW5NjQ1Lg8Qk8qbze+Ly0yAiqhbmpeA==
+
 "electron-overlay-window@git://github.com/OhMyGuus/electron-overlay-window":
   version "1.0.4"
   resolved "git://github.com/OhMyGuus/electron-overlay-window#3679e04aa8f3f17721666c34b7c3ed1415a4104f"

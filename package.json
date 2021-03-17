@@ -34,6 +34,7 @@
     "color": "^3.1.3",
     "cross-spawn": "^7.0.3",
     "deep-equal": "^2.0.5",
+    "electron-log": "^4.3.2",
     "electron-overlay-window": "git://github.com/OhMyGuus/electron-overlay-window",
     "electron-store": "^6.0.1",
     "electron-updater": "^4.3.5",
