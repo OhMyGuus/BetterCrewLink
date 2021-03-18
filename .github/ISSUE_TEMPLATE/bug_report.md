@@ -37,7 +37,7 @@ Steps to reproduce the behaviour:
 
 **Desktop (please complete the following information):**
  - OS: [e.g. Windows 10]
- - Version: [e.g. 2.3.6]
+ - Version: [e.g. 2.4.0]
 
 **Additional context**
 <!-- Add any other context about the problem here. -->
