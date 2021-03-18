@@ -639,12 +639,15 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 				setError(error.message);
 			}
 			console.error('socketIO error:', error);
+			currentLobby = 'MENU';
 		});
 		socket.on('connect', () => {
 			setConnected(true);
+			// send current room code?
 		});
 		socket.on('disconnect', () => {
 			setConnected(false);
+			currentLobby = 'MENU';
 		});
 		notifyMobilePlayers();
 
@@ -749,17 +752,23 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 
 				ipcRenderer.on(IpcRendererMessages.TOGGLE_DEAFEN, () => {
 					connectionStuff.current.deafened = !connectionStuff.current.deafened;
-					inStream.getAudioTracks()[0].enabled = !connectionStuff.current.deafened && !connectionStuff.current.muted && connectionStuff.current.pushToTalkMode !== pushToTalkOptions.PUSH_TO_TALK;
+					inStream.getAudioTracks()[0].enabled =
+						!connectionStuff.current.deafened &&
+						!connectionStuff.current.muted &&
+						connectionStuff.current.pushToTalkMode !== pushToTalkOptions.PUSH_TO_TALK;
 					setDeafened(connectionStuff.current.deafened);
 				});
-				
+
 				ipcRenderer.on(IpcRendererMessages.TOGGLE_MUTE, () => {
 					connectionStuff.current.muted = !connectionStuff.current.muted;
 					if (connectionStuff.current.deafened) {
 						connectionStuff.current.deafened = false;
 						connectionStuff.current.muted = false;
 					}
-					inStream.getAudioTracks()[0].enabled = !connectionStuff.current.muted && !connectionStuff.current.deafened && connectionStuff.current.pushToTalkMode !== pushToTalkOptions.PUSH_TO_TALK;
+					inStream.getAudioTracks()[0].enabled =
+						!connectionStuff.current.muted &&
+						!connectionStuff.current.deafened &&
+						connectionStuff.current.pushToTalkMode !== pushToTalkOptions.PUSH_TO_TALK;
 					setMuted(connectionStuff.current.muted);
 					setDeafened(connectionStuff.current.deafened);
 				});
@@ -782,6 +791,8 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 						setSocketClients({});
 						currentLobby = lobbyCode;
 					} else if (currentLobby !== lobbyCode) {
+						socket.emit('leave');
+						socket.emit('id', playerId, clientId);
 						socket.emit('join', lobbyCode, playerId, clientId);
 						currentLobby = lobbyCode;
 						if (!isHost) {
@@ -937,7 +948,8 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 
 				socket.on('signal', ({ data, from }: { data: Peer.SignalData; from: string }) => {
 					//console.log('onsignal', JSON.stringify(data));
-					if (data.hasOwnProperty('mobilePlayerInfo')) { // eslint-disable-line
+					if (data.hasOwnProperty('mobilePlayerInfo')) {
+						// eslint-disable-line
 						const mobiledata = data as mobileHostInfo;
 						if (
 							mobiledata.mobilePlayerInfo.code === hostRef.current.code &&
@@ -1042,8 +1054,8 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 
 				if (gain > 0) {
 					const playerVolume = playerConfigs[player.nameHash]?.volume;
-					gain = playerVolume === undefined ? gain : gain * playerVolume;	
-					
+					gain = playerVolume === undefined ? gain : gain * playerVolume;
+
 					if (myPlayer.isDead && !player.isDead) {
 						gain = gain * (settings.ghostVolume / 100);
 					}
@@ -1077,7 +1089,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		if (connect?.connect) {
 			connect.connect(gameState?.lobbyCode ?? 'MENU', myPlayer?.id ?? 0, gameState.clientId, gameState.isHost);
 		}
-	}, [connect?.connect, gameState?.lobbyCode]);
+	}, [connect?.connect, gameState?.lobbyCode, connected]);
 
 	// Connect to P2P negotiator, when game mode change
 	useEffect(() => {
