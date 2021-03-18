@@ -168,7 +168,14 @@ const store = new Store<ISettings>({
 			store.delete('pushToTalk');
 		},
 		'2.3.6': (store) => {
-			store.set('serverURL', 'https://bettercrewl.ink');
+			if ((store.get('serverURL') as String).includes('//crewl.ink')) store.set('serverURL', 'https://bettercrewl.ink');
+		},
+		'2.4.0': (store) => {
+			const currentSensitivity = store.get('micSensitivity') as number;
+			if (currentSensitivity >= 0.3) {
+				store.set('micSensitivity', 0.15);
+				store.set('micSensitivityEnabled', false);
+			}
 		},
 	},
 	schema: {
@@ -643,7 +650,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 				});
 
 				// I'm like 90% sure this isn't necessary but whenever you click the mic/speaker dropdown it is called, so it may be necessary
-				// updateDevices(); 
+				// updateDevices();
 
 				// This is necessary for resetting hotkeys properly, the main thread needs to be notified to reset the hooks
 				ipcRenderer.send(IpcHandlerMessages.RESET_KEYHOOKS);
@@ -664,7 +671,11 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 	const isInMenuOrLobby = gameState?.gameState === GameState.LOBBY || gameState?.gameState === GameState.MENU;
 	const canChangeLobbySettings =
 		gameState?.gameState === GameState.MENU || (gameState?.isHost && gameState?.gameState === GameState.LOBBY);
-	const canResetSettings = (gameState.gameState === undefined) || !gameState?.isHost || ((gameState.gameState === GameState.MENU || gameState.gameState === GameState.LOBBY));
+	const canResetSettings =
+		gameState.gameState === undefined ||
+		!gameState?.isHost ||
+		gameState.gameState === GameState.MENU ||
+		gameState.gameState === GameState.LOBBY;
 
 	const [warningDialog, setWarningDialog] = React.useState({ open: false } as IConfirmDialog);
 
@@ -1140,11 +1151,11 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						>
 							<Slider
 								disabled={!settings.micSensitivityEnabled}
-								value={+((1 - settings.micSensitivity).toFixed(2))}
+								value={+(1 - settings.micSensitivity).toFixed(2)}
 								valueLabelDisplay="auto"
 								min={0}
 								max={1}
-								color={settings.micSensitivity < 0.3? "primary" : "secondary"}
+								color={settings.micSensitivity < 0.3 ? 'primary' : 'secondary'}
 								step={0.05}
 								onChange={(_, newValue: number | number[]) => {
 									openWarningDialog(
@@ -1153,12 +1164,12 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 										() => {
 											setSettings({
 												type: 'setOne',
-												action: ['micSensitivity', (1 - (newValue as number))],
+												action: ['micSensitivity', 1 - (newValue as number)],
 											});
 										},
 										newValue == 0.7 && settings.micSensitivity < 0.3
 									);
-							}}
+								}}
 								aria-labelledby="input-slider"
 							/>
 						</Grid>
@@ -1502,16 +1513,10 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 				<Divider />
 				<Typography variant="h6">Troubleshooting</Typography>
 				<div>
-					<DisabledTooltip
-						disabled={!canResetSettings}
-						title={"Not available as host in game!"}
-					>
-						<Button
-							disabled={!canResetSettings}
-							variant="contained" 
-							color="secondary"
-							onClick={() => resetDefaults()}
-						>Restore Defaults</Button>
+					<DisabledTooltip disabled={!canResetSettings} title={'Not available as host in game!'}>
+						<Button disabled={!canResetSettings} variant="contained" color="secondary" onClick={() => resetDefaults()}>
+							Restore Defaults
+						</Button>
 					</DisabledTooltip>
 				</div>
 				<Alert className={classes.alert} severity="info" style={{ display: unsaved ? undefined : 'none' }}>
