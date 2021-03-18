@@ -76,7 +76,7 @@ export default class GameReader {
 			if (this.amongUs == null) {
 				throw error;
 			}
-		} else if (this.amongUs && !processesOpen) {
+		} else if (this.amongUs && processesOpen.length === 0) {
 			this.amongUs = null;
 			try {
 				this.sendIPC(IpcRendererMessages.NOTIFY_GAME_OPENED, false);
