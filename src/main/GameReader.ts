@@ -57,19 +57,26 @@ export default class GameReader {
 	gameCode = 'MENU';
 
 	checkProcessOpen(): void {
-		const processOpen = getProcesses().find((p) => p.szExeFile === 'Among Us.exe');
-
-		if (!this.amongUs && processOpen) {
-			try {
-				this.amongUs = openProcess('Among Us.exe');
-				this.gameAssembly = findModule('GameAssembly.dll', this.amongUs.th32ProcessID);
-				this.initializeoffsets();
-				this.sendIPC(IpcRendererMessages.NOTIFY_GAME_OPENED, true);
-			} catch (e) {
-				if (processOpen && e.toString() === 'Error: unable to find process') throw Errors.OPEN_AS_ADMINISTRATOR;
-				this.amongUs = null;
+		const processesOpen = getProcesses().filter((p) => p.szExeFile === 'Among Us.exe');
+		let error = '';
+		if (!this.amongUs && processesOpen.length > 0) {
+			for (let processOpen of processesOpen) {
+				try {
+					this.amongUs = openProcess(processOpen.th32ProcessID);
+					this.gameAssembly = findModule('GameAssembly.dll', this.amongUs.th32ProcessID);
+					this.initializeoffsets();
+					this.sendIPC(IpcRendererMessages.NOTIFY_GAME_OPENED, true);
+				} catch (e) {
+					if (processOpen && e.toString() === 'Error: unable to find process') {
+						error = Errors.OPEN_AS_ADMINISTRATOR;
+					}
+					this.amongUs = null;
+				}
 			}
-		} else if (this.amongUs && !processOpen) {
+			if (this.amongUs == null) {
+				throw error;
+			}
+		} else if (this.amongUs && !processesOpen) {
 			this.amongUs = null;
 			try {
 				this.sendIPC(IpcRendererMessages.NOTIFY_GAME_OPENED, false);
@@ -423,7 +430,7 @@ export default class GameReader {
 			this.gameAssembly.modBaseAddr + optionalHeader_offset + 0x18,
 			'short'
 		);
-	//	console.log(optionalHeader_magic, 'optionalHeader_magic');
+		//	console.log(optionalHeader_magic, 'optionalHeader_magic');
 		return optionalHeader_magic === 0x20b;
 	}
 
