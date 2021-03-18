@@ -1,7 +1,7 @@
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
-import { shell, ipcMain, ipcRenderer } from 'electron';
+import { shell, ipcRenderer } from 'electron';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 const useStyles = makeStyles(() => ({
