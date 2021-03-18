@@ -100,7 +100,7 @@ Download the latest version from [releases](https://github.com/OhMyGuus/BetterCr
 
 ## Linux
 
-A version for [Linux](https://github.com/OhMyGuus/BetterCrewLink/pull/29) is already being developed but nothing has been released yet.
+A version for [Linux](https://github.com/OhMyGuus/BetterCrewLink/pull/29) is already being developed but nothing has been released yet, but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
 
 ## Android
 
@@ -108,7 +108,7 @@ A version for [Linux](https://github.com/OhMyGuus/BetterCrewLink/pull/29) is alr
 
 ## iOS
 
-An iOS version has not yet come out but you can use the [web version](https://web.bettercrewl.ink). (requires a PC player)
+An iOS version has not yet come out but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
 
 ### Setup Instructions (click)
 
@@ -151,7 +151,7 @@ yarn dev
 
 Any contributions you make are greatly appreciated.
 
-1. Fork the Project
+1. [Fork the Project](https://github.com/OhMyGuus/BetterCrewLink/fork)
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
