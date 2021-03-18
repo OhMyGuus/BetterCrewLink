@@ -672,7 +672,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 	const canChangeLobbySettings =
 		gameState?.gameState === GameState.MENU || (gameState?.isHost && gameState?.gameState === GameState.LOBBY);
 	const canResetSettings =
-		gameState.gameState === undefined ||
+		gameState?.gameState === undefined ||
 		!gameState?.isHost ||
 		gameState.gameState === GameState.MENU ||
 		gameState.gameState === GameState.LOBBY;
