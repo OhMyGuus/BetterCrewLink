@@ -1,5 +1,5 @@
 ---
-name: Bug report
+name: Bug Report
 about: Create a report to help us improve.
 title: '[BUG REPORT]'
 labels: 'bug'
@@ -7,7 +7,7 @@ assignees: ''
 ---
 # You MUST use this template or your issue will be deleted.
 
-**If your problem is with BetterCrewLink on your phone or the web version, [click here](https://github.com/OhMyGuus/BetterCrewlink-mobile/issues) and make an issue there, if your problem is with BetterCrewLink on the PC, ignore that and continue with your issue**
+**If your problem is with BetterCrewLink on your mobile or the web version, [click here](https://github.com/OhMyGuus/BetterCrewlink-mobile/issues) and make an issue there, if your problem is with BetterCrewLink on the PC, ignore that and continue with your issue**
 
 # Pre-Flight Checklist
 Please use this checklist to avoid spamming:
