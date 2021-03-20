@@ -39,8 +39,6 @@
 </p>
 <a href="https://discord.gg/qDqTzvj4SH"> <img src="https://i.imgur.com/XpnBhTW.png" width="150px" /> </a>
 
-
-
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
@@ -157,11 +155,9 @@ Any contributions you make are greatly appreciated.
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-
 ## License
 
 Distributed under the GNU General Public License v3.0. See <a href="https://github.com/OhMyGuus/BetterCrewLink/blob/master/LICENSE">`LICENSE`</a> for more information.
-
 
 [license-shield]: https://img.shields.io/github/license/OhMyGuus/BetterCrewLink.svg?style=flat-square
 [license-url]: https://github.com/OhMyGuus/BetterCrewLink/blob/master/LICENSE
