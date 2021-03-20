@@ -32,14 +32,12 @@
 
 - This is an unofficial fork of CrewLink, for any problem, issue or suggestion you have with BetterCrewLink talk to us on our [Discord](https://discord.gg/qDqTzvj4SH) or [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues), do not report any problems to the official Discord or GitHub project of CrewLink as they will not support you.
 
- - For issues with this fork you can message me on Discord (ThaGuus#2140) or reporting in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) and I will do my best to resolve it.
+- For issues with this fork you can message me on Discord (ThaGuus#2140) or reporting in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) and I will do my best to resolve it.
 
-  -  To get the most of BetterCrewLink use the voice server: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
+- To get the most of BetterCrewLink use the voice server: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
 
 </p>
 <a href="https://discord.gg/qDqTzvj4SH"> <img src="https://i.imgur.com/XpnBhTW.png" width="150px" /> </a>
-
-
 
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
@@ -100,7 +98,7 @@ Download the latest version from [releases](https://github.com/OhMyGuus/BetterCr
 
 ## Linux
 
-A version for [Linux](https://github.com/OhMyGuus/BetterCrewLink/pull/29) is already being developed but nothing has been released yet.
+A version for [Linux](https://github.com/OhMyGuus/BetterCrewLink/pull/29) is already being developed but nothing has been released yet, but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
 
 ## Android
 
@@ -108,7 +106,7 @@ A version for [Linux](https://github.com/OhMyGuus/BetterCrewLink/pull/29) is alr
 
 ## iOS
 
-An iOS version has not yet come out but you can use the [web version](https://web.bettercrewl.ink). (requires a PC player)
+An iOS version has not yet come out but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
 
 ### Setup Instructions (click)
 
@@ -151,17 +149,15 @@ yarn dev
 
 Any contributions you make are greatly appreciated.
 
-1. Fork the Project
+1. [Fork the Project](https://github.com/OhMyGuus/BetterCrewLink/fork)
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-
 ## License
 
 Distributed under the GNU General Public License v3.0. See <a href="https://github.com/OhMyGuus/BetterCrewLink/blob/master/LICENSE">`LICENSE`</a> for more information.
-
 
 [license-shield]: https://img.shields.io/github/license/OhMyGuus/BetterCrewLink.svg?style=flat-square
 [license-url]: https://github.com/OhMyGuus/BetterCrewLink/blob/master/LICENSE
