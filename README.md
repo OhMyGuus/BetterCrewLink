@@ -39,16 +39,13 @@
 </p>
 <a href="https://discord.gg/qDqTzvj4SH"> <img src="https://i.imgur.com/XpnBhTW.png" width="150px" /> </a>
 
-
-<iframe src="https://canary.discord.com/widget?id=791516611143270410&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
 * [Extra features/fixes in this fork](#extra-featuresfixes-in-this-fork)
 * [About the Project](#about-the-project)
 * [Installation](#installation)
-  * [Windows](#pc)
+  * [Windows](#windows)
   * [Linux](#linux)
   * [Android](#android)
   * [iOS](#ios)
