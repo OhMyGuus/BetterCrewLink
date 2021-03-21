@@ -4575,6 +4575,16 @@ electron-log@^4.3.2:
   resolved "https://registry.yarnpkg.com/electron-log/-/electron-log-4.3.2.tgz#213334c69f0498fac677a7a73eae4a61fb69949e"
   integrity sha512-PJPWE8JDzQ137UlxX9K917nI8GTcwgiJpE2PMPXZo+I6C4AaZU+JWQ3lW5NjQ1Lg8Qk8qbze+Ly0yAiqhbmpeA==
 
+"electron-overlay-window@git://github.com/OhMyGuus/electron-overlay-window":
+  version "1.0.4"
+  resolved "git://github.com/OhMyGuus/electron-overlay-window#fb4953eb4f96179f306f92756bb239222c80c83c"
+  dependencies:
+    "@types/throttle-debounce" "2.x.x"
+    node-gyp-build "4.x.x"
+    throttle-debounce "2.x.x"
+    ts-node "9.x.x"
+    typescript "4.x.x"
+
 electron-publish@22.9.1:
   version "22.9.1"
   resolved "https://registry.yarnpkg.com/electron-publish/-/electron-publish-22.9.1.tgz#7cc76ac4cc53efd29ee31c1e5facb9724329068e"
@@ -7798,6 +7808,11 @@ node-forge@0.9.0:
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.9.0.tgz#d624050edbb44874adca12bb9a52ec63cb782579"
   integrity sha512-7ASaDa3pD+lJ3WvXFsxekJQelBKRpne+GOVbLbtHYdd7pFspyeuJHnWfLplGf3SwKGbfs/aYl5V/JCIaHVUKKQ==
+
+node-gyp-build@4.x.x:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.2.3.tgz#ce6277f853835f718829efb47db20f3e4d9c4739"
+  integrity sha512-MN6ZpzmfNCRM+3t57PTJHgHyw/h4OWnZ6mR8P5j/uZtqQr46RRuDE/P+g3n0YR/AiYXeWixZZzaip77gdICfRg==
 
 "node-keyboard-watcher@https://github.com/TheGreatMcPain/node-keyboard-watcher":
   version "1.0.0"
