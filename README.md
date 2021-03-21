@@ -102,7 +102,7 @@ A version for [Linux](https://github.com/OhMyGuus/BetterCrewLink/tree/linux) is 
 
 ## Android
 
-Go to category [#installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#installation) in BetterCrewlink-mobile to see how to install the Android version. (requires a PC player)
+Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#installation) in BetterCrewlink-mobile to see how to install the Android version. (requires a PC player)
 
 ## iOS
 
