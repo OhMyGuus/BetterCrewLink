@@ -1,6 +1,6 @@
 {
   "name": "bettercrewlink-linux",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "license": "GPL-3.0-or-later",
   "description": "Free, open, Among Us proximity voice chat",
   "repository": {
@@ -43,7 +43,7 @@
     "jimp": "^0.16.1",
     "memoryjs": "git://github.com/TheGreatMcPain/memoryjs",
     "minimist": "^1.2.5",
-    "node-keyboard-watcher": "https://github.com/TheGreatMcPain/node-keyboard-watcher",
+    "node-keyboard-watcher": "git://github.com/OhMyGuus/node-keyboard-watcher",
     "path-intersection": "^2.2.0",
     "pretty-bytes": "^5.5.0",
     "react": "^17.0.1",
