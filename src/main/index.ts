@@ -131,6 +131,7 @@ function createOverlay() {
 		show: false,
 		transparent: true,
 		resizable: true,
+		focusable: false
 
 		//	...overlayWindow.WINDOW_OPTS,
 	});
