@@ -1,11 +1,11 @@
 {
-  "name": "bettercrewlink",
-  "version": "2.4.0",
+  "name": "bettercrewlink-linux",
+  "version": "2.4.0-beta1",
   "license": "GPL-3.0-or-later",
   "description": "Free, open, Among Us proximity voice chat",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OhMyGuus/crewlink.git"
+    "url": "https://github.com/OhMyGuus/BetterCrewlink-Linux.git"
   },
   "funding": {
     "type": "individual",
@@ -24,7 +24,8 @@
     "dist": "yarn compile && electron-builder --win --x64 --ia32",
     "dist:32": "yarn compile && electron-builder --win --ia32",
     "dist:64": "yarn compile && electron-builder --win --x64",
-    "publish": "yarn compile && electron-builder --win --x64 --ia32 --publish always"
+    "dist:linux": "yarn compile && electron-builder --linux --x64",
+    "publish": "yarn compile && electron-builder --x64 --ia32 --linux --publish always"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.2",
