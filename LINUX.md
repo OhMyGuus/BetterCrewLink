@@ -2,4 +2,4 @@ Well it looks like you found the easter egg 👀 (or almost that) and like all p
 
 Enjoy it and also if you find any bugs in this version report on [GitHub](https://github.com/OhMyGuus/BetterCrewlink-Linux/issues) or [Discord](https://discord.gg/qDqTzvj4SH) (specifically for [ThaGuus#2140](https://discordapp.com/users/508426414387757057)), by doing this you will be helping everyone in the BetterCrewLink community to make a CrewLink experience better! Thanks for trusting us! And if you don't have a Linux, I'm sorry but you won't get anything 😢, just a hug (lol)
 
-<a href="https://discord.gg/qDqTzvj4SH"> <img src="https://i.imgur.com/XpnBhTW.png" width="150px" /> </a>
+<a href="https://discord.gg/qDqTzvj4SH"> <img src="https://i.imgur.com/XpnBhTW.png" width="150px" /> </a
