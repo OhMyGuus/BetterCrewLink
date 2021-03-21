@@ -7442,9 +7442,9 @@ memory-fs@^0.5.0:
     errno "^0.1.3"
     readable-stream "^2.0.1"
 
-"memoryjs@git://github.com/Rob--/memoryjs":
-  version "3.3.1"
-  resolved "git://github.com/Rob--/memoryjs#79618efdefc2aac203ae7137eefa2cf30cf888ce"
+"memoryjs@git://github.com/TheGreatMcPain/memoryjs":
+  version "0.0.1"
+  resolved "git://github.com/TheGreatMcPain/memoryjs#317193aab5d075f0a5ab4a5b5bea528eeab14c7b"
   dependencies:
     bindings "^1.5.0"
     concentrate "^0.2.3"
@@ -7814,9 +7814,9 @@ node-gyp-build@4.x.x:
   resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.2.3.tgz#ce6277f853835f718829efb47db20f3e4d9c4739"
   integrity sha512-MN6ZpzmfNCRM+3t57PTJHgHyw/h4OWnZ6mR8P5j/uZtqQr46RRuDE/P+g3n0YR/AiYXeWixZZzaip77gdICfRg==
 
-"node-keyboard-watcher@git://github.com/OhMyGuus/node-keyboard-watcher":
-  version "1.0.1"
-  resolved "git://github.com/OhMyGuus/node-keyboard-watcher#177c72212635d391fb15e787948dbcfbc30b9a5e"
+"node-keyboard-watcher@https://github.com/TheGreatMcPain/node-keyboard-watcher":
+  version "1.0.0"
+  resolved "https://github.com/TheGreatMcPain/node-keyboard-watcher#2e99b428eef52f421eecf3c0f13e5a78d94e28ac"
   dependencies:
     "@types/throttle-debounce" "2.x.x"
     bindings "*"
