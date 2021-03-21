@@ -58,7 +58,7 @@ async function colorImage(playerColors: string[][], image: string, imagename: st
 				data[i + 2] = pixelColor.blue();
 			}
 		}
-		await img.write(`${app.getAppPath()}//..//generated//${imagename}\\${colorId}.png`);
+		await img.write(`${app.getAppPath()}/../generated//${imagename}/${colorId}.png`);
 	}
 }
 
