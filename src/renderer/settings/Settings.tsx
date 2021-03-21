@@ -177,6 +177,9 @@ const store = new Store<ISettings>({
 				store.set('micSensitivityEnabled', false);
 			}
 		},
+		'2.4.1': (store) => {
+				store.set('enableOverlay', false);
+		},
 	},
 	schema: {
 		alwaysOnTop: {
