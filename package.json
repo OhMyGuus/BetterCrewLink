@@ -25,7 +25,8 @@
     "dist:32": "yarn compile && electron-builder --win --ia32",
     "dist:64": "yarn compile && electron-builder --win --x64",
     "dist:linux": "yarn compile && electron-builder --linux --x64",
-    "publish": "yarn compile && electron-builder --x64 --ia32 --linux --publish always"
+    "publish": "yarn compile && electron-builder --win --x64 --ia32 --publish always ",
+    "publish:linux": "yarn compile && electron-builder --x64 --ia32 --linux --publish always"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.2",
