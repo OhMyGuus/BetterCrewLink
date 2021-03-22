@@ -98,7 +98,7 @@ Download the latest version from [releases](https://github.com/OhMyGuus/BetterCr
 
 ## Linux
 
-A version for [Linux](https://github.com/OhMyGuus/BetterCrewLink/tree/linux) is already being developed but nothing has been released yet, but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
+A version for [Linux](https://github.com/OhMyGuus/BetterCrewLink/tree/linux) is already being developed but nothing has been released yet, but you can use the [web version](https://web.bettercrewl.ink/) while it is being developed. (requires a PC player)
 
 ## Android
 
@@ -106,7 +106,7 @@ Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#
 
 ## iOS
 
-An iOS version has not yet come out but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
+An iOS version is still being developed but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
 
 ### Setup Instructions (click)
 
