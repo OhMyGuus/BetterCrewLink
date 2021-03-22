@@ -19,9 +19,6 @@
 - [x] Add a speaker adjustment slider.
 - [x] Add individual adjustment sliders to each of the players.
 - [x] Add an OBS Overlay.
-- [x] Add Android Support.
-- [ ] Add iOS Support.
-- [ ] Add Linux Support. (you can see the [development](https://github.com/OhMyGuus/BetterCrewLink/tree/linux))
 - [x] Add an option in "Host Settings" for hearing through cams.
 - [x] Add an option in "Host Settings" to disable talking through walls.
 - [x] Handle all RTC errors to make it unnecessary to ever re-open an RTC connection.
@@ -42,4 +39,6 @@
 ### Stretch
 
 - [ ] Move away from DMA and towards a different method. Probably network packet sniffing? Maybe DLL injection?
-- [x] Add itch.io and Linux/Mac support. This will be easiest with packet sniffing.
+- [x] Add Android Support.
+- [ ] Add iOS Support.
+- [ ] Add Linux Support. (you can see the [development](https://github.com/OhMyGuus/BetterCrewLink/tree/linux))
