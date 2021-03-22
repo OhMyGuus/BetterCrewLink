@@ -41,7 +41,7 @@
     "electron-updater": "^4.3.5",
     "electron-window-state": "^5.0.3",
     "jimp": "^0.16.1",
-    "memoryjs-linux": "git://github.com/OhMyGuus/memoryjs",
+    "memoryjs": "git://github.com/OhMyGuus/memoryjs",
     "minimist": "^1.2.5",
     "node-keyboard-watcher": "git://github.com/OhMyGuus/node-keyboard-watcher",
     "path-intersection": "^2.2.0",
