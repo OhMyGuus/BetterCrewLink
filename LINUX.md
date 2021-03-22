@@ -1,0 +1,5 @@
+Well it looks like you found the easter egg 👀 (or almost that) and like all people who always find easter eggs I should give you a gift, but what gift would I give you? hmm... already know! I will name this easter egg from LINUX.md on GitHub and as the name says, I will give you [a version of BetterCrewLink with Linux support temporarily for a limited time!](https://github.com/OhMyGuus/BetterCrewlink-Linux/releases/latest) 🥳 (To install this version just look at the "How to use" category)
+
+Enjoy it and also if you find any bugs in this version report on [Discord](https://discord.gg/qDqTzvj4SH) (specifically for [ThaGuus#2140](https://discordapp.com/users/508426414387757057)) or [GitHub](https://github.com/OhMyGuus/BetterCrewlink-Linux/issues), by doing this you will be helping everyone in the BetterCrewLink community to make a CrewLink experience better! Thanks for trusting us! And if you don't have a Linux, I'm sorry but you won't get anything 😢, just a hug that is better than nothing (lol)
+
+<a href="https://discord.gg/qDqTzvj4SH"> <img src="https://i.imgur.com/XpnBhTW.png" width="150px" /> </a>

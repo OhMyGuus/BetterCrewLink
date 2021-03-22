@@ -32,7 +32,7 @@
 
 - This is an unofficial fork of CrewLink, for any problem, issue or suggestion you have with BetterCrewLink talk to us on our [Discord](https://discord.gg/qDqTzvj4SH) or [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues), do not report any problems to the official Discord or GitHub project of CrewLink as they will not support you.
 
-- For issues with this fork you can message me on Discord (ThaGuus#2140) or reporting in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) and I will do my best to resolve it.
+- For issues with this fork you can join in the [Discord server](https://discord.gg/qDqTzvj4SH) or reporting in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or message me on Discord (ThaGuus#2140) and is we will do our best to resolve this.
 
 - To get the most of BetterCrewLink use the voice server: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
 
@@ -45,7 +45,7 @@
 * [Extra features/fixes in this fork](#extra-featuresfixes-in-this-fork)
 * [About the Project](#about-the-project)
 * [Installation](#installation)
-  * [Windows](#pc)
+  * [Windows](#windows)
   * [Linux](#linux)
   * [Android](#android)
   * [iOS](#ios)
@@ -98,15 +98,15 @@ Download the latest version from [releases](https://github.com/OhMyGuus/BetterCr
 
 ## Linux
 
-A version for [Linux](https://github.com/OhMyGuus/BetterCrewLink/pull/29) is already being developed but nothing has been released yet, but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
+A version for [Linux](https://github.com/OhMyGuus/BetterCrewLink/tree/linux) is already being developed and will be released soon, but in the meantime you can use the [web version](https://web.bettercrewl.ink/) while it is being developed. (requires a PC player)
 
 ## Android
 
-[Click here](https://github.com/OhMyGuus/BetterCrewlink-mobile#installation) to see how to install the Android version. (requires a PC player)
+Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#installation) in BetterCrewlink-mobile to see how to install the Android version. (requires a PC player)
 
 ## iOS
 
-An iOS version has not yet come out but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
+An iOS version is still being developed and will be released soon but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
 
 ### Setup Instructions (click)
 
