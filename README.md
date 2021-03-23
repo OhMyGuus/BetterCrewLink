@@ -27,7 +27,8 @@
 <hr />
 
 <p>
-  
+
+<!-- NOTES -->
 <b>Notes:</b><br />
 
 - This is an unofficial fork of CrewLink, for any problem, issue or suggestion you have with BetterCrewLink talk to us on our [Discord](https://discord.gg/qDqTzvj4SH) or [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues), do not report any problems to the official Discord or GitHub project of CrewLink as they will not support you.
@@ -83,13 +84,15 @@
 - Support for custom colors (mods that add more colors)
 - Support for mobile (BETA)
 ```
-**If I missed something you can DM me on Discord (ThaGuus#2140) or in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) it so I can add it**
+
+**If I missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), or in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) it so I can add it**
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
 This project implements proximity voice chat in Among Us. Everyone in an Among Us lobby with this program running will be able to communicate over voice in-game, with no third-party programs required. Spatial audio ensures that you can only hear people close to you.
 
+<!-- INSTALLATION -->
 ## Installation
 
 ## Windows
@@ -108,10 +111,12 @@ Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#
 
 An iOS version is still being developed and will be released soon but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
 
+<!-- SETUP INSTRUCTIONS -->
 ### Setup Instructions (click)
 
 [![Setup Video](https://img.youtube.com/vi/_8F4f5iQEIc/0.jpg)](https://www.youtube.com/watch?v=_8F4f5iQEIc "CrewLink Setup Instructions")
 
+<!-- DEVELOPMENT -->
 ## Development
 
 You only need to follow the below instructions if you are trying to modify this software. Otherwise, please download the latest version from the [github releases](https://github.com/OhMyGuus/BetterCrewLink/releases).
@@ -155,6 +160,7 @@ Any contributions you make are greatly appreciated.
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+<!-- LICENSE -->
 ## License
 
 Distributed under the GNU General Public License v3.0. See <a href="https://github.com/OhMyGuus/BetterCrewLink/blob/master/LICENSE">`LICENSE`</a> for more information.
