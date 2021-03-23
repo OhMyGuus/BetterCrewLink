@@ -260,9 +260,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		}
 		switch (state.gameState) {
 			case GameState.MENU:
-				endGain = 0;
-				break;
-
+				return 0;
 			case GameState.LOBBY:
 				endGain = 1;
 				break;
@@ -414,6 +412,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		// 	hostRef.current.gamestate !== GameState.MENU,
 		// 	hostRef.current.gamestate !== GameState.UNKNOWN
 		// );
+		console.log("notifyMobilePlayers");
 		if (
 			settingsRef.current.mobileHost &&
 			hostRef.current.gamestate !== GameState.MENU &&
@@ -423,8 +422,8 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 				to: hostRef.current.code + '_mobile',
 				data: { mobileHostInfo: { isHostingMobile: true, isGameHost: hostRef.current.isHost } },
 			});
-			setTimeout(() => notifyMobilePlayers(), 5000);
 		}
+		setTimeout(() => notifyMobilePlayers(), 5000);
 	}
 
 	function disconnectAudioHtmlElement(element: HTMLAudioElement) {
@@ -1017,7 +1016,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 
 	const otherPlayers = useMemo(() => {
 		let otherPlayers: Player[];
-		if (!gameState || !gameState.players || gameState.lobbyCode === 'MENU' || !myPlayer) return [];
+		if (!gameState || !gameState.players || !myPlayer) return [];
 		else otherPlayers = gameState.players.filter((p) => !p.isLocal);
 		maxDistanceRef.current = lobbySettings.visionHearing
 			? myPlayer.isImpostor
