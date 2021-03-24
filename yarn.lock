@@ -7449,7 +7449,7 @@ memory-fs@^0.5.0:
 
 "memoryjs@git://github.com/OhMyGuus/memoryjs":
   version "0.0.1"
-  resolved "git://github.com/OhMyGuus/memoryjs#d40d9175fb2f5d567ccd521ef7c0160835c70594"
+  resolved "git://github.com/OhMyGuus/memoryjs#b98f8f3d13a9d8d299b518f6074dce10b3bdaa46"
   dependencies:
     bindings "^1.5.0"
     concentrate "^0.2.3"
