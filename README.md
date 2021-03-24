@@ -33,7 +33,7 @@
 
 - This is an unofficial fork of CrewLink, for any problem, issue or suggestion you have with BetterCrewLink talk to us on our [Discord](https://discord.gg/qDqTzvj4SH), or [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or message me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) do not report any problems to the official Discord or GitHub project of CrewLink as they will not support you.
 
-- I recommend you use my BetterCrewLink server: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>, it is quite stable and most people are using it and I highly recommend it if you don't know a lot about how to host servers, but if you do and how to host anyway, feel free with the open source.
+- To get the most of BetterCrewLink use the voice server: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
 
 </p>
 <a href="https://discord.gg/qDqTzvj4SH"> <img src="https://i.imgur.com/XpnBhTW.png" width="150px" /> </a>
