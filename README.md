@@ -1,5 +1,4 @@
-
-[![GitHub Downloads][github-shield]][github-url] [![GPL-3.0 License][license-shield]][license-url] [![Appveyor Build][appveyor-shield]][appveyor-url] [![Donate][paypal-shield]](paypal-url) [![Discord Server][discord-shield]](discord-url)
+[![GitHub Downloads][github-shield]][github-url] [![GPL-3.0 License][license-shield]][license-url] [![Appveyor Build][appveyor-shield]][appveyor-url] [![Donate][paypal-shield]](paypal-url) [![Discord Server][discord-shield]][discord-url]
 
 <br />
 <p align="center">
