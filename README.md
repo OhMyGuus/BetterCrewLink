@@ -1,5 +1,5 @@
 
-[![GPL-3.0 License][license-shield]][license-url] [![Appveyor Build][appveyor-shield]][appveyor-url] [![Donate][paypal-shield]](paypal-url) [![Discord](https://img.shields.io/discord/791516611143270410.svg?color=%237289da&label=discord)](https://discord.gg/qDqTzvj4SH)
+[![GitHub Downloads][discord-shield]][discord-url] [![GPL-3.0 License][license-shield]][license-url] [![Appveyor Build][appveyor-shield]][appveyor-url] [![Donate][paypal-shield]](paypal-url) [![Discord][discord-shield]](discord-url)
 
 <br />
 <p align="center">
@@ -163,9 +163,13 @@ Any contributions you make are greatly appreciated.
 
 Distributed under the GNU General Public License v3.0. See <a href="https://github.com/OhMyGuus/BetterCrewLink/blob/master/LICENSE">`LICENSE`</a> for more information.
 
+[github-shield]: https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/total?label=Downloads
+[github-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/
 [license-shield]: https://img.shields.io/github/license/OhMyGuus/BetterCrewLink.svg?style=flat-square
 [license-url]: https://github.com/OhMyGuus/BetterCrewLink/blob/master/LICENSE
 [appveyor-shield]: https://img.shields.io/appveyor/build/OhMyGuus/bettercrewlink
 [appveyor-url]: https://ci.appveyor.com/project/OhMyGuus/bettercrewlink
-[paypal-url]: https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ
 [paypal-shield]: https://img.shields.io/badge/Donate-PayPal-green.svg
+[paypal-url]: https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ
+[discord-shield]: https://img.shields.io/discord/791516611143270410?color=cornflowerblue&label=Discord&logo=Discord&logoColor=white
+[discord-url]: https://discord.gg/qDqTzvj4SH
