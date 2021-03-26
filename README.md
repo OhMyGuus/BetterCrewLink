@@ -61,7 +61,7 @@
 - Walls block audio. 
 - Volume sliders.
 - It doesn't break when someone leaves/disconnects.
-- It works on any network even with upnp disabled (Strict NAT)
+- It works on any network even with UPnP disabled. (Strict NAT)
 - More fun settings like hearing through cameras.
 - You can actually disable the overlay.
 - 32bit support, windows 7 support.
