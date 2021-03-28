@@ -70,7 +70,7 @@
 - Settings actually sync between players and not half.
 - CPU usage is lower than original CrewLink.
 - You can actually press the mute key/deafen key while clicked on BetterCrewLink.
-- Your mouse doesn't start to lagg because of the buggy input hook.
+- Your mouse doesn't start to lag because of the buggy input hook.
 - Changing the speaker setting does actually something unlike original CrewLink where it is always using the default output.
 - Compatible with CrewLink 2.0
 - Microphone echo cancellation.
