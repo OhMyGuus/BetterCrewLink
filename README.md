@@ -164,11 +164,11 @@ Distributed under the GNU General Public License v3.0. See <a href="https://gith
 
 [github-shield]: https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/total?label=Downloads
 [github-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/
-[license-shield]: https://img.shields.io/github/license/OhMyGuus/BetterCrewLink.svg?style=flat-square
+[license-shield]: https://img.shields.io/github/license/OhMyGuus/BetterCrewLink.svg?label=License
 [license-url]: https://github.com/OhMyGuus/BetterCrewLink/blob/master/LICENSE
-[appveyor-shield]: https://img.shields.io/appveyor/build/OhMyGuus/bettercrewlink
+[appveyor-shield]: https://img.shields.io/appveyor/build/OhMyGuus/bettercrewlink?label=Build
 [appveyor-url]: https://ci.appveyor.com/project/OhMyGuus/bettercrewlink
-[paypal-shield]: https://img.shields.io/badge/Donate-PayPal-green.svg
+[paypal-shield]: https://img.shields.io/badge/Support-BetterCrewLink-purple.svg
 [paypal-url]: https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ
 [discord-shield]: https://img.shields.io/discord/791516611143270410?color=cornflowerblue&label=Discord&logo=Discord&logoColor=white
 [discord-url]: https://discord.gg/qDqTzvj4SH
