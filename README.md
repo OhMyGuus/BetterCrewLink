@@ -160,12 +160,12 @@ Any contributions you make are greatly appreciated.
 <!-- LICENSE -->
 ## License
 
-Distributed under the GNU General Public License v3.0. See <a href="https://github.com/OhMyGuus/BetterCrewLink/blob/master/LICENSE">`LICENSE`</a> for more information.
+Distributed under the GNU General Public License v3.0. See <a href="https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE">`LICENSE`</a> for more information.
 
 [github-shield]: https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/total?label=Downloads
 [github-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/
 [license-shield]: https://img.shields.io/github/license/OhMyGuus/BetterCrewLink.svg?label=License
-[license-url]: https://github.com/OhMyGuus/BetterCrewLink/blob/master/LICENSE
+[license-url]: https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE
 [appveyor-shield]: https://img.shields.io/appveyor/build/OhMyGuus/bettercrewlink?label=Build
 [appveyor-url]: https://ci.appveyor.com/project/OhMyGuus/bettercrewlink
 [paypal-shield]: https://img.shields.io/badge/Support-BetterCrewLink-purple.svg
