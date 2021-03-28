@@ -73,12 +73,20 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 
 		// Read game memory
 		gameReader = new GameReader(event.sender.send.bind(event.sender));
+		let gotError = false;
 		const frame = () => {
 			const err = gameReader.loop();
 			if (err) {
-				readingGame = false;
+				// readingGame = false;
+				gotError = true;
 				event.sender.send(IpcRendererMessages.ERROR, err);
+				setTimeout(frame, 5000);
 			} else {
+				if (gotError) {
+					event.sender.send(IpcRendererMessages.ERROR, '');
+					gotError = false;
+				}
+
 				setTimeout(frame, 1000 / 5);
 			}
 		};

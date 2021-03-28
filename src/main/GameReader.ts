@@ -73,7 +73,7 @@ export default class GameReader {
 					this.amongUs = null;
 				}
 			}
-			if (this.amongUs == null) {
+			if (!this.amongUs && error) {
 				throw error;
 			}
 		} else if (this.amongUs && processesOpen.length === 0) {
