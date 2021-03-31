@@ -172,7 +172,7 @@ Since GitHub does not allow you to have a list of project contributors with a fo
 * [KadenBiel](https://github.com/KadenBiel) for make various things for [BetterCrewLink Mobile](https://github.com/OhMyGuus/BetterCrewlink-mobile), example: Better UI, Settings page
 * [adofou](https://github.com/adofou) for make new parameters for node-turn server for [BetterCrewLink-Server](https://github.com/OhMyGuus/BetterCrewLink-server)
 * [Kore-Development](https://github.com/Kore-Development) for make support for Repl.it and gitignore changes for [BetterCrewLink-Server](https://github.com/OhMyGuus/BetterCrewLink-server)
-* [cybershard](https://github.com/cybershard) & [edqx](https://github.com/edqx) for make Only Hear People in Vision, Walls block voice and Hear Through Cameras
+* [cybershard](https://github.com/cybershard) & [edqx](https://github.com/edqx) for make Only hear people in vision, Walls block voice and Hear through cameras
 * [electron-overlay-window](https://github.com/SnosMe/electron-overlay-window) for make it easier to do overlays
 * [node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) for make it easy to push to talk and push to mute
 * [MatadorProBr](https://github.com/MatadorProBr) for make this list of Contribuators, better README.md, wiki
