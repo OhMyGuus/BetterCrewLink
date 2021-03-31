@@ -24,7 +24,9 @@
     "dist": "yarn compile && electron-builder --win --x64 --ia32",
     "dist:32": "yarn compile && electron-builder --win --ia32",
     "dist:64": "yarn compile && electron-builder --win --x64",
-    "publish": "yarn compile && electron-builder --win --x64 --ia32 --publish always"
+    "dist:linux": "yarn compile && electron-builder --linux --x64",
+    "publish": "yarn compile && electron-builder --win --x64 --ia32 --publish always ",
+    "publish:linux": "yarn compile && electron-builder --x64 --ia32 --linux --publish always"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.2",
@@ -40,7 +42,7 @@
     "electron-updater": "^4.3.5",
     "electron-window-state": "^5.0.3",
     "jimp": "^0.16.1",
-    "memoryjs": "git://github.com/Rob--/memoryjs",
+    "memoryjs": "git://github.com/OhMyGuus/memoryjs",
     "minimist": "^1.2.5",
     "node-keyboard-watcher": "git://github.com/OhMyGuus/node-keyboard-watcher",
     "path-intersection": "^2.2.0",

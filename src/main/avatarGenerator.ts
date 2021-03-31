@@ -58,15 +58,21 @@ async function colorImage(playerColors: string[][], image: string, imagename: st
 				data[i + 2] = pixelColor.blue();
 			}
 		}
-		await img.write(`${app.getAppPath()}\\..\\generated\\${imagename}\\${colorId}.png`);
+		await img.write(`${app.getPath('userData')}/static/generated/${imagename}/${colorId}.png`);
 	}
 }
 
 export async function GenerateAvatars(colors: string[][]) {
-	await colorImage(colors, ghostBase, 'ghost');
-	await colorImage(colors, playerBase, 'player');
-	await colorImage(colors, kidBase, '90');
-	await colorImage(colors, balloonBase, '77');
+	console.log("Generating avatars..");
+	try {
+		await colorImage(colors, ghostBase, 'ghost');
+		await colorImage(colors, playerBase, 'player');
+		await colorImage(colors, kidBase, '90');
+		await colorImage(colors, balloonBase, '77');
+	}
+	catch (exception) {
+		console.log("error while generating the avatars..", exception);
+	}
 }
 
 

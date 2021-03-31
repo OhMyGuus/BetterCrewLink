@@ -13,3 +13,8 @@ files:
 win:
   publish:
     - github
+linux:
+  target:
+    - "AppImage"
+  publish:
+    - github

@@ -101,10 +101,7 @@ ipcMain.on('reload', async () => {
 	//	global.overlay?.reload();
 });
 
-ipcMain.on('generate', async () => {
-	//	await GenerateAvatars();
-});
-console.log('CALLING GENERATEAVATARS');
+
 // GenerateAvatars().then(() => console.log("done generate")).catch((e) => console.error(e));
 
 const keycodeMap = {

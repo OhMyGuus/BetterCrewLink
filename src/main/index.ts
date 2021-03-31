@@ -131,6 +131,8 @@ function createOverlay() {
 		show: false,
 		transparent: true,
 		resizable: true,
+		focusable: false
+
 		//	...overlayWindow.WINDOW_OPTS,
 	});
 
@@ -279,7 +281,7 @@ if (!gotTheLock) {
 	// create main BrowserWindow when electron is ready
 	app.whenReady().then(() => {
 		protocol.registerFileProtocol('static', (request, callback) => {
-			const pathname =  app.getAppPath() + '\\..\\' + request.url.replace('static:///', '') 
+			const pathname =  app.getPath('userData') + '/static/' + request.url.replace('static:///', '') 
 			callback(pathname);
 		});
 

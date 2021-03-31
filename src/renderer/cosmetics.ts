@@ -379,7 +379,7 @@ export function getCosmetic(color: number, isAlive: boolean, type: cosmeticType,
 			}
 		}
 		let folder = type === cosmeticType.base ? (isAlive ? `player` : `ghost`) : id;
-		return `static:///generated//${folder}//${color}.png`;
+		return `static:///generated/${folder}/${color}.png`;
 	}else{
 		return type === cosmeticType.hat? hats[id] : skins[id];
 	}
