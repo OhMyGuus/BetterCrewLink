@@ -182,7 +182,6 @@ export default class GameReader {
 				if (localPlayer) {
 					lightRadius = this.readMemory<number>('float', localPlayer.objectPtr, this.offsets.lightRadius, -1);
 				}
-				state = GameState.TASKS;
 				if (state === GameState.TASKS) {
 					const shipPtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets.shipStatus);
 
