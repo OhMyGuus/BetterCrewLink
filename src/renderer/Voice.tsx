@@ -26,13 +26,14 @@ import Divider from '@material-ui/core/Divider';
 import { validateClientPeerConfig } from './validateClientPeerConfig';
 // @ts-ignore
 import reverbOgx from 'arraybuffer-loader!../../static/reverb.ogx';
-import { CameraLocation, PolusMap, SkeldMap } from '../common/AmongusMap';
+import { CameraLocation, AmongUsMaps } from '../common/AmongusMap';
 import Store from 'electron-store';
 import { ObsVoiceState } from '../common/ObsOverlay';
-import { poseCollide } from '../common/ColliderMap';
+// import { poseCollide } from '../common/ColliderMap';
 import adapter from 'webrtc-adapter';
 import { VADOptions } from './vad';
 import { pushToTalkOptions } from './settings/Settings';
+import { poseCollide } from '../common/ColliderMap';
 
 console.log(adapter.browserDetails.browser);
 
@@ -282,8 +283,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 				) {
 					endGain = 0;
 				}
-				if (
-					lobbySettings.wallsBlockAudio &&
+				if (lobbySettings.wallsBlockAudio &&
 					!me.isDead &&
 					poseCollide({ x: me.x, y: me.y }, { x: other.x, y: other.y }, gameState.map, gameState.closedDoors)
 				) {
@@ -346,12 +346,12 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 		if (Math.sqrt(panPos[0] * panPos[0] + panPos[1] * panPos[1]) > maxdistance) {
 			if (lobbySettings.hearThroughCameras && state.gameState === GameState.TASKS) {
 				if (state.currentCamera !== CameraLocation.NONE && state.currentCamera !== CameraLocation.Skeld) {
-					const camerapos = PolusMap.cameras[state.currentCamera];
+					const camerapos = AmongUsMaps[state.map].cameras[state.currentCamera];
 					panPos = [other.x - camerapos.x, other.y - camerapos.y];
 				} else if (state.currentCamera === CameraLocation.Skeld) {
 					let distance = 999;
 					let camerapos = { x: 999, y: 999 };
-					for (const camera of Object.values(SkeldMap.cameras)) {
+					for (const camera of Object.values( AmongUsMaps[state.map].cameras)) {
 						const cameraDist = Math.sqrt(Math.pow(other.x - camera.x, 2) + Math.pow(other.y - camera.y, 2));
 						if (distance > cameraDist) {
 							distance = cameraDist;
