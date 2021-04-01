@@ -123,7 +123,7 @@ export default class GameReader {
 					else state = GameState.TASKS;
 					break;
 			}
-			const DEBUG = true;
+			// const DEBUG = true;
 			const lobbyCodeInt =
 				state === GameState.MENU ? -1 : this.readMemory<number>('int32', innerNetClient, this.offsets.gameCode);
 			this.gameCode =
