@@ -99,7 +99,17 @@ Download the latest version from [releases](https://github.com/OhMyGuus/BetterCr
 
 ## Linux
 
-A version for [Linux](https://github.com/OhMyGuus/BetterCrewLink/tree/linux) is already being developed and will be released soon, but in the meantime you can use the [web version](https://web.bettercrewl.ink/) while it is being developed. (requires a PC player)
+To install & run it on Linux run the following commands: 
+```wget "https://mirror.bettercrewl.ink/pc/latest/BetterCrewlink-Linux.AppImage"
+chmod +x BetterCrewlink-Linux.AppImage
+echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+./BetterCrewlink-Linux.AppImage
+```
+The Linux version is thanks to the following contributors: 
+
+- [TheGreatMcPain](https://github.com/TheGreatMcPain) -> Crewlink fork, Keyboard watcher fork, memoryjs fork
+- [zbanks](https://github.com/zbanks) -> Memoryjs fork
+- [Donokami](https://github.com/Donokami) -> Testing and helping  
 
 ## Android
 
