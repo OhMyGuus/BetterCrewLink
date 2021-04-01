@@ -51,7 +51,7 @@
   * [Prerequisites](#prerequisites)
   * [Setup](#setup)
 * [Contributing](#contributing)
-* [Contributors](#contributors)
+  * [Contributors](#contributors)
 * [License](#license)
 
 <!-- EXTRA FEATURES-->
