@@ -239,6 +239,7 @@ function Canvas({ hat, skin, isAlive, lookLeft, size, borderColor, color, overfl
 
 					<img
 						src={getCosmetic(color, isAlive, cosmeticType.skin, skin)}
+						style={{top: skin === 17? '0%' : undefined}}
 						ref={skinImg}
 						className={classes.skin}
 						onError={onerror}
