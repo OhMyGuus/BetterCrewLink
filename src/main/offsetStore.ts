@@ -90,10 +90,10 @@ export default {
 		objectCachePtr: [0x10],
 		meetingHudState: [0xc0],
 		innerNetClient: [0x1c57f54, 0xb8, 0x0],
-		gameState: [0xBC],
-		gameCode: [0x84],
-		hostId: [0x88],
-		clientId: [0x8c],
+		gameState: [0xC4],
+		gameCode: [0x88],
+		hostId: [0x8C],
+		clientId: [0x90],
 		allPlayersPtr: [0x21d0e60, 0xb8, 0, 0x30],
 		allPlayers: [0x10],
 		playerCount: [0x18],
@@ -118,30 +118,27 @@ export default {
 		palette: [0xffff, 0xb8],
 		palette_playercolor: [0xf0],
 		palette_shadowColor: [0xf8],
-		playerControl_GameOptions: [0xffff, 0x5C, 0x8], 
-		gameOptions_MapId: [0x10], 
+		playerControl_GameOptions: [0xffff, 0xb8, 0x8], 
+		gameOptions_MapId: [0x18], 
 
 		player: {
 			struct: [
-				{ type: 'SKIP', skip: 0x10, name: 'unused' },
-				{ type: 'UINT', name: 'id' },
-				{ type: 'SKIP', skip: 4, name: 'unused' },
-				{ type: 'UINT', name: 'name' },
-				{ type: 'SKIP', skip: 5, name: 'unused' },
-				{ type: 'USHORT', name: 'color' },
-				{ type: 'SKIP', skip: 1, name: 'unused' },
-				{ type: 'UINT', name: 'hat' },
-				{ type: 'UINT', name: 'pet' },
-				{ type: 'UINT', name: 'skin' },
-				{ type: 'UINT', name: 'disconnected' },
-				{ type: 'SKIP', skip: 4, name: 'unused' },
-				{ type: 'UINT', name: 'taskPtr' },
-				{ type: 'SKIP', skip: 4, name: 'unused' },
-				{ type: 'BYTE', name: 'impostor' },
-				{ type: 'BYTE', name: 'dead' },
+				{ type: 'SKIP', skip: 0x10, name: 'unused' }, 
+				{ type: 'UINT', name: 'id' }, // 0x10
+				{ type: 'SKIP', skip: 4, name: 'unused' }, // 0x14
+				{ type: 'UINT', name: 'name' }, // 0x18
+				{ type: 'SKIP', skip: 8, name: 'unused1' }, // 0x20
+				{ type: 'UINT', name: 'color' }, // 0x24
+				{ type: 'UINT', name: 'hat' }, // 0x28
+				{ type: 'UINT', name: 'pet' },// 0x2C
+				{ type: 'UINT', name: 'skin' }, //0x30
+				{ type: 'UINT', name: 'disconnected' },// 0x34
+				{ type: 'SKIP', skip: 4, name: 'unused' }, // 0x38
+				{ type: 'UINT', name: 'taskPtr' }, // 0x3C
+				{ type: 'BYTE', name: 'impostor' }, // 0x40
+				{ type: 'BYTE', name: 'dead' }, // 0x41
 				{ type: 'SKIP', skip: 6, name: 'unused' },
 				{ type: 'UINT', name: 'objectPtr' },
-				{ type: 'SKIP', skip: 4, name: 'unused' },
 			],
 			isLocal: [0x78],
 			localX: [0x98, 0x6c],
@@ -175,20 +172,20 @@ export default {
 				addressOffset: 4,
 			},
 			miniGame: {
-				sig: '48 8B 05 ? ? ? ? 4C 8B 80 ? ? ? ? 49 89 38 48 89 5F 20 48 85 DB 75 04 33 C0 EB 35 48 8B 15 ? ? ? ?',
+				sig: '48 8B 05 ? ? ? ? 48 89 7C 24 ? 48 8B 90 ? ? ? ? 48 C7 02 ? ? ? ? 48 8B 4B 60', 
 				patternOffset: 3,
 				addressOffset: 4,
 			},
 			palette: {
 				sig:
-					'48 8B 05 ? ? ? ? 48 8B 80 ? ? ? ? 4C 8D 44 24 ? 0F 28 DF 66 0F 7F 74 24 ? 48 8D 54 24 ? 48 89 74 24 ? 48 8D 4C 24 ? 0F 10 40 40 0F 29 44 24 ? ',
+					'48 8B 05 ? ? ? ? 48 8B 80 ? ? ? ? 4C 8D 44 24 ? 0F 28 DF 66 0F 7F 74 24 ? 48 8D 54 24 ? 48 89 74 24 ? 48 8D 4C 24 ? 0F 10 40 40 0F 29 44 24 ?',
 				patternOffset: 3,
 				addressOffset: 4,
 			},
 			playerControl: {
-				sig: 'A1 ? ? ? ? F6 80 ? ? ? ? ? 74 14 83 78 74 00 75 0E 50 E8 ? ? ? ? A1 ? ? ? ? 83 C4 04 8B 40 5C 56 57 8B 30', 
-				patternOffset: 1,
-				addressOffset: 0,
+				sig: '48 8B 05 ? ? ? ? 48 8B 88 ? ? ? ? 48 8B 01 48 8B CF 48 89 47 20 48 8B 07 48 8B 90 ? ? ? ? FF 90 ? ? ? ?', //NEED UPDATE
+				patternOffset: 3,
+				addressOffset: 4,
 			}
 		},
 	},
