@@ -409,10 +409,11 @@ export default class GameReader {
 		const PlayerColorsPtr = this.readMemory<number>('ptr', palletePtr, this.offsets!.palette_playercolor);
 		const ShadowColorsPtr = this.readMemory<number>('ptr', palletePtr, this.offsets!.palette_shadowColor);
 
-		const colorLength = Math.min(this.readMemory<number>('int', ShadowColorsPtr, this.offsets!.playerCount), 30);
-		if (colorLength == 0) {
+		const colorLength = this.readMemory<number>('int', ShadowColorsPtr, this.offsets!.playerCount);
+		if (!colorLength || colorLength <= 0 || colorLength > 30) {
 			return;
 		}
+		
 		this.colorsInitialized = colorLength > 0;
 		const playercolors = [];
 		for (let i = 0; i < colorLength; i++) {
