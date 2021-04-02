@@ -296,7 +296,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 						applyEffect(gain, reverb, destination, other);
 					}
 					collided = false;
-					endGain = 0.2;
+					endGain = 0.1;
 				} else {
 					if (other.isDead && !me.isDead) {
 						endGain = 0;
