@@ -121,7 +121,7 @@ import hat94 from '../../static/hats/94.png';// @ts-ignore
 import hat95 from '../../static/hats/95.png';// @ts-ignore
 import hat96 from '../../static/hats/96.png';// @ts-ignore
 import hat97 from '../../static/hats/97.png';// @ts-ignore
-// import hat98 from '../../static/hats/98.png';// @ts-ignore
+import hat98 from '../../static/hats/98.png';// @ts-ignore
 import hat99 from '../../static/hats/99.png';// @ts-ignore
 import hat100 from '../../static/hats/100.png';// @ts-ignore
 import hat101 from '../../static/hats/101.png';// @ts-ignore
@@ -137,6 +137,7 @@ import hat110 from '../../static/hats/110.png';// @ts-ignore
 import hat111 from '../../static/hats/111.png';// @ts-ignore
 import hat112 from '../../static/hats/112.png';// @ts-ignore
 import hat113 from '../../static/hats/113.png';// @ts-ignore
+import hat114 from '../../static/hats/114.png';// @ts-ignore
 
 // @ts-ignore
 import skin1 from '../../static/skins/1.png'; // @ts-ignore
@@ -155,6 +156,7 @@ import skin13 from '../../static/skins/13.png'; // @ts-ignore
 import skin14 from '../../static/skins/14.png'; // @ts-ignore
 import skin15 from '../../static/skins/15.png';// @ts-ignore
 import skin16 from '../../static/skins/16.png';// @ts-ignore
+import skin17 from '../../static/skins/17.png';// @ts-ignore
 import skin18 from '../../static/skins/18.png';
 
 // @ts-ignore
@@ -245,7 +247,7 @@ export const skins = [
 	skin14,
 	skin15,
 	skin16,
-	undefined,
+	skin17,
 	skin18
 
 ];
@@ -389,7 +391,7 @@ const hats = [
 	hat95,
 	hat96,
 	hat97,
-	undefined,
+	hat98,
 	hat99,
 	hat100,
 	hat101,
@@ -405,6 +407,7 @@ const hats = [
 	hat111,
 	hat112,
 	hat113,
+	hat114
 ];
 
 export enum cosmeticType {
