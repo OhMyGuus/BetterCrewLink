@@ -51,7 +51,7 @@
   * [Prerequisites](#prerequisites)
   * [Setup](#setup)
 * [Contributing](#contributing)
-* [Contributors](#contributors)
+  * [Contributors](#contributors)
 * [License](#license)
 
 <!-- EXTRA FEATURES-->
@@ -73,13 +73,14 @@
 - You can actually press the mute key/deafen key while clicked on BetterCrewLink.
 - Your mouse doesn't start to lag because of the buggy input hook.
 - Changing the speaker setting does actually something unlike original CrewLink where it is always using the default output.
-- Compatible with CrewLink 2.0
+- Compatible with CrewLink 2.0 
 - Microphone echo cancellation.
 - Microphone noise suppression.
 - More overlay positions and you can set the overlay to the top/bottom and you can set it so it shows everyone even when they aren't talking.
 - You can set the lobby up so only death people can talk. (normal lobbies but then with death talk)
-- Support for new version of Among Us. (v2021.3.5)
+- Support for new version of Among Us. (v2021.3.31.3 and v2021.4.1)
 - Support for custom colors. (mods that add more colors)
+- Support for Linux. (BETA)
 - Support for mobile. (BETA)
 ```
 
@@ -99,7 +100,17 @@ Download the latest version from [releases](https://github.com/OhMyGuus/BetterCr
 
 ## Linux
 
-A version for [Linux](https://github.com/OhMyGuus/BetterCrewLink/tree/linux) is already being developed and will be released soon, but in the meantime you can use the [web version](https://web.bettercrewl.ink/) while it is being developed. (requires a PC player)
+To install & run it on Linux run the following commands: 
+```wget "https://mirror.bettercrewl.ink/pc/latest/BetterCrewlink-Linux.AppImage"
+chmod +x BetterCrewlink-Linux.AppImage
+echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+./BetterCrewlink-Linux.AppImage
+```
+The Linux version is thanks to the following contributors: 
+
+- [TheGreatMcPain](https://github.com/TheGreatMcPain) -> Crewlink fork, Keyboard watcher fork, memoryjs fork
+- [zbanks](https://github.com/zbanks) -> Memoryjs fork
+- [Donokami](https://github.com/Donokami) -> Testing and helping  
 
 ## Android
 
@@ -160,7 +171,7 @@ Any contributions you make are greatly appreciated.
 
 ## Contributors
 
-Since GitHub does not allow you to have a list of project contributors with a fork, so I decided to make my own for the people who help the project, to be remembered with their credits
+Since GitHub does not allow you to have a list of project contributors with a fork, so I decided to make my own for the people who help the project, to be remembered with their credits.
 
 * [OhMyGuus](https://github.com/OhMyGuus) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), example: NAT Fix, more overlays, support for Mobile and owner of project
 * [ottomated](https://github.com/ottomated) for make [CrewLink](https://github.com/ottomated/CrewLink)
@@ -177,7 +188,7 @@ Since GitHub does not allow you to have a list of project contributors with a fo
 * [node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) for make it easy to push to talk and push to mute
 * [MatadorProBr](https://github.com/MatadorProBr) for make this list of Contribuators, better README.md, wiki
 
-A big thank you to all those people who contributed and still contribute to this project to stay alive, thank you for being part of this BetterCrewLink community
+A big thank you to all those people who contributed and still contribute to this project to stay alive, thank you for being part of this BetterCrewLink community!
 
 <!-- LICENSE -->
 ## License
