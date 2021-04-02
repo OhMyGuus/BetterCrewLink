@@ -114,9 +114,9 @@ import hat90 from '../../static/hats/90.png'; // @ts-ignore
 // import hat90_9 from '../../static/hats/90-9.png'; // @ts-ignore
 // import hat90_10 from '../../static/hats/90-10.png'; // @ts-ignore
 // import hat90_11 from '../../static/hats/90-11.png'; // @ts-ignore
-import hat91 from '../../static/hats/100.png';// @ts-ignore
-import hat92 from '../../static/hats/100.png';// @ts-ignore
-import hat93 from '../../static/hats/100.png';// @ts-ignore
+import hat91 from '../../static/hats/91.png';// @ts-ignore
+import hat92 from '../../static/hats/92.png';// @ts-ignore
+import hat93 from '../../static/hats/93.png';// @ts-ignore
 import hat94 from '../../static/hats/94.png';// @ts-ignore
 import hat95 from '../../static/hats/95.png';// @ts-ignore
 import hat96 from '../../static/hats/96.png';// @ts-ignore
