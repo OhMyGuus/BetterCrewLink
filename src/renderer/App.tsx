@@ -275,7 +275,7 @@ export default function App(): JSX.Element {
 							</DialogContent>
 							{updaterState.state === 'error' && (
 								<DialogActions>
-									<Button href="https://github.com/ottomated/CrewLink/releases/latest">Download Manually</Button>
+									<Button href="https://github.com/OhMyGuus/CrewLink/releases/latest">Download Manually</Button>
 								</DialogActions>
 							)}
 						</Dialog>

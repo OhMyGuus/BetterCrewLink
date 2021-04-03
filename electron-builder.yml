@@ -1,6 +1,6 @@
 appId: net.ottomated.crewlink.beta
 productName: Better-CrewLink
-copyright: Copyright © 2020 Ottomated
+copyright: Copyright © 2021 OhMyGuus
 directories:
   output: dist
   buildResources: resources
