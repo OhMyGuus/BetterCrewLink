@@ -32,6 +32,7 @@ import ReactDOM from 'react-dom';
 import './css/index.css';
 import { DEFAULT_PLAYERCOLORS } from '../main/avatarGenerator';
 import './i18n'
+import { withNamespaces } from 'react-i18next';
 let appVersion = '';
 if (typeof window !== 'undefined' && window.location) {
 	const query = new URLSearchParams(window.location.search.substring(1));
@@ -109,7 +110,7 @@ enum AppState {
 	VOICE,
 }
 
-export default function App(): JSX.Element {
+export default function App({t}): JSX.Element {
 	const [state, setState] = useState<AppState>(AppState.MENU);
 	const [gameState, setGameState] = useState<AmongUsState>({} as AmongUsState);
 	const [settingsOpen, setSettingsOpen] = useState(false);
@@ -253,7 +254,7 @@ export default function App(): JSX.Element {
 				<SettingsContext.Provider value={settings}>
 					<ThemeProvider theme={theme}>
 						<TitleBar settingsOpen={settingsOpen} setSettingsOpen={setSettingsOpen} />
-						<Settings open={settingsOpen} onClose={() => setSettingsOpen(false)} />
+						<Settings t={t} open={settingsOpen} onClose={() => setSettingsOpen(false)} />
 						<Dialog fullWidth open={updaterState.state !== 'unavailable'}>
 							<DialogTitle>Updating...</DialogTitle>
 							<DialogContent>
@@ -286,4 +287,5 @@ export default function App(): JSX.Element {
 		</GameStateContext.Provider>
 	);
 }
-ReactDOM.render(<App />, document.getElementById('app'));
+const App2 = withNamespaces()(App);
+ReactDOM.render(<App2 />, document.getElementById('app'));

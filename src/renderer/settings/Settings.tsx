@@ -30,7 +30,6 @@ import Button from '@material-ui/core/Button';
 import { ipcRenderer, remote } from 'electron';
 import { IpcHandlerMessages } from '../../common/ipc-messages';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import { withNamespaces } from 'react-i18next';
 
 interface StyleInput {
 	open: boolean;
@@ -1548,4 +1547,4 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	);
 };
 
-export default withNamespaces()(Settings);
+export default Settings;
