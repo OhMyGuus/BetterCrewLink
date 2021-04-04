@@ -1,6 +1,7 @@
 {
 	"settings": {
 		"title": "Ajustes",
+		"language": "Idioma",
 		"warning": "¿Estás seguro?",
 		"lobbysettings": {
 			"title": "Opciones de la Sala",
@@ -30,6 +31,8 @@
 			"microphone_sens_warning": "Si pones la sensibilidad más baja puede ser que no funcione",
 			"crewvolume": "Volumen de los Tripulantes como Fantasma",
 			"mastervolume": "Volumen general"
+			"test_speaker_start" : "Test de Micrófono",
+                        "test_speaker_stop": "Parar Test de Micrófono"
 		},
 		"keyboard": {
 			"title": "Atajos de Teclado",
