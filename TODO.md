@@ -2,11 +2,12 @@
 
 ## Server
 
-- [ ] Migrate from socket.io to a raw websocket connection. Ensure it auto-reconnects.
+- [x] Migrate from socket.io to a raw websocket connection. Ensure it auto-reconnects.
 - [x] Move the default server to a better host.
 - [x] Rewrite all error messages to be even more human-readable.
 - [ ] Integrate an official server list into the client.
 - [x] Detect the reason *why* the server can't provide offsets: i.e. Among Us just updated, it's an old version of Among Us, the server hasn't updated, etc.
+- [x] Repl.it support.
 
 ### Stretch
 
@@ -15,6 +16,7 @@
 
 ## Voice / WebRTC
 
+- [ ] Add a microphone mute button.
 - [x] Add a microphone boost slider.
 - [x] Add a speaker adjustment slider.
 - [x] Add individual adjustment sliders to each of the players.
@@ -25,6 +27,7 @@
 - [x] Detect reason for RTC failure: NAT type, etc?
 - [x] Re-enable all `navigator.getUserMedia` functions that can be re-enabled with autoGainControl kicking in.
 - [x] Move all player-to-player communication logic to RTC data channels, versus sending them over the websocket.
+- [ ] Change VAD to send the status towards the server.
 
 ### Stretch
 
@@ -41,4 +44,9 @@
 - [ ] Move away from DMA and towards a different method. Probably network packet sniffing? Maybe DLL injection?
 - [x] Add Android Support.
 - [ ] Add iOS Support.
-- [ ] Add Linux Support. (you can see the [development](https://github.com/OhMyGuus/BetterCrewLink/tree/linux))
+- [x] Add Linux Support.
+- [ ] Support for other languages.
+- [ ] Customizable Window Size.
+- [ ] Support for Local games.
+- [ ] Ask to update and not auto update.
+- [x] Custom Color Support.
