@@ -30,7 +30,10 @@
 			"microphone_sens": "Microphone Sensitivity",
 			"microphone_sens_warning": "If you set the sensitivity any lower it might not work",
 			"crewvolume": "Crew Volume as Ghost",
-			"mastervolume": "Master Volume"
+            "mastervolume": "Master Volume",
+            "test_speaker_start" : "Test speaker",
+            "test_speaker_stop": "Stop Test Speaker"
+
 		},
 		"keyboard": {
 			"title": "Keyboard shortcuts",
