@@ -2,7 +2,7 @@
 name: Bug Report
 about: Create a report to help us improve.
 title: '[BUG REPORT]'
-labels: 'bug'
+labels: 'Bug Report'
 assignees: ''
 ---
 # You MUST use this template or your issue will be deleted.
