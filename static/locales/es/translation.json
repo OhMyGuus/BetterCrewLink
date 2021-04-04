@@ -1,0 +1,107 @@
+{
+	"settings": {
+		"title": "Ajustes",
+		"warning": "¿Estás seguro?",
+		"lobbysettings": {
+			"title": "Opciones de la Sala",
+			"gamehostonly": "¡Solo el anfitrón de la sala puede cambiar esto! ",
+			"inlobbyonly": "¡Solo puedes cambiar esto en la sala!",
+			"voicedistance": "Distancia de la Voz",
+			"wallsblockaudio": "Las paredes bloquean el Audio",
+			"visiononly": "Solo Escuchar a Gente en tu rango de visión",
+			"impostorshearsghost": "Los Impostores escuchan a los Muertos",
+			"hear_imposters_invents": "Escuchar a los Impostores en la Ventilación",
+			"private_talk_invents": "Private Talk in Vents",
+			"comms_sabotage_audio": "El Saboteo de Comunicaciones desactiva la Voz",
+			"hear_through_cameras": "Escuchar a través de las Cámaras",
+			"ghost_only": "Solo los fantasmas pueden Hablar/Escuchar",
+			"ghost_only_warning": "Esto desactiva el sonido para los jugadores vivos",
+			"meetings_only": "Solo Reuniones/Sala",
+			"meetings_only_warning": "Esto desactiva el sonido para los jugadores fuera de las reuniones y la sala."
+		},
+		"audio": {
+			"title": "Audio",
+			"speaker": "Altavoz",
+			"voice_activity": "Actividad de Voz",
+			"push_to_talk": "Pulsar para Hablar",
+			"push_to_mute": "Pulsar para Silenciarse",
+			"microphone_volume": "Volumen del Micrófono",
+			"microphone_sens": "Sensibilidad del Micrófono",
+			"microphone_sens_warning": "Si pones la sensibilidad más baja puede ser que no funcione",
+			"crewvolume": "Volumen de los Tripulantes como Fantasma",
+			"mastervolume": "Volumen general"
+		},
+		"keyboard": {
+			"title": "Atajos de Teclado",
+			"push_to_talk": "Pulsar para Hablar",
+			"deafen": "Ensordecerse",
+			"mute": "Silenciarse"
+		},
+		"overlay": {
+			"title": "Overlay",
+			"always_on_top": "BetterCrewLink Encima",
+			"enabled": "Activar Overlay",
+			"compact": "Overlay Compacto",
+			"meeting": "Overlay de Reuniones",
+			"pos": "Posición del Overlay",
+			"locations": {
+				"hidden": "Escondido",
+				"top": "Arriba en el Centro",
+				"bottom": "Abajo a la Izquierda",
+				"right": "Derecha",
+				"right1": "Fondo-derecha",
+				"left": "Izquierda",
+				"left1": "Fondo-izquierda"
+			}
+		},
+		"advanced": {
+			"title": "Avanzado",
+			"nat_fix": "Solucionar NAT",
+			"nat_fix_warning": "Esto solucionara los problemas de NAT pero añadirá un retraso ya que se estará utilizando un servidor en lugar de p2p",
+			"change_server": "Cambiar Servidor de Voz",
+			"voice_server": "Servidor de Voz",
+			"invalid_url": "URL Inválida",
+			"voice_server_warning": "Está opción es solo para usuarios avanzados. Otros servidores pueden quitarte tu información o hacer que BetterCrewLink deje de funcionar.",
+			"reset_default": "Restaurar los valores por defecto."
+		},
+		"beta": {
+			"title": "BETA/DEPURACIÓN",
+			"mobilehost": "Host móvil",
+			"vad_enabled": "VAD activado",
+			"vad_enabled_warning": "No serás capaz de ver quién habla si se desactiva.",
+			"echocancellation": "Cancelación de Eco",
+			"noiseSuppression": "Supresión de Ruido",
+			"spatial_audio": "Audio Espacial"
+		},
+		"streaming": {
+			"title": "Opciones para Directos",
+			"hidecode": "Enseñar código de la Sala",
+			"obs_overlay": "Overlay de Buscador de OBS",
+			"obs_url": "URL de fuente de Navegador de OBS",
+			"voice_server_comp": "Modo de compatiblidad de Servidores de Voz",
+			"voice_server_comp_warning": "Es recomendado que se cambie el servidor a uno de BetterCrewLink, https://bettercrewl.ink por ejemplo."
+		},
+		"troubleshooting": {
+			"title": "Solución de Problemas",
+			"restore": "Restablecer opciones por Defecto",
+			"restore_warning": "Esto restablecerá TODAS las opciones a sus valores por defecto.",
+			"warning": "¡No disponible como anfitrión en partida!"
+		}
+	},
+	"buttons": {
+		"confirm": "Confirmar",
+		"cancel": "Cancelar",
+		"exit": "Salte de las Opciones para  guardar los cambios"
+	},
+	"game": {
+		"menu": "MENÚ",
+		"open": "Abrir Juego",
+		"open_error": "Abrir el juego manualmente. \r\n(este botón es solo para Steam)",
+		"waiting": "Esperando a Among Us",
+		"error": "ERROR",
+		"error_admin": "No se pudo conectar a Among Us.\n Por favor vuelve a abrir BetterCrewLink como un administrador.",
+		"error_unsupport": "Tu versión de Among Us no funciona con BetterCrewLink."
+	}
+}
+
+// made by LukehTM
