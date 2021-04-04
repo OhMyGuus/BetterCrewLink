@@ -109,7 +109,7 @@ enum AppState {
 	MENU,
 	VOICE,
 }
-
+// @ts-ignore
 export default function App({t}): JSX.Element {
 	const [state, setState] = useState<AppState>(AppState.MENU);
 	const [gameState, setGameState] = useState<AmongUsState>({} as AmongUsState);
@@ -287,5 +287,7 @@ export default function App({t}): JSX.Element {
 		</GameStateContext.Provider>
 	);
 }
+// @ts-ignore
 const App2 = withNamespaces()(App);
+// @ts-ignore
 ReactDOM.render(<App2 />, document.getElementById('app'));

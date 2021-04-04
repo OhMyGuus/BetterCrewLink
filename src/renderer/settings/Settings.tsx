@@ -30,6 +30,7 @@ import Button from '@material-ui/core/Button';
 import { ipcRenderer, remote } from 'electron';
 import { IpcHandlerMessages } from '../../common/ipc-messages';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import { TFunction } from 'i18next';
 
 interface StyleInput {
 	open: boolean;
@@ -357,7 +358,7 @@ const store = new Store<ISettings>({
 });
 
 export interface SettingsProps {
-	t: any;
+	t: TFunction;
 	open: boolean;
 	onClose: () => void;
 }
