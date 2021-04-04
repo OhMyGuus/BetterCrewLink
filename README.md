@@ -121,7 +121,7 @@ Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#
 
 ### iOS & macOS
 
-An iOS version is still being developed and will be released soon but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
+An iOS/macOS version is still being developed and will be released soon but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
 
 <!-- SETUP INSTRUCTIONS -->
 ### Setup Instructions (click)
