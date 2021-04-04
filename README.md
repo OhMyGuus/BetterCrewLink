@@ -45,8 +45,8 @@
 * [Installation](#installation)
   * [Windows](#windows)
   * [Linux](#linux)
-  * [Android](#android)
-  * [iOS](#ios)
+  * [Android & Chromebook](#android--chromebook)
+  * [iOS & macOS](#ios--macos)
 * [Development](#development)
   * [Prerequisites](#prerequisites)
   * [Setup](#setup)
@@ -115,11 +115,11 @@ The Linux version is thanks to the following contributors:
 - [zbanks](https://github.com/zbanks) -> Memoryjs fork
 - [Donokami](https://github.com/Donokami) -> Testing and helping  
 
-### Android
+### Android & Chromebook
 
 Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#installation) in BetterCrewlink-mobile to see how to install the Android version. (requires a PC player)
 
-### iOS
+### iOS & macOS
 
 An iOS version is still being developed and will be released soon but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
 
