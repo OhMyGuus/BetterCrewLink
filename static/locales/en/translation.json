@@ -1,0 +1,106 @@
+{
+	"settings": {
+        "title": "Settings",
+        "language": "Language",
+		"warning": "Are you sure?",
+		"lobbysettings": {
+			"title": "Lobby Settings",
+			"gamehostonly": "Only the game host can change this!",
+			"inlobbyonly": "You can only change this in the lobby!",
+			"voicedistance": "Voice Distance",
+			"wallsblockaudio": "Walls Block Audio",
+			"visiononly": "Hear People in Vision Only",
+			"impostorshearsghost": "Impostors Hear Dead",
+			"hear_imposters_invents": "Hear Impostors in Vents",
+			"private_talk_invents": "Private Talk in Vents",
+			"comms_sabotage_audio": "Comms Sabotage Disables Voice",
+			"hear_through_cameras": "Hear Through Cameras",
+			"ghost_only": "Only Ghosts Can Talk/Hear",
+			"ghost_only_warning": "This disables the sound for alive players.",
+			"meetings_only": "Meetings/Lobby Only",
+			"meetings_only_warning": "This disables the sound for alive players outside meetings"
+		},
+		"audio": {
+			"title": "Audio",
+			"speaker": "Speaker",
+			"voice_activity": "Voice Activity",
+			"push_to_talk": "Push To Talk",
+			"push_to_mute": "Push To Mute",
+			"microphone_volume": "Microphone Volume",
+			"microphone_sens": "Microphone Sensitivity",
+			"microphone_sens_warning": "If you set the sensitivity any lower it might not work",
+			"crewvolume": "Crew Volume as Ghost",
+			"mastervolume": "Master Volume"
+		},
+		"keyboard": {
+			"title": "Keyboard shortcuts",
+			"push_to_talk": "Push To Talk",
+			"deafen": "Deafen",
+			"mute": "Mute"
+		},
+		"overlay": {
+			"title": "Overlay",
+			"always_on_top": "Crewlink on Top",
+			"enabled": "Enable Overlay",
+			"compact": "Compact Overlay",
+			"meeting": "Meeting Overlay",
+			"pos": "Overlay Position",
+			"locations": {
+				"hidden": "Hidden",
+				"top": "Top Center",
+				"bottom": "Bottom Left",
+				"right": "Right",
+				"right1": "Right-background",
+				"left": "Left",
+				"left1": "Left-background"
+			}
+		},
+		"advanced": {
+			"title": "Advanced",
+			"nat_fix": "NAT Fix",
+			"nat_fix_warning": "This will FIX the nat issues but will add a delay since it is using a server instead of p2p",
+			"change_server": "Change Voice Server",
+			"voice_server": "Voice Server",
+			"invalid_url": "Invalid URL",
+			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash CrewLink.",
+			"reset_default": "Reset to default"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "Mobile Host",
+			"vad_enabled": "VAD Enabled",
+			"vad_enabled_warning": "You won't see who's talking if deactivate.",
+			"echocancellation": "Echo Cancellation",
+			"noiseSuppression": "Noise Suppression",
+			"spatial_audio": "Spatial Audio"
+		},
+		"streaming": {
+			"title": "Streaming settings",
+			"hidecode": "Show Lobby Code",
+			"obs_overlay": "OBS Browser Overlay",
+			"obs_url": "Obs browsersource url",
+			"voice_server_comp": "VS compatibility mode",
+			"voice_server_comp_warning": "It is recommended to just change the voice server to a bettercrewlink voice server https://bettercrewl.ink for example."
+		},
+		"troubleshooting": {
+			"title": "Troubleshooting",
+			"restore": "Restore Defaults",
+			"restore_warning": "This will reset ALL settings to their default values.",
+			"warning": "Not available as host in game!"
+		}
+	},
+	"buttons": {
+		"confirm": "Confirm",
+		"cancel": "Cancel",
+		"exit": "Exit Settings to apply changes"
+	},
+	"game": {
+		"menu": "MENU",
+		"open": "Open Game",
+		"open_error": "Start the game manually. \r\n(this button is only for steam)",
+		"waiting": "Waiting for Among Us",
+		"error": "ERROR",
+		"error_admin": "Couldn't connect to Among Us.\n Please re-open CrewLink as Administrator.",
+		"error_unsupport": "Your version of Among Us is unsupported by CrewLink."
+	}
+}

@@ -30,6 +30,7 @@ import Button from '@material-ui/core/Button';
 import { ipcRenderer, remote } from 'electron';
 import { IpcHandlerMessages } from '../../common/ipc-messages';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import { withNamespaces } from 'react-i18next';
 
 interface StyleInput {
 	open: boolean;
@@ -357,6 +358,7 @@ const store = new Store<ISettings>({
 });
 
 export interface SettingsProps {
+	t: any;
 	open: boolean;
 	onClose: () => void;
 }
@@ -421,12 +423,13 @@ function validateServerUrl(uri: string): boolean {
 }
 
 type URLInputProps = {
+	t: any;
 	initialURL: string;
 	onValidURL: (url: string) => void;
 	className: string;
 };
 
-const URLInput: React.FC<URLInputProps> = function ({ initialURL, onValidURL, className }: URLInputProps) {
+const URLInput: React.FC<URLInputProps> = function ({ t, initialURL, onValidURL, className }: URLInputProps) {
 	const [isValidURL, setURLValid] = useState(true);
 	const [currentURL, setCurrentURL] = useState(initialURL);
 	const [open, setOpen] = useState(false);
@@ -448,25 +451,23 @@ const URLInput: React.FC<URLInputProps> = function ({ initialURL, onValidURL, cl
 	return (
 		<>
 			<Button variant="contained" color="secondary" onClick={() => setOpen(true)}>
-				Change Voice Server
+				{t('settings.advanced.change_server')}
 			</Button>
 			<Dialog fullScreen open={open} onClose={() => setOpen(false)}>
-				<DialogTitle>Change Voice Server</DialogTitle>
+				<DialogTitle>{t('settings.advanced.change_server')}</DialogTitle>
 				<DialogContent className={className}>
 					<TextField
 						fullWidth
 						error={!isValidURL}
 						spellCheck={false}
-						label="Voice Server"
+						label={t('settings.advanced.voice_server')}
 						value={currentURL}
 						onChange={handleChange}
 						variant="outlined"
 						color="primary"
-						helperText={isValidURL ? '' : 'Invalid URL'}
+						helperText={isValidURL ? '' : t('settings.advanced.voice_server')}
 					/>
-					<Alert severity="error">
-						This option is for advanced users only. Other servers can steal your info or crash CrewLink.
-					</Alert>
+					<Alert severity="error">{t('settings.advanced.voice_server_warning')}</Alert>
 					<Button
 						color="primary"
 						variant="contained"
@@ -476,7 +477,7 @@ const URLInput: React.FC<URLInputProps> = function ({ initialURL, onValidURL, cl
 							onValidURL('https://bettercrewl.ink');
 						}}
 					>
-						Reset to default
+						{t('settings.advanced.reset_default')}
 					</Button>
 				</DialogContent>
 				<DialogActions>
@@ -488,7 +489,7 @@ const URLInput: React.FC<URLInputProps> = function ({ initialURL, onValidURL, cl
 							setCurrentURL(initialURL);
 						}}
 					>
-						Cancel
+						{t('buttons.cancel')}
 					</Button>
 					<Button
 						disabled={!isValidURL}
@@ -500,7 +501,7 @@ const URLInput: React.FC<URLInputProps> = function ({ initialURL, onValidURL, cl
 							onValidURL(url);
 						}}
 					>
-						Confirm
+						{t('buttons.confirm')}
 					</Button>
 				</DialogActions>
 			</Dialog>
@@ -531,7 +532,7 @@ const DisabledTooltip: React.FC<DisabledTooltipProps> = function ({ disabled, ch
 	else return <>{children}</>;
 };
 
-const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsProps) {
+const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: SettingsProps) {
 	const classes = useStyles({ open });
 	const [settings, setSettings] = useContext(SettingsContext);
 	const gameState = useContext(GameStateContext);
@@ -639,25 +640,18 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 	};
 
 	const resetDefaults = () => {
-		openWarningDialog(
-			'Are you sure?',
-			'This will reset ALL settings to their default values.',
-			() => {
-				store.clear();
-				setSettings({
-					type: 'set',
-					action: store.store,
-				});
+		store.clear();
+		setSettings({
+			type: 'set',
+			action: store.store,
+		});
 
-				// I'm like 90% sure this isn't necessary but whenever you click the mic/speaker dropdown it is called, so it may be necessary
-				// updateDevices();
+		// I'm like 90% sure this isn't necessary but whenever you click the mic/speaker dropdown it is called, so it may be necessary
+		// updateDevices();
 
-				// This is necessary for resetting hotkeys properly, the main thread needs to be notified to reset the hooks
-				ipcRenderer.send(IpcHandlerMessages.RESET_KEYHOOKS);
-				location.reload();
-			},
-			true
-		);
+		// This is necessary for resetting hotkeys properly, the main thread needs to be notified to reset the hooks
+		ipcRenderer.send(IpcHandlerMessages.RESET_KEYHOOKS);
+		location.reload();
 	};
 
 	const microphones = devices.filter((d) => d.kind === 'audioinput');
@@ -718,7 +712,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 				>
 					<ChevronLeft htmlColor="#777" />
 				</IconButton>
-				<Typography variant="h6">Settings</Typography>
+				<Typography variant="h6">{t('settings.title')}</Typography>
 			</div>
 			<div className={classes.scroll}>
 				{/* Lobby Settings */}
@@ -735,29 +729,30 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						</DialogContent>
 						<DialogActions>
 							<Button onClick={() => handleWarningDialogClose(true)} color="primary">
-								Confirm
+								{t('buttons.confirm')}
 							</Button>
 							<Button onClick={() => handleWarningDialogClose(false)} color="primary" autoFocus>
-								Cancel
+								{t('buttons.cancel')}
 							</Button>
 						</DialogActions>
 					</Dialog>
 				</div>
-				<Typography variant="h6">Lobby Settings</Typography>
+				<Typography variant="h6">{t('settings.lobbysettings.title')}</Typography>
 				<div>
 					<Typography id="input-slider" gutterBottom>
 						<i>
 							{canChangeLobbySettings
 								? localLobbySettings.visionHearing
 								: lobbySettings.visionHearing
-								? 'Imposter & original crewlink'
+								? 'Imposter'
 								: ''}
 						</i>{' '}
-						Voice Distance: {canChangeLobbySettings ? localLobbySettings.maxDistance : lobbySettings.maxDistance}
+						{t('settings.lobbysettings.voicedistance')}:{' '}
+						{canChangeLobbySettings ? localLobbySettings.maxDistance : lobbySettings.maxDistance}
 					</Typography>
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
-						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
+						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<Slider
 							disabled={!canChangeLobbySettings}
@@ -781,10 +776,10 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 				<div>
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
-						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
+						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							label="Walls Block Audio"
+							label={t('settings.lobbysettings.wallsblockaudio')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
 								localLobbySettings.wallsBlockAudio = newValue;
@@ -802,13 +797,12 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 					</DisabledTooltip>
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
-						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
+						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							label="Hear People in Vision Only"
+							label={t('settings.lobbysettings.visiononly')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
-								console.log('new vlaue of setting: ', newValue);
 								// openWarningDialog(
 								// 	'Be aware!',
 								// 	'Imposters and original crewlink users still use the voice distance setting',
@@ -831,10 +825,10 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 					</DisabledTooltip>
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
-						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
+						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							label="Impostors Hear Dead"
+							label={t('settings.lobbysettings.impostorshearsghost')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
 								localLobbySettings.haunting = newValue;
@@ -853,10 +847,10 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
-						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
+						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							label="Hear Impostors in Vents"
+							label={t('settings.lobbysettings.hear_imposters_invents')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
 								localLobbySettings.hearImpostorsInVents = newValue;
@@ -878,10 +872,10 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 					</DisabledTooltip>
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
-						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
+						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							label="Private Talk in Vents"
+							label={t('settings.lobbysettings.private_talk_invents')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
 								localLobbySettings.impostersHearImpostersInvent = newValue;
@@ -908,10 +902,10 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
-						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
+						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							label="Comms Sabotage Disables Voice"
+							label={t('settings.lobbysettings.comms_sabotage_audio')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
 								localLobbySettings.commsSabotage = newValue;
@@ -929,10 +923,10 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 					</DisabledTooltip>
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
-						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
+						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							label="Hear Through Cameras"
+							label={t('settings.lobbysettings.hear_through_cameras')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
 								localLobbySettings.hearThroughCameras = newValue;
@@ -953,16 +947,16 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
-						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
+						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							label="Only Ghosts Can Talk/Hear"
+							label={t('settings.lobbysettings.ghost_only')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
 								console.log('new vlaue of setting: ', newValue);
 								openWarningDialog(
-									'Are you sure?',
-									'This disables the sound for alive players.',
+									t('settings.warning'),
+									t('settings.lobbysettings.ghost_only_warning'),
 									() => {
 										localLobbySettings.meetingGhostOnly = false;
 										localLobbySettings.deadOnly = newValue;
@@ -986,16 +980,16 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 					</DisabledTooltip>
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
-						title={isInMenuOrLobby ? 'Only the game host can change this!' : 'You can only change this in the lobby!'}
+						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							label="Meetings/Lobby Only"
+							label={t('settings.lobbysettings.meetings_only')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
 								console.log('new vlaue of setting: ', newValue);
 								openWarningDialog(
-									'Are you sure?',
-									'This disables the sound for alive players outside meetings',
+									t('settings.warning'),
+									t('settings.lobbysettings.meetings_only_warning'),
 									() => {
 										localLobbySettings.meetingGhostOnly = newValue;
 										localLobbySettings.deadOnly = false;
@@ -1019,7 +1013,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 					</DisabledTooltip>
 				</div>
 				<Divider />
-				<Typography variant="h6">Audio</Typography>
+				<Typography variant="h6">{t('settings.audio.title')}</Typography>
 				<TextField
 					select
 					label="Microphone"
@@ -1046,7 +1040,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 				{open && <MicrophoneSoundBar microphone={settings.microphone} />}
 				<TextField
 					select
-					label="Speaker"
+					label={t('settings.audio.speaker')}
 					variant="outlined"
 					color="secondary"
 					value={settings.speaker}
@@ -1077,15 +1071,27 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						});
 					}}
 				>
-					<FormControlLabel label="Voice Activity" value={pushToTalkOptions.VOICE} control={<Radio />} />
-					<FormControlLabel label="Push To Talk" value={pushToTalkOptions.PUSH_TO_TALK} control={<Radio />} />
-					<FormControlLabel label="Push To Mute" value={pushToTalkOptions.PUSH_TO_MUTE} control={<Radio />} />
+					<FormControlLabel
+						label={t('settings.audio.voice_activity')}
+						value={pushToTalkOptions.VOICE}
+						control={<Radio />}
+					/>
+					<FormControlLabel
+						label={t('settings.audio.push_to_talk')}
+						value={pushToTalkOptions.PUSH_TO_TALK}
+						control={<Radio />}
+					/>
+					<FormControlLabel
+						label={t('settings.audio.push_to_mute')}
+						value={pushToTalkOptions.PUSH_TO_MUTE}
+						control={<Radio />}
+					/>
 				</RadioGroup>
 				<Divider />
 
 				<div>
 					<Typography id="input-slider" gutterBottom>
-						Microphone Volume
+						{t('settings.audio.microphone_volume')}
 					</Typography>
 					<Grid container spacing={2}>
 						<Grid item xs={3}>
@@ -1126,7 +1132,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						</Grid>
 					</Grid>
 					<Typography id="input-slider" gutterBottom>
-						Microphone Sensitivity
+						{t('settings.audio.microphone_sens')}
 					</Typography>
 					<Grid container spacing={2}>
 						<Grid item xs={3}>
@@ -1159,8 +1165,8 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 								step={0.05}
 								onChange={(_, newValue: number | number[]) => {
 									openWarningDialog(
-										'Are you sure?',
-										'If you set the sensitivity any lower it might not work.',
+										t('settings.warning'),
+										t('settings.audio.microphone_sens_warning'),
 										() => {
 											setSettings({
 												type: 'setOne',
@@ -1177,7 +1183,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 					<Divider />
 
 					<Typography id="input-slider" gutterBottom>
-						Crew Volume as Ghost
+						{t('settings.audio.crewvolume')}
 					</Typography>
 					<Slider
 						value={settings.ghostVolume}
@@ -1191,7 +1197,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						aria-labelledby="input-slider"
 					/>
 					<Typography id="input-slider" gutterBottom>
-						Master Volume
+						{t('settings.audio.mastervolume')}
 					</Typography>
 					<Slider
 						value={settings.masterVolume}
@@ -1207,14 +1213,14 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 					/>
 				</div>
 				<Divider />
-				<Typography variant="h6">Keyboard Shortcuts</Typography>
+				<Typography variant="h6">{t('settings.keyboard.title')}</Typography>
 				<Grid container spacing={1}>
 					<Grid item xs={12}>
 						<TextField
 							fullWidth
 							spellCheck={false}
 							color="secondary"
-							label="Push To Talk"
+							label={t('settings.keyboard.push_to_talk')}
 							value={settings.pushToTalkShortcut}
 							className={classes.shortcutField}
 							variant="outlined"
@@ -1230,7 +1236,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						<TextField
 							spellCheck={false}
 							color="secondary"
-							label="Mute"
+							label={t('settings.keyboard.mute')}
 							value={settings.muteShortcut}
 							className={classes.shortcutField}
 							variant="outlined"
@@ -1246,7 +1252,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						<TextField
 							spellCheck={false}
 							color="secondary"
-							label="Deafen"
+							label={t('settings.keyboard.deafen')}
 							value={settings.deafenShortcut}
 							className={classes.shortcutField}
 							variant="outlined"
@@ -1261,9 +1267,9 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 				</Grid>
 
 				<Divider />
-				<Typography variant="h6">Overlay</Typography>
+				<Typography variant="h6">{t('settings.overlay.title')}</Typography>
 				<FormControlLabel
-					label="Crewlink on Top"
+					label={t('settings.overlay.always_on_top')}
 					checked={settings.alwaysOnTop}
 					onChange={(_, checked: boolean) => {
 						setSettings({
@@ -1274,7 +1280,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 					control={<Checkbox />}
 				/>
 				<FormControlLabel
-					label="Enable Overlay"
+					label={t('settings.overlay.enabled')}
 					checked={settings.enableOverlay}
 					onChange={(_, checked: boolean) => {
 						setSettings({
@@ -1287,7 +1293,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 				{settings.enableOverlay && (
 					<>
 						<FormControlLabel
-							label="Compact Overlay"
+							label={t('settings.overlay.compact')}
 							checked={settings.compactOverlay}
 							onChange={(_, checked: boolean) => {
 								setSettings({
@@ -1298,7 +1304,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 							control={<Checkbox />}
 						/>
 						<FormControlLabel
-							label="Meeting Overlay"
+							label={t('settings.overlay.meeting')}
 							checked={settings.meetingOverlay}
 							onChange={(_, checked: boolean) => {
 								setSettings({
@@ -1310,7 +1316,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						/>
 						<TextField
 							select
-							label="Overlay Position"
+							label={t('settings.overlay.pos')}
 							variant="outlined"
 							color="secondary"
 							value={settings.overlayPosition}
@@ -1325,27 +1331,27 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 							}}
 							onClick={updateDevices}
 						>
-							<option value="hidden">Hidden</option>
-							<option value="top">Top Center</option>
-							<option value="bottom_left">Bottom Left</option>
-							<option value="right">Right</option>
-							<option value="right1">Right-background</option>
-							<option value="left">Left</option>
-							<option value="left1">Left-background</option>
+							<option value="hidden">{t('settings.overlay.locations.hidden')}</option>
+							<option value="top">{t('settings.overlay.locations.top')}</option>
+							<option value="bottom_left">{t('settings.overlay.locations.bottom_left')}</option>
+							<option value="right">{t('settings.overlay.locations.right')}</option>
+							<option value="right1">{t('settings.overlay.locations.right1')}</option>
+							<option value="left">{t('settings.overlay.locations.left')}</option>
+							<option value="left1">{t('settings.overlay.locations.left1')}</option>
 						</TextField>
 					</>
 				)}
 
 				<Divider />
-				<Typography variant="h6">Advanced</Typography>
+				<Typography variant="h6">{t('settings.advanced.title')}</Typography>
 				<div>
 					<FormControlLabel
-						label="NAT Fix"
+						label={t('settings.advanced.nat_fix')}
 						checked={settings.natFix}
 						onChange={(_, checked: boolean) => {
 							openWarningDialog(
-								'Are you sure?',
-								'This will FIX the nat issues but will add a delay since it is using a server instead of p2p',
+								t('settings.warning'),
+								t('settings.advanced.nat_fix_warning'),
 								() => {
 									setSettings({
 										type: 'setOne',
@@ -1360,6 +1366,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 				</div>
 
 				<URLInput
+					t={t}
 					initialURL={settings.serverURL}
 					onValidURL={(url: string) => {
 						setSettings({
@@ -1370,10 +1377,10 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 					className={classes.urlDialog}
 				/>
 				<Divider />
-				<Typography variant="h6">BETA/DEBUG</Typography>
+				<Typography variant="h6">{t('settings.beta.title')}</Typography>
 				<div>
 					<FormControlLabel
-						label="Mobile Host"
+						label={t('settings.beta.mobilehost')}
 						checked={settings.mobileHost}
 						onChange={(_, checked: boolean) => {
 							setSettings({
@@ -1384,12 +1391,12 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
-						label="VAD Enabled"
+						label={t('settings.beta.vad_enabled')}
 						checked={settings.vadEnabled}
 						onChange={(_, checked: boolean) => {
 							openWarningDialog(
-								'Are you sure?',
-								"You won't see who's talking if deactivate.",
+								t('settings.warning'),
+								t('settings.beta.vad_enabled_warning'),
 								() => {
 									setSettings({
 										type: 'setOne',
@@ -1402,7 +1409,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
-						label="Echo Cancellation"
+						label={t('settings.beta.echocancellation')}
 						checked={settings.echoCancellation}
 						onChange={(_, checked: boolean) => {
 							setSettings({
@@ -1413,7 +1420,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
-						label="Spatial Audio"
+						label={t('settings.beta.spatial_audio')}
 						checked={settings.enableSpatialAudio}
 						onChange={(_, checked: boolean) => {
 							setSettings({
@@ -1424,7 +1431,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
-						label="Noise Suppression"
+						label={t('settings.beta.noiseSuppression')}
 						checked={settings.noiseSuppression}
 						onChange={(_, checked: boolean) => {
 							setSettings({
@@ -1436,10 +1443,10 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 					/>
 				</div>
 				<Divider />
-				<Typography variant="h6">Streaming settings</Typography>
+				<Typography variant="h6">{t('settings.streaming.title')}</Typography>
 				<div>
 					<FormControlLabel
-						label="Show Lobby Code"
+						label={t('settings.streaming.hidecode')}
 						checked={!settings.hideCode}
 						onChange={(_, checked: boolean) => {
 							setSettings({
@@ -1450,7 +1457,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
-						label="OBS Browser Overlay"
+						label={t('settings.streaming.obs_overlay')}
 						checked={settings.obsOverlay}
 						onChange={(_, checked: boolean) => {
 							setSettings({
@@ -1469,12 +1476,12 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 					{settings.obsOverlay && (
 						<>
 							<FormControlLabel
-								label="VS compatibility mode"
+								label={t('settings.streaming.voice_server_comp')}
 								checked={settings.obsComptaibilityMode}
 								onChange={(_, checked: boolean) => {
 									openWarningDialog(
-										'Are you sure?',
-										'It is recommended to just change the voice server to a bettercrewlink voice server https://bettercrewl.ink for example.',
+										t('settings.warning'),
+										t('settings.streaming.voice_server_comp_warning'),
 										() => {
 											setSettings({
 												type: 'setOne',
@@ -1490,7 +1497,7 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 							<TextField
 								fullWidth
 								spellCheck={false}
-								label="Obs browsersource url"
+								label={t('settings.streaming.obs_url')}
 								value={`${
 									(settings.obsComptaibilityMode && !settings.serverURL.includes('bettercrewl.ink')) ||
 									settings.serverURL.includes('https')
@@ -1511,20 +1518,34 @@ const Settings: React.FC<SettingsProps> = function ({ open, onClose }: SettingsP
 					)}
 				</div>
 				<Divider />
-				<Typography variant="h6">Troubleshooting</Typography>
+				<Typography variant="h6">{t('settings.troubleshooting.title')}</Typography>
 				<div>
-					<DisabledTooltip disabled={!canResetSettings} title={'Not available as host in game!'}>
-						<Button disabled={!canResetSettings} variant="contained" color="secondary" onClick={() => resetDefaults()}>
-							Restore Defaults
+					<DisabledTooltip disabled={!canResetSettings} title={t('settings.troubleshooting.warning')}>
+						<Button
+							disabled={!canResetSettings}
+							variant="contained"
+							color="secondary"
+							onClick={() =>
+								openWarningDialog(
+									t('settings.warning'),
+									t('settings.troubleshooting.restore_warning'),
+									() => {
+										resetDefaults();
+									},
+									true
+								)
+							}
+						>
+							{t('settings.troubleshooting.restore')}
 						</Button>
 					</DisabledTooltip>
 				</div>
 				<Alert className={classes.alert} severity="info" style={{ display: unsaved ? undefined : 'none' }}>
-					Exit Settings to apply changes
+					{t('settings.buttons.exit')}
 				</Alert>
 			</div>
 		</Box>
 	);
 };
 
-export default Settings;
+export default withNamespaces()(Settings);

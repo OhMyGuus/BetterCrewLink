@@ -31,7 +31,7 @@ import { IpcOverlayMessages } from '../common/ipc-messages';
 import ReactDOM from 'react-dom';
 import './css/index.css';
 import { DEFAULT_PLAYERCOLORS } from '../main/avatarGenerator';
-
+import './i18n'
 let appVersion = '';
 if (typeof window !== 'undefined' && window.location) {
 	const query = new URLSearchParams(window.location.search.substring(1));
