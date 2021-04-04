@@ -45,8 +45,8 @@
 * [Installation](#installation)
   * [Windows](#windows)
   * [Linux](#linux)
-  * [Android](#android)
-  * [iOS](#ios)
+  * [Android & Chromebook](#android--chromebook)
+  * [iOS & macOS](#ios--macos)
 * [Development](#development)
   * [Prerequisites](#prerequisites)
   * [Setup](#setup)
@@ -115,13 +115,13 @@ The Linux version is thanks to the following contributors:
 - [zbanks](https://github.com/zbanks) -> Memoryjs fork
 - [Donokami](https://github.com/Donokami) -> Testing and helping  
 
-### Android
+### Android & Chromebook
 
-Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#installation) in BetterCrewlink-mobile to see how to install the Android version. (requires a PC player)
+Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#installation) in BetterCrewlink-mobile to see how to install the Android/Chromebook version. (requires a PC player)
 
-### iOS
+### iOS & macOS
 
-An iOS version is still being developed and will be released soon but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
+An iOS/macOS version is still being developed and will be released soon but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
 
 <!-- SETUP INSTRUCTIONS -->
 ### Setup Instructions (click)
@@ -175,8 +175,6 @@ Any contributions you make are greatly appreciated.
 ### Contributors
 
 [![Contributors][contributors-shield]][contributors-url]
-
-Since GitHub does not allow you to have a list of project contributors with a fork, so I decided to make my own for the people who help the project, to be remembered with their credits.
 
 * [OhMyGuus](https://github.com/OhMyGuus) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), example: NAT Fix, more overlays, support for Mobile and owner of project
 * [ottomated](https://github.com/ottomated) for make [CrewLink](https://github.com/ottomated/CrewLink)
