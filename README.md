@@ -176,8 +176,6 @@ Any contributions you make are greatly appreciated.
 
 [![Contributors][contributors-shield]][contributors-url]
 
-Since GitHub does not allow you to have a list of project contributors with a fork, so I decided to make my own for the people who help the project, to be remembered with their credits.
-
 * [OhMyGuus](https://github.com/OhMyGuus) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), example: NAT Fix, more overlays, support for Mobile and owner of project
 * [ottomated](https://github.com/ottomated) for make [CrewLink](https://github.com/ottomated/CrewLink)
 * [vrnagy](https://github.com/vrnagy) for make WebRTC reconnects automatically for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink)
