@@ -8,6 +8,7 @@
 			"gamehostonly": "Apenas o Anfitrião da Partida pode alterar isto!",
 			"inlobbyonly": "Só pode alterar isto no lobby!",
 			"voicedistance": "Distância da Voz",
+			"voicedistance_impostor": "none",
 			"wallsblockaudio": "Paredes Bloqueiam o Áudio",
 			"visiononly": "Ouvir Pessoas no Campo de Visão",
 			"impostorshearsghost": "Impostor Ouve os Fantasmas",
@@ -95,6 +96,7 @@
 		}
 	},
 	"buttons": {
+		"default": "none",
 		"confirm": "Confirmar",
 		"cancel": "Cancelar",
 		"exit": "Sair das definições para aplicar as alterações"
