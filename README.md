@@ -191,7 +191,7 @@ Any contributions you make are greatly appreciated.
 * [node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) for make it easy to push to talk and push to mute
 * [MatadorProBr](https://github.com/MatadorProBr) for make this list of Contribuators, better README.md, wiki
 
-A big thank you to all those people who contributed and still contribute to this project to stay alive, thank you for being part of this BetterCrewLink community!
+A big thank you to all those people who contributed and still contribute to this project to stay alive, thank you so much for being part of this BetterCrewLink community!
 
 <!-- LICENSE -->
 ## License
