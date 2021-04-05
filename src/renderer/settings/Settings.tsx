@@ -27,11 +27,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { GameState } from '../../common/AmongUsState';
 import Button from '@material-ui/core/Button';
-import { ipcRenderer, remote, app } from 'electron';
+import { ipcRenderer, remote } from 'electron';
 import { IpcHandlerMessages } from '../../common/ipc-messages';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import i18next, { TFunction } from 'i18next';
-import languages from './languages';
+import languages from '../language/languages';
 
 interface StyleInput {
 	open: boolean;
@@ -187,7 +187,7 @@ const store = new Store<ISettings>({
 		},
 		language: {
 			type: 'string',
-			default: 'Default',
+			default: 'unkown',
 		},
 		microphone: {
 			type: 'string',
@@ -428,7 +428,7 @@ function validateServerUrl(uri: string): boolean {
 }
 
 type URLInputProps = {
-	t: any;
+	t: (key: string) => string;
 	initialURL: string;
 	onValidURL: (url: string) => void;
 	className: string;
@@ -587,7 +587,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				devices.map((d) => {
 					let label = d.label;
 					if (d.deviceId === 'default') {
-						label = 'Default';
+						label = t('buttons.default');
 					} else {
 						const match = /(.+?)\)/.exec(d.label);
 						if (match && match[1]) label = match[1] + ')';
@@ -668,10 +668,20 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	}, [settings.localLobbySettings]);
 
 	useEffect(() => {
+		console.log(settings.language);
 		if (settings.language === 'unkown') {
-			const lang: string = remote.app.getLocale().split('-')[0];
-			if (Object.keys(languages).includes(lang)) {
+			const locale: string = remote.app.getLocale();
+			const lang = Object.keys(languages).includes(locale)
+				? locale
+				: Object.keys(languages).includes(locale.split('-')[0])
+				? locale.split('-')[0]
+				: undefined;
+			if (lang) {
 				settings.language = lang;
+				setSettings({
+					type: 'setOne',
+					action: ['language', settings.language],
+				});
 			}
 		}
 		i18next.changeLanguage(settings.language);
@@ -755,15 +765,10 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				<Typography variant="h6">{t('settings.lobbysettings.title')}</Typography>
 				<div>
 					<Typography id="input-slider" gutterBottom>
-						<i>
-							{canChangeLobbySettings
-								? localLobbySettings.visionHearing
-								: lobbySettings.visionHearing
-								? 'Imposter'
-								: ''}
-						</i>{' '}
-						{t('settings.lobbysettings.voicedistance')}:{' '}
-						{canChangeLobbySettings ? localLobbySettings.maxDistance : lobbySettings.maxDistance}
+						{(canChangeLobbySettings ? localLobbySettings.visionHearing : lobbySettings.visionHearing)
+							? t('settings.lobbysettings.voicedistance_impostor')
+							: t('settings.lobbysettings.voicedistance')}{' '}
+						: {canChangeLobbySettings ? localLobbySettings.maxDistance : lobbySettings.maxDistance}
 					</Typography>
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
@@ -1076,7 +1081,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						</option>
 					))}
 				</TextField>
-				{open && <TestSpeakersButton speaker={settings.speaker} />}
+				{open && <TestSpeakersButton t={t} speaker={settings.speaker} />}
 				<RadioGroup
 					value={settings.pushToTalkMode}
 					onChange={(ev) => {
@@ -1485,7 +1490,9 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					}}
 				>
 					{Object.entries(languages).map(([key, value]) => (
-						<option value={key}>{value}</option>
+						<option key={key} value={key}>
+							{value.name}
+						</option>
 					))}
 				</TextField>
 				<Divider />

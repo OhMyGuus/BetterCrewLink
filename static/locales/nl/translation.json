@@ -1,14 +1,13 @@
 {
 	"settings": {
-		"title": "Settings",
-		"language": "Language",
-		"warning": "Are you sure?",
+        "title": "Instellingen",
+        "language": "Taal",
+		"warning": "Weet je het zeker?",
 		"lobbysettings": {
-			"title": "Lobby Settings",
-			"gamehostonly": "Only the game host can change this!",
+			"title": "Lobby instellingen",
+			"gamehostonly": "Alleen de host kan dit veranderen!",
 			"inlobbyonly": "You can only change this in the lobby!",
 			"voicedistance": "Voice Distance",
-			"voicedistance_impostor": "Impostor Voice Distance",
 			"wallsblockaudio": "Walls Block Audio",
 			"visiononly": "Hear People in Vision Only",
 			"impostorshearsghost": "Impostors Hear Dead",
@@ -31,9 +30,10 @@
 			"microphone_sens": "Microphone Sensitivity",
 			"microphone_sens_warning": "If you set the sensitivity any lower it might not work",
 			"crewvolume": "Crew Volume as Ghost",
-			"mastervolume": "Master Volume",
-			"test_speaker_start": "Test speaker",
-			"test_speaker_stop": "Stop Test Speaker"
+            "mastervolume": "Master Volume",
+            "test_speaker_start" : "Test speaker",
+            "test_speaker_stop": "Stop Test Speaker"
+
 		},
 		"keyboard": {
 			"title": "Keyboard shortcuts",
@@ -93,7 +93,7 @@
 		}
 	},
 	"buttons": {
-		"default": "Default",
+		"default" : "Default",
 		"confirm": "Confirm",
 		"cancel": "Cancel",
 		"exit": "Exit Settings to apply changes"
@@ -107,5 +107,5 @@
 		"error_admin": "Couldn't connect to Among Us.\n Please re-open CrewLink as Administrator.",
 		"error_unsupport": "Your version of Among Us is unsupported by CrewLink."
 	},
-	"translator": "none"
+	"translator" : "none"
 }
