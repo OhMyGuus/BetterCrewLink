@@ -1,16 +1,6 @@
-If you want to translate BetterCrewLink, use a file editor and start translating all the files, after translating, fork BetterCrewLink clicking in "Fork", go to that same folder and drag the files here, then click on "Confirm new file", after that click on "Pull requests" up there, click on "New pull request" and make a pull request and ready, after that and just wait for someone to accept your pull request and you will have contributed to the project, thank you so much!
+If you want to translate BetterCrewLink, [click here](https://crowdin.com/project/bettercrewlink) and select your language that you want to translatethen start translating and whenever you translate a part click on "Save", so all the translations you do, we will receive, and you will have contributed to the project, thank you so much!
 
-```
-How to translate?
-1. Open the translation.json with your text editor of preference. 
-2. Translate the left side of the : of each line. 
-for example if you have this line:
-"gamehostonly": "Only the game host can change this!",
+[![Crowdin][crowdin-shield]][crowdin-url]
 
-replace 
-"Only the game host can change this!"
-with the text in your language. 
-
-WARNING: do not touch the keys like 
-"gamehostonly"
-```
+[crowdin-shield]: https://badges.crowdin.net/bettercrewlink/localized.svg
+[crowdin-url]: https://crowdin.com/project/bettercrewlink
