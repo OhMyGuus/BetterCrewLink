@@ -1,7 +1,7 @@
 import translationEN from '../../../static/locales/en/translation.json'
 import translationFR from '../../../static/locales/fr/translation.json'
 import translationES from '../../../static/locales/es/translation.json'
-import translationPT from '../../../static/locales/pt/translation.json'
+import translationPTBR from '../../../static/locales/pt-BR/translation.json'
 import translationSK from '../../../static/locales/sk/translation.json'
 import translationNL from '../../../static/locales/nl/translation.json'
 
@@ -19,9 +19,9 @@ const languages = {
 		translation : translationES,
 		name: 'Español'
 	},
-	pt: {
-		translation : translationPT,
-		name: 'português'
+	"pt-BR": {
+		translation : translationPTBR,
+		name: 'português (BR)'
 	},
 	sk: {
 		translation : translationSK,
