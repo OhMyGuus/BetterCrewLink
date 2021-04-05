@@ -25,7 +25,7 @@ const languages = {
 	},
 	sk: {
 		translation : translationSK,
-		name: 'Slovák'
+		name: 'Slovenčina'
 	},
 	nl: {
 		translation : translationNL,
