@@ -18,8 +18,10 @@
 			"hear_through_cameras": "Ouça através das câmeras",
 			"ghost_only": "Apenas Fantasmas Podem Falar/Ouvir",
 			"ghost_only_warning": "Isso desabilita o som dos jogadores vivos.",
+			"ghost_only_warning2": "Apenas o fantasma pode falar se estiver habilitado.",
 			"meetings_only": "Emergências/Lobby Apenas",
-			"meetings_only_warning": "Isso desativa o som dos jogadores vivos fora das reuniões de emergência"
+			"meetings_only_warning": "Isso desativa o som dos jogadores vivos fora das reuniões de emergência",
+			"meetings_only_warning2": "Conversar em reuniões apenas se estiver habilitado."
 		},
 		"audio": {
 			"title": "Áudio",
