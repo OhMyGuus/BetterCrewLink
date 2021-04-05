@@ -6,7 +6,7 @@
 		"lobbysettings": {
 			"title": "Configurações do Lobby",
 			"gamehostonly": "Apenas o Anfitrião da Partida pode alterar isso!",
-			"inlobbyonly": "Você pode alterar isso quando estiver no lobby!",
+			"inlobbyonly": "Você pode alterar isso apenas se estiver no lobby!",
 			"voicedistance": "Distância da Voz",
 			"voicedistance_impostor": "Distância da Voz do Impostor",
 			"wallsblockaudio": "Paredes Bloqueiam o Áudio",
