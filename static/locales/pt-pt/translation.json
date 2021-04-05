@@ -18,8 +18,8 @@
 			"ghost_only": "Apenas os Fantasmas Podem Falar/Ouvir",
 			"ghost_only_warning": "Isto desativa o som dos jogadores vivos.",
 			"ghost_only_warning2": "Apenas os fantasmas podem falar ativado."
-			"meetings_only": "Apenas nas Reuniões/Lobby ",
-			"meetings_only_warning": "Isto desativa o som dos jogadores vivos fora das reuniões de emergência"
+			"meetings_only": "Apenas nas Reuniões/Lobby",
+			"meetings_only_warning": "Isto desativa o som dos jogadores vivos fora das reuniões de emergência."
 			"meetings_only_warning2": "Falar apenas nas reuniões de emergência ativado."
 		},
 		"audio": {
