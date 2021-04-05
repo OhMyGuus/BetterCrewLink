@@ -105,5 +105,6 @@
 		"error": "ERROR",
 		"error_admin": "Couldn't connect to Among Us.\n Please re-open CrewLink as Administrator.",
 		"error_unsupport": "Your version of Among Us is unsupported by CrewLink."
-	}
+	},
+	"translator" : "none"
 }

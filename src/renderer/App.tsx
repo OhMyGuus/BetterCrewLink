@@ -33,7 +33,7 @@ import './css/index.css';
 import 'source-code-pro/source-code-pro.css'
 import "typeface-varela/index.css"
 import { DEFAULT_PLAYERCOLORS } from '../main/avatarGenerator';
-import './locales/i18n'
+import './language/i18n'
 import { withNamespaces } from 'react-i18next';
 let appVersion = '';
 if (typeof window !== 'undefined' && window.location) {

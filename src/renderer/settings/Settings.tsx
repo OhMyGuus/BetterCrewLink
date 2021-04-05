@@ -31,7 +31,7 @@ import { ipcRenderer, remote } from 'electron';
 import { IpcHandlerMessages } from '../../common/ipc-messages';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import i18next, { TFunction } from 'i18next';
-import languages from '../locales/languages';
+import languages from '../language/languages';
 
 interface StyleInput {
 	open: boolean;
