@@ -18,8 +18,10 @@
 			"hear_through_cameras": "Hear Through Cameras",
 			"ghost_only": "Only Ghosts Can Talk/Hear",
 			"ghost_only_warning": "This disables the sound for alive players.",
+			"ghost_only_warning2": "Ghost can talk only enabled.",
 			"meetings_only": "Meetings/Lobby Only",
-			"meetings_only_warning": "This disables the sound for alive players outside meetings"
+			"meetings_only_warning": "This disables the sound for alive players outside meetings",
+			"meetings_only_warning2": "Talking in meetings only enabled.",
 		},
 		"audio": {
 			"title": "Audio",
