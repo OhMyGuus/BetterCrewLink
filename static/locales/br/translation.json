@@ -105,5 +105,6 @@
 		"error": "ERRO",
 		"error_admin": "Não foi possível conectar-se ao Among Us.\n Abra novamente o BetterCrewLink como administrador.",
 		"error_unsupport": "Sua versão do Among Us não é suportada pelo BetterCrewLink."
-	}
+	},
+	"translator": "Matador"
 }
