@@ -29,7 +29,7 @@ const languages = {
 		translation : translationPTBR,
 		name: 'português (BR)'
 	},
-	"pt-BR": {
+	"pt-PT": {
 		translation : translationPTPT,
 		name: 'português (PT)'
 	},
