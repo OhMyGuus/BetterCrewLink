@@ -30,9 +30,9 @@
 			"microphone_sens": "Sensibilidad del Micrófono",
 			"microphone_sens_warning": "Si pones la sensibilidad más baja puede ser que no funcione",
 			"crewvolume": "Volumen de los Tripulantes como Fantasma",
-			"mastervolume": "Volumen general"
-			"test_speaker_start" : "Test de Micrófono",
-                        "test_speaker_stop": "Parar Test de Micrófono"
+			"mastervolume": "Volumen general",
+			"test_speaker_start": "Test de Micrófono",
+			"test_speaker_stop": "Parar Test de Micrófono"
 		},
 		"keyboard": {
 			"title": "Atajos de Teclado",
@@ -86,7 +86,7 @@
 		},
 		"troubleshooting": {
 			"title": "Solución de Problemas",
-			"restore": "Restablecer opciones por Defecto",
+			"restore": "Restablecer por Defecto",
 			"restore_warning": "Esto restablecerá TODAS las opciones a sus valores por defecto.",
 			"warning": "¡No disponible como anfitrión en partida!"
 		}
@@ -104,7 +104,6 @@
 		"error": "ERROR",
 		"error_admin": "No se pudo conectar a Among Us.\n Por favor vuelve a abrir BetterCrewLink como un administrador.",
 		"error_unsupport": "Tu versión de Among Us no funciona con BetterCrewLink."
-	}
+	},
+	"translator": "LukehTM"
 }
-
-// made by LukehTM

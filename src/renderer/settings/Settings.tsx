@@ -27,10 +27,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { GameState } from '../../common/AmongUsState';
 import Button from '@material-ui/core/Button';
-import { ipcRenderer, remote } from 'electron';
+import { ipcRenderer, remote, app } from 'electron';
 import { IpcHandlerMessages } from '../../common/ipc-messages';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import { TFunction } from 'i18next';
+import i18next, { TFunction } from 'i18next';
+import languages from './languages';
 
 interface StyleInput {
 	open: boolean;
@@ -183,6 +184,10 @@ const store = new Store<ISettings>({
 		alwaysOnTop: {
 			type: 'boolean',
 			default: false,
+		},
+		language: {
+			type: 'string',
+			default: 'Default',
 		},
 		microphone: {
 			type: 'string',
@@ -662,6 +667,16 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 		setLocalLobbySettings(settings.localLobbySettings);
 	}, [settings.localLobbySettings]);
 
+	useEffect(() => {
+		if (settings.language === 'unkown') {
+			const lang: string = remote.app.getLocale().split('-')[0];
+			if (Object.keys(languages).includes(lang)) {
+				settings.language = lang;
+			}
+		}
+		i18next.changeLanguage(settings.language);
+	}, [settings.language]);
+
 	const isInMenuOrLobby = gameState?.gameState === GameState.LOBBY || gameState?.gameState === GameState.MENU;
 	const canChangeLobbySettings =
 		gameState?.gameState === GameState.MENU || (gameState?.isHost && gameState?.gameState === GameState.LOBBY);
@@ -692,7 +707,6 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 			setWarningDialog({ title: dialogTitle, description: dialogDescription, open: true, confirmCallback });
 		}
 	};
-
 	return (
 		<Box className={classes.root}>
 			<div className={classes.header}>
@@ -737,6 +751,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						</DialogActions>
 					</Dialog>
 				</div>
+
 				<Typography variant="h6">{t('settings.lobbysettings.title')}</Typography>
 				<div>
 					<Typography id="input-slider" gutterBottom>
@@ -1107,7 +1122,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						</Grid>
 						<Grid
 							item
-							xs={9}
+							xs={8}
 							style={{
 								display: 'flex',
 								justifyContent: 'center',
@@ -1148,7 +1163,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						</Grid>
 						<Grid
 							item
-							xs={9}
+							xs={8}
 							style={{
 								display: 'flex',
 								justifyContent: 'center',
@@ -1185,32 +1200,40 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					<Typography id="input-slider" gutterBottom>
 						{t('settings.audio.crewvolume')}
 					</Typography>
-					<Slider
-						value={settings.ghostVolume}
-						valueLabelDisplay="auto"
-						onChange={(_, newValue: number | number[]) => {
-							setSettings({
-								type: 'setOne',
-								action: ['ghostVolume', newValue],
-							});
-						}}
-						aria-labelledby="input-slider"
-					/>
+					<Grid container direction="row" justify="center" alignItems="center">
+						<Grid item xs={11}>
+							<Slider
+								value={settings.ghostVolume}
+								valueLabelDisplay="auto"
+								onChange={(_, newValue: number | number[]) => {
+									setSettings({
+										type: 'setOne',
+										action: ['ghostVolume', newValue],
+									});
+								}}
+								aria-labelledby="input-slider"
+							/>
+						</Grid>
+					</Grid>
 					<Typography id="input-slider" gutterBottom>
 						{t('settings.audio.mastervolume')}
 					</Typography>
-					<Slider
-						value={settings.masterVolume}
-						valueLabelDisplay="auto"
-						max={200}
-						onChange={(_, newValue: number | number[]) => {
-							setSettings({
-								type: 'setOne',
-								action: ['masterVolume', newValue],
-							});
-						}}
-						aria-labelledby="input-slider"
-					/>
+					<Grid container direction="row" justify="center" alignItems="center">
+						<Grid item xs={11}>
+							<Slider
+								value={settings.masterVolume}
+								valueLabelDisplay="auto"
+								max={200}
+								onChange={(_, newValue: number | number[]) => {
+									setSettings({
+										type: 'setOne',
+										action: ['masterVolume', newValue],
+									});
+								}}
+								aria-labelledby="input-slider"
+							/>
+						</Grid>
+					</Grid>
 				</div>
 				<Divider />
 				<Typography variant="h6">{t('settings.keyboard.title')}</Typography>
@@ -1268,80 +1291,82 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 
 				<Divider />
 				<Typography variant="h6">{t('settings.overlay.title')}</Typography>
-				<FormControlLabel
-					label={t('settings.overlay.always_on_top')}
-					checked={settings.alwaysOnTop}
-					onChange={(_, checked: boolean) => {
-						setSettings({
-							type: 'setOne',
-							action: ['alwaysOnTop', checked],
-						});
-					}}
-					control={<Checkbox />}
-				/>
-				<FormControlLabel
-					label={t('settings.overlay.enabled')}
-					checked={settings.enableOverlay}
-					onChange={(_, checked: boolean) => {
-						setSettings({
-							type: 'setOne',
-							action: ['enableOverlay', checked],
-						});
-					}}
-					control={<Checkbox />}
-				/>
-				{settings.enableOverlay && (
-					<>
-						<FormControlLabel
-							label={t('settings.overlay.compact')}
-							checked={settings.compactOverlay}
-							onChange={(_, checked: boolean) => {
-								setSettings({
-									type: 'setOne',
-									action: ['compactOverlay', checked],
-								});
-							}}
-							control={<Checkbox />}
-						/>
-						<FormControlLabel
-							label={t('settings.overlay.meeting')}
-							checked={settings.meetingOverlay}
-							onChange={(_, checked: boolean) => {
-								setSettings({
-									type: 'setOne',
-									action: ['meetingOverlay', checked],
-								});
-							}}
-							control={<Checkbox />}
-						/>
-						<TextField
-							select
-							label={t('settings.overlay.pos')}
-							variant="outlined"
-							color="secondary"
-							value={settings.overlayPosition}
-							className={classes.shortcutField}
-							SelectProps={{ native: true }}
-							InputLabelProps={{ shrink: true }}
-							onChange={(ev) => {
-								setSettings({
-									type: 'setOne',
-									action: ['overlayPosition', ev.target.value],
-								});
-							}}
-							onClick={updateDevices}
-						>
-							<option value="hidden">{t('settings.overlay.locations.hidden')}</option>
-							<option value="top">{t('settings.overlay.locations.top')}</option>
-							<option value="bottom_left">{t('settings.overlay.locations.bottom_left')}</option>
-							<option value="right">{t('settings.overlay.locations.right')}</option>
-							<option value="right1">{t('settings.overlay.locations.right1')}</option>
-							<option value="left">{t('settings.overlay.locations.left')}</option>
-							<option value="left1">{t('settings.overlay.locations.left1')}</option>
-						</TextField>
-					</>
-				)}
-
+				<div>
+					<FormControlLabel
+						label={t('settings.overlay.always_on_top')}
+						checked={settings.alwaysOnTop}
+						onChange={(_, checked: boolean) => {
+							setSettings({
+								type: 'setOne',
+								action: ['alwaysOnTop', checked],
+							});
+						}}
+						control={<Checkbox />}
+					/>
+					<FormControlLabel
+						label={t('settings.overlay.enabled')}
+						checked={settings.enableOverlay}
+						onChange={(_, checked: boolean) => {
+							setSettings({
+								type: 'setOne',
+								action: ['enableOverlay', checked],
+							});
+						}}
+						control={<Checkbox />}
+					/>
+					{settings.enableOverlay && (
+						<>
+							<FormControlLabel
+								label={t('settings.overlay.compact')}
+								checked={settings.compactOverlay}
+								onChange={(_, checked: boolean) => {
+									setSettings({
+										type: 'setOne',
+										action: ['compactOverlay', checked],
+									});
+								}}
+								control={<Checkbox />}
+							/>
+							<FormControlLabel
+								label={t('settings.overlay.meeting')}
+								checked={settings.meetingOverlay}
+								onChange={(_, checked: boolean) => {
+									setSettings({
+										type: 'setOne',
+										action: ['meetingOverlay', checked],
+									});
+								}}
+								control={<Checkbox />}
+							/>
+							<TextField
+								fullWidth
+								select
+								label={t('settings.overlay.pos')}
+								variant="outlined"
+								color="secondary"
+								value={settings.overlayPosition}
+								className={classes.shortcutField}
+								SelectProps={{ native: true }}
+								InputLabelProps={{ shrink: true }}
+								onChange={(ev) => {
+									setSettings({
+										type: 'setOne',
+										action: ['overlayPosition', ev.target.value],
+									});
+								}}
+								onClick={updateDevices}
+							>
+								<option value="hidden">{t('settings.overlay.locations.hidden')}</option>
+								<option value="top">{t('settings.overlay.locations.top')}</option>
+								<option value="bottom_left">{t('settings.overlay.locations.bottom')}</option>
+								<option value="right">{t('settings.overlay.locations.right')}</option>
+								<option value="right1">{t('settings.overlay.locations.right1')}</option>
+								<option value="left">{t('settings.overlay.locations.left')}</option>
+								<option value="left1">{t('settings.overlay.locations.left1')}</option>
+							</TextField>
+						</>
+					)}
+				</div>
 				<Divider />
 				<Typography variant="h6">{t('settings.advanced.title')}</Typography>
 				<div>
@@ -1442,6 +1467,27 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						control={<Checkbox />}
 					/>
 				</div>
+				<TextField
+					fullWidth
+					select
+					label={t('settings.language')}
+					variant="outlined"
+					color="secondary"
+					value={settings.language}
+					className={classes.shortcutField}
+					SelectProps={{ native: true }}
+					InputLabelProps={{ shrink: true }}
+					onChange={(ev) => {
+						setSettings({
+							type: 'setOne',
+							action: ['language', ev.target.value],
+						});
+					}}
+				>
+					{Object.entries(languages).map(([key, value]) => (
+						<option value={key}>{value}</option>
+					))}
+				</TextField>
 				<Divider />
 				<Typography variant="h6">{t('settings.streaming.title')}</Typography>
 				<div>
@@ -1541,7 +1587,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					</DisabledTooltip>
 				</div>
 				<Alert className={classes.alert} severity="info" style={{ display: unsaved ? undefined : 'none' }}>
-					{t('settings.buttons.exit')}
+					{t('buttons.exit')}
 				</Alert>
 			</div>
 		</Box>

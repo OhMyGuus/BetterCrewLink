@@ -122,6 +122,7 @@ export default function App({t}): JSX.Element {
 	const overlayInitCount = useRef<number>(0);
 
 	const settings = useReducer(settingsReducer, {
+		language: 'unkown',
 		alwaysOnTop: true,
 		microphone: 'Default',
 		speaker: 'Default',
