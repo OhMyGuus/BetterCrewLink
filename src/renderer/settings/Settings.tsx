@@ -670,13 +670,8 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	useEffect(() => {
 		console.log(settings.language);
 		if (settings.language === 'unkown') {
-			const locale: string = remote.app.getLocale();
-			const lang = Object.keys(languages).includes(locale)
-				? locale
-				: Object.keys(languages).includes(locale.split('-')[0])
-				? locale.split('-')[0]
-				: undefined;
-			if (lang) {
+			const lang: string = remote.app.getLocale().split('-')[0];
+			if (Object.keys(languages).includes(lang)) {
 				settings.language = lang;
 				setSettings({
 					type: 'setOne',
@@ -765,9 +760,10 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				<Typography variant="h6">{t('settings.lobbysettings.title')}</Typography>
 				<div>
 					<Typography id="input-slider" gutterBottom>
-						{(canChangeLobbySettings ? localLobbySettings.visionHearing : lobbySettings.visionHearing)
-							? t('settings.lobbysettings.voicedistance_impostor')
-							: t('settings.lobbysettings.voicedistance')}{' '}
+							{(canChangeLobbySettings ? localLobbySettings.visionHearing : lobbySettings.visionHearing)
+								? t('settings.lobbysettings.voicedistance_impostor')
+								: t('settings.lobbysettings.voicedistance')}
+						{' '}
 						: {canChangeLobbySettings ? localLobbySettings.maxDistance : lobbySettings.maxDistance}
 					</Typography>
 					<DisabledTooltip

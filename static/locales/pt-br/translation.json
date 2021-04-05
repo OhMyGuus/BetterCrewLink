@@ -1,14 +1,13 @@
 {
 	"settings": {
-		"title": "Configurações",
-		"language": "Linguagem",
+        "title": "Configurações",
+        "language": "Linguagem",
 		"warning": "Você tem certeza?",
 		"lobbysettings": {
 			"title": "Configurações do Lobby",
 			"gamehostonly": "Apenas o Host da Partida pode alterar isso!",
 			"inlobbyonly": "Você pode alterar isso quando estiver no lobby!",
 			"voicedistance": "Distância da Voz",
-			"voicedistance_impostor": "Distância da Voz do Impostor",
 			"wallsblockaudio": "Paredes Bloqueiam o Áudio",
 			"visiononly": "Ouvir Pessoas Apenas na Visão",
 			"impostorshearsghost": "Impostor Ouve os Fantasmas",
@@ -18,10 +17,8 @@
 			"hear_through_cameras": "Ouça através das câmeras",
 			"ghost_only": "Apenas Fantasmas Podem Falar/Ouvir",
 			"ghost_only_warning": "Isso desabilita o som dos jogadores vivos.",
-			"ghost_only_warning2": "Apenas o fantasma pode falar se estiver habilitado.",
 			"meetings_only": "Emergências/Lobby Apenas",
-			"meetings_only_warning": "Isso desativa o som dos jogadores vivos fora das reuniões de emergência",
-			"meetings_only_warning2": "Conversar em reuniões apenas se estiver habilitado."
+			"meetings_only_warning": "Isso desativa o som dos jogadores vivos fora das reuniões de emergência"
 		},
 		"audio": {
 			"title": "Áudio",
@@ -33,9 +30,10 @@
 			"microphone_sens": "Sensibilidade do Microfone",
 			"microphone_sens_warning": "Se você definir a sensibilidade para um nível mais baixo, isso pode não funcionar",
 			"crewvolume": "Volume da Tripulação como Fantasma",
-			"mastervolume": "Volume Principal",
-			"test_speaker_start": "Teste de alto-falante",
-			"test_speaker_stop": "Parar o Teste de Alto-falante"
+            "mastervolume": "Volume Principal",
+            "test_speaker_start" : "Teste de alto-falante",
+            "test_speaker_stop": "Parar o Teste de Alto-falante"
+
 		},
 		"keyboard": {
 			"title": "Atalhos do teclado",
@@ -95,7 +93,6 @@
 		}
 	},
 	"buttons": {
-		"default": "Padrão",
 		"confirm": "Confirmar",
 		"cancel": "Cancelar",
 		"exit": "Saia das configurações para aplicar as alterações"
