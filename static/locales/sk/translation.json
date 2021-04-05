@@ -8,6 +8,7 @@
 			"gamehostonly": "Toto môže zmeniť iba hostiteľ hry!",
 			"inlobbyonly": "Toto môžeš zmeniť iba v lobby!",
 			"voicedistance": "Hlasová vzdialenosť",
+			"voicedistance_impostor": "Hlasová vzdialenenosť impostra",
 			"wallsblockaudio": "Steny blokujú zvuk",
 			"visiononly": "Počuť iba viditeľných ľudí",
 			"impostorshearsghost": "Impostori počujú mŕtvych",
@@ -17,8 +18,10 @@
 			"hear_through_cameras": "Počuť cez kamery",
 			"ghost_only": "Iba duchovia sa môžu rozprávať/môžu počuť",
 			"ghost_only_warning": "Toto zakáže zvuk pre živých ľudí.",
+			"ghost_only_warning2": "Iba duch môže hovoriť je zapnuté.",
 			"meetings_only": "Iba mítingy/lobby",
-			"meetings_only_warning": "Toto zakáže zvuk pre živých ľudí mimo mítingov"
+			"meetings_only_warning": "Toto zakáže zvuk pre živých ľudí mimo mítingov",
+			"meetings_only_warning2": "Rozprávanie iba v mítingoch je zapnuté.",
 		},
 		"audio": {
 			"title": "Zvuk",
@@ -42,12 +45,12 @@
 			"mute": "Stlmiť mikrofón"
 		},
 		"overlay": {
-			"title": "Pokrytie",
+			"title": "Prekrytie",
 			"always_on_top": "Crewlink na vrchu",
-			"enabled": "Povoliť pokrytie",
-			"compact": "Kompaktné pokrytie",
-			"meeting": "Mítingové pokrytie",
-			"pos": "Pozícia pokrytia",
+			"enabled": "Povoliť prekrytie",
+			"compact": "Kompaktné prekrytie",
+			"meeting": "Mítingové prekrytie",
+			"pos": "Pozícia prekrytia",
 			"locations": {
 				"hidden": "Skryté",
 				"top": "Hore v strede",
@@ -80,7 +83,7 @@
 		"streaming": {
 			"title": "Nastavenie streamovania",
 			"hidecode": "Zobraziť lobby kód",
-			"obs_overlay": "OBS pokrytie prehliadača",
+			"obs_overlay": "OBS prekrytie prehliadača",
 			"obs_url": "OBS URL zdroja prehliadača",
 			"voice_server_comp": "Režim kompatibility HS",
 			"voice_server_comp_warning": "Odporúča sa napríklad iba zmeniť hlasový server na hlasový server Bettercrewlink (https://bettercrewl.ink)."
@@ -93,6 +96,7 @@
 		}
 	},
 	"buttons": {
+		"default": "Predvolené",
 		"confirm": "Potvrdiť",
 		"cancel": "Zrušiť",
 		"exit": "Ak chceš zmeny použiť, ukonči nastavenia"
