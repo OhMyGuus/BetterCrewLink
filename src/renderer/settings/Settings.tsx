@@ -27,11 +27,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { GameState } from '../../common/AmongUsState';
 import Button from '@material-ui/core/Button';
-import { ipcRenderer, remote, app } from 'electron';
+import { ipcRenderer, remote } from 'electron';
 import { IpcHandlerMessages } from '../../common/ipc-messages';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import i18next, { TFunction } from 'i18next';
-import languages from './languages';
+import languages from '../locales/languages';
 
 interface StyleInput {
 	open: boolean;
@@ -1485,8 +1485,13 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					}}
 				>
 					{Object.entries(languages).map(([key, value]) => (
-						<option value={key}>{value}</option>
+						<option key={key} value={key}>
+							{value.name}
+						</option>
 					))}
+						<option key="adas" value="sda">
+							saasdasd
+						</option>
 				</TextField>
 				<Divider />
 				<Typography variant="h6">{t('settings.streaming.title')}</Typography>
