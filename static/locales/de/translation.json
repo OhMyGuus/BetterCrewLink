@@ -2,110 +2,111 @@
 	"settings": {
         "title": "Einstellungen",
         "language": "Sprache",
-		"warning": "Sind Sie sicher?",
+		"warning": "Bist du sicher?",
 		"lobbysettings": {
-			"title": "Lobby Einstellungen",
-			"gamehostonly": "Nur der Spielhost kann dies ändern!",
-			"inlobbyonly": "Sie können nur dies im Lobby ändern!",
-			"voicedistance": "Sprachentfernung",
-			"wallsblockaudio": "Mauern Absperrt Audio",
-			"visiononly": "Hören Spielers nur in Sicht",
-			"impostorshearsghost": "Hochstapler Hören die Toten",
-			"hear_imposters_invents": "Hören Hochstapler in Lüftungschlitzen",
-			"private_talk_invents": "Privatgespräch in Lüftungschlitzen",
-			"comms_sabotage_audio": "Kommunikationssabotage Deativiert Stimme",
-			"hear_through_cameras": "Durch Kameras Hören",
-			"ghost_only": "Nur die Geister Können Sprechen/Hören",
+			"title": "Lobby-Einstellungen",
+			"gamehostonly": "Dies kann nur der Spielhost ändern!",
+			"inlobbyonly": "Dies kann nur in der Lobby geändert werden!",
+			"voicedistance": "Stimmwahrnehmungsradius",
+			"voicedistance_impostor": "Imposter-Stimmwahrnehmungsradius"
+			"wallsblockaudio": "Wände blockieren Audio",
+			"visiononly": "Spieler nur in Sichtweite hören",
+			"impostorshearsghost": "Imposter hören die Geister",
+			"hear_imposters_invents": "Crew hört Imposter in Vents",
+			"private_talk_invents": "Privatgespräche in Vents",
+			"comms_sabotage_audio": "Kommunikationssabotage deativiert Voicechat",
+			"hear_through_cameras": "Durch Kameras hören",
+			"ghost_only": "Nur die Geister können sprechen/hören",
 			"ghost_only_warning": "Dies deativiert das Audio für lebende Spieler.",
 			"ghost_only_warning2": "Nur die Geister können sprechen aktiviert",
 			"meetings_only": "Nur Treffen/Lobby Audio",
-			"meetings_only_warning": "Dies deativiert das Audio für lebende Spieler, die nicht in Treffen.",
+			"meetings_only_warning": "Dies deativiert das Audio für lebende Spieler außerhalb von Meetings",
 			"meetings_only_warning2": "Sprechen nur in Treffen aktiviert"
 		},
 		"audio": {
 			"title": "Audio",
 			"speaker": "Lautsprecher",
 			"voice_activity": "Sprachaktivität",
-			"push_to_talk": "Zum Sprechen Drücken",
-			"push_to_mute": "Zum Stummschalten Drücken",
+			"push_to_talk": "Push-to-talk",
+			"push_to_mute": "Push-to-mute",
 			"microphone_volume": "Mikrofonlautstärke",
 			"microphone_sens": "Mikrofonempfindlichkeit",
-			"microphone_sens_warning": "Wenn Sie die Empfindlichkeit niedriger einstellen, funktioniert dies möglicherweise nicht.",
-			"crewvolume": "Besatzungsvolumen al Geist",
+			"microphone_sens_warning": "Wenn die Empfindlichkeit niedriger eingestellt wird, funktioniert es möglicherweise nicht.",
+			"crewvolume": "Crew-Lautstärke wenn tot",
             "mastervolume": "Hauptlautstärke",
-            "test_speaker_start" : "Testen den Lautsprecher",
-            "test_speaker_stop": "Stoppen den Test"
+            "test_speaker_start" : "Lautsprechertest",
+            "test_speaker_stop": "Lautsprechertest stoppen"
 
 		},
 		"keyboard": {
 			"title": "Tastatürkürzel",
-			"push_to_talk": "Zum Sprechen Drücken",
-			"deafen": "Taube",
-			"mute": "Stumm Schalten"
+			"push_to_talk": "Push-to-talk",
+			"deafen": "Ausgabe deaktivieren",
+			"mute": "Stummschalten"
 		},
 		"overlay": {
-			"title": "Überlagerung",
-			"always_on_top": "Crewlink Obenauf",
-			"enabled": "Erlauben Überlagerung",
-			"compact": "Kompaktieren Überlagerung",
-			"meeting": "Treffen Überlagerung",
-			"pos": "Überlagerungsposition",
+			"title": "Overlay",
+			"always_on_top": "BetterCrewLink immer im Vordergrund",
+			"enabled": "Overlay aktivieren",
+			"compact": "Kompaktes Overlay",
+			"meeting": "Meeting-Overlay",
+			"pos": "Overlay-Position",
 			"locations": {
 				"hidden": "Versteckt",
-				"top": "Oben Mitte",
+				"top": "Mitte oben",
 				"bottom": "Unten Links",
-				"right": "Rechte",
-				"right1": "Rechte-Hintergrund",
+				"right": "Rechts",
+				"right1": "Rechts mit Hintergrund",
 				"left": "Links",
-				"left1": "Links-Hintergrund"
+				"left1": "Links mit Hintergrund"
 			}
 		},
 		"advanced": {
-			"title": "Fortgeschritten",
+			"title": "Erweitert",
 			"nat_fix": "NAT-Fix",
-			"nat_fix_warning": "Dies behebt die nat-Probleme, fügt jedoch eine Verzögerung hinzu, da ein Server anstelle von p2p verwendet wird",
+			"nat_fix_warning": "Dies behebt die NAT-Probleme, fügt jedoch eine Verzögerung hinzu, da ein Server anstelle von Peer-to-Peer (P2P) verwendet wird.",
 			"change_server": "Sprachserver wechseln",
 			"voice_server": "Sprachserver",
-			"invalid_url": "Ungültig URL",
-			"voice_server_warning": "Diese Option ist nur für fortgeschrittene Benutzer. Andere Server können Ihre Daten stehlen oder CrewLink zum Absturz bringen.",
-			"reset_default": "Umsetzen zu vorgegeben"
+			"invalid_url": "Ungültige URL",
+			"voice_server_warning": "Diese Option ist nur für fortgeschrittene Benutzer. Andere Server könnten deine Daten stehlen oder BetterCrewLink zum Absturz bringen.",
+			"reset_default": "Auf Standardwerte zurücksetzen"
 		},
 		"beta": {
-			"title": "BETA/FEHLER BESEITIGEN",
+			"title": "BETA/DEBUG",
 			"mobilehost": "Mobiler Host",
 			"vad_enabled": "VAD Aktiviert",
-			"vad_enabled_warning": "Sie werden nicht sehen, wer spricht, wenn Sie dies deaktivieren.",
+			"vad_enabled_warning": "Wenn deaktivert, wird nicht angezeigt, wer aktuell spricht.",
 			"echocancellation": "Echounterdrückung",
-			"noiseSuppression": "Noise Suppression",
+			"noiseSuppression": "Geräuschunterdrückung",
 			"spatial_audio": "Räumliches Audio"
 		},
 		"streaming": {
 			"title": "Streaming-Einstellungen",
 			"hidecode": "Lobby-Code anzeigen",
-			"obs_overlay": "OBS Browser Überlagerung",
-			"obs_url": "Obs browsersource url",
-			"voice_server_comp": "VS Kompatibilitätsmodus",
-			"voice_server_comp_warning": "Es wird empfohlen, den Sprachserver einfach auf einen Bettercrewlink-Sprachserver https://bettercrewl.ink zu ändern."
+			"obs_overlay": "OBS-Browser-Overlay",
+			"obs_url": "OBS-Broserquellen-URL",
+			"voice_server_comp": "Voiceserver Kompatibilitätsmodus",
+			"voice_server_comp_warning": "Es wird empfohlen, den Sprachserver auf einen BetterCrewLink-Sprachserver (z.B. https://bettercrewl.ink) zu ändern."
 		},
 		"troubleshooting": {
 			"title": "Fehlerbehebung",
-			"restore": "Umsetzen zu vorgegeben",
-			"restore_warning": "Dadurch werden ALLE Einstellungen auf ihre Standardwerte zurückgesetzt.",
+			"restore": "Installationswerte wiederherstellen",
+			"restore_warning": "Dadurch werden ALLE Einstellungen auf die Standardwerte zurückgesetzt.",
 			"warning": "Nicht als Host im Spiel verfügbar!"
 		}
 	},
 	"buttons": {
-		"confirm": "Bestätigen",
-		"cancel": "Stornieren",
-		"exit": "Beenden Sie die Einstellungen, um die Änderungen zu übernehmen"
+		"confirm": "OK",
+		"cancel": "Abbrechen",
+		"exit": "Einstellungen verlassen, um Änderungen anzuwenden"
 	},
 	"game": {
 		"menu": "MENÜ",
-		"open": "Offenes Spiel",
-		"open_error": "Starten das Spiel manuell \r\n(Diese Taste ist nur für Steam)",
+		"open": "Spiel öffnen",
+		"open_error": "Spiel manuell starten \r\n(Diese Taste ist nur für Steam)",
 		"waiting": "Warten auf Among Us",
 		"error": "ERROR",
-		"error_admin": "Konnte keine Verbindung zum Among Us herstellen \n Bitte, öffnen Crewlink als Administrator ernut.",
-		"error_unsupport": "Ihre Version von Among Us wird nicht unterstützt"
+		"error_admin": "Konnte keine Verbindung zu Among Us herstellen \n Bitte BetterCrewLink als Administrator erneut öffnen.",
+		"error_unsupport": "Deine Version von Among Us wird nicht unterstützt"
 	}
 }
