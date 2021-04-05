@@ -1,0 +1,109 @@
+{
+	"settings": {
+        "title": "Einstellungen",
+        "language": "Sprache",
+		"warning": "Sind Sie sicher?",
+		"lobbysettings": {
+			"title": "Lobby Einstellungen",
+			"gamehostonly": "Nur der Spielhost kann dies ändern!",
+			"inlobbyonly": "Sie können nur dies im Lobby ändern!",
+			"voicedistance": "Sprachentfernung",
+			"wallsblockaudio": "Mauern Absperrt Audio",
+			"visiononly": "Hören Spielers nur in Sicht",
+			"impostorshearsghost": "Hochstapler Hören die Toten",
+			"hear_imposters_invents": "Hören Hochstapler in Lüftungschlitzen",
+			"private_talk_invents": "Privatgespräch in Lüftungschlitzen",
+			"comms_sabotage_audio": "Kommunikationssabotage Deativiert Stimme",
+			"hear_through_cameras": "Durch Kameras Hören",
+			"ghost_only": "Nur die Geister Können Sprechen/Hören",
+			"ghost_only_warning": "Dies deativiert das Audio für lebende Spieler.",
+			"meetings_only": "Nur Treffen/Lobby Audio",
+			"meetings_only_warning": "Dies deativiert das Audio für lebende Spieler, die nicht in Treffen."
+		},
+		"audio": {
+			"title": "Audio",
+			"speaker": "Lautsprecher",
+			"voice_activity": "Sprachaktivität",
+			"push_to_talk": "Zum Sprechen Drücken",
+			"push_to_mute": "Zum Stummschalten Drücken",
+			"microphone_volume": "Mikrofonlautstärke",
+			"microphone_sens": "Mikrofonempfindlichkeit",
+			"microphone_sens_warning": "Wenn Sie die Empfindlichkeit niedriger einstellen, funktioniert dies möglicherweise nicht.",
+			"crewvolume": "Besatzungsvolumen al Geist",
+            "mastervolume": "Hauptlautstärke",
+            "test_speaker_start" : "Testen den Lautsprecher",
+            "test_speaker_stop": "Stoppen den Test"
+
+		},
+		"keyboard": {
+			"title": "Tastatürkürzel",
+			"push_to_talk": "Zum Sprechen Drücken",
+			"deafen": "Taube",
+			"mute": "Stumm Schalten"
+		},
+		"overlay": {
+			"title": "Überlagerung",
+			"always_on_top": "Crewlink Obenauf",
+			"enabled": "Erlauben Überlagerung",
+			"compact": "Kompaktieren Überlagerung",
+			"meeting": "Treffen Überlagerung",
+			"pos": "Überlagerungsposition",
+			"locations": {
+				"hidden": "Versteckt",
+				"top": "Oben Mitte",
+				"bottom": "Unten Links",
+				"right": "Rechte",
+				"right1": "Rechte-Hintergrund",
+				"left": "Links",
+				"left1": "Links-Hintergrund"
+			}
+		},
+		"advanced": {
+			"title": "Fortgeschritten",
+			"nat_fix": "NAT-Fix",
+			"nat_fix_warning": "Dies behebt die nat-Probleme, fügt jedoch eine Verzögerung hinzu, da ein Server anstelle von p2p verwendet wird",
+			"change_server": "Sprachserver wechseln",
+			"voice_server": "Sprachserver",
+			"invalid_url": "Ungültig URL",
+			"voice_server_warning": "Diese Option ist nur für fortgeschrittene Benutzer. Andere Server können Ihre Daten stehlen oder CrewLink zum Absturz bringen.",
+			"reset_default": "Umsetzen zu vorgegeben"
+		},
+		"beta": {
+			"title": "BETA/FEHLER BESEITIGEN",
+			"mobilehost": "Mobiler Host",
+			"vad_enabled": "VAD Aktiviert",
+			"vad_enabled_warning": "Sie werden nicht sehen, wer spricht, wenn Sie dies deaktivieren.",
+			"echocancellation": "Echounterdrückung",
+			"noiseSuppression": "Noise Suppression",
+			"spatial_audio": "Räumliches Audio"
+		},
+		"streaming": {
+			"title": "Streaming-Einstellungen",
+			"hidecode": "Lobby-Code anzeigen",
+			"obs_overlay": "OBS Browser Überlagerung",
+			"obs_url": "Obs browsersource url",
+			"voice_server_comp": "VS Kompatibilitätsmodus",
+			"voice_server_comp_warning": "Es wird empfohlen, den Sprachserver einfach auf einen Bettercrewlink-Sprachserver https://bettercrewl.ink zu ändern."
+		},
+		"troubleshooting": {
+			"title": "Fehlerbehebung",
+			"restore": "Umsetzen zu vorgegeben",
+			"restore_warning": "Dadurch werden ALLE Einstellungen auf ihre Standardwerte zurückgesetzt.",
+			"warning": "Nicht als Host im Spiel verfügbar!"
+		}
+	},
+	"buttons": {
+		"confirm": "Bestätigen",
+		"cancel": "Stornieren",
+		"exit": "Beenden Sie die Einstellungen, um die Änderungen zu übernehmen"
+	},
+	"game": {
+		"menu": "MENÜ",
+		"open": "Offenes Spiel",
+		"open_error": "Starten das Spiel manuell \r\n(Diese Taste ist nur für Steam)",
+		"waiting": "Warten auf Among Us",
+		"error": "ERROR",
+		"error_admin": "Konnte keine Verbindung zum Among Us herstellen \n Bitte, öffnen Crewlink als Administrator ernut.",
+		"error_unsupport": "Ihre Version von Among Us wird nicht unterstützt"
+	}
+}
