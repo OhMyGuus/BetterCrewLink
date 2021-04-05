@@ -1,9 +1,11 @@
 import translationEN from '../../../static/locales/en/translation.json'
 import translationFR from '../../../static/locales/fr/translation.json'
 import translationES from '../../../static/locales/es/translation.json'
-import translationPT from '../../../static/locales/pt/translation.json'
+import translationPTBR from '../../../static/locales/pt-BR/translation.json'
+import translationPTBR from '../../../static/locales/pt-PT/translation.json'
 import translationSK from '../../../static/locales/sk/translation.json'
 import translationNL from '../../../static/locales/nl/translation.json'
+import translationDE from '../../../static/locales/de/translation.json'
 
 
 const languages = {
@@ -19,13 +21,21 @@ const languages = {
 		translation : translationES,
 		name: 'Español'
 	},
-	pt: {
-		translation : translationPT,
-		name: 'português'
+	de: {
+		translation : translationDE,
+		name: 'Deutsch'
+	},
+	"pt-BR": {
+		translation : translationPTBR,
+		name: 'português (BR)'
+	},
+	"pt-BR": {
+		translation : translationPTPT,
+		name: 'português (PT)'
 	},
 	sk: {
 		translation : translationSK,
-		name: 'Slovák'
+		name: 'Slovenčina'
 	},
 	nl: {
 		translation : translationNL,
