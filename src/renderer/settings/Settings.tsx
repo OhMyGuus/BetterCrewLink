@@ -187,7 +187,7 @@ const store = new Store<ISettings>({
 		},
 		language: {
 			type: 'string',
-			default: 'Default',
+			default: 'unkown',
 		},
 		microphone: {
 			type: 'string',
@@ -428,7 +428,7 @@ function validateServerUrl(uri: string): boolean {
 }
 
 type URLInputProps = {
-	t: any;
+	t:  (key: string) => string;
 	initialURL: string;
 	onValidURL: (url: string) => void;
 	className: string;
@@ -668,10 +668,15 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	}, [settings.localLobbySettings]);
 
 	useEffect(() => {
+		console.log(settings.language);
 		if (settings.language === 'unkown') {
 			const lang: string = remote.app.getLocale().split('-')[0];
 			if (Object.keys(languages).includes(lang)) {
 				settings.language = lang;
+				setSettings({
+					type: 'setOne',
+					action: ['language',  settings.language],
+				});
 			}
 		}
 		i18next.changeLanguage(settings.language);
@@ -1489,9 +1494,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							{value.name}
 						</option>
 					))}
-						<option key="adas" value="sda">
-							saasdasd
-						</option>
+					
 				</TextField>
 				<Divider />
 				<Typography variant="h6">{t('settings.streaming.title')}</Typography>

@@ -124,7 +124,7 @@ export default function App({t}): JSX.Element {
 	const overlayInitCount = useRef<number>(0);
 
 	const settings = useReducer(settingsReducer, {
-		language: 'unkown',
+		language: 'default',
 		alwaysOnTop: true,
 		microphone: 'Default',
 		speaker: 'Default',
@@ -244,10 +244,10 @@ export default function App({t}): JSX.Element {
 	let page;
 	switch (state) {
 		case AppState.MENU:
-			page = <Menu error={error} />;
+			page = <Menu t={t} error={error} />;
 			break;
 		case AppState.VOICE:
-			page = <Voice error={error} />;
+			page = <Voice t={t} error={error} />;
 			break;
 	}
 

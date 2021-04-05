@@ -6,6 +6,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import SupportLink from './SupportLink';
+import { withNamespaces } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -46,10 +47,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface MenuProps {
+	t:  (key: string) => string;
 	error: string;
 }
 
-const Menu: React.FC<MenuProps> = function ({ error }: MenuProps) {
+const Menu: React.FC<MenuProps> = function ({t,  error }: MenuProps) {
 	const classes = useStyles();
 	return (
 		<div className={classes.root}>
@@ -57,7 +59,7 @@ const Menu: React.FC<MenuProps> = function ({ error }: MenuProps) {
 				{error ? (
 					<div className={classes.error}>
 						<Typography align="center" variant="h6" color="error">
-							ERROR
+						{t('game.error')}
 						</Typography>
 						<Typography align="center" style={{ whiteSpace: 'pre-wrap' }}>
 							{error}
@@ -66,7 +68,7 @@ const Menu: React.FC<MenuProps> = function ({ error }: MenuProps) {
 					</div>
 				) : (
 					<>
-						<span className={classes.waiting}>Waiting for Among Us</span>
+						<span className={classes.waiting}>{t('game.waiting')}</span>
 						<CircularProgress color="primary" size={40} />
 						<button
 							className={classes.button}
@@ -74,7 +76,7 @@ const Menu: React.FC<MenuProps> = function ({ error }: MenuProps) {
 								ipcRenderer.send(IpcMessages.OPEN_AMONG_US_GAME);
 							}}
 						>
-							Open Game
+							{t('game.open')}
 						</button>
 					</>
 				)}

@@ -111,6 +111,7 @@ const DEFAULT_ICE_CONFIG_TURN: RTCConfiguration = {
 };
 
 export interface VoiceProps {
+	t:  (key: string) => string;
 	error: string;
 }
 
@@ -185,7 +186,7 @@ const defaultlocalLobbySettings: ILobbySettings = {
 };
 
 const store = new Store<ISettings>();
-const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProps) {
+const Voice: React.FC<VoiceProps> = function ({t,  error: initialError }: VoiceProps) {
 	const [error, setError] = useState(initialError);
 	const [settings, setSettings] = useContext(SettingsContext);
 
@@ -203,6 +204,7 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 	});
 	let { lobbyCode: displayedLobbyCode } = gameState;
 	if (displayedLobbyCode !== 'MENU' && settings.hideCode) displayedLobbyCode = 'LOBBY';
+	if(displayedLobbyCode === 'MENU') displayedLobbyCode = t('game.menu');
 	const [talking, setTalking] = useState(false);
 	const [socketClients, setSocketClients] = useState<SocketClientMap>({});
 	const [playerConfigs] = useState<playerConfigMap>(settingsRef.current.playerConfigMap);
