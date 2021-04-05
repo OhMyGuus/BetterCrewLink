@@ -6,7 +6,6 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import SupportLink from './SupportLink';
-import { withNamespaces } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
 	root: {

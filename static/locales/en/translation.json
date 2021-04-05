@@ -8,6 +8,7 @@
 			"gamehostonly": "Only the game host can change this!",
 			"inlobbyonly": "You can only change this in the lobby!",
 			"voicedistance": "Voice Distance",
+			"voicedistance_impostor": "Impostor Voice Distance",
 			"wallsblockaudio": "Walls Block Audio",
 			"visiononly": "Hear People in Vision Only",
 			"impostorshearsghost": "Impostors Hear Dead",
@@ -93,6 +94,7 @@
 		}
 	},
 	"buttons": {
+		"default" : "Default",
 		"confirm": "Confirm",
 		"cancel": "Cancel",
 		"exit": "Exit Settings to apply changes"

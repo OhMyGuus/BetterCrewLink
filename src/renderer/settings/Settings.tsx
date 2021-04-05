@@ -428,7 +428,7 @@ function validateServerUrl(uri: string): boolean {
 }
 
 type URLInputProps = {
-	t:  (key: string) => string;
+	t: (key: string) => string;
 	initialURL: string;
 	onValidURL: (url: string) => void;
 	className: string;
@@ -587,7 +587,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				devices.map((d) => {
 					let label = d.label;
 					if (d.deviceId === 'default') {
-						label = 'Default';
+						label = t('buttons.default');
 					} else {
 						const match = /(.+?)\)/.exec(d.label);
 						if (match && match[1]) label = match[1] + ')';
@@ -675,7 +675,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				settings.language = lang;
 				setSettings({
 					type: 'setOne',
-					action: ['language',  settings.language],
+					action: ['language', settings.language],
 				});
 			}
 		}
@@ -760,15 +760,11 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				<Typography variant="h6">{t('settings.lobbysettings.title')}</Typography>
 				<div>
 					<Typography id="input-slider" gutterBottom>
-						<i>
-							{canChangeLobbySettings
-								? localLobbySettings.visionHearing
-								: lobbySettings.visionHearing
-								? 'Imposter'
-								: ''}
-						</i>{' '}
-						{t('settings.lobbysettings.voicedistance')}:{' '}
-						{canChangeLobbySettings ? localLobbySettings.maxDistance : lobbySettings.maxDistance}
+							{(canChangeLobbySettings ? localLobbySettings.visionHearing : lobbySettings.visionHearing)
+								? t('settings.lobbysettings.voicedistance_impostor')
+								: t('settings.lobbysettings.voicedistance')}
+						{' '}
+						: {canChangeLobbySettings ? localLobbySettings.maxDistance : lobbySettings.maxDistance}
 					</Typography>
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
@@ -1081,7 +1077,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						</option>
 					))}
 				</TextField>
-				{open && <TestSpeakersButton speaker={settings.speaker} />}
+				{open && <TestSpeakersButton t={t} speaker={settings.speaker} />}
 				<RadioGroup
 					value={settings.pushToTalkMode}
 					onChange={(ev) => {
@@ -1494,7 +1490,6 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							{value.name}
 						</option>
 					))}
-					
 				</TextField>
 				<Divider />
 				<Typography variant="h6">{t('settings.streaming.title')}</Typography>

@@ -93,6 +93,7 @@
 		}
 	},
 	"buttons": {
+		"default" : "Default",
 		"confirm": "Confirm",
 		"cancel": "Cancel",
 		"exit": "Exit Settings to apply changes"
