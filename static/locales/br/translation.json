@@ -1,0 +1,109 @@
+{
+	"settings": {
+        "title": "Configurações",
+        "language": "Linguagem",
+		"warning": "Você tem certeza?",
+		"lobbysettings": {
+			"title": "Configurações do Lobby",
+			"gamehostonly": "Apenas o Host da Partida pode alterar isso!",
+			"inlobbyonly": "Você pode alterar isso quando estiver no lobby!",
+			"voicedistance": "Distância da Voz",
+			"wallsblockaudio": "Paredes Bloqueiam o Áudio",
+			"visiononly": "Ouvir Pessoas Apenas na Visão",
+			"impostorshearsghost": "Impostor Ouve os Fantasmas",
+			"hear_imposters_invents": "Ouça Impostores na Ventilação",
+			"private_talk_invents": "Conversa Privada nas Ventilações",
+			"comms_sabotage_audio": "Comunicações sabotadas desabilitam o Áudio",
+			"hear_through_cameras": "Ouça através das câmeras",
+			"ghost_only": "Apenas Fantasmas Podem Falar/Ouvir",
+			"ghost_only_warning": "Isso desabilita o som dos jogadores vivos.",
+			"meetings_only": "Emergências/Lobby Apenas",
+			"meetings_only_warning": "Isso desativa o som dos jogadores vivos fora das reuniões de emergência"
+		},
+		"audio": {
+			"title": "Áudio",
+			"speaker": "Alto-falante",
+			"voice_activity": "Atividade da Voz",
+			"push_to_talk": "Aperte Para Falar",
+			"push_to_mute": "Aperte Para Silenciar",
+			"microphone_volume": "Volume do Microfone",
+			"microphone_sens": "Sensibilidade do Microfone",
+			"microphone_sens_warning": "Se você definir a sensibilidade para um nível mais baixo, isso pode não funcionar",
+			"crewvolume": "Volume da Tripulação como Fantasma",
+            "mastervolume": "Volume Principal",
+            "test_speaker_start" : "Teste de alto-falante",
+            "test_speaker_stop": "Parar o Teste de Alto-falante"
+
+		},
+		"keyboard": {
+			"title": "Atalhos do teclado",
+			"push_to_talk": "Aperte Para Falar",
+			"deafen": "Sem Áudio",
+			"mute": "Silenciado"
+		},
+		"overlay": {
+			"title": "Sobreposição",
+			"always_on_top": "BetterCrewLink no topo",
+			"enabled": "Habilitar a Sobreposição",
+			"compact": "Sobreposição Compactada",
+			"meeting": "Sobreposição de Reuniões",
+			"pos": "Posição da Sobreposição",
+			"locations": {
+				"hidden": "Escondida",
+				"top": "Centro Superior",
+				"bottom": "Inferior Esquerdo",
+				"right": "Direita",
+				"right1": "Direita com Fundo",
+				"left": "Esquerda",
+				"left1": "Esquerda com Fundo"
+			}
+		},
+		"advanced": {
+			"title": "Avançado",
+			"nat_fix": "NAT Fix",
+			"nat_fix_warning": "Isso CORRIGIRÁ os problemas de nat, mas adicionará um atraso, pois está usando um servidor em vez de p2p",
+			"change_server": "Alterar o Servidor de Voz",
+			"voice_server": "Servidor de Voz",
+			"invalid_url": "URL Inválida",
+			"voice_server_warning": "Esta opção é apenas para usuários avançados. Outros servidores podem roubar suas informações ou podem travar o BetterCrewLink.",
+			"reset_default": "Restaurar ao padrão"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "Mobile Host",
+			"vad_enabled": "VAD Habilitado",
+			"vad_enabled_warning": "Você não verá quem está falando se desativar.",
+			"echocancellation": "Cancelamento de Eco",
+			"noiseSuppression": "Supressão de Ruído",
+			"spatial_audio": "Áudio Espacial"
+		},
+		"streaming": {
+			"title": "Configurações de streaming",
+			"hidecode": "Mostrar o Código do Lobby",
+			"obs_overlay": "Sobreposição do OBS",
+			"obs_url": "URL da Sobreposição do OBS",
+			"voice_server_comp": "Modo de compatibilidade VS",
+			"voice_server_comp_warning": "É recomendado mudar o Servidor de Voz para o Servidor de Voz do BetterCrewLink (https://bettercrewl.ink) por exemplo."
+		},
+		"troubleshooting": {
+			"title": "Solução de Problemas",
+			"restore": "Restaurar Padrões",
+			"restore_warning": "Isso irá redefinir TODAS as configurações para seus valores padrões.",
+			"warning": "Não disponível como host do jogo!"
+		}
+	},
+	"buttons": {
+		"confirm": "Confirmar",
+		"cancel": "Cancelar",
+		"exit": "Saia das configurações para aplicar as alterações"
+	},
+	"game": {
+		"menu": "MENU",
+		"open": "Abrir o Jogo",
+		"open_error": "Inicie o jogo manualmente. \r\n(este botão é apenas para a versão da Steam)",
+		"waiting": "Esperando pelo Among Us",
+		"error": "ERRO",
+		"error_admin": "Não foi possível conectar-se ao Among Us.\n Abra novamente o BetterCrewLink como administrador.",
+		"error_unsupport": "Sua versão do Among Us não é suportada pelo BetterCrewLink."
+	}
+}
