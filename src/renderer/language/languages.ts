@@ -4,6 +4,7 @@ import translationES from '../../../static/locales/es/translation.json'
 import translationPTBR from '../../../static/locales/pt-BR/translation.json'
 import translationSK from '../../../static/locales/sk/translation.json'
 import translationNL from '../../../static/locales/nl/translation.json'
+import translationDE from '../../../static/locales/de/translation.json'
 
 
 const languages = {
@@ -18,6 +19,10 @@ const languages = {
 	es: {
 		translation : translationES,
 		name: 'Español'
+	},
+	de: {
+		translation : translationDE,
+		name: 'Deutsch'
 	},
 	"pt-BR": {
 		translation : translationPTBR,
