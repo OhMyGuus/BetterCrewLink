@@ -1,6 +1,6 @@
 
 export default {
-    "fr" : "French", 
+    "fr" : "Français", 
     "en" : "English", 
-    "es" : "Spanish"
+    "es" : "Español"
 }
