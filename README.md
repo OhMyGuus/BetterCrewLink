@@ -183,15 +183,16 @@ Any contributions you make are greatly appreciated.
 * [squarebracket](https://github.com/squarebracket) for make support overlay for Linux
 * [JKohlman](https://github.com/JKohlman) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), example: push to mute, visual changes and making Multi Stage builds for [BetterCrewLink Server](https://github.com/OhMyGuus/BetterCrewLink-server)
 * [Diemo-zz](https://github.com/Diemo-zz) for make the default Voice Server for: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
-* [KadenBiel](https://github.com/KadenBiel) for make various things for [BetterCrewLink Mobile](https://github.com/OhMyGuus/BetterCrewlink-mobile), example: Better UI, Settings page
+* [KadenBiel](https://github.com/KadenBiel) for make various things for [BetterCrewLink Mobile](https://github.com/OhMyGuus/BetterCrewlink-mobile), example: Better UI, Settings page, translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) for German
 * [adofou](https://github.com/adofou) for make new parameters for node-turn server for [BetterCrewLink-Server](https://github.com/OhMyGuus/BetterCrewLink-server) and translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) for French
 * [Kore-Development](https://github.com/Kore-Development) for make support for Repl.it and gitignore changes for [BetterCrewLink-Server](https://github.com/OhMyGuus/BetterCrewLink-server)
 * [cybershard](https://github.com/cybershard) & [edqx](https://github.com/edqx) for make Only hear people in vision, Walls block voice and Hear through cameras
 * [electron-overlay-window](https://github.com/SnosMe/electron-overlay-window) for make it easier to do overlays
 * [node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) for make it easy to push to talk and push to mute
-* [MatadorProBr](https://github.com/MatadorProBr) for make this list of Contribuators, better README.md, wiki, translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink)
+* [MatadorProBr](https://github.com/MatadorProBr) for make this list of Contribuators, better README.md, wiki, translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) for Portuguese (BR)
 * [LukehTM](https://github.com/LukehTM) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) for Spanish
 * [KaldonM](https://github.com/KaldonM) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) for Slovak
+* [vb-03](https://github.com/vb-03) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) for Portuguese (PT)
 
 A big thank you to all those people who contributed and still contribute to this project to stay alive, thank you so much for being part of this BetterCrewLink community!
 
