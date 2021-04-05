@@ -27,11 +27,11 @@ const languages = {
 	},
 	"pt-BR": {
 		translation : translationPTBR,
-		name: 'português (BR)'
+		name: 'Português (BR)'
 	},
 	"pt-PT": {
 		translation : translationPTPT,
-		name: 'português (PT)'
+		name: 'Português (PT)'
 	},
 	sk: {
 		translation : translationSK,
