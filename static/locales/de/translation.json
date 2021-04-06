@@ -33,9 +33,9 @@
 			"microphone_sens": "Mikrofonempfindlichkeit",
 			"microphone_sens_warning": "Wenn die Empfindlichkeit niedriger eingestellt wird, funktioniert es möglicherweise nicht.",
 			"crewvolume": "Crew-Lautstärke wenn tot",
-            "mastervolume": "Hauptlautstärke",
-            "test_speaker_start" : "Lautsprechertest",
-            "test_speaker_stop": "Lautsprechertest stoppen"
+			"mastervolume": "Hauptlautstärke",
+			"test_speaker_start" : "Lautsprechertest",
+			"test_speaker_stop": "Lautsprechertest stoppen"
 
 		},
 		"keyboard": {
