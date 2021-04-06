@@ -8,6 +8,7 @@
 			"gamehostonly": "Seul l'hôte de la partie peut modifier cela!",
 			"inlobbyonly": "Vous ne pouvez changer cela que dans le lobby!",
 			"voicedistance": "Distance vocal",
+			"voicedistance_impostor": "Distance vocal imposteurs",
 			"wallsblockaudio": "Les murs bloquent l'audio",
 			"visiononly": "Entendre uniquement les gens que l'on voit",
 			"impostorshearsghost": "Les imposteurs entendent les fantômes",
@@ -17,13 +18,15 @@
 			"hear_through_cameras": "Entendre à travers les caméras",
 			"ghost_only": "Seuls les fantômes peuvent parler/entendre",
 			"ghost_only_warning": "Cette option désactive le vocal pour les joueurs vivants.",
+			"ghost_only_warning2": "None"
 			"meetings_only": "Meetings/Lobby uniquement",
 			"meetings_only_warning": "Cela désactive le son pour les joueurs vivants en dehors des meetings."
+			"meetings_only_warning2": "None"
 		},
 		"audio": {
 			"title": "Audio",
-			"speaker": "Sortie audio",
 			"microphone" : "Microphone",
+			"speaker": "Sortie audio",
 			"test_speaker_start" : "Tester la sortie",
 			"test_speaker_stop": "Arrêter le test",
 			"voice_activity": "Détection de la voix",
