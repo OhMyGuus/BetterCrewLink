@@ -26,7 +26,7 @@
 		"audio": {
 			"title": "Звук",
 			"speaker": "Динамик",
-			"microphone": "микрофона",
+			"microphone": "Микрофон",
 			"voice_activity": "Голосовая активность",
  			"push_to_talk": "Активация голоса по кнопке",
 			"push_to_mute": "Отключение голоса по кнопке",
