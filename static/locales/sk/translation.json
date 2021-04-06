@@ -26,7 +26,7 @@
 		"audio": {
 			"title": "Zvuk",
 			"speaker": "Reproduktor",
-			"microphone": "Mikrofónu",
+			"microphone": "Mikrofón",
 			"voice_activity": "Hlasová aktivita",
 			"push_to_talk": "Tlač pre rozprávanie",
 			"push_to_mute": "Tlač pre stlmenie",
@@ -107,8 +107,8 @@
 		"open_error": "Spusti hru manuálne. \n(toto tlačidlo je iba pre Steam)",
 		"waiting": "Čaká sa na Among Us",
 		"error": "CHYBA",
-		"error_admin": "Nepodarilo sa pripojiť k Among Us.\n Prosím, znovu otvor CrewLink ako administrátor.",
-		"error_unsupport": "Tvoja verzia Among Us nie je CrewLinkom podporovaná."
+		"error_admin": "Nepodarilo sa pripojiť k Among Us.\n Prosím, znovu otvor BetterCrewLink ako administrátor.",
+		"error_unsupport": "Tvoja verzia Among Us nie je BetterCrewLinkom podporovaná."
 	},
 	"translator": "KaldonM"
 }
