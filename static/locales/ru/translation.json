@@ -4,9 +4,9 @@
 		"language": "Язык",
 		"warning": "Вы уверены?",
 		"lobbysettings": {
-			"title": "Настройки лобби",
-			"gamehostonly": "Только владелец лобби может это изменить!",
-			"inlobbyonly": "Вы можете это изменить только в лобби!",
+			"title": "Настройки комнаты",
+			"gamehostonly": "Только владелец комнаты может это изменить!",
+			"inlobbyonly": "Вы можете это изменить только в комнате!",
 			"voicedistance": "Дальность голоса",
 			"voicedistance_impostor": "Дальность голоса предателя",
 			"wallsblockaudio": "Стены преграждают звук",
@@ -19,7 +19,7 @@
 			"ghost_only": "Только призраки могут разговаривать/слышать",
 			"ghost_only_warning": "Это отключает звук для живых игроков.",
 			"ghost_only_warning2": "Включён разговор только для призраков.",
-			"meetings_only": "Только на собрании или в лобби",
+			"meetings_only": "Только на собрании или в комнате",
 			"meetings_only_warning": "Это отключает звук для живых игроков вне собраний",
 			"meetings_only_warning2": "Включён разговор только на собраниях."
 		},
@@ -27,8 +27,8 @@
 			"title": "Звук",
 			"speaker": "Динамик",
 			"voice_activity": "Голосовая активность",
- 			"push_to_talk": "Push To Talk",
-			"push_to_mute": "Push To Mute",
+ 			"push_to_talk": "Активация голоса по кнопке",
+			"push_to_mute": "Отключение голоса по кнопке",
 			"microphone_volume": "Громкость микрофона",
 			"microphone_sens": "Чувствительность микрофона",
 			"microphone_sens_warning": "Если выставить чувствительность ещё ниже, она может не сработать",
@@ -39,7 +39,7 @@
 		},
 		"keyboard": {
 			"title": "Сочетание клавиш",
-			"push_to_talk": "Push To Talk",
+			"push_to_talk": "Активация голоса",
 			"deafen": "Убрать звук",
 			"mute": "Убрать микрофон"
 		},
@@ -68,30 +68,30 @@
 			"voice_server": "Голосовой сервер",
 			"invalid_url": "Неверный URL",
 			"voice_server_warning": "Эта настройка только для продвинутых пользователей. Остальные серверы могут украсть ваши данные или уронить CrewLink.",
-			"reset_default": "Вернуть по умолчанию"
+			"reset_default": "Сбросить настройки"
 		},
 		"beta": {
 			"title": "БЕТА/ОТЛАДКА",
 			"mobilehost": "Хост для мобильных",
 			"vad_enabled": "Включение VAD",
 			"vad_enabled_warning": "Если отключить, то не будет видно, кто говорит.",
-			"echocancellation": "Эхо-подавление",
+			"echocancellation": "Подавление эха",
 			"noiseSuppression": "Подавление шума",
 			"spatial_audio": "Пространственный звук"
 		},
 		"streaming": {
-			"title": "Настройки потоковой передачи",
-			"hidecode": "Показать код лобби",
+			"title": "Настройки для стриминга",
+			"hidecode": "Показать код комнаты",
 			"obs_overlay": "Оверлей OBS-браузера",
 			"obs_url": "URL OBS-браузера",
 			"voice_server_comp": "Режим совместимости ГС",
-			"voice_server_comp_warning": "Рекомендуется, например, просто изменить голосовой сервер на голосовой сервер bettercrewlink https://bettercrewl.ink."
+			"voice_server_comp_warning": "Рекомендуется просто сменить голосовой сервер, например, на голосовой сервер bettercrewlink https://bettercrewl.ink"
 		},
 		"troubleshooting": {
 			"title": "Решение проблем",
 			"restore": "Восстановить настройки по умолчанию",
-			"restore_warning": "Это вернёт ВСЕ настройки к значениям по умолчанию.",
-			"warning": "Недоступно для владельца в игре!"
+			"restore_warning": "Это сбросит ВСЕ настройки к значениям по умолчанию.",
+			"warning": "Недоступно для владельца комнаты во время игры!"
 		}
 	},
 	"buttons": {
