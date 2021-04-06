@@ -1,112 +1,114 @@
 {
-	"settings": {
-        "title": "Instellingen",
-        "language": "Taal",
-		"warning": "Weet je het zeker?",
-		"lobbysettings": {
-			"title": "Lobby instellingen",
-			"gamehostonly": "Alleen de host kan dit veranderen!",
-			"inlobbyonly": "You can only change this in the lobby!",
-			"voicedistance": "Voice Distance",
-			"wallsblockaudio": "Walls Block Audio",
-			"visiononly": "Hear People in Vision Only",
-			"impostorshearsghost": "Impostors Hear Dead",
-			"hear_imposters_invents": "Hear Impostors in Vents",
-			"private_talk_invents": "Private Talk in Vents",
-			"comms_sabotage_audio": "Comms Sabotage Disables Voice",
-			"hear_through_cameras": "Hear Through Cameras",
-			"ghost_only": "Only Ghosts Can Talk/Hear",
-			"ghost_only_warning": "This disables the sound for alive players.",
-			"meetings_only": "Meetings/Lobby Only",
-			"meetings_only_warning": "This disables the sound for alive players outside meetings"
-		},
-		"audio": {
-			"title": "Audio",
-			"speaker": "Speaker",
-			"microphone" : "Microfoon",
-			"voice_activity": "Voice Activity",
-			"push_to_talk": "Push To Talk",
-			"push_to_mute": "Push To Mute",
-			"microphone_volume": "Microphone Volume",
-			"microphone_sens": "Microphone Sensitivity",
-			"microphone_sens_warning": "If you set the sensitivity any lower it might not work",
-			"crewvolume": "Crew Volume as Ghost",
-            "mastervolume": "Master Volume",
-            "test_speaker_start" : "Test speaker",
-            "test_speaker_stop": "Stop Test Speaker"
-
-		},
-		"keyboard": {
-			"title": "Keyboard shortcuts",
-			"push_to_talk": "Push To Talk",
-			"deafen": "Deafen",
-			"mute": "Mute"
-		},
-		"overlay": {
-			"title": "Overlay",
-			"always_on_top": "Crewlink on Top",
-			"enabled": "Enable Overlay",
-			"compact": "Compact Overlay",
-			"meeting": "Meeting Overlay",
-			"pos": "Overlay Position",
-			"locations": {
-				"hidden": "Hidden",
-				"top": "Top Center",
-				"bottom": "Bottom Left",
-				"right": "Right",
-				"right1": "Right-background",
-				"left": "Left",
-				"left1": "Left-background"
-			}
-		},
-		"advanced": {
-			"title": "Advanced",
-			"nat_fix": "NAT Fix",
-			"nat_fix_warning": "This will FIX the nat issues but will add a delay since it is using a server instead of p2p",
-			"change_server": "Change Voice Server",
-			"voice_server": "Voice Server",
-			"invalid_url": "Invalid URL",
-			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash CrewLink.",
-			"reset_default": "Reset to default"
-		},
-		"beta": {
-			"title": "BETA/DEBUG",
-			"mobilehost": "Mobile Host",
-			"vad_enabled": "VAD Enabled",
-			"vad_enabled_warning": "You won't see who's talking if deactivate.",
-			"echocancellation": "Echo Cancellation",
-			"noiseSuppression": "Noise Suppression",
-			"spatial_audio": "Spatial Audio"
-		},
-		"streaming": {
-			"title": "Streaming settings",
-			"hidecode": "Show Lobby Code",
-			"obs_overlay": "OBS Browser Overlay",
-			"obs_url": "Obs browsersource url",
-			"voice_server_comp": "VS compatibility mode",
-			"voice_server_comp_warning": "It is recommended to just change the voice server to a bettercrewlink voice server https://bettercrewl.ink for example."
-		},
-		"troubleshooting": {
-			"title": "Troubleshooting",
-			"restore": "Restore Defaults",
-			"restore_warning": "This will reset ALL settings to their default values.",
-			"warning": "Not available as host in game!"
-		}
-	},
 	"buttons": {
-		"default" : "Default",
-		"confirm": "Confirm",
-		"cancel": "Cancel",
-		"exit": "Exit Settings to apply changes"
+		"cancel": "Annuleren",
+		"confirm": "OK",
+		"default": "Standaard",
+		"exit": "Sluit de instellingen om op te slaan"
 	},
 	"game": {
+		"error": "FOUT",
+		"error_admin": "Kan niet met Among Us verbinden. \nStart Crewlink opnieuw op als Administrator ",
+		"error_unsupport": "Je Among Us versie wordt niet ondersteund door BetterCrewlink.",
 		"menu": "MENU",
 		"open": "Open Game",
-		"open_error": "Start the game manually. \r\n(this button is only for steam)",
-		"waiting": "Waiting for Among Us",
-		"error": "ERROR",
-		"error_admin": "Couldn't connect to Among Us.\n Please re-open CrewLink as Administrator.",
-		"error_unsupport": "Your version of Among Us is unsupported by CrewLink."
+		"open_error": "Start Among Us handmatig. \n(Dit knopje is alleen de Steam versie)",
+		"waiting": "Wachten op Among Us"
 	},
-	"translator" : "none"
+	"settings": {
+		"advanced": {
+			"change_server": "Server Aanpassen",
+			"invalid_url": "Ongeldige URL",
+			"nat_fix": "NAT Fix",
+			"nat_fix_warning": "Dit lost connectie veel connectie problemen op tot betrekking met NAT maar het kan een kleine vertraging toevoegen. ",
+			"reset_default": "Reset alle instellingen",
+			"title": "Geavanceerd",
+			"voice_server": "Voice Server",
+			"voice_server_warning": "Deze optie is alleen voor gevorderde gebruikers."
+		},
+		"audio": {
+			"crewvolume": "Crew volume als een geest.",
+			"mastervolume": "Master Volume",
+			"microphone": "Microfoon",
+			"microphone_sens": "Microfoon gevoeligheid",
+			"microphone_sens_warning": "Als je de gevoeligheid nog lager zet werkt het waarschijnlijk niet meer.",
+			"microphone_volume": "Microfoon volume",
+			"push_to_mute": "Push To Mute",
+			"push_to_talk": "Push To Talk",
+			"speaker": "Speaker",
+			"test_speaker_start": "Test speaker",
+			"test_speaker_stop": "Stop Test Speaker",
+			"title": "Geluid",
+			"voice_activity": "Spraakactiviteit"
+		},
+		"beta": {
+			"echocancellation": "Echo-onderdrukking",
+			"mobilehost": "Mobile Host",
+			"noiseSuppression": "Geluidsonderdrukking",
+			"spatial_audio": "Ruimtelijke audio",
+			"title": "BETA/DEBUG",
+			"vad_enabled": "VAD Enabled",
+			"vad_enabled_warning": "Je kan niet meer zien wie er praat als je dit activeert. "
+		},
+		"keyboard": {
+			"deafen": "Dempen",
+			"mute": "Mute",
+			"push_to_talk": "Push To Talk",
+			"title": "Toetsenbord sneltoetsen"
+		},
+		"language": "Taal",
+		"lobbysettings": {
+			"comms_sabotage_audio": "Geen geluid bij Communicaties sabotage",
+			"gamehostonly": "Alleen de host kan dit veranderen!",
+			"ghost_only": "Alleen geesten kunnen praten/horen",
+			"ghost_only_warning": "Hierdoor wordt de audio voor de levende spelers uitgeschakeld. ",
+			"ghost_only_warning2": "Geesten kunnen alleen praten ingeschakeld. ",
+			"hear_imposters_invents": "Hoor bedriegers in vents",
+			"hear_through_cameras": "Hoor door camera's",
+			"impostorshearsghost": "Bedriegers horen geesten",
+			"inlobbyonly": "Dit kan je alleen aanpassen in de lobby.",
+			"meetings_only": "Alleen Meetings/Lobby",
+			"meetings_only_warning": "Dit zet al het geluid uit voor levende spelers buiten de meetings om.",
+			"meetings_only_warning2": "Alleen praten in meetings aan!",
+			"private_talk_invents": "Privé-gesprekken in vents ",
+			"title": "Lobby instellingen",
+			"visiononly": "Hoor in alleen in je visioen.",
+			"voicedistance": "Spraakafstand",
+			"voicedistance_impostor": "Bedrieger Spraakafstand",
+			"wallsblockaudio": "muren blokken geluid."
+		},
+		"overlay": {
+			"always_on_top": "Crewlink on Top",
+			"compact": "Compact Overlay",
+			"enabled": "Overlay aan",
+			"locations": {
+				"bottom": "Onderin",
+				"hidden": "Verborgen",
+				"left": "Links",
+				"left1": "Links Achtergrond",
+				"right": "Rechts",
+				"right1": "Rechts achtergrond",
+				"top": "Bovenin"
+			},
+			"meeting": "Meeting Overlay",
+			"pos": "Overlay positie",
+			"title": "Overlay"
+		},
+		"streaming": {
+			"hidecode": "Toon lobbycode",
+			"obs_overlay": "OBS Browser Overlay",
+			"obs_url": "Obs browsersource url",
+			"title": "Streamers instellingen",
+			"voice_server_comp": "Server compatibiliteit modus",
+			"voice_server_comp_warning": "Het is beter om de standaard server te gebruiken (https://bettercrewl.ink)"
+		},
+		"title": "Instellingen",
+		"troubleshooting": {
+			"restore": "Herstel alle instellingen",
+			"restore_warning": "Pas op dit zet alle instellingen terug naar standaard.",
+			"title": "Probleemoplossen",
+			"warning": "Niet beschikbaar als host."
+		},
+		"warning": "Weet je het zeker?"
+	},
+	"translator": "Guus"
 }

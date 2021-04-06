@@ -26,7 +26,7 @@
 		"audio": {
 			"title": "Zvuk",
 			"speaker": "Reproduktor",
-			"microphone": "Mikrofón",
+			"microphone": "Mikrofon",
 			"voice_activity": "Hlasová aktivita",
 			"push_to_talk": "Tlač pre rozprávanie",
 			"push_to_mute": "Tlač pre stlmenie",
