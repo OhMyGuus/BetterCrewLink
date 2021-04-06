@@ -4,11 +4,12 @@ import translationES from '../../../static/locales/es/translation.json'
 import translationPTBR from '../../../static/locales/pt-BR/translation.json'
 import translationPTPT from '../../../static/locales/pt-PT/translation.json'
 import translationSK from '../../../static/locales/sk/translation.json'
-import translationSI from '../../../static/locales/si/translation.json'
+import translationSL from '../../../static/locales/sl/translation.json'
 import translationNL from '../../../static/locales/nl/translation.json'
 import translationDE from '../../../static/locales/de/translation.json'
 import translationID from '../../../static/locales/id/translation.json'
 import translationTU from '../../../static/locales/tu/translation.json'
+import translationRU from '../../../static/locales/ru/translation.json'
 
 const languages = {
 	en: {
@@ -37,11 +38,11 @@ const languages = {
 	},
 	sk: {
 		translation : translationSK,
-		name: 'Slovenský'
-	},
-	si: {
-		translation : translationSI,
 		name: 'Slovenčina'
+	},
+	sl: {
+		translation : translationSL,
+		name: 'Slovenský'
 	},
 	nl: {
 		translation : translationNL,
@@ -54,6 +55,10 @@ const languages = {
 	tu: {
 		translation : translationTU,
 		name: 'Türkiye'
+	},
+	ru: {
+		translation : translationRU,
+		name: 'Русский'
 	}
   };
 
