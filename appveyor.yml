@@ -9,12 +9,6 @@ build_script:
     yarn run dist --publish never
     
 artifacts:
-- path: dist
-  name: test
-  type: zip
-cache:
-  - node_modules
-artifacts:
   - path: dist/win-unpacked
     name: unpacked
     type: zip
@@ -22,3 +16,5 @@ artifacts:
   - path: 'dist/Better-CrewLink Setup*.exe'
     name: installer
     type: exe
+cache:
+  - node_modules
