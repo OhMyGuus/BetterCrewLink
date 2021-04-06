@@ -3,7 +3,7 @@ image:
 - Visual Studio 2019
 build_script:
 - pwsh: >-
-    yarn install
+    yarn install --network-timeout 100000
     
     yarn run dist --publish never
     
@@ -15,5 +15,4 @@ artifacts:
   - path: 'dist/Better-CrewLink Setup*.exe'
     name: installer
     type: exe
-cache:
-  - node_modules
+
