@@ -2,7 +2,6 @@ version: '{build}'
 image:
 - Visual Studio 2019
 build_script:
-- ps: Install-Product node $env:nodejs_version
 - pwsh: >-
     yarn install
     
