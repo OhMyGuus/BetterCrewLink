@@ -84,7 +84,7 @@
 			"title": "Streaming-Einstellungen",
 			"hidecode": "Lobby-Code anzeigen",
 			"obs_overlay": "OBS-Browser-Overlay",
-			"obs_url": "OBS-Broserquellen-URL",
+			"obs_url": "OBS-Browserquellen-URL",
 			"voice_server_comp": "Voiceserver Kompatibilitätsmodus",
 			"voice_server_comp_warning": "Es wird empfohlen, den Sprachserver auf einen BetterCrewLink-Sprachserver (z.B. https://bettercrewl.ink) zu ändern."
 		},
