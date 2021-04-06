@@ -26,6 +26,7 @@
 		"audio": {
 			"title": "Audio",
 			"speaker": "Speaker",
+			"microphone": "Microphone",
 			"voice_activity": "Voice Activity",
 			"push_to_talk": "Push To Talk",
 			"push_to_mute": "Push To Mute",

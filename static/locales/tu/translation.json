@@ -26,6 +26,7 @@
 		"audio": {
 			"title": "Ses",
 			"speaker": "Hoparlör",
+			"microphone": "Mikrofon", 
 			"voice_activity": "Ses Aktivitesi",
 			"push_to_talk": "Bas Konuş",
 			"push_to_mute": "Bas Sustur",

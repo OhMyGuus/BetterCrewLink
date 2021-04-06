@@ -23,6 +23,7 @@
 		"audio": {
 			"title": "Audio",
 			"speaker": "Sortie audio",
+			"microphone" : "Microphone",
 			"test_speaker_start" : "Tester la sortie",
 			"test_speaker_stop": "Arrêter le test",
 			"voice_activity": "Détection de la voix",

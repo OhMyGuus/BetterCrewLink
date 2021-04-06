@@ -26,6 +26,7 @@
 		"audio": {
 			"title": "Áudio",
 			"speaker": "Altifalante",
+			"microphone": "Microfone",
 			"voice_activity": "Deteção de Voz",
 			"push_to_talk": "Pressionar Para Falar",
 			"push_to_mute": "Pressionar Para Silenciar",
