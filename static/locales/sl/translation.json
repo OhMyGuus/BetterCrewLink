@@ -40,17 +40,17 @@
 		},
 		"keyboard": {
 			"title": "Bližjice na tipkovnici",
-			"push_to_talk": "Govorjenje ob pritisku na tipko",
+			"push_to_talk": "Tipka za govor",
 			"deafen": "Oglušen",
 			"mute": "Utišan"
 		},
 		"overlay": {
-			"title": "Overlay",
+			"title": "Prikaz govorca",
 			"always_on_top": "Bettercrewlink vedno v ospredju",
-			"enabled": "Omogoči Overlay",
-			"compact": "Kompakten Overlay",
-			"meeting": "Overlay na sestankih",
-			"pos": "Postavitev Overlay-a",
+			"enabled": "Omogoči prikaz govorca",
+			"compact": "Kompakten prikaz govorca",
+			"meeting": "Prikaz govorca na sestankih",
+			"pos": "Postavitev prikaza govorca",
 			"locations": {
 				"hidden": "Skrit",
 				"top": "Na vrhu v sredini",
@@ -72,7 +72,7 @@
 			"reset_default": "Ponastavi na privzeto"
 		},
 		"beta": {
-			"title": "Preikusne nastavitve/odpravljanje napak",
+			"title": "BETA/Dodatne nastavitve",
 			"mobilehost": "Gostitelj za mobilne naprave",
 			"vad_enabled": "VAD omogočen",
 			"vad_enabled_warning": "Če onemogočite, ne boste videli kdo govori.",
