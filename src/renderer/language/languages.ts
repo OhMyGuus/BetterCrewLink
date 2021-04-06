@@ -4,9 +4,11 @@ import translationES from '../../../static/locales/es/translation.json'
 import translationPTBR from '../../../static/locales/pt-BR/translation.json'
 import translationPTPT from '../../../static/locales/pt-PT/translation.json'
 import translationSK from '../../../static/locales/sk/translation.json'
+import translationSI from '../../../static/locales/si/translation.json'
 import translationNL from '../../../static/locales/nl/translation.json'
 import translationDE from '../../../static/locales/de/translation.json'
 import translationIN from '../../../static/locales/in/translation.json'
+import translationTU from '../../../static/locales/tu/translation.json'
 
 const languages = {
 	en: {
@@ -37,6 +39,10 @@ const languages = {
 		translation : translationSK,
 		name: 'Slovenčina'
 	},
+	si: {
+		translation : translationSI,
+		name: 'Slovensko'
+	},
 	nl: {
 		translation : translationNL,
 		name: 'Nederlands'
@@ -44,6 +50,10 @@ const languages = {
 	in: {
 		translation : translationIN,
 		name: 'Indonesia'
+	},
+	tu: {
+		translation : translationTU,
+		name: 'Türkiye'
 	}
   };
 
