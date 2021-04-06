@@ -8,7 +8,7 @@ import translationSL from '../../../static/locales/sl/translation.json'
 import translationNL from '../../../static/locales/nl/translation.json'
 import translationDE from '../../../static/locales/de/translation.json'
 import translationID from '../../../static/locales/id/translation.json'
-import translationTU from '../../../static/locales/tu/translation.json'
+import translationTR from '../../../static/locales/tr/translation.json'
 import translationRU from '../../../static/locales/ru/translation.json'
 
 const languages = {
@@ -52,9 +52,9 @@ const languages = {
 		translation : translationID,
 		name: 'Indonesia'
 	},
-	tu: {
-		translation : translationTU,
-		name: 'Türkiye'
+	tr: {
+		translation : translationTR,
+		name: 'Türkçe'
 	},
 	ru: {
 		translation : translationRU,
