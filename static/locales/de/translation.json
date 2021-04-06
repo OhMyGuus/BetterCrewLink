@@ -20,7 +20,7 @@
 			"ghost_only_warning": "Dies deativiert das Audio für lebende Spieler.",
 			"ghost_only_warning2": "Nur die Geister können sprechen aktiviert",
 			"meetings_only": "Nur Treffen/Lobby Audio",
-			"meetings_only_warning": "Dies deativiert das Audio für lebende Spieler außerhalb von Meetings",
+			"meetings_only_warning": "Dies deaktiviert das Audio für lebende Spieler außerhalb von Meetings",
 			"meetings_only_warning2": "Sprechen nur in Treffen aktiviert"
 		},
 		"audio": {
