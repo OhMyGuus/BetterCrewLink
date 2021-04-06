@@ -1,6 +1,10 @@
 version: '{build}'
+
+cache:
+  - node_modules
+  
 image:
-- Visual Studio 2019
+  - Visual Studio 2019
 
 install:
   - yarn install --network-timeout 100000
