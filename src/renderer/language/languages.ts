@@ -41,7 +41,7 @@ const languages = {
 	},
 	si: {
 		translation : translationSI,
-		name: 'Slovensko'
+		name: 'Slovenský'
 	},
 	nl: {
 		translation : translationNL,
