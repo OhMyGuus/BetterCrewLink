@@ -25,8 +25,8 @@
 		},
 		"audio": {
 			"title": "Audio",
-			"speaker": "Lautsprecher",
 			"microphone": "Mikrofon",
+			"speaker": "Lautsprecher",
 			"voice_activity": "Sprachaktivität",
 			"push_to_talk": "Push-to-Talk",
 			"push_to_mute": "Push-to-Mute",
@@ -34,9 +34,9 @@
 			"microphone_sens": "Mikrofonempfindlichkeit",
 			"microphone_sens_warning": "Wenn die Empfindlichkeit niedriger eingestellt wird, funktioniert es möglicherweise nicht.",
 			"crewvolume": "Crew-Lautstärke wenn tot",
-            "mastervolume": "Hauptlautstärke",
-            "test_speaker_start" : "Lautsprechertest",
-            "test_speaker_stop": "Lautsprechertest stoppen"
+			"mastervolume": "Hauptlautstärke",
+			"test_speaker_start" : "Lautsprechertest",
+			"test_speaker_stop": "Lautsprechertest stoppen"
 
 		},
 		"keyboard": {
