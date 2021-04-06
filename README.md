@@ -175,7 +175,7 @@ Any contributions you make are greatly appreciated.
 ### Contributors
 
 <details>
-<summary>BetterCrewLink Contributors</summary>
+<summary> BetterCrewLink Contributors </summary>
 
 [![Contributors][contributors-shield]][contributors-url]
 
