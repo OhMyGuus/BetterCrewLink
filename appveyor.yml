@@ -1,17 +1,22 @@
 version: '{build}'
 image:
 - Visual Studio 2019
+
+install:
+  - ps: yarn install --network-timeout 100000
+
 build_script:
-- pwsh: >-
-    yarn install --network-timeout 100000
-    
-    yarn run dist --publish never
-    
+  - ps: yarn run dist --publish never
+
+matrix:
+  fast_finish: true
+shallow_clone: true
+clone_depth: 1
+
 artifacts:
   - path: dist/win-unpacked
     name: unpacked
     type: zip
-  - path: dist/win-unpacked
   - path: 'dist/Better-CrewLink Setup*.exe'
     name: installer
     type: exe

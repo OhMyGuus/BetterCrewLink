@@ -20,7 +20,7 @@
 			"ghost_only_warning": "Toto zakáže zvuk pre živých ľudí.",
 			"ghost_only_warning2": "Iba duch môže hovoriť je zapnuté.",
 			"meetings_only": "Iba mítingy/lobby",
-			"meetings_only_warning": "Toto zakáže zvuk pre živých ľudí mimo mítingov",
+			"meetings_only_warning": "Toto zakáže zvuk pre živých ľudí mimo mítingov"
 			"meetings_only_warning2": "Rozprávanie iba v mítingoch je zapnuté."
 		},
 		"audio": {
