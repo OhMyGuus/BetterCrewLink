@@ -7,7 +7,7 @@ import translationSK from '../../../static/locales/sk/translation.json'
 import translationSI from '../../../static/locales/si/translation.json'
 import translationNL from '../../../static/locales/nl/translation.json'
 import translationDE from '../../../static/locales/de/translation.json'
-import translationIN from '../../../static/locales/in/translation.json'
+import translationID from '../../../static/locales/id/translation.json'
 import translationTU from '../../../static/locales/tu/translation.json'
 
 const languages = {
@@ -37,18 +37,18 @@ const languages = {
 	},
 	sk: {
 		translation : translationSK,
-		name: 'Slovenčina'
+		name: 'Slovenský'
 	},
 	si: {
 		translation : translationSI,
-		name: 'Slovenský'
+		name: 'Slovenčina'
 	},
 	nl: {
 		translation : translationNL,
 		name: 'Nederlands'
 	},
-	in: {
-		translation : translationIN,
+	id: {
+		translation : translationID,
 		name: 'Indonesia'
 	},
 	tu: {
