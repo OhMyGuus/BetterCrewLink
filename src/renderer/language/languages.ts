@@ -8,6 +8,7 @@ import translationSI from '../../../static/locales/si/translation.json'
 import translationNL from '../../../static/locales/nl/translation.json'
 import translationDE from '../../../static/locales/de/translation.json'
 import translationIN from '../../../static/locales/in/translation.json'
+import translationTU from '../../../static/locales/tu/translation.json'
 
 const languages = {
 	en: {
@@ -49,6 +50,10 @@ const languages = {
 	in: {
 		translation : translationIN,
 		name: 'Indonesia'
+	},
+	tu: {
+		translation : translationTU,
+		name: 'Türkiye'
 	}
   };
 
