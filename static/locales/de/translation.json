@@ -8,18 +8,18 @@
 			"gamehostonly": "Dies kann nur der Spielhost ändern!",
 			"inlobbyonly": "Dies kann nur in der Lobby geändert werden!",
 			"voicedistance": "Stimmwahrnehmungsradius",
-			"voicedistance_impostor": "Imposter-Stimmwahrnehmungsradius",
+			"voicedistance_impostor": "Imposter/Verräter-Stimmwahrnehmungsradius",
 			"wallsblockaudio": "Wände blockieren Audio",
 			"visiononly": "Spieler nur in Sichtweite hören",
-			"impostorshearsghost": "Imposter hören die Geister",
-			"hear_imposters_invents": "Crew hört Imposter in Vents",
-			"private_talk_invents": "Privatgespräche in Vents",
-			"comms_sabotage_audio": "Kommunikationssabotage deativiert Voicechat",
+			"impostorshearsghost": "Imposter/Verräter hören die Geister",
+			"hear_imposters_invents": "Crew hört Imposter/Verräter in Vents/Schächten",
+			"private_talk_invents": "Privatgespräche in Vents/Schächten",
+			"comms_sabotage_audio": "Kommunikationssabotage verhindert Unterhaltungen",
 			"hear_through_cameras": "Durch Kameras hören",
 			"ghost_only": "Nur die Geister können sprechen/hören",
-			"ghost_only_warning": "Dies deativiert das Audio für lebende Spieler.",
+			"ghost_only_warning": "Dies deaktiviert das Audio für lebende Spieler.",
 			"ghost_only_warning2": "Nur die Geister können sprechen aktiviert",
-			"meetings_only": "Nur Treffen/Lobby Audio",
+			"meetings_only": "Audio nur in Meetings/Lobby",
 			"meetings_only_warning": "Dies deaktiviert das Audio für lebende Spieler außerhalb von Meetings",
 			"meetings_only_warning2": "Sprechen nur in Treffen aktiviert"
 		},
@@ -27,8 +27,8 @@
 			"title": "Audio",
 			"speaker": "Lautsprecher",
 			"voice_activity": "Sprachaktivität",
-			"push_to_talk": "Push-to-talk",
-			"push_to_mute": "Push-to-mute",
+			"push_to_talk": "Push-to-Talk",
+			"push_to_mute": "Push-to-Mute",
 			"microphone_volume": "Mikrofonlautstärke",
 			"microphone_sens": "Mikrofonempfindlichkeit",
 			"microphone_sens_warning": "Wenn die Empfindlichkeit niedriger eingestellt wird, funktioniert es möglicherweise nicht.",
@@ -39,8 +39,8 @@
 
 		},
 		"keyboard": {
-			"title": "Tastatürkürzel",
-			"push_to_talk": "Push-to-talk",
+			"title": "Tastenkürzel",
+			"push_to_talk": "Push-to-Talk",
 			"deafen": "Ausgabe deaktivieren",
 			"mute": "Stummschalten"
 		},
@@ -105,8 +105,8 @@
 		"open": "Spiel öffnen",
 		"open_error": "Spiel manuell starten \r\n(Diese Taste ist nur für Steam)",
 		"waiting": "Warten auf Among Us",
-		"error": "ERROR",
+		"error": "FEHLER",
 		"error_admin": "Konnte keine Verbindung zu Among Us herstellen \n Bitte BetterCrewLink als Administrator erneut öffnen.",
-		"error_unsupport": "Deine Version von Among Us wird nicht unterstützt"
+		"error_unsupport": "Deine Version von Among Us von BetterCrewLink wird nicht unterstützt"
 	}
 }
