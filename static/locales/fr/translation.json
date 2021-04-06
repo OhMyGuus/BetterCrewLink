@@ -18,7 +18,7 @@
 			"hear_through_cameras": "Entendre à travers les caméras",
 			"ghost_only": "Seuls les fantômes peuvent parler/entendre",
 			"ghost_only_warning": "Cette option désactive le vocal pour les joueurs vivants.",
-			"ghost_only_warning2": 'None'
+			"ghost_only_warning2": "None"
 			"meetings_only": "Meetings/Lobby uniquement",
 			"meetings_only_warning": "Cela désactive le son pour les joueurs vivants en dehors des meetings."
 			"meetings_only_warning2": "None"
