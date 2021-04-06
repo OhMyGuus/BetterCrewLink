@@ -91,7 +91,7 @@
 			"title": "Solução de Problemas",
 			"restore": "Restaurar Padrões",
 			"restore_warning": "Isso irá redefinir TODAS as configurações para seus valores padrões.",
-			"warning": "Não disponível como anfitrião do jogo!"
+			"warning": "Opção indisponível como anfitrião do jogo!"
 		}
 	},
 	"buttons": {
@@ -106,7 +106,7 @@
 		"open_error": "Inicie o jogo manualmente. \r\n(este botão é apenas para a versão da Steam)",
 		"waiting": "Esperando pelo Among Us",
 		"error": "ERRO",
-		"error_admin": "Não foi possível conectar-se ao Among Us.\n Abra novamente o BetterCrewLink como administrador.",
+		"error_admin": "Não foi possível conectar-se ao Among Us.\n Abra novamente o BetterCrewLink como Administrador.",
 		"error_unsupport": "Sua versão do Among Us não é suportada pelo BetterCrewLink."
 	},
 	"translator": "Matador"
