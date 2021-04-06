@@ -21,7 +21,7 @@
 			"ghost_only_warning2": "None",
 			"meetings_only": "Meetings/Lobby uniquement",
 			"meetings_only_warning": "Cela désactive le son pour les joueurs vivants en dehors des meetings."
-			"meetings_only_warning2": "None",
+			"meetings_only_warning2": "None"
 		},
 		"audio": {
 			"title": "Audio",
