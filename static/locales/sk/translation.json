@@ -1,7 +1,7 @@
 {
 	"settings": {
-        "title": "Nastavenia",
-        "language": "Jazyk",
+		"title": "Nastavenia",
+		"language": "Jazyk",
 		"warning": "Si si istý?",
 		"lobbysettings": {
 			"title": "Lobby nastavenia",
@@ -21,7 +21,7 @@
 			"ghost_only_warning2": "Iba duch môže hovoriť je zapnuté.",
 			"meetings_only": "Iba mítingy/lobby",
 			"meetings_only_warning": "Toto zakáže zvuk pre živých ľudí mimo mítingov",
-			"meetings_only_warning2": "Rozprávanie iba v mítingoch je zapnuté.",
+			"meetings_only_warning2": "Rozprávanie iba v mítingoch je zapnuté."
 		},
 		"audio": {
 			"title": "Zvuk",
@@ -33,10 +33,9 @@
 			"microphone_sens": "Citlivosť mikrofónu",
 			"microphone_sens_warning": "Ak nastavíš nižšiu citlivosť, nemusí to fungovať",
 			"crewvolume": "Hlasitosť posádky keď si duch",
-            "mastervolume": "Celková hlasitosť",
-            "test_speaker_start" : "Test reproduktora",
-            "test_speaker_stop": "Zastaviť test reproduktora"
-
+			"mastervolume": "Celková hlasitosť",
+			"test_speaker_start": "Test reproduktora",
+			"test_speaker_stop": "Zastaviť test reproduktora"
 		},
 		"keyboard": {
 			"title": "Klávesové skratky",
@@ -104,11 +103,11 @@
 	"game": {
 		"menu": "MENU",
 		"open": "Otvor hru",
-		"open_error": "Spusti hru manuálne. \r\n(toto tlačidlo je iba pre Steam)",
+		"open_error": "Spusti hru manuálne. \n(toto tlačidlo je iba pre Steam)",
 		"waiting": "Čaká sa na Among Us",
 		"error": "CHYBA",
 		"error_admin": "Nepodarilo sa pripojiť k Among Us.\n Prosím, znovu otvor CrewLink ako administrátor.",
 		"error_unsupport": "Tvoja verzia Among Us nie je CrewLinkom podporovaná."
 	},
-	"translator" : "KaldonM"
+	"translator": "KaldonM"
 }
