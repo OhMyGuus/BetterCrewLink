@@ -25,8 +25,8 @@
 		},
 		"audio": {
 			"title": "Zvok",
-			"speaker": "Izhod zvoka",
 			"microphone": "Mikrofon",
+			"speaker": "Izhod zvoka",
 			"voice_activity": "Glasovna aktivacija",
 			"push_to_talk": "Govorjenje ob pritisku na tipko",
 			"push_to_mute": "Utišaj ob pritisku na tipko",
