@@ -67,7 +67,7 @@
 			"change_server": "Alterar o Servidor de Voz",
 			"voice_server": "Servidor de Voz",
 			"invalid_url": "URL Inválida",
-			"voice_server_warning": "Esta opção é apenas para usuários avançados. Outros servidores podem roubar suas informações ou podem travar o BetterCrewLink.",
+			"voice_server_warning": "Esta opção é apenas para usuários avançados. Outros servidores podem roubar suas informações ou podem causar erros no BetterCrewLink.",
 			"reset_default": "Restaurar ao padrão"
 		},
 		"beta": {
