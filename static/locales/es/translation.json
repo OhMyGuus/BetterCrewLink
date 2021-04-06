@@ -1,23 +1,27 @@
 {
 	"settings": {
 		"title": "Ajustes",
+		"language": "Idioma",
 		"warning": "¿Estás seguro?",
 		"lobbysettings": {
 			"title": "Opciones de la Sala",
 			"gamehostonly": "¡Solo el anfitrón de la sala puede cambiar esto! ",
 			"inlobbyonly": "¡Solo puedes cambiar esto en la sala!",
 			"voicedistance": "Distancia de la Voz",
+			"voicedistance_impostor": "Distancia de Voz del Impostor",
 			"wallsblockaudio": "Las paredes bloquean el Audio",
 			"visiononly": "Solo Escuchar a Gente en tu rango de visión",
 			"impostorshearsghost": "Los Impostores escuchan a los Muertos",
 			"hear_imposters_invents": "Escuchar a los Impostores en la Ventilación",
-			"private_talk_invents": "Private Talk in Vents",
+			"private_talk_invents": "Chat de Voz privado en la Ventilación",
 			"comms_sabotage_audio": "El Saboteo de Comunicaciones desactiva la Voz",
 			"hear_through_cameras": "Escuchar a través de las Cámaras",
 			"ghost_only": "Solo los fantasmas pueden Hablar/Escuchar",
 			"ghost_only_warning": "Esto desactiva el sonido para los jugadores vivos",
+			"ghost_only_warning2": "Los fantasmas solo pueden hablar activado.",
 			"meetings_only": "Solo Reuniones/Sala",
-			"meetings_only_warning": "Esto desactiva el sonido para los jugadores fuera de las reuniones y la sala."
+			"meetings_only_warning": "Esto desactiva el sonido para los jugadores fuera de las reuniones y la sala.",
+			"meetings_only_warning2": "Hablar solo en reuniones activado."
 		},
 		"audio": {
 			"title": "Audio",
@@ -29,7 +33,9 @@
 			"microphone_sens": "Sensibilidad del Micrófono",
 			"microphone_sens_warning": "Si pones la sensibilidad más baja puede ser que no funcione",
 			"crewvolume": "Volumen de los Tripulantes como Fantasma",
-			"mastervolume": "Volumen general"
+			"mastervolume": "Volumen general",
+			"test_speaker_start": "Test de Micrófono",
+			"test_speaker_stop": "Parar Test de Micrófono"
 		},
 		"keyboard": {
 			"title": "Atajos de Teclado",
@@ -83,12 +89,13 @@
 		},
 		"troubleshooting": {
 			"title": "Solución de Problemas",
-			"restore": "Restablecer opciones por Defecto",
+			"restore": "Restablecer por Defecto",
 			"restore_warning": "Esto restablecerá TODAS las opciones a sus valores por defecto.",
 			"warning": "¡No disponible como anfitrión en partida!"
 		}
 	},
 	"buttons": {
+		"default": "Por defecto",
 		"confirm": "Confirmar",
 		"cancel": "Cancelar",
 		"exit": "Salte de las Opciones para  guardar los cambios"
@@ -101,7 +108,7 @@
 		"error": "ERROR",
 		"error_admin": "No se pudo conectar a Among Us.\n Por favor vuelve a abrir BetterCrewLink como un administrador.",
 		"error_unsupport": "Tu versión de Among Us no funciona con BetterCrewLink."
-	}
+	},
+	"translator": "LukehTM"
 }
-
-// made by LukehTM
+// if you see this hello
