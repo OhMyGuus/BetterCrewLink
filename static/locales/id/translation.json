@@ -25,6 +25,7 @@
 		},
 		"audio": {
 			"title": "Audio",
+			"microphone": "Mikrofon",
 			"speaker": "Speaker",
 			"voice_activity": "Aktivitas Suara",
 			"push_to_talk": "Tekan untuk Berbicara",

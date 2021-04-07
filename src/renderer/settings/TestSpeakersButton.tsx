@@ -41,7 +41,7 @@ const TestSpeakersButton: React.FC<TestSpeakersProps> = ({t,  speaker }: TestSpe
 
 	return (
 		<Button variant="contained" color="secondary" size="small" className={classes.button} onClick={testSpeakers}>
-			{playing ? t('test_speaker_stop') : t('test_speaker_start')}
+			{playing ? t('settings.audio.test_speaker_stop') : t('settings.audio.test_speaker_start')}
 		</Button>
 	);
 };

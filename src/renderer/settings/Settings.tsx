@@ -767,8 +767,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					<Typography id="input-slider" gutterBottom>
 						{(canChangeLobbySettings ? localLobbySettings.visionHearing : lobbySettings.visionHearing)
 							? t('settings.lobbysettings.voicedistance_impostor')
-							: t('settings.lobbysettings.voicedistance')}{' '}
-						: {canChangeLobbySettings ? localLobbySettings.maxDistance : lobbySettings.maxDistance}
+							: t('settings.lobbysettings.voicedistance')}: {canChangeLobbySettings ? localLobbySettings.maxDistance : lobbySettings.maxDistance}
 					</Typography>
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
@@ -1036,7 +1035,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				<Typography variant="h6">{t('settings.audio.title')}</Typography>
 				<TextField
 					select
-					label="Microphone"
+					label={t('settings.audio.microphone')}
 					variant="outlined"
 					color="secondary"
 					value={settings.microphone}

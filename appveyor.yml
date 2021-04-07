@@ -1,25 +1,33 @@
-os: unstable
+version: '{build}'
+
 cache:
   - node_modules
-environment:
-  matrix:
-    - nodejs_version: 14
+
+image:
+  - Visual Studio 2019
+
 install:
-  - ps: Install-Product node $env:nodejs_version
-  - set CI=true
-  - npm install -g npm@latest
-  - set PATH=%APPDATA%\npm;%PATH%
-  - npm install -g yarn@latest
-  - yarn install
-matrix:
-  fast_finish: true
-test: off
-version: '{build}'
-shallow_clone: true
-clone_depth: 1
+  - yarn install --network-timeout 100000
+
 build_script:
   - yarn run dist --publish never
+
+matrix:
+  fast_finish: true
+clone_depth: 1
+
+on_success:
+  - ps: Invoke-RestMethod https://raw.githubusercontent.com/DiscordHooks/appveyor-discord-webhook/master/send.ps1 -o send.ps1
+  - ps: ./send.ps1 success $env:WEBHOOK_URL
+on_failure:
+  - ps: Invoke-RestMethod https://raw.githubusercontent.com/DiscordHooks/appveyor-discord-webhook/master/send.ps1 -o send.ps1
+  - ps: ./send.ps1 failure $env:WEBHOOK_URL
+
 artifacts:
   - path: dist/win-unpacked
     name: unpacked
     type: zip
+  - path: 'dist/Better-CrewLink Setup*.exe'
+    name: installer
+    type: exe
+

@@ -4,11 +4,13 @@ import translationES from '../../../static/locales/es/translation.json'
 import translationPTBR from '../../../static/locales/pt-BR/translation.json'
 import translationPTPT from '../../../static/locales/pt-PT/translation.json'
 import translationSK from '../../../static/locales/sk/translation.json'
-import translationSI from '../../../static/locales/si/translation.json'
+import translationSL from '../../../static/locales/sl/translation.json'
 import translationNL from '../../../static/locales/nl/translation.json'
 import translationDE from '../../../static/locales/de/translation.json'
-import translationIN from '../../../static/locales/in/translation.json'
-import translationTU from '../../../static/locales/tu/translation.json'
+import translationID from '../../../static/locales/id/translation.json'
+import translationTR from '../../../static/locales/tr/translation.json'
+import translationRU from '../../../static/locales/ru/translation.json'
+import translationUK from '../../../static/locales/uk/translation.json'
 
 const languages = {
 	en: {
@@ -39,21 +41,29 @@ const languages = {
 		translation : translationSK,
 		name: 'Slovenčina'
 	},
-	si: {
-		translation : translationSI,
-		name: 'Slovensko'
+	sl: {
+		translation : translationSL,
+		name: 'Slovenský'
 	},
 	nl: {
 		translation : translationNL,
 		name: 'Nederlands'
 	},
-	in: {
-		translation : translationIN,
+	id: {
+		translation : translationID,
 		name: 'Indonesia'
 	},
-	tu: {
-		translation : translationTU,
-		name: 'Türkiye'
+	tr: {
+		translation : translationTR,
+		name: 'Türkçe'
+	},
+	ru: {
+		translation : translationRU,
+		name: 'Русский'
+	},
+	uk: {
+		translation : translationUK,
+		name: 'Українська'
 	}
   };
 

@@ -16,7 +16,7 @@
 			"private_talk_invents": "Súkromné rozhovory vo vetracích šachtách",
 			"comms_sabotage_audio": "Sabotáž komunikácie znemožní rozprávanie",
 			"hear_through_cameras": "Počuť cez kamery",
-			"ghost_only": "Iba duchovia sa môžu rozprávať/môžu počuť",
+			"ghost_only": "Iba duchovia môžu rozprávať/počuť",
 			"ghost_only_warning": "Toto zakáže zvuk pre živých ľudí.",
 			"ghost_only_warning2": "Iba duch môže hovoriť je zapnuté.",
 			"meetings_only": "Iba mítingy/lobby",
@@ -25,6 +25,7 @@
 		},
 		"audio": {
 			"title": "Zvuk",
+			"microphone": "Mikrofón",
 			"speaker": "Reproduktor",
 			"voice_activity": "Hlasová aktivita",
 			"push_to_talk": "Tlač pre rozprávanie",
@@ -106,8 +107,8 @@
 		"open_error": "Spusti hru manuálne. \n(toto tlačidlo je iba pre Steam)",
 		"waiting": "Čaká sa na Among Us",
 		"error": "CHYBA",
-		"error_admin": "Nepodarilo sa pripojiť k Among Us.\n Prosím, znovu otvor CrewLink ako administrátor.",
-		"error_unsupport": "Tvoja verzia Among Us nie je CrewLinkom podporovaná."
+		"error_admin": "Nepodarilo sa pripojiť k Among Us.\n Prosím, znovu otvor BetterCrewLink ako administrátor.",
+		"error_unsupport": "Tvoja verzia Among Us nie je BetterCrewLinkom podporovaná."
 	},
 	"translator": "KaldonM"
 }

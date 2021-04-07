@@ -25,6 +25,7 @@
 		},
 		"audio": {
 			"title": "Ses",
+			"microphone": "Mikrofon",
 			"speaker": "Hoparlör",
 			"voice_activity": "Ses Aktivitesi",
 			"push_to_talk": "Bas Konuş",

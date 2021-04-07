@@ -8,6 +8,7 @@
 			"gamehostonly": "Seul l'hôte de la partie peut modifier cela!",
 			"inlobbyonly": "Vous ne pouvez changer cela que dans le lobby!",
 			"voicedistance": "Distance vocal",
+			"voicedistance_impostor": "Distance vocal imposteurs",
 			"wallsblockaudio": "Les murs bloquent l'audio",
 			"visiononly": "Entendre uniquement les gens que l'on voit",
 			"impostorshearsghost": "Les imposteurs entendent les fantômes",
@@ -17,14 +18,15 @@
 			"hear_through_cameras": "Entendre à travers les caméras",
 			"ghost_only": "Seuls les fantômes peuvent parler/entendre",
 			"ghost_only_warning": "Cette option désactive le vocal pour les joueurs vivants.",
+			"ghost_only_warning2": "Seuls les fantômes peuvent parler activé.",
 			"meetings_only": "Meetings/Lobby uniquement",
-			"meetings_only_warning": "Cela désactive le son pour les joueurs vivants en dehors des meetings."
+			"meetings_only_warning": "Cela désactive le son pour les joueurs vivants en dehors des meetings.",
+			"meetings_only_warning2": "Meetings/Lobby uniquement activé."
 		},
 		"audio": {
 			"title": "Audio",
+			"microphone" : "Microphone",
 			"speaker": "Sortie audio",
-			"test_speaker_start" : "Tester la sortie",
-			"test_speaker_stop": "Arrêter le test",
 			"voice_activity": "Détection de la voix",
 			"push_to_talk": "Appuyer pour parler",
 			"push_to_mute": "Appuyer pour muet",
@@ -32,7 +34,9 @@
 			"microphone_sens": "Sensibilité du microphone",
 			"microphone_sens_warning": "Si vous diminuez encore la sensibilité, cela pourrait ne pas fonctionner.",
 			"crewvolume": "Volume des survivants (en tant que fantôme)",
-			"mastervolume": "Volume général"
+			"mastervolume": "Volume général",
+                        "test_speaker_start" : "Tester la sortie",
+                        "test_speaker_stop": "Arrêter le test"
 		},
 		"keyboard": {
 			"title": "Raccourcis clavier",
@@ -59,13 +63,13 @@
 		},
 		"advanced": {
 			"title": "Paramètres avancés",
-			"nat_fix": "NAT Fix",
+			"nat_fix": "Compatiblité NAT",
 			"nat_fix_warning": "Cela permettra de résoudre les problèmes lié au NAT, mais ajoutera un délai puisque cela utilisera un serveur au lieu du mode P2P.",
 			"change_server": "Changer de serveur vocal",
 			"voice_server": "Serveur vocal",
 			"invalid_url": "URL invalide",
 			"voice_server_warning": "Cette option est réservée aux utilisateurs avancés. D'autres serveurs peuvent voler vos informations ou planter CrewLink.",
-			"reset_default": "Réinitialisation aux valeurs par défaut"
+			"reset_default": "Réinitialiser le serveur vocal"
 		},
 		"beta": {
 			"title": "BETA/DEBUG",
@@ -77,8 +81,8 @@
 			"spatial_audio": "Spatialisation sonore"
 		},
 		"streaming": {
-			"title": "Paramètres de streaming",
-			"hidecode": "Afficher le code du lobby",
+			"title": "Paramètres streaming",
+			"hidecode": "Afficher le code de la partie",
 			"obs_overlay": "OBS Browser Overlay",
 			"obs_url": "OBS browsersource URL",
 			"voice_server_comp": "Mode compatibilité VS",
@@ -86,12 +90,13 @@
 		},
 		"troubleshooting": {
 			"title": "Dépannage",
-			"restore": "Restaurer les valeurs par défaut",
+			"restore": "Restaurer les paramètres par défaut",
 			"restore_warning": "Cela réinitialisera TOUS les paramètres avec leurs valeurs par défaut.",
 			"warning": "Non disponible comme hôte dans le jeu!"
 		}
 	},
 	"buttons": {
+		"default": "Par défaut",
 		"confirm": "Valider",
 		"cancel": "Annuler",
 		"exit": "Quitter les paramètres pour appliquer les changements"
