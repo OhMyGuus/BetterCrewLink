@@ -5,3 +5,4 @@ thumbs.db
 .idea/
 yarn-error.log
 .vscode/
+package-lock.json
