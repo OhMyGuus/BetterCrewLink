@@ -105,7 +105,7 @@
 		"menu": "MENU",
 		"open": "Abrir o Jogo",
 		"open_error": "Inicie o jogo manualmente. \r\n(este botão é apenas para a versão da Steam)",
-		"waiting": "Esperando pelo Among Us",
+		"waiting": "À espera do Among Us",
 		"error": "ERRO",
 		"error_admin": "Não foi possível conectar-se ao Among Us.\n Abra novamente o BetterCrewLink como Administrador.",
 		"error_unsupport": "Sua versão do Among Us não é suportada pelo BetterCrewLink."
