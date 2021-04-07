@@ -12,7 +12,6 @@ import { initializeIpcHandlers, initializeIpcListeners } from './ipc-handlers';
 import { IpcRendererMessages } from '../common/ipc-messages';
 import { ProgressInfo, UpdateInfo } from 'builder-util-runtime';
 import { protocol } from 'electron';
-import { parseUpdateInfo } from 'electron-updater/out/providers/Provider';
 
 const args = require('minimist')(process.argv); // eslint-disable-line
 
