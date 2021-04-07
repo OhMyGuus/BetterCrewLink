@@ -30,8 +30,10 @@ import prettyBytes from 'pretty-bytes';
 import { IpcOverlayMessages } from '../common/ipc-messages';
 import ReactDOM from 'react-dom';
 import './css/index.css';
+import 'source-code-pro/source-code-pro.css'
+import "typeface-varela/index.css"
 import { DEFAULT_PLAYERCOLORS } from '../main/avatarGenerator';
-import './i18n'
+import './language/i18n'
 import { withNamespaces } from 'react-i18next';
 let appVersion = '';
 if (typeof window !== 'undefined' && window.location) {
@@ -122,7 +124,7 @@ export default function App({t}): JSX.Element {
 	const overlayInitCount = useRef<number>(0);
 
 	const settings = useReducer(settingsReducer, {
-		language: 'unkown',
+		language: 'default',
 		alwaysOnTop: true,
 		microphone: 'Default',
 		speaker: 'Default',
@@ -242,10 +244,10 @@ export default function App({t}): JSX.Element {
 	let page;
 	switch (state) {
 		case AppState.MENU:
-			page = <Menu error={error} />;
+			page = <Menu t={t} error={error} />;
 			break;
 		case AppState.VOICE:
-			page = <Voice error={error} />;
+			page = <Voice t={t} error={error} />;
 			break;
 	}
 

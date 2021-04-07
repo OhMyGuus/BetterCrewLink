@@ -1,11 +1,11 @@
 {
   "name": "bettercrewlink",
-  "version": "2.4.5",
+  "version": "2.4.6",
   "license": "GPL-3.0-or-later",
   "description": "Free, open, Among Us proximity voice chat",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OhMyGuus/crewlink.git"
+    "url": "https://github.com/OhMyGuus/BetterCrewLink.git"
   },
   "funding": {
     "type": "individual",
@@ -42,8 +42,6 @@
     "electron-updater": "^4.3.5",
     "electron-window-state": "^5.0.3",
     "i18next": "^19.9.2",
-    "i18next-http-backend": "^1.2.1",
-    "i18next-xhr-backend": "^3.2.2",
     "jimp": "^0.16.1",
     "memoryjs": "git://github.com/OhMyGuus/memoryjs",
     "minimist": "^1.2.5",
@@ -58,8 +56,10 @@
     "registry-js": "1.13.0",
     "simple-peer": "https://github.com/vrnagy/simple-peer.git",
     "socket.io-client": "^2.3.1",
+    "source-code-pro": "^2.30.2",
     "source-map-support": "^0.5.16",
     "structron": "^0.2.4",
+    "typeface-varela": "^1.1.13",
     "valid-url": "^1.0.9",
     "webrtc-adapter": "^7.7.0"
   },

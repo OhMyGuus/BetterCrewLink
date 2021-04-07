@@ -2,7 +2,8 @@
 	"extends": "./node_modules/electron-webpack/tsconfig-base.json",
 	"compilerOptions": {
 		"jsx": "react",
-		"skipLibCheck": true
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
 	},
 	"exclude": [
 		"./node_modules/react-i18next/*"

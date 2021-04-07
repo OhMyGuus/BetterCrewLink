@@ -1,0 +1,114 @@
+{
+	"settings": {
+		"title": "Penyetelan",
+		"language": "Bahasa",
+		"warning": "Apakah Anda yakin?",
+		"lobbysettings": {
+			"title": "Penyetelan Lobi",
+			"gamehostonly": "Hanya host permainan yang bisa mengubahnya!",
+			"inlobbyonly": "Anda hanya bisa mengubahnya di lobi!",
+			"voicedistance": "Jarak Suara",
+			"voicedistance_impostor": "Jarak Suara Penipu",
+			"wallsblockaudio": "Dinding Menghalangi Audio",
+			"visiononly": "Dengarkan Orang Hanya dalam Penglihatan",
+			"impostorshearsghost": "Penipu Mendengar yang Mati",
+			"hear_imposters_invents": "Dengarkan Penipu di Ventilasi",
+			"private_talk_invents": "Pembicaraan Pribadi di Ventilasi",
+			"comms_sabotage_audio": "Sabotase Komunikasi Mematikan Suara",
+			"hear_through_cameras": "Dengarkan Melalui Kamera",
+			"ghost_only": "Hanya Hantu yang Bisa Berbicara/Mendengar",
+			"ghost_only_warning": "Ini mematikan suara pemain yang masih hidup.",
+			"ghost_only_warning2": "Hantu hanya bisa bicara dihidupkan.",
+			"meetings_only": "Hanya Meeting/Lobi",
+			"meetings_only_warning": "Ini mematikan suara pemain yang masih hidup di luar meeting",
+			"meetings_only_warning2": "Berbicara hanya dalam meeting dihidupkan."
+		},
+		"audio": {
+			"title": "Audio",
+			"microphone": "Mikrofon",
+			"speaker": "Speaker",
+			"voice_activity": "Aktivitas Suara",
+			"push_to_talk": "Tekan untuk Berbicara",
+			"push_to_mute": "Tekan untuk Membungkam",
+			"microphone_volume": "Volume Mikrofon",
+			"microphone_sens": "Sensitivitas Mikrofon",
+			"microphone_sens_warning": "Jika Anda menyetel sensitivitas lebih rendah, itu mungkin tidak berfungsi",
+			"crewvolume": "Volume Kru sebagai Hantu",
+			"mastervolume": "Volume Utama",
+			"test_speaker_start": "Uji speaker",
+			"test_speaker_stop": "Hentikan Uji Speaker"
+		},
+		"keyboard": {
+			"title": "Pintasan keyboard",
+			"push_to_talk": "Tekan untuk Berbicara",
+			"deafen": "Menulikan",
+			"mute": "Membungkam"
+		},
+		"overlay": {
+			"title": "Overlay",
+			"always_on_top": "Crewlink di Atas",
+			"enabled": "Hidupkan Overlay",
+			"compact": "Overlay Kemas",
+			"meeting": "Overlay Meeting",
+			"pos": "Posisi Overlay",
+			"locations": {
+				"hidden": "Disembunyikan",
+				"top": "Tengah Atas",
+				"bottom": "Kiri Bawah",
+				"right": "Kanan",
+				"right1": "Latar belakang kanan",
+				"left": "Kiri",
+				"left1": "Latar belakang kiri"
+			}
+		},
+		"advanced": {
+			"title": "Lanjutan",
+			"nat_fix": "Perbaikan NAT",
+			"nat_fix_warning": "Ini akan MEMPERBAIKI masalah nat tapi akan menambah delay karena menggunakan server, bukan p2p",
+			"change_server": "Ubah Server Suara",
+			"voice_server": "Server Suara",
+			"invalid_url": "URL tidak valid",
+			"voice_server_warning": "Opsi ini hanya untuk pengguna tingkat lanjut. Server lain dapat mencuri info Anda atau merusak CrewLink.",
+			"reset_default": "Setel ulang bawaan"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "Host Seluler",
+			"vad_enabled": "VAD Diaktifkan",
+			"vad_enabled_warning": "Anda tidak akan melihat siapa yang berbicara jika dimatikan.",
+			"echocancellation": "Penghilangan Gema",
+			"noiseSuppression": "Peredaman Kebisingan",
+			"spatial_audio": "Audio Spasial"
+		},
+		"streaming": {
+			"title": "Penyetelan streaming",
+			"hidecode": "Tunjukkan Kode Lobi",
+			"obs_overlay": "Overlay OBS Browser",
+			"obs_url": "URL OBS browsersource",
+			"voice_server_comp": "Mode kompatibilitas VS",
+			"voice_server_comp_warning": "Disarankan untuk hanya mengubah server suara ke server suara bettercrewlink misalnya https://bettercrewl.ink."
+		},
+		"troubleshooting": {
+			"title": "Penyelesaian masalah",
+			"restore": "Pulihkan Bawaan",
+			"restore_warning": "Ini akan menyetel ulang SEMUA penyetelan ke nilai bawaannya.",
+			"warning": "Tidak tersedia sebagai host dalam permainan!"
+		}
+	},
+	"buttons": {
+		"default": "Bawaan",
+		"confirm": "Konfirmasi",
+		"cancel": "Batalkan",
+		"exit": "Keluar dari Penyetelan untuk menerapkan perubahan"
+	},
+	"game": {
+		"menu": "MENU",
+		"open": "Buka Permainan",
+		"open_error": "Mulai permainan secara manual.\n(tombol ini hanya untuk steam)",
+		"waiting": "Menunggu Among Us",
+		"error": "KESALAHAN",
+		"error_admin": "Tidak bisa terhubung ke Among Us.\nHarap buka kembali CrewLink sebagai Administrator.",
+		"error_unsupport": "Versi Among Us Anda tidak didukung oleh CrewLink."
+	},
+	"translator": "LaneGL"
+}

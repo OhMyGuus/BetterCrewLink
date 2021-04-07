@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 interface TestSpeakersProps {
+	t:  (key: string) => string;
 	speaker: string;
 }
 
@@ -19,7 +20,7 @@ const useStyles = makeStyles(() => ({
 const audio = new Audio() as ExtendedAudioElement;
 audio.src = chime;
 
-const TestSpeakersButton: React.FC<TestSpeakersProps> = ({ speaker }: TestSpeakersProps) => {
+const TestSpeakersButton: React.FC<TestSpeakersProps> = ({t,  speaker }: TestSpeakersProps) => {
 	const classes = useStyles();
 	const [playing, setPlaying] = useState(false);
 	if (speaker.toLowerCase() !== 'default') audio.setSinkId(speaker);
@@ -40,7 +41,7 @@ const TestSpeakersButton: React.FC<TestSpeakersProps> = ({ speaker }: TestSpeake
 
 	return (
 		<Button variant="contained" color="secondary" size="small" className={classes.button} onClick={testSpeakers}>
-			{playing ? 'Stop Test Speaker' : 'Test speaker'}
+			{playing ? t('settings.audio.test_speaker_stop') : t('settings.audio.test_speaker_start')}
 		</Button>
 	);
 };

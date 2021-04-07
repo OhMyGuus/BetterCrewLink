@@ -111,6 +111,7 @@ const DEFAULT_ICE_CONFIG_TURN: RTCConfiguration = {
 };
 
 export interface VoiceProps {
+	t:  (key: string) => string;
 	error: string;
 }
 
@@ -185,7 +186,7 @@ const defaultlocalLobbySettings: ILobbySettings = {
 };
 
 const store = new Store<ISettings>();
-const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProps) {
+const Voice: React.FC<VoiceProps> = function ({t,  error: initialError }: VoiceProps) {
 	const [error, setError] = useState(initialError);
 	const [settings, setSettings] = useContext(SettingsContext);
 
@@ -1197,19 +1198,19 @@ const Voice: React.FC<VoiceProps> = function ({ error: initialError }: VoiceProp
 								background: gameState.lobbyCode === 'MENU' ? 'transparent' : '#3e4346',
 							}}
 						>
-							{displayedLobbyCode}
+							{displayedLobbyCode === 'MENU' ? t('game.menu') : displayedLobbyCode}
 						</span>
 					)}
 				</div>
 			</div>
 			{lobbySettings.deadOnly && (
 				<div className={classes.top}>
-					<small style={{ padding: 0 }}>Ghost can talk only enabled.</small>
+					<small style={{ padding: 0 }}>{t('ghost_only_warning2')}</small>
 				</div>
 			)}
 			{lobbySettings.meetingGhostOnly && (
 				<div className={classes.top}>
-					<small style={{ padding: 0 }}>Talking in meetings only enabled.</small>
+					<small style={{ padding: 0 }}>{t('meetings_only_warning2')}</small>
 				</div>
 			)}
 			{gameState.lobbyCode && <Divider />}
