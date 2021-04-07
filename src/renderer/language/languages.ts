@@ -10,6 +10,7 @@ import translationDE from '../../../static/locales/de/translation.json'
 import translationID from '../../../static/locales/id/translation.json'
 import translationTR from '../../../static/locales/tr/translation.json'
 import translationRU from '../../../static/locales/ru/translation.json'
+import translationUK from '../../../static/locales/uk/translation.json'
 
 const languages = {
 	en: {
@@ -59,6 +60,10 @@ const languages = {
 	ru: {
 		translation : translationRU,
 		name: 'Русский'
+	},
+	uk: {
+		translation : translationUK,
+		name: 'Українська'
 	}
   };
 
