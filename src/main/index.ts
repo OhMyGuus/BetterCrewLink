@@ -10,8 +10,9 @@ import './hook';
 import { overlayWindow } from 'electron-overlay-window';
 import { initializeIpcHandlers, initializeIpcListeners } from './ipc-handlers';
 import { IpcRendererMessages } from '../common/ipc-messages';
-import { ProgressInfo } from 'builder-util-runtime';
+import { ProgressInfo, UpdateInfo } from 'builder-util-runtime';
 import { protocol } from 'electron';
+import { parseUpdateInfo } from 'electron-updater/out/providers/Provider';
 
 const args = require('minimist')(process.argv); // eslint-disable-line
 
@@ -199,17 +200,15 @@ if (!gotTheLock) {
 			/*empty*/
 		}
 	});
-	autoUpdater.on('update-downloaded', () => {
+	autoUpdater.on('update-downloaded', (info: UpdateInfo) => {
 		try {
 			global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
 				state: 'downloaded',
+				info,
 			});
 		} catch (e) {
 			/*empty*/
 		}
-
-		app.relaunch();
-		autoUpdater.quitAndInstall();
 	});
 
 	// Mock auto-update download
@@ -296,6 +295,11 @@ if (!gotTheLock) {
 			if (global.mainWindow.isMinimized()) global.mainWindow.restore();
 			global.mainWindow.focus();
 		}
+	});
+
+	ipcMain.on('restart-app', () => {
+		app.relaunch();
+		autoUpdater.quitAndInstall();
 	});
 
 	ipcMain.on('enableOverlay', async (_event, enable) => {
