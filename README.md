@@ -199,7 +199,7 @@ Any contributions you make are greatly appreciated.
 * [LaneGL](https://crowdin.com/profile/teddysulaiman2543) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Indonesian
 * [SirBuvex](https://github.com/SirBuvex) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to German
 * [Steby5](https://github.com/Steby5) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Slovenian and Slovak
-* [XRevan86#0318](https://discordapp.com/users/765688815284256788) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Russian
+* [XRevan86#0318](https://discordapp.com/users/765688815284256788) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Russian and Ukrainian
 
 A big thank you to all those people who contributed and still contribute to this project to stay alive, thank you so much for being part of this BetterCrewLink community!
 
