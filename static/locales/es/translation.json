@@ -5,7 +5,7 @@
 		"warning": "¿Estás seguro?",
 		"lobbysettings": {
 			"title": "Opciones de la Sala",
-			"gamehostonly": "¡Solo el anfitrón de la sala puede cambiar esto! ",
+			"gamehostonly": "¡Solo el anfitrión de la sala puede cambiar esto! ",
 			"inlobbyonly": "¡Solo puedes cambiar esto en la sala!",
 			"voicedistance": "Distancia de la Voz",
 			"voicedistance_impostor": "Distancia de Voz del Impostor",
