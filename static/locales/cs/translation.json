@@ -1,0 +1,114 @@
+{
+	"settings": {
+		"title": "Nastavení",
+		"language": "Jazyk",
+		"warning": "Jsi si jist?",
+		"lobbysettings": {
+			"title": "Nastavení lobby",
+			"gamehostonly": "Toto může změnit pouze hostitel hry!",
+			"inlobbyonly": "Toto můžeš změnit pouze v lobby!",
+			"voicedistance": "Hlasová vzdálenost",
+			"voicedistance_impostor": "Impostor Hlasová vzdálenost",
+			"wallsblockaudio": "Zdi blokují zvuk",
+			"visiononly": "Slyšet pouze lidi které vidíš",
+			"impostorshearsghost": "Imposteři slyší mrtvé",
+			"hear_imposters_invents": "Slyšet impostry ve ventě",
+			"private_talk_invents": "Soukromé rozhovory ve ventě",
+			"comms_sabotage_audio": "Comms sabotage vypne voicechat",
+			"hear_through_cameras": "Slyšení přes kamery",
+			"ghost_only": "Pouze mrtví můžou mluvit a poslouchat",
+			"ghost_only_warning": "Toto vypne zvuk pro živé hráče.",
+			"ghost_only_warning2": "Pouze mrtví můžou mluvit je povolena.",
+			"meetings_only": "Pouze při meetindzích a v lobby",
+			"meetings_only_warning": "Toto zakáže zvuk pro živé hráče mimo meetingy",
+			"meetings_only_warning2": "Mluvení pouze při meetindzích povolena."
+		},
+		"audio": {
+			"title": "Zvuk",
+			"microphone": "Mikrofon",
+			"speaker": "Reproduktor",
+			"voice_activity": "Hlasová aktivita",
+			"push_to_talk": "Push to talk",
+			"push_to_mute": "Push To Mute",
+			"microphone_volume": "Hlasitost mikrofonu",
+			"microphone_sens": "Sensitivita mikrofonu",
+			"microphone_sens_warning": "Pokuď nastavíte citlivost níže, mikrofon nemusí fungovat",
+			"crewvolume": "Hlasitost živých když jsi duch",
+			"mastervolume": "Hlavní hlasitost",
+			"test_speaker_start": "Zkusit mikrofon",
+			"test_speaker_stop": "Zastavit zkoušku mikrofonu"
+		},
+		"keyboard": {
+			"title": "Zkratky klávesnice",
+			"push_to_talk": "Push to talk",
+			"deafen": "Ztlumit zvuk",
+			"mute": "Ztlumit mikrofon"
+		},
+		"overlay": {
+			"title": "Pekrytí",
+			"always_on_top": "Crewlink vždy na vrchu",
+			"enabled": "Povolit překrytí",
+			"compact": "Kompaktní překrytí",
+			"meeting": "Překrytí při meetindzích",
+			"pos": "Pozice překrytí",
+			"locations": {
+				"hidden": "Schovaný",
+				"top": "Navrchu uprostřed",
+				"bottom": "Dole vlevo",
+				"right": "Vpravo",
+				"right1": "Vpravo v pozadí",
+				"left": "Vlevo",
+				"left1": "Vlevo v pozadí"
+			}
+		},
+		"advanced": {
+			"title": "Pokročilé",
+			"nat_fix": "NAT Fix",
+			"nat_fix_warning": "Toto vyřeší problém NAT ale přidá zpoždění, protože komunikace používá server a né p2p",
+			"change_server": "Změnit hlasový server",
+			"voice_server": "Hlasový server",
+			"invalid_url": "Neplatná URL",
+			"voice_server_warning": "Tato možnost je určena pouze pro pokročilé uživatele. Ostatní servery mohou ukrást vaše informace nebo shodit CrewLink.",
+			"reset_default": "Obnovit výchozí nastavení"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "Povolit mobilní uživatele",
+			"vad_enabled": "VAD povoleno",
+			"vad_enabled_warning": "Neuvidíte, kdo mluví, když je tato funkce deaktivována.",
+			"echocancellation": "Zrušení ozvěny",
+			"noiseSuppression": "Potlačení šumu",
+			"spatial_audio": "Prostorový zvuk"
+		},
+		"streaming": {
+			"title": "Nastavení streamování",
+			"hidecode": "Zobrazit kód lobby",
+			"obs_overlay": "OBS Browser Overlay",
+			"obs_url": "OBS browsersource url",
+			"voice_server_comp": "Kompatabilita zvukového servru",
+			"voice_server_comp_warning": "Doporučujeme pouze změnit hlasový server na bettercrewlink voice server https://bettercrewl.ink."
+		},
+		"troubleshooting": {
+			"title": "Řešení problémů",
+			"restore": "Obnovit výchozí nastavení",
+			"restore_warning": "Tímto obnovíte VŠECHNY nastavení na jejich výchozí hodnoty.",
+			"warning": "Není k dispozici pro hostitele během hry!"
+		}
+	},
+	"buttons": {
+		"default": "Výchozí",
+		"confirm": "Potvrdit",
+		"cancel": "Zrušit",
+		"exit": "Opustit nastavení pro aplikaci změn"
+	},
+	"game": {
+		"menu": "MENU",
+		"open": "Otevřít hru",
+		"open_error": "Spusťte hru ručně. \n(toto tlačítko je pouze pro stream)",
+		"waiting": "Čekání na Among Us",
+		"error": "CHYBA",
+		"error_admin": "Nelze se připojit k Among Us.\n Prosím znovu otevřete CrewLink jako správce.",
+		"error_unsupport": "Tvá verze Among Us není podporována Crewlinkem."
+	},
+	"translator": "Tiquis#2659"
+}
