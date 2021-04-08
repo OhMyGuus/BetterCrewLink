@@ -33,82 +33,82 @@
 			"microphone_volume": "Volum del Micròfon",
 			"microphone_sens": "Sensibilitat del Micròfon",
 			"microphone_sens_warning": "Si la sensibilitat és massa baixa potser no funciona",
-			"crewvolume": "Crew Volume as Ghost",
-			"mastervolume": "Master Volume",
-			"test_speaker_start": "Test speaker",
-			"test_speaker_stop": "Stop Test Speaker"
+			"crewvolume": "Volum dels Companys com Fantasma",
+			"mastervolume": "Volum General",
+			"test_speaker_start": "Provar l'altaveu",
+			"test_speaker_stop": "Parar de Provar l'altaveu"
 		},
 		"keyboard": {
-			"title": "Keyboard shortcuts",
-			"push_to_talk": "Push To Talk",
-			"deafen": "Deafen",
-			"mute": "Mute"
+			"title": "Dreceres de Teclat",
+			"push_to_talk": "Polsar per Parlar",
+			"deafen": "Ensordir",
+			"mute": "Silenciar"
 		},
 		"overlay": {
-			"title": "Overlay",
-			"always_on_top": "Crewlink on Top",
-			"enabled": "Enable Overlay",
-			"compact": "Compact Overlay",
-			"meeting": "Meeting Overlay",
-			"pos": "Overlay Position",
+			"title": "Superposició",
+			"always_on_top": "Crewlink a Sobre",
+			"enabled": "Activar Superposició",
+			"compact": "Superposició Compacta",
+			"meeting": "Superposició de Reunions",
+			"pos": "Posició de Superposició",
 			"locations": {
-				"hidden": "Hidden",
-				"top": "Top Center",
-				"bottom": "Bottom Left",
-				"right": "Right",
-				"right1": "Right-background",
-				"left": "Left",
-				"left1": "Left-background"
+				"hidden": "Amagat",
+				"top": "Centre Superior",
+				"bottom": "Baix a L'esquerra",
+				"right": "Dreta",
+				"right1": "Fons-Dret",
+				"left": "Esquerra",
+				"left1": "Fons-Esquerre"
 			}
 		},
 		"advanced": {
-			"title": "Advanced",
-			"nat_fix": "NAT Fix",
-			"nat_fix_warning": "This will FIX the nat issues but will add a delay since it is using a server instead of p2p",
-			"change_server": "Change Voice Server",
-			"voice_server": "Voice Server",
-			"invalid_url": "Invalid URL",
-			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash CrewLink.",
-			"reset_default": "Reset to default"
+			"title": "Avançat",
+			"nat_fix": "Arregla de NAT",
+			"nat_fix_warning": "Això ARREGLARÀ els problemes de nat però ficarà un retard ja que està utilitzant un servidor en lloc de p2p",
+			"change_server": "Canviar Servidor de Veu",
+			"voice_server": "Servidor de Veu",
+			"invalid_url": "URL invàlida",
+			"voice_server_warning": "Aquesta opció és només per usuaris avançats. Altres servidors poden robar la teva informació o fer que CrewLink falli.",
+			"reset_default": "Reiniciar a predeterminat"
 		},
 		"beta": {
 			"title": "BETA/DEBUG",
-			"mobilehost": "Mobile Host",
-			"vad_enabled": "VAD Enabled",
-			"vad_enabled_warning": "You won't see who's talking if deactivate.",
-			"echocancellation": "Echo Cancellation",
-			"noiseSuppression": "Noise Suppression",
-			"spatial_audio": "Spatial Audio"
+			"mobilehost": "Amfitrió Mòbil",
+			"vad_enabled": "VAD activat",
+			"vad_enabled_warning": "No veuràs qui està parlant si es desactiva.",
+			"echocancellation": "Cancel·lació de Eco",
+			"noiseSuppression": "Supressió de Soroll",
+			"spatial_audio": "Audio Espacial"
 		},
 		"streaming": {
-			"title": "Streaming settings",
-			"hidecode": "Show Lobby Code",
-			"obs_overlay": "OBS Browser Overlay",
-			"obs_url": "Obs browsersource url",
-			"voice_server_comp": "VS compatibility mode",
-			"voice_server_comp_warning": "It is recommended to just change the voice server to a bettercrewlink voice server https://bettercrewl.ink for example."
+			"title": "Opcions de directe",
+			"hidecode": "Mostrar Codi del Vestíbul",
+			"obs_overlay": "Superposició de Navegador de OBS",
+			"obs_url": "URL font del navegador Obs",
+			"voice_server_comp": "Mode de compatibilitat VS",
+			"voice_server_comp_warning": "Es recomana canviar el servidor de veu per un servidor de veu bettercrewlink https://bettercrewl.ink, per exemple."
 		},
 		"troubleshooting": {
-			"title": "Troubleshooting",
-			"restore": "Restore Defaults",
-			"restore_warning": "This will reset ALL settings to their default values.",
-			"warning": "Not available as host in game!"
+			"title": "Resolució de problemes",
+			"restore": "Restaurar Predeterminats",
+			"restore_warning": "Això reiniciarà TOTES les opcions als seus valors predeterminats.",
+			"warning": "No disponible com a amfitrió del joc!"
 		}
 	},
 	"buttons": {
-		"default": "Default",
-		"confirm": "Confirm",
-		"cancel": "Cancel",
-		"exit": "Exit Settings to apply changes"
+		"default": "Predeterminat",
+		"confirm": "Confirmar",
+		"cancel": "Cancel·lar",
+		"exit": "Surt de Opcions per aplicar els canvis"
 	},
 	"game": {
 		"menu": "MENU",
-		"open": "Open Game",
-		"open_error": "Start the game manually. \r\n(this button is only for steam)",
-		"waiting": "Waiting for Among Us",
+		"open": "Obrir Joc",
+		"open_error": "Començar el joc manualment. (aquest botó només és per steam)",
+		"waiting": "Esperar a Among Us",
 		"error": "ERROR",
-		"error_admin": "Couldn't connect to Among Us.\n Please re-open CrewLink as Administrator.",
-		"error_unsupport": "Your version of Among Us is unsupported by CrewLink."
+		"error_admin": "No es pot conectar a Among Us. Si us plau obre CrewLink una altra vegada com administrador.",
+		"error_unsupport": "La teva versió de Among Us no és compatible amb CrewLink."
 	},
-	"translator": "Jayden and ElBusAlv"
+	"translator": "ElBusAlv and nyanya4444"
 }
