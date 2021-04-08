@@ -196,10 +196,15 @@ Any contributions you make are greatly appreciated.
 * [LukehTM](https://github.com/LukehTM) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish
 * [KaldonM](https://github.com/KaldonM) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Slovak
 * [vb-03](https://github.com/vb-03) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Portuguese (PT)
-* [LaneGL](https://crowdin.com/profile/teddysulaiman2543) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Indonesian
+* [LaneGL](https://github.com/LaneGL) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Indonesian
 * [SirBuvex](https://github.com/SirBuvex) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to German
 * [Steby5](https://github.com/Steby5) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Slovenian and Slovak
-* [XRevan86#0318](https://discordapp.com/users/765688815284256788) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Russian and Ukrainian
+* [XRevan86#0318](https://github.com/XRevan86) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Russian and Ukrainian
+* [Ajno, Jano Miĥalako](https://crowdin.com/profile/Ajno) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Esperanto
+* [Tiquis#2659](https://discordapp.com/users/395290180124278787) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Catalan
+* [ElBusAlv](https://github.com/ElBusAlv) & [nyanya4444](https://github.com/nyanya4444) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Catalan
+* [Achs gaming](https://crowdin.com/profile/Achsan4) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Arabic
+* [Fixuuu](https://github.com/Fixuuu) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Polish
 
 A big thank you to all those people who contributed and still contribute to this project to stay alive, thank you so much for being part of this BetterCrewLink community!
 
