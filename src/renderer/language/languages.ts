@@ -11,6 +11,11 @@ import translationID from '../../../static/locales/id/translation.json'
 import translationTR from '../../../static/locales/tr/translation.json'
 import translationRU from '../../../static/locales/ru/translation.json'
 import translationUK from '../../../static/locales/uk/translation.json'
+import translationAR from '../../../static/locales/ar/translation.json'
+import translationCA from '../../../static/locales/ca/translation.json'
+import translationCS from '../../../static/locales/cs/translation.json'
+import translationEO from '../../../static/locales/eo/translation.json'
+import translationPL from '../../../static/locales/pl/translation.json'
 
 const languages = {
 	en: {
@@ -64,6 +69,26 @@ const languages = {
 	uk: {
 		translation : translationUK,
 		name: 'Українська'
+	},
+	ar: {
+		translation : translationAR,
+		name: 'عربى'
+	},
+	ca: {
+		translation : translationCA,
+		name: 'Català'
+	},
+	cs: {
+		translation : translationCS,
+		name: 'Txec'
+	},
+	eo: {
+		translation : translationEO,
+		name: 'Esperanto'
+	},
+	pl: {
+		translation: translationPL,
+		name: 'Polskie'
 	}
   };
 
