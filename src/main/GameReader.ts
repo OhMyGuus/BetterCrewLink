@@ -546,7 +546,6 @@ export default class GameReader {
 			data.objectPtr = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('objectPtr')]);
 			data.name = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('name')]);
 		}
-
 		const clientId = this.readMemory<number>('uint32', data.objectPtr, this.offsets.player.clientId);
 		const isLocal = clientId === LocalclientId && data.disconnected === 0;
 
@@ -583,8 +582,8 @@ export default class GameReader {
 			petId: data.pet,
 			skinId: data.skin,
 			disconnected: data.disconnected > 0,
-			isImpostor: data.impostor > 0,
-			isDead: data.dead > 0,
+			isImpostor: data.impostor == 1,
+			isDead: data.dead == 1,
 			taskPtr: data.taskPtr,
 			objectPtr: data.objectPtr,
 			bugged,
