@@ -9,7 +9,7 @@ import { format as formatUrl } from 'url';
 import './hook';
 import { overlayWindow } from 'electron-overlay-window';
 import { initializeIpcHandlers, initializeIpcListeners } from './ipc-handlers';
-import { IpcRendererMessages } from '../common/ipc-messages';
+import { IpcRendererMessages, /*AutoUpdaterState*/ } from '../common/ipc-messages';
 import { ProgressInfo, UpdateInfo } from 'builder-util-runtime';
 import { protocol } from 'electron';
 
@@ -212,32 +212,37 @@ if (!gotTheLock) {
 	});
 
 	// Mock auto-update download
-	// setTimeout(() => {
-	// 	mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
-	// 		state: 'available'
-	// 	});
-	// 	let total = 1000*1000;
-	// 	let i = 0;
-	// 	let interval = setInterval(() => {
-	// 		mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
-	// 			state: 'downloading',
-	// 			progress: {
-	// 				total,
-	// 				delta: total * 0.01,
-	// 				transferred: i * total / 100,
-	// 				percent: i,
-	// 				bytesPerSecond: 1000
-	// 			}
-	// 		} as AutoUpdaterState);
-	// 		i++;
-	// 		if (i === 100) {
-	// 			clearInterval(interval);
-	// 			mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
-	// 				state: 'downloaded',
-	// 			});
-	// 		}
-	// 	}, 100);
-	// }, 10000);
+	/*
+	setTimeout(() => {
+		global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
+	 		state: 'available'
+	 	});
+	 	let total = 1000*1000;
+	 	let i = 0;
+	 	let interval = setInterval(() => {
+	 		global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
+	 			state: 'downloading',
+	 			progress: {
+	 				total,
+	 				delta: total * 0.01,
+	 				transferred: i * total / 100,
+	 				percent: i,
+	 				bytesPerSecond: 1000
+	 			}
+	 		} as AutoUpdaterState);
+	 		i++;
+	 		if (i === 100) {
+	 			clearInterval(interval);
+	 			global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
+	 				state: 'downloaded',
+					info: {
+						version: 'DEV'
+					}
+	 			});
+	 		}
+	 	}, 100);
+	}, 10000);
+	*/
 
 	// quit application when all windows are closed
 	app.on('window-all-closed', () => {
