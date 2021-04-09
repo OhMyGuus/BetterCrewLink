@@ -55,3 +55,4 @@ export interface SocketConfig {
 export interface playerConfigMap {
 	[socketId: number]: SocketConfig;
 }
+

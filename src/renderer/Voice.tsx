@@ -30,6 +30,7 @@ import { CameraLocation, AmongUsMaps } from '../common/AmongusMap';
 import Store from 'electron-store';
 import { ObsVoiceState } from '../common/ObsOverlay';
 // import { poseCollide } from '../common/ColliderMap';
+import { numberStringMap } from '../common/AmongUsState';
 import adapter from 'webrtc-adapter';
 import { VADOptions } from './vad';
 import { pushToTalkOptions } from './settings/Settings';
@@ -212,7 +213,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	const socketClientsRef = useRef(socketClients);
 	const [peerConnections, setPeerConnections] = useState<PeerConnections>({});
 	const convolverBuffer = useRef<AudioBuffer | null>(null);
-
+	const playerSocketIdsRef = useRef<numberStringMap>({});
 	const [connect, setConnect] = useState<{
 		connect: (lobbyCode: string, playerId: number, clientId: number, isHost: boolean) => void;
 	} | null>(null);
@@ -263,7 +264,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			return 0;
 		}
 
-	
 		switch (state.gameState) {
 			case GameState.MENU:
 				return 0;
@@ -280,7 +280,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					audio.muffleConnected = true;
 					applyEffect(gain, muffle, destination, other);
 				}
-		
+
 				if (lobbySettings.meetingGhostOnly) {
 					endGain = 0;
 				}
@@ -558,7 +558,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						isLocal: o.isLocal,
 						bugged: o.bugged,
 						connected:
-							(playerSocketIds[o.clientId] && socketClients[playerSocketIds[o.clientId]]?.clientId === o.clientId) ||
+							(playerSocketIdsRef.current[o.clientId] &&
+								socketClients[playerSocketIdsRef.current[o.clientId]]?.clientId === o.clientId) ||
 							false,
 					})),
 				},
@@ -773,12 +774,14 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				});
 
 				ipcRenderer.on(IpcRendererMessages.IMPOSTOR_RADIO, (_: unknown, pressing: boolean) => {
+					if(!myPlayer?.isImpostor){
+						return;
+					}
 					connectionStuff.current.impostorRadio = pressing;
 					for (let player of otherPlayers.filter(o => o.isImpostor)) {
-						const peer = playerSocketIds[player.clientId];
+						const peer = playerSocketIdsRef.current[player.clientId];
 						const connection = peerConnections[peer];
-						//check if player is impostor
-						connection.send(JSON.stringify({ impostorRadio: connectionStuff.current.impostorRadio }));
+						connection?.send(JSON.stringify({ impostorRadio: connectionStuff.current.impostorRadio }));
 					}
 				});
 
@@ -1067,12 +1070,11 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			hostId: gameState.hostId,
 			isHost: gameState.isHost,
 		};
-		const playerSocketIds: {
-			[index: number]: string;
-		} = {};
+		const playerSocketIds: numberStringMap = {};
 		for (const k of Object.keys(socketClients)) {
 			playerSocketIds[socketClients[k].clientId] = k;
 		}
+		playerSocketIdsRef.current = playerSocketIds;
 		const handledPeerIds: string[] = [];
 		for (const player of otherPlayers) {
 			const peerId = playerSocketIds[player.clientId];
@@ -1166,14 +1168,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		}
 	}, [myPlayer?.id]);
 
-	const playerSocketIds: {
-		[index: number]: string;
-	} = {};
-
-	for (const k of Object.keys(socketClients)) {
-		if (socketClients[k].clientId !== undefined) playerSocketIds[socketClients[k].clientId] = k;
-	}
-
 	// Pass voice state to overlay
 	useEffect(() => {
 		if (!settings.enableOverlay) {
@@ -1181,7 +1175,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		}
 		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_VOICE_STATE_CHANGED, {
 			otherTalking,
-			playerSocketIds,
+			playerSocketIds: playerSocketIdsRef.current,
 			otherDead,
 			socketClients,
 			audioConnected,
@@ -1256,11 +1250,10 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				justify="flex-start"
 			>
 				{otherPlayers.map((player) => {
-					const peer = playerSocketIds[player.clientId];
+					const peer = playerSocketIdsRef.current[player.clientId];
 					const connected = socketClients[peer]?.clientId === player.clientId || false;
 					const audio = audioConnected[peer];
 					const socketConfig = playerConfigs[player.nameHash];
-
 					return (
 						<Grid item key={player.id} xs={getPlayersPerRow(otherPlayers.length)}>
 							<Avatar
