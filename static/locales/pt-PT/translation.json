@@ -88,7 +88,7 @@
 			"hidecode": "Mostrar o Código do Lobby",
 			"obs_overlay": "Sobreposição do OBS",
 			"obs_url": "Link da Sobreposição do OBS",
-			"voice_server_comp": "Compatibilidade com servidores Crewlink",
+			"voice_server_comp": "Modo de Compatibilidade com servidores Crewlink",
 			"voice_server_comp_warning": "É recomendado mudar para o Servidor de Voz predefinido do BetterCrewLink."
 		},
 		"troubleshooting": {
