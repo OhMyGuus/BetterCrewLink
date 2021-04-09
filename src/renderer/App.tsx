@@ -116,6 +116,7 @@ export default function App({t}): JSX.Element {
 	const [state, setState] = useState<AppState>(AppState.MENU);
 	const [gameState, setGameState] = useState<AmongUsState>({} as AmongUsState);
 	const [settingsOpen, setSettingsOpen] = useState(false);
+	const [diaOpen, setDiaOpen] = useState(true);
 	const [error, setError] = useState('');
 	const [updaterState, setUpdaterState] = useState<AutoUpdaterState>({
 		state: 'unavailable',
@@ -258,14 +259,21 @@ export default function App({t}): JSX.Element {
 					<ThemeProvider theme={theme}>
 						<TitleBar settingsOpen={settingsOpen} setSettingsOpen={setSettingsOpen} />
 						<Settings t={t} open={settingsOpen} onClose={() => setSettingsOpen(false)} />
-						<Dialog fullWidth open={updaterState.state !== 'unavailable'}>
-							<DialogTitle>Updating...</DialogTitle>
+						<Dialog fullWidth open={updaterState.state !== 'unavailable' && diaOpen}>
+							{(updaterState.state === 'downloaded')
+								&& updaterState.info && (
+									<DialogTitle>Update v{updaterState.info.version}</DialogTitle>
+								)}
+							{(updaterState.state === 'downloading')
+								&& (
+									<DialogTitle>Updating...</DialogTitle>
+								)}
 							<DialogContent>
-								{(updaterState.state === 'downloading' || updaterState.state === 'downloaded') &&
+								{(updaterState.state === 'downloading') &&
 									updaterState.progress && (
 										<>
 											<LinearProgress
-												variant={updaterState.state === 'downloaded' ? 'indeterminate' : 'determinate'}
+												variant={'determinate'}
 												value={updaterState.progress.percent}
 											/>
 											<DialogContentText>
@@ -273,6 +281,14 @@ export default function App({t}): JSX.Element {
 											</DialogContentText>
 										</>
 									)}
+								{updaterState.state === 'downloaded' && (
+									<>
+										<LinearProgress
+											variant={'indeterminate'}
+										/>
+										<DialogContentText>Restart now or later?</DialogContentText>
+									</>
+								)}
 								{updaterState.state === 'error' && (
 									<DialogContentText color="error">{updaterState.error}</DialogContentText>
 								)}
@@ -280,6 +296,12 @@ export default function App({t}): JSX.Element {
 							{updaterState.state === 'error' && (
 								<DialogActions>
 									<Button href="https://github.com/OhMyGuus/CrewLink/releases/latest">Download Manually</Button>
+								</DialogActions>
+							)}
+							{updaterState.state === 'downloaded' && (
+								<DialogActions>
+									<Button onClick={() => {ipcRenderer.send('update-app')}}>Now</Button>
+									<Button onClick={() => {setDiaOpen(false)}}>Later</Button>
 								</DialogActions>
 							)}
 						</Dialog>

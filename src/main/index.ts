@@ -9,8 +9,8 @@ import { format as formatUrl } from 'url';
 import './hook';
 import { overlayWindow } from 'electron-overlay-window';
 import { initializeIpcHandlers, initializeIpcListeners } from './ipc-handlers';
-import { IpcRendererMessages } from '../common/ipc-messages';
-import { ProgressInfo } from 'builder-util-runtime';
+import { IpcRendererMessages, /*AutoUpdaterState*/ } from '../common/ipc-messages';
+import { ProgressInfo, UpdateInfo } from 'builder-util-runtime';
 import { protocol } from 'electron';
 
 const args = require('minimist')(process.argv); // eslint-disable-line
@@ -200,46 +200,49 @@ if (!gotTheLock) {
 			/*empty*/
 		}
 	});
-	autoUpdater.on('update-downloaded', () => {
+	autoUpdater.on('update-downloaded', (info: UpdateInfo) => {
 		try {
 			global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
 				state: 'downloaded',
+				info,
 			});
 		} catch (e) {
 			/*empty*/
 		}
-
-		app.relaunch();
-		autoUpdater.quitAndInstall();
 	});
 
 	// Mock auto-update download
-	// setTimeout(() => {
-	// 	mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
-	// 		state: 'available'
-	// 	});
-	// 	let total = 1000*1000;
-	// 	let i = 0;
-	// 	let interval = setInterval(() => {
-	// 		mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
-	// 			state: 'downloading',
-	// 			progress: {
-	// 				total,
-	// 				delta: total * 0.01,
-	// 				transferred: i * total / 100,
-	// 				percent: i,
-	// 				bytesPerSecond: 1000
-	// 			}
-	// 		} as AutoUpdaterState);
-	// 		i++;
-	// 		if (i === 100) {
-	// 			clearInterval(interval);
-	// 			mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
-	// 				state: 'downloaded',
-	// 			});
-	// 		}
-	// 	}, 100);
-	// }, 10000);
+	/*
+	setTimeout(() => {
+		global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
+	 		state: 'available'
+	 	});
+	 	let total = 1000*1000;
+	 	let i = 0;
+	 	let interval = setInterval(() => {
+	 		global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
+	 			state: 'downloading',
+	 			progress: {
+	 				total,
+	 				delta: total * 0.01,
+	 				transferred: i * total / 100,
+	 				percent: i,
+	 				bytesPerSecond: 1000
+	 			}
+	 		} as AutoUpdaterState);
+	 		i++;
+	 		if (i === 100) {
+	 			clearInterval(interval);
+	 			global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
+	 				state: 'downloaded',
+					info: {
+						version: 'DEV'
+					}
+	 			});
+	 		}
+	 	}, 100);
+	}, 10000);
+	*/
 
 	// quit application when all windows are closed
 	app.on('window-all-closed', () => {
@@ -297,6 +300,11 @@ if (!gotTheLock) {
 			if (global.mainWindow.isMinimized()) global.mainWindow.restore();
 			global.mainWindow.focus();
 		}
+	});
+
+	ipcMain.on('update-app', () => {
+		app.relaunch();
+		autoUpdater.quitAndInstall();
 	});
 
 	ipcMain.on('enableOverlay', async (_event, enable) => {
