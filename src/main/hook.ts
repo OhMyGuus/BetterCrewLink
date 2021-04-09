@@ -69,7 +69,7 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 			if (keyCodeMatches(muteShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.TOGGLE_MUTE);
 			}
-			if(keyCodeMatches(impostorRadioShortcut, keyId)){
+			if(keyCodeMatches(impostorRadioShortcut!, keyId)){
 				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO);
 			}
 		});
