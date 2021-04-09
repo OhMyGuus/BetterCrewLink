@@ -21,7 +21,8 @@
 			"ghost_only_warning2": "Apenas os fantasmas poderem falar está ativo.",
 			"meetings_only": "Apenas nas Reuniões/Lobby",
 			"meetings_only_warning": "Isto desativa o som dos jogadores vivos fora das reuniões de emergência.",
-			"meetings_only_warning2": "Falar apenas nas reuniões de emergência está ativo."
+			"meetings_only_warning2": "Falar apenas nas reuniões de emergência está ativo.",
+			"impostor_radio": "Rádio do Impostor"
 		},
 		"audio": {
 			"title": "Áudio",
@@ -43,7 +44,8 @@
 			"title": "Atalhos de Teclado",
 			"push_to_talk": "Pressionar Para Falar",
 			"deafen": "Desligar Áudio",
-			"mute": "Desligar Microfone"
+			"mute": "Desligar Microfone",
+			"impostor_radio": "Rádio do Impostor"
 		},
 		"overlay": {
 			"title": "Sobreposição",
