@@ -21,7 +21,8 @@
 			"ghost_only_warning2": "Ghost can talk only enabled.",
 			"meetings_only": "Meetings/Lobby Only",
 			"meetings_only_warning": "This disables the sound for alive players outside meetings",
-			"meetings_only_warning2": "Talking in meetings only enabled."
+			"meetings_only_warning2": "Talking in meetings only enabled.",
+			"impostor_radio": "Impostor radio"
 		},
 		"audio": {
 			"title": "Audio",
@@ -42,7 +43,8 @@
 			"title": "Keyboard shortcuts",
 			"push_to_talk": "Push To Talk",
 			"deafen": "Deafen",
-			"mute": "Mute"
+			"mute": "Mute",
+			"impostor_radio": "Impostor radio"
 		},
 		"overlay": {
 			"title": "Overlay",

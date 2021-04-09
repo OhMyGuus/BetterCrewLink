@@ -104,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	formLabel: {
 		borderTop: '1px solid #313135',
-		marginRight:'0px'
+		marginRight: '0px',
 		// paddingBottom:'5px'
 	},
 }));
@@ -219,6 +219,10 @@ const store = new Store<ISettings>({
 			type: 'string',
 			default: 'RControl',
 		},
+		impostorRadioShortcut: {
+			type: 'string',
+			default: 'L',
+		},
 		muteShortcut: {
 			type: 'string',
 			default: 'RAlt',
@@ -328,6 +332,10 @@ const store = new Store<ISettings>({
 					default: false,
 				},
 				impostersHearImpostersInvent: {
+					type: 'boolean',
+					default: false,
+				},
+				impostorRadioEnabled: {
 					type: 'boolean',
 					default: false,
 				},
@@ -976,7 +984,32 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
+					<DisabledTooltip
+						disabled={!canChangeLobbySettings}
+						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
+					>
+						<FormControlLabel
+							className={classes.formLabel}
+							label={t('settings.lobbysettings.impostor_radio')}
+							disabled={!canChangeLobbySettings}
+							onChange={(_, newValue: boolean) => {
+								localLobbySettings.impostorRadioEnabled = newValue;
+								setLocalLobbySettings(localLobbySettings);
 
+								setSettings({
+									type: 'setLobbySetting',
+									action: ['impostorRadioEnabled', newValue],
+								});
+							}}
+							value={
+								canChangeLobbySettings ? localLobbySettings.impostorRadioEnabled : lobbySettings.impostorRadioEnabled
+							}
+							checked={
+								canChangeLobbySettings ? localLobbySettings.impostorRadioEnabled : lobbySettings.impostorRadioEnabled
+							}
+							control={<Checkbox />}
+						/>
+					</DisabledTooltip>
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
@@ -1261,7 +1294,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				<Divider />
 				<Typography variant="h6">{t('settings.keyboard.title')}</Typography>
 				<Grid container spacing={1}>
-					<Grid item xs={12}>
+					<Grid item xs={6}>
 						<TextField
 							fullWidth
 							spellCheck={false}
@@ -1275,6 +1308,22 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							}}
 							onMouseDown={(ev) => {
 								setMouseShortcut(ev, 'pushToTalkShortcut');
+							}}
+						/>
+					</Grid>
+					<Grid item xs={6}>
+						<TextField
+							spellCheck={false}
+							color="secondary"
+							label={t('settings.keyboard.impostor_radio')}
+							value={settings.impostorRadioShortcut}
+							className={classes.shortcutField}
+							variant="outlined"
+							onKeyDown={(ev) => {
+								setShortcut(ev, 'impostorRadioShortcut');
+							}}
+							onMouseDown={(ev) => {
+								setMouseShortcut(ev, 'impostorRadioShortcut');
 							}}
 						/>
 					</Grid>
@@ -1310,6 +1359,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							}}
 						/>
 					</Grid>
+					
 				</Grid>
 
 				<Divider />

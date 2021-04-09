@@ -19,18 +19,20 @@ if (playerConfigMapLength > 50) {
 let readingGame = false;
 let gameReader: GameReader;
 
-let pushToTalkShortcut = store.get('pushToTalkShortcut') as K;
-let deafenShortcut = store.get('deafenShortcut') as K;
-let muteShortcut = store.get('muteShortcut') as K;
-
+let pushToTalkShortcut: K | undefined;
+let deafenShortcut: K | undefined;
+let muteShortcut: K | undefined;
+let impostorRadioShortcut: K | undefined;
 function resetKeyHooks(): void {
-	pushToTalkShortcut = store.get('pushToTalkShortcut') as K;
-	deafenShortcut = store.get('deafenShortcut') as K;
-	muteShortcut = store.get('muteShortcut') as K;
+	pushToTalkShortcut = store.get('pushToTalkShortcut', 'V') as K;
+	deafenShortcut = store.get('deafenShortcut', 'RControl') as K;
+	muteShortcut = store.get('muteShortcut', 'RAlt') as K;
+	impostorRadioShortcut = store.get('impostorRadioShortcut', 'L') as K;
 	keyboardWatcher.clearKeyHooks();
 	addKeyHandler(pushToTalkShortcut);
 	addKeyHandler(deafenShortcut);
 	addKeyHandler(muteShortcut);
+	addKeyHandler(impostorRadioShortcut);
 }
 
 ipcMain.on(IpcHandlerMessages.RESET_KEYHOOKS, () => {
@@ -52,20 +54,23 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 		resetKeyHooks();
 
 		keyboardWatcher.on('keydown', (keyId: number) => {
-			if (keyCodeMatches(pushToTalkShortcut, keyId)) {
+			if (keyCodeMatches(pushToTalkShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, true);
 			}
 		});
 
 		keyboardWatcher.on('keyup', (keyId: number) => {
-			if (keyCodeMatches(pushToTalkShortcut, keyId)) {
+			if (keyCodeMatches(pushToTalkShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, false);
 			}
-			if (keyCodeMatches(deafenShortcut, keyId)) {
+			if (keyCodeMatches(deafenShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.TOGGLE_DEAFEN);
 			}
-			if (keyCodeMatches(muteShortcut, keyId)) {
+			if (keyCodeMatches(muteShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.TOGGLE_MUTE);
+			}
+			if(keyCodeMatches(impostorRadioShortcut, keyId)){
+				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO);
 			}
 		});
 
@@ -156,6 +161,7 @@ const keycodeMap = {
 type K = keyof typeof keycodeMap;
 
 function keyCodeMatches(key: K, keyId: number): boolean {
+	console.log(key);
 	if (keycodeMap[key]) return keycodeMap[key] === keyId;
 	else if (key && key.length === 1) return key.charCodeAt(0) === keyId;
 	else {
