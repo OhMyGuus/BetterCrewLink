@@ -46,7 +46,6 @@ export default class GameReader {
 	menuUpdateTimer = 20;
 	lastPlayerPtr = 0;
 	shouldReadLobby = false;
-	exileCausesEnd = false;
 	is_64bit = false;
 	oldGameState = GameState.UNKNOWN;
 	lastState: AmongUsState = {} as AmongUsState;
@@ -110,16 +109,13 @@ export default class GameReader {
 			switch (gameState) {
 				case 0:
 					state = GameState.MENU;
-					this.exileCausesEnd = false;
 					break;
 				case 1:
 				case 3:
 					state = GameState.LOBBY;
-					this.exileCausesEnd = false;
 					break;
 				default:
-					if (this.exileCausesEnd) state = GameState.LOBBY;
-					else if (meetingHudState < 4) state = GameState.DISCUSSION;
+					if (meetingHudState < 4) state = GameState.DISCUSSION;
 					else state = GameState.TASKS;
 					break;
 			}
@@ -152,9 +148,7 @@ export default class GameReader {
 				this.gameAssembly.modBaseAddr,
 				this.offsets.exiledPlayerId
 			);
-			let impostors = 0,
-				crewmates = 0,
-				lightRadius = 1;
+			let lightRadius = 1;
 			let comsSabotaged = false;
 			let currentCamera = CameraLocation.NONE;
 			let map = MapType.UNKNOWN;
@@ -176,8 +170,6 @@ export default class GameReader {
 
 					players.push(player);
 					if (player.id === exiledPlayerId || player.isDead || player.disconnected || player.name === '') continue;
-					if (player.isImpostor) impostors++;
-					else crewmates++;
 				}
 				if (localPlayer) {
 					lightRadius = this.readMemory<number>('float', localPlayer.objectPtr, this.offsets.lightRadius, -1);
@@ -240,7 +232,6 @@ export default class GameReader {
 								this.offsets!.planetSurveillanceMinigame_camarasCount
 							);
 
-
 							if (currentCameraId >= 0 && currentCameraId <= 5 && camarasCount === 6) {
 								currentCamera = currentCameraId as CameraLocation;
 							}
@@ -278,12 +269,12 @@ export default class GameReader {
 				//	console.log('doorcount: ', doorCount, doorsOpen);
 			}
 
-			if (this.oldGameState === GameState.DISCUSSION && state === GameState.TASKS) {
-				if (impostors === 0 || impostors >= crewmates) {
-					this.exileCausesEnd = true;
-					state = GameState.LOBBY;
-				}
-			}
+			// if (this.oldGameState === GameState.DISCUSSION && state === GameState.TASKS) {
+			// 	if (impostors === 0 || impostors >= crewmates) {
+			// 		this.exileCausesEnd = true;
+			// 		state = GameState.LOBBY;
+			// 	}
+			// }
 
 			if (
 				this.oldGameState === GameState.MENU &&
@@ -413,7 +404,7 @@ export default class GameReader {
 		if (!colorLength || colorLength <= 0 || colorLength > 30) {
 			return;
 		}
-		
+
 		this.colorsInitialized = colorLength > 0;
 		const playercolors = [];
 		for (let i = 0; i < colorLength; i++) {
@@ -555,7 +546,6 @@ export default class GameReader {
 			data.objectPtr = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('objectPtr')]);
 			data.name = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('name')]);
 		}
-
 		const clientId = this.readMemory<number>('uint32', data.objectPtr, this.offsets.player.clientId);
 		const isLocal = clientId === LocalclientId && data.disconnected === 0;
 
@@ -592,8 +582,8 @@ export default class GameReader {
 			petId: data.pet,
 			skinId: data.skin,
 			disconnected: data.disconnected > 0,
-			isImpostor: data.impostor > 0,
-			isDead: data.dead > 0,
+			isImpostor: data.impostor == 1,
+			isDead: data.dead == 1,
 			taskPtr: data.taskPtr,
 			objectPtr: data.objectPtr,
 			bugged,
