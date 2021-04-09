@@ -57,7 +57,7 @@ const languages = {
 	},
 	id: {
 		translation : translationID,
-		name: 'Indonesia'
+		name: 'Bahasa Indonesia'
 	},
 	pl: {
 		translation: translationPL,
