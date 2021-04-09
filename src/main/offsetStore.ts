@@ -228,7 +228,7 @@ export default {
 				{ type: 'SKIP', skip: 8, name: 'unused' },
 				{ type: 'UINT', name: 'id' },
 				{ type: 'UINT', name: 'name' },
-				{ type: 'SKIP', skip: 4, name: 'unused' },
+				{ type: 'SKIP', skip: 4, name: 'COLORBEFORE' },
 				{ type: 'UINT', name: 'color' },
 				{ type: 'UINT', name: 'hat' },
 				{ type: 'UINT', name: 'pet' },
@@ -306,3 +306,41 @@ export function TempFixOffsets(offsetsOld: IOffsets): IOffsets {
 }
 
 
+export function TempFixOffsets2(offsetsOld: IOffsets): IOffsets {
+	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
+	offsets!.player.localX[0] = 0x60;
+	offsets!.player.localY[0] = 0x60;
+	offsets!.player.remoteX[0] = 0x60;
+	offsets!.player.remoteY[0] = 0x60;
+	offsets!.shipStatus_map[0] = 0xd4;
+	offsets!.gameState[0] = 0x64;
+	offsets!.gameCode[0] = 0x40;
+	offsets!.hostId[0] = 0x44;
+	offsets!.clientId[0] = 0x48;
+	offsets!.player.struct = offsets!.player.struct.filter((o) => o.name !== 'COLORBEFORE');
+	console.log(offsets!.player.struct);
+	offsets!.player.struct[4].skip = 2;
+	offsets!.palette[0] = 0x1c57fc4;
+	offsets!.palette_playercolor[0] = 0xe4;
+	offsets!.palette_shadowColor[0] = 0xe8;
+	offsets!.shipStatus_systems[0] = 0x84;
+
+	return offsets;
+}
+
+
+// struct: [
+// 	{ type: 'SKIP', skip: 8, name: 'unused' },
+// 	{ type: 'UINT', name: 'id' },
+// 	{ type: 'UINT', name: 'name' },
+// 	{ type: 'UINT', name: 'color' },
+// 	{ type: 'UINT', name: 'hat' },
+// 	{ type: 'UINT', name: 'pet' },
+// 	{ type: 'UINT', name: 'skin' },
+// 	{ type: 'UINT', name: 'disconnected' },
+// 	{ type: 'UINT', name: 'taskPtr' },
+// 	{ type: 'BYTE', name: 'impostor' },
+// 	{ type: 'BYTE', name: 'dead' },
+// 	{ type: 'SKIP', skip: 2, name: 'unused' },
+// 	{ type: 'UINT', name: 'objectPtr' },
+// ],
