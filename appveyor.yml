@@ -26,11 +26,9 @@ on_failure:
 
 test_script:
   - ps: |
-      if(ls dist\Better-Crewlink*)
+      if(!(ls dist\Better-Crewlink*))
       {
-        exit 0
-      } else {
-        exit 1
+       exit 1
       }
 artifacts:
   - path: dist/win-unpacked
