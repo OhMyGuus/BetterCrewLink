@@ -1,5 +1,6 @@
 import translationEN from '../../../static/locales/en/translation.json'
 import translationAR from '../../../static/locales/ar/translation.json'
+import translationAREG from '../../../static/locales/areg/translation.json'
 import translationCA from '../../../static/locales/ca/translation.json'
 import translationCS from '../../../static/locales/cs/translation.json'
 import translationDE from '../../../static/locales/de/translation.json'
@@ -25,6 +26,10 @@ const languages = {
 	ar: {
 		translation : translationAR,
 		name: 'العربية'
+	},
+	areg: {
+		translation : translationAREG,
+		name: 'عربي ، مصر'
 	},
 	ca: {
 		translation : translationCA,
