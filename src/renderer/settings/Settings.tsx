@@ -102,6 +102,11 @@ const useStyles = makeStyles((theme) => ({
 			marginBottom: theme.spacing(1),
 		},
 	},
+	formLabel: {
+		borderTop: '1px solid #313135',
+		marginRight:'0px'
+		// paddingBottom:'5px'
+	},
 }));
 
 const keys = new Set([
@@ -767,7 +772,8 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					<Typography id="input-slider" gutterBottom>
 						{(canChangeLobbySettings ? localLobbySettings.visionHearing : lobbySettings.visionHearing)
 							? t('settings.lobbysettings.voicedistance_impostor')
-							: t('settings.lobbysettings.voicedistance')}: {canChangeLobbySettings ? localLobbySettings.maxDistance : lobbySettings.maxDistance}
+							: t('settings.lobbysettings.voicedistance')}
+						: {canChangeLobbySettings ? localLobbySettings.maxDistance : lobbySettings.maxDistance}
 					</Typography>
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
@@ -798,6 +804,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
+							className={classes.formLabel}
 							label={t('settings.lobbysettings.wallsblockaudio')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
@@ -819,6 +826,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
+							className={classes.formLabel}
 							label={t('settings.lobbysettings.visiononly')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
@@ -847,6 +855,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
+							className={classes.formLabel}
 							label={t('settings.lobbysettings.impostorshearsghost')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
@@ -869,6 +878,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
+							className={classes.formLabel}
 							label={t('settings.lobbysettings.hear_imposters_invents')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
@@ -894,6 +904,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
+							className={classes.formLabel}
 							label={t('settings.lobbysettings.private_talk_invents')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
@@ -924,6 +935,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
+							className={classes.formLabel}
 							label={t('settings.lobbysettings.comms_sabotage_audio')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
@@ -945,6 +957,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
+							className={classes.formLabel}
 							label={t('settings.lobbysettings.hear_through_cameras')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
@@ -969,6 +982,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
+							className={classes.formLabel}
 							label={t('settings.lobbysettings.ghost_only')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
@@ -1002,6 +1016,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
+							className={classes.formLabel}
 							label={t('settings.lobbysettings.meetings_only')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
@@ -1030,6 +1045,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
+					{/* </FormGroup> */}
 				</div>
 				<Divider />
 				<Typography variant="h6">{t('settings.audio.title')}</Typography>
@@ -1091,16 +1107,19 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					}}
 				>
 					<FormControlLabel
+						className={classes.formLabel}
 						label={t('settings.audio.voice_activity')}
 						value={pushToTalkOptions.VOICE}
 						control={<Radio />}
 					/>
 					<FormControlLabel
+						className={classes.formLabel}
 						label={t('settings.audio.push_to_talk')}
 						value={pushToTalkOptions.PUSH_TO_TALK}
 						control={<Radio />}
 					/>
 					<FormControlLabel
+						className={classes.formLabel}
 						label={t('settings.audio.push_to_mute')}
 						value={pushToTalkOptions.PUSH_TO_MUTE}
 						control={<Radio />}
@@ -1297,6 +1316,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				<Typography variant="h6">{t('settings.overlay.title')}</Typography>
 				<div>
 					<FormControlLabel
+						className={classes.formLabel}
 						label={t('settings.overlay.always_on_top')}
 						checked={settings.alwaysOnTop}
 						onChange={(_, checked: boolean) => {
@@ -1308,6 +1328,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
+						className={classes.formLabel}
 						label={t('settings.overlay.enabled')}
 						checked={settings.enableOverlay}
 						onChange={(_, checked: boolean) => {
@@ -1321,6 +1342,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					{settings.enableOverlay && (
 						<>
 							<FormControlLabel
+								className={classes.formLabel}
 								label={t('settings.overlay.compact')}
 								checked={settings.compactOverlay}
 								onChange={(_, checked: boolean) => {
@@ -1332,6 +1354,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								control={<Checkbox />}
 							/>
 							<FormControlLabel
+								className={classes.formLabel}
 								label={t('settings.overlay.meeting')}
 								checked={settings.meetingOverlay}
 								onChange={(_, checked: boolean) => {
@@ -1375,6 +1398,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				<Typography variant="h6">{t('settings.advanced.title')}</Typography>
 				<div>
 					<FormControlLabel
+						className={classes.formLabel}
 						label={t('settings.advanced.nat_fix')}
 						checked={settings.natFix}
 						onChange={(_, checked: boolean) => {
@@ -1409,6 +1433,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				<Typography variant="h6">{t('settings.beta.title')}</Typography>
 				<div>
 					<FormControlLabel
+						className={classes.formLabel}
 						label={t('settings.beta.mobilehost')}
 						checked={settings.mobileHost}
 						onChange={(_, checked: boolean) => {
@@ -1420,6 +1445,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
+						className={classes.formLabel}
 						label={t('settings.beta.vad_enabled')}
 						checked={settings.vadEnabled}
 						onChange={(_, checked: boolean) => {
@@ -1438,6 +1464,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
+						className={classes.formLabel}
 						label={t('settings.beta.echocancellation')}
 						checked={settings.echoCancellation}
 						onChange={(_, checked: boolean) => {
@@ -1449,6 +1476,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
+						className={classes.formLabel}
 						label={t('settings.beta.spatial_audio')}
 						checked={settings.enableSpatialAudio}
 						onChange={(_, checked: boolean) => {
@@ -1460,6 +1488,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
+						className={classes.formLabel}
 						label={t('settings.beta.noiseSuppression')}
 						checked={settings.noiseSuppression}
 						onChange={(_, checked: boolean) => {
@@ -1498,6 +1527,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				<Typography variant="h6">{t('settings.streaming.title')}</Typography>
 				<div>
 					<FormControlLabel
+						className={classes.formLabel}
 						label={t('settings.streaming.hidecode')}
 						checked={!settings.hideCode}
 						onChange={(_, checked: boolean) => {
@@ -1509,6 +1539,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
+						className={classes.formLabel}
 						label={t('settings.streaming.obs_overlay')}
 						checked={settings.obsOverlay}
 						onChange={(_, checked: boolean) => {
@@ -1528,6 +1559,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					{settings.obsOverlay && (
 						<>
 							<FormControlLabel
+								className={classes.formLabel}
 								label={t('settings.streaming.voice_server_comp')}
 								checked={settings.obsComptaibilityMode}
 								onChange={(_, checked: boolean) => {
