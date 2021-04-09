@@ -1,17 +1,17 @@
 {
 	"settings": {
-		"title": "اعدادات",
-		"language": "اللغات",
-		"warning": "هل أنت متأكد؟",
+		"title": "الاعدادات",
+		"language": "اللغة",
+		"warning": "هل أنت متأكد من ذلك؟",
 		"lobbysettings": {
 			"title": "إعدادات لوبي",
-			"gamehostonly": "فقط مضيف اللعبة يستطيع تغيير هذا!",
+			"gamehostonly": "فقط مضيف اللعبة يمكنه تغيير هذا!",
 			"inlobbyonly": "يمكنك فقط تغيير هذا في ردهة اللعبة!",
 			"voicedistance": "مسافة الصوت",
-			"voicedistance_impostor": "مسافة صوت المستورد",
+			"voicedistance_impostor": "المسافة الصوتية للمستورد",
 			"wallsblockaudio": "حجب جدران الصوت",
-			"visiononly": "اسمع الناس برؤية فقط",
-			"impostorshearsghost": "المستورد يس معالميت",
+			"visiononly": "اسمع الناس في الرؤية فقط",
+			"impostorshearsghost": "المستورد يسمع ميت",
 			"hear_imposters_invents": "سمع المملوكين في الفتحات",
 			"private_talk_invents": "محادثة خاصة في الفتحات",
 			"comms_sabotage_audio": "تعطل تخريب الاتصالات الصوت",
@@ -64,7 +64,7 @@
 		"advanced": {
 			"title": "متقدم",
 			"nat_fix": "إصلاح NAT",
-			"nat_fix_warning": "سيؤدي هذا إلى إصلاح مشكلات nat ولكنه سيضيف تأخيرًا نظرًا لأنه يستخدم خادمًا بدلاً من p2p",
+			"nat_fix_warning": "سيؤدي هذا إلى مشكلة في FX ولكن سيضيف تأخيرا لأنه يستخدم خادم بدلا من p2p",
 			"change_server": "تغيير خادم الصوت",
 			"voice_server": "خادم الصوت",
 			"invalid_url": "URL غير صالح",
@@ -78,7 +78,7 @@
 			"vad_enabled_warning": "لن ترى من يتحدث إذا تم إلغاء التنشيط.",
 			"echocancellation": "إلغاء الصدى",
 			"noiseSuppression": "قمع الضوضاء",
-			"spatial_audio": "الصوت المكاني"
+			"spatial_audio": "صوت الفضاء"
 		},
 		"streaming": {
 			"title": "إعدادات التدفق",
@@ -96,19 +96,19 @@
 		}
 	},
 	"buttons": {
-		"default": "تقصير",
+		"default": "الافتراضي",
 		"confirm": "تأكيد",
 		"cancel": "إلغاء",
 		"exit": "اخرج من الإعدادات لتطبيق التغييرات"
 	},
 	"game": {
 		"menu": "قائمة",
-		"open": "افتح اللعبة",
-		"open_error": "افتح اللعبةابدأ اللعبة يدويًا.\n(هذا الزر مخصص steam فقط)",
-		"waiting": "في انتظار among us",
+		"open": "فتح اللعبة",
+		"open_error": "ابدأ اللعبة يدويًا.\n(هذا الزر مخصص للبخار فقط)",
+		"waiting": "انتظار among us",
 		"error": "خطأ",
-		"error_admin": "تعذر الاتصال among us\nالرجاء إعادة فتح CrewLink كمسؤول.",
-		"error_unsupport": "إصدارك من among us غير مدعوم من CrewLink."
+		"error_admin": "تعذر الاتصال بـ بيننا.\n  الرجاء إعادة فتح CrewLink كمسؤول.",
+		"error_unsupport": "إصدارك من بيننا غير مدعوم من CrewLink."
 	},
 	"translator": "Achs gaming"
 }
