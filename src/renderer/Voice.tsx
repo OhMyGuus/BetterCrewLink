@@ -79,6 +79,7 @@ interface ConnectionStuff {
 	pushToTalkMode: number;
 	deafened: boolean;
 	muted: boolean;
+	impostorRadio: boolean;
 }
 
 interface SocketError {
@@ -111,7 +112,7 @@ const DEFAULT_ICE_CONFIG_TURN: RTCConfiguration = {
 };
 
 export interface VoiceProps {
-	t:  (key: string) => string;
+	t: (key: string) => string;
 	error: string;
 }
 
@@ -177,6 +178,7 @@ const defaultlocalLobbySettings: ILobbySettings = {
 	haunting: false,
 	hearImpostorsInVents: false,
 	impostersHearImpostersInvent: false,
+	impostorRadioEnabled: false,
 	commsSabotage: false,
 	deadOnly: false,
 	hearThroughCameras: false,
@@ -186,7 +188,7 @@ const defaultlocalLobbySettings: ILobbySettings = {
 };
 
 const store = new Store<ISettings>();
-const Voice: React.FC<VoiceProps> = function ({t,  error: initialError }: VoiceProps) {
+const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceProps) {
 	const [error, setError] = useState(initialError);
 	const [settings, setSettings] = useContext(SettingsContext);
 
@@ -260,6 +262,8 @@ const Voice: React.FC<VoiceProps> = function ({t,  error: initialError }: VoiceP
 		if (other.disconnected) {
 			return 0;
 		}
+
+	
 		switch (state.gameState) {
 			case GameState.MENU:
 				return 0;
@@ -269,7 +273,14 @@ const Voice: React.FC<VoiceProps> = function ({t,  error: initialError }: VoiceP
 
 			case GameState.TASKS:
 				endGain = 1;
-
+				// muffle.type = "highpass";
+				// muffle.frequency.value = 1000;
+				// muffle.Q.value = 10;
+				if (!audio.muffleConnected) {
+					audio.muffleConnected = true;
+					applyEffect(gain, muffle, destination, other);
+				}
+		
 				if (lobbySettings.meetingGhostOnly) {
 					endGain = 0;
 				}
@@ -284,7 +295,8 @@ const Voice: React.FC<VoiceProps> = function ({t,  error: initialError }: VoiceP
 				) {
 					endGain = 0;
 				}
-				if (lobbySettings.wallsBlockAudio &&
+				if (
+					lobbySettings.wallsBlockAudio &&
 					!me.isDead &&
 					poseCollide({ x: me.x, y: me.y }, { x: other.x, y: other.y }, gameState.map, gameState.closedDoors)
 				) {
@@ -352,7 +364,7 @@ const Voice: React.FC<VoiceProps> = function ({t,  error: initialError }: VoiceP
 				} else if (state.currentCamera === CameraLocation.Skeld) {
 					let distance = 999;
 					let camerapos = { x: 999, y: 999 };
-					for (const camera of Object.values( AmongUsMaps[state.map].cameras)) {
+					for (const camera of Object.values(AmongUsMaps[state.map].cameras)) {
 						const cameraDist = Math.sqrt(Math.pow(other.x - camera.x, 2) + Math.pow(other.y - camera.y, 2));
 						if (distance > cameraDist) {
 							distance = cameraDist;
@@ -391,10 +403,10 @@ const Voice: React.FC<VoiceProps> = function ({t,  error: initialError }: VoiceP
 			muffle.Q.value = isOnCamera ? -15 : 20;
 			if (endGain === 1) endGain = isOnCamera ? 0.8 : 0.5; // Too loud at 1
 		} else {
-			if (audio.muffleConnected) {
-				audio.muffleConnected = false;
-				restoreEffect(gain, muffle, destination, other);
-			}
+			// if (audio.muffleConnected) {
+			// 	audio.muffleConnected = false;
+			// 	restoreEffect(gain, muffle, destination, other);
+			// }
 		}
 
 		if (!settings.enableSpatialAudio) {
@@ -413,7 +425,7 @@ const Voice: React.FC<VoiceProps> = function ({t,  error: initialError }: VoiceP
 		// 	hostRef.current.gamestate !== GameState.MENU,
 		// 	hostRef.current.gamestate !== GameState.UNKNOWN
 		// );
-		console.log("notifyMobilePlayers");
+		console.log('notifyMobilePlayers');
 		if (
 			settingsRef.current.mobileHost &&
 			hostRef.current.gamestate !== GameState.MENU &&
@@ -614,6 +626,7 @@ const Voice: React.FC<VoiceProps> = function ({t,  error: initialError }: VoiceP
 		pushToTalkMode: settings.pushToTalkMode,
 		deafened: false,
 		muted: false,
+		impostorRadio: false,
 	});
 
 	useEffect(() => {
@@ -757,6 +770,16 @@ const Voice: React.FC<VoiceProps> = function ({t,  error: initialError }: VoiceP
 						!connectionStuff.current.muted &&
 						connectionStuff.current.pushToTalkMode !== pushToTalkOptions.PUSH_TO_TALK;
 					setDeafened(connectionStuff.current.deafened);
+				});
+
+				ipcRenderer.on(IpcRendererMessages.IMPOSTOR_RADIO, (_: unknown, pressing: boolean) => {
+					connectionStuff.current.impostorRadio = pressing;
+					for (let player of otherPlayers.filter(o => o.isImpostor)) {
+						const peer = playerSocketIds[player.clientId];
+						const connection = peerConnections[peer];
+						//check if player is impostor
+						connection.send(JSON.stringify({ impostorRadio: connectionStuff.current.impostorRadio }));
+					}
 				});
 
 				ipcRenderer.on(IpcRendererMessages.TOGGLE_MUTE, () => {
@@ -913,23 +936,31 @@ const Voice: React.FC<VoiceProps> = function ({t,  error: initialError }: VoiceP
 					});
 
 					connection.on('data', (data) => {
-						if (!hostRef.current || hostRef.current.hostId !== socketClientsRef.current[peer]?.clientId) return;
-						const settings = JSON.parse(data);
-						Object.keys(lobbySettings).forEach((field: string) => {
-							if (field in settings) {
-								setLobbySettings({
-									type: 'setOne',
-									action: [field, settings[field]],
-								});
-							} else {
-								if (field in defaultlocalLobbySettings) {
+						const parsedData = JSON.parse(data);
+						console.log(parsedData);
+						if (parsedData.hasOwnProperty('impostorRadio')) {
+							console.log('impostorRadio->', parsedData['impostorRadio']);
+							// vad maybe?
+							/// set impostorRadioEnabled true+
+						}
+						if (parsedData.hasOwnProperty('maxDistance')) {
+							if (!hostRef.current || hostRef.current.hostId !== socketClientsRef.current[peer]?.clientId) return;
+							Object.keys(lobbySettings).forEach((field: string) => {
+								if (field in settings) {
 									setLobbySettings({
 										type: 'setOne',
-										action: [field, defaultlocalLobbySettings[field as keyof ILobbySettings]],
+										action: [field, parsedData[field]],
 									});
+								} else {
+									if (field in defaultlocalLobbySettings) {
+										setLobbySettings({
+											type: 'setOne',
+											action: [field, defaultlocalLobbySettings[field as keyof ILobbySettings]],
+										});
+									}
 								}
-							}
-						});
+							});
+						}
 					});
 					connection.on('close', () => {
 						console.log('Disconnected from', peer, 'Initiator:', initiator);
@@ -941,6 +972,7 @@ const Voice: React.FC<VoiceProps> = function ({t,  error: initialError }: VoiceP
 					});
 					return connection;
 				}
+
 				socket.on('join', async (peer: string, client: Client) => {
 					createPeerConnection(peer, true);
 					setSocketClients((old) => ({ ...old, [peer]: client }));
@@ -969,6 +1001,7 @@ const Voice: React.FC<VoiceProps> = function ({t,  error: initialError }: VoiceP
 					}
 					connection.signal(data);
 				});
+
 				socket.on('setClient', (socketId: string, client: Client) => {
 					setSocketClients((old) => ({ ...old, [socketId]: client }));
 				});
