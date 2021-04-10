@@ -8,6 +8,7 @@ export interface ISettings {
 	pushToTalkShortcut: string;
 	deafenShortcut: string;
 	muteShortcut: string;
+	impostorRadioShortcut: string;
 	hideCode: boolean;
 	natFix: boolean;
 	compactOverlay: boolean;
@@ -39,6 +40,7 @@ export interface ILobbySettings {
 	haunting: boolean;
 	hearImpostorsInVents: boolean;
 	impostersHearImpostersInvent: boolean;
+	impostorRadioEnabled: boolean;
 	commsSabotage: boolean;
 	deadOnly: boolean;
 	meetingGhostOnly: boolean;
@@ -53,3 +55,4 @@ export interface SocketConfig {
 export interface playerConfigMap {
 	[socketId: number]: SocketConfig;
 }
+

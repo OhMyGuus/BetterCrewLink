@@ -18,10 +18,10 @@
 			"hear_through_cameras": "Kameralardan Duy",
 			"ghost_only": "Sadece Hayaletler Konuşabilir/Duyabilir",
 			"ghost_only_warning": "Hayattaki oyuncular için sesi kapatır.",
-			"ghost_only_warning2": "Ghost can talk only enabled.",
+			"ghost_only_warning2": "Sadece hayaletler konuşabilir aktif.",
 			"meetings_only": "Sadece Toplantı/Lobi",
 			"meetings_only_warning": "Hayattaki oyuncular için toplantı dışında sesi kapatır",
-			"meetings_only_warning2": "Talking in meetings only enabled."
+			"meetings_only_warning2": "Sadece toplantılarda konuşma aktif."
 		},
 		"audio": {
 			"title": "Ses",
