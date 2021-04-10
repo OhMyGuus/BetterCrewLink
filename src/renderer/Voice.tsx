@@ -219,6 +219,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	} | null>(null);
 	const [otherTalking, setOtherTalking] = useState<OtherTalking>({});
 	const [otherDead, setOtherDead] = useState<OtherDead>({});
+	const ImpostorRadioClientId = useRef<number>(-1);
+
 	const audioElements = useRef<AudioElements>({});
 	const [audioConnected, setAudioConnected] = useState<AudioConnected>({});
 	const classes = useStyles();
@@ -260,6 +262,9 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		let panPos = [other.x - me.x, other.y - me.y];
 		let endGain = 0;
 		let collided = false;
+		let skipDistanceCheck = false;
+		let muffleEnabled = false;
+
 		if (other.disconnected) {
 			return 0;
 		}
@@ -273,13 +278,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 			case GameState.TASKS:
 				endGain = 1;
-				// muffle.type = "highpass";
-				// muffle.frequency.value = 1000;
-				// muffle.Q.value = 10;
-				if (!audio.muffleConnected) {
-					audio.muffleConnected = true;
-					applyEffect(gain, muffle, destination, other);
-				}
+				
+			
 
 				if (lobbySettings.meetingGhostOnly) {
 					endGain = 0;
@@ -301,6 +301,18 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					poseCollide({ x: me.x, y: me.y }, { x: other.x, y: other.y }, gameState.map, gameState.closedDoors)
 				) {
 					collided = true;
+				}
+
+				if(me.isImpostor && other.isImpostor && lobbySettings.impostorRadioEnabled && other.clientId === ImpostorRadioClientId.current){
+					skipDistanceCheck = true;
+					muffle.type = "highpass";
+					muffle.frequency.value = 1000;
+					muffle.Q.value = 10;
+					muffleEnabled = true;
+					if (!audio.muffleConnected) {
+						audio.muffleConnected = true;
+						applyEffect(gain, muffle, destination, other);
+					}
 				}
 
 				if (!me.isDead && other.isDead && me.isImpostor && lobbySettings.haunting) {
@@ -356,7 +368,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		// console.log({ x: other.x, y: other.y }, Math.sqrt(panPos[0] * panPos[0] + panPos[1] * panPos[1]));
 		//console.log(state.currentCamera);
 
-		if (Math.sqrt(panPos[0] * panPos[0] + panPos[1] * panPos[1]) > maxdistance) {
+		if (Math.sqrt(panPos[0] * panPos[0] + panPos[1] * panPos[1]) > maxdistance && !skipDistanceCheck) {
 			if (lobbySettings.hearThroughCameras && state.gameState === GameState.TASKS) {
 				if (state.currentCamera !== CameraLocation.NONE && state.currentCamera !== CameraLocation.Skeld) {
 					const camerapos = AmongUsMaps[state.map].cameras[state.currentCamera];
@@ -383,7 +395,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				return 0;
 			}
 		} else {
-			if (collided) {
+			if (collided && !skipDistanceCheck) {
 				return 0;
 			}
 			isOnCamera = false;
@@ -403,15 +415,16 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			muffle.Q.value = isOnCamera ? -15 : 20;
 			if (endGain === 1) endGain = isOnCamera ? 0.8 : 0.5; // Too loud at 1
 		} else {
-			// if (audio.muffleConnected) {
-			// 	audio.muffleConnected = false;
-			// 	restoreEffect(gain, muffle, destination, other);
-			// }
+			if (audio.muffleConnected &&  !muffleEnabled) {
+				audio.muffleConnected = false;
+				restoreEffect(gain, muffle, destination, other);
+			}
 		}
 
-		if (!settings.enableSpatialAudio) {
+		if (!settings.enableSpatialAudio || skipDistanceCheck) {
 			panPos = [0, 0];
 		}
+
 		pan.positionX.setValueAtTime(panPos[0], audioContext.currentTime);
 		pan.positionY.setValueAtTime(panPos[1], audioContext.currentTime);
 		pan.positionZ.setValueAtTime(-0.5, audioContext.currentTime);
@@ -774,14 +787,17 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				});
 
 				ipcRenderer.on(IpcRendererMessages.IMPOSTOR_RADIO, (_: unknown, pressing: boolean) => {
-					if(!myPlayer?.isImpostor){
+					if (!myPlayer?.isImpostor) {
 						return;
 					}
 					connectionStuff.current.impostorRadio = pressing;
-					for (let player of otherPlayers.filter(o => o.isImpostor)) {
+					for (let player of otherPlayers.filter((o) => o.isImpostor)) {
 						const peer = playerSocketIdsRef.current[player.clientId];
 						const connection = peerConnections[peer];
 						connection?.send(JSON.stringify({ impostorRadio: connectionStuff.current.impostorRadio }));
+					}
+					if (ImpostorRadioClientId.current === myPlayer.clientId || ImpostorRadioClientId.current === -1) {
+						ImpostorRadioClientId.current = pressing ? myPlayer.clientId : -1;
 					}
 				});
 
@@ -943,6 +959,12 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						console.log(parsedData);
 						if (parsedData.hasOwnProperty('impostorRadio')) {
 							console.log('impostorRadio->', parsedData['impostorRadio']);
+							const clientId = socketClientsRef.current[peer]?.clientId;
+							if (ImpostorRadioClientId.current !== -1) {
+								ImpostorRadioClientId.current = clientId;
+							} else if (ImpostorRadioClientId.current === clientId && !parsedData['impostorRadio']) {
+								ImpostorRadioClientId.current = -1;
+							}
 							// vad maybe?
 							/// set impostorRadioEnabled true+
 						}
@@ -1076,9 +1098,13 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		}
 		playerSocketIdsRef.current = playerSocketIds;
 		const handledPeerIds: string[] = [];
+		let foundRadioUser = false;
 		for (const player of otherPlayers) {
 			const peerId = playerSocketIds[player.clientId];
 			const audio = player.clientId === myPlayer.clientId ? undefined : audioElements.current[peerId];
+			if (player.clientId === ImpostorRadioClientId.current && player.isImpostor && !player.isDead) {
+				foundRadioUser = true;
+			}
 			if (audio) {
 				handledPeerIds.push(peerId);
 				let gain = calculateVoiceAudio(gameState, settingsRef.current, myPlayer, player, audio);
@@ -1098,6 +1124,9 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				}
 				audio.gain.gain.value = gain;
 			}
+		}
+		if (!foundRadioUser && myPlayer.isImpostor && ImpostorRadioClientId.current !== myPlayer.clientId) {
+			ImpostorRadioClientId.current = -1;
 		}
 		for (const peerId in Object.keys(audioElements.current).filter((e) => !handledPeerIds.includes(e))) {
 			const audio = audioElements.current[peerId];
