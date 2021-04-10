@@ -1205,12 +1205,12 @@ const Voice: React.FC<VoiceProps> = function ({t,  error: initialError }: VoiceP
 			</div>
 			{lobbySettings.deadOnly && (
 				<div className={classes.top}>
-					<small style={{ padding: 0 }}>{t('ghost_only_warning2')}</small>
+					<small style={{ padding: 0 }}>{t('settings.lobbysettings.ghost_only_warning2')}</small>
 				</div>
 			)}
 			{lobbySettings.meetingGhostOnly && (
 				<div className={classes.top}>
-					<small style={{ padding: 0 }}>{t('meetings_only_warning2')}</small>
+					<small style={{ padding: 0 }}>{t('settings.lobbysettings.meetings_only_warning2')}</small>
 				</div>
 			)}
 			{gameState.lobbyCode && <Divider />}
