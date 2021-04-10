@@ -21,7 +21,8 @@
 			"ghost_only_warning2": "Iba duch môže hovoriť je zapnuté.",
 			"meetings_only": "Iba mítingy/lobby",
 			"meetings_only_warning": "Toto zakáže zvuk pre živých ľudí mimo mítingov",
-			"meetings_only_warning2": "Rozprávanie iba v mítingoch je zapnuté."
+			"meetings_only_warning2": "Rozprávanie iba v mítingoch je zapnuté.",
+			"impostor_radio": "Impostor Rádio"
 		},
 		"audio": {
 			"title": "Zvuk",
@@ -43,10 +44,11 @@
 			"push_to_talk": "Tlač pre rozprávanie",
 			"deafen": "Stlmiť zvuk",
 			"mute": "Stlmiť mikrofón"
+			"impostor_radio": "Impostor Rádio"
 		},
 		"overlay": {
 			"title": "Prekrytie",
-			"always_on_top": "Crewlink na vrchu",
+			"always_on_top": "BetterCrewlink na vrchu",
 			"enabled": "Povoliť prekrytie",
 			"compact": "Kompaktné prekrytie",
 			"meeting": "Mítingové prekrytie",
@@ -68,7 +70,7 @@
 			"change_server": "Zmeniť hlasový server",
 			"voice_server": "Hlasový server",
 			"invalid_url": "Neplatná URL",
-			"voice_server_warning": "Táto možnosť je iba pre pokročilých používateľov. Ostatné servery môžu ukradnúť tvoje informácie alebo spadnúť CrewLink.",
+			"voice_server_warning": "Táto možnosť je iba pre pokročilých používateľov. Ostatné servery môžu ukradnúť tvoje informácie alebo spadnúť BetterCrewLink.",
 			"reset_default": "Obnoviť pôvodné nastavenia"
 		},
 		"beta": {
@@ -84,9 +86,9 @@
 			"title": "Nastavenie streamovania",
 			"hidecode": "Zobraziť lobby kód",
 			"obs_overlay": "OBS prekrytie prehliadača",
-			"obs_url": "OBS URL zdroja prehliadača",
+			"obs_url": "OBS zdroj URL",
 			"voice_server_comp": "Režim kompatibility HS",
-			"voice_server_comp_warning": "Odporúča sa napríklad iba zmeniť hlasový server na hlasový server Bettercrewlink (https://bettercrewl.ink)."
+			"voice_server_comp_warning": "Odporúča sa iba zmeniť hlasový server na Bettercrewlink (https://bettercrewl.ink)."
 		},
 		"troubleshooting": {
 			"title": "Riešenie problémov",
@@ -110,5 +112,5 @@
 		"error_admin": "Nepodarilo sa pripojiť k Among Us.\n Prosím, znovu otvor BetterCrewLink ako administrátor.",
 		"error_unsupport": "Tvoja verzia Among Us nie je BetterCrewLinkom podporovaná."
 	},
-	"translator": "KaldonM"
+	"translator_name": "KaldonM"
 }
