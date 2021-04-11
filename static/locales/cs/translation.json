@@ -20,8 +20,9 @@
 			"ghost_only_warning": "Toto vypne zvuk pro živé hráče.",
 			"ghost_only_warning2": "Pouze mrtví můžou mluvit je povolena.",
 			"meetings_only": "Pouze při meetindzích a v lobby",
-			"meetings_only_warning": "Toto zakáže zvuk pro živé hráče mimo meetingy",
-			"meetings_only_warning2": "Mluvení pouze při meetindzích povolena."
+			"meetings_only_warning": "Živí hráči se uslyší pouze při meetindzích.",
+			"meetings_only_warning2": "Mluvení pouze při meetindzích povolena.",
+			"impostor_radio": "Impostoři mají vysílačky"
 		},
 		"audio": {
 			"title": "Zvuk",
@@ -32,21 +33,22 @@
 			"push_to_mute": "Push To Mute",
 			"microphone_volume": "Hlasitost mikrofonu",
 			"microphone_sens": "Sensitivita mikrofonu",
-			"microphone_sens_warning": "Pokuď nastavíte citlivost níže, mikrofon nemusí fungovat",
-			"crewvolume": "Hlasitost živých když jsi duch",
+			"microphone_sens_warning": "Pokuď nastavíte citlivost níže, mikrofon nemusí fungovat.",
 			"mastervolume": "Hlavní hlasitost",
+			"crewvolume": "Hlasitost živých když jsi duch",
 			"test_speaker_start": "Zkusit mikrofon",
 			"test_speaker_stop": "Zastavit zkoušku mikrofonu"
 		},
 		"keyboard": {
-			"title": "Zkratky klávesnice",
+			"title": "Klávesové zkratky",
 			"push_to_talk": "Push to talk",
+			"mute": "Ztlumit mikrofon",
 			"deafen": "Ztlumit zvuk",
-			"mute": "Ztlumit mikrofon"
+			"impostor_radio": "Impostoři mají vysílačky"
 		},
 		"overlay": {
 			"title": "Pekrytí",
-			"always_on_top": "Crewlink vždy na vrchu",
+			"always_on_top": "BetterCrewLink bude vždy nad aplikacemi",
 			"enabled": "Povolit překrytí",
 			"compact": "Kompaktní překrytí",
 			"meeting": "Překrytí při meetindzích",
@@ -56,19 +58,19 @@
 				"top": "Navrchu uprostřed",
 				"bottom": "Dole vlevo",
 				"right": "Vpravo",
-				"right1": "Vpravo v pozadí",
+				"right1": "Vpravo s pozadím",
 				"left": "Vlevo",
-				"left1": "Vlevo v pozadí"
+				"left1": "Vlevo s pozadím"
 			}
 		},
 		"advanced": {
 			"title": "Pokročilé",
 			"nat_fix": "NAT Fix",
-			"nat_fix_warning": "Toto vyřeší problém NAT ale přidá zpoždění, protože komunikace používá server a né p2p",
+			"nat_fix_warning": "Toto vyřeší problém NAT ale přidá zpoždění, protože komunikace používá server a né Peer to Peer komunikaci (P2P).",
 			"change_server": "Změnit hlasový server",
 			"voice_server": "Hlasový server",
 			"invalid_url": "Neplatná URL",
-			"voice_server_warning": "Tato možnost je určena pouze pro pokročilé uživatele. Ostatní servery mohou ukrást vaše informace nebo shodit CrewLink.",
+			"voice_server_warning": "Tato možnost je určena pouze pro pokročilé uživatele. Ostatní servery mohou ukrást vaše osobní informace nebo shodit BetterCrewLink.",
 			"reset_default": "Obnovit výchozí nastavení"
 		},
 		"beta": {
@@ -81,12 +83,12 @@
 			"spatial_audio": "Prostorový zvuk"
 		},
 		"streaming": {
-			"title": "Nastavení streamování",
+			"title": "Nastavení pro streamování",
 			"hidecode": "Zobrazit kód lobby",
 			"obs_overlay": "OBS Browser Overlay",
-			"obs_url": "OBS browsersource url",
+			"obs_url": "OBS Browsersource URL",
 			"voice_server_comp": "Kompatabilita zvukového servru",
-			"voice_server_comp_warning": "Doporučujeme pouze změnit hlasový server na bettercrewlink voice server https://bettercrewl.ink."
+			"voice_server_comp_warning": "Doporučujeme pouze změnit hlasový server na BetterCrewLink Voice Server (např: https://bettercrewl.ink.)."
 		},
 		"troubleshooting": {
 			"title": "Řešení problémů",
@@ -107,8 +109,8 @@
 		"open_error": "Spusťte hru ručně. \n(toto tlačítko je pouze pro stream)",
 		"waiting": "Čekání na Among Us",
 		"error": "CHYBA",
-		"error_admin": "Nelze se připojit k Among Us.\n Prosím znovu otevřete CrewLink jako správce.",
-		"error_unsupport": "Tvá verze Among Us není podporována Crewlinkem."
+		"error_admin": "Nelze se připojit k Among Us.\nProsím znovu otevřete BetterCrewLink jako správce.",
+		"error_unsupport": "Tvá verze Among Us není podporována BetterCrewlinkem."
 	},
-	"translator": "Tiquis#2659"
+	"translator_name": "Tiquis#2659"
 }

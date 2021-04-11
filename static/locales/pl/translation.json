@@ -10,18 +10,19 @@
 			"voicedistance": "Odległość głosu",
 			"voicedistance_impostor": "Odległość głosu Impostora",
 			"wallsblockaudio": "Ściany blokują dźwięk",
-			"visiononly": "Dźwiek ludzi, którzy są tylko w wizji",
+			"visiononly": "Słysz tylko widocznych ludzi",
 			"impostorshearsghost": "Impostorzy słyszą martwych",
-			"hear_imposters_invents": "Słuchaj Impostorów w wentylacjach",
-			"private_talk_invents": "Prywatne rozmowy w wentylacji",
+			"hear_imposters_invents": "Słysz Impostorów w ventach",
+			"private_talk_invents": "Prywatne rozmowy w ventach",
 			"comms_sabotage_audio": "Sabotaż kommunikacji wyłącza czat głosowy",
-			"hear_through_cameras": "Dźwięk przez kamery",
+			"hear_through_cameras": "Słysz przez kamery",
 			"ghost_only": "Czat głosowy dostępny tylko dla duchów",
 			"ghost_only_warning": "To wyłącza dźwięk dla żywych graczy.",
 			"ghost_only_warning2": "Tylko duchy mogą mówić: włączone.",
-			"meetings_only": "Czat głosowy włączony tylko w spotkaniach/poczekalni",
-			"meetings_only_warning": "To ustawienie wyłącza czat głosowy dla graczy, którzy nie są w spotkaniu",
-			"meetings_only_warning2": "Czat głosowy jest włączony tylko na spotkaniach."
+			"meetings_only": "Czat głosowy włączony tylko podczas spotkań i w poczekalni",
+			"meetings_only_warning": "This disables the sound for alive players outside meetings.",
+			"meetings_only_warning2": "Czat głosowy jest włączony tylko na spotkaniach.",
+			"impostor_radio": "Radio dla impostorów"
 		},
 		"audio": {
 			"title": "Dźwięk",
@@ -32,23 +33,24 @@
 			"push_to_mute": "Naciśnij by się wyciszyć",
 			"microphone_volume": "Głośność mikrofonu",
 			"microphone_sens": "Czułość mikrofonu",
-			"microphone_sens_warning": "Jeśli ustawisz czułość niżej, mikrofon może nie działać",
-			"crewvolume": "Głośność żywych jako duch",
-			"mastervolume": "Głośność ogólna",
-			"test_speaker_start": "Przetestuj dźwięk",
+			"microphone_sens_warning": "If you set the sensitivity any lower it might not work.",
+			"mastervolume": "Głośność główna",
+			"crewvolume": "Głośność żywych graczy dla duchów",
+			"test_speaker_start": "Test Speaker",
 			"test_speaker_stop": "Zatrzymaj test dźwięku"
 		},
 		"keyboard": {
-			"title": "Skróty klawiszowe",
+			"title": "Keyboard Shortcuts",
 			"push_to_talk": "Naciśnij by mówić",
+			"mute": "Wycisz mikrofon",
 			"deafen": "Wycisz dźwięk",
-			"mute": "Wycisz mikrofon"
+			"impostor_radio": "Radio dla impostorów"
 		},
 		"overlay": {
 			"title": "Nakładka",
-			"always_on_top": "Crewlink na wierzchu",
+			"always_on_top": "BetterCrewLink na wierzchu",
 			"enabled": "Włącz nakładkę",
-			"compact": "Kompaktowa nakładka",
+			"compact": "Schowaj nakładkę",
 			"meeting": "Nakładka na spotkania",
 			"pos": "Pozycja nakładki",
 			"locations": {
@@ -56,20 +58,20 @@
 				"top": "Środek góra",
 				"bottom": "Lewy dolny róg",
 				"right": "Prawo",
-				"right1": "Prawo w tle",
+				"right1": "Right with Background",
 				"left": "Lewo",
-				"left1": "Lewo w tle"
+				"left1": "Left with Background"
 			}
 		},
 		"advanced": {
 			"title": "Zaawansowane",
 			"nat_fix": "NAT Fix",
-			"nat_fix_warning": "To naprawi problemy z NAT, ale spowoduje opóźnienie, ponieważ używa serwera zamiast p2p",
+			"nat_fix_warning": "This will FIX the NAT issues but will add a delay since it is using a server instead of Peer to Peer (P2P).",
 			"change_server": "Zmień serwer głosowy",
 			"voice_server": "Serwer głosowy",
 			"invalid_url": "Nieprawidłowy adres URL",
-			"voice_server_warning": "Ta opcja jest tylko dla zaawansowanych użytkowników. Inne serwery mogą ukraść twoje informacje lub spowodować awarię CrewLink.",
-			"reset_default": "Przywróć domyślne ustawienia"
+			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash BetterCrewLink.",
+			"reset_default": "Reset To Default"
 		},
 		"beta": {
 			"title": "BETA/DEBUG",
@@ -81,12 +83,12 @@
 			"spatial_audio": "Dźwięk przestrzenny"
 		},
 		"streaming": {
-			"title": "Ustawienia transmisji strumieniowej",
+			"title": "Streaming Settings",
 			"hidecode": "Pokaż kod poczekalni",
 			"obs_overlay": "Nakładka przeglądarki do OBS",
-			"obs_url": "Adres URL do nakładi OBS",
-			"voice_server_comp": "Tryb kompatybilnośći z serwerem głosowym",
-			"voice_server_comp_warning": "Zaleca się zamianę serwera głosowego na oficjalny serwer BetterCrewlink tzn. https://bettercrewl.ink"
+			"obs_url": "Adres URL pluginu Browsersource do OBS'a",
+			"voice_server_comp": "VS Compatibility Mode",
+			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
 		},
 		"troubleshooting": {
 			"title": "Rozwiązywanie problemów",
@@ -107,8 +109,8 @@
 		"open_error": "Uruchom grę ręcznie.\n(ten przycisk jest tylko dla użytkowników steam)",
 		"waiting": "Oczekiwanie na uruchomienie Among Us",
 		"error": "BŁĄD",
-		"error_admin": "Nie odnaleziono Among Us uruchomionego, jeżeli to błąd\nto spróbój ponownie otworzyć BetterCrewlink jako administrator.",
-		"error_unsupport": "Twoja wersja Among Us nie jest wspierana przez BetterCrewlink."
+		"error_admin": "Nie można połączyć się z Among Us.\nProszę otworzyć BetterCrewLink jako administrator.",
+		"error_unsupport": "BetterCrewLink nie wspiera twojej wersji Among Us."
 	},
-	"translator": "Nazwa tłumacza"
+	"translator_name": "Fixuuu and Hani Rouatbi"
 }
