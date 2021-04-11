@@ -17,7 +17,7 @@ import Errors from '../common/Errors';
 import { CameraLocation, MapType } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
 import { RainbowColorId } from '../renderer/cosmetics';
-import { TempFixOffsets } from './offsetStore';
+import { TempFixOffsets, TempFixOffsets2 } from './offsetStore';
 
 interface ValueType<T> {
 	read(buffer: BufferSource, offset: number): T;
@@ -376,8 +376,12 @@ export default class GameReader {
 		this.colorsInitialized = false;
 		console.log(innerNetClient);
 		if (innerNetClient === 0x2c6c278) {
-			// temp fix for older game until I added more sigs..
+			// temp fix for older game until I added more sigs.. // 
 			this.offsets = TempFixOffsets(this.offsets);
+		}
+		if (innerNetClient === 0x1c57f54) {
+			// temp fix for older game until I added more sigs.. // 12/9
+			this.offsets = TempFixOffsets2(this.offsets);
 		}
 		this.PlayerStruct = new Struct();
 		for (const member of this.offsets.player.struct) {
