@@ -560,7 +560,7 @@ export default class GameReader {
 		let x = this.readMemory<number>('float', data.objectPtr, positionOffsets[0]);
 		let y = this.readMemory<number>('float', data.objectPtr, positionOffsets[1]);
 		let bugged = false;
-		if (x === undefined || y === undefined) {
+		if (x === undefined || y === undefined || data.disconnected != 0) {
 			x = 9999;
 			y = 9999;
 			bugged = true;
@@ -585,7 +585,7 @@ export default class GameReader {
 			hatId: data.hat,
 			petId: data.pet,
 			skinId: data.skin,
-			disconnected: data.disconnected > 0,
+			disconnected: data.disconnected != 0,
 			isImpostor: data.impostor == 1,
 			isDead: data.dead == 1,
 			taskPtr: data.taskPtr,
