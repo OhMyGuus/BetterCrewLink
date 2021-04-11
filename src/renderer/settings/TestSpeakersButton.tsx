@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // @ts-ignore
-import chime from '../../../static/chime.mp3';
+import chime from '../../../static/sounds/chime.mp3';
 import { ExtendedAudioElement } from '../Voice';
 import Button from '@material-ui/core/Button';
 import makeStyles from '@material-ui/core/styles/makeStyles';

@@ -20,8 +20,9 @@
 			"ghost_only_warning": "Tio malebligas paroladon de vivantoj.",
 			"ghost_only_warning2": "Parolebleco nur por fantomoj estas ŝaltita.",
 			"meetings_only": "Nur renkontiĝe/atendeje",
-			"meetings_only_warning": "Tio malebligas paroladon de vivantoj ekster renkontiĝoj",
-			"meetings_only_warning2": "Parolebleco nur renkontiĝe/atendeje estas ŝaltita."
+			"meetings_only_warning": "Tio malebligas paroladon de vivantoj ekster renkontiĝoj.",
+			"meetings_only_warning2": "Parolebleco nur renkontiĝe/atendeje estas ŝaltita.",
+			"impostor_radio": "Trompista radio"
 		},
 		"audio": {
 			"title": "Sonoj",
@@ -32,21 +33,22 @@
 			"push_to_mute": "Mutiĝo ĉe premo",
 			"microphone_volume": "Mikrofona laŭto",
 			"microphone_sens": "Mikrofona sentiveco",
-			"microphone_sens_warning": "Se vi plu malgrandigos la sentivecon, eble okazos problemoj",
-			"crewvolume": "Laŭto fantome",
+			"microphone_sens_warning": "Se vi plu malgrandigos la sentivecon, eble okazos problemoj.",
 			"mastervolume": "Ĝenerala laŭto",
+			"crewvolume": "Laŭto fantome",
 			"test_speaker_start": "Testi la laŭtparolilon",
 			"test_speaker_stop": "Ĉesi testi la laŭtparolilon"
 		},
 		"keyboard": {
 			"title": "Fulmoklavoj",
 			"push_to_talk": "Parolado ĉe premo",
+			"mute": "Mutiĝi",
 			"deafen": "Surdiĝi",
-			"mute": "Mutiĝi"
+			"impostor_radio": "Trompista radio"
 		},
 		"overlay": {
 			"title": "Plustavolo",
-			"always_on_top": "Resti antaŭe",
+			"always_on_top": "BetterCrewLink supre",
 			"enabled": "Ebligi plustavolon",
 			"compact": "Kompaktigi la plustavolon",
 			"meeting": "Renkontiĝa plustavolo",
@@ -56,19 +58,19 @@
 				"top": "Supre centre",
 				"bottom": "Malsupre maldekstre",
 				"right": "Dekstre",
-				"right1": "Dekstre fone",
+				"right1": "Dekstre, kun fono",
 				"left": "Maldekstre",
-				"left1": "Maldekstre fone"
+				"left1": "Maldekstre, kun fono"
 			}
 		},
 		"advanced": {
 			"title": "Alio",
 			"nat_fix": "Riparo de TALR",
-			"nat_fix_warning": "Tio riparos problemojn pri TALR, sed aperos malfruiĝoj, ĉar konekto estos perservila anstataŭ senpera",
+			"nat_fix_warning": "Tio riparos problemojn pri TALR, sed aperos malfruiĝoj, ĉar konekto estos perservila anstataŭ senpera.",
 			"change_server": "Ŝanĝi voĉservilon",
 			"voice_server": "Voĉservilo",
 			"invalid_url": "Malĝusta retadreso",
-			"voice_server_warning": "Tiu ĉi agordo evitindas por nespertuloj. Aliaj serviloj povas provi ŝteli viajn informojn aŭ misfunkciigi CrewLink.",
+			"voice_server_warning": "Tiu ĉi agordo evitindas por nespertuloj. Aliaj serviloj povas provi ŝteli viajn informojn aŭ misfunkciigi BetterCrewLink.",
 			"reset_default": "Redefaŭltigi"
 		},
 		"beta": {
@@ -86,7 +88,7 @@
 			"obs_overlay": "Plustavolo de foliumilo de OBS",
 			"obs_url": "Fonta retadreso de foliumilo de OBS",
 			"voice_server_comp": "Reĝimo de voĉservila kongruo",
-			"voice_server_comp_warning": "Ni rekomendas nur ŝanĝi la voĉservilon al ekz. la voĉservilo de bettercrewlink: https://bettercrewl.ink"
+			"voice_server_comp_warning": "Ni rekomendas nur ŝanĝi la voĉservilon al ekz. la voĉservilo de BetterCrewLink (https://bettercrewl.ink)."
 		},
 		"troubleshooting": {
 			"title": "Problemsolvado",
@@ -107,8 +109,8 @@
 		"open_error": "Komenci la ludon mane. \n(ĉi-butono estas nur por dissendado)",
 		"waiting": "Atendado de la ludo",
 		"error": "ERARO",
-		"error_admin": "Ne eblis konektiĝi al Trompisto.\nBonvolu remalfermi CrewLink kiel administranto.",
-		"error_unsupport": "Vian version de Trompisto ne subtenas Crewlink."
+		"error_admin": "Ne povis konekti al Among Us.\nBonvolu remalfermi je BetterCrewLink kiel administranto.",
+		"error_unsupport": "BetterCrewLink ne subtenas vian version de Among Us."
 	},
-	"translator": "Ajno, Jano Miĥalako"
+	"translator_name": "Ajno, Jano Miĥalako"
 }

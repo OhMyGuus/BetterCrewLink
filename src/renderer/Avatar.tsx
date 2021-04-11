@@ -6,8 +6,8 @@ import MicOff from '@material-ui/icons/MicOff';
 import VolumeOff from '@material-ui/icons/VolumeOff';
 import WifiOff from '@material-ui/icons/WifiOff';
 import LinkOff from '@material-ui/icons/LinkOff';
-import ErrorOutline from '@material-ui/icons/ErrorOutline';
-
+import ErrorOutline from '@material-ui/icons/ErrorOutline'; //@ts-ignore
+import RadioSVG from '../../static/radio.svg';
 // import Tooltip from '@material-ui/core/Tooltip';
 import Tooltip from 'react-tooltip-lite';
 import { SocketConfig } from '../common/ISettings';
@@ -41,6 +41,7 @@ export interface CanvasProps {
 	borderColor: string;
 	color: number;
 	overflow: boolean;
+	usingRadio: boolean | undefined;
 }
 
 export interface AvatarProps {
@@ -57,6 +58,7 @@ export interface AvatarProps {
 	showHat?: boolean;
 	lookLeft?: boolean;
 	overflow?: boolean;
+	isUsingRadio?: boolean;
 	onConfigChange?: () => void;
 }
 
@@ -72,6 +74,7 @@ const Avatar: React.FC<AvatarProps> = function ({
 	socketConfig,
 	showborder,
 	showHat,
+	isUsingRadio,
 	lookLeft = false,
 	overflow = false,
 	onConfigChange,
@@ -142,6 +145,7 @@ const Avatar: React.FC<AvatarProps> = function ({
 				borderColor={talking ? borderColor : showborder === true ? '#ccbdcc86' : 'transparent'}
 				size={size}
 				overflow={overflow}
+				usingRadio={isUsingRadio}
 			/>
 			{icon}
 		</Tooltip>
@@ -193,9 +197,19 @@ const useCanvasStyles = makeStyles(() => ({
 		width: '100%',
 		paddingBottom: '100%',
 	},
+	radio: {
+		position: 'absolute',
+		left: '70%',
+		top: '80%',
+		width: '30px',
+		transform: 'translate(-50%, -50%)',
+		fill: 'white',
+		padding: 2,
+		zIndex: 12,
+	},
 }));
 
-function Canvas({ hat, skin, isAlive, lookLeft, size, borderColor, color, overflow }: CanvasProps) {
+function Canvas({ hat, skin, isAlive, lookLeft, size, borderColor, color, overflow, usingRadio }: CanvasProps) {
 	const hatImg = useRef<HTMLImageElement>(null);
 	const skinImg = useRef<HTMLImageElement>(null);
 	const image = useRef<HTMLImageElement>(null);
@@ -239,7 +253,7 @@ function Canvas({ hat, skin, isAlive, lookLeft, size, borderColor, color, overfl
 
 					<img
 						src={getCosmetic(color, isAlive, cosmeticType.skin, skin)}
-						style={{top: skin === 17? '0%' : undefined}}
+						style={{ top: skin === 17 ? '0%' : undefined }}
 						ref={skinImg}
 						className={classes.skin}
 						onError={onerror}
@@ -262,6 +276,7 @@ function Canvas({ hat, skin, isAlive, lookLeft, size, borderColor, color, overfl
 						onError={onerror}
 					/>
 				)}
+				{usingRadio && <img src={RadioSVG} className={classes.radio} />}
 			</div>
 		</>
 	);
