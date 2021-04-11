@@ -45,7 +45,7 @@ jobs:
         uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'windows-latest'}}
         with:
-          name: BetterCrewLink unpacked 64bit 
+          name: BetterCrewLink Unpacked 64bit 
           path: 'dist/win-unpacked'
           
       - name: Upload Unpacked 32bit
