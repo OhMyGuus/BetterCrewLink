@@ -25,7 +25,10 @@ import SupportLink from './SupportLink';
 import Divider from '@material-ui/core/Divider';
 import { validateClientPeerConfig } from './validateClientPeerConfig';
 // @ts-ignore
-import reverbOgx from 'arraybuffer-loader!../../static/reverb.ogx';
+import reverbOgx from 'arraybuffer-loader!../../static/sounds/reverb.ogx'; // @ts-ignore
+import radioBeep1 from '../../static/sounds/radio_beep1.wav';// @ts-ignore
+import radioBeep2 from '../../static/sounds/radio_beep2.wav';
+
 import { CameraLocation, AmongUsMaps } from '../common/AmongusMap';
 import Store from 'electron-store';
 import { ObsVoiceState } from '../common/ObsOverlay';
@@ -187,6 +190,13 @@ const defaultlocalLobbySettings: ILobbySettings = {
 	meetingGhostOnly: false,
 	visionHearing: false,
 };
+const radiobeepAudio1 = new Audio();
+radiobeepAudio1.src = radioBeep1;
+radiobeepAudio1.volume = 0.2;
+
+const radiobeepAudio2 = new Audio();
+radiobeepAudio2.src = radioBeep2;
+radiobeepAudio2.volume = 0.2;
 
 const store = new Store<ISettings>();
 const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceProps) {
@@ -278,8 +288,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 			case GameState.TASKS:
 				endGain = 1;
-				
-			
 
 				if (lobbySettings.meetingGhostOnly) {
 					endGain = 0;
@@ -303,9 +311,14 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					collided = true;
 				}
 
-				if(me.isImpostor && other.isImpostor && lobbySettings.impostorRadioEnabled && other.clientId === ImpostorRadioClientId.current){
+				if (
+					me.isImpostor &&
+					other.isImpostor &&
+					lobbySettings.impostorRadioEnabled &&
+					other.clientId === ImpostorRadioClientId.current
+				) {
 					skipDistanceCheck = true;
-					muffle.type = "highpass";
+					muffle.type = 'highpass';
 					muffle.frequency.value = 1000;
 					muffle.Q.value = 10;
 					muffleEnabled = true;
@@ -415,7 +428,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			muffle.Q.value = isOnCamera ? -15 : 20;
 			if (endGain === 1) endGain = isOnCamera ? 0.8 : 0.5; // Too loud at 1
 		} else {
-			if (audio.muffleConnected &&  !muffleEnabled) {
+			if (audio.muffleConnected && !muffleEnabled) {
 				audio.muffleConnected = false;
 				restoreEffect(gain, muffle, destination, other);
 			}
@@ -787,17 +800,22 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				});
 
 				ipcRenderer.on(IpcRendererMessages.IMPOSTOR_RADIO, (_: unknown, pressing: boolean) => {
-					if (!myPlayer?.isImpostor) {
+					console.log(pressing);
+					if (
+						!myPlayer ||
+						!myPlayer?.isImpostor ||
+						!(ImpostorRadioClientId.current === myPlayer.clientId || ImpostorRadioClientId.current === -1)
+					) {
 						return;
 					}
+					(pressing ? radiobeepAudio1 : radiobeepAudio2).play();
+
 					connectionStuff.current.impostorRadio = pressing;
+					ImpostorRadioClientId.current = pressing ? myPlayer.clientId : -1;
 					for (let player of otherPlayers.filter((o) => o.isImpostor)) {
 						const peer = playerSocketIdsRef.current[player.clientId];
 						const connection = peerConnections[peer];
 						connection?.send(JSON.stringify({ impostorRadio: connectionStuff.current.impostorRadio }));
-					}
-					if (ImpostorRadioClientId.current === myPlayer.clientId || ImpostorRadioClientId.current === -1) {
-						ImpostorRadioClientId.current = pressing ? myPlayer.clientId : -1;
 					}
 				});
 
