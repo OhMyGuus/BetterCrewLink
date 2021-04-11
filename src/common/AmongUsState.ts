@@ -76,6 +76,7 @@ export interface VoiceState {
 	otherDead: OtherDead;
 	socketClients: SocketClientMap;
 	audioConnected: AudioConnected;
+	impostorRadioClientId: number;
 	localTalking: boolean;
 	localIsAlive: boolean;
 	muted: boolean;

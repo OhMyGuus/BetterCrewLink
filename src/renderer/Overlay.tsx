@@ -169,8 +169,15 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 				}
 				return a.id - b.id;
 			});
+			
 		return playerss;
 	}, [gameState.players]);
+
+	// const myPLayer = useMemo(() => {
+	// 	if (!gameState.players) return null;
+	// 	return gameState.players.find(o => o.isLocal && (!o.disconnected || !o.bugged))
+	// }, [gameState.players]);
+
 
 	players?.forEach((player) => {
 		if (!voiceState.otherTalking[player.clientId] && !(player.isLocal && voiceState.localTalking) && compactOverlay) {
@@ -197,6 +204,7 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 						connectionState={'connected'}
 						talking={talking}
 						borderColor="#2ecc71"
+						isUsingRadio={voiceState.impostorRadioClientId == player.clientId}
 						isAlive={!voiceState.otherDead[player.clientId] || (player.isLocal && !player.isDead)}
 						size={100}
 						lookLeft={!(positionParse === 'left' || positionParse === 'bottom_left')}
