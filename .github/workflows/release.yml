@@ -29,28 +29,28 @@ jobs:
         if: steps.node-cache.outputs.cache-hit != 'true'
         run: yarn install  --cache-folder .yarn --network-timeout 100000
         
-      - name: Build app
+      - name: Build App
         run: yarn run ${{ matrix.dist }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload installer
+      - name: Upload Installer
         uses: actions/upload-artifact@v2
         with:
-          name: Better-Crewlink installer ${{ runner.os }}
+          name: BetterCrewLink Installer ${{ runner.os }}
           path: ${{ matrix.installer }}
           if-no-files-found: error
           
-      - name: Upload unpacked 64bit
+      - name: Upload Unpacked 64bit
         uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'windows-latest'}}
         with:
-          name: Better-Crewlink unpacked 64bit 
+          name: BetterCrewLink Unpacked 64bit 
           path: 'dist/win-unpacked'
           
-      - name: Upload unpacked 32bit
+      - name: Upload Unpacked 32bit
         uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'windows-latest'}}
         with:
-          name: Better-Crewlink unpacked 32bit 
+          name: BetterCrewLink Unpacked 32bit 
           path: 'dist/win-ia32-unpacked'

@@ -35,7 +35,7 @@ artifacts:
     name: Unpacked
     type: auto
   - path: 'dist/Better-CrewLink Setup*.exe'
-    name: installer
+    name: Installer
     type: auto
   - path: 'dist/Better-CrewLink-*.AppImage'
     name: Linux AppImage
