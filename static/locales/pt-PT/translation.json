@@ -6,7 +6,7 @@
 		"lobbysettings": {
 			"title": "Definições do Lobby",
 			"gamehostonly": "Apenas o Anfitrião pode alterar isto!",
-			"inlobbyonly": "Disponível apenas no lobby!",
+			"inlobbyonly": "Disponível apenas no Lobby!",
 			"voicedistance": "Distância da Voz",
 			"voicedistance_impostor": "Distância da Voz do Impostor",
 			"wallsblockaudio": "Paredes Bloqueiam o Áudio",
@@ -18,10 +18,11 @@
 			"hear_through_cameras": "Ouvir Através das Câmaras",
 			"ghost_only": "Apenas os Fantasmas Podem Falar/Ouvir",
 			"ghost_only_warning": "Isto desativa o som dos jogadores vivos.",
-			"ghost_only_warning2": "Apenas os fantasmas poderem falar está ativo.",
+			"ghost_only_warning2": "Apenas os fantasmas podem falar.",
 			"meetings_only": "Apenas nas Reuniões/Lobby",
 			"meetings_only_warning": "Isto desativa o som dos jogadores vivos fora das reuniões de emergência.",
-			"meetings_only_warning2": "Falar apenas nas reuniões de emergência está ativo."
+			"meetings_only_warning2": "Apenas se pode falar apenas nas reuniões de emergência.",
+			"impostor_radio": "Rádio do Impostor"
 		},
 		"audio": {
 			"title": "Áudio",
@@ -32,8 +33,8 @@
 			"push_to_mute": "Pressionar Para Silenciar",
 			"microphone_volume": "Volume do Microfone",
 			"microphone_sens": "Sensibilidade do Microfone",
-			"microphone_sens_warning": "Ao baixar muito a sensibilidade, o microfone pode não funcionar",
-			"crewvolume": "Volume da Tripulação como Fantasma",
+			"microphone_sens_warning": "Ao baixar demasiado a sensibilidade, o microfone pode não funcionar.",
+			"crewvolume": "Volume dos Tripulantes como Fantasma",
             		"mastervolume": "Volume Principal",
             		"test_speaker_start" : "Teste de Altifalante",
             		"test_speaker_stop": "Terminar o Teste"
@@ -43,17 +44,18 @@
 			"title": "Atalhos de Teclado",
 			"push_to_talk": "Pressionar Para Falar",
 			"deafen": "Desligar Áudio",
-			"mute": "Desligar Microfone"
+			"mute": "Desligar Microfone",
+			"impostor_radio": "Rádio do Impostor"
 		},
 		"overlay": {
 			"title": "Sobreposição",
-			"always_on_top": "Sobrepôr BetterCrewLink",
+			"always_on_top": "BetterCrewLink no Topo",
 			"enabled": "Ativar a Sobreposição",
-			"compact": "Sobreposição Compacta",
-			"meeting": "Sobreposição nas Reuniões",
+			"compact": "Modo Compacto",
+			"meeting": "Sobrepôr em Reuniões",
 			"pos": "Posição da Sobreposição",
 			"locations": {
-				"hidden": "Escondida",
+				"hidden": "Oculta",
 				"top": "Centro Superior",
 				"bottom": "Inferior Esquerdo",
 				"right": "Direita",
@@ -65,12 +67,12 @@
 		"advanced": {
 			"title": "Avançado",
 			"nat_fix": "NAT Fix",
-			"nat_fix_warning": "Isto resolve problemas de NAT, mas adicionará um atraso por estar a usar um servidor em vez de P2P",
-			"change_server": "Alterar o Servidor de Voz",
+			"nat_fix_warning": "Esta opção resolve problemas de NAT, mas adicionará um atraso por estar a usar um servidor em vez de ligações Ponto a Ponto (P2P)",
+			"change_server": "Alterar Servidor de Voz",
 			"voice_server": "Servidor de Voz",
-			"invalid_url": "URL Inválido",
-			"voice_server_warning": "Esta opção é apenas para utilizadores avançados. Outros servidores podem roubar os seus dados ou causar erros no BetterCrewLink.",
-			"reset_default": "Repôr para a predefinição"
+			"invalid_url": "Link Inválido",
+			"voice_server_warning": "Esta opção é apenas para utilizadores avançados. Outros servidores podem obter os seus dados ou causar erros no BetterCrewLink.",
+			"reset_default": "Repôr predefinição"
 		},
 		"beta": {
 			"title": "BETA/DEBUG",
@@ -85,13 +87,13 @@
 			"title": "Definições de Streaming",
 			"hidecode": "Mostrar o Código do Lobby",
 			"obs_overlay": "Sobreposição do OBS",
-			"obs_url": "URL da Sobreposição do OBS",
-			"voice_server_comp": "Modo de compatibilidade do VS",
-			"voice_server_comp_warning": "É recomendado mudar o Servidor de Voz para o do BetterCrewLink (https://bettercrewl.ink)."
+			"obs_url": "Link da Sobreposição do OBS",
+			"voice_server_comp": "Modo de Compatibilidade com servidores Crewlink",
+			"voice_server_comp_warning": "É recomendado mudar para o Servidor de Voz predefinido do BetterCrewLink."
 		},
 		"troubleshooting": {
 			"title": "Resolução de Problemas",
-			"restore": "Restaurar para as Predefinições",
+			"restore": "Repôr Predefinições",
 			"restore_warning": "Isso irá repôr TODAS as definições para os valores predefinidos.",
 			"warning": "Opção indisponível como anfitrião do jogo!"
 		}
@@ -108,8 +110,8 @@
 		"open_error": "Inicie o jogo manualmente. \r\n(este botão é apenas para a versão Steam)",
 		"waiting": "À espera do Among Us",
 		"error": "ERRO",
-		"error_admin": "Não foi possível ligar ao Among Us.\n Abra novamente o BetterCrewLink como administrador.",
+		"error_admin": "Não foi possível ligar ao Among Us.\nAbra novamente o BetterCrewLink como administrador.",
 		"error_unsupport": "A versão do Among Us não é suportada pelo BetterCrewLink."
 	},
-	"translator": "vbtop"
+	"translator_name": "vbtop/vb-03"
 }
