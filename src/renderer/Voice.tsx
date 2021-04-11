@@ -784,12 +784,14 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 									? settingsRef.current.microphoneGain / 100
 									: 1;
 							}
+							connectionStuff.current.socket?.emit('VAD', true);
 							setTalking(true);
 						},
 						onVoiceStop: () => {
 							if (microphoneGain && settingsRef.current.micSensitivityEnabled) {
 								microphoneGain.gain.value = 0;
 							}
+							connectionStuff.current.socket?.emit('VAD', false);
 							setTalking(false);
 						},
 						noiseCaptureDuration: 0,
