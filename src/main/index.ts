@@ -32,7 +32,7 @@ global.mainWindow = null;
 global.overlay = null;
 
 app.commandLine.appendSwitch('disable-pinch');
-app.disableHardwareAcceleration();
+// app.disableHardwareAcceleration();
 if (platform() === 'linux') {
     app.disableHardwareAcceleration();
 }
