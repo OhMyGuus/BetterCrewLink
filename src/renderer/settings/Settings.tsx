@@ -103,6 +103,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	formLabel: {
+		width:'100%',
 		borderTop: '1px solid #313135',
 		marginRight: '0px',
 		// paddingBottom:'5px'
@@ -1140,19 +1141,16 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					}}
 				>
 					<FormControlLabel
-						className={classes.formLabel}
 						label={t('settings.audio.voice_activity')}
 						value={pushToTalkOptions.VOICE}
 						control={<Radio />}
 					/>
 					<FormControlLabel
-						className={classes.formLabel}
 						label={t('settings.audio.push_to_talk')}
 						value={pushToTalkOptions.PUSH_TO_TALK}
 						control={<Radio />}
 					/>
 					<FormControlLabel
-						className={classes.formLabel}
 						label={t('settings.audio.push_to_mute')}
 						value={pushToTalkOptions.PUSH_TO_MUTE}
 						control={<Radio />}
@@ -1448,7 +1446,6 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				<Typography variant="h6">{t('settings.advanced.title')}</Typography>
 				<div>
 					<FormControlLabel
-						className={classes.formLabel}
 						label={t('settings.advanced.nat_fix')}
 						checked={settings.natFix}
 						onChange={(_, checked: boolean) => {
