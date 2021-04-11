@@ -1,4 +1,4 @@
-[![GitHub Downloads][downloads-shield]][downloads-url] [![GitHub Latest Release][release-shield]][release-url] [![GPL-3.0 License][license-shield]][license-url] [![Appveyor Build][appveyor-shield]][appveyor-url] [![Support BetterCrewLink][paypal-shield]][paypal-url] [![Support BetterCrewLink][kofi-shield]][kofi-url] [![Discord Server][discord-shield]][discord-url] [![Contributors][contributors-shield]][contributors-url] [![Crowdin][crowdin-shield]][crowdin-url]
+[![GitHub Downloads][downloads-shield]][downloads-url] [![GitHub Latest Release][release-shield]][release-url] [![GPL-3.0 License][license-shield]][license-url] [![GitHub Actions Build][github_actions-shield]][github_actions-shield] [![Support BetterCrewLink][paypal-shield]][paypal-url] [![Support BetterCrewLink][kofi-shield]][kofi-url] [![Discord Server][discord-shield]][discord-url] [![Contributors][contributors-shield]][contributors-url] [![Crowdin][crowdin-shield]][crowdin-url]
 
 <br />
 <p align="center">
@@ -223,8 +223,8 @@ Distributed under the GNU General Public License v3.0. See <a href="https://gith
 [release-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/latest
 [license-shield]: https://img.shields.io/github/license/OhMyGuus/BetterCrewLink?label=License
 [license-url]: https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE
-[appveyor-shield]: https://img.shields.io/appveyor/build/OhMyGuus/bettercrewlink?logo=AppVeyor&label=Build%20(CI)
-[appveyor-url]: https://ci.appveyor.com/project/OhMyGuus/bettercrewlink
+[github_actions-shield]: https://img.shields.io/github/workflow/status/OhMyGuus/BetterCrewLink/Test%20build?logo=GitHub&label=Build%20(CI)
+[github_actions-url]: https://ci.appveyor.com/project/OhMyGuus/bettercrewlink
 [paypal-shield]: https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=PayPal
 [paypal-url]: https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ
 [kofi-shield]: https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=Ko-fi&logoColor=white
