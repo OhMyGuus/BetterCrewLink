@@ -11,7 +11,7 @@ jobs:
         include:
          - os: windows-latest
            dist: 'publish'
-           installer: 'dist/BetterCrewLink Setup*.exe'
+           installer: 'dist/Better-CrewLink Setup*.exe'
          - os: ubuntu-latest
            dist: 'publish:linux'
            installer: 'dist/Better-CrewLink-*.AppImage'
