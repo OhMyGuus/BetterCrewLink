@@ -1,4 +1,4 @@
-name: Test build
+name: BetterCrewLink Build
 
 on: [push, pull_request]
 
@@ -11,10 +11,10 @@ jobs:
         include:
          - os: windows-latest
            dist: 'dist'
-           installer: 'dist/Better-CrewLink Setup*.exe'
+           installer: 'dist/BetterCrewLink Setup*.exe'
          - os: ubuntu-latest
            dist: 'dist:linux'
-           installer: 'dist/Better-CrewLink-*.AppImage'
+           installer: 'dist/BetterCrewLink-*.AppImage'
 
 
     steps:
@@ -40,19 +40,19 @@ jobs:
         if: steps.node-cache.outputs.cache-hit != 'true'
         run: yarn install  --cache-folder .yarn --network-timeout 100000
         
-      - name: Build app
+      - name: Build App
         run: yarn run ${{ matrix.dist }} --publish never
      
-      - name: Upload installer
+      - name: Upload Installer
         uses: actions/upload-artifact@v2
         with:
-          name: Better-Crewlink installer ${{ runner.os }}
+          name: BetterCrewLink Installer ${{ runner.os }}
           path: ${{ matrix.installer }}
           if-no-files-found: error
           
-      - name: Upload unpacked
+      - name: Upload Unpacked
         uses: actions/upload-artifact@v2
         if: ${{ matrix.os == 'windows-latest'}}
         with:
-          name: Better-Crewlink unpacked 64bit 
+          name: BetterCrewLink Unpacked 64bit 
           path: 'dist/win-unpacked'
