@@ -112,7 +112,7 @@ const Avatar: React.FC<AvatarProps> = function ({
 					<b>{player?.name}</b>
 					<div className="slidecontainer" style={{ minWidth: '55px' }}>
 						<Slider
-							value={socketConfig?.volume || 1}
+							value={socketConfig?.volume ?? 1}
 							min={0}
 							max={2}
 							step={0.02}
