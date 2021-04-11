@@ -988,8 +988,9 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						}
 						if (parsedData.hasOwnProperty('maxDistance')) {
 							if (!hostRef.current || hostRef.current.hostId !== socketClientsRef.current[peer]?.clientId) return;
+
 							Object.keys(lobbySettings).forEach((field: string) => {
-								if (field in settings) {
+								if (field in parsedData) {
 									setLobbySettings({
 										type: 'setOne',
 										action: [field, parsedData[field]],
