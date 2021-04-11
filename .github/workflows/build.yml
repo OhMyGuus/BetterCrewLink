@@ -14,7 +14,7 @@ jobs:
            installer: 'dist/BetterCrewLink Setup*.exe'
          - os: ubuntu-latest
            dist: 'dist:linux'
-           installer: 'dist/BetterCrewLink-*.AppImage'
+           installer: 'dist/Better-CrewLink-*.AppImage'
 
 
     steps:
