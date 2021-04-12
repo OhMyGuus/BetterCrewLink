@@ -223,7 +223,7 @@ Distributed under the GNU General Public License v3.0. See <a href="https://gith
 [release-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/latest
 [license-shield]: https://img.shields.io/github/license/OhMyGuus/BetterCrewLink?label=License
 [license-url]: https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE
-[github_actions-shield]: https://img.shields.io/github/workflow/status/OhMyGuus/BetterCrewLink/BetterCrewLink%20Build?logo=GitHub&label=Build%20(CI)
+[github_actions-shield]: https://img.shields.io/github/workflow/status/OhMyGuus/BetterCrewLink/BetterCrewLink%20Build%20(CI)?logo=GitHub&label=Build%20(CI)
 [github_actions-url]: https://github.com/OhMyGuus/BetterCrewLink/actions
 [paypal-shield]: https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=PayPal
 [paypal-url]: https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ
