@@ -111,7 +111,7 @@ echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 
 The Linux version is thanks to the following contributors:
 
-- [TheGreatMcPain](https://github.com/TheGreatMcPain) -> CrewLink fork, Keyboard watcher fork, memoryjs fork
+- [TheGreatMcPain](https://github.com/TheGreatMcPain) -> CrewLink fork, Keyboard watcher fork, Memoryjs fork
 - [zbanks](https://github.com/zbanks) -> Memoryjs fork
 - [Donokami](https://github.com/Donokami) -> Testing and helping  
 
