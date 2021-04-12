@@ -1,4 +1,4 @@
-[![GitHub Downloads][downloads-shield]][downloads-url] [![GitHub Latest Release][release-shield]][release-url] [![GPL-3.0 License][license-shield]][license-url] [![GitHub Actions Build][github_actions-shield]][github_actions-url] [![Support BetterCrewLink][paypal-shield]][paypal-url] [![Support BetterCrewLink][kofi-shield]][kofi-url] [![Discord Server][discord-shield]][discord-url] [![Contributors][contributors-shield]][contributors-url] [![Crowdin][crowdin-shield]][crowdin-url]
+[![GitHub Downloads][downloads-shield]][downloads-url] [![GitHub Latest Release][release-shield]][release-url] [![GPL-3.0 License][license-shield]][license-url] [![GitHub Actions Build][github_actions-shield]][github_actions-url] [![BetterCrewLink Voice Server Status][status-shield]][status-url] [![BetterCrewLink Voice Server Uptime][uptime-shield]][uptime-url] [![Support BetterCrewLink][paypal-shield]][paypal-url] [![Support BetterCrewLink][kofi-shield]][kofi-url] [![Discord Server][discord-shield]][discord-url] [![Contributors][contributors-shield]][contributors-url] [![Crowdin][crowdin-shield]][crowdin-url]
 
 <br />
 <p align="center">
@@ -225,6 +225,10 @@ Distributed under the GNU General Public License v3.0. See <a href="https://gith
 [license-url]: https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE
 [github_actions-shield]: https://img.shields.io/github/workflow/status/OhMyGuus/BetterCrewLink/BetterCrewLink%20Build%20(CI)?logo=GitHub&label=Build%20(CI)
 [github_actions-url]: https://github.com/OhMyGuus/BetterCrewLink/actions
+[status-shield]: https://img.shields.io/nodeping/status/d05ourk4-xif3-4x57-83ro-59qr0yr5j33l?down_message=Offline&label=Status&up_message=Online
+[status-url]: https://bettercrewl.ink/
+[uptime-shield]: https://img.shields.io/nodeping/uptime/d05ourk4-xif3-4x57-83ro-59qr0yr5j33l?label=Uptime
+[uptime-url]: https://bettercrewl.ink/
 [paypal-shield]: https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=PayPal
 [paypal-url]: https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ
 [kofi-shield]: https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=Ko-fi&logoColor=white
