@@ -8,11 +8,11 @@
 			"gamehostonly": "Te nastavitve lahko spreminja samo gostitelj!",
 			"inlobbyonly": "To lahko spreminjate samo v čakalnici!",
 			"voicedistance": "Domet sluha",
-			"voicedistance_impostor": "Sleparjev domet sluha",
+			"voicedistance_impostor": "Vsiljivčev domet sluha",
 			"wallsblockaudio": "Zidovi omejijo sluh",
 			"visiononly": "Slišite lahko samo ljudi v vašem vidnem polju",
-			"impostorshearsghost": "Slepar sliši duhove",
-			"hear_imposters_invents": "Sleparja v jašku se sliši",
+			"impostorshearsghost": "Vsiljivec sliši duhove",
+			"hear_imposters_invents": "Vsiljivca v jašku se sliši",
 			"private_talk_invents": "Zasebni pogovori v jaških",
 			"comms_sabotage_audio": "Sabotaža komunikacij onemogoči pogovore",
 			"hear_through_cameras": "Kamere prenašajo zvok",
@@ -22,7 +22,7 @@
 			"meetings_only": "Samo na sestankih/v čakalnici",
 			"meetings_only_warning": "Ta možnost onemogoči pogovor za žive igralce, ko ti niso na sestanku.",
 			"meetings_only_warning2": "Omogočen je samo pogovor med sestankom.",
-			"impostor_radio": "Sleparjev oddajnik"
+			"impostor_radio": "Vsiljivčev oddajnik"
 		},
 		"audio": {
 			"title": "Zvok",
@@ -44,7 +44,7 @@
 			"push_to_talk": "Tipka za govor",
 			"mute": "Utišan",
 			"deafen": "Oglušen",
-			"impostor_radio": "Sleparjev oddajnik"
+			"impostor_radio": "Vsiljivčev oddajnik"
 		},
 		"overlay": {
 			"title": "Prikaz govorca",
