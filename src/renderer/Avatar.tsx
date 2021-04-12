@@ -12,6 +12,8 @@ import RadioSVG from '../../static/radio.svg';
 import Tooltip from 'react-tooltip-lite';
 import { SocketConfig } from '../common/ISettings';
 import Slider from '@material-ui/core/Slider';
+import VolumeUp from '@material-ui/icons/VolumeUp';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles(() => ({
 	canvas: {
@@ -25,6 +27,15 @@ const useStyles = makeStyles(() => ({
 		top: '50%',
 		transform: 'translate(-50%, -50%)',
 		border: '2px solid #690a00',
+		borderRadius: '50%',
+		padding: 2,
+		zIndex: 10,
+	},
+	iconNoBackground: {
+		position: 'absolute',
+		left: '50%',
+		top: '50%',
+		transform: 'translate(-50%, -50%)',
 		borderRadius: '50%',
 		padding: 2,
 		zIndex: 10,
@@ -124,12 +135,26 @@ const Avatar: React.FC<AvatarProps> = function ({
 			/>
 
 	if (socketConfig) {
+		let muteButtonIcon;
+		if (socketConfig.isMuted) {
+			muteButtonIcon = <VolumeOff color='primary' className={classes.iconNoBackground}></VolumeOff>
+		} else {
+			muteButtonIcon = <VolumeUp color='primary' className={classes.iconNoBackground}></VolumeUp>
+		}
+		
 		return (
 			<Tooltip
 				content={
 					<div>
 						<b>{player.name}</b>
 						<div className={classes.slidecontainer}>
+							<IconButton
+								onClick={() => {
+									socketConfig.isMuted = !socketConfig.isMuted;
+								}}
+							>
+								{muteButtonIcon}
+							</IconButton>
 							<Slider
 								value={socketConfig.volume}
 								min={0}

@@ -50,6 +50,7 @@ export interface ILobbySettings {
 
 export interface SocketConfig {
 	volume: number;
+	isMuted: boolean;
 }
 
 export interface playerConfigMap {

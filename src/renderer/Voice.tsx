@@ -1139,6 +1139,10 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					gain = 0;
 				}
 
+				if (playerConfigs[player.nameHash]?.isMuted) {
+					gain = 0;
+				}
+
 				if (gain > 0) {
 					const playerVolume = playerConfigs[player.nameHash]?.volume;
 					gain = playerVolume === undefined ? gain : gain * playerVolume;
@@ -1166,11 +1170,13 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		return otherPlayers;
 	}, [gameState]);
 
+	// TODO: FIXME: Investigate - This doesn't seem to be triggering when a player joins the lobby.
+	// If that can be changed/fixed we can remove the assignment on line 1330
 	useEffect(() => {
 		if (!gameState.players) return;
 		for (const player of gameState.players) {
 			if (playerConfigs[player.nameHash] === undefined) {
-				playerConfigs[player.nameHash] = { volume: 1 };
+				playerConfigs[player.nameHash] = { volume: 1, isMuted: false }; 
 			}
 		}
 	}, [gameState?.players?.length]); /* move the the other gamestate hooks */
@@ -1321,7 +1327,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					const connected = socketClients[peer]?.clientId === player.clientId || false;
 					const audio = audioConnected[peer];
 					
-					if (!playerConfigs[player.nameHash]) { playerConfigs[player.nameHash] = {volume: 1}; }
+					if (!playerConfigs[player.nameHash]) { playerConfigs[player.nameHash] = { volume: 1, isMuted: false }; }
 					const socketConfig = playerConfigs[player.nameHash];
 
 					return (
