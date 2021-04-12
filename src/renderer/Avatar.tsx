@@ -149,7 +149,7 @@ const Avatar: React.FC<AvatarProps> = function ({
 		);
 	} else {
 		return (
-			<div>
+			<div style={{position: "relative"}}>
 				{canvas}
 				{icon}
 			</div>
