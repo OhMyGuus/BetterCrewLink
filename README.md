@@ -127,8 +127,6 @@ Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#
 
 An iOS/macOS version is still being developed and will be released soon but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
 
-[![BetterCrewLink Play Store](https://img.favpng.com/17/18/1/iphone-app-store-android-png-favpng-xstGhDYKKXdWTq8CDjcQeqgXw.jpg)]("BetterCrewLink on Play Store")
-
 <!-- DEVELOPMENT -->
 ## Development
 
