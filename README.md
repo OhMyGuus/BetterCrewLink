@@ -98,6 +98,8 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 
 Download the latest version from [releases](https://github.com/OhMyGuus/BetterCrewLink/releases/latest) and run the `BetterCrewLink-Setup-X.X.X.exe` file. You may get antivirus warnings, because this program hooks into the Among Us process to read game data.
 
+[![Setup Video](https://img.youtube.com/vi/_8F4f5iQEIc/0.jpg)](https://www.youtube.com/watch?v=_8F4f5iQEIc "BetterCrewLink Setup Instructions")
+
 ### Linux
 
 To install & run it on Linux run the following commands:
@@ -119,14 +121,13 @@ The Linux version is thanks to the following contributors:
 
 Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#installation) in BetterCrewlink-mobile to see how to install the Android/Chromebook version. (requires a PC player)
 
+[![BetterCrewLink Play Store](https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0)](https://play.google.com/store/apps/details?id=io.bettercrewlink.app "BetterCrewLink on Play Store")
+
 ### iOS & macOS
 
 An iOS/macOS version is still being developed and will be released soon but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
 
-<!-- SETUP INSTRUCTIONS -->
-### Setup Instructions (click)
-
-[![Setup Video](https://img.youtube.com/vi/_8F4f5iQEIc/0.jpg)](https://www.youtube.com/watch?v=_8F4f5iQEIc "CrewLink Setup Instructions")
+[![BetterCrewLink Play Store](https://img.favpng.com/17/18/1/iphone-app-store-android-png-favpng-xstGhDYKKXdWTq8CDjcQeqgXw.jpg)]("BetterCrewLink on Play Store")
 
 <!-- DEVELOPMENT -->
 ## Development
