@@ -1,4 +1,4 @@
-[![GitHub Downloads][downloads-shield]][downloads-url] [![GitHub Latest Release][release-shield]][release-url] [![GPL-3.0 License][license-shield]][license-url] [![GitHub Actions Build][github_actions-shield]][github_actions-url] [![Support BetterCrewLink][paypal-shield]][paypal-url] [![Support BetterCrewLink][kofi-shield]][kofi-url] [![Discord Server][discord-shield]][discord-url] [![Contributors][contributors-shield]][contributors-url] [![Crowdin][crowdin-shield]][crowdin-url]
+[![GitHub Downloads][downloads-shield]][downloads-url] [![GitHub Latest Release][release-shield]][release-url] [![GPL-3.0 License][license-shield]][license-url] [![GitHub Actions Build][github_actions-shield]][github_actions-url] [![BetterCrewLink Voice Server Status][status-shield]][status-url] [![BetterCrewLink Voice Server Uptime][uptime-shield]][uptime-url] [![Support BetterCrewLink][paypal-shield]][paypal-url] [![Support BetterCrewLink][kofi-shield]][kofi-url] [![Discord Server][discord-shield]][discord-url] [![Contributors][contributors-shield]][contributors-url] [![Crowdin][crowdin-shield]][crowdin-url]
 
 <br />
 <p align="center">
@@ -98,6 +98,8 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 
 Download the latest version from [releases](https://github.com/OhMyGuus/BetterCrewLink/releases/latest) and run the `BetterCrewLink-Setup-X.X.X.exe` file. You may get antivirus warnings, because this program hooks into the Among Us process to read game data.
 
+[![Setup Video](https://img.youtube.com/vi/_8F4f5iQEIc/0.jpg)](https://www.youtube.com/watch?v=_8F4f5iQEIc "BetterCrewLink Setup Instructions")
+
 ### Linux
 
 To install & run it on Linux run the following commands:
@@ -111,7 +113,7 @@ echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 
 The Linux version is thanks to the following contributors:
 
-- [TheGreatMcPain](https://github.com/TheGreatMcPain) -> CrewLink fork, Keyboard watcher fork, memoryjs fork
+- [TheGreatMcPain](https://github.com/TheGreatMcPain) -> CrewLink fork, Keyboard watcher fork, Memoryjs fork
 - [zbanks](https://github.com/zbanks) -> Memoryjs fork
 - [Donokami](https://github.com/Donokami) -> Testing and helping  
 
@@ -119,14 +121,11 @@ The Linux version is thanks to the following contributors:
 
 Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#installation) in BetterCrewlink-mobile to see how to install the Android/Chromebook version. (requires a PC player)
 
+[![BetterCrewLink Play Store](https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0)](https://play.google.com/store/apps/details?id=io.bettercrewlink.app "BetterCrewLink on Play Store")
+
 ### iOS & macOS
 
 An iOS/macOS version is still being developed and will be released soon but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
-
-<!-- SETUP INSTRUCTIONS -->
-### Setup Instructions (click)
-
-[![Setup Video](https://img.youtube.com/vi/_8F4f5iQEIc/0.jpg)](https://www.youtube.com/watch?v=_8F4f5iQEIc "CrewLink Setup Instructions")
 
 <!-- DEVELOPMENT -->
 ## Development
@@ -219,12 +218,16 @@ Distributed under the GNU General Public License v3.0. See <a href="https://gith
 
 [downloads-shield]: https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/total?logo=GitHub&label=Downloads
 [downloads-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/
-[release-shield]: https://img.shields.io/github/v/release/OhMyGuus/BetterCrewLink?logo=GitHub&color=easteregg&label=Release
+[release-shield]: https://img.shields.io/github/v/release/OhMyGuus/BetterCrewLink?logo=GitHub&color=success&label=Release
 [release-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/latest
 [license-shield]: https://img.shields.io/github/license/OhMyGuus/BetterCrewLink?label=License
 [license-url]: https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE
 [github_actions-shield]: https://img.shields.io/github/workflow/status/OhMyGuus/BetterCrewLink/BetterCrewLink%20Build%20(CI)?logo=GitHub&label=Build%20(CI)
 [github_actions-url]: https://github.com/OhMyGuus/BetterCrewLink/actions
+[status-shield]: https://img.shields.io/nodeping/status/d05ourk4-xif3-4x57-83ro-59qr0yr5j33l?down_message=Offline&label=Status&up_message=Online
+[status-url]: https://bettercrewl.ink/
+[uptime-shield]: https://img.shields.io/nodeping/uptime/d05ourk4-xif3-4x57-83ro-59qr0yr5j33l?label=Uptime
+[uptime-url]: https://bettercrewl.ink/
 [paypal-shield]: https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=PayPal
 [paypal-url]: https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ
 [kofi-shield]: https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=Ko-fi&logoColor=white
