@@ -29,6 +29,12 @@ const useStyles = makeStyles(() => ({
 		padding: 2,
 		zIndex: 10,
 	},
+	relative: {
+		position: 'relative',
+	},
+	slidecontainer: {
+		minWidth: '55px',
+	},
 }));
 
 export interface CanvasProps {
@@ -103,7 +109,7 @@ const Avatar: React.FC<AvatarProps> = function ({
 	if (player.bugged) {
 		icon = <ErrorOutline className={classes.icon} style={{ background: 'red', borderColor: '' }} />;
 	}
-	
+
 	const canvas = <Canvas
 				className={classes.canvas}
 				color={player.colorId}
@@ -116,14 +122,14 @@ const Avatar: React.FC<AvatarProps> = function ({
 				overflow={overflow}
 				usingRadio={isUsingRadio}
 			/>
-			
+
 	if (socketConfig) {
 		return (
 			<Tooltip
 				content={
 					<div>
 						<b>{player.name}</b>
-						<div className="slidecontainer" style={{ minWidth: '55px' }}>
+						<div className={classes.slidecontainer}>
 							<Slider
 								value={socketConfig.volume}
 								min={0}
@@ -149,7 +155,7 @@ const Avatar: React.FC<AvatarProps> = function ({
 		);
 	} else {
 		return (
-			<div style={{position: "relative"}}>
+			<div className={classes.relative}>
 				{canvas}
 				{icon}
 			</div>
