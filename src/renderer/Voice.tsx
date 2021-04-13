@@ -1170,17 +1170,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		return otherPlayers;
 	}, [gameState]);
 
-	// TODO: FIXME: Investigate - This doesn't seem to be triggering when a player joins the lobby.
-	// If that can be changed/fixed we can remove the assignment on line 1330
-	useEffect(() => {
-		if (!gameState.players) return;
-		for (const player of gameState.players) {
-			if (playerConfigs[player.nameHash] === undefined) {
-				playerConfigs[player.nameHash] = { volume: 1, isMuted: false }; 
-			}
-		}
-	}, [gameState?.players?.length]); /* move the the other gamestate hooks */
-
+	
 	// Connect to P2P negotiator, when lobby and connect code change
 	useEffect(() => {
 		if (connect?.connect) {
