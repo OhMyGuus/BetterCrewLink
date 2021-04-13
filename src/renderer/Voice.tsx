@@ -249,7 +249,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		const partySize =Object.keys(socketClientsRef.current).length + 1;
 
 		dRPC.current.rpc.setActivity({
-			details: 'BetterCrewLink v2.4.5',
+			details: 'Better-Crewlink v2.4.5',
 			state: GameStateToString(hostRef.current.gamestate),
 			startTimestamp: new Date(),
 			largeImageKey: 'logo512',
