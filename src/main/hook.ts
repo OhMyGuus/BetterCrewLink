@@ -11,7 +11,7 @@ const store = new Store<ISettings>();
 
 const currentPlayerConfigMap = store.get('playerConfigMap', {});
 const playerConfigMapLength = Object.keys(currentPlayerConfigMap).length;
-console.log('CONFIG: ', playerConfigMapLength);
+console.log('CONFIG count: ', playerConfigMapLength);
 if (playerConfigMapLength > 50) {
 	store.set('playerConfigMap', {});
 }
@@ -57,7 +57,7 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 			if (keyCodeMatches(pushToTalkShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, true);
 			}
-			if(keyCodeMatches(impostorRadioShortcut!, keyId)){
+			if (keyCodeMatches(impostorRadioShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, true);
 			}
 		});
@@ -72,7 +72,7 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 			if (keyCodeMatches(muteShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.TOGGLE_MUTE);
 			}
-			if(keyCodeMatches(impostorRadioShortcut!, keyId)){
+			if (keyCodeMatches(impostorRadioShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, false);
 			}
 		});
@@ -108,7 +108,6 @@ ipcMain.on('reload', async () => {
 	global.mainWindow?.reload();
 	//	global.overlay?.reload();
 });
-
 
 // GenerateAvatars().then(() => console.log("done generate")).catch((e) => console.error(e));
 
@@ -164,7 +163,6 @@ const keycodeMap = {
 type K = keyof typeof keycodeMap;
 
 function keyCodeMatches(key: K, keyId: number): boolean {
-	console.log(key);
 	if (keycodeMap[key]) return keycodeMap[key] === keyId;
 	else if (key && key.length === 1) return key.charCodeAt(0) === keyId;
 	else {

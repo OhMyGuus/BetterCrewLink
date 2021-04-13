@@ -464,7 +464,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		// 	hostRef.current.gamestate !== GameState.MENU,
 		// 	hostRef.current.gamestate !== GameState.UNKNOWN
 		// );
-		console.log('notifyMobilePlayers');
 		if (
 			settingsRef.current.mobileHost &&
 			hostRef.current.gamestate !== GameState.MENU &&
@@ -693,7 +692,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		(pressing ? radiobeepAudio1 : radiobeepAudio2).play();
 		connectionStuff.current.impostorRadio = pressing;
 		impostorRadioClientId.current = pressing ? myPlayer.clientId : -1;
-		for (let player of otherPlayers.filter((o) => o.isImpostor)) {
+		for (const player of otherPlayers.filter((o) => o.isImpostor)) {
 			const peer = playerSocketIdsRef.current[player.clientId];
 			const connection = peerConnections[peer];
 			if (connection !== undefined)
@@ -1156,11 +1155,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			if (audio) {
 				handledPeerIds.push(peerId);
 				let gain = calculateVoiceAudio(gameState, settingsRef.current, myPlayer, player, audio);
-				if (connectionStuff.current.deafened) {
-					gain = 0;
-				}
-
-				if (playerConfigs[player.nameHash]?.isMuted) {
+				if (connectionStuff.current.deafened || playerConfigs[player.nameHash]?.isMuted) {
 					gain = 0;
 				}
 
@@ -1179,7 +1174,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		if ((!foundRadioUser && impostorRadioClientId.current !== myPlayer.clientId) || !myPlayer.isImpostor) {
 			impostorRadioClientId.current = -1;
 		}
-		console.log(impostorRadioClientId.current);
 		for (const peerId in Object.keys(audioElements.current).filter((e) => !handledPeerIds.includes(e))) {
 			const audio = audioElements.current[peerId];
 			if (audio && audio.gain) {

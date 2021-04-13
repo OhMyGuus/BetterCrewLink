@@ -72,7 +72,7 @@ export interface numberStringMap {
 
 export interface VoiceState {
 	otherTalking: OtherTalking;
-	playerSocketIds: numberStringMap
+	playerSocketIds: numberStringMap;
 	otherDead: OtherDead;
 	socketClients: SocketClientMap;
 	audioConnected: AudioConnected;

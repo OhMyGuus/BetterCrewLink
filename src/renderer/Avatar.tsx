@@ -63,7 +63,7 @@ export interface CanvasProps {
 	color: number;
 	overflow: boolean;
 	usingRadio: boolean | undefined;
-	onClick?: (() => any);
+	onClick?: () => void;
 }
 
 export interface AvatarProps {

@@ -63,16 +63,13 @@ async function colorImage(playerColors: string[][], image: string, imagename: st
 }
 
 export async function GenerateAvatars(colors: string[][]) {
-	console.log("Generating avatars..",`${app.getPath('userData')}/static/generated/` );
+	console.log('Generating avatars..', `${app.getPath('userData')}/static/generated/`);
 	try {
 		await colorImage(colors, ghostBase, 'ghost');
 		await colorImage(colors, playerBase, 'player');
 		await colorImage(colors, kidBase, '90');
 		await colorImage(colors, balloonBase, '77');
-	}
-	catch (exception) {
-		console.log("error while generating the avatars..", exception);
+	} catch (exception) {
+		console.log('error while generating the avatars..', exception);
 	}
 }
-
-
