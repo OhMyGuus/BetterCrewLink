@@ -34,8 +34,11 @@
 
 - To get the most of BetterCrewLink use the voice server: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
 
-</p>
-<a href="https://discord.gg/qDqTzvj4SH"> <img src="https://i.imgur.com/XpnBhTW.png" width="150px" /> </a>
+<div>
+  <a target="_blank" href="https://discord.gg/qDqTzvj4SH" title="Join our Discord!">
+    <img height="75px" draggable="false" src="https://discordapp.com/api/guilds/791516611143270410/widget.png?style=banner2" alt="Join our Discord!">
+  </a>
+</div>
 
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
