@@ -153,7 +153,6 @@ const Avatar: React.FC<AvatarProps> = function ({
 						<Grid container spacing={0} className={classes.slidecontainer}>
 							<Grid item>
 								<IconButton
-									style={{ width: '2px' }}
 									onClick={() => {
 										socketConfig.isMuted = !socketConfig.isMuted;
 									}}
