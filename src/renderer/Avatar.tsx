@@ -29,6 +29,12 @@ const useStyles = makeStyles(() => ({
 		padding: 2,
 		zIndex: 10,
 	},
+	relative: {
+		position: 'relative',
+	},
+	slidecontainer: {
+		minWidth: '55px',
+	},
 }));
 
 export interface CanvasProps {
@@ -104,38 +110,7 @@ const Avatar: React.FC<AvatarProps> = function ({
 		icon = <ErrorOutline className={classes.icon} style={{ background: 'red', borderColor: '' }} />;
 	}
 
-	return (
-		<Tooltip
-			useHover={!player.isLocal}
-			content={
-				<div>
-					<b>{player?.name}</b>
-					<div className="slidecontainer" style={{ minWidth: '55px' }}>
-						<Slider
-							value={socketConfig?.volume ?? 1}
-							min={0}
-							max={2}
-							step={0.02}
-							onChange={(_, newValue: number | number[]) => {
-								if (socketConfig) {
-									socketConfig.volume = newValue as number;
-								}
-							}}
-							valueLabelDisplay={'auto'}
-							valueLabelFormat={(value) => Math.floor(value * 100) + '%'}
-							onMouseLeave={() => {
-								console.log('onmouseleave');
-								if (onConfigChange) {
-									onConfigChange();
-								}
-							}}
-						/>
-					</div>{' '}
-				</div>
-			}
-			padding={5}
-		>
-			<Canvas
+	const canvas = <Canvas
 				className={classes.canvas}
 				color={player.colorId}
 				hat={showHat === false ? -1 : player.hatId}
@@ -147,9 +122,45 @@ const Avatar: React.FC<AvatarProps> = function ({
 				overflow={overflow}
 				usingRadio={isUsingRadio}
 			/>
-			{icon}
-		</Tooltip>
-	);
+
+	if (socketConfig) {
+		return (
+			<Tooltip
+				content={
+					<div>
+						<b>{player.name}</b>
+						<div className={classes.slidecontainer}>
+							<Slider
+								value={socketConfig.volume}
+								min={0}
+								max={2}
+								step={0.02}
+								onChange={(_, newValue: number | number[]) => {socketConfig.volume = newValue as number}}
+								valueLabelDisplay={'auto'}
+								valueLabelFormat={(value) => Math.floor(value * 100) + '%'}
+								onMouseLeave={() => {
+									if (onConfigChange) {
+										onConfigChange();
+									}
+								}}
+							/>
+						</div>{' '}
+					</div>
+				}
+				padding={5}
+			>
+				{canvas}
+				{icon}
+			</Tooltip>
+		);
+	} else {
+		return (
+			<div className={classes.relative}>
+				{canvas}
+				{icon}
+			</div>
+		);
+	}
 };
 
 interface UseCanvasStylesParams {

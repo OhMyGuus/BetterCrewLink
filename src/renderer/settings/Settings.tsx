@@ -308,10 +308,18 @@ const store = new Store<ISettings>({
 			type: 'boolean',
 			default: true,
 		},
-
 		playerConfigMap: {
 			type: 'object',
 			default: {},
+			additionalProperties: {
+				type: 'object',
+				properties: {
+					volume: {
+						type: 'number',
+						default: 1
+					}
+				}	
+			}
 		},
 		localLobbySettings: {
 			type: 'object',

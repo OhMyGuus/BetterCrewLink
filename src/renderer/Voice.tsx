@@ -1320,7 +1320,10 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					const peer = playerSocketIdsRef.current[player.clientId];
 					const connected = socketClients[peer]?.clientId === player.clientId || false;
 					const audio = audioConnected[peer];
+					
+					if (!playerConfigs[player.nameHash]) { playerConfigs[player.nameHash] = {volume: 1}; }
 					const socketConfig = playerConfigs[player.nameHash];
+
 					return (
 						<Grid item key={player.id} xs={getPlayersPerRow(otherPlayers.length)}>
 							<Avatar
@@ -1332,7 +1335,9 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 								isUsingRadio={myPlayer?.isImpostor && impostorRadioClientId.current === player.clientId}
 								size={50}
 								socketConfig={socketConfig}
-								onConfigChange={() => store.set(`playerConfigMap.${player.nameHash}`, playerConfigs[player.nameHash])}
+								onConfigChange={() => {
+									store.set(`playerConfigMap.${player.nameHash}`, playerConfigs[player.nameHash]);
+								}}
 							/>
 						</Grid>
 					);
