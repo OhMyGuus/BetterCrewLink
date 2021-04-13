@@ -316,10 +316,14 @@ const store = new Store<ISettings>({
 				properties: {
 					volume: {
 						type: 'number',
-						default: 1
-					}
-				}	
-			}
+						default: 1,
+					},
+					isMuted: {
+						type: 'boolean',
+						default: false,
+					},
+				},	
+			},
 		},
 		localLobbySettings: {
 			type: 'object',

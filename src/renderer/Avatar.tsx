@@ -12,6 +12,9 @@ import RadioSVG from '../../static/radio.svg';
 import Tooltip from 'react-tooltip-lite';
 import { SocketConfig } from '../common/ISettings';
 import Slider from '@material-ui/core/Slider';
+import VolumeUp from '@material-ui/icons/VolumeUp';
+import IconButton from '@material-ui/core/IconButton';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(() => ({
 	canvas: {
@@ -29,11 +32,23 @@ const useStyles = makeStyles(() => ({
 		padding: 2,
 		zIndex: 10,
 	},
+	iconNoBackground: {
+		position: 'absolute',
+		left: '50%',
+		top: '50%',
+		transform: 'translate(-50%, -50%)',
+		borderRadius: '50%',
+		padding: 2,
+		zIndex: 10,
+	},
 	relative: {
 		position: 'relative',
 	},
 	slidecontainer: {
-		minWidth: '55px',
+		minWidth: '80px',
+	},
+	innerTooltip: {
+		textAlign: 'center',
 	},
 }));
 
@@ -48,6 +63,7 @@ export interface CanvasProps {
 	color: number;
 	overflow: boolean;
 	usingRadio: boolean | undefined;
+	onClick?: (() => any);
 }
 
 export interface AvatarProps {
@@ -85,12 +101,9 @@ const Avatar: React.FC<AvatarProps> = function ({
 	overflow = false,
 	onConfigChange,
 }: AvatarProps) {
-	//const status = isAlive ? 'alive' : 'dead';
-	// let image = players[status][player.colorId];
-	// if (!image) image = players[status][0];
 	const classes = useStyles();
 	let icon;
-
+	deafened = deafened === true || socketConfig?.isMuted === true;
 	switch (connectionState) {
 		case 'connected':
 			if (deafened) {
@@ -109,42 +122,65 @@ const Avatar: React.FC<AvatarProps> = function ({
 	if (player.bugged) {
 		icon = <ErrorOutline className={classes.icon} style={{ background: 'red', borderColor: '' }} />;
 	}
-
-	const canvas = <Canvas
-				className={classes.canvas}
-				color={player.colorId}
-				hat={showHat === false ? -1 : player.hatId}
-				skin={player.skinId - 1}
-				isAlive={isAlive}
-				lookLeft={lookLeft === true}
-				borderColor={talking ? borderColor : showborder === true ? '#ccbdcc86' : 'transparent'}
-				size={size}
-				overflow={overflow}
-				usingRadio={isUsingRadio}
-			/>
+	const canvas = (
+		<Canvas
+			className={classes.canvas}
+			color={player.colorId}
+			hat={showHat === false ? -1 : player.hatId}
+			skin={player.skinId - 1}
+			isAlive={isAlive}
+			lookLeft={lookLeft === true}
+			borderColor={talking ? borderColor : showborder === true ? '#ccbdcc86' : 'transparent'}
+			size={size}
+			overflow={overflow}
+			usingRadio={isUsingRadio}
+		/>
+	);
 
 	if (socketConfig) {
+		let muteButtonIcon;
+		if (socketConfig.isMuted) {
+			muteButtonIcon = <VolumeOff color="primary" className={classes.iconNoBackground}></VolumeOff>;
+		} else {
+			muteButtonIcon = <VolumeUp color="primary" className={classes.iconNoBackground}></VolumeUp>;
+		}
 		return (
 			<Tooltip
+				mouseOutDelay={400}
 				content={
-					<div>
+					<div className={classes.innerTooltip}>
 						<b>{player.name}</b>
-						<div className={classes.slidecontainer}>
-							<Slider
-								value={socketConfig.volume}
-								min={0}
-								max={2}
-								step={0.02}
-								onChange={(_, newValue: number | number[]) => {socketConfig.volume = newValue as number}}
-								valueLabelDisplay={'auto'}
-								valueLabelFormat={(value) => Math.floor(value * 100) + '%'}
-								onMouseLeave={() => {
-									if (onConfigChange) {
-										onConfigChange();
-									}
-								}}
-							/>
-						</div>{' '}
+						<Grid container spacing={0} className={classes.slidecontainer}>
+							<Grid item>
+								<IconButton
+									style={{ width: '2px' }}
+									onClick={() => {
+										socketConfig.isMuted = !socketConfig.isMuted;
+									}}
+								>
+									{muteButtonIcon}
+								</IconButton>
+							</Grid>
+							<Grid item xs>
+								<Slider
+									value={socketConfig.volume}
+									min={0}
+									max={2}
+									step={0.02}
+									onChange={(_, newValue: number | number[]) => {
+										socketConfig.volume = newValue as number;
+									}}
+									valueLabelDisplay={'auto'}
+									valueLabelFormat={(value) => Math.floor(value * 100) + '%'}
+									onMouseLeave={() => {
+										if (onConfigChange) {
+											onConfigChange();
+										}
+									}}
+									aria-labelledby="continuous-slider"
+								/>
+							</Grid>
+						</Grid>
 					</div>
 				}
 				padding={5}
@@ -207,6 +243,7 @@ const useCanvasStyles = makeStyles(() => ({
 		transform: ({ lookLeft }: UseCanvasStylesParams) => (lookLeft ? 'scaleX(-1)' : 'scaleX(1)'),
 		width: '100%',
 		paddingBottom: '100%',
+		cursor: 'pointer',
 	},
 	radio: {
 		position: 'absolute',
@@ -220,7 +257,18 @@ const useCanvasStyles = makeStyles(() => ({
 	},
 }));
 
-function Canvas({ hat, skin, isAlive, lookLeft, size, borderColor, color, overflow, usingRadio }: CanvasProps) {
+function Canvas({
+	hat,
+	skin,
+	isAlive,
+	lookLeft,
+	size,
+	borderColor,
+	color,
+	overflow,
+	usingRadio,
+	onClick,
+}: CanvasProps) {
 	const hatImg = useRef<HTMLImageElement>(null);
 	const skinImg = useRef<HTMLImageElement>(null);
 	const image = useRef<HTMLImageElement>(null);
@@ -241,7 +289,7 @@ function Canvas({ hat, skin, isAlive, lookLeft, size, borderColor, color, overfl
 	};
 	return (
 		<>
-			<div className={classes.avatar}>
+			<div className={classes.avatar} onClick={onClick}>
 				<div
 					className={classes.avatar}
 					style={{

@@ -1139,6 +1139,10 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					gain = 0;
 				}
 
+				if (playerConfigs[player.nameHash]?.isMuted) {
+					gain = 0;
+				}
+
 				if (gain > 0) {
 					const playerVolume = playerConfigs[player.nameHash]?.volume;
 					gain = playerVolume === undefined ? gain : gain * playerVolume;
@@ -1166,15 +1170,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		return otherPlayers;
 	}, [gameState]);
 
-	useEffect(() => {
-		if (!gameState.players) return;
-		for (const player of gameState.players) {
-			if (playerConfigs[player.nameHash] === undefined) {
-				playerConfigs[player.nameHash] = { volume: 1 };
-			}
-		}
-	}, [gameState?.players?.length]); /* move the the other gamestate hooks */
-
+	
 	// Connect to P2P negotiator, when lobby and connect code change
 	useEffect(() => {
 		if (connect?.connect) {
@@ -1321,7 +1317,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					const connected = socketClients[peer]?.clientId === player.clientId || false;
 					const audio = audioConnected[peer];
 					
-					if (!playerConfigs[player.nameHash]) { playerConfigs[player.nameHash] = {volume: 1}; }
+					if (!playerConfigs[player.nameHash]) { playerConfigs[player.nameHash] = { volume: 1, isMuted: false }; }
 					const socketConfig = playerConfigs[player.nameHash];
 
 					return (
