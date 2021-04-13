@@ -51,15 +51,15 @@ export default class GameReader {
 	lastState: AmongUsState = {} as AmongUsState;
 	amongUs: ProcessObject | null = null;
 	gameAssembly: ModuleObject | null = null;
-	colorsInitialized: boolean = false;
-	rainbowColor: number = -9999;
+	colorsInitialized = false;
+	rainbowColor = -9999;
 	gameCode = 'MENU';
 
 	checkProcessOpen(): void {
 		const processesOpen = getProcesses().filter((p) => p.szExeFile === 'Among Us.exe');
 		let error = '';
 		if (!this.amongUs && processesOpen.length > 0) {
-			for (let processOpen of processesOpen) {
+			for (const processOpen of processesOpen) {
 				try {
 					this.amongUs = openProcess(processOpen.th32ProcessID);
 					this.gameAssembly = findModule('GameAssembly.dll', this.amongUs.th32ProcessID);
@@ -93,7 +93,13 @@ export default class GameReader {
 		} catch (e) {
 			return `Error with chcecking the process, ${e.toString()}`;
 		}
-		if (this.PlayerStruct && this.offsets && this.amongUs !== null && this.gameAssembly !== null) {
+		if (
+			this.PlayerStruct &&
+			this.offsets &&
+			this.amongUs !== null &&
+			this.gameAssembly !== null &&
+			this.offsets !== undefined
+		) {
 			this.loadColors();
 			let state = GameState.UNKNOWN;
 			const meetingHud = this.readMemory<number>('pointer', this.gameAssembly.modBaseAddr, this.offsets.meetingHud);
@@ -376,7 +382,7 @@ export default class GameReader {
 		this.colorsInitialized = false;
 		console.log('innerNetClient', innerNetClient);
 		if (innerNetClient === 0x2c6c278) {
-			// temp fix for older game until I added more sigs.. // 
+			// temp fix for older game until I added more sigs.. //
 			this.offsets = TempFixOffsets(this.offsets);
 		}
 		if (innerNetClient === 0x1c57f54) {

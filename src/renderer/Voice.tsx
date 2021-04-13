@@ -675,7 +675,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		(pressing ? radiobeepAudio1 : radiobeepAudio2).play();
 		connectionStuff.current.impostorRadio = pressing;
 		impostorRadioClientId.current = pressing ? myPlayer.clientId : -1;
-		for (let player of otherPlayers.filter((o) => o.isImpostor)) {
+		for (const player of otherPlayers.filter((o) => o.isImpostor)) {
 			const peer = playerSocketIdsRef.current[player.clientId];
 			const connection = peerConnections[peer];
 			if (connection !== undefined)
@@ -1164,7 +1164,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		return otherPlayers;
 	}, [gameState]);
 
-	
 	// Connect to P2P negotiator, when lobby and connect code change
 	useEffect(() => {
 		if (connect?.connect) {
@@ -1310,8 +1309,10 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					const peer = playerSocketIdsRef.current[player.clientId];
 					const connected = socketClients[peer]?.clientId === player.clientId || false;
 					const audio = audioConnected[peer];
-					
-					if (!playerConfigs[player.nameHash]) { playerConfigs[player.nameHash] = { volume: 1, isMuted: false }; }
+
+					if (!playerConfigs[player.nameHash]) {
+						playerConfigs[player.nameHash] = { volume: 1, isMuted: false };
+					}
 					const socketConfig = playerConfigs[player.nameHash];
 
 					return (

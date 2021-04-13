@@ -57,7 +57,7 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 			if (keyCodeMatches(pushToTalkShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, true);
 			}
-			if(keyCodeMatches(impostorRadioShortcut!, keyId)){
+			if (keyCodeMatches(impostorRadioShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, true);
 			}
 		});
@@ -72,7 +72,7 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 			if (keyCodeMatches(muteShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.TOGGLE_MUTE);
 			}
-			if(keyCodeMatches(impostorRadioShortcut!, keyId)){
+			if (keyCodeMatches(impostorRadioShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, false);
 			}
 		});
@@ -108,7 +108,6 @@ ipcMain.on('reload', async () => {
 	global.mainWindow?.reload();
 	//	global.overlay?.reload();
 });
-
 
 // GenerateAvatars().then(() => console.log("done generate")).catch((e) => console.error(e));
 

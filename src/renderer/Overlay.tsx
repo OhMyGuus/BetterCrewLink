@@ -169,7 +169,7 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 				}
 				return a.id - b.id;
 			});
-			
+
 		return playerss;
 	}, [gameState.players]);
 
@@ -177,7 +177,6 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 	// 	if (!gameState.players) return null;
 	// 	return gameState.players.find(o => o.isLocal && (!o.disconnected || !o.bugged))
 	// }, [gameState.players]);
-
 
 	players?.forEach((player) => {
 		if (!voiceState.otherTalking[player.clientId] && !(player.isLocal && voiceState.localTalking) && compactOverlay) {

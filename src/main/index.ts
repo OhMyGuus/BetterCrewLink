@@ -9,7 +9,7 @@ import { format as formatUrl } from 'url';
 import './hook';
 import { overlayWindow } from 'electron-overlay-window';
 import { initializeIpcHandlers, initializeIpcListeners } from './ipc-handlers';
-import { IpcRendererMessages, /*AutoUpdaterState*/ } from '../common/ipc-messages';
+import { IpcRendererMessages /*AutoUpdaterState*/ } from '../common/ipc-messages';
 import { ProgressInfo, UpdateInfo } from 'builder-util-runtime';
 import { protocol } from 'electron';
 
@@ -34,7 +34,7 @@ global.overlay = null;
 app.commandLine.appendSwitch('disable-pinch');
 // app.disableHardwareAcceleration();
 if (platform() === 'linux') {
-    app.disableHardwareAcceleration();
+	app.disableHardwareAcceleration();
 }
 
 function createMainWindow() {
@@ -132,7 +132,7 @@ function createOverlay() {
 		show: false,
 		transparent: true,
 		resizable: true,
-		focusable: false
+		focusable: false,
 
 		//	...overlayWindow.WINDOW_OPTS,
 	});
@@ -285,7 +285,7 @@ if (!gotTheLock) {
 	// create main BrowserWindow when electron is ready
 	app.whenReady().then(() => {
 		protocol.registerFileProtocol('static', (request, callback) => {
-			const pathname =  app.getPath('userData') + '/static/' + request.url.replace('static:///', '') 
+			const pathname = app.getPath('userData') + '/static/' + request.url.replace('static:///', '');
 			callback(pathname);
 		});
 

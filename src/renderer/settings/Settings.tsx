@@ -22,7 +22,7 @@ import Alert from '@material-ui/lab/Alert';
 import Slider from '@material-ui/core/Slider';
 import Tooltip from '@material-ui/core/Tooltip';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogTitle from '@material-ui/cor737:27e/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { GameState } from '../../common/AmongUsState';
@@ -103,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	formLabel: {
-		width:'100%',
+		width: '100%',
 		borderTop: '1px solid #313135',
 		marginRight: '0px',
 		// paddingBottom:'5px'
@@ -176,7 +176,7 @@ const store = new Store<ISettings>({
 			store.delete('pushToTalk');
 		},
 		'2.3.6': (store) => {
-			if ((store.get('serverURL') as String).includes('//crewl.ink')) store.set('serverURL', 'https://bettercrewl.ink');
+			if ((store.get('serverURL') as string).includes('//crewl.ink')) store.set('serverURL', 'https://bettercrewl.ink');
 		},
 		'2.4.0': (store) => {
 			const currentSensitivity = store.get('micSensitivity') as number;
@@ -322,7 +322,7 @@ const store = new Store<ISettings>({
 						type: 'boolean',
 						default: false,
 					},
-				},	
+				},
 			},
 		},
 		localLobbySettings: {
@@ -734,7 +734,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	const openWarningDialog = (
 		dialogTitle: string,
 		dialogDescription: string,
-		confirmCallback?: () => any,
+		confirmCallback?: () => void,
 		showDialog?: boolean
 	) => {
 		if (!showDialog) {
@@ -1369,7 +1369,6 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							}}
 						/>
 					</Grid>
-					
 				</Grid>
 
 				<Divider />
