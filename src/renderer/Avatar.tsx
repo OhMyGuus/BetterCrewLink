@@ -118,7 +118,6 @@ const Avatar: React.FC<AvatarProps> = function ({
 	if (player.bugged) {
 		icon = <ErrorOutline className={classes.icon} style={{ background: 'red', borderColor: '' }} />;
 	}
-
 	const canvas = (
 		<Canvas
 			className={classes.canvas}
@@ -141,7 +140,6 @@ const Avatar: React.FC<AvatarProps> = function ({
 		} else {
 			muteButtonIcon = <VolumeUp color="primary" className={classes.iconNoBackground}></VolumeUp>;
 		}
-
 		return (
 			<Tooltip
 				content={
