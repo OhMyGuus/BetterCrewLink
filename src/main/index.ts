@@ -27,6 +27,8 @@ declare global {
 		}
 	}
 }
+
+
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 global.mainWindow = null;
 global.overlay = null;

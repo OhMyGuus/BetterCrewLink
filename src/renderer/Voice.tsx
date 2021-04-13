@@ -33,12 +33,12 @@ import { CameraLocation, AmongUsMaps } from '../common/AmongusMap';
 import Store from 'electron-store';
 import { ObsVoiceState } from '../common/ObsOverlay';
 // import { poseCollide } from '../common/ColliderMap';
-import { numberStringMap } from '../common/AmongUsState';
+import { numberStringMap, GameStateToString } from '../common/AmongUsState';
 import adapter from 'webrtc-adapter';
 import { VADOptions } from './vad';
 import { pushToTalkOptions } from './settings/Settings';
 import { poseCollide } from '../common/ColliderMap';
-
+import DiscordRPC from 'discord-rpc';
 console.log(adapter.browserDetails.browser);
 
 export interface ExtendedAudioElement extends HTMLAudioElement {
@@ -238,6 +238,31 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	const [deafenedState, setDeafened] = useState(false);
 	const [mutedState, setMuted] = useState(false);
 	const [connected, setConnected] = useState(false);
+	const dRPC = useRef({ rpc: DiscordRPC.Client });
+
+	function setActivity() {
+		console.log('SetActivity');
+
+		if (!dRPC.current.rpc) {
+			return;
+		}
+		const partySize =Object.keys(socketClientsRef.current).length + 1;
+
+		dRPC.current.rpc.setActivity({
+			details: 'Better-Crewlink 2.4.5',
+			state: GameStateToString(hostRef.current.gamestate),
+			startTimestamp: new Date(),
+			largeImageKey: 'logo512',
+			largeImageText: 'https://BetterCrewlink.app',
+			instance: true,
+			partySize,
+			partyMax: 10,
+			partyId: 'fkdmsdkdms',
+			matchSecret: 'ddsdffsd',
+			joinSecret: 'aasdasdasd',
+		});
+		console.log('SetActivity');
+	}
 
 	function applyEffect(gain: AudioNode, effectNode: AudioNode, destination: AudioNode, player: Player) {
 		try {
@@ -598,6 +623,27 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			});
 		}
 	}, [gameState]);
+
+	useEffect(() => {
+		console.log('Discordxx');
+		DiscordRPC.register('831566875820425256');
+
+		dRPC.current.rpc = new DiscordRPC.Client({
+			transport: 'ipc',
+		});
+
+		dRPC.current?.rpc!.on('ready', () => {
+			setActivity();
+			// activity can only be set every 15 seconds
+			setInterval(() => {
+				setActivity();
+			}, 15e3);
+		});
+
+		dRPC.current!.rpc!.login({
+			clientId: '831566875820425256',
+		});
+	}, []);
 
 	// Add settings to settingsRef
 	useEffect(() => {
@@ -1094,6 +1140,13 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	}, [gameState.players]);
 
 	const otherPlayers = useMemo(() => {
+		hostRef.current = {
+			mobileRunning: hostRef.current.mobileRunning,
+			gamestate: gameState.gameState,
+			code: gameState.lobbyCode,
+			hostId: gameState.hostId,
+			isHost: gameState.isHost,
+		};
 		let otherPlayers: Player[];
 		if (!gameState || !gameState.players || !myPlayer) return [];
 		else otherPlayers = gameState.players.filter((p) => !p.isLocal);
@@ -1105,13 +1158,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		if (maxDistanceRef.current <= 0.6) {
 			maxDistanceRef.current = 1;
 		}
-		hostRef.current = {
-			mobileRunning: hostRef.current.mobileRunning,
-			gamestate: gameState.gameState,
-			code: gameState.lobbyCode,
-			hostId: gameState.hostId,
-			isHost: gameState.isHost,
-		};
 		const playerSocketIds: numberStringMap = {};
 		for (const k of Object.keys(socketClients)) {
 			playerSocketIds[socketClients[k].clientId] = k;

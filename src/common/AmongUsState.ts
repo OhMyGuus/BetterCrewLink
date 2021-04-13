@@ -82,3 +82,19 @@ export interface VoiceState {
 	muted: boolean;
 	deafened: boolean;
 }
+
+export function GameStateToString(state: GameState) {
+	switch (state) {
+		case GameState.MENU:
+			return 'MENU';
+		case GameState.LOBBY:
+			return 'LOBBY';
+		case GameState.TASKS:
+			return 'TASKS';
+		case GameState.DISCUSSION:
+			return 'DISCUSSION';
+
+		case GameState.UNKNOWN:
+			return '>_<';
+	}
+}
