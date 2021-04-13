@@ -14,6 +14,7 @@ import { SocketConfig } from '../common/ISettings';
 import Slider from '@material-ui/core/Slider';
 import VolumeUp from '@material-ui/icons/VolumeUp';
 import IconButton from '@material-ui/core/IconButton';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(() => ({
 	canvas: {
@@ -44,7 +45,7 @@ const useStyles = makeStyles(() => ({
 		position: 'relative',
 	},
 	slidecontainer: {
-		minWidth: '55px',
+		minWidth: '80px',
 	},
 }));
 
@@ -96,9 +97,6 @@ const Avatar: React.FC<AvatarProps> = function ({
 	overflow = false,
 	onConfigChange,
 }: AvatarProps) {
-	//const status = isAlive ? 'alive' : 'dead';
-	// let image = players[status][player.colorId];
-	// if (!image) image = players[status][0];
 	const classes = useStyles();
 	let icon;
 
@@ -121,55 +119,65 @@ const Avatar: React.FC<AvatarProps> = function ({
 		icon = <ErrorOutline className={classes.icon} style={{ background: 'red', borderColor: '' }} />;
 	}
 
-	const canvas = <Canvas
-				className={classes.canvas}
-				color={player.colorId}
-				hat={showHat === false ? -1 : player.hatId}
-				skin={player.skinId - 1}
-				isAlive={isAlive}
-				lookLeft={lookLeft === true}
-				borderColor={talking ? borderColor : showborder === true ? '#ccbdcc86' : 'transparent'}
-				size={size}
-				overflow={overflow}
-				usingRadio={isUsingRadio}
-			/>
+	const canvas = (
+		<Canvas
+			className={classes.canvas}
+			color={player.colorId}
+			hat={showHat === false ? -1 : player.hatId}
+			skin={player.skinId - 1}
+			isAlive={isAlive}
+			lookLeft={lookLeft === true}
+			borderColor={talking ? borderColor : showborder === true ? '#ccbdcc86' : 'transparent'}
+			size={size}
+			overflow={overflow}
+			usingRadio={isUsingRadio}
+		/>
+	);
 
 	if (socketConfig) {
 		let muteButtonIcon;
 		if (socketConfig.isMuted) {
-			muteButtonIcon = <VolumeOff color='primary' className={classes.iconNoBackground}></VolumeOff>
+			muteButtonIcon = <VolumeOff color="primary" className={classes.iconNoBackground}></VolumeOff>;
 		} else {
-			muteButtonIcon = <VolumeUp color='primary' className={classes.iconNoBackground}></VolumeUp>
+			muteButtonIcon = <VolumeUp color="primary" className={classes.iconNoBackground}></VolumeUp>;
 		}
-		
+
 		return (
 			<Tooltip
 				content={
 					<div>
 						<b>{player.name}</b>
-						<div className={classes.slidecontainer}>
-							<IconButton
-								onClick={() => {
-									socketConfig.isMuted = !socketConfig.isMuted;
-								}}
-							>
-								{muteButtonIcon}
-							</IconButton>
-							<Slider
-								value={socketConfig.volume}
-								min={0}
-								max={2}
-								step={0.02}
-								onChange={(_, newValue: number | number[]) => {socketConfig.volume = newValue as number}}
-								valueLabelDisplay={'auto'}
-								valueLabelFormat={(value) => Math.floor(value * 100) + '%'}
-								onMouseLeave={() => {
-									if (onConfigChange) {
-										onConfigChange();
-									}
-								}}
-							/>
-						</div>{' '}
+						<Grid container spacing={0} className={classes.slidecontainer}>
+							<Grid item>
+								<IconButton
+									style={{ width: '2px' }}
+									onClick={() => {
+										socketConfig.isMuted = !socketConfig.isMuted;
+									}}
+								>
+									{muteButtonIcon}
+								</IconButton>
+							</Grid>
+							<Grid item xs>
+								<Slider
+									value={socketConfig.volume}
+									min={0}
+									max={2}
+									step={0.02}
+									onChange={(_, newValue: number | number[]) => {
+										socketConfig.volume = newValue as number;
+									}}
+									valueLabelDisplay={'auto'}
+									valueLabelFormat={(value) => Math.floor(value * 100) + '%'}
+									onMouseLeave={() => {
+										if (onConfigChange) {
+											onConfigChange();
+										}
+									}}
+									aria-labelledby="continuous-slider"
+								/>
+							</Grid>
+						</Grid>
 					</div>
 				}
 				padding={5}
