@@ -47,6 +47,9 @@ const useStyles = makeStyles(() => ({
 	slidecontainer: {
 		minWidth: '80px',
 	},
+	innerTooltip: {
+		textAlign: 'center',
+	},
 }));
 
 export interface CanvasProps {
@@ -60,6 +63,7 @@ export interface CanvasProps {
 	color: number;
 	overflow: boolean;
 	usingRadio: boolean | undefined;
+	onClick?: (() => any);
 }
 
 export interface AvatarProps {
@@ -97,9 +101,10 @@ const Avatar: React.FC<AvatarProps> = function ({
 	overflow = false,
 	onConfigChange,
 }: AvatarProps) {
+	const isOpen = useRef(false);
 	const classes = useStyles();
 	let icon;
-
+	deafened = deafened === true || socketConfig?.isMuted === true;
 	switch (connectionState) {
 		case 'connected':
 			if (deafened) {
@@ -142,8 +147,9 @@ const Avatar: React.FC<AvatarProps> = function ({
 		}
 		return (
 			<Tooltip
+				mouseOutDelay={400}
 				content={
-					<div>
+					<div className={classes.innerTooltip}>
 						<b>{player.name}</b>
 						<Grid container spacing={0} className={classes.slidecontainer}>
 							<Grid item>
@@ -238,6 +244,7 @@ const useCanvasStyles = makeStyles(() => ({
 		transform: ({ lookLeft }: UseCanvasStylesParams) => (lookLeft ? 'scaleX(-1)' : 'scaleX(1)'),
 		width: '100%',
 		paddingBottom: '100%',
+		cursor: 'pointer',
 	},
 	radio: {
 		position: 'absolute',
@@ -251,7 +258,18 @@ const useCanvasStyles = makeStyles(() => ({
 	},
 }));
 
-function Canvas({ hat, skin, isAlive, lookLeft, size, borderColor, color, overflow, usingRadio }: CanvasProps) {
+function Canvas({
+	hat,
+	skin,
+	isAlive,
+	lookLeft,
+	size,
+	borderColor,
+	color,
+	overflow,
+	usingRadio,
+	onClick,
+}: CanvasProps) {
 	const hatImg = useRef<HTMLImageElement>(null);
 	const skinImg = useRef<HTMLImageElement>(null);
 	const image = useRef<HTMLImageElement>(null);
@@ -272,7 +290,7 @@ function Canvas({ hat, skin, isAlive, lookLeft, size, borderColor, color, overfl
 	};
 	return (
 		<>
-			<div className={classes.avatar}>
+			<div className={classes.avatar} onClick={onClick}>
 				<div
 					className={classes.avatar}
 					style={{
