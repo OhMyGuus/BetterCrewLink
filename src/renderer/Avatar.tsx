@@ -101,7 +101,6 @@ const Avatar: React.FC<AvatarProps> = function ({
 	overflow = false,
 	onConfigChange,
 }: AvatarProps) {
-	const isOpen = useRef(false);
 	const classes = useStyles();
 	let icon;
 	deafened = deafened === true || socketConfig?.isMuted === true;
