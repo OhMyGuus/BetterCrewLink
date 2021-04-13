@@ -191,7 +191,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	left: { float: 'left' },
 }));
-
+const query = new URLSearchParams(window.location.search.substring(1));
+const version = query.get('version');
 const defaultlocalLobbySettings: ILobbySettings = {
 	maxDistance: 5.32,
 	haunting: false,
@@ -261,10 +262,10 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		if (!dRPC.current.rpc) {
 			return;
 		}
-		const partySize =Object.keys(socketClientsRef.current).length + 1;
+		const partySize = Object.keys(socketClientsRef.current).length + 1;
 
 		dRPC.current.rpc.setActivity({
-			details: 'BetterCrewLink v2.4.5',
+			details: 'BetterCrewLink V' + version,
 			state: GameStateToString(hostRef.current.gamestate),
 			startTimestamp: new Date(),
 			largeImageKey: 'logo512',
