@@ -44,7 +44,6 @@ export const AmongUsMaps: { [key in MapType]: AmongUsMap } = {
 		},
 	},
 
-	
 	[MapType.POLUS]: {
 		cameras: {
 			[CameraLocation.East]: { x: 29, y: -15.7 },
@@ -59,18 +58,16 @@ export const AmongUsMaps: { [key in MapType]: AmongUsMap } = {
 	[MapType.MIRA_HQ]: defaultMap,
 	[MapType.AIRSHIP]: {
 		cameras: {
-
-		[CameraLocation.East]: { x: -8.2872, y: 0.0527 }, //ENGINE ROOM
-		[CameraLocation.Central]: { x: -4.0477, y: 9.1447},// VAULT
-		[CameraLocation.Northeast]: { x: 23.5616, y: 9.8882 },// RECORDS
-		[CameraLocation.South]: { x: 4.881, y: -11.1688 }, // SECURITY
-		[CameraLocation.SouthWest]: { x: 30.3702, y: -0.874 },// CARGO BAY
-		[CameraLocation.NorthWest]: { x: 3.3018, y: 16.2631 },// MEETING ROOM
-		}
+			[CameraLocation.East]: { x: -8.2872, y: 0.0527 }, //ENGINE ROOM
+			[CameraLocation.Central]: { x: -4.0477, y: 9.1447 }, // VAULT
+			[CameraLocation.Northeast]: { x: 23.5616, y: 9.8882 }, // RECORDS
+			[CameraLocation.South]: { x: 4.881, y: -11.1688 }, // SECURITY
+			[CameraLocation.SouthWest]: { x: 30.3702, y: -0.874 }, // CARGO BAY
+			[CameraLocation.NorthWest]: { x: 3.3018, y: 16.2631 }, // MEETING ROOM
+		},
 	},
 	[MapType.UNKNOWN]: defaultMap,
 };
-
 
 // East: 29, -15.7
 // Central: 15.4, -15.4
