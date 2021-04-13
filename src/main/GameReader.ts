@@ -374,7 +374,7 @@ export default class GameReader {
 		this.offsets.shipStatus[0] = shipStatus;
 		this.offsets.miniGame[0] = miniGame;
 		this.colorsInitialized = false;
-		console.log(innerNetClient);
+		console.log('innerNetClient', innerNetClient);
 		if (innerNetClient === 0x2c6c278) {
 			// temp fix for older game until I added more sigs.. // 
 			this.offsets = TempFixOffsets(this.offsets);

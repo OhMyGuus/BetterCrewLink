@@ -11,7 +11,7 @@ const store = new Store<ISettings>();
 
 const currentPlayerConfigMap = store.get('playerConfigMap', {});
 const playerConfigMapLength = Object.keys(currentPlayerConfigMap).length;
-console.log('CONFIG: ', playerConfigMapLength);
+console.log('CONFIG count: ', playerConfigMapLength);
 if (playerConfigMapLength > 50) {
 	store.set('playerConfigMap', {});
 }
@@ -164,7 +164,6 @@ const keycodeMap = {
 type K = keyof typeof keycodeMap;
 
 function keyCodeMatches(key: K, keyId: number): boolean {
-	console.log(key);
 	if (keycodeMap[key]) return keycodeMap[key] === keyId;
 	else if (key && key.length === 1) return key.charCodeAt(0) === keyId;
 	else {
