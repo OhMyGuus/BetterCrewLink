@@ -33,6 +33,11 @@ import { CameraLocation, AmongUsMaps } from '../common/AmongusMap';
 import Store from 'electron-store';
 import { ObsVoiceState } from '../common/ObsOverlay';
 // import { poseCollide } from '../common/ColliderMap';
+import IconButton from '@material-ui/core/IconButton';
+import VolumeOff from '@material-ui/icons/VolumeOff';
+import VolumeUp from '@material-ui/icons/VolumeUp';
+import Mic from '@material-ui/icons/Mic';
+import MicOff from '@material-ui/icons/MicOff';
 import { numberStringMap, GameStateToString } from '../common/AmongUsState';
 import adapter from 'webrtc-adapter';
 import { VADOptions } from './vad';
@@ -84,6 +89,8 @@ interface ConnectionStuff {
 	deafened: boolean;
 	muted: boolean;
 	impostorRadio: boolean | null;
+	toggleMute: () => void;
+	toggleDeafen: () => void;
 }
 
 interface SocketError {
@@ -144,6 +151,7 @@ const useStyles = makeStyles((theme) => ({
 		display: 'block',
 		textAlign: 'center',
 		fontSize: 20,
+		whiteSpace: 'nowrap',
 	},
 	code: {
 		fontFamily: "'Source Code Pro', monospace",
@@ -175,6 +183,13 @@ const useStyles = makeStyles((theme) => ({
 		width: 80,
 		padding: theme.spacing(1),
 	},
+	muteButtons: {
+		paddingLeft: '5px',
+		paddingTop: '26px',
+		float: 'right',
+		display: 'grid',
+	},
+	left: { float: 'left' },
 }));
 
 const defaultlocalLobbySettings: ILobbySettings = {
@@ -698,6 +713,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		deafened: false,
 		muted: false,
 		impostorRadio: null,
+		toggleMute: () => {},
+		toggleDeafen: () => {},
 	});
 
 	useEffect(() => {
@@ -857,20 +874,16 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 				inStream.getAudioTracks()[0].enabled = settings.pushToTalkMode !== pushToTalkOptions.PUSH_TO_TALK;
 
-				ipcRenderer.on(IpcRendererMessages.TOGGLE_DEAFEN, () => {
+				connectionStuff.current.toggleDeafen = () => {
 					connectionStuff.current.deafened = !connectionStuff.current.deafened;
 					inStream.getAudioTracks()[0].enabled =
 						!connectionStuff.current.deafened &&
 						!connectionStuff.current.muted &&
 						connectionStuff.current.pushToTalkMode !== pushToTalkOptions.PUSH_TO_TALK;
 					setDeafened(connectionStuff.current.deafened);
-				});
+				};
 
-				ipcRenderer.on(IpcRendererMessages.IMPOSTOR_RADIO, (_: unknown, pressing: boolean) => {
-					connectionStuff.current.impostorRadio = pressing;
-				});
-
-				ipcRenderer.on(IpcRendererMessages.TOGGLE_MUTE, () => {
+				connectionStuff.current.toggleMute = () => {
 					connectionStuff.current.muted = !connectionStuff.current.muted;
 					if (connectionStuff.current.deafened) {
 						connectionStuff.current.deafened = false;
@@ -882,7 +895,15 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						connectionStuff.current.pushToTalkMode !== pushToTalkOptions.PUSH_TO_TALK;
 					setMuted(connectionStuff.current.muted);
 					setDeafened(connectionStuff.current.deafened);
+				};
+
+				ipcRenderer.on(IpcRendererMessages.TOGGLE_DEAFEN, connectionStuff.current.toggleMute);
+
+				ipcRenderer.on(IpcRendererMessages.IMPOSTOR_RADIO, (_: unknown, pressing: boolean) => {
+					connectionStuff.current.impostorRadio = pressing;
 				});
+
+				ipcRenderer.on(IpcRendererMessages.TOGGLE_MUTE, connectionStuff.current.toggleMute);
 				ipcRenderer.on(IpcRendererMessages.PUSH_TO_TALK, (_: unknown, pressing: boolean) => {
 					if (connectionStuff.current.pushToTalkMode === pushToTalkOptions.VOICE) return;
 					if (!connectionStuff.current.deafened) {
@@ -1302,35 +1323,52 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			)}
 			<div className={classes.top}>
 				{myPlayer && (
-					<div className={classes.avatarWrapper}>
-						<Avatar
-							deafened={deafenedState}
-							muted={mutedState}
-							player={myPlayer}
-							borderColor="#2ecc71"
-							connectionState={connected ? 'connected' : 'disconnected'}
-							isUsingRadio={myPlayer?.isImpostor && impostorRadioClientId.current === myPlayer.clientId}
-							talking={talking}
-							isAlive={!myPlayer.isDead}
-							size={100}
-						/>
-					</div>
+					<>
+						<div className={classes.avatarWrapper}>
+							<Avatar
+								deafened={deafenedState}
+								muted={mutedState}
+								player={myPlayer}
+								borderColor="#2ecc71"
+								connectionState={connected ? 'connected' : 'disconnected'}
+								isUsingRadio={myPlayer?.isImpostor && impostorRadioClientId.current === myPlayer.clientId}
+								talking={talking}
+								isAlive={!myPlayer.isDead}
+								size={100}
+							/>
+						</div>
+					</>
 				)}
 				<div className={classes.right}>
-					{myPlayer && gameState?.gameState !== GameState.MENU && (
-						<span className={classes.username}>{myPlayer.name}</span>
-					)}
-					{gameState.lobbyCode && (
-						<span
-							className={classes.code}
-							style={{
-								background: gameState.lobbyCode === 'MENU' ? 'transparent' : '#3e4346',
-							}}
-						>
-							{displayedLobbyCode === 'MENU' ? t('game.menu') : displayedLobbyCode}
-						</span>
-					)}
+					<div>
+						<div className={classes.left}>
+							{myPlayer && gameState?.gameState !== GameState.MENU && (
+								<span className={classes.username}>{myPlayer.name}</span>
+							)}
+							<span
+								className={classes.code}
+								style={{
+									background: gameState.lobbyCode === 'MENU' ? 'transparent' : '#3e4346',
+								}}
+							>
+								{displayedLobbyCode === 'MENU' ? t('game.menu') : displayedLobbyCode}
+							</span>
+						</div>
+						{gameState.lobbyCode !== 'MENU' && (
+							<div className={classes.muteButtons}>
+								<IconButton onClick={connectionStuff.current.toggleMute} size="small">
+									{mutedState ? <MicOff /> : <Mic />}
+								</IconButton>
+								<IconButton onClick={connectionStuff.current.toggleDeafen} size="small">
+									{deafenedState ? <VolumeOff /> : <VolumeUp />}
+								</IconButton>
+							</div>
+						)}
+					</div>
 				</div>
+				{/* <
+							
+						< */}
 			</div>
 			{lobbySettings.deadOnly && (
 				<div className={classes.top}>
