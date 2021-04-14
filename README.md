@@ -222,7 +222,7 @@ Distributed under the GNU General Public License v3.0. See <a href="https://gith
 [downloads-shield]: https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/total?logo=GitHub&label=Downloads
 [downloads-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/
 [downloads_latest_release-shield]: https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/latest/total?label=Downloads%20%28latest%20release%29&logo=GitHub
-[downloads_latest_release-url]: https://github.com/OhMyGuus/BetterCrewLink/latest/
+[downloads_latest_release-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/latest/
 [releases-shield]: https://img.shields.io/github/v/release/OhMyGuus/BetterCrewLink?logo=GitHub&color=success&label=Release
 [releases-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/
 [license-shield]: https://img.shields.io/github/license/OhMyGuus/BetterCrewLink?label=License
