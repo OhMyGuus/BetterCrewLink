@@ -1,4 +1,4 @@
-[![GitHub Downloads][downloads-shield]][downloads-url] [![GitHub Downloads Latest Release][downloads_latest_release-shield]][downloads_latest_release-url] [![GitHub Releases][releases-shield]][releases-url] [![GPL-3.0 License][license-shield]][license-url] [![GitHub Actions Build][github_actions-shield]][github_actions-url] [![BetterCrewLink Voice Server Status][status-shield]][status-url] [![BetterCrewLink Voice Server Uptime][uptime-shield]][uptime-url] [![Support BetterCrewLink][paypal-shield]][paypal-url] [![Support BetterCrewLink][kofi-shield]][kofi-url] [![Discord Server][discord-shield]][discord-url] [![Contributors][contributors-shield]][contributors-url] [![Crowdin][crowdin-shield]][crowdin-url]
+[![GitHub Downloads][downloads-shield]][downloads-url] [![GitHub Downloads Latest Release][downloads_latest_release-shield]][downloads_latest_release-url] [![GitHub Latest Release][release-shield]][release-url] [![GPL-3.0 License][license-shield]][license-url] [![GitHub Actions Build][github_actions-shield]][github_actions-url] [![BetterCrewLink Voice Server Status][status-shield]][status-url] [![BetterCrewLink Voice Server Uptime][uptime-shield]][uptime-url] [![Support BetterCrewLink][paypal-shield]][paypal-url] [![Support BetterCrewLink][kofi-shield]][kofi-url] [![Discord Server][discord-shield]][discord-url] [![Contributors][contributors-shield]][contributors-url] [![Crowdin][crowdin-shield]][crowdin-url]
 
 <br />
 <p align="center">
@@ -223,8 +223,8 @@ Distributed under the GNU General Public License v3.0. See <a href="https://gith
 [downloads-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/
 [downloads_latest_release-shield]: https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/latest/total?label=Downloads%20%28latest%20release%29&logo=GitHub
 [downloads_latest_release-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/latest/
-[releases-shield]: https://img.shields.io/github/v/release/OhMyGuus/BetterCrewLink?logo=GitHub&color=success&label=Release
-[releases-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/
+[release-shield]: https://img.shields.io/github/v/release/OhMyGuus/BetterCrewLink?logo=GitHub&color=success&label=Release
+[release-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/latest
 [license-shield]: https://img.shields.io/github/license/OhMyGuus/BetterCrewLink?label=License
 [license-url]: https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE
 [github_actions-shield]: https://img.shields.io/github/workflow/status/OhMyGuus/BetterCrewLink/BetterCrewLink%20Build%20(CI)?label=Build%20%28CI%29&logo=GitHub
