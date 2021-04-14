@@ -103,7 +103,7 @@ const Avatar: React.FC<AvatarProps> = function ({
 }: AvatarProps) {
 	const classes = useStyles();
 	let icon;
-	deafened = deafened === true || socketConfig?.isMuted === true;
+	deafened = deafened === true || socketConfig?.isMuted === true || socketConfig?.volume === 0;
 	switch (connectionState) {
 		case 'connected':
 			if (deafened) {
@@ -146,7 +146,7 @@ const Avatar: React.FC<AvatarProps> = function ({
 		}
 		return (
 			<Tooltip
-				mouseOutDelay={400}
+				mouseOutDelay={300}
 				content={
 					<div className={classes.innerTooltip}>
 						<b>{player.name}</b>
