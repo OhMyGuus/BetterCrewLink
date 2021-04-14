@@ -684,7 +684,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		if (
 			pressing == null ||
 			!myPlayer ||
-			!myPlayer?.isImpostor ||
+			!myPlayer.isImpostor ||
+			myPlayer.isDead ||
 			!(impostorRadioClientId.current === myPlayer.clientId || impostorRadioClientId.current === -1)
 		) {
 			return;
@@ -851,7 +852,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					setDeafened(connectionStuff.current.deafened);
 				};
 
-				ipcRenderer.on(IpcRendererMessages.TOGGLE_DEAFEN, connectionStuff.current.toggleMute);
+				ipcRenderer.on(IpcRendererMessages.TOGGLE_DEAFEN, connectionStuff.current.toggleDeafen);
 
 				ipcRenderer.on(IpcRendererMessages.IMPOSTOR_RADIO, (_: unknown, pressing: boolean) => {
 					connectionStuff.current.impostorRadio = pressing;
@@ -1355,13 +1356,18 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 					return (
 						<Grid item key={player.id} xs={getPlayersPerRow(otherPlayers.length)}>
+
 							<Avatar
 								connectionState={!connected ? 'disconnected' : audio ? 'connected' : 'novoice'}
 								player={player}
 								talking={!player.inVent && otherTalking[player.clientId]}
 								borderColor="#2ecc71"
 								isAlive={!otherDead[player.clientId]}
-								isUsingRadio={myPlayer?.isImpostor && impostorRadioClientId.current === player.clientId}
+								isUsingRadio={
+									myPlayer?.isImpostor &&
+									!(player.disconnected || player.bugged) &&
+									impostorRadioClientId.current === player.clientId
+								}
 								size={50}
 								socketConfig={socketConfig}
 								onConfigChange={() => {
