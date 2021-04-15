@@ -95,6 +95,7 @@ const languages = {
 	uk: {
 		translation: translationUK,
 		name: 'Українська',
+	},
 	sv: {
 		translation: translationSV,
 		name: 'Svenska',
