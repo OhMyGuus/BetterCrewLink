@@ -1,11 +1,11 @@
 {
 	"settings": {
-        "title": "Einstellungen",
-        "language": "Sprache",
-		"warning": "Bist du sicher?",
+		"title": "Einstellungen",
+		"language": "Sprache",
+		"warning": "Sind Sie sicher?",
 		"lobbysettings": {
 			"title": "Lobby-Einstellungen",
-			"gamehostonly": "Dies kann nur der Spielhost ändern!",
+			"gamehostonly": "Kann nur vom Host bearbeitet werden!",
 			"inlobbyonly": "Dies kann nur in der Lobby geändert werden!",
 			"voicedistance": "Stimmwahrnehmungsradius",
 			"voicedistance_impostor": "Imposter/Verräter-Stimmwahrnehmungsradius",
@@ -20,34 +20,35 @@
 			"ghost_only_warning": "Dies deaktiviert das Audio für lebende Spieler.",
 			"ghost_only_warning2": "Nur die Geister können sprechen aktiviert",
 			"meetings_only": "Audio nur in Meetings/Lobby",
-			"meetings_only_warning": "Dies deaktiviert das Audio für lebende Spieler außerhalb von Meetings",
-			"meetings_only_warning2": "Sprechen nur in Treffen aktiviert"
+			"meetings_only_warning": "Sound für lebende Mitspieler außerhalb von Meetings deaktivieren.",
+			"meetings_only_warning2": "Sprechen nur in Treffen aktiviert",
+			"impostor_radio": "Impostor Radio"
 		},
 		"audio": {
 			"title": "Audio",
 			"microphone": "Mikrofon",
 			"speaker": "Lautsprecher",
 			"voice_activity": "Sprachaktivität",
-			"push_to_talk": "Push-to-Talk",
-			"push_to_mute": "Push-to-Mute",
+			"push_to_talk": "Zum Sprechen Drücken",
+			"push_to_mute": "Zum Stummschalten Drücken",
 			"microphone_volume": "Mikrofonlautstärke",
 			"microphone_sens": "Mikrofonempfindlichkeit",
-			"microphone_sens_warning": "Wenn die Empfindlichkeit niedriger eingestellt wird, funktioniert es möglicherweise nicht.",
-			"crewvolume": "Crew-Lautstärke wenn tot",
+			"microphone_sens_warning": "Falls die Empfindlichkeit zu niedrig eingestellt ist, kann es zu Problemen führen.",
 			"mastervolume": "Hauptlautstärke",
-			"test_speaker_start" : "Lautsprechertest",
+			"crewvolume": "Crew-Lautstärke wenn tot",
+			"test_speaker_start": "Lautsprecher testen",
 			"test_speaker_stop": "Lautsprechertest stoppen"
-
 		},
 		"keyboard": {
-			"title": "Tastenkürzel",
-			"push_to_talk": "Push-to-Talk",
-			"deafen": "Ausgabe deaktivieren",
-			"mute": "Stummschalten"
+			"title": "Tastaturkürzel",
+			"push_to_talk": "Zum Sprechen Drücken",
+			"mute": "Stummschalten",
+			"deafen": "Taube",
+			"impostor_radio": "Imposter-Radio"
 		},
 		"overlay": {
-			"title": "Overlay",
-			"always_on_top": "BetterCrewLink immer im Vordergrund",
+			"title": "Überlagerung",
+			"always_on_top": "BetterCrewLink oben anpinnen",
 			"enabled": "Overlay aktivieren",
 			"compact": "Kompaktes Overlay",
 			"meeting": "Meeting-Overlay",
@@ -65,15 +66,15 @@
 		"advanced": {
 			"title": "Erweitert",
 			"nat_fix": "NAT-Fix",
-			"nat_fix_warning": "Dies behebt die NAT-Probleme, fügt jedoch eine Verzögerung hinzu, da ein Server anstelle von Peer-to-Peer (P2P) verwendet wird.",
+			"nat_fix_warning": "Behebt Probleme bezüglich der NAT, kann jedoch Verzögerungen verursachen, da die Verbindung nicht direkt (P2P), sondern über einen Server aufgebaut wird.",
 			"change_server": "Sprachserver wechseln",
 			"voice_server": "Sprachserver",
 			"invalid_url": "Ungültige URL",
-			"voice_server_warning": "Diese Option ist nur für fortgeschrittene Benutzer. Andere Server könnten deine Daten stehlen oder BetterCrewLink zum Absturz bringen.",
-			"reset_default": "Auf Standardwerte zurücksetzen"
+			"voice_server_warning": "Diese Option ist nur für fortgeschrittene Benutzer. Andere Server können Ihre Daten stehlen oder BetterCrewLink zum Absturz bringen.",
+			"reset_default": "Einstellungen zurücksetzen"
 		},
 		"beta": {
-			"title": "BETA/DEBUG",
+			"title": "BETA/FEHLER BESEITIGEN",
 			"mobilehost": "Mobiler Host",
 			"vad_enabled": "VAD Aktiviert",
 			"vad_enabled_warning": "Wenn deaktivert, wird nicht angezeigt, wer aktuell spricht.",
@@ -82,12 +83,12 @@
 			"spatial_audio": "Räumliches Audio"
 		},
 		"streaming": {
-			"title": "Streaming-Einstellungen",
+			"title": "Streaming Einstellungen",
 			"hidecode": "Lobby-Code anzeigen",
 			"obs_overlay": "OBS-Browser-Overlay",
-			"obs_url": "OBS-Browserquellen-URL",
-			"voice_server_comp": "Voiceserver Kompatibilitätsmodus",
-			"voice_server_comp_warning": "Es wird empfohlen, den Sprachserver auf einen BetterCrewLink-Sprachserver (z.B. https://bettercrewl.ink) zu ändern."
+			"obs_url": "OBS Browsersource URL",
+			"voice_server_comp": "VS Kompatibilitätsmodus",
+			"voice_server_comp_warning": "Es wird empfohlen, den Sprachserver auf einen BetterCrewLink Voice Server (z.B. https://bettercrewl.ink) zu ändern."
 		},
 		"troubleshooting": {
 			"title": "Fehlerbehebung",
@@ -97,6 +98,7 @@
 		}
 	},
 	"buttons": {
+		"default": "Standard",
 		"confirm": "OK",
 		"cancel": "Abbrechen",
 		"exit": "Einstellungen verlassen, um Änderungen anzuwenden"
@@ -107,7 +109,8 @@
 		"open_error": "Spiel manuell starten \r\n(Diese Taste ist nur für Steam)",
 		"waiting": "Warten auf Among Us",
 		"error": "FEHLER",
-		"error_admin": "Konnte keine Verbindung zu Among Us herstellen \n Bitte BetterCrewLink als Administrator erneut öffnen.",
-		"error_unsupport": "Deine Version von Among Us von BetterCrewLink wird nicht unterstützt"
-	}
+		"error_admin": "Konnte keine Verbindung zu \"Among Us\" herstellen.\nBitte BetterCrewLink mit Administratorrechten neu starten.",
+		"error_unsupport": "Ihre Version von Among Us wird nicht von BetterCrewLink unterstützt."
+	},
+	"translator_name": "KadenBiel, SirBuvex and Jeddunk"
 }
