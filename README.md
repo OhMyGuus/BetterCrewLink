@@ -245,7 +245,7 @@ There are two methods for this:
 * [Fixuuu](https://github.com/Fixuuu) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Polish
 * [canicjusz](https://github.com/canicjusz) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Esperanto and Polish
 * [Hani Rouatbi](https://crowdin.com/profile/lamjed001) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Arabic
-* [NoikzGaming](https://crowdin.com/profile/Noikz) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Swedish
+* [NoikzGaming](https://crowdin.com/profile/NoikzGaming) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Swedish
 
 A big thank you to all those people who contributed and still contribute to this project to stay alive, thank you so much for being part of this BetterCrewLink community!
 
