@@ -179,6 +179,8 @@ Any contributions you make are greatly appreciated.
 
 ### Translating
 
+[![Crowdin][crowdin-shield]][crowdin-url]
+
 BetterCrewLink now officially supports other languages, that is, you can use BetterCrewLink without any problem of not understanding a part in English, but with that we need help with translations because nobody is born knowing everything languages.
 
 Any translations you make are greatly appreciated.
@@ -205,8 +207,6 @@ There are two methods for this:
 1. [Go to Crowdin Page](https://crowdin.com/project/bettercrewlink).
 2. Search for the name of your language you want to translate.
 3. Click on it and start translating.
-
-[![Crowdin][crowdin-shield]][crowdin-url]
 
 </details>
 
