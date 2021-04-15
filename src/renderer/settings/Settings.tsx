@@ -222,7 +222,7 @@ const store = new Store<ISettings>({
 		},
 		impostorRadioShortcut: {
 			type: 'string',
-			default: 'L',
+			default: 'F',
 		},
 		muteShortcut: {
 			type: 'string',

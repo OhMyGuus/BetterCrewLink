@@ -27,7 +27,7 @@ function resetKeyHooks(): void {
 	pushToTalkShortcut = store.get('pushToTalkShortcut', 'V') as K;
 	deafenShortcut = store.get('deafenShortcut', 'RControl') as K;
 	muteShortcut = store.get('muteShortcut', 'RAlt') as K;
-	impostorRadioShortcut = store.get('impostorRadioShortcut', 'L') as K;
+	impostorRadioShortcut = store.get('impostorRadioShortcut', 'F') as K;
 	keyboardWatcher.clearKeyHooks();
 	addKeyHandler(pushToTalkShortcut);
 	addKeyHandler(deafenShortcut);
