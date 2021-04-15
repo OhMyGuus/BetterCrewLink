@@ -49,9 +49,9 @@
 		"overlay": {
 			"title": "Overlay",
 			"always_on_top": "BetterCrewLink Högst Upp",
-			"enabled": "Enable Overlay",
-			"compact": "Compact Overlay",
-			"meeting": "Meeting Overlay",
+			"enabled": "Aktivera Overlay",
+			"compact": "Kompakt Overlay",
+			"meeting": "Möte Overlay",
 			"pos": "Overlay Position",
 			"locations": {
 				"hidden": "Dold",
@@ -76,11 +76,11 @@
 		"beta": {
 			"title": "BETA/DEBUG",
 			"mobilehost": "Mobil Värd",
-			"vad_enabled": "VAD Enabled",
-			"vad_enabled_warning": "You won't see who's talking if deactivate.",
-			"echocancellation": "Echo Cancellation",
+			"vad_enabled": "VAD är aktiverat",
+			"vad_enabled_warning": "Du kommer inte att se vem som pratar om inaktiverad.",
+			"echocancellation": "Eko dämpning",
 			"noiseSuppression": "Ljuddämpning",
-			"spatial_audio": "Spatial Audio"
+			"spatial_audio": "Rumsligt ljud"
 		},
 		"streaming": {
 			"title": "Inställningar för streaming",
