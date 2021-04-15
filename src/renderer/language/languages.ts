@@ -17,6 +17,7 @@ import translationSK from '../../../static/locales/sk/translation.json';
 import translationSL from '../../../static/locales/sl/translation.json';
 import translationTR from '../../../static/locales/tr/translation.json';
 import translationUK from '../../../static/locales/uk/translation.json';
+import translationSV from '../../../static/locales/sv/translation.json';
 
 const languages = {
 	en: {
@@ -94,6 +95,10 @@ const languages = {
 	uk: {
 		translation: translationUK,
 		name: 'Українська',
+	},
+	sv: {
+		translation: translationSV,
+		name: 'Svenska',
 	},
 };
 
