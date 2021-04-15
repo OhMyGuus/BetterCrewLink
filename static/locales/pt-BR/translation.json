@@ -54,7 +54,7 @@
 			"meeting": "Sobreposição de Reuniões",
 			"pos": "Posição da Sobreposição",
 			"locations": {
-				"hidden": "Escondida",
+				"hidden": "Oculta",
 				"top": "Centro Superior",
 				"bottom": "Inferior Esquerdo",
 				"right": "Direita",
@@ -67,7 +67,7 @@
 			"title": "Avançado",
 			"nat_fix": "NAT Fix",
 			"nat_fix_warning": "Isso CORRIGIRÁ os problemas de NAT, mas adicionará um atraso, pois está usando um servidor em vez de está usando Peer to Peer (P2P)",
-			"change_server": "Alterar o Servidor de Voz",
+			"change_server": "Alterar Servidor de Voz",
 			"voice_server": "Servidor de Voz",
 			"invalid_url": "URL Inválida",
 			"voice_server_warning": "Esta opção é apenas para usuários avançados. Outros servidores podem roubar os seus dados ou causar erros no BetterCrewLink.",
@@ -87,7 +87,7 @@
 			"hidecode": "Mostrar o Código do Lobby",
 			"obs_overlay": "Sobreposição do OBS",
 			"obs_url": "URL da Sobreposição do OBS",
-			"voice_server_comp": "Modo de Compatibilidade VS",
+			"voice_server_comp": "Modo de Compatibilidade com servidores CrewLink",
 			"voice_server_comp_warning": "É recomendado mudar o Servidor de Voz para o Servidor de Voz do BetterCrewLink (https://bettercrewl.ink)."
 		},
 		"troubleshooting": {

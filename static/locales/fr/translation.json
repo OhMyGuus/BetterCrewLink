@@ -21,7 +21,8 @@
 			"ghost_only_warning2": "Seuls les fantômes peuvent parler activé.",
 			"meetings_only": "Meetings/Lobby uniquement",
 			"meetings_only_warning": "Cela désactive le son pour les joueurs vivants en dehors des meetings.",
-			"meetings_only_warning2": "Meetings/Lobby uniquement activé."
+			"meetings_only_warning2": "Meetings/Lobby uniquement activé.",
+			"impostor_radio": "Vocal imposteur"
 		},
 		"audio": {
 			"title": "Audio",
@@ -39,14 +40,15 @@
                         "test_speaker_stop": "Arrêter le test"
 		},
 		"keyboard": {
-			"title": "Raccourcis clavier",
+			"title": "Raccourcis Clavier",
 			"push_to_talk": "Presser pour parler",
 			"deafen": "Sourdine",
-			"mute": "Muet"
+			"mute": "Muet",
+			"impostor_radio": "Vocal imposteur"
 		},
 		"overlay": {
 			"title": "Overlay",
-			"always_on_top": "Crewlink toujours visible",
+			"always_on_top": "BetterCrewLink toujours visible",
 			"enabled": "Activer l'overlay",
 			"compact": "Overlay compact",
 			"meeting": "Meeting overlay",
@@ -56,19 +58,19 @@
 				"top": "En haut au centre",
 				"bottom": "En bas à gauche",
 				"right": "Droite",
-				"right1": "Droite-opaque",
+				"right1": "Droite avec fond",
 				"left": "Gauche",
-				"left1": "Gauche-opaque"
+				"left1": "Gauche avec fond"
 			}
 		},
 		"advanced": {
 			"title": "Paramètres avancés",
 			"nat_fix": "Compatiblité NAT",
-			"nat_fix_warning": "Cela permettra de résoudre les problèmes lié au NAT, mais ajoutera un délai puisque cela utilisera un serveur au lieu du mode P2P.",
+			"nat_fix_warning": "Cela permettra de résoudre les problèmes lié au NAT, mais ajoutera un délai puisque cela utilisera un serveur au lieu du mode Peer to Peer (P2P).",
 			"change_server": "Changer de serveur vocal",
 			"voice_server": "Serveur vocal",
 			"invalid_url": "URL invalide",
-			"voice_server_warning": "Cette option est réservée aux utilisateurs avancés. D'autres serveurs peuvent voler vos informations ou planter CrewLink.",
+			"voice_server_warning": "Cette option est réservée aux utilisateurs avancés. D'autres serveurs peuvent voler vos informations ou planter BetterCrewLink.",
 			"reset_default": "Réinitialiser le serveur vocal"
 		},
 		"beta": {
@@ -86,7 +88,7 @@
 			"obs_overlay": "OBS Browser Overlay",
 			"obs_url": "OBS browsersource URL",
 			"voice_server_comp": "Mode compatibilité VS",
-			"voice_server_comp_warning": "Il est recommandé de simplement changer le serveur vocal pour un serveur vocal bettercrewlink, par exemple https://bettercrewl.ink."
+			"voice_server_comp_warning": "Il est recommandé de simplement changer le serveur vocal pour un serveur vocal BetterCrewLink, par exemple https://bettercrewl.ink."
 		},
 		"troubleshooting": {
 			"title": "Dépannage",
@@ -107,8 +109,8 @@
 		"open_error": "Démarrez le jeu manuellement. \r\n(ce bouton est uniquement pour Steam)",
 		"waiting": "En attente d'Among Us",
 		"error": "ERREUR",
-		"error_admin": "Impossible de se connecter à Among Us.\nVeuillez rouvrir CrewLink en tant qu'administrateur.",
-		"error_unsupport": "Votre version de Among Us n'est pas supporté par CrewLink."
+		"error_admin": "Impossible de se connecter à Among Us.\nVeuillez rouvrir BetterCrewLink en tant qu'administrateur.",
+		"error_unsupport": "Votre version de Among Us n'est pas supporté par BetterCrewLink."
 	},
 	"translator": "Adofou"
 }

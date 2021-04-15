@@ -54,6 +54,7 @@
   * [Prerequisites](#prerequisites)
   * [Setup](#setup)
 * [Contributing](#contributing)
+* [Translating](#translating)
   * [Contributors](#contributors)
 * [License](#license)
 
@@ -66,7 +67,7 @@
 - Volume sliders.
 - It doesn't break when someone leaves/disconnects.
 - It works on any network even with UPnP disabled. (Strict NAT)
-- More fun settings like hearing through cameras.
+- More fun settings like hearing through cameras, impostor radio.
 - You can actually disable the overlay.
 - 32bit support, windows 7 support.
 - You can change the volume of alive players after you died.
@@ -81,7 +82,7 @@
 - Microphone noise suppression.
 - More overlay positions and you can set the overlay to the top/bottom and you can set it so it shows everyone even when they aren't talking.
 - You can set the lobby up so only death people can talk. (normal lobbies but then with death talk)
-- Support for new version of Among Us. (v2021.3.31.3 and v2021.4.1)
+- Support for new version of Among Us. (v2021.4.12 and v2021.4.14)
 - Support for custom colors. (mods that add more colors)
 - Support for Linux. (BETA)
 - Support for mobile. (BETA)
@@ -170,11 +171,42 @@ yarn dev
 
 Any contributions you make are greatly appreciated.
 
-1. [Fork the Project](https://github.com/OhMyGuus/BetterCrewLink/fork)
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. [Fork the Project](https://github.com/OhMyGuus/BetterCrewLink/fork).
+2. Create your Feature Branch. (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes. (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch. (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request.
+
+### Translating
+
+BetterCrewLink now officially supports other languages, that is, you can use BetterCrewLink without any problem of not understanding a part in English, but with that we need help with translations because nobody is born knowing everything languages.
+
+Any translations you make are greatly appreciated.
+
+There are two methods for this:
+
+<details>
+<summary> In GitHub </summary>
+
+1. [Fork the Project](https://github.com/OhMyGuus/BetterCrewLink/fork).
+2. Create your Translation Branch.
+3. Go to static **->** locales **->** en **->** translation.json and Download this file.
+4. Open the translation.json with your text editor of preference.
+5. Edit the file but not edit this parts like: "gamehostonly", "inlobbyonly", just translate the text.
+6. Create a folder with the acronym of your language that you translated with translation.json inside the folder.
+7. Throw everything to your fork.
+8. Open a Pull Request.
+
+</details>
+
+<details>
+<summary> In Crowdin </summary>
+
+1. [Go to Crowdin Page](https://crowdin.com/project/bettercrewlink).
+2. Search for the name of your language you want to translate.
+3. Click on it and start translating.
+
+</details>
 
 ### Contributors
 
