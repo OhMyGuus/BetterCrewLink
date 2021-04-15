@@ -208,8 +208,6 @@ There are two methods for this:
 
 [![Crowdin][crowdin-shield]][crowdin-url]
 
-</details>
-
 ### Contributors
 
 <details>
