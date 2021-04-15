@@ -192,7 +192,7 @@ export default class GameReader {
 
 					map = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MapId);
 					if (systemsPtr !== 0 && state === GameState.TASKS) {
-						this.readDictionary(systemsPtr, 32, (k, v) => {
+						this.readDictionary(systemsPtr, 47, (k, v) => {
 							const key = this.readMemory<number>('int32', k);
 							if (key === 14) {
 								const value = this.readMemory<number>('ptr', v);
