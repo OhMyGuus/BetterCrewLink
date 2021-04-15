@@ -30,10 +30,10 @@ import prettyBytes from 'pretty-bytes';
 import { IpcOverlayMessages } from '../common/ipc-messages';
 import ReactDOM from 'react-dom';
 import './css/index.css';
-import 'source-code-pro/source-code-pro.css'
-import "typeface-varela/index.css"
+import 'source-code-pro/source-code-pro.css';
+import 'typeface-varela/index.css';
 import { DEFAULT_PLAYERCOLORS } from '../main/avatarGenerator';
-import './language/i18n'
+import './language/i18n';
 import { withNamespaces } from 'react-i18next';
 let appVersion = '';
 if (typeof window !== 'undefined' && window.location) {
@@ -112,10 +112,11 @@ enum AppState {
 	VOICE,
 }
 // @ts-ignore
-export default function App({t}): JSX.Element {
+export default function App({ t }): JSX.Element {
 	const [state, setState] = useState<AppState>(AppState.MENU);
 	const [gameState, setGameState] = useState<AmongUsState>({} as AmongUsState);
 	const [settingsOpen, setSettingsOpen] = useState(false);
+	const [diaOpen, setDiaOpen] = useState(true);
 	const [error, setError] = useState('');
 	const [updaterState, setUpdaterState] = useState<AutoUpdaterState>({
 		state: 'unavailable',
@@ -133,6 +134,7 @@ export default function App({t}): JSX.Element {
 		pushToTalkShortcut: 'V',
 		deafenShortcut: 'RControl',
 		muteShortcut: 'RAlt',
+		impostorRadioShortcut: 'F',
 		hideCode: false,
 		natFix: false,
 		mobileHost: true,
@@ -159,6 +161,7 @@ export default function App({t}): JSX.Element {
 			haunting: false,
 			hearImpostorsInVents: false,
 			impostersHearImpostersInvent: false,
+			impostorRadioEnabled: false,
 			commsSabotage: false,
 			deadOnly: false,
 			meetingGhostOnly: false,
@@ -258,21 +261,26 @@ export default function App({t}): JSX.Element {
 					<ThemeProvider theme={theme}>
 						<TitleBar settingsOpen={settingsOpen} setSettingsOpen={setSettingsOpen} />
 						<Settings t={t} open={settingsOpen} onClose={() => setSettingsOpen(false)} />
-						<Dialog fullWidth open={updaterState.state !== 'unavailable'}>
-							<DialogTitle>Updating...</DialogTitle>
+						<Dialog fullWidth open={updaterState.state !== 'unavailable' && diaOpen}>
+							{updaterState.state === 'downloaded' && updaterState.info && (
+								<DialogTitle>Update v{updaterState.info.version}</DialogTitle>
+							)}
+							{updaterState.state === 'downloading' && <DialogTitle>Updating...</DialogTitle>}
 							<DialogContent>
-								{(updaterState.state === 'downloading' || updaterState.state === 'downloaded') &&
-									updaterState.progress && (
-										<>
-											<LinearProgress
-												variant={updaterState.state === 'downloaded' ? 'indeterminate' : 'determinate'}
-												value={updaterState.progress.percent}
-											/>
-											<DialogContentText>
-												{prettyBytes(updaterState.progress.transferred)} / {prettyBytes(updaterState.progress.total)}
-											</DialogContentText>
-										</>
-									)}
+								{updaterState.state === 'downloading' && updaterState.progress && (
+									<>
+										<LinearProgress variant={'determinate'} value={updaterState.progress.percent} />
+										<DialogContentText>
+											{prettyBytes(updaterState.progress.transferred)} / {prettyBytes(updaterState.progress.total)}
+										</DialogContentText>
+									</>
+								)}
+								{updaterState.state === 'downloaded' && (
+									<>
+										<LinearProgress variant={'indeterminate'} />
+										<DialogContentText>Restart now or later?</DialogContentText>
+									</>
+								)}
 								{updaterState.state === 'error' && (
 									<DialogContentText color="error">{updaterState.error}</DialogContentText>
 								)}
@@ -280,6 +288,24 @@ export default function App({t}): JSX.Element {
 							{updaterState.state === 'error' && (
 								<DialogActions>
 									<Button href="https://github.com/OhMyGuus/CrewLink/releases/latest">Download Manually</Button>
+								</DialogActions>
+							)}
+							{updaterState.state === 'downloaded' && (
+								<DialogActions>
+									<Button
+										onClick={() => {
+											ipcRenderer.send('update-app');
+										}}
+									>
+										Now
+									</Button>
+									<Button
+										onClick={() => {
+											setDiaOpen(false);
+										}}
+									>
+										Later
+									</Button>
 								</DialogActions>
 							)}
 						</Dialog>

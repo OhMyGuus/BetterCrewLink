@@ -66,14 +66,17 @@ export interface AudioConnected {
 	[peer: string]: boolean; // isConnected
 }
 
+export interface numberStringMap {
+	[index: number]: string;
+}
+
 export interface VoiceState {
 	otherTalking: OtherTalking;
-	playerSocketIds: {
-		[index: number]: string;
-	};
+	playerSocketIds: numberStringMap;
 	otherDead: OtherDead;
 	socketClients: SocketClientMap;
 	audioConnected: AudioConnected;
+	impostorRadioClientId: number;
 	localTalking: boolean;
 	localIsAlive: boolean;
 	muted: boolean;

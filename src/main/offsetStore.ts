@@ -80,7 +80,6 @@ export interface IOffsets {
 		miniGame: ISignature;
 		palette: ISignature;
 		playerControl: ISignature;
-
 	};
 }
 
@@ -90,9 +89,9 @@ export default {
 		objectCachePtr: [0x10],
 		meetingHudState: [0xc0],
 		innerNetClient: [0x1c57f54, 0xb8, 0x0],
-		gameState: [0xC4],
+		gameState: [0xc4],
 		gameCode: [0x88],
-		hostId: [0x8C],
+		hostId: [0x8c],
 		clientId: [0x90],
 		allPlayersPtr: [0x21d0e60, 0xb8, 0, 0x30],
 		allPlayers: [0x10],
@@ -100,7 +99,7 @@ export default {
 		playerAddrPtr: 0x20,
 		exiledPlayerId: [0xff, 0x21d03e0, 0xb8, 0, 0xe0, 0x10],
 		shipStatus: [0x21d0ce0, 0xb8, 0x0],
-		shipStatus_systems: [0xD0],
+		shipStatus_systems: [0xd0],
 		shipStatus_map: [0x174],
 		shipstatus_allDoors: [0xb0],
 		door_doorId: 0x1c,
@@ -118,21 +117,21 @@ export default {
 		palette: [0xffff, 0xb8],
 		palette_playercolor: [0xf0],
 		palette_shadowColor: [0xf8],
-		playerControl_GameOptions: [0xffff, 0xb8, 0x8], 
-		gameOptions_MapId: [0x18], 
+		playerControl_GameOptions: [0xffff, 0xb8, 0x8],
+		gameOptions_MapId: [0x18],
 
 		player: {
 			struct: [
-				{ type: 'SKIP', skip: 0x10, name: 'unused' }, 
+				{ type: 'SKIP', skip: 0x10, name: 'unused' },
 				{ type: 'UINT', name: 'id' }, // 0x10
 				{ type: 'SKIP', skip: 4, name: 'unused' }, // 0x14
 				{ type: 'UINT', name: 'name' }, // 0x18
 				{ type: 'SKIP', skip: 8, name: 'unused1' }, // 0x20
 				{ type: 'UINT', name: 'color' }, // 0x24
 				{ type: 'UINT', name: 'hat' }, // 0x28
-				{ type: 'UINT', name: 'pet' },// 0x2C
+				{ type: 'UINT', name: 'pet' }, // 0x2C
 				{ type: 'UINT', name: 'skin' }, //0x30
-				{ type: 'UINT', name: 'disconnected' },// 0x34
+				{ type: 'UINT', name: 'disconnected' }, // 0x34
 				{ type: 'SKIP', skip: 4, name: 'unused' }, // 0x38
 				{ type: 'UINT', name: 'taskPtr' }, // 0x3C
 				{ type: 'BYTE', name: 'impostor' }, // 0x40
@@ -172,7 +171,7 @@ export default {
 				addressOffset: 4,
 			},
 			miniGame: {
-				sig: '48 8B 05 ? ? ? ? 48 89 7C 24 ? 48 8B 90 ? ? ? ? 48 C7 02 ? ? ? ? 48 8B 4B 60', 
+				sig: '48 8B 05 ? ? ? ? 48 89 7C 24 ? 48 8B 90 ? ? ? ? 48 C7 02 ? ? ? ? 48 8B 4B 60',
 				patternOffset: 3,
 				addressOffset: 4,
 			},
@@ -186,7 +185,7 @@ export default {
 				sig: '48 8B 05 ? ? ? ? 48 8B 88 ? ? ? ? 48 8B 01 48 8B CF 48 89 47 20 48 8B 07 48 8B 90 ? ? ? ? FF 90 ? ? ? ?', //NEED UPDATE
 				patternOffset: 3,
 				addressOffset: 4,
-			}
+			},
 		},
 	},
 	x86: {
@@ -195,7 +194,7 @@ export default {
 		meetingHudState: [0x84],
 		innerNetClient: [0x1c57f54, 0x5c, 0x0],
 		gameState: [0x70],
-		gameCode: [0x4C],
+		gameCode: [0x4c],
 		hostId: [0x50],
 		clientId: [0x54],
 		allPlayersPtr: [0x1c57be8, 0x5c, 0, 0x24],
@@ -204,8 +203,8 @@ export default {
 		playerAddrPtr: 0x10,
 		exiledPlayerId: [0xff, 0x1c573a4, 0x5c, 0, 0x94, 0x08],
 		shipStatus: [0x1c57cac, 0x5c, 0x0],
-		shipStatus_systems: [0x8C],
-		shipStatus_map: [0xE4],
+		shipStatus_systems: [0x8c],
+		shipStatus_map: [0xe4],
 		shipstatus_allDoors: [0x7c],
 		door_doorId: 0x10,
 		door_isOpen: 0x14,
@@ -221,14 +220,14 @@ export default {
 		palette_playercolor: [0xe8],
 		palette_shadowColor: [0xec],
 		lightRadius: [0x54, 0x1c],
-		playerControl_GameOptions:  [0xffff, 0x5C, 0x4],  
-		gameOptions_MapId: [0x10], 
+		playerControl_GameOptions: [0xffff, 0x5c, 0x4],
+		gameOptions_MapId: [0x10],
 		player: {
 			struct: [
 				{ type: 'SKIP', skip: 8, name: 'unused' },
 				{ type: 'UINT', name: 'id' },
 				{ type: 'UINT', name: 'name' },
-				{ type: 'SKIP', skip: 4, name: 'unused' },
+				{ type: 'SKIP', skip: 4, name: 'COLORBEFORE' },
 				{ type: 'UINT', name: 'color' },
 				{ type: 'UINT', name: 'hat' },
 				{ type: 'UINT', name: 'pet' },
@@ -285,10 +284,11 @@ export default {
 				addressOffset: 0,
 			},
 			playerControl: {
-				sig: 'A1 ? ? ? ? F6 80 ? ? ? ? ? 74 14 83 78 74 00 75 0E 50 E8 ? ? ? ? A1 ? ? ? ? 83 C4 04 8B 40 5C 56 57 8B 30', 
+				sig:
+					'A1 ? ? ? ? F6 80 ? ? ? ? ? 74 14 83 78 74 00 75 0E 50 E8 ? ? ? ? A1 ? ? ? ? 83 C4 04 8B 40 5C 56 57 8B 30',
 				patternOffset: 1,
 				addressOffset: 0,
-			}
+			},
 		},
 	},
 } as IOffsetsStore;
@@ -297,12 +297,48 @@ export function TempFixOffsets(offsetsOld: IOffsets): IOffsets {
 	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
 	offsets!.gameState = [0x6c];
 	offsets!.gameCode = [0x48];
-	offsets!.hostId = [0x4C];
+	offsets!.hostId = [0x4c];
 	offsets!.clientId = [0x50];
 	offsets!.player.struct[3].skip = 1;
 	offsets!.player.struct[4].type = 'USHORT';
-	offsets!.player.struct.splice(5, 0,{ type: 'SKIP', skip: 1, name: 'unused' } );
+	offsets!.player.struct.splice(5, 0, { type: 'SKIP', skip: 1, name: 'unused' });
 	return offsets;
 }
 
+export function TempFixOffsets2(offsetsOld: IOffsets): IOffsets {
+	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
+	offsets!.player.localX[0] = 0x60;
+	offsets!.player.localY[0] = 0x60;
+	offsets!.player.remoteX[0] = 0x60;
+	offsets!.player.remoteY[0] = 0x60;
+	offsets!.shipStatus_map[0] = 0xd4;
+	offsets!.gameState[0] = 0x64;
+	offsets!.gameCode[0] = 0x40;
+	offsets!.hostId[0] = 0x44;
+	offsets!.clientId[0] = 0x48;
+	offsets!.player.struct = offsets!.player.struct.filter((o) => o.name !== 'COLORBEFORE');
+	console.log(offsets!.player.struct);
+	offsets!.player.struct[4].skip = 2;
+	offsets!.palette[0] = 0x1c57fc4;
+	offsets!.palette_playercolor[0] = 0xe4;
+	offsets!.palette_shadowColor[0] = 0xe8;
+	offsets!.shipStatus_systems[0] = 0x84;
 
+	return offsets;
+}
+
+// struct: [
+// 	{ type: 'SKIP', skip: 8, name: 'unused' },
+// 	{ type: 'UINT', name: 'id' },
+// 	{ type: 'UINT', name: 'name' },
+// 	{ type: 'UINT', name: 'color' },
+// 	{ type: 'UINT', name: 'hat' },
+// 	{ type: 'UINT', name: 'pet' },
+// 	{ type: 'UINT', name: 'skin' },
+// 	{ type: 'UINT', name: 'disconnected' },
+// 	{ type: 'UINT', name: 'taskPtr' },
+// 	{ type: 'BYTE', name: 'impostor' },
+// 	{ type: 'BYTE', name: 'dead' },
+// 	{ type: 'SKIP', skip: 2, name: 'unused' },
+// 	{ type: 'UINT', name: 'objectPtr' },
+// ],

@@ -23,19 +23,21 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 const onRefreshClick = () => {
-	ipcRenderer.send('reload')
-}
+	ipcRenderer.send('reload');
+};
 
 const SupportLink: React.FC = function () {
 	const classes = useStyles();
 
 	return (
 		<Typography align="center">
-			Need help?{' '}
+			Need help?
 			<Link href="#" color="secondary" onClick={() => shell.openExternal('https://discord.gg/4cpvp3KyhF')}>
 				Get support
 			</Link>
-			<button className={classes.button} onClick={onRefreshClick}>Reload</button>
+			<button className={classes.button} onClick={onRefreshClick}>
+				Reload
+			</button>
 		</Typography>
 	);
 };

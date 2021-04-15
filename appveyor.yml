@@ -1,27 +1,42 @@
 version: '{build}'
 
 cache:
-  - node_modules
-  
-image:
-  - Visual Studio 2019
+ - node_modules
+
+stack: node 14
+environment:
+  matrix:
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      DIST: 'dist'
+    - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+      DIST: 'dist:linux'
 
 install:
-  - yarn install --network-timeout 100000
+ - yarn install --network-timeout 100000
 
 build_script:
-  - yarn run dist --publish never
+  - pwsh: "yarn run $env:DIST --publish never"
 
-matrix:
-  fast_finish: true
-shallow_clone: true
-clone_depth: 1
+on_success:
+  - ps: Invoke-RestMethod https://raw.githubusercontent.com/DiscordHooks/appveyor-discord-webhook/master/send.ps1 -o send.ps1
+  - ps: ./send.ps1 success $env:WEBHOOK_URL
+on_failure:
+  - ps: Invoke-RestMethod https://raw.githubusercontent.com/DiscordHooks/appveyor-discord-webhook/master/send.ps1 -o send.ps1
+  - ps: ./send.ps1 failure $env:WEBHOOK_URL
 
+test_script:
+  - ps: |
+      if(!(ls dist\Better-Crewlink*))
+      {
+       exit 1
+      }
 artifacts:
   - path: dist/win-unpacked
-    name: unpacked
-    type: zip
+    name: Unpacked
+    type: auto
   - path: 'dist/Better-CrewLink Setup*.exe'
-    name: installer
-    type: exe
-
+    name: Installer
+    type: auto
+  - path: 'dist/Better-CrewLink-*.AppImage'
+    name: Linux AppImage
+    type: auto

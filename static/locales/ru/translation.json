@@ -10,7 +10,7 @@
 			"voicedistance": "Дальность голоса",
 			"voicedistance_impostor": "Дальность голоса предателя",
 			"wallsblockaudio": "Стены преграждают звук",
-			"visiononly": "Слышать людей только в поле зрения",
+			"visiononly": "Слышать лишь тех, кто в поле зрения",
 			"impostorshearsghost": "Предатели слышат призраков",
 			"hear_imposters_invents": "Слышать предателей в вентиляции",
 			"private_talk_invents": "Личный разговор в вентиляции",
@@ -20,8 +20,9 @@
 			"ghost_only_warning": "Это отключает звук для живых игроков.",
 			"ghost_only_warning2": "Включён разговор только для призраков.",
 			"meetings_only": "Только на собрании или в комнате",
-			"meetings_only_warning": "Это отключает звук для живых игроков вне собраний",
-			"meetings_only_warning2": "Включён разговор только на собраниях."
+			"meetings_only_warning": "Это отключает звук для живых игроков вне собраний.",
+			"meetings_only_warning2": "Включён разговор только на собраниях.",
+			"impostor_radio": "Радио предателей"
 		},
 		"audio": {
 			"title": "Звук",
@@ -32,43 +33,44 @@
 			"push_to_mute": "Отключение голоса по кнопке",
 			"microphone_volume": "Громкость микрофона",
 			"microphone_sens": "Чувствительность микрофона",
-			"microphone_sens_warning": "Если выставить чувствительность ещё ниже, она может не сработать",
-			"crewvolume": "Громкость экипажа для призрака",
+			"microphone_sens_warning": "Если выставить чувствительность ещё ниже, она может не сработать.",
 			"mastervolume": "Общая громкость",
+			"crewvolume": "Громкость экипажа для призрака",
 			"test_speaker_start": "Проверка динамика",
 			"test_speaker_stop": "Остановить проверку динамика"
 		},
 		"keyboard": {
 			"title": "Сочетание клавиш",
 			"push_to_talk": "Активация голоса",
+			"mute": "Убрать микрофон",
 			"deafen": "Убрать звук",
-			"mute": "Убрать микрофон"
+			"impostor_radio": "Радио предателей"
 		},
 		"overlay": {
 			"title": "Оверлей",
-			"always_on_top": "Crewlink на переднем плане",
+			"always_on_top": "BetterCrewLink на переднем плане",
 			"enabled": "Включить оверлей",
 			"compact": "Компактный оверлей",
 			"meeting": "Оверлей на собраниях",
 			"pos": "Положение оверлея",
 			"locations": {
 				"hidden": "Скрыт",
-				"top": "Вверху в центре",
+				"top": "Посередине сверху",
 				"bottom": "Внизу слева",
 				"right": "Справа",
-				"right1": "Справа в фоне",
+				"right1": "Справа с фоном",
 				"left": "Слева",
-				"left1": "Слева в фоне"
+				"left1": "Слева с фоном"
 			}
 		},
 		"advanced": {
 			"title": "Продвинутые",
 			"nat_fix": "Исправление NAT",
-			"nat_fix_warning": "Это исправить проблемы с NAT, но создаст задержку из-за использования центрального сервера вместо пиринговой сети",
+			"nat_fix_warning": "Это исправит проблемы с NAT, но создаст задержку из-за использования центрального сервера вместо пиринговой сети (P2P)",
 			"change_server": "Сменить голосовой сервер",
 			"voice_server": "Голосовой сервер",
 			"invalid_url": "Неверный URL",
-			"voice_server_warning": "Эта настройка только для продвинутых пользователей. Остальные серверы могут украсть ваши данные или уронить CrewLink.",
+			"voice_server_warning": "Эта настройка только для продвинутых пользователей. Остальные серверы могут украсть ваши данные или уронить BetterCrewLink.",
 			"reset_default": "Сбросить настройки"
 		},
 		"beta": {
@@ -76,8 +78,8 @@
 			"mobilehost": "Хост для мобильных",
 			"vad_enabled": "Включение VAD",
 			"vad_enabled_warning": "Если отключить, то не будет видно, кто говорит.",
-			"echocancellation": "Подавление эха",
-			"noiseSuppression": "Подавление шума",
+			"echocancellation": "Эхоподавление",
+			"noiseSuppression": "Шумопонижение",
 			"spatial_audio": "Пространственный звук"
 		},
 		"streaming": {
@@ -86,7 +88,7 @@
 			"obs_overlay": "Оверлей OBS-браузера",
 			"obs_url": "URL OBS-браузера",
 			"voice_server_comp": "Режим совместимости ГС",
-			"voice_server_comp_warning": "Рекомендуется просто сменить голосовой сервер, например, на голосовой сервер bettercrewlink https://bettercrewl.ink"
+			"voice_server_comp_warning": "Рекомендуется просто сменить голосовой сервер, например, на голосовой сервер BetterCrewLink (https://bettercrewl.ink)"
 		},
 		"troubleshooting": {
 			"title": "Решение проблем",
@@ -107,8 +109,8 @@
 		"open_error": "Запустить игру вручную. \r\n(эта кнопка только для steam)",
 		"waiting": "Ожидание Among Us",
 		"error": "ОШИБКА",
-		"error_admin": "Не удалось подсоединиться к Among Us.\n Пожалуйста, снова откройте CrewLink как администратор.",
-		"error_unsupport": "Ваша версия Among Us не поддерживается CrewLink."
+		"error_admin": "Не удалось подсоединиться к Among Us.\nПожалуйста, откройте BetterCrewLink снова как администратор.",
+		"error_unsupport": "Ваша версия Among Us не поддерживается BetterCrewLink."
 	},
-	"translator": "XRevan86"
+	"translator_name": "XRevan86"
 }

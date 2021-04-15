@@ -11,7 +11,7 @@ const store = new Store<ISettings>();
 
 const currentPlayerConfigMap = store.get('playerConfigMap', {});
 const playerConfigMapLength = Object.keys(currentPlayerConfigMap).length;
-console.log('CONFIG: ', playerConfigMapLength);
+console.log('CONFIG count: ', playerConfigMapLength);
 if (playerConfigMapLength > 50) {
 	store.set('playerConfigMap', {});
 }
@@ -19,18 +19,20 @@ if (playerConfigMapLength > 50) {
 let readingGame = false;
 let gameReader: GameReader;
 
-let pushToTalkShortcut = store.get('pushToTalkShortcut') as K;
-let deafenShortcut = store.get('deafenShortcut') as K;
-let muteShortcut = store.get('muteShortcut') as K;
-
+let pushToTalkShortcut: K | undefined;
+let deafenShortcut: K | undefined;
+let muteShortcut: K | undefined;
+let impostorRadioShortcut: K | undefined;
 function resetKeyHooks(): void {
-	pushToTalkShortcut = store.get('pushToTalkShortcut') as K;
-	deafenShortcut = store.get('deafenShortcut') as K;
-	muteShortcut = store.get('muteShortcut') as K;
+	pushToTalkShortcut = store.get('pushToTalkShortcut', 'V') as K;
+	deafenShortcut = store.get('deafenShortcut', 'RControl') as K;
+	muteShortcut = store.get('muteShortcut', 'RAlt') as K;
+	impostorRadioShortcut = store.get('impostorRadioShortcut', 'F') as K;
 	keyboardWatcher.clearKeyHooks();
 	addKeyHandler(pushToTalkShortcut);
 	addKeyHandler(deafenShortcut);
 	addKeyHandler(muteShortcut);
+	addKeyHandler(impostorRadioShortcut);
 }
 
 ipcMain.on(IpcHandlerMessages.RESET_KEYHOOKS, () => {
@@ -52,20 +54,26 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 		resetKeyHooks();
 
 		keyboardWatcher.on('keydown', (keyId: number) => {
-			if (keyCodeMatches(pushToTalkShortcut, keyId)) {
+			if (keyCodeMatches(pushToTalkShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, true);
+			}
+			if (keyCodeMatches(impostorRadioShortcut!, keyId)) {
+				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, true);
 			}
 		});
 
 		keyboardWatcher.on('keyup', (keyId: number) => {
-			if (keyCodeMatches(pushToTalkShortcut, keyId)) {
+			if (keyCodeMatches(pushToTalkShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, false);
 			}
-			if (keyCodeMatches(deafenShortcut, keyId)) {
+			if (keyCodeMatches(deafenShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.TOGGLE_DEAFEN);
 			}
-			if (keyCodeMatches(muteShortcut, keyId)) {
+			if (keyCodeMatches(muteShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.TOGGLE_MUTE);
+			}
+			if (keyCodeMatches(impostorRadioShortcut!, keyId)) {
+				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, false);
 			}
 		});
 
@@ -100,7 +108,6 @@ ipcMain.on('reload', async () => {
 	global.mainWindow?.reload();
 	//	global.overlay?.reload();
 });
-
 
 // GenerateAvatars().then(() => console.log("done generate")).catch((e) => console.error(e));
 

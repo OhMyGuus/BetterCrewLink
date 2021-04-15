@@ -4,3 +4,5 @@ node_modules/
 thumbs.db
 .idea/
 yarn-error.log
+.vscode/
+package-lock.json

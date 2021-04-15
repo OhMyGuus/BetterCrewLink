@@ -17,7 +17,7 @@ import Errors from '../common/Errors';
 import { CameraLocation, MapType } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
 import { RainbowColorId } from '../renderer/cosmetics';
-import { TempFixOffsets } from './offsetStore';
+import { TempFixOffsets, TempFixOffsets2 } from './offsetStore';
 
 interface ValueType<T> {
 	read(buffer: BufferSource, offset: number): T;
@@ -46,21 +46,20 @@ export default class GameReader {
 	menuUpdateTimer = 20;
 	lastPlayerPtr = 0;
 	shouldReadLobby = false;
-	exileCausesEnd = false;
 	is_64bit = false;
 	oldGameState = GameState.UNKNOWN;
 	lastState: AmongUsState = {} as AmongUsState;
 	amongUs: ProcessObject | null = null;
 	gameAssembly: ModuleObject | null = null;
-	colorsInitialized: boolean = false;
-	rainbowColor: number = -9999;
+	colorsInitialized = false;
+	rainbowColor = -9999;
 	gameCode = 'MENU';
 
 	checkProcessOpen(): void {
 		const processesOpen = getProcesses().filter((p) => p.szExeFile === 'Among Us.exe');
 		let error = '';
 		if (!this.amongUs && processesOpen.length > 0) {
-			for (let processOpen of processesOpen) {
+			for (const processOpen of processesOpen) {
 				try {
 					this.amongUs = openProcess(processOpen.th32ProcessID);
 					this.gameAssembly = findModule('GameAssembly.dll', this.amongUs.th32ProcessID);
@@ -94,7 +93,13 @@ export default class GameReader {
 		} catch (e) {
 			return `Error with chcecking the process, ${e.toString()}`;
 		}
-		if (this.PlayerStruct && this.offsets && this.amongUs !== null && this.gameAssembly !== null) {
+		if (
+			this.PlayerStruct &&
+			this.offsets &&
+			this.amongUs !== null &&
+			this.gameAssembly !== null &&
+			this.offsets !== undefined
+		) {
 			this.loadColors();
 			let state = GameState.UNKNOWN;
 			const meetingHud = this.readMemory<number>('pointer', this.gameAssembly.modBaseAddr, this.offsets.meetingHud);
@@ -110,16 +115,13 @@ export default class GameReader {
 			switch (gameState) {
 				case 0:
 					state = GameState.MENU;
-					this.exileCausesEnd = false;
 					break;
 				case 1:
 				case 3:
 					state = GameState.LOBBY;
-					this.exileCausesEnd = false;
 					break;
 				default:
-					if (this.exileCausesEnd) state = GameState.LOBBY;
-					else if (meetingHudState < 4) state = GameState.DISCUSSION;
+					if (meetingHudState < 4) state = GameState.DISCUSSION;
 					else state = GameState.TASKS;
 					break;
 			}
@@ -152,9 +154,7 @@ export default class GameReader {
 				this.gameAssembly.modBaseAddr,
 				this.offsets.exiledPlayerId
 			);
-			let impostors = 0,
-				crewmates = 0,
-				lightRadius = 1;
+			let lightRadius = 1;
 			let comsSabotaged = false;
 			let currentCamera = CameraLocation.NONE;
 			let map = MapType.UNKNOWN;
@@ -176,8 +176,6 @@ export default class GameReader {
 
 					players.push(player);
 					if (player.id === exiledPlayerId || player.isDead || player.disconnected || player.name === '') continue;
-					if (player.isImpostor) impostors++;
-					else crewmates++;
 				}
 				if (localPlayer) {
 					lightRadius = this.readMemory<number>('float', localPlayer.objectPtr, this.offsets.lightRadius, -1);
@@ -194,7 +192,7 @@ export default class GameReader {
 
 					map = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MapId);
 					if (systemsPtr !== 0 && state === GameState.TASKS) {
-						this.readDictionary(systemsPtr, 32, (k, v) => {
+						this.readDictionary(systemsPtr, 47, (k, v) => {
 							const key = this.readMemory<number>('int32', k);
 							if (key === 14) {
 								const value = this.readMemory<number>('ptr', v);
@@ -240,7 +238,6 @@ export default class GameReader {
 								this.offsets!.planetSurveillanceMinigame_camarasCount
 							);
 
-
 							if (currentCameraId >= 0 && currentCameraId <= 5 && camarasCount === 6) {
 								currentCamera = currentCameraId as CameraLocation;
 							}
@@ -278,12 +275,12 @@ export default class GameReader {
 				//	console.log('doorcount: ', doorCount, doorsOpen);
 			}
 
-			if (this.oldGameState === GameState.DISCUSSION && state === GameState.TASKS) {
-				if (impostors === 0 || impostors >= crewmates) {
-					this.exileCausesEnd = true;
-					state = GameState.LOBBY;
-				}
-			}
+			// if (this.oldGameState === GameState.DISCUSSION && state === GameState.TASKS) {
+			// 	if (impostors === 0 || impostors >= crewmates) {
+			// 		this.exileCausesEnd = true;
+			// 		state = GameState.LOBBY;
+			// 	}
+			// }
 
 			if (
 				this.oldGameState === GameState.MENU &&
@@ -383,10 +380,14 @@ export default class GameReader {
 		this.offsets.shipStatus[0] = shipStatus;
 		this.offsets.miniGame[0] = miniGame;
 		this.colorsInitialized = false;
-		console.log(innerNetClient);
+		console.log('innerNetClient', innerNetClient);
 		if (innerNetClient === 0x2c6c278) {
-			// temp fix for older game until I added more sigs..
+			// temp fix for older game until I added more sigs.. //
 			this.offsets = TempFixOffsets(this.offsets);
+		}
+		if (innerNetClient === 0x1c57f54) {
+			// temp fix for older game until I added more sigs.. // 12/9
+			this.offsets = TempFixOffsets2(this.offsets);
 		}
 		this.PlayerStruct = new Struct();
 		for (const member of this.offsets.player.struct) {
@@ -413,7 +414,7 @@ export default class GameReader {
 		if (!colorLength || colorLength <= 0 || colorLength > 30) {
 			return;
 		}
-		
+
 		this.colorsInitialized = colorLength > 0;
 		const playercolors = [];
 		for (let i = 0; i < colorLength; i++) {
@@ -555,7 +556,6 @@ export default class GameReader {
 			data.objectPtr = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('objectPtr')]);
 			data.name = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('name')]);
 		}
-
 		const clientId = this.readMemory<number>('uint32', data.objectPtr, this.offsets.player.clientId);
 		const isLocal = clientId === LocalclientId && data.disconnected === 0;
 
@@ -566,7 +566,7 @@ export default class GameReader {
 		let x = this.readMemory<number>('float', data.objectPtr, positionOffsets[0]);
 		let y = this.readMemory<number>('float', data.objectPtr, positionOffsets[1]);
 		let bugged = false;
-		if (x === undefined || y === undefined) {
+		if (x === undefined || y === undefined || data.disconnected != 0 || data.color > 40) {
 			x = 9999;
 			y = 9999;
 			bugged = true;
@@ -591,9 +591,9 @@ export default class GameReader {
 			hatId: data.hat,
 			petId: data.pet,
 			skinId: data.skin,
-			disconnected: data.disconnected > 0,
-			isImpostor: data.impostor > 0,
-			isDead: data.dead > 0,
+			disconnected: data.disconnected != 0,
+			isImpostor: data.impostor == 1,
+			isDead: data.dead == 1,
 			taskPtr: data.taskPtr,
 			objectPtr: data.objectPtr,
 			bugged,

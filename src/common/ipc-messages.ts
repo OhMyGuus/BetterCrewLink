@@ -1,4 +1,4 @@
-import { ProgressInfo } from 'builder-util-runtime';
+import { ProgressInfo, UpdateInfo } from 'builder-util-runtime';
 
 // Renderer --> Main (send/on)
 export enum IpcMessages {
@@ -8,6 +8,7 @@ export enum IpcMessages {
 	QUIT_CREWLINK = 'QUIT_CREWLINK',
 	SEND_TO_OVERLAY = 'SEND_TO_OVERLAY',
 	SEND_TO_MAINWINDOW = 'SEND_TO_MAINWINDOW',
+	RESTART_AND_UPDATE = 'RESTART_AND_UPDATE',
 }
 
 // Renderer --> Main (sendSync/on)
@@ -36,6 +37,7 @@ export enum IpcRendererMessages {
 	TOGGLE_DEAFEN = 'TOGGLE_DEAFEN',
 	TOGGLE_MUTE = 'TOGGLE_MUTE',
 	PUSH_TO_TALK = 'PUSH_TO_TALK',
+	IMPOSTOR_RADIO = 'IMPOSTOR_RADIO',
 	ERROR = 'ERROR',
 	AUTO_UPDATER_STATE = 'AUTO_UPDATER_STATE',
 }
@@ -44,4 +46,5 @@ export interface AutoUpdaterState {
 	state: 'error' | 'available' | 'downloading' | 'downloaded' | 'unavailable';
 	error?: string;
 	progress?: ProgressInfo;
+	info?: UpdateInfo;
 }

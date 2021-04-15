@@ -1,0 +1,116 @@
+{
+	"settings": {
+		"title": "الاعدادات",
+		"language": "اللغة",
+		"warning": "هل أنت متأكد من ذلك؟",
+		"lobbysettings": {
+			"title": "إعدادات لوبي",
+			"gamehostonly": "فقط مضيف اللعبة يمكنه تغيير هذا!",
+			"inlobbyonly": "يمكنك فقط تغيير هذا في ردهة اللعبة!",
+			"voicedistance": "مسافة الصوت",
+			"voicedistance_impostor": "المسافة الصوتية للمستورد",
+			"wallsblockaudio": "حجب جدران الصوت",
+			"visiononly": "اسمع الناس في الرؤية فقط",
+			"impostorshearsghost": "المستورد يسمع ميت",
+			"hear_imposters_invents": "سمع المملوكين في الفتحات",
+			"private_talk_invents": "محادثة خاصة في الفتحات",
+			"comms_sabotage_audio": "تعطل تخريب الاتصالات الصوت",
+			"hear_through_cameras": "سمع عبر الكاميرات",
+			"ghost_only": "فقط الشبح يستطيع أن يتحدث/يسمع",
+			"ghost_only_warning": "هذا يعطل الصوت للاعبين الحيين.",
+			"ghost_only_warning2": "الشبح يمكنه التحدث فقط مفعل.",
+			"meetings_only": "الاجتماعات/الردهة فقط",
+			"meetings_only_warning": "This disables the sound for alive players outside meetings.",
+			"meetings_only_warning2": "التحدث في الاجتماعات مفعل فقط.",
+			"impostor_radio": "Impostor Radio"
+		},
+		"audio": {
+			"title": "صوت",
+			"microphone": "ميكرفون",
+			"speaker": "مكبر الصوت",
+			"voice_activity": "النشاط الصوتي",
+			"push_to_talk": "اضغط لتحدث",
+			"push_to_mute": "اضغط لتكتم",
+			"microphone_volume": "صوت الميكروفون",
+			"microphone_sens": "حساس الميكروفون",
+			"microphone_sens_warning": "If you set the sensitivity any lower it might not work.",
+			"mastervolume": "الصوت الرئيسي",
+			"crewvolume": "صوت الفريق كشبح",
+			"test_speaker_start": "Test Speaker",
+			"test_speaker_stop": "إيقاف اختبار مكبر الصوت"
+		},
+		"keyboard": {
+			"title": "Keyboard Shortcuts",
+			"push_to_talk": "اضغط للتحدث",
+			"mute": "كتم الصوت",
+			"deafen": "وقف السمع",
+			"impostor_radio": "Impostor Radio"
+		},
+		"overlay": {
+			"title": "تراكب",
+			"always_on_top": "BetterCrewLink on Top",
+			"enabled": "تمكين التراكب",
+			"compact": "تراكب مضغوط",
+			"meeting": "تراكب الاجتماع",
+			"pos": "موقف التراكب",
+			"locations": {
+				"hidden": "مختفي",
+				"top": "مركز أعلى",
+				"bottom": "أسفل اليسار",
+				"right": "يمين",
+				"right1": "Right with Background",
+				"left": "يسار",
+				"left1": "Left with Background"
+			}
+		},
+		"advanced": {
+			"title": "متقدم",
+			"nat_fix": "إصلاح NAT",
+			"nat_fix_warning": "This will FIX the NAT issues but will add a delay since it is using a server instead of Peer to Peer (P2P).",
+			"change_server": "تغيير خادم الصوت",
+			"voice_server": "خادم الصوت",
+			"invalid_url": "URL غير صالح",
+			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash BetterCrewLink.",
+			"reset_default": "Reset To Default"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "مضيف الجوال",
+			"vad_enabled": "تمكين VAD",
+			"vad_enabled_warning": "لن ترى من يتحدث إذا تم إلغاء التنشيط.",
+			"echocancellation": "إلغاء الصدى",
+			"noiseSuppression": "قمع الضوضاء",
+			"spatial_audio": "صوت الفضاء"
+		},
+		"streaming": {
+			"title": "Streaming Settings",
+			"hidecode": "إظهار كود اللوبي",
+			"obs_overlay": "تراكب متصفح OBS",
+			"obs_url": "Obs Browsersource URL",
+			"voice_server_comp": "VS Compatibility Mode",
+			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
+		},
+		"troubleshooting": {
+			"title": "استكشاف الأخطاء وإصلاحها",
+			"restore": "استعادة الضبط الافتراضي",
+			"restore_warning": "سيؤدي هذا إلى إعادة تعيين كافة الإعدادات إلى قيمها الافتراضية.",
+			"warning": "غير متوفر كمضيف في اللعبة!"
+		}
+	},
+	"buttons": {
+		"default": "الافتراضي",
+		"confirm": "تأكيد",
+		"cancel": "إلغاء",
+		"exit": "اخرج من الإعدادات لتطبيق التغييرات"
+	},
+	"game": {
+		"menu": "قائمة",
+		"open": "فتح اللعبة",
+		"open_error": "ابدأ اللعبة يدويًا.\n(هذا الزر مخصص للبخار فقط)",
+		"waiting": "انتظار among us",
+		"error": "خطأ",
+		"error_admin": "Couldn't connect to Among Us.\nPlease re-open BetterCrewLink as Administrator.",
+		"error_unsupport": "Your version of Among Us is unsupported by BetterCrewLink."
+	},
+	"translator_name": "Translator Name"
+}

@@ -46,11 +46,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export interface MenuProps {
-	t:  (key: string) => string;
+	t: (key: string) => string;
 	error: string;
 }
 
-const Menu: React.FC<MenuProps> = function ({t,  error }: MenuProps) {
+const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 	const classes = useStyles();
 	return (
 		<div className={classes.root}>
@@ -58,7 +58,7 @@ const Menu: React.FC<MenuProps> = function ({t,  error }: MenuProps) {
 				{error ? (
 					<div className={classes.error}>
 						<Typography align="center" variant="h6" color="error">
-						{t('game.error')}
+							{t('game.error')}
 						</Typography>
 						<Typography align="center" style={{ whiteSpace: 'pre-wrap' }}>
 							{error}

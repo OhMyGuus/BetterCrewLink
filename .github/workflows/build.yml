@@ -1,0 +1,58 @@
+name: BetterCrewLink Build (CI)
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        include:
+         - os: windows-latest
+           dist: 'dist'
+           installer: 'dist/Better-CrewLink Setup*.exe'
+         - os: ubuntu-latest
+           dist: 'dist:linux'
+           installer: 'dist/Better-CrewLink-*.AppImage'
+
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+        
+      - name: Cache Node Modules
+        id: node-cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            .yarn
+          key: ${{ runner.os }}-3-${{ hashFiles('yarn.lock')}}
+    
+    
+      - name: Install Dependencies
+        if: steps.node-cache.outputs.cache-hit != 'true'
+        run: yarn install  --cache-folder .yarn --network-timeout 100000
+        
+      - name: Build App
+        run: yarn run ${{ matrix.dist }} --publish never
+     
+      - name: Upload Installer
+        uses: actions/upload-artifact@v2
+        with:
+          name: BetterCrewLink Installer ${{ runner.os }}
+          path: ${{ matrix.installer }}
+          if-no-files-found: error
+          
+      - name: Upload Unpacked
+        uses: actions/upload-artifact@v2
+        if: ${{ matrix.os == 'windows-latest'}}
+        with:
+          name: BetterCrewLink Unpacked 64bit 
+          path: 'dist/win-unpacked'
