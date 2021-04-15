@@ -1,3 +1,5 @@
+## Translating
+
 [![Crowdin][crowdin-shield]][crowdin-url]
 
 BetterCrewLink now officially supports other languages, that is, you can use BetterCrewLink without any problem of not understanding a part in English, but with that we need help with translations because nobody is born knowing everything languages.
