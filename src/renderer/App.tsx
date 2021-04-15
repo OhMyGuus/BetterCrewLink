@@ -134,7 +134,7 @@ export default function App({ t }): JSX.Element {
 		pushToTalkShortcut: 'V',
 		deafenShortcut: 'RControl',
 		muteShortcut: 'RAlt',
-		impostorRadioShortcut: 'L',
+		impostorRadioShortcut: 'F',
 		hideCode: false,
 		natFix: false,
 		mobileHost: true,
