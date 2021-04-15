@@ -179,6 +179,8 @@ Any contributions you make are greatly appreciated.
 
 ### Translating
 
+[![Crowdin][crowdin-shield]][crowdin-url]
+
 BetterCrewLink now officially supports other languages, that is, you can use BetterCrewLink without any problem of not understanding a part in English, but with that we need help with translations because nobody is born knowing everything languages.
 
 Any translations you make are greatly appreciated.
@@ -213,7 +215,7 @@ There are two methods for this:
 <details>
 <summary> BetterCrewLink Contributors </summary>
 
-[![Contributors][contributors-shield]][contributors-url]
+[![Contributors][contributors-shield]][contributors-url] [![Crowdin][crowdin-shield]][crowdin-url]
 
 * [OhMyGuus](https://github.com/OhMyGuus) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), example: NAT Fix, more overlays, support for Mobile and owner of project
 * [ottomated](https://github.com/ottomated) for make [CrewLink](https://github.com/ottomated/CrewLink)
