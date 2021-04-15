@@ -1,0 +1,116 @@
+{
+	"settings": {
+		"title": "Inställningar",
+		"language": "Språk",
+		"warning": "Är du säker?",
+		"lobbysettings": {
+			"title": "Lobby Inställningar",
+			"gamehostonly": "Endast spelvärden kan ändra detta!",
+			"inlobbyonly": "Du kan bara ändra detta i lobbyn!",
+			"voicedistance": "Röst Avstånd",
+			"voicedistance_impostor": "Impostor Röst Avstånd",
+			"wallsblockaudio": "Väggar Blockerar Ljud",
+			"visiononly": "Hör Endast Personer I Syn",
+			"impostorshearsghost": "Impostors Hör Döda",
+			"hear_imposters_invents": "Hör Impostors I Ventiler",
+			"private_talk_invents": "Privat Samtal I Ventiler",
+			"comms_sabotage_audio": "Comms Sabotage Inaktiverar Röst",
+			"hear_through_cameras": "Hör Igenom Kameror",
+			"ghost_only": "Endast Spöken Kan Prata/Höra",
+			"ghost_only_warning": "Detta inaktiverar ljudet för levande spelare.",
+			"ghost_only_warning2": "Spöken kan endast prata aktiverat.",
+			"meetings_only": "Endast Möten/Lobbyn",
+			"meetings_only_warning": "Detta inaktiverar ljudet för levande spelare utanför möten.",
+			"meetings_only_warning2": "Endast prata under möten aktiveras.",
+			"impostor_radio": "Impostor Radio"
+		},
+		"audio": {
+			"title": "Ljud",
+			"microphone": "Mikrofon",
+			"speaker": "Högtalare",
+			"voice_activity": "Röstaktivitet",
+			"push_to_talk": "Tryck För Att Prata",
+			"push_to_mute": "Tryck För Att Tysta",
+			"microphone_volume": "Mikrofon Volym",
+			"microphone_sens": "Mikrofonens Känslighet",
+			"microphone_sens_warning": "Om du ställer in känsligheten något lägre så kanske det inte fungerar.",
+			"mastervolume": "Huvudvolym",
+			"crewvolume": "Besättningens volym som spöke",
+			"test_speaker_start": "Testa högtalaren",
+			"test_speaker_stop": "Sluta Testa Högtalaren"
+		},
+		"keyboard": {
+			"title": "Tangentbordsgenvägar",
+			"push_to_talk": "Tryck För Att Prata",
+			"mute": "Stäng Av Mikrofonen",
+			"deafen": "Stäng Av Ljud",
+			"impostor_radio": "Impostor Radio"
+		},
+		"overlay": {
+			"title": "Overlay",
+			"always_on_top": "BetterCrewLink Högst Upp",
+			"enabled": "Enable Overlay",
+			"compact": "Compact Overlay",
+			"meeting": "Meeting Overlay",
+			"pos": "Overlay Position",
+			"locations": {
+				"hidden": "Hidden",
+				"top": "Top Center",
+				"bottom": "Bottom Left",
+				"right": "Right",
+				"right1": "Right with Background",
+				"left": "Left",
+				"left1": "Left with Background"
+			}
+		},
+		"advanced": {
+			"title": "Advanced",
+			"nat_fix": "NAT Fix",
+			"nat_fix_warning": "This will FIX the NAT issues but will add a delay since it is using a server instead of Peer to Peer (P2P).",
+			"change_server": "Change Voice Server",
+			"voice_server": "Voice Server",
+			"invalid_url": "Invalid URL",
+			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash BetterCrewLink.",
+			"reset_default": "Reset To Default"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "Mobile Host",
+			"vad_enabled": "VAD Enabled",
+			"vad_enabled_warning": "You won't see who's talking if deactivate.",
+			"echocancellation": "Echo Cancellation",
+			"noiseSuppression": "Noise Suppression",
+			"spatial_audio": "Spatial Audio"
+		},
+		"streaming": {
+			"title": "Streaming Settings",
+			"hidecode": "Show Lobby Code",
+			"obs_overlay": "OBS Browser Overlay",
+			"obs_url": "Obs Browsersource URL",
+			"voice_server_comp": "VS Compatibility Mode",
+			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
+		},
+		"troubleshooting": {
+			"title": "Troubleshooting",
+			"restore": "Restore Defaults",
+			"restore_warning": "Detta kommer att återställa ALLA inställningar till deras standardvärden.",
+			"warning": "Not available as host in game!"
+		}
+	},
+	"buttons": {
+		"default": "Default",
+		"confirm": "Confirm",
+		"cancel": "Cancel",
+		"exit": "Exit Settings to apply changes"
+	},
+	"game": {
+		"menu": "MENU",
+		"open": "Open Game",
+		"open_error": "Start the game manually. \r\n(this button is only for steam)",
+		"waiting": "Väntar på Among Us",
+		"error": "ERROR",
+		"error_admin": "Det gick inte att ansluta till Among Us.\nVänligen öppna BetterCrewLink på nytt som administratör.",
+		"error_unsupport": "Din version av Among Us stöds inte av BetterCrewLink."
+	},
+	"translator_name": "NoikzGaming"
+}
