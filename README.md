@@ -206,6 +206,8 @@ There are two methods for this:
 2. Search for the name of your language you want to translate.
 3. Click on it and start translating.
 
+[![Crowdin][crowdin-shield]][crowdin-url]
+
 </details>
 
 ### Contributors
