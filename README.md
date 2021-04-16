@@ -61,15 +61,15 @@
 <!-- EXTRA FEATURES-->
 ## Extra features/fixes in this fork
 ```
-- OBS browsersource overlay.
-- Hear people in vision only.
-- Walls block audio. 
-- Volume sliders.
+- OBS Browsersource Overlay.
+- Hear People in Vision Only.
+- Walls Block Audio. 
+- Volume Sliders.
 - It doesn't break when someone leaves/disconnects.
 - It works on any network even with UPnP disabled. (Strict NAT)
 - More fun settings like hearing through cameras, impostor radio.
 - You can actually disable the overlay.
-- 32bit support, windows 7 support.
+- 32bit support, Windows 7 support.
 - You can change the volume of alive players after you died.
 - You can set BetterCrewLink to topmost.
 - Settings actually sync between players and not half.
