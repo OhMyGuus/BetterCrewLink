@@ -78,12 +78,12 @@
 - Your mouse doesn't start to lag because of the buggy input hook.
 - Changing the speaker setting does actually something unlike original CrewLink where it is always using the default output.
 - Compatible with CrewLink 2.0 
-- Microphone echo cancellation.
-- Microphone noise suppression.
+- Microphone Echo Cancellation.
+- Microphone Eoise Suppression.
 - More overlay positions and you can set the overlay to the top/bottom and you can set it so it shows everyone even when they aren't talking.
 - You can set the lobby up so only death people can talk. (normal lobbies but then with death talk)
 - Support for new version of Among Us. (v2021.4.12 and v2021.4.14)
-- Support for custom colors. (mods that add more colors)
+- Support for Custom Colors. (mods that add more colors)
 - Support for Linux.
 - Support for Mobile.
 ```
