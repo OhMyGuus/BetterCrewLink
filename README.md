@@ -84,8 +84,8 @@
 - You can set the lobby up so only death people can talk. (normal lobbies but then with death talk)
 - Support for new version of Among Us. (v2021.4.12 and v2021.4.14)
 - Support for custom colors. (mods that add more colors)
-- Support for Linux. (BETA)
-- Support for mobile. (BETA)
+- Support for Linux.
+- Support for Mobile.
 ```
 
 **If I missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), or in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) it so I can add it**
