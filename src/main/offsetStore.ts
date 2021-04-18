@@ -285,8 +285,8 @@ export default {
 			},
 			playerControl: {
 				sig:
-					'A1 ? ? ? ? F6 80 ? ? ? ? ? 74 14 83 78 74 00 75 0E 50 E8 ? ? ? ? A1 ? ? ? ? 83 C4 04 8B 40 5C 56 57 8B 30',
-				patternOffset: 1,
+					'8B 0D ? ? ? ? 83 C4 04 8B 41 5C 8B 00 85 C0 74 2B C6 40 30 00',
+				patternOffset: 2,
 				addressOffset: 0,
 			},
 		},
