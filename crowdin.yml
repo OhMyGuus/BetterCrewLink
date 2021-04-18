@@ -1,4 +1,3 @@
 files:
   - source: /static/locales/en/*.json
     translation: /static/locales/tr/%two_letters_code%/%original_file_name%
-    skip_untranslated_files: true
