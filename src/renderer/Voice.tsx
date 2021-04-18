@@ -26,8 +26,8 @@ import Divider from '@material-ui/core/Divider';
 import { validateClientPeerConfig } from './validateClientPeerConfig';
 // @ts-ignore
 import reverbOgx from 'arraybuffer-loader!../../static/sounds/reverb.ogx'; // @ts-ignore
-import radioBeep1 from '../../static/sounds/radio_beep1.wav'; // @ts-ignore
-import radioBeep2 from '../../static/sounds/radio_beep2.wav';
+import radioOnSound from '../../static/sounds/radio_on.wav'; // @ts-ignore
+// import radioBeep2 from '../../static/sounds/radio_beep2.wav';
 
 import { CameraLocation, AmongUsMaps } from '../common/AmongusMap';
 import Store from 'electron-store';
@@ -205,13 +205,13 @@ const defaultlocalLobbySettings: ILobbySettings = {
 	meetingGhostOnly: false,
 	visionHearing: false,
 };
-const radiobeepAudio1 = new Audio();
-radiobeepAudio1.src = radioBeep1;
-radiobeepAudio1.volume = 0.2;
+const radioOnAudio = new Audio();
+radioOnAudio.src = radioOnSound;
+radioOnAudio.volume = 0.02;
 
-const radiobeepAudio2 = new Audio();
-radiobeepAudio2.src = radioBeep2;
-radiobeepAudio2.volume = 0.2;
+// const radiobeepAudio2 = new Audio();
+// radiobeepAudio2.src = radioBeep2;
+// radiobeepAudio2.volume = 0.2;
 
 const store = new Store<ISettings>();
 const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceProps) {
@@ -389,7 +389,12 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		}
 
 		let isOnCamera = state.currentCamera !== CameraLocation.NONE;
-
+		console.log(
+			'ISONCAMERA???',
+			isOnCamera,
+			skipDistanceCheck,
+			!skipDistanceCheck && Math.sqrt(panPos[0] * panPos[0] + panPos[1] * panPos[1]) > maxdistance
+		);
 		// Mute players if distancte between two players is too big
 		// console.log({ x: other.x, y: other.y }, Math.sqrt(panPos[0] * panPos[0] + panPos[1] * panPos[1]));
 		//console.log(state.currentCamera);
@@ -399,6 +404,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				if (state.currentCamera !== CameraLocation.NONE && state.currentCamera !== CameraLocation.Skeld) {
 					const camerapos = AmongUsMaps[state.map].cameras[state.currentCamera];
 					panPos = [other.x - camerapos.x, other.y - camerapos.y];
+					console.log('camerapos: ', camerapos);
 				} else if (state.currentCamera === CameraLocation.Skeld) {
 					let distance = 999;
 					let camerapos = { x: 999, y: 999 };
@@ -690,7 +696,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		) {
 			return;
 		}
-		(pressing ? radiobeepAudio1 : radiobeepAudio2).play();
+		radioOnAudio.play();
 		connectionStuff.current.impostorRadio = pressing;
 		impostorRadioClientId.current = pressing ? myPlayer.clientId : -1;
 		for (const player of otherPlayers.filter((o) => o.isImpostor)) {
@@ -1356,7 +1362,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 					return (
 						<Grid item key={player.id} xs={getPlayersPerRow(otherPlayers.length)}>
-
 							<Avatar
 								connectionState={!connected ? 'disconnected' : audio ? 'connected' : 'novoice'}
 								player={player}
