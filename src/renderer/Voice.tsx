@@ -687,7 +687,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 	useEffect(() => {
 		const pressing = connectionStuff.current.impostorRadio;
-		if (
+		if ( 
 			pressing == null ||
 			!myPlayer ||
 			!myPlayer.isImpostor ||
@@ -699,10 +699,10 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		radioOnAudio.play();
 		connectionStuff.current.impostorRadio = pressing;
 		impostorRadioClientId.current = pressing ? myPlayer.clientId : -1;
-		for (const player of otherPlayers.filter((o) => o.isImpostor)) {
+		for (const player of otherPlayers.filter((o) => o.isImpostor && !o.bugged && !o.isDead)) {
 			const peer = playerSocketIdsRef.current[player.clientId];
 			const connection = peerConnections[peer];
-			if (connection !== undefined)
+			if (connection !== undefined && connection.writable)
 				connection?.send(JSON.stringify({ impostorRadio: connectionStuff.current.impostorRadio }));
 		}
 	}, [connectionStuff.current.impostorRadio]);
@@ -918,7 +918,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 					connection.on('connect', () => {
 						setTimeout(() => {
-							if (hostRef.current.isHost) {
+							if (hostRef.current.isHost && connection.writable) {
 								try {
 									console.log('sending settings..');
 									connection.send(JSON.stringify(lobbySettingsRef.current));
@@ -1318,7 +1318,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						{gameState.lobbyCode !== 'MENU' && (
 							<div className={classes.muteButtons}>
 								<IconButton onClick={connectionStuff.current.toggleMute} size="small">
-									{mutedState ? <MicOff /> : <Mic />}
+									{(mutedState || deafenedState) ? <MicOff /> : <Mic />}
 								</IconButton>
 								<IconButton onClick={connectionStuff.current.toggleDeafen} size="small">
 									{deafenedState ? <VolumeOff /> : <VolumeUp />}
