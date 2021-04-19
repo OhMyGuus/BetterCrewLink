@@ -1,117 +1,116 @@
 {
 	"settings": {
-		"title": "Paramètres",
-		"language": "Langue",
-		"warning": "Vous êtes sûr?",
+		"title": "Settings",
+		"language": "Language",
+		"warning": "Are you sure?",
 		"lobbysettings": {
-			"title": "Paramètres du lobby",
-			"gamehostonly": "Seul l'hôte de la partie peut modifier cela!",
-			"inlobbyonly": "Vous ne pouvez changer cela que dans le lobby!",
-			"voicedistance": "Distance vocal",
-			"voicedistance_impostor": "Distance vocal imposteurs",
-			"wallsblockaudio": "Les murs bloquent l'audio",
-			"visiononly": "Entendre uniquement les gens que l'on voit",
-			"impostorshearsghost": "Les imposteurs entendent les fantômes",
-			"hear_imposters_invents": "Entendre les imposteurs dans les vents",
-			"private_talk_invents": "Discussion privée dans les vents",
-			"comms_sabotage_audio": "Saboter les communications désactive le vocal",
-			"hear_through_cameras": "Entendre à travers les caméras",
-			"ghost_only": "Seuls les fantômes peuvent parler/entendre",
-			"ghost_only_warning": "Cette option désactive le vocal pour les joueurs vivants.",
-			"ghost_only_warning2": "Seuls les fantômes peuvent parler activé.",
-			"meetings_only": "Meetings/Lobby uniquement",
-			"meetings_only_warning": "Cela désactive le son pour les joueurs vivants en dehors des meetings.",
-			"meetings_only_warning2": "Meetings/Lobby uniquement activé.",
-			"impostor_radio": "Vocal imposteur"
+			"title": "Lobby Settings",
+			"gamehostonly": "Only the game host can change this!",
+			"inlobbyonly": "You can only change this in the lobby!",
+			"voicedistance": "Voice Distance",
+			"voicedistance_impostor": "Impostor Voice Distance",
+			"wallsblockaudio": "Walls Block Audio",
+			"visiononly": "Hear People in Vision Only",
+			"impostorshearsghost": "Impostors Hear Dead",
+			"hear_imposters_invents": "Hear Impostors in Vents",
+			"private_talk_invents": "Private Talk in Vents",
+			"comms_sabotage_audio": "Comms Sabotage Disables Voice",
+			"hear_through_cameras": "Hear Through Cameras",
+			"ghost_only": "Only Ghosts Can Talk/Hear",
+			"ghost_only_warning": "This disables the sound for alive players.",
+			"ghost_only_warning2": "Ghost can talk only enabled.",
+			"meetings_only": "Meetings/Lobby Only",
+			"meetings_only_warning": "This disables the sound for alive players outside meetings.",
+			"meetings_only_warning2": "Talking in meetings only enabled.",
+			"impostor_radio": "Impostor Radio"
 		},
 		"audio": {
 			"title": "Audio",
-			"microphone" : "Microphone",
-			"speaker": "Sortie audio",
-			"voice_activity": "Détection de la voix",
-			"push_to_talk": "Appuyer pour parler",
-			"push_to_mute": "Appuyer pour muet",
-			"microphone_volume": "Volume du microphone",
-			"microphone_sens": "Sensibilité du microphone",
-			"microphone_sens_warning": "Si vous diminuez encore la sensibilité, cela pourrait ne pas fonctionner.",
-			"crewvolume": "Volume des survivants (en tant que fantôme)",
-			"mastervolume": "Volume général",
-                        "test_speaker_start" : "Tester la sortie",
-                        "test_speaker_stop": "Arrêter le test"
+			"microphone": "Microphone",
+			"speaker": "Speaker",
+			"voice_activity": "Voice Activity",
+			"push_to_talk": "Push To Talk",
+			"push_to_mute": "Push To Mute",
+			"microphone_volume": "Microphone Volume",
+			"microphone_sens": "Microphone Sensitivity",
+			"microphone_sens_warning": "If you set the sensitivity any lower it might not work.",
+			"mastervolume": "Master Volume",
+			"crewvolume": "Crew Volume as Ghost",
+			"test_speaker_start": "Test Speaker",
+			"test_speaker_stop": "Stop Test Speaker"
 		},
 		"keyboard": {
-			"title": "Raccourcis Clavier",
-			"push_to_talk": "Presser pour parler",
-			"deafen": "Sourdine",
-			"mute": "Muet",
-			"impostor_radio": "Vocal imposteur"
+			"title": "Keyboard Shortcuts",
+			"push_to_talk": "Push To Talk",
+			"mute": "Mute",
+			"deafen": "Deafen",
+			"impostor_radio": "Impostor Radio"
 		},
 		"overlay": {
 			"title": "Overlay",
-			"always_on_top": "BetterCrewLink toujours visible",
-			"enabled": "Activer l'overlay",
-			"compact": "Overlay compact",
-			"meeting": "Meeting overlay",
-			"pos": "Position de l'overlay",
+			"always_on_top": "BetterCrewLink on Top",
+			"enabled": "Enable Overlay",
+			"compact": "Compact Overlay",
+			"meeting": "Meeting Overlay",
+			"pos": "Overlay Position",
 			"locations": {
-				"hidden": "Non visible",
-				"top": "En haut au centre",
-				"bottom": "En bas à gauche",
-				"right": "Droite",
-				"right1": "Droite avec fond",
-				"left": "Gauche",
-				"left1": "Gauche avec fond"
+				"hidden": "Hidden",
+				"top": "Top Center",
+				"bottom": "Bottom Left",
+				"right": "Right",
+				"right1": "Right with Background",
+				"left": "Left",
+				"left1": "Left with Background"
 			}
 		},
 		"advanced": {
-			"title": "Paramètres avancés",
-			"nat_fix": "Compatiblité NAT",
-			"nat_fix_warning": "Cela permettra de résoudre les problèmes lié au NAT, mais ajoutera un délai puisque cela utilisera un serveur au lieu du mode Peer to Peer (P2P).",
-			"change_server": "Changer de serveur vocal",
-			"voice_server": "Serveur vocal",
-			"invalid_url": "URL invalide",
-			"voice_server_warning": "Cette option est réservée aux utilisateurs avancés. D'autres serveurs peuvent voler vos informations ou planter BetterCrewLink.",
-			"reset_default": "Réinitialiser le serveur vocal"
+			"title": "Advanced",
+			"nat_fix": "NAT Fix",
+			"nat_fix_warning": "This will FIX the NAT issues but will add a delay since it is using a server instead of Peer to Peer (P2P).",
+			"change_server": "Change Voice Server",
+			"voice_server": "Voice Server",
+			"invalid_url": "Invalid URL",
+			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash BetterCrewLink.",
+			"reset_default": "Reset To Default"
 		},
 		"beta": {
 			"title": "BETA/DEBUG",
-			"mobilehost": "Hôte pour mobile",
-			"vad_enabled": "VAD activée",
-			"vad_enabled_warning": "Vous ne verrez pas qui parle si vous désactivez cette option.",
-			"echocancellation": "Annulation de l'écho",
-			"noiseSuppression": "Réducteur de bruit",
-			"spatial_audio": "Spatialisation sonore"
+			"mobilehost": "Mobile Host",
+			"vad_enabled": "VAD Enabled",
+			"vad_enabled_warning": "You won't see who's talking if deactivate.",
+			"echocancellation": "Echo Cancellation",
+			"noiseSuppression": "Noise Suppression",
+			"spatial_audio": "Spatial Audio"
 		},
 		"streaming": {
-			"title": "Paramètres streaming",
-			"hidecode": "Afficher le code de la partie",
+			"title": "Streaming Settings",
+			"hidecode": "Show Lobby Code",
 			"obs_overlay": "OBS Browser Overlay",
-			"obs_url": "OBS browsersource URL",
-			"voice_server_comp": "Mode compatibilité VS",
-			"voice_server_comp_warning": "Il est recommandé de simplement changer le serveur vocal pour un serveur vocal BetterCrewLink, par exemple https://bettercrewl.ink."
+			"obs_url": "Obs Browsersource URL",
+			"voice_server_comp": "VS Compatibility Mode",
+			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
 		},
 		"troubleshooting": {
-			"title": "Dépannage",
-			"restore": "Restaurer les paramètres par défaut",
-			"restore_warning": "Cela réinitialisera TOUS les paramètres avec leurs valeurs par défaut.",
-			"warning": "Non disponible comme hôte dans le jeu!"
+			"title": "Troubleshooting",
+			"restore": "Restore Defaults",
+			"restore_warning": "This will reset ALL settings to their default values.",
+			"warning": "Not available as host in game!"
 		}
 	},
 	"buttons": {
-		"default": "Par défaut",
-		"confirm": "Valider",
-		"cancel": "Annuler",
-		"exit": "Quitter les paramètres pour appliquer les changements"
+		"default": "Default",
+		"confirm": "Confirm",
+		"cancel": "Cancel",
+		"exit": "Exit Settings to apply changes"
 	},
 	"game": {
 		"menu": "MENU",
-		"open": "Ouvrir le jeu",
-		"open_error": "Démarrez le jeu manuellement. \r\n(ce bouton est uniquement pour Steam)",
-		"waiting": "En attente d'Among Us",
-		"error": "ERREUR",
-		"error_admin": "Impossible de se connecter à Among Us.\nVeuillez rouvrir BetterCrewLink en tant qu'administrateur.",
-		"error_unsupport": "Votre version de Among Us n'est pas supporté par BetterCrewLink."
+		"open": "Open Game",
+		"open_error": "Start the game manually. \r\n(this button is only for steam)",
+		"waiting": "Waiting for Among Us",
+		"error": "ERROR",
+		"error_admin": "Couldn't connect to Among Us.\nPlease re-open BetterCrewLink as Administrator.",
+		"error_unsupport": "Your version of Among Us is unsupported by BetterCrewLink."
 	},
-	"translator": "Adofou"
+	"translator_name": "Translator Name"
 }
-
