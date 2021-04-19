@@ -1,0 +1,116 @@
+{
+	"settings": {
+		"title": "Налаштування",
+		"language": "Мова",
+		"warning": "Ви впевнені?",
+		"lobbysettings": {
+			"title": "Налаштування кімнати",
+			"gamehostonly": "Тільки власник кімнати може це змінити!",
+			"inlobbyonly": "Ви можете змінити це тільки в кімнаті!",
+			"voicedistance": "Дальність голосу",
+			"voicedistance_impostor": "Дальність голосу самозванця",
+			"wallsblockaudio": "Стіни перепиняють звук",
+			"visiononly": "Чути лише тих, хто в полі зору",
+			"impostorshearsghost": "Самозванці чують привидів",
+			"hear_imposters_invents": "Чути самозванців у вентиляції",
+			"private_talk_invents": "Особиста розмова в вентиляції",
+			"comms_sabotage_audio": "Саботаж комунікацій глушить голос",
+			"hear_through_cameras": "Передача голосу через камери",
+			"ghost_only": "Тільки привиди можуть розмовляти/чути",
+			"ghost_only_warning": "Це відключає звук для живих гравців.",
+			"ghost_only_warning2": "Включена розмова тільки для привидів.",
+			"meetings_only": "Тільки на зборах чи в кімнаті",
+			"meetings_only_warning": "This disables the sound for alive players outside meetings.",
+			"meetings_only_warning2": "Включена розмова тільки на зборах.",
+			"impostor_radio": "Impostor Radio"
+		},
+		"audio": {
+			"title": "Звук",
+			"microphone": "Мікрофон",
+			"speaker": "Динамік",
+			"voice_activity": "Голосова активність",
+			"push_to_talk": "Активація голосу по кнопці",
+			"push_to_mute": "Відключення голосу по кнопці",
+			"microphone_volume": "Гучність мікрофона",
+			"microphone_sens": "Чутливість мікрофона",
+			"microphone_sens_warning": "If you set the sensitivity any lower it might not work.",
+			"mastervolume": "Загальна гучність",
+			"crewvolume": "Гучність команди для привида",
+			"test_speaker_start": "Test Speaker",
+			"test_speaker_stop": "Зупинити перевірку динаміка"
+		},
+		"keyboard": {
+			"title": "Keyboard Shortcuts",
+			"push_to_talk": "Активація голосу",
+			"mute": "Вимкнути мікрофон",
+			"deafen": "Вимкнути звук",
+			"impostor_radio": "Impostor Radio"
+		},
+		"overlay": {
+			"title": "Оверлей",
+			"always_on_top": "BetterCrewLink on Top",
+			"enabled": "Увімкнути оверлей",
+			"compact": "Компактний оверлей",
+			"meeting": "Оверлей на зборах",
+			"pos": "Положення оверлея",
+			"locations": {
+				"hidden": "Прихований",
+				"top": "Посередині зверху",
+				"bottom": "Внизу зліва",
+				"right": "Справа",
+				"right1": "Right with Background",
+				"left": "Зліва",
+				"left1": "Left with Background"
+			}
+		},
+		"advanced": {
+			"title": "Розширені",
+			"nat_fix": "Виправлення NAT",
+			"nat_fix_warning": "This will FIX the NAT issues but will add a delay since it is using a server instead of Peer to Peer (P2P).",
+			"change_server": "Змінити голосовий сервер",
+			"voice_server": "Голосовий сервер",
+			"invalid_url": "Неправильний URL",
+			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash BetterCrewLink.",
+			"reset_default": "Reset To Default"
+		},
+		"beta": {
+			"title": "БЕТА/ВІДЛАДКА",
+			"mobilehost": "Хост для мобільних",
+			"vad_enabled": "Включення VAD",
+			"vad_enabled_warning": "Якщо відключити, то не буде видно, хто говорить.",
+			"echocancellation": "Усунення відлуння",
+			"noiseSuppression": "Зниження шуму",
+			"spatial_audio": "Просторовий звук"
+		},
+		"streaming": {
+			"title": "Streaming Settings",
+			"hidecode": "Показати код кімнати",
+			"obs_overlay": "Оверлей OBS-браузера",
+			"obs_url": "Obs Browsersource URL",
+			"voice_server_comp": "VS Compatibility Mode",
+			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
+		},
+		"troubleshooting": {
+			"title": "Вирішення проблем",
+			"restore": "Відновити налаштування за замовчуванням",
+			"restore_warning": "Це скине ВСІ налаштування до значень за замовчуванням.",
+			"warning": "Недоступно для власника кімнати під час гри!"
+		}
+	},
+	"buttons": {
+		"default": "За замовчуванням",
+		"confirm": "Підтвердити",
+		"cancel": "Скасувати",
+		"exit": "Закрийте налаштування для застосування змін"
+	},
+	"game": {
+		"menu": "МЕНЮ",
+		"open": "Відкрити гру",
+		"open_error": "Запустити гру вручну. \r\n(ця кнопка тільки для steam)",
+		"waiting": "Очікування Among Us",
+		"error": "ПОМИЛКА",
+		"error_admin": "Couldn't connect to Among Us.\nPlease re-open BetterCrewLink as Administrator.",
+		"error_unsupport": "Your version of Among Us is unsupported by BetterCrewLink."
+	},
+	"translator_name": "None"
+}
