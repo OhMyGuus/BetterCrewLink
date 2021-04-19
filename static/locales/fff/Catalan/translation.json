@@ -1,0 +1,116 @@
+{
+	"settings": {
+		"title": "Configuració",
+		"language": "Idioma",
+		"warning": "Estàs segur?",
+		"lobbysettings": {
+			"title": "Opcions de la sala",
+			"gamehostonly": "Només l'amfitrió de la sala pot canviar això!",
+			"inlobbyonly": "Només podeu canviar això a la sala!",
+			"voicedistance": "Distància de la veu",
+			"voicedistance_impostor": "Distància de veu de l'impostor",
+			"wallsblockaudio": "Les parets bloquegen l'àudio",
+			"visiononly": "Només escoltar gent en la teva visió",
+			"impostorshearsghost": "Els impostors escolten als morts",
+			"hear_imposters_invents": "Escoltar als impostors ficats dins la ventilació",
+			"private_talk_invents": "Parlar privadament en la ventilació",
+			"comms_sabotage_audio": "Saboteig de comunicació desactiva la veu",
+			"hear_through_cameras": "Escoltar per les càmeres",
+			"ghost_only": "Només els fantasmes poden parlar/escoltar",
+			"ghost_only_warning": "Aixó desactiva el so per els jugadors vius.",
+			"ghost_only_warning2": "Els fantasmes només pot parlar.",
+			"meetings_only": "Només Reunions/Sala Principal",
+			"meetings_only_warning": "This disables the sound for alive players outside meetings.",
+			"meetings_only_warning2": "Només es pot parlar en les reunions activat.",
+			"impostor_radio": "Impostor Radio"
+		},
+		"audio": {
+			"title": "Audio",
+			"microphone": "Micròfon",
+			"speaker": "Altaveu",
+			"voice_activity": "Activitat de veu",
+			"push_to_talk": "Polsar per Parlar",
+			"push_to_mute": "Polsar per Silenciar-se",
+			"microphone_volume": "Volum del Micròfon",
+			"microphone_sens": "Sensibilitat del Micròfon",
+			"microphone_sens_warning": "If you set the sensitivity any lower it might not work.",
+			"mastervolume": "Volum General",
+			"crewvolume": "Volum dels Companys com Fantasma",
+			"test_speaker_start": "Test Speaker",
+			"test_speaker_stop": "Parar de Provar l'altaveu"
+		},
+		"keyboard": {
+			"title": "Keyboard Shortcuts",
+			"push_to_talk": "Polsar per Parlar",
+			"mute": "Silenciar",
+			"deafen": "Ensordir",
+			"impostor_radio": "Impostor Radio"
+		},
+		"overlay": {
+			"title": "Superposició",
+			"always_on_top": "BetterCrewLink on Top",
+			"enabled": "Activar Superposició",
+			"compact": "Superposició Compacta",
+			"meeting": "Superposició de Reunions",
+			"pos": "Posició de Superposició",
+			"locations": {
+				"hidden": "Amagat",
+				"top": "Centre Superior",
+				"bottom": "Baix a L'esquerra",
+				"right": "Dreta",
+				"right1": "Right with Background",
+				"left": "Esquerra",
+				"left1": "Left with Background"
+			}
+		},
+		"advanced": {
+			"title": "Avançat",
+			"nat_fix": "Arregla de NAT",
+			"nat_fix_warning": "This will FIX the NAT issues but will add a delay since it is using a server instead of Peer to Peer (P2P).",
+			"change_server": "Canviar Servidor de Veu",
+			"voice_server": "Servidor de Veu",
+			"invalid_url": "URL invàlida",
+			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash BetterCrewLink.",
+			"reset_default": "Reset To Default"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "Amfitrió Mòbil",
+			"vad_enabled": "VAD activat",
+			"vad_enabled_warning": "No veuràs qui està parlant si es desactiva.",
+			"echocancellation": "Cancel·lació de Eco",
+			"noiseSuppression": "Supressió de Soroll",
+			"spatial_audio": "Audio Espacial"
+		},
+		"streaming": {
+			"title": "Streaming Settings",
+			"hidecode": "Mostrar Codi del Vestíbul",
+			"obs_overlay": "Superposició de Navegador de OBS",
+			"obs_url": "Obs Browsersource URL",
+			"voice_server_comp": "VS Compatibility Mode",
+			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
+		},
+		"troubleshooting": {
+			"title": "Resolució de problemes",
+			"restore": "Restaurar Predeterminats",
+			"restore_warning": "Això reiniciarà TOTES les opcions als seus valors predeterminats.",
+			"warning": "No disponible com a amfitrió del joc!"
+		}
+	},
+	"buttons": {
+		"default": "Predeterminat",
+		"confirm": "Confirmar",
+		"cancel": "Cancel·lar",
+		"exit": "Surt de Opcions per aplicar els canvis"
+	},
+	"game": {
+		"menu": "MENU",
+		"open": "Obrir Joc",
+		"open_error": "Començar el joc manualment. (aquest botó només és per steam)",
+		"waiting": "Esperar a Among Us",
+		"error": "ERROR",
+		"error_admin": "Couldn't connect to Among Us.\nPlease re-open BetterCrewLink as Administrator.",
+		"error_unsupport": "Your version of Among Us is unsupported by BetterCrewLink."
+	},
+	"translator_name": "None"
+}
