@@ -20,7 +20,7 @@
   <p align="center">
     <b><a href="https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ">Donate to BetterCrewLink</a></b></br>
   (all donations will be used for the apple developer license and extra servers)</br>
-   <b><a href="https://paypal.me/ottomated">Donate to ottomated (offical CrewLink)</a></b>
+   <b><a href="https://paypal.me/ottomated">Donate to ottomated (official CrewLink)</a></b>
   </p>
 </p>
 <hr />
