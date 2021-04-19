@@ -16,13 +16,13 @@
 			"private_talk_invents": "Súkromné rozhovory vo vetracích šachtách",
 			"comms_sabotage_audio": "Sabotáž komunikácie znemožní rozprávanie",
 			"hear_through_cameras": "Počuť cez kamery",
-			"ghost_only": "Iba duchovia môžu rozprávať/počuť",
+			"ghost_only": "Iba duchovia sa môžu rozprávať/môžu počuť",
 			"ghost_only_warning": "Toto zakáže zvuk pre živých ľudí.",
 			"ghost_only_warning2": "Iba duch môže hovoriť je zapnuté.",
 			"meetings_only": "Iba mítingy/lobby",
-			"meetings_only_warning": "Toto zakáže zvuk pre živých ľudí mimo mítingov",
+			"meetings_only_warning": "This disables the sound for alive players outside meetings.",
 			"meetings_only_warning2": "Rozprávanie iba v mítingoch je zapnuté.",
-			"impostor_radio": "Impostor Rádio"
+			"impostor_radio": "Impostor Radio"
 		},
 		"audio": {
 			"title": "Zvuk",
@@ -33,22 +33,22 @@
 			"push_to_mute": "Tlač pre stlmenie",
 			"microphone_volume": "Hlasitosť mikrofónu",
 			"microphone_sens": "Citlivosť mikrofónu",
-			"microphone_sens_warning": "Ak nastavíš nižšiu citlivosť, nemusí to fungovať",
-			"crewvolume": "Hlasitosť posádky keď si duch",
+			"microphone_sens_warning": "If you set the sensitivity any lower it might not work.",
 			"mastervolume": "Celková hlasitosť",
-			"test_speaker_start": "Test reproduktora",
+			"crewvolume": "Hlasitosť posádky keď si duch",
+			"test_speaker_start": "Test Speaker",
 			"test_speaker_stop": "Zastaviť test reproduktora"
 		},
 		"keyboard": {
-			"title": "Klávesové skratky",
+			"title": "Keyboard Shortcuts",
 			"push_to_talk": "Tlač pre rozprávanie",
-			"deafen": "Stlmiť zvuk",
 			"mute": "Stlmiť mikrofón",
-			"impostor_radio": "Impostor Rádio"
+			"deafen": "Stlmiť zvuk",
+			"impostor_radio": "Impostor Radio"
 		},
 		"overlay": {
 			"title": "Prekrytie",
-			"always_on_top": "BetterCrewlink na vrchu",
+			"always_on_top": "BetterCrewLink on Top",
 			"enabled": "Povoliť prekrytie",
 			"compact": "Kompaktné prekrytie",
 			"meeting": "Mítingové prekrytie",
@@ -58,20 +58,20 @@
 				"top": "Hore v strede",
 				"bottom": "Dole vľavo",
 				"right": "Vpravo",
-				"right1": "Pravé pozadie",
+				"right1": "Right with Background",
 				"left": "Vľavo",
-				"left1": "Ľavé pozadie"
+				"left1": "Left with Background"
 			}
 		},
 		"advanced": {
 			"title": "Pokročilé",
 			"nat_fix": "NAT opravenie",
-			"nat_fix_warning": "Toto opraví NAT problémy, ale dôjde k oneskoreniu, pretože sa použije server namiesto P2P",
+			"nat_fix_warning": "This will FIX the NAT issues but will add a delay since it is using a server instead of Peer to Peer (P2P).",
 			"change_server": "Zmeniť hlasový server",
 			"voice_server": "Hlasový server",
 			"invalid_url": "Neplatná URL",
-			"voice_server_warning": "Táto možnosť je iba pre pokročilých používateľov. Ostatné servery môžu ukradnúť tvoje informácie alebo spadnúť BetterCrewLink.",
-			"reset_default": "Obnoviť pôvodné nastavenia"
+			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash BetterCrewLink.",
+			"reset_default": "Reset To Default"
 		},
 		"beta": {
 			"title": "BETA/DEBUG",
@@ -83,12 +83,12 @@
 			"spatial_audio": "Priestorový zvuk"
 		},
 		"streaming": {
-			"title": "Nastavenie streamovania",
+			"title": "Streaming Settings",
 			"hidecode": "Zobraziť lobby kód",
 			"obs_overlay": "OBS prekrytie prehliadača",
-			"obs_url": "OBS zdroj URL",
-			"voice_server_comp": "Režim kompatibility HS",
-			"voice_server_comp_warning": "Odporúča sa iba zmeniť hlasový server na Bettercrewlink (https://bettercrewl.ink)."
+			"obs_url": "Obs Browsersource URL",
+			"voice_server_comp": "VS Compatibility Mode",
+			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
 		},
 		"troubleshooting": {
 			"title": "Riešenie problémov",
@@ -109,8 +109,8 @@
 		"open_error": "Spusti hru manuálne. \n(toto tlačidlo je iba pre Steam)",
 		"waiting": "Čaká sa na Among Us",
 		"error": "CHYBA",
-		"error_admin": "Nepodarilo sa pripojiť k Among Us.\n Prosím, znovu otvor BetterCrewLink ako administrátor.",
-		"error_unsupport": "Tvoja verzia Among Us nie je BetterCrewLinkom podporovaná."
+		"error_admin": "Couldn't connect to Among Us.\nPlease re-open BetterCrewLink as Administrator.",
+		"error_unsupport": "Your version of Among Us is unsupported by BetterCrewLink."
 	},
-	"translator_name": "KaldonM"
+	"translator_name": "Translator Name"
 }
