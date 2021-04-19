@@ -1,54 +1,54 @@
 {
 	"settings": {
-		"title": "الاعدادات",
+		"title": "الإعدادات",
 		"language": "اللغة",
-		"warning": "هل أنت متأكد من ذلك؟",
+		"warning": "هل أنت متأكد؟",
 		"lobbysettings": {
-			"title": "إعدادات لوبي",
-			"gamehostonly": "فقط مضيف اللعبة يمكنه تغيير هذا!",
+			"title": "إعدادات الردهة",
+			"gamehostonly": "فقط مضيف اللعبة يستطيع تغيير هذا!",
 			"inlobbyonly": "يمكنك فقط تغيير هذا في ردهة اللعبة!",
 			"voicedistance": "مسافة الصوت",
-			"voicedistance_impostor": "المسافة الصوتية للمستورد",
-			"wallsblockaudio": "حجب جدران الصوت",
-			"visiononly": "اسمع الناس في الرؤية فقط",
-			"impostorshearsghost": "المستورد يسمع ميت",
-			"hear_imposters_invents": "سمع المملوكين في الفتحات",
+			"voicedistance_impostor": "مسافة صوت المحتال",
+			"wallsblockaudio": "حجب الجدران للصوت",
+			"visiononly": "اسمع الأشخاص في الرؤية فقط",
+			"impostorshearsghost": "المحتالون يسمعون الموتى",
+			"hear_imposters_invents": "سماع المحتالون في الفتحات",
 			"private_talk_invents": "محادثة خاصة في الفتحات",
-			"comms_sabotage_audio": "تعطل تخريب الاتصالات الصوت",
-			"hear_through_cameras": "سمع عبر الكاميرات",
-			"ghost_only": "فقط الشبح يستطيع أن يتحدث/يسمع",
+			"comms_sabotage_audio": "تخريب الاتصالات يعطل الصوت",
+			"hear_through_cameras": "السماع عبر الكاميرات",
+			"ghost_only": "فقط الأشباح يستطيعون أن يتحدثوا/يسمعوا",
 			"ghost_only_warning": "هذا يعطل الصوت للاعبين الحيين.",
 			"ghost_only_warning2": "الشبح يمكنه التحدث فقط مفعل.",
 			"meetings_only": "الاجتماعات/الردهة فقط",
-			"meetings_only_warning": "This disables the sound for alive players outside meetings.",
+			"meetings_only_warning": "هذا يعطل صوت اللاعبين الأحياء خارج الاجتماعات.",
 			"meetings_only_warning2": "التحدث في الاجتماعات مفعل فقط.",
-			"impostor_radio": "Impostor Radio"
+			"impostor_radio": "راديو المحتال"
 		},
 		"audio": {
-			"title": "صوت",
+			"title": "الصوت",
 			"microphone": "ميكرفون",
 			"speaker": "مكبر الصوت",
 			"voice_activity": "النشاط الصوتي",
-			"push_to_talk": "اضغط لتحدث",
-			"push_to_mute": "اضغط لتكتم",
+			"push_to_talk": "اضغط للتحدث",
+			"push_to_mute": "اضغط للتكلم",
 			"microphone_volume": "صوت الميكروفون",
-			"microphone_sens": "حساس الميكروفون",
-			"microphone_sens_warning": "If you set the sensitivity any lower it might not work.",
+			"microphone_sens": "حساسية الميكروفون",
+			"microphone_sens_warning": "إذا قمت بتعيين حساسية أي أقل من ذلك قد لا تعمل.",
 			"mastervolume": "الصوت الرئيسي",
 			"crewvolume": "صوت الفريق كشبح",
-			"test_speaker_start": "Test Speaker",
+			"test_speaker_start": "اختبار مكبر الصوت",
 			"test_speaker_stop": "إيقاف اختبار مكبر الصوت"
 		},
 		"keyboard": {
-			"title": "Keyboard Shortcuts",
+			"title": "اختصارات لوحة المفاتيح",
 			"push_to_talk": "اضغط للتحدث",
 			"mute": "كتم الصوت",
 			"deafen": "وقف السمع",
-			"impostor_radio": "Impostor Radio"
+			"impostor_radio": "راديو المحتال"
 		},
 		"overlay": {
 			"title": "تراكب",
-			"always_on_top": "BetterCrewLink on Top",
+			"always_on_top": "BetterCrewLink على القمة",
 			"enabled": "تمكين التراكب",
 			"compact": "تراكب مضغوط",
 			"meeting": "تراكب الاجتماع",
@@ -58,37 +58,37 @@
 				"top": "مركز أعلى",
 				"bottom": "أسفل اليسار",
 				"right": "يمين",
-				"right1": "Right with Background",
+				"right1": "يمين مع خلفية",
 				"left": "يسار",
-				"left1": "Left with Background"
+				"left1": "يسار مع خلفية"
 			}
 		},
 		"advanced": {
 			"title": "متقدم",
 			"nat_fix": "إصلاح NAT",
-			"nat_fix_warning": "This will FIX the NAT issues but will add a delay since it is using a server instead of Peer to Peer (P2P).",
+			"nat_fix_warning": "سيؤدي هذا إلى إصلاح مشكلات NAT ولكنه سيضيف تأخيرًا نظرًا لأنه يستخدم خادمًا بدلاً من Peer to Peer (P2P).",
 			"change_server": "تغيير خادم الصوت",
 			"voice_server": "خادم الصوت",
 			"invalid_url": "URL غير صالح",
-			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash BetterCrewLink.",
-			"reset_default": "Reset To Default"
+			"voice_server_warning": "هذا الخيار للمستخدمين المتقدمين فقط. يمكن للخوادم الأخرى سرقة معلوماتك أو تعطل BetterCrewLink.",
+			"reset_default": "إعادة تعيين إلى الافتراضي"
 		},
 		"beta": {
 			"title": "BETA/DEBUG",
 			"mobilehost": "مضيف الجوال",
-			"vad_enabled": "تمكين VAD",
+			"vad_enabled": "VAD ممكن",
 			"vad_enabled_warning": "لن ترى من يتحدث إذا تم إلغاء التنشيط.",
 			"echocancellation": "إلغاء الصدى",
 			"noiseSuppression": "قمع الضوضاء",
-			"spatial_audio": "صوت الفضاء"
+			"spatial_audio": "الصوت المكاني"
 		},
 		"streaming": {
-			"title": "Streaming Settings",
-			"hidecode": "إظهار كود اللوبي",
+			"title": "إعدادات البث",
+			"hidecode": "إظهار كود الردهة",
 			"obs_overlay": "تراكب متصفح OBS",
-			"obs_url": "Obs Browsersource URL",
-			"voice_server_comp": "VS Compatibility Mode",
-			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
+			"obs_url": "عنوان URL لمصدر متصفح Obs",
+			"voice_server_comp": "وضع التوافق مع VS",
+			"voice_server_comp_warning": "يوصى بتغيير خادم الصوت إلى خادم صوت BetterCrewLink (https://bettercrewl.ink) على سبيل المثال."
 		},
 		"troubleshooting": {
 			"title": "استكشاف الأخطاء وإصلاحها",
@@ -98,19 +98,19 @@
 		}
 	},
 	"buttons": {
-		"default": "الافتراضي",
+		"default": "افتراضي",
 		"confirm": "تأكيد",
 		"cancel": "إلغاء",
 		"exit": "اخرج من الإعدادات لتطبيق التغييرات"
 	},
 	"game": {
-		"menu": "قائمة",
-		"open": "فتح اللعبة",
-		"open_error": "ابدأ اللعبة يدويًا.\n(هذا الزر مخصص للبخار فقط)",
-		"waiting": "انتظار among us",
+		"menu": "القائمة",
+		"open": "افتح اللعبة",
+		"open_error": "ابدأ اللعبة يدويًا.\n(هذا الزر مخصص للSteam فقط)",
+		"waiting": "في انتظار Among Us",
 		"error": "خطأ",
-		"error_admin": "Couldn't connect to Among Us.\nPlease re-open BetterCrewLink as Administrator.",
-		"error_unsupport": "Your version of Among Us is unsupported by BetterCrewLink."
+		"error_admin": "تعذر الاتصال بـ Among Us.\nالرجاء إعادة فتح BetterCrewLink كمسؤول.",
+		"error_unsupport": "الإصدار الخاص بك من Among Us غير مدعوم من قبل BetterCrewLink."
 	},
-	"translator_name": "Translator Name"
+	"translator_name": "Hani Rouatbi, XRevan86 and Achs gaming"
 }
