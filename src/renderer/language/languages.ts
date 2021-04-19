@@ -1,6 +1,6 @@
 import translationEN from '../../../static/locales/en/translation.json';
 import translationAR from '../../../static/locales/ar/translation.json';
-import translationAREG from '../../../static/locales/areg/translation.json';
+import translationAREG from '../../../static/locales/ar-EG/translation.json';
 import translationCA from '../../../static/locales/ca/translation.json';
 import translationCS from '../../../static/locales/cs/translation.json';
 import translationDE from '../../../static/locales/de/translation.json';
@@ -18,6 +18,8 @@ import translationSL from '../../../static/locales/sl/translation.json';
 import translationTR from '../../../static/locales/tr/translation.json';
 import translationUK from '../../../static/locales/uk/translation.json';
 import translationSV from '../../../static/locales/sv/translation.json';
+import translationJA from '../../../static/locales/ja/translation.json';
+import translationZH from '../../../static/locales/zh-CN/translation.json';
 
 const languages = {
 	en: {
@@ -28,7 +30,7 @@ const languages = {
 		translation: translationAR,
 		name: 'العربية',
 	},
-	areg: {
+	'ar-EG': {
 		translation: translationAREG,
 		name: 'مصر العربية',
 	},
@@ -100,6 +102,14 @@ const languages = {
 		translation: translationSV,
 		name: 'Svenska',
 	},
+	jp: {
+		translation: translationJA, 
+		name: '日本語'
+	},
+	zh: {
+		translation: translationZH, 
+		name: '汉语'
+	}
 };
 
 export default languages;

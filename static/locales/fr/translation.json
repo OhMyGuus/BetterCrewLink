@@ -26,7 +26,7 @@
 		},
 		"audio": {
 			"title": "Audio",
-			"microphone" : "Microphone",
+			"microphone": "Microphone",
 			"speaker": "Sortie audio",
 			"voice_activity": "Détection de la voix",
 			"push_to_talk": "Appuyer pour parler",
@@ -34,16 +34,16 @@
 			"microphone_volume": "Volume du microphone",
 			"microphone_sens": "Sensibilité du microphone",
 			"microphone_sens_warning": "Si vous diminuez encore la sensibilité, cela pourrait ne pas fonctionner.",
-			"crewvolume": "Volume des survivants (en tant que fantôme)",
 			"mastervolume": "Volume général",
-                        "test_speaker_start" : "Tester la sortie",
-                        "test_speaker_stop": "Arrêter le test"
+			"crewvolume": "Volume des survivants (en tant que fantôme)",
+			"test_speaker_start": "Tester la sortie",
+			"test_speaker_stop": "Arrêter le test"
 		},
 		"keyboard": {
 			"title": "Raccourcis Clavier",
 			"push_to_talk": "Presser pour parler",
-			"deafen": "Sourdine",
 			"mute": "Muet",
+			"deafen": "Sourdine",
 			"impostor_radio": "Vocal imposteur"
 		},
 		"overlay": {
@@ -85,7 +85,7 @@
 		"streaming": {
 			"title": "Paramètres streaming",
 			"hidecode": "Afficher le code de la partie",
-			"obs_overlay": "OBS Browser Overlay",
+			"obs_overlay": "Navigateur Overlay Obs",
 			"obs_url": "OBS browsersource URL",
 			"voice_server_comp": "Mode compatibilité VS",
 			"voice_server_comp_warning": "Il est recommandé de simplement changer le serveur vocal pour un serveur vocal BetterCrewLink, par exemple https://bettercrewl.ink."
@@ -112,6 +112,5 @@
 		"error_admin": "Impossible de se connecter à Among Us.\nVeuillez rouvrir BetterCrewLink en tant qu'administrateur.",
 		"error_unsupport": "Votre version de Among Us n'est pas supporté par BetterCrewLink."
 	},
-	"translator": "Adofou"
+	"translator_name": "Translator Name"
 }
-

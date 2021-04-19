@@ -1,7 +1,7 @@
 {
 	"settings": {
-        "title": "Definições",
-        "language": "Idioma",
+		"title": "Definições",
+		"language": "Idioma",
 		"warning": "Quer continuar?",
 		"lobbysettings": {
 			"title": "Definições do Lobby",
@@ -34,17 +34,16 @@
 			"microphone_volume": "Volume do Microfone",
 			"microphone_sens": "Sensibilidade do Microfone",
 			"microphone_sens_warning": "Ao baixar demasiado a sensibilidade, o microfone pode não funcionar.",
+			"mastervolume": "Volume Principal",
 			"crewvolume": "Volume dos Tripulantes como Fantasma",
-            		"mastervolume": "Volume Principal",
-            		"test_speaker_start" : "Teste de Altifalante",
-            		"test_speaker_stop": "Terminar o Teste"
-
+			"test_speaker_start": "Teste de Altifalante",
+			"test_speaker_stop": "Terminar o Teste"
 		},
 		"keyboard": {
 			"title": "Atalhos de Teclado",
 			"push_to_talk": "Pressionar Para Falar",
-			"deafen": "Desligar Áudio",
 			"mute": "Desligar Microfone",
+			"deafen": "Desligar Áudio",
 			"impostor_radio": "Rádio do Impostor"
 		},
 		"overlay": {
@@ -70,7 +69,7 @@
 			"nat_fix_warning": "Esta opção resolve problemas de NAT, mas adicionará um atraso por estar a usar um servidor em vez de ligações Ponto a Ponto (P2P)",
 			"change_server": "Alterar Servidor de Voz",
 			"voice_server": "Servidor de Voz",
-			"invalid_url": "Link Inválido",
+			"invalid_url": "URL Inválido",
 			"voice_server_warning": "Esta opção é apenas para utilizadores avançados. Outros servidores podem obter os seus dados ou causar erros no BetterCrewLink.",
 			"reset_default": "Repôr predefinição"
 		},
@@ -113,5 +112,5 @@
 		"error_admin": "Não foi possível ligar ao Among Us.\nAbra novamente o BetterCrewLink como administrador.",
 		"error_unsupport": "A versão do Among Us não é suportada pelo BetterCrewLink."
 	},
-	"translator_name": "vbtop/vb-03"
+	"translator_name": "Translator Name"
 }

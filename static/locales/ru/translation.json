@@ -29,7 +29,7 @@
 			"microphone": "Микрофон",
 			"speaker": "Динамик",
 			"voice_activity": "Голосовая активность",
- 			"push_to_talk": "Активация голоса по кнопке",
+			"push_to_talk": "Активация голоса по кнопке",
 			"push_to_mute": "Отключение голоса по кнопке",
 			"microphone_volume": "Громкость микрофона",
 			"microphone_sens": "Чувствительность микрофона",
@@ -55,7 +55,7 @@
 			"pos": "Положение оверлея",
 			"locations": {
 				"hidden": "Скрыт",
-				"top": "Посередине сверху",
+				"top": "Вверху в центре",
 				"bottom": "Внизу слева",
 				"right": "Справа",
 				"right1": "Справа с фоном",
@@ -112,5 +112,5 @@
 		"error_admin": "Не удалось подсоединиться к Among Us.\nПожалуйста, откройте BetterCrewLink снова как администратор.",
 		"error_unsupport": "Ваша версия Among Us не поддерживается BetterCrewLink."
 	},
-	"translator_name": "XRevan86"
+	"translator_name": "Translator Name"
 }
