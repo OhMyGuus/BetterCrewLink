@@ -20,7 +20,7 @@
   <p align="center">
     <b><a href="https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ">Donate to BetterCrewLink</a></b></br>
   (all donations will be used for the apple developer license and extra servers)</br>
-   <b><a href="https://paypal.me/ottomated">Donate to ottomated (offical CrewLink)</a></b>
+   <b><a href="https://paypal.me/ottomated">Donate to ottomated (official CrewLink)</a></b>
   </p>
 </p>
 <hr />
@@ -61,15 +61,15 @@
 <!-- EXTRA FEATURES-->
 ## Extra features/fixes in this fork
 ```
-- OBS browsersource overlay.
-- Hear people in vision only.
-- Walls block audio. 
-- Volume sliders.
+- OBS Browsersource Overlay.
+- Hear People in Vision Only.
+- Walls Block Audio. 
+- Volume Sliders.
 - It doesn't break when someone leaves/disconnects.
 - It works on any network even with UPnP disabled. (Strict NAT)
 - More fun settings like hearing through cameras, impostor radio.
 - You can actually disable the overlay.
-- 32bit support, windows 7 support.
+- 32bit support, Windows 7 support.
 - You can change the volume of alive players after you died.
 - You can set BetterCrewLink to topmost.
 - Settings actually sync between players and not half.
@@ -78,14 +78,14 @@
 - Your mouse doesn't start to lag because of the buggy input hook.
 - Changing the speaker setting does actually something unlike original CrewLink where it is always using the default output.
 - Compatible with CrewLink 2.0 
-- Microphone echo cancellation.
-- Microphone noise suppression.
+- Microphone Echo Cancellation.
+- Microphone Eoise Suppression.
 - More overlay positions and you can set the overlay to the top/bottom and you can set it so it shows everyone even when they aren't talking.
 - You can set the lobby up so only death people can talk. (normal lobbies but then with death talk)
-- Support for new version of Among Us. (v2021.4.12 and v2021.4.14)
-- Support for custom colors. (mods that add more colors)
-- Support for Linux. (BETA)
-- Support for mobile. (BETA)
+- Support for new versions of Among Us. (v2021.3.31.3 and v2021.4.1)
+- Support for Custom Colors. (mods that add more colors)
+- Support for Linux.
+- Support for Mobile.
 ```
 
 **If I missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), or in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) it so I can add it**
