@@ -12,7 +12,7 @@
 			"wallsblockaudio": "Les parets bloquegen l'àudio",
 			"visiononly": "Només escoltar gent en la teva visió",
 			"impostorshearsghost": "Els impostors escolten als morts",
-			"hear_imposters_invents": "Escoltar als impostors dins la ventilació",
+			"hear_imposters_invents": "Escoltar als impostors ficats dins la ventilació",
 			"private_talk_invents": "Parlar privadament en la ventilació",
 			"comms_sabotage_audio": "Saboteig de comunicació desactiva la veu",
 			"hear_through_cameras": "Escoltar per les càmeres",
@@ -20,8 +20,9 @@
 			"ghost_only_warning": "Aixó desactiva el so per els jugadors vius.",
 			"ghost_only_warning2": "Els fantasmes només pot parlar.",
 			"meetings_only": "Només Reunions/Sala Principal",
-			"meetings_only_warning": "Aixó desactiva el so per els jugadors vius",
-			"meetings_only_warning2": "Només es pot parlar en les reunions activat."
+			"meetings_only_warning": "This disables the sound for alive players outside meetings.",
+			"meetings_only_warning2": "Només es pot parlar en les reunions activat.",
+			"impostor_radio": "Impostor Radio"
 		},
 		"audio": {
 			"title": "Audio",
@@ -32,21 +33,22 @@
 			"push_to_mute": "Polsar per Silenciar-se",
 			"microphone_volume": "Volum del Micròfon",
 			"microphone_sens": "Sensibilitat del Micròfon",
-			"microphone_sens_warning": "Si la sensibilitat és massa baixa potser no funciona",
-			"crewvolume": "Volum dels Companys com Fantasma",
+			"microphone_sens_warning": "If you set the sensitivity any lower it might not work.",
 			"mastervolume": "Volum General",
-			"test_speaker_start": "Provar l'altaveu",
+			"crewvolume": "Volum dels Companys com Fantasma",
+			"test_speaker_start": "Test Speaker",
 			"test_speaker_stop": "Parar de Provar l'altaveu"
 		},
 		"keyboard": {
-			"title": "Dreceres de Teclat",
+			"title": "Keyboard Shortcuts",
 			"push_to_talk": "Polsar per Parlar",
+			"mute": "Silenciar",
 			"deafen": "Ensordir",
-			"mute": "Silenciar"
+			"impostor_radio": "Impostor Radio"
 		},
 		"overlay": {
 			"title": "Superposició",
-			"always_on_top": "Crewlink a Sobre",
+			"always_on_top": "BetterCrewLink on Top",
 			"enabled": "Activar Superposició",
 			"compact": "Superposició Compacta",
 			"meeting": "Superposició de Reunions",
@@ -56,20 +58,20 @@
 				"top": "Centre Superior",
 				"bottom": "Baix a L'esquerra",
 				"right": "Dreta",
-				"right1": "Fons-Dret",
+				"right1": "Right with Background",
 				"left": "Esquerra",
-				"left1": "Fons-Esquerre"
+				"left1": "Left with Background"
 			}
 		},
 		"advanced": {
 			"title": "Avançat",
 			"nat_fix": "Arregla de NAT",
-			"nat_fix_warning": "Això ARREGLARÀ els problemes de nat però ficarà un retard ja que està utilitzant un servidor en lloc de p2p",
+			"nat_fix_warning": "This will FIX the NAT issues but will add a delay since it is using a server instead of Peer to Peer (P2P).",
 			"change_server": "Canviar Servidor de Veu",
 			"voice_server": "Servidor de Veu",
 			"invalid_url": "URL invàlida",
-			"voice_server_warning": "Aquesta opció és només per usuaris avançats. Altres servidors poden robar la teva informació o fer que CrewLink falli.",
-			"reset_default": "Reiniciar a predeterminat"
+			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash BetterCrewLink.",
+			"reset_default": "Reset To Default"
 		},
 		"beta": {
 			"title": "BETA/DEBUG",
@@ -81,12 +83,12 @@
 			"spatial_audio": "Audio Espacial"
 		},
 		"streaming": {
-			"title": "Opcions de directe",
+			"title": "Streaming Settings",
 			"hidecode": "Mostrar Codi del Vestíbul",
 			"obs_overlay": "Superposició de Navegador de OBS",
-			"obs_url": "URL font del navegador Obs",
-			"voice_server_comp": "Mode de compatibilitat VS",
-			"voice_server_comp_warning": "Es recomana canviar el servidor de veu per un servidor de veu bettercrewlink https://bettercrewl.ink, per exemple."
+			"obs_url": "Obs Browsersource URL",
+			"voice_server_comp": "VS Compatibility Mode",
+			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
 		},
 		"troubleshooting": {
 			"title": "Resolució de problemes",
@@ -107,8 +109,8 @@
 		"open_error": "Començar el joc manualment. (aquest botó només és per steam)",
 		"waiting": "Esperar a Among Us",
 		"error": "ERROR",
-		"error_admin": "No es pot conectar a Among Us. Si us plau obre CrewLink una altra vegada com administrador.",
-		"error_unsupport": "La teva versió de Among Us no és compatible amb CrewLink."
+		"error_admin": "Couldn't connect to Among Us.\nPlease re-open BetterCrewLink as Administrator.",
+		"error_unsupport": "Your version of Among Us is unsupported by BetterCrewLink."
 	},
-	"translator": "ElBusAlv and nyanya4444"
+	"translator_name": "Translator Name"
 }
