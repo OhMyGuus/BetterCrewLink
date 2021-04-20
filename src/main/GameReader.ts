@@ -464,7 +464,7 @@ export default class GameReader {
 
 	offsetAddress(address: number, offsets: number[]): { address: number; last: number } {
 		if (!this.amongUs) throw 'Among Us not open? Weird error';
-		address = this.is_64bit ? address : address & 0xffffffff;
+		address = this.is_64bit ? address : address;
 		for (let i = 0; i < offsets.length - 1; i++) {
 			address = readMemoryRaw<number>(this.amongUs.handle, address + offsets[i], this.is_64bit ? 'uint64' : 'uint32');
 
