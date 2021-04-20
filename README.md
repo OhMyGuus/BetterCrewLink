@@ -45,7 +45,7 @@
 
 * [Extra features/fixes in this fork](#extra-featuresfixes-in-this-fork)
 * [About the Project](#about-the-project)
-* [Supported Versions](#supported-versions)
+* [Supported Plataforms](#supported-plataforms)
 * [Installation](#installation)
   * [Windows](#windows)
   * [Linux](#linux)
@@ -96,10 +96,10 @@
 
 This project implements proximity voice chat in Among Us. Everyone in an Among Us lobby with this program running will be able to communicate over voice in-game, with no third-party programs required. Spatial audio ensures that you can only hear people close to you.
 
-<!-- SUPPORTED VERSIONS -->
-## Supported Versions
+<!-- SUPPORTED PLATAFORMS -->
+## Supported Plataforms
 
-| Version | Supported          |
+| Plataform | Supported          |
 | ------- | ------------------ |
 | [Steam](https://github.com/OhMyGuus/BetterCrewLink) | ✅ |
 | [itch.io](https://github.com/OhMyGuus/BetterCrewLink) | ✅ |
