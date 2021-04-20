@@ -45,6 +45,7 @@
 
 * [Extra features/fixes in this fork](#extra-featuresfixes-in-this-fork)
 * [About the Project](#about-the-project)
+* [Supported Plataforms](#supported-plataforms)
 * [Installation](#installation)
   * [Windows](#windows)
   * [Linux](#linux)
@@ -94,6 +95,18 @@
 ## About The Project
 
 This project implements proximity voice chat in Among Us. Everyone in an Among Us lobby with this program running will be able to communicate over voice in-game, with no third-party programs required. Spatial audio ensures that you can only hear people close to you.
+
+<!-- SUPPORTED PLATAFORMS -->
+## Supported Plataforms
+
+| Plataform | Supported |
+| ------- | ------------------ |
+| [Steam](https://github.com/OhMyGuus/BetterCrewLink) | ✅ |
+| [itch.io](https://github.com/OhMyGuus/BetterCrewLink) | ✅ |
+| [Microsoft Store](https://github.com/OhMyGuus/BetterCrewLink) | ✅ |
+| [Android & Chromebook](https://github.com/OhMyGuus/BetterCrewlink-mobile) | ✅ |
+| [iOS & macOS](https://github.com/OhMyGuus/BetterCrewlink-mobile) | ✅ |
+| Beta | ✅ |
 
 <!-- INSTALLATION -->
 ## Installation
@@ -171,6 +184,8 @@ yarn dev
 
 Any contributions you make are greatly appreciated.
 
+Needed [Git](https://git-scm.com/downloads) for Contributing.
+
 1. [Fork the Project](https://github.com/OhMyGuus/BetterCrewLink/fork).
 2. Create your Feature Branch. (`git checkout -b feature/AmazingFeature`)
 3. Commit your Changes. (`git commit -m 'Add some AmazingFeature'`)
@@ -185,7 +200,7 @@ BetterCrewLink now officially supports other languages, that is, you can use Bet
 
 Any translations you make are greatly appreciated.
 
-There are two methods for this:
+There are two methods.
 
 <details>
 <summary> In GitHub </summary>
