@@ -99,7 +99,7 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 <!-- SUPPORTED PLATAFORMS -->
 ## Supported Plataforms
 
-| Plataform | Supported          |
+| Plataform | Supported |
 | ------- | ------------------ |
 | [Steam](https://github.com/OhMyGuus/BetterCrewLink) | ✅ |
 | [itch.io](https://github.com/OhMyGuus/BetterCrewLink) | ✅ |
