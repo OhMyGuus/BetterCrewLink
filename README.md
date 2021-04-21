@@ -104,8 +104,8 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 | [Steam](https://github.com/OhMyGuus/BetterCrewLink) | ✅ |
 | [itch.io](https://github.com/OhMyGuus/BetterCrewLink) | ✅ |
 | [Microsoft Store](https://github.com/OhMyGuus/BetterCrewLink) | ✅ |
-| [Android & Chromebook](https://github.com/OhMyGuus/BetterCrewlink-mobile) | ✅ |
-| [iOS & macOS](https://github.com/OhMyGuus/BetterCrewlink-mobile) | ✅ |
+| [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile) | ✅ |
+| [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile) | ✅ |
 | Beta | ✅ |
 
 <!-- INSTALLATION -->
