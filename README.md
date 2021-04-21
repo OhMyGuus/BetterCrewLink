@@ -38,6 +38,9 @@
     <a href="https://discord.gg/qDqTzvj4SH"><img src="https://img.shields.io/discord/791516611143270410?color=cornflowerblue&label=Discord&logo=Discord&logoColor=white" alt="Discord Server"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/graphs/contributors"><img src="https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink?label=Contributors&logo=GitHub" alt="GitHub Contributors"></img></a>
     <a href="https://crowdin.com/project/bettercrewlink"><img src="https://badges.crowdin.net/bettercrewlink/localized.svg" alt="Translations"></img></a>
+</p>
+
+<hr />
 
 <!-- NOTES -->
 <b>Notes:</b><br />
@@ -55,8 +58,8 @@
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
-* [Extra features/fixes in this fork](#extra-featuresfixes-in-this-fork)
 * [About the Project](#about-the-project)
+* [Extra features/fixes in this fork](#extra-featuresfixes-in-this-fork)
 * [Supported Plataforms](#supported-plataforms)
 * [Installation](#installation)
   * [Windows](#windows)
@@ -70,6 +73,11 @@
 * [Translating](#translating)
   * [Contributors](#contributors)
 * [License](#license)
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+This project implements proximity voice chat in Among Us. Everyone in an Among Us lobby with this program running will be able to communicate over voice in-game, with no third-party programs required. Spatial audio ensures that you can only hear people close to you.
 
 <!-- EXTRA FEATURES-->
 ## Extra features/fixes in this fork
@@ -101,12 +109,7 @@
 - Support for Mobile.
 ```
 
-**If I missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), or in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) it so I can add it**
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-This project implements proximity voice chat in Among Us. Everyone in an Among Us lobby with this program running will be able to communicate over voice in-game, with no third-party programs required. Spatial audio ensures that you can only hear people close to you.
+**If I missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), or in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) it so I can add it** 
 
 <!-- SUPPORTED PLATAFORMS -->
 ## Supported Plataforms
