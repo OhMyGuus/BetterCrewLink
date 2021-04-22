@@ -1239,7 +1239,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		if (connectionStuff.current.socket && myPlayer && myPlayer.clientId !== undefined) {
 			connectionStuff.current.socket.emit('id', myPlayer.id, gameState.clientId);
 		}
-	}, [myPlayer?.id]);
+	}, [myPlayer?.id, myPlayer?.clientId]);
 
 	// Pass voice state to overlay
 	useEffect(() => {
