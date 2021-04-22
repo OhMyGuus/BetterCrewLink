@@ -1,11 +1,9 @@
-[![GitHub Downloads][downloads-shield]][downloads-url] [![GitHub Downloads Latest Release][downloads_latest_release-shield]][downloads_latest_release-url] [![GitHub Latest Release][latest_release-shield]][latest_release-url] [![GPL-3.0 License][license-shield]][license-url] [![GitHub Actions Build][github_actions-shield]][github_actions-url] [![BetterCrewLink Voice Server Status][status-shield]][status-url] [![BetterCrewLink Voice Server Uptime][uptime-shield]][uptime-url] [![Support BetterCrewLink][paypal-shield]][paypal-url] [![Support BetterCrewLink][kofi-shield]][kofi-url] [![Discord Server][discord-shield]][discord-url] [![Contributors][contributors-shield]][contributors-url] [![Crowdin][crowdin-shield]][crowdin-url]
-
 <br />
 <p align="center">
   <a href="https://github.com/OhMyGuus/BetterCrewLink">
     <img src="logo.png" alt="Logo" width="80" height="80">
   </a>
-  <h3 align="center">BetterCrewLink a CrewLink fork with extra features & better support</h3>
+<h3 align="center"><a href="https://github.com/OhMyGuus/BetterCrewLink">BetterCrewLink</a> a <a href="https://github.com/ottomated/CrewLink">CrewLink</a> fork with extra features & better support</h3>
 
 
   <p align="center">
@@ -27,8 +25,24 @@
 
 <p>
 
+<p align="center">
+    <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/"><img src="https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/total?logo=GitHub&label=Downloads" alt="GitHub Downloads"></img></a>
+    <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/latest/total?label=Downloads%20%28latest%20release%29&logo=GitHub" alt="GitHub Downloads Latest Release"></img></a>
+    <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/v/release/OhMyGuus/BetterCrewLink?logo=GitHub&color=success&label=Latest%20Release" alt="GitHub Latest Release"></img></a>
+    <a href="https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE"><img src="https://img.shields.io/github/license/OhMyGuus/BetterCrewLink?label=License" alt="GPL-3.0 License"></img></a>
+    <a href="https://github.com/OhMyGuus/BetterCrewLink/actions"><img src="https://img.shields.io/github/workflow/status/OhMyGuus/BetterCrewLink/BetterCrewLink%20Build%20(CI)?label=Build%20%28CI%29&logo=GitHub" alt="GitHub Actions Build"></img></a>
+    <a href="https://bettercrewl.ink/"><img src="https://img.shields.io/nodeping/status/d05ourk4-xif3-4x57-83ro-59qr0yr5j33l?down_message=Offline&label=Status&up_message=Online" alt="BetterCrewLink Voice Server Status"></img></a>
+    <a href="https://bettercrewl.ink/"><img src="https://img.shields.io/nodeping/uptime/d05ourk4-xif3-4x57-83ro-59qr0yr5j33l?label=Uptime" alt="BetterCrewLink Voice Server Uptime"></img></a>
+    <a href="https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ"><img src="https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=PayPal" alt="Support BetterCrewLink (PayPal)"></img></a>
+    <a href="https://ko-fi.com/ohmyguus"><img src="https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=Ko-fi&logoColor=white" alt="Support BetterCrewLink (Ko-fi)"></img></a>
+    <a href="https://discord.gg/qDqTzvj4SH"><img src="https://img.shields.io/discord/791516611143270410?color=cornflowerblue&label=Discord&logo=Discord&logoColor=white" alt="Discord Server"></img></a>
+    <a href="https://github.com/OhMyGuus/BetterCrewLink/graphs/contributors"><img src="https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink?label=Contributors&logo=GitHub" alt="GitHub Contributors"></img></a>
+    <a href="https://crowdin.com/project/bettercrewlink"><img src="https://badges.crowdin.net/bettercrewlink/localized.svg" alt="Translations"></img></a>
+</p>
+<hr />
+
 <!-- NOTES -->
-<b>Notes:</b><br />
+## Notes
 
 - This is an unofficial fork of CrewLink, for any problem, question, issue or suggestion you have with BetterCrewLink talk to us on our [Discord](https://discord.gg/qDqTzvj4SH), or [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or message me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) do not report any problems to the official Discord or GitHub project of CrewLink as they will not support you.
 
@@ -43,8 +57,8 @@
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
-* [Extra features/fixes in this fork](#extra-featuresfixes-in-this-fork)
 * [About the Project](#about-the-project)
+* [Extra features/fixes in this fork](#extra-featuresfixes-in-this-fork)
 * [Supported Plataforms](#supported-plataforms)
 * [Installation](#installation)
   * [Windows](#windows)
@@ -58,6 +72,11 @@
 * [Translating](#translating)
   * [Contributors](#contributors)
 * [License](#license)
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+This project implements proximity voice chat in Among Us. Everyone in an Among Us lobby with this program running will be able to communicate over voice in-game, with no third-party programs required. Spatial audio ensures that you can only hear people close to you.
 
 <!-- EXTRA FEATURES-->
 ## Extra features/fixes in this fork
@@ -89,12 +108,7 @@
 - Support for Mobile.
 ```
 
-**If I missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), or in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) it so I can add it**
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-This project implements proximity voice chat in Among Us. Everyone in an Among Us lobby with this program running will be able to communicate over voice in-game, with no third-party programs required. Spatial audio ensures that you can only hear people close to you.
+**If I missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), or in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) it so I can add it** 
 
 <!-- SUPPORTED PLATAFORMS -->
 ## Supported Plataforms
@@ -104,8 +118,8 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 | [Steam](https://github.com/OhMyGuus/BetterCrewLink) | ✅ |
 | [itch.io](https://github.com/OhMyGuus/BetterCrewLink) | ✅ |
 | [Microsoft Store](https://github.com/OhMyGuus/BetterCrewLink) | ✅ |
-| [Android & Chromebook](https://github.com/OhMyGuus/BetterCrewlink-mobile) | ✅ |
-| [iOS & macOS](https://github.com/OhMyGuus/BetterCrewlink-mobile) | ✅ |
+| [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile) | ✅ |
+| [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile) | ✅ |
 | Beta | ✅ |
 
 <!-- INSTALLATION -->
@@ -232,12 +246,15 @@ There are two methods.
 
 [![Contributors][contributors-shield]][contributors-url] [![Crowdin][crowdin-shield]][crowdin-url]
 
+<details>
+<summary> Contributors </summary>
+
 * [OhMyGuus](https://github.com/OhMyGuus) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), example: NAT Fix, more overlays, support for Mobile and owner of project
 * [ottomated](https://github.com/ottomated) for make [CrewLink](https://github.com/ottomated/CrewLink)
 * [vrnagy](https://github.com/vrnagy) for make WebRTC reconnects automatically for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink)
 * [TheGreatMcPain](https://github.com/TheGreatMcPain) & [Donokami](https://github.com/Donokami) for make support for Linux
 * [squarebracket](https://github.com/squarebracket) for make support overlay for Linux
-* [JKohlman](https://github.com/JKohlman) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), example: push to mute, visual changes and making Multi Stage builds for [BetterCrewLink Server](https://github.com/OhMyGuus/BetterCrewLink-server)
+* [JKohlman](https://github.com/JKohlman) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), example: push to mute, visual changes, mute button and making Multi Stage builds for [BetterCrewLink Server](https://github.com/OhMyGuus/BetterCrewLink-server)
 * [Diemo-zz](https://github.com/Diemo-zz) for make the default Voice Server for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink): <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
 * [KadenBiel](https://github.com/KadenBiel) for make various things for [BetterCrewLink Mobile](https://github.com/OhMyGuus/BetterCrewlink-mobile), example: Better UI, Settings page, translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to German
 * [adofou](https://github.com/adofou) for make new parameters for node-turn server for [BetterCrewLink-Server](https://github.com/OhMyGuus/BetterCrewLink-server) and translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to French
@@ -246,6 +263,14 @@ There are two methods.
 * [electron-overlay-window](https://github.com/SnosMe/electron-overlay-window) for make it easier to do overlays
 * [node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) for make it easy to push to talk and push to mute
 * [MatadorProBr](https://github.com/MatadorProBr) for make this list of Contribuators, better README.md, wiki, translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Portuguese (Brazil)
+
+A big thank you to all those people who contributed and still contribute to this project to stay alive, thank you so much for being part of this BetterCrewLink community!
+
+</details>
+
+<details>
+<summary> Translators </summary>
+
 * [LukehTM](https://github.com/LukehTM) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish
 * [KaldonM](https://github.com/KaldonM) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Slovak
 * [vb-03](https://github.com/vb-03) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Portuguese (Portugal)
@@ -261,9 +286,12 @@ There are two methods.
 * [canicjusz](https://github.com/canicjusz) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Esperanto and Polish
 * [Hani Rouatbi](https://crowdin.com/profile/lamjed001) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Arabic
 * [NoikzGaming](https://crowdin.com/profile/NoikzGaming) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Swedish
+* [Zheng Syameimaru](https://github.com/0999312) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Chinese Simplified
+* [Aorin](https://crowdin.com/profile/aorin) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Japanese
 
 A big thank you to all those people who contributed and still contribute to this project to stay alive, thank you so much for being part of this BetterCrewLink community!
 
+</details>
 </details>
 
 <!-- LICENSE -->
