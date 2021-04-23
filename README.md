@@ -293,7 +293,6 @@ A big thank you to all those people who contributed and still contribute to this
 A big thank you to all those people who translated and still translate this project to stay alive, thank you so much for being part of this BetterCrewLink community!
 
 </details>
-</details>
 
 <!-- LICENSE -->
 ## License
