@@ -70,7 +70,7 @@
   * [Setup](#setup)
 * [Contributing](#contributing)
 * [Translating](#translating)
-  * [Contributors](#contributors)
+  * [Contributors & Translators](#contributors--translators)
 * [License](#license)
 
 <!-- ABOUT THE PROJECT -->
@@ -239,10 +239,7 @@ There are two methods.
 
 </details>
 
-### Contributors
-
-<details>
-<summary> BetterCrewLink Contributors </summary>
+### Contributors & Translators
 
 [![Contributors][contributors-shield]][contributors-url] [![Crowdin][crowdin-shield]][crowdin-url]
 
