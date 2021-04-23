@@ -161,7 +161,7 @@ export default class GameReader {
 			const closedDoors: number[] = [];
 			let localPlayer = undefined;
 			if (this.gameCode && playerCount) {
-				for (let i = 0; i < Math.min(playerCount, 20); i++) {
+				for (let i = 0; i < Math.min(playerCount, 127); i++) {
 					const { address, last } = this.offsetAddress(playerAddrPtr, this.offsets.player.offsets);
 					const playerData = readBuffer(this.amongUs.handle, address + last, this.offsets.player.bufferLength);
 					const player = this.parsePlayer(address + last, playerData, clientId);
