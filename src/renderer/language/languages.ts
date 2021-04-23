@@ -95,11 +95,11 @@ const languages = {
 		name: 'Slovenščina',
 	},
 	'es-ES': {
-		translation: translationES,
+		translation: translationESES,
 		name: 'Español',
 	},
 	'sv-SE': {
-		translation: translationSV,
+		translation: translationSVSE,
 		name: 'Svenska',
 	},
 	tr: {
