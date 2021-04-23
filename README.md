@@ -217,6 +217,15 @@ Any translations you make are greatly appreciated.
 There are two methods.
 
 <details>
+<summary> In Crowdin </summary>
+
+1. [Go to Crowdin Page](https://crowdin.com/project/bettercrewlink).
+2. Search for the name of your language you want to translate.
+3. Click on it and start translating.
+
+</details>
+
+<details>
 <summary> In GitHub </summary>
 
 1. [Fork the Project](https://github.com/OhMyGuus/BetterCrewLink/fork).
@@ -227,15 +236,6 @@ There are two methods.
 6. Create a folder with the acronym of your language that you translated with translation.json inside the folder.
 7. Throw everything to your fork.
 8. Open a Pull Request.
-
-</details>
-
-<details>
-<summary> In Crowdin </summary>
-
-1. [Go to Crowdin Page](https://crowdin.com/project/bettercrewlink).
-2. Search for the name of your language you want to translate.
-3. Click on it and start translating.
 
 </details>
 
