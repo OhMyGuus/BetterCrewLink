@@ -24,7 +24,6 @@
 <hr />
 
 <p>
-
 <p align="center">
     <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/"><img src="https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/total?logo=GitHub&label=Downloads" alt="GitHub Downloads"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/latest/total?label=Downloads%20%28latest%20release%29&logo=GitHub" alt="GitHub Downloads Latest Release"></img></a>
@@ -58,7 +57,7 @@
 ## Table of Contents
 
 * [About the Project](#about-the-project)
-* [Extra features/fixes in this fork](#extra-featuresfixes-in-this-fork)
+* [Extra features/bug fixes in this fork](#extra-featuresbug-fixes-in-this-fork)
 * [Supported Plataforms](#supported-plataforms)
 * [Installation](#installation)
   * [Windows](#windows)
@@ -70,7 +69,8 @@
   * [Setup](#setup)
 * [Contributing](#contributing)
 * [Translating](#translating)
-  * [Contributors & Translators](#contributors--translators)
+* [Credits & Resources](#credits--resources)
+* [Donate](#donate)
 * [License](#license)
 
 <!-- ABOUT THE PROJECT -->
@@ -79,7 +79,7 @@
 This project implements proximity voice chat in Among Us. Everyone in an Among Us lobby with this program running will be able to communicate over voice in-game, with no third-party programs required. Spatial audio ensures that you can only hear people close to you.
 
 <!-- EXTRA FEATURES-->
-## Extra features/fixes in this fork
+## Extra features/bug fixes in this fork
 ```
 - OBS Browsersource Overlay.
 - Hear People in Vision Only.
@@ -196,6 +196,8 @@ yarn dev
 <!-- CONTRIBUTING -->
 ## Contributing
 
+[![Contributors][contributors-shield]][contributors-url]
+
 Any contributions you make are greatly appreciated.
 
 Needed [Git](https://git-scm.com/downloads) for Contributing.
@@ -206,6 +208,31 @@ Needed [Git](https://git-scm.com/downloads) for Contributing.
 4. Push to the Branch. (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request.
 
+<hr />
+
+<details>
+<summary> Contributors </summary>
+
+* [OhMyGuus](https://github.com/OhMyGuus) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), example: NAT Fix, more overlays, support for Mobile and owner of project
+* [ottomated](https://github.com/ottomated) for make [CrewLink](https://github.com/ottomated/CrewLink)
+* [vrnagy](https://github.com/vrnagy) for make WebRTC reconnects automatically for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink)
+* [TheGreatMcPain](https://github.com/TheGreatMcPain) & [Donokami](https://github.com/Donokami) for make support for Linux
+* [squarebracket](https://github.com/squarebracket) for make support overlay for Linux
+* [JKohlman](https://github.com/JKohlman) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), example: push to mute, visual changes, mute button and making Multi Stage builds for [BetterCrewLink Server](https://github.com/OhMyGuus/BetterCrewLink-server)
+* [Diemo-zz](https://github.com/Diemo-zz) for make the default Voice Server for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink): <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
+* [KadenBiel](https://github.com/KadenBiel) for make various things for [BetterCrewLink Mobile](https://github.com/OhMyGuus/BetterCrewlink-mobile), example: Better UI, Settings page
+* [adofou](https://github.com/adofou) for make new parameters for node-turn server for [BetterCrewLink-Server](https://github.com/OhMyGuus/BetterCrewLink-server)
+* [Kore-Development](https://github.com/Kore-Development) for make support for Repl.it and gitignore changes for [BetterCrewLink-Server](https://github.com/OhMyGuus/BetterCrewLink-server)
+* [cybershard](https://github.com/cybershard) & [edqx](https://github.com/edqx) for make Only hear people in vision, Walls block voice and Hear through cameras
+* [electron-overlay-window](https://github.com/SnosMe/electron-overlay-window) for make it easier to do overlays
+* [node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) for make it easy to push to talk and push to mute
+* [MatadorProBr](https://github.com/MatadorProBr) for make this list of Contribuators, better README.md, wiki
+
+</details>
+
+<hr />
+
+<!-- TRANSLATING -->
 ## Translating
 
 [![Crowdin][crowdin-shield]][crowdin-url]
@@ -239,31 +266,7 @@ There are two methods.
 
 </details>
 
-### Contributors & Translators
-
-[![Contributors][contributors-shield]][contributors-url] [![Crowdin][crowdin-shield]][crowdin-url]
-
-<details>
-<summary> Contributors </summary>
-
-* [OhMyGuus](https://github.com/OhMyGuus) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), example: NAT Fix, more overlays, support for Mobile and owner of project
-* [ottomated](https://github.com/ottomated) for make [CrewLink](https://github.com/ottomated/CrewLink)
-* [vrnagy](https://github.com/vrnagy) for make WebRTC reconnects automatically for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink)
-* [TheGreatMcPain](https://github.com/TheGreatMcPain) & [Donokami](https://github.com/Donokami) for make support for Linux
-* [squarebracket](https://github.com/squarebracket) for make support overlay for Linux
-* [JKohlman](https://github.com/JKohlman) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), example: push to mute, visual changes, mute button and making Multi Stage builds for [BetterCrewLink Server](https://github.com/OhMyGuus/BetterCrewLink-server)
-* [Diemo-zz](https://github.com/Diemo-zz) for make the default Voice Server for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink): <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
-* [KadenBiel](https://github.com/KadenBiel) for make various things for [BetterCrewLink Mobile](https://github.com/OhMyGuus/BetterCrewlink-mobile), example: Better UI, Settings page
-* [adofou](https://github.com/adofou) for make new parameters for node-turn server for [BetterCrewLink-Server](https://github.com/OhMyGuus/BetterCrewLink-server)
-* [Kore-Development](https://github.com/Kore-Development) for make support for Repl.it and gitignore changes for [BetterCrewLink-Server](https://github.com/OhMyGuus/BetterCrewLink-server)
-* [cybershard](https://github.com/cybershard) & [edqx](https://github.com/edqx) for make Only hear people in vision, Walls block voice and Hear through cameras
-* [electron-overlay-window](https://github.com/SnosMe/electron-overlay-window) for make it easier to do overlays
-* [node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) for make it easy to push to talk and push to mute
-* [MatadorProBr](https://github.com/MatadorProBr) for make this list of Contribuators, better README.md, wiki
- 
-A big thank you to all those people who contributed and still contribute to this project to stay alive, thank you so much for being part of this BetterCrewLink community!
-
-</details>
+<hr />
 
 <details>
 <summary> Translators </summary>
@@ -293,6 +296,32 @@ A big thank you to all those people who contributed and still contribute to this
 A big thank you to all those people who translated and still translate this project to stay alive, thank you so much for being part of this BetterCrewLink community!
 
 </details>
+
+<hr />
+
+<!-- CREDITS & RESOURCES -->
+## Credits & Resources
+
+[CrewLink](https://github.com/ottomated) - The official CrewLink app.\
+[Electron](https://www.electronjs.org/) - For make the app BetterCrewLink.\
+[memoryjs](https://github.com/TheGreatMcPain/memoryjs) - For make BetterCrewLink works for Linux.\
+[node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) - For make it easy to Push To Talk, Push To Mute and Impostor Radio.\
+[electron-overlay-window](https://github.com/OhMyGuus/electron-overlay-window) - For make it easier to do Overlays.\
+[WebRTC](https://webrtc.org/) - For make the [Voice Servers](https://github.com/OhMyGuus/BetterCrewLink-server).
+
+<!-- DONATE -->
+## Donate
+
+If you like the BetterCrewLink project and want to help it to stay alive and with new features, bug fixes, support for other platforms, pay for servers, donate money for the project, of course if you want and can, this is an optional choice, if if you want to continue using BetterCrewLink without paying without problems, it is completely optional, we currently support PayPal and Ko-fi, choose the best donate option for you and click on the image below:
+
+[![Support BetterCrewLink (PayPal)][paypal-shield]][paypal-url] [![Support BetterCrewLink (Ko-fi)][kofi-shield]][kofi-url]
+
+Any donations you make are greatly appreciated.
+
+<!-- BUGS & SUGGESTIONS -->
+## Bugs & Suggestions
+
+If you found any bugs, have an idea for a new feature, join our [Discord server](https://discord.gg/qDqTzvj4SH) or make a issue in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues)
 
 <!-- LICENSE -->
 ## License
