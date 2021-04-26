@@ -343,9 +343,9 @@ Distributed under the GNU General Public License v3.0. See <a href="https://gith
 [downloads_latest_release-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/latest/
 [latest_release-shield]: https://img.shields.io/github/v/release/OhMyGuus/BetterCrewLink?logo=GitHub&color=success&label=Latest%20Release
 [latest_release-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/latest/
-[playstore_latest_version-shield]: https://img.shields.io/endpoint?color=green&logo=google-play&logoColor=green&url=https%3A%2F%2Fplayshields.herokuapp.com%2Fplay%3Fi%3Dio.bettercrewlink.app%26l%3DLatest%2520Version%26m%3D%24version
+[playstore_latest_version-shield]: https://img.shields.io/endpoint?color=success&logo=google-play&logoColor=success&url=https%3A%2F%2Fplayshields.herokuapp.com%2Fplay%3Fi%3Dio.bettercrewlink.app%26l%3DLatest%2520Version%26m%3D%24version
 [playstore_latest_version-url]: https://play.google.com/store/apps/details?id=io.bettercrewlink.app
-[playstore_downloads-shield]: https://img.shields.io/endpoint?color=green&logo=google-play&logoColor=green&url=https%3A%2F%2Fplayshields.herokuapp.com%2Fplay%3Fi%3Dio.bettercrewlink.app%26l%3DDownloads%26m%3D%24installs
+[playstore_downloads-shield]: https://img.shields.io/endpoint?color=success&logo=google-play&logoColor=success&url=https%3A%2F%2Fplayshields.herokuapp.com%2Fplay%3Fi%3Dio.bettercrewlink.app%26l%3DDownloads%26m%3D%24installs
 [playstore_downloads-url]: https://play.google.com/store/apps/details?id=io.bettercrewlink.app
 [license-shield]: https://img.shields.io/github/license/OhMyGuus/BetterCrewLink?label=License
 [license-url]: https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE
