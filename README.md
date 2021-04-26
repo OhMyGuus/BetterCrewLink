@@ -328,7 +328,7 @@ If you found any bugs, have an idea for a new feature, join our [Discord server]
 
 ### Questions
 
-If you found any question, see the [Wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki), but if the answer to your question is not on the Wiki, [join our Discord](https://discord.gg/qDqTzvj4SH) and ask in [#✋bettercrewlink-help](https://discordapp.com/channels/791516611143270410/791518772770897980).
+If you found any question, see the [Wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki), but if the answer to your question is not on the Wiki, [join our Discord](https://discord.gg/qDqTzvj4SH) and ask in [#✋bettercrewlink-help](https://discordapp.com/channels/791516611143270410/791518772770897980), **do not ask your question in GitHub Issues**, we want to keep GitHub Issues a place to report bugs and suggestions, without any question.
 
 [![Discord Server][discord-shield]][discord-url]
 
