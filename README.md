@@ -305,11 +305,11 @@ A big thank you to all those people who translated and still translate this proj
 <!-- CREDITS & RESOURCES -->
 ## Credits & Resources
 
-* [CrewLink](https://github.com/ottomated) - The official CrewLink app.\
-* [Electron](https://www.electronjs.org/) - For make the app BetterCrewLink.\
-* [memoryjs](https://github.com/TheGreatMcPain/memoryjs) - For make BetterCrewLink works for Linux.\
-* [node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) - For make it easy to Push To Talk, Push To Mute and Impostor Radio.\
-* [electron-overlay-window](https://github.com/OhMyGuus/electron-overlay-window) - For make it easier to do Overlays.\
+* [CrewLink](https://github.com/ottomated) - The official CrewLink app.
+* [Electron](https://www.electronjs.org/) - For make the app BetterCrewLink.
+* [memoryjs](https://github.com/TheGreatMcPain/memoryjs) - For make BetterCrewLink works for Linux.
+* [node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) - For make it easy to Push To Talk, Push To Mute and Impostor Radio.
+* [electron-overlay-window](https://github.com/OhMyGuus/electron-overlay-window) - For make it easier to do Overlays.
 * [WebRTC](https://webrtc.org/) - For make the [Voice Servers](https://github.com/OhMyGuus/BetterCrewLink-server).
 
 <!-- DONATE -->
