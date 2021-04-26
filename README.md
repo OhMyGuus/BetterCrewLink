@@ -286,7 +286,7 @@ There are two methods.
 * [Steby5](https://github.com/Steby5) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Slovenian and Slovak
 * [XRevan86](https://github.com/XRevan86) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Russian and Ukrainian
 * [Ajno, Jano Miĥalako](https://crowdin.com/profile/Ajno) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Esperanto
-* [Tiquis#2659](https://discordapp.com/users/395290180124278787) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Czech
+* [Tiquis](https://crowdin.com/profile/tiquis) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Czech
 * [ElBusAlv](https://github.com/ElBusAlv) & [nyanya4444](https://github.com/nyanya4444) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Catalan
 * [Achs gaming](https://crowdin.com/profile/Achsan4) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Arabic and Arabic Egpyt
 * [Fixuuu](https://github.com/Fixuuu) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Polish
@@ -305,12 +305,12 @@ A big thank you to all those people who translated and still translate this proj
 <!-- CREDITS & RESOURCES -->
 ## Credits & Resources
 
-[CrewLink](https://github.com/ottomated) - The official CrewLink app.\
-[Electron](https://www.electronjs.org/) - For make the app BetterCrewLink.\
-[memoryjs](https://github.com/TheGreatMcPain/memoryjs) - For make BetterCrewLink works for Linux.\
-[node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) - For make it easy to Push To Talk, Push To Mute and Impostor Radio.\
-[electron-overlay-window](https://github.com/OhMyGuus/electron-overlay-window) - For make it easier to do Overlays.\
-[WebRTC](https://webrtc.org/) - For make the [Voice Servers](https://github.com/OhMyGuus/BetterCrewLink-server).
+* [CrewLink](https://github.com/ottomated) - The official CrewLink app.\
+* [Electron](https://www.electronjs.org/) - For make the app BetterCrewLink.\
+* [memoryjs](https://github.com/TheGreatMcPain/memoryjs) - For make BetterCrewLink works for Linux.\
+* [node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) - For make it easy to Push To Talk, Push To Mute and Impostor Radio.\
+* [electron-overlay-window](https://github.com/OhMyGuus/electron-overlay-window) - For make it easier to do Overlays.\
+* [WebRTC](https://webrtc.org/) - For make the [Voice Servers](https://github.com/OhMyGuus/BetterCrewLink-server).
 
 <!-- DONATE -->
 ## Donate
