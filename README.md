@@ -157,6 +157,8 @@ Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#
 
 [![BetterCrewLink Play Store](https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0)](https://play.google.com/store/apps/details?id=io.bettercrewlink.app "Get BetterCrewLink on Play Store")
 
+[![Play Store Latest Version][playstore_latest_version-shield]][playstore_latest_version-url] [![Play Store Downloads][playstore_downloads-shield]][playstore_downloads-url] 
+
 ### iOS & macOS
 
 An iOS/macOS version is still being developed and will be released soon but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
@@ -328,6 +330,8 @@ If you found any bugs, have an idea for a new feature, join our [Discord server]
 
 If you found any question, see the [Wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki), but if the answer to your question is not on the Wiki, [join our Discord](https://discord.gg/qDqTzvj4SH) and ask in [#✋bettercrewlink-help](https://discordapp.com/channels/791516611143270410/791518772770897980).
 
+[![Discord Server][discord-shield]][discord-url]
+
 <!-- LICENSE -->
 ## License
 
@@ -339,6 +343,10 @@ Distributed under the GNU General Public License v3.0. See <a href="https://gith
 [downloads_latest_release-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/latest/
 [latest_release-shield]: https://img.shields.io/github/v/release/OhMyGuus/BetterCrewLink?logo=GitHub&color=success&label=Latest%20Release
 [latest_release-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/latest/
+[playstore_latest_version-shield]: https://img.shields.io/endpoint?color=green&logo=google-play&logoColor=green&url=https%3A%2F%2Fplayshields.herokuapp.com%2Fplay%3Fi%3Dio.bettercrewlink.app%26l%3DLatest%2520Version%26m%3D%24version
+[playstore_latest_version-url]: https://play.google.com/store/apps/details?id=io.bettercrewlink.app
+[playstore_downloads-shield]: https://img.shields.io/endpoint?color=green&logo=google-play&logoColor=green&url=https%3A%2F%2Fplayshields.herokuapp.com%2Fplay%3Fi%3Dio.bettercrewlink.app%26l%3DDownloads%26m%3D%24installs
+[playstore_downloads-url]: https://play.google.com/store/apps/details?id=io.bettercrewlink.app
 [license-shield]: https://img.shields.io/github/license/OhMyGuus/BetterCrewLink?label=License
 [license-url]: https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE
 [github_actions-shield]: https://img.shields.io/github/workflow/status/OhMyGuus/BetterCrewLink/BetterCrewLink%20Build%20(CI)?label=Build%20%28CI%29&logo=GitHub
