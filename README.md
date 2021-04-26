@@ -71,6 +71,7 @@
 * [Translating](#translating)
 * [Credits & Resources](#credits--resources)
 * [Donate](#donate)
+* [Bugs/Suggestions/Questions](#bugs--suggestions)
 * [License](#license)
 
 <!-- ABOUT THE PROJECT -->
@@ -318,10 +319,14 @@ If you like the BetterCrewLink project and want to help it to stay alive and wit
 
 Any donations you make are greatly appreciated.
 
-<!-- BUGS & SUGGESTIONS -->
+<!-- BUGS/SUGGESTIONS/QUESTIONS -->
 ## Bugs & Suggestions
 
-If you found any bugs, have an idea for a new feature, join our [Discord server](https://discord.gg/qDqTzvj4SH) or make a issue in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues)
+If you found any bugs, have an idea for a new feature, join our [Discord server](https://discord.gg/qDqTzvj4SH) or make a issue in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues).
+
+### Questions
+
+If you found any question, see the [Wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki), but if the answer to your question is not on the Wiki, [join our Discord](https://discord.gg/qDqTzvj4SH) and ask in [#✋bettercrewlink-help](https://discordapp.com/channels/791516611143270410/791518772770897980).
 
 <!-- LICENSE -->
 ## License
