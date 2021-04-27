@@ -16,7 +16,7 @@
     <a href="#installation">Installation Instructions</a>
   </p>
   <p align="center">
-    <b><a href="https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ">Donate to BetterCrewLink</a></b></br>
+    <b><a href="#donate">Donate to BetterCrewLink</a></b></br>
   (all donations will be used for the apple developer license and extra servers)</br>
    <b><a href="https://paypal.me/ottomated">Donate to ottomated (official CrewLink)</a></b>
   </p>
@@ -153,20 +153,20 @@ The Linux version is thanks to the following contributors:
 
 ### Android & Chromebook
 
-Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#installation) in BetterCrewlink-mobile to see how to install the Android/Chromebook version. (requires a PC player)
+Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) in BetterCrewlink-mobile to see how to install the Android/Chromebook version. (requires a PC player)
 
-[![BetterCrewLink Play Store](https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0)](https://play.google.com/store/apps/details?id=io.bettercrewlink.app "Get BetterCrewLink on Play Store")
+[![BetterCrewLink on Play Store](https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0)](https://play.google.com/store/apps/details?id=io.bettercrewlink.app "Get BetterCrewLink on Play Store")
 
-[![Play Store Latest Version][playstore_latest_version-shield]][playstore_latest_version-url] [![Play Store Downloads][playstore_downloads-shield]][playstore_downloads-url] 
+[![Play Store Latest Version][playstore_latest_version-shield]][playstore_latest_version-url] 
 
 ### iOS & macOS
 
-An iOS/macOS version is still being developed and will be released soon but you can use the [web version](https://web.bettercrewl.ink/). (requires a PC player)
+Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) in BetterCrewlink-mobile to see how to install the iOS/macOS version. (requires a PC player)
 
 <!-- DEVELOPMENT -->
 ## Development
 
-You only need to follow the below instructions if you are trying to modify this software. Otherwise, please download the latest version from the [github releases](https://github.com/OhMyGuus/BetterCrewLink/releases).
+You only need to follow the below instructions if you are trying to modify this software. Otherwise, please download the latest version from the [GitHub releases](https://github.com/OhMyGuus/BetterCrewLink/releases).
 
 Server code is located at [OhMyGuus/BetterCrewLink-server](https://github.com/OhMyGuus/BetterCrewLink-server). Please use a local server for development purposes.
 
@@ -315,7 +315,7 @@ A big thank you to all those people who translated and still translate this proj
 <!-- DONATE -->
 ## Donate
 
-If you like the BetterCrewLink project and want to help it to stay alive and with new features, bug fixes, support for other platforms, pay for servers, donate money for the project, of course if you want and can, this is an optional choice, if if you want to continue using BetterCrewLink without paying without problems, it is completely optional, we currently support PayPal and Ko-fi, choose the best donate option for you and click on the image below:
+If you like the BetterCrewLink and want to help it to stay alive and with new features, bug fixes, support for other platforms, pay for servers, donate money for the project, of course if you want and can, this is an optional choice, we currently support PayPal and Ko-fi, choose the best donate option for you and click on the image below:
 
 [![Support BetterCrewLink (PayPal)][paypal-shield]][paypal-url] [![Support BetterCrewLink (Ko-fi)][kofi-shield]][kofi-url]
 
@@ -343,7 +343,7 @@ Distributed under the GNU General Public License v3.0. See <a href="https://gith
 [downloads_latest_release-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/latest/
 [latest_release-shield]: https://img.shields.io/github/v/release/OhMyGuus/BetterCrewLink?logo=GitHub&color=success&label=Latest%20Release
 [latest_release-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/latest/
-[playstore_latest_version-shield]: https://img.shields.io/endpoint?color=success&logo=google-play&logoColor=success&url=https%3A%2F%2Fplayshields.herokuapp.com%2Fplay%3Fi%3Dio.bettercrewlink.app%26l%3DLatest%2520Version%26m%3D%24version
+[playstore_latest_version-shield]: https://img.shields.io/endpoint?color=success&logo=google-play&logoColor=success&url=https%3A%2F%2Fplayshields.herokuapp.com%2Fplay%3Fi%3Dio.bettercrewlink.app%26l%3DLatest%2520Version%26m%3Dv%24version
 [playstore_latest_version-url]: https://play.google.com/store/apps/details?id=io.bettercrewlink.app
 [playstore_downloads-shield]: https://img.shields.io/endpoint?color=success&logo=google-play&logoColor=success&url=https%3A%2F%2Fplayshields.herokuapp.com%2Fplay%3Fi%3Dio.bettercrewlink.app%26l%3DDownloads%26m%3D%24installs
 [playstore_downloads-url]: https://play.google.com/store/apps/details?id=io.bettercrewlink.app
