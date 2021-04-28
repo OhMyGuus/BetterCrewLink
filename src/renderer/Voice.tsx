@@ -42,6 +42,7 @@ import adapter from 'webrtc-adapter';
 import { VADOptions } from './vad';
 import { pushToTalkOptions } from './settings/Settings';
 import { poseCollide } from '../common/ColliderMap';
+import LobbyBrowser  from './LobbyBrowser';
 
 console.log(adapter.browserDetails.browser);
 
@@ -1268,6 +1269,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		deafenedState,
 		impostorRadioClientId.current,
 	]);
+
+	if (gameState?.gameState === GameState.MENU) return <LobbyBrowser></LobbyBrowser>;
 
 	return (
 		<div className={classes.root}>
