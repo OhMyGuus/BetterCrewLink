@@ -30,7 +30,6 @@ export interface ISettings {
 	enableSpatialAudio: boolean;
 	playerConfigMap: playerConfigMap;
 	obsOverlay: boolean;
-	obsComptaibilityMode: boolean;
 	obsSecret: string | undefined;
 }
 

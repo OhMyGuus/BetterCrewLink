@@ -576,15 +576,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			((gameState.gameState !== GameState.UNKNOWN && gameState.gameState !== GameState.MENU) ||
 				gameState.oldGameState !== gameState.gameState)
 		) {
-			if (!connectionStuff.current.overlaySocket) {
-				if (settings.obsComptaibilityMode && settings.obsOverlay && !settings.serverURL.includes('bettercrewl.ink')) {
-					connectionStuff.current.overlaySocket = io('https://bettercrewl.ink', {
-						transports: ['websocket'],
-					});
-				} else {
-					connectionStuff.current.overlaySocket = connectionStuff.current.socket;
-				}
-			}
+			connectionStuff.current.overlaySocket = connectionStuff.current.socket;
 
 			const obsvoiceState: ObsVoiceState = {
 				overlayState: {
@@ -688,7 +680,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 	useEffect(() => {
 		const pressing = connectionStuff.current.impostorRadio;
-		if ( 
+		if (
 			pressing == null ||
 			!myPlayer ||
 			!myPlayer.isImpostor ||
@@ -766,15 +758,15 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 		socket.on('VAD', (data: { activity: boolean; client: Client; socketId: string }) => {
 			console.log('Recieved VAD data: ', data);
-				// if (!socketClientsRef.current[peer]) {
-				// 	console.log('error with settalking: ', talking);
-				// 	return;
-				// }
-				// const reallyTalking = talking && gain.gain.value > 0;
-				setOtherVAD((old) => ({
-					...old,
-					[data.client.clientId]: data.activity,
-				}));
+			// if (!socketClientsRef.current[peer]) {
+			// 	console.log('error with settalking: ', talking);
+			// 	return;
+			// }
+			// const reallyTalking = talking && gain.gain.value > 0;
+			setOtherVAD((old) => ({
+				...old,
+				[data.client.clientId]: data.activity,
+			}));
 		});
 
 		socket.on('setClient', (socketId: string, client: Client) => {

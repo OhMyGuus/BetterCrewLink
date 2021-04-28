@@ -292,10 +292,7 @@ const store = new Store<ISettings>({
 			type: 'string',
 			default: undefined,
 		},
-		obsComptaibilityMode: {
-			type: 'boolean',
-			default: true,
-		},
+
 		obsOverlay: {
 			type: 'boolean',
 			default: false,
@@ -591,7 +588,6 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 		settings.natFix,
 		settings.noiseSuppression,
 		settings.echoCancellation,
-		settings.obsComptaibilityMode,
 		settings.mobileHost,
 		settings.microphoneGainEnabled,
 		settings.micSensitivityEnabled,
@@ -1616,40 +1612,15 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					/>
 					{settings.obsOverlay && (
 						<>
-							<FormControlLabel
-								className={classes.formLabel}
-								label={t('settings.streaming.voice_server_comp')}
-								checked={settings.obsComptaibilityMode}
-								onChange={(_, checked: boolean) => {
-									openWarningDialog(
-										t('settings.warning'),
-										t('settings.streaming.voice_server_comp_warning'),
-										() => {
-											setSettings({
-												type: 'setOne',
-												action: ['obsComptaibilityMode', checked],
-											});
-										},
-										!checked
-									);
-								}}
-								control={<Checkbox />}
-							/>
-
 							<TextField
 								fullWidth
 								spellCheck={false}
 								label={t('settings.streaming.obs_url')}
-								value={`${
-									(settings.obsComptaibilityMode && !settings.serverURL.includes('bettercrewl.ink')) ||
-									settings.serverURL.includes('https')
-										? 'https'
-										: 'http'
-								}://obs.bettercrewlink.app/?compact=${settings.compactOverlay ? '1' : '0'}&position=${
-									settings.overlayPosition
-								}&meeting=${settings.meetingOverlay ? '1' : '0'}&secret=${settings.obsSecret}&server=${
-									settings.obsComptaibilityMode ? 'https://bettercrewl.ink' : settings.serverURL
-								}`}
+								value={`${settings.serverURL.includes('https') ? 'https' : 'http'}://obs.bettercrewlink.app/?compact=${
+									settings.compactOverlay ? '1' : '0'
+								}&position=${settings.overlayPosition}&meeting=${settings.meetingOverlay ? '1' : '0'}&secret=${
+									settings.obsSecret
+								}&server=${settings.serverURL}`}
 								variant="outlined"
 								color="primary"
 								InputProps={{
