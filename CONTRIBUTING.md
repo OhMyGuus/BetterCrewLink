@@ -1,3 +1,4 @@
+<!-- DEVELOPMENT -->
 ## Development
 
 You only need to follow the below instructions if you are trying to modify this software. Otherwise, please download the latest version from the [github releases](https://github.com/OhMyGuus/BetterCrewLink/releases).
