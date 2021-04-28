@@ -30,8 +30,8 @@
     <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/v/release/OhMyGuus/BetterCrewLink?logo=GitHub&color=success&label=Latest%20Release" alt="GitHub Latest Release"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE"><img src="https://img.shields.io/github/license/OhMyGuus/BetterCrewLink?label=License" alt="GPL-3.0 License"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/actions"><img src="https://img.shields.io/github/workflow/status/OhMyGuus/BetterCrewLink/BetterCrewLink%20Build%20(CI)?label=Build%20%28CI%29&logo=GitHub" alt="GitHub Actions Build"></img></a>
-    <a href="https://bettercrewl.ink/"><img src="https://img.shields.io/nodeping/status/d05ourk4-xif3-4x57-83ro-59qr0yr5j33l?down_message=Offline&label=Status&up_message=Online" alt="BetterCrewLink Voice Server Status"></img></a>
-    <a href="https://bettercrewl.ink/"><img src="https://img.shields.io/nodeping/uptime/d05ourk4-xif3-4x57-83ro-59qr0yr5j33l?label=Uptime" alt="BetterCrewLink Voice Server Uptime"></img></a>
+    <a href="https://bettercrewl.ink/"><img src="https://img.shields.io/website?down_message=Offline&label=Status&up_message=Online&url=https%3A%2F%2Fbettercrewl.ink%2F" alt="BetterCrewLink Voice Server Status"></img></a>
+    <a href="https://bettercrewl.ink/"><img src="https://img.shields.io/uptimerobot/ratio/m787827421-93842e7a0fa80efd6eb22092?label=Uptime" alt="BetterCrewLink Voice Server Uptime"></img></a>
     <a href="https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ"><img src="https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=PayPal" alt="Support BetterCrewLink (PayPal)"></img></a>
     <a href="https://ko-fi.com/ohmyguus"><img src="https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=Ko-fi&logoColor=white" alt="Support BetterCrewLink (Ko-fi)"></img></a>
     <a href="https://discord.gg/qDqTzvj4SH"><img src="https://img.shields.io/discord/791516611143270410?color=cornflowerblue&label=Discord&logo=Discord&logoColor=white" alt="Discord Server"></img></a>
@@ -351,9 +351,9 @@ Distributed under the GNU General Public License v3.0. See <a href="https://gith
 [license-url]: https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE
 [github_actions-shield]: https://img.shields.io/github/workflow/status/OhMyGuus/BetterCrewLink/BetterCrewLink%20Build%20(CI)?label=Build%20%28CI%29&logo=GitHub
 [github_actions-url]: https://github.com/OhMyGuus/BetterCrewLink/actions
-[status-shield]: https://img.shields.io/nodeping/status/d05ourk4-xif3-4x57-83ro-59qr0yr5j33l?down_message=Offline&label=Status&up_message=Online
+[status-shield]: https://img.shields.io/website?down_message=Offline&label=Status&up_message=Online&url=https%3A%2F%2Fbettercrewl.ink%2F
 [status-url]: https://bettercrewl.ink/
-[uptime-shield]: https://img.shields.io/nodeping/uptime/d05ourk4-xif3-4x57-83ro-59qr0yr5j33l?label=Uptime
+[uptime-shield]: https://img.shields.io/uptimerobot/ratio/m787827421-93842e7a0fa80efd6eb22092?label=Uptime
 [uptime-url]: https://bettercrewl.ink/
 [paypal-shield]: https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=PayPal
 [paypal-url]: https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ
