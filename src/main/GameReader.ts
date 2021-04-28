@@ -175,7 +175,6 @@ export default class GameReader {
 					}
 
 					players.push(player);
-					if (player.id === exiledPlayerId || player.isDead || player.disconnected || player.name === '') continue;
 				}
 				if (localPlayer) {
 					lightRadius = this.readMemory<number>('float', localPlayer.objectPtr, this.offsets.lightRadius, -1);
