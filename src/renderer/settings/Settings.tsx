@@ -284,6 +284,10 @@ const store = new Store<ISettings>({
 			type: 'boolean',
 			default: true,
 		},
+		hardware_acceleration: {
+			type: 'boolean',
+			default: true,
+		},
 		enableSpatialAudio: {
 			type: 'boolean',
 			default: true,
@@ -585,6 +589,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 		settings.speaker,
 		settings.serverURL,
 		settings.vadEnabled,
+		settings.hardware_acceleration,
 		settings.natFix,
 		settings.noiseSuppression,
 		settings.echoCancellation,
@@ -1511,6 +1516,27 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 										type: 'setOne',
 										action: ['vadEnabled', checked],
 									});
+								},
+								!checked
+							);
+						}}
+						control={<Checkbox />}
+					/>
+					<FormControlLabel
+						className={classes.formLabel}
+						label={t('settings.beta.hardware_acceleration')}
+						checked={settings.hardware_acceleration}
+						onChange={(_, checked: boolean) => {
+							openWarningDialog(
+								t('settings.warning'),
+								t('settings.beta.hardware_acceleration_warning'),
+								() => {
+									setSettings({
+										type: 'setOne',
+										action: ['hardware_acceleration', checked],
+									});
+									remote.app.relaunch();
+									remote.app.exit();
 								},
 								!checked
 							);

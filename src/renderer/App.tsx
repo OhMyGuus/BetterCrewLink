@@ -149,6 +149,7 @@ export default function App({ t }): JSX.Element {
 		microphoneGainEnabled: false,
 		micSensitivityEnabled: false,
 		vadEnabled: true,
+		hardware_acceleration: true,
 		echoCancellation: true,
 		enableSpatialAudio: true,
 		obsSecret: undefined,

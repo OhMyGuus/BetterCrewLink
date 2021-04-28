@@ -25,6 +25,7 @@ export interface ISettings {
 	micSensitivityEnabled: boolean;
 	mobileHost: boolean;
 	vadEnabled: boolean;
+	hardware_acceleration: boolean;
 	echoCancellation: boolean;
 	noiseSuppression: boolean;
 	enableSpatialAudio: boolean;
