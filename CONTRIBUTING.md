@@ -34,6 +34,8 @@ yarn dev
 <!-- CONTRIBUTING -->
 ## Contributing
 
+[![Contributors][contributors-shield]][contributors-url]
+
 Any contributions you make are greatly appreciated.
 
 Needed [Git](https://git-scm.com/downloads) for Contributing.
@@ -77,5 +79,7 @@ There are two methods.
 
 </details>
 
+[contributors-shield]: https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink?label=Contributors&logo=GitHub
+[contributors-url]: https://github.com/OhMyGuus/BetterCrewLink/graphs/contributors
 [crowdin-shield]: https://badges.crowdin.net/bettercrewlink/localized.svg
 [crowdin-url]: https://crowdin.com/project/bettercrewlink
