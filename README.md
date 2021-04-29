@@ -1,8 +1,11 @@
 <br />
 <p align="center">
   <a href="https://github.com/OhMyGuus/BetterCrewLink">
-    <img src="logo.png" alt="Logo" width="80" height="80">
+    <img src="logo.png" alt="Logo" width="204" height="250">
   </a>
+  <br/>
+  <sub>Logo made by <a href="https://github.com/SirBuvex">SirBuvex</a></sub>
+</p>
 <h3 align="center"><a href="https://github.com/OhMyGuus/BetterCrewLink">BetterCrewLink</a> a <a href="https://github.com/ottomated/CrewLink">CrewLink</a> fork with extra features & better support</h3>
 
 
