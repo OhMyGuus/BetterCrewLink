@@ -143,20 +143,36 @@ const store = new Store<ISettings>({
 	migrations: {
 		'2.0.6': (store) => {
 			if (
-				store.get('serverURL') === 'https://bettercrewl.ink:6523' ||
 				store.get('serverURL') === 'http://bettercrewl.ink' ||
+				store.get('serverURL') === 'https://bettercrewlink.app/' ||
+				store.get('serverURL') === 'http://bettercrewlink.app/' ||
+				store.get('serverURL') === 'https://bettercrewl.ink:6523' ||
+				store.get('serverURL') === 'http://bettercrewl.ink:6523' ||
+				store.get('serverURL') === 'https://crewlink.guus.info' ||
 				store.get('serverURL') === 'http://crewlink.guus.info' ||
-				store.get('serverURL') === 'https://crewlink.guus.info'
+				store.get('serverURL') === 'https://crewlink.guus.ninja' ||
+				store.get('serverURL') === 'http://crewlink.guus.ninja' ||
+				store.get('serverURL') === 'https://github.com/OhMyGuus/BetterCrewLink' ||
+				store.get('serverURL') === 'https://mirror.bettercrewl.ink/' ||
+				store.get('serverURL') === 'https://www.curseforge.com/among-us/all-mods/bettercrewlink-proximity-chat'
 			) {
 				store.set('serverURL', 'https://bettercrewl.ink');
 			}
 		},
 		'2.0.7': (store) => {
 			if (
-				store.get('serverURL') === 'https://bettercrewl.ink:6523' ||
 				store.get('serverURL') === 'http://bettercrewl.ink' ||
+				store.get('serverURL') === 'https://bettercrewlink.app/' ||
+				store.get('serverURL') === 'http://bettercrewlink.app/' ||
+				store.get('serverURL') === 'https://bettercrewl.ink:6523' ||
+				store.get('serverURL') === 'http://bettercrewl.ink:6523' ||
+				store.get('serverURL') === 'https://crewlink.guus.info' ||
 				store.get('serverURL') === 'http://crewlink.guus.info' ||
-				store.get('serverURL') === 'https://crewlink.guus.ninja'
+				store.get('serverURL') === 'https://crewlink.guus.ninja' ||
+				store.get('serverURL') === 'http://crewlink.guus.ninja' ||
+				store.get('serverURL') === 'https://github.com/OhMyGuus/BetterCrewLink' ||
+				store.get('serverURL') === 'https://mirror.bettercrewl.ink/' ||
+				store.get('serverURL') === 'https://www.curseforge.com/among-us/all-mods/bettercrewlink-proximity-chat'
 			) {
 				store.set('serverURL', 'https://bettercrewl.ink');
 			}
