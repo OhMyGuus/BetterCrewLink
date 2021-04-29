@@ -281,7 +281,7 @@ There are two methods.
 
 * [OhMyGuus](https://github.com/OhMyGuus) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Netherlands
 * [adofou](https://github.com/adofou) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to French
-* [KadenBiel](https://github.com/KadenBiel) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to German
+* [KadenBiel](https://github.com/KadenBiel), [SirBuvex](https://github.com/SirBuvex) and [Jeddunk](https://github.com/jeddunk) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to German
 * [LukehTM](https://github.com/LukehTM) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish
 * [KaldonM](https://github.com/KaldonM) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Slovak
 * [MatadorProBr](https://github.com/MatadorProBr) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Portuguese (Brazil)
