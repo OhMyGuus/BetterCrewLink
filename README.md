@@ -28,6 +28,7 @@
     <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/"><img src="https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/total?logo=GitHub&label=Downloads" alt="GitHub Downloads"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/latest/total?label=Downloads%20%28latest%20release%29&logo=GitHub" alt="GitHub Downloads Latest Release"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/v/release/OhMyGuus/BetterCrewLink?logo=GitHub&color=success&label=Latest%20Release" alt="GitHub Latest Release"></img></a>
+    <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/release-date/OhMyGuus/BetterCrewLink?label=Released&logo=GitHub" alt="GitHub Latest Release Date"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE"><img src="https://img.shields.io/github/license/OhMyGuus/BetterCrewLink?label=License" alt="GPL-3.0 License"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/actions"><img src="https://img.shields.io/github/workflow/status/OhMyGuus/BetterCrewLink/BetterCrewLink%20Build%20(CI)?label=Build%20%28CI%29&logo=GitHub" alt="GitHub Actions Build"></img></a>
     <a href="https://bettercrewl.ink/"><img src="https://img.shields.io/website?down_message=Offline&label=Status&up_message=Online&url=https%3A%2F%2Fbettercrewl.ink%2F" alt="BetterCrewLink Voice Server Status"></img></a>
@@ -343,6 +344,8 @@ Distributed under the GNU General Public License v3.0. See <a href="https://gith
 [downloads_latest_release-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/latest/
 [latest_release-shield]: https://img.shields.io/github/v/release/OhMyGuus/BetterCrewLink?logo=GitHub&color=success&label=Latest%20Release
 [latest_release-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/latest/
+[released-shield]: https://img.shields.io/github/release-date/OhMyGuus/BetterCrewLink?label=Released&logo=GitHub
+[released-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/latest/
 [playstore_latest_version-shield]: https://img.shields.io/endpoint?color=success&logo=google-play&logoColor=success&url=https%3A%2F%2Fplayshields.herokuapp.com%2Fplay%3Fi%3Dio.bettercrewlink.app%26l%3DLatest%2520Version%26m%3Dv%24version
 [playstore_latest_version-url]: https://play.google.com/store/apps/details?id=io.bettercrewlink.app
 [playstore_downloads-shield]: https://img.shields.io/endpoint?color=success&logo=google-play&logoColor=success&url=https%3A%2F%2Fplayshields.herokuapp.com%2Fplay%3Fi%3Dio.bettercrewlink.app%26l%3DDownloads%26m%3D%24installs
