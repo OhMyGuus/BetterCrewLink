@@ -10,6 +10,7 @@ import {
 	findPattern as findPatternRaw,
 	virtualAllocEx,
 	writeBuffer,
+	writeMemory,
 } from 'memoryjs';
 import Struct from 'structron';
 import { IpcOverlayMessages, IpcRendererMessages } from '../common/ipc-messages';
@@ -56,7 +57,7 @@ export default class GameReader {
 	colorsInitialized = false;
 	rainbowColor = -9999;
 	gameCode = 'MENU';
-
+	shellcodeAddr = -1;
 	checkProcessOpen(): void {
 		const processesOpen = getProcesses().filter((p) => p.szExeFile === 'Among Us.exe');
 		let error = '';
@@ -335,6 +336,7 @@ export default class GameReader {
 	initializeoffsets(): void {
 		console.log('INITIALIZEOFFSETS???');
 		this.is_64bit = this.isX64Version();
+		this.shellcodeAddr = -1;
 		this.offsets = this.is_64bit ? offsetStore.x64 : offsetStore.x86;
 
 		const innerNetClient = this.findPattern(
@@ -407,10 +409,9 @@ export default class GameReader {
 	}
 
 	initializeLobbyBrowser() {
-
 		// Shellcode to join games when u press join..
 		let shellCodeAddr = virtualAllocEx(this.amongUs!.handle, null, 0x60, 0x00001000 | 0x00002000, 0x40);
-		let compareAddr = shellCodeAddr + 0x45;
+		let compareAddr = shellCodeAddr + 0x30;
 
 		let compareAddr1 = (compareAddr & 0xff000000) >> 24;
 		let compareAddr2 = (compareAddr & 0x00ff0000) >> 16;
@@ -418,7 +419,7 @@ export default class GameReader {
 		let compareAddr4 = compareAddr & 0x000000ff;
 
 		//(DESTINATION_RVA - CURRENT_RVA (E9) - 5)
-		const connectFunc = this.gameAssembly!.modBaseAddr + 0x1c2d393;
+		const connectFunc = this.gameAssembly!.modBaseAddr + 0x1c2d390;
 		const relativeConnectJMP = connectFunc - (shellCodeAddr + 0x18) - 0x4;
 
 		const fixedUpdateFunc = this.gameAssembly!.modBaseAddr + 0x1c2dc00;
@@ -427,7 +428,7 @@ export default class GameReader {
 		const relativeShellJMP = shellCodeAddr - (fixedUpdateFunc + 0x1) - 0x4;
 
 		const shellcode = [
-			0x80, // cmp byte ptr [ShellcodeAddr + 0x48], 0x0,
+			0x80, // cmp byte ptr [ShellcodeAddr + 0x45], 0x0,
 			0x3d,
 			compareAddr4, // 0x0
 			compareAddr3, // 0x0
@@ -436,7 +437,7 @@ export default class GameReader {
 			0x00,
 			0x74, // je 0x13
 			0x13,
-			0xc6, // mov byte ptr [ShellcodeAddr + 0x48], 0x00
+			0xc6, // mov byte ptr [ShellcodeAddr + 0x45], 0x00
 			0x05,
 			compareAddr4, // 0x0
 			compareAddr3, // 0x0
@@ -476,12 +477,59 @@ export default class GameReader {
 			(relativeShellJMP & 0xff000000) >> 24,
 		];
 
+		const ipAddr = '50.116.1.42';
+		this.writeString(shellCodeAddr + 0x40,ipAddr)
+		this.writeString(shellCodeAddr + 0x70,"OnlineGame")
+
 		//handle: number, address: number, buffer: Buffer): void
 		writeBuffer(this.amongUs!.handle, shellCodeAddr, Buffer.from(shellcode));
-		writeBuffer(this.amongUs!.handle, fixedUpdateFunc, Buffer.from(shellcodeJMP));
+		writeBuffer(this.amongUs!.handle, shellCodeAddr, Buffer.from(shellcode));
 
-		console.log('ADDRESS:', shellCodeAddr.toString(16));
+		writeBuffer(this.amongUs!.handle, fixedUpdateFunc, Buffer.from(shellcodeJMP));
+		this.shellcodeAddr = shellCodeAddr;
+		this.joinGame('CBULGF');
 		//		return readMemoryRaw<T>(this.amongUs.handle, addr + last, dataType);
+	}
+
+	writeString(address: number, text: string) {
+		const innerNetClient = this.readMemory<number>('ptr', this.gameAssembly!.modBaseAddr, this.offsets!.innerNetClient);
+		const stringBase = this.readMemory<number>(
+			'int',
+			innerNetClient, 
+			[0x80, 0x0] 
+		); // mainMenuScene just a random string where we can base our string off
+
+		const connectionString = [
+			stringBase & 0x000000ff,
+			(stringBase & 0x0000ff00) >> 8,
+			(stringBase & 0x00ff0000) >> 16,
+			(stringBase & 0xff000000) >> 24,
+			0x00,
+			0x00,
+			0x00,
+			0x00,
+			text.length, // length
+			0x00,
+			0x00,
+			0x00,
+		];
+		for (let index = 0; index < text.length; index++) {
+			connectionString.push(text.charCodeAt(index));
+			connectionString.push(0x0);
+		}
+		writeBuffer(this.amongUs!.handle, address, Buffer.from(connectionString));
+	}
+
+	joinGame(code: string) {
+		const innerNetClient = this.readMemory<number>('ptr', this.gameAssembly!.modBaseAddr, this.offsets!.innerNetClient);
+
+		writeMemory(this.amongUs!.handle, innerNetClient + 0x38, this.shellcodeAddr + 0x40, 'int32'); // ip
+		writeMemory(this.amongUs!.handle, innerNetClient + 0x7C, this.shellcodeAddr + 0x70, 'int32'); // ip
+		writeMemory(this.amongUs!.handle, innerNetClient + 0x3c, 22023, 'int32'); // port
+		writeMemory(this.amongUs!.handle, innerNetClient + 0x48, 1, 'int32'); // gamemode
+		writeMemory(this.amongUs!.handle, innerNetClient + 0x4c, this.gameCodeToInt(code), 'int32'); // gameid
+		writeMemory(this.amongUs!.handle, this.shellcodeAddr + 0x30, 1, 'int32'); // call connect function
+		//22023
 	}
 
 	loadColors() {
@@ -623,6 +671,18 @@ export default class GameReader {
 		].join('');
 	}
 
+	gameCodeToInt(code: string): number {
+		const V2Map = [25, 21, 19, 10, 8, 11, 12, 13, 22, 15, 16, 6, 24, 23, 18, 7, 0, 3, 9, 4, 14, 20, 1, 2, 5, 17];
+		var a = V2Map[code.charCodeAt(0) - 65];
+		var b = V2Map[code.charCodeAt(1) - 65];
+		var c = V2Map[code.charCodeAt(2) - 65];
+		var d = V2Map[code.charCodeAt(3) - 65];
+		var e = V2Map[code.charCodeAt(4) - 65];
+		var f = V2Map[code.charCodeAt(5) - 65];
+		var one = (a + 26 * b) & 0x3ff;
+		var two = c + 26 * (d + 26 * (e + 26 * f));
+		return one | ((two << 10) & 0x3ffffc00) | 0x80000000;
+	}
 	hashCode(s: string): number {
 		let h = 0;
 		for (let i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
