@@ -1,7 +1,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/OhMyGuus/BetterCrewLink">
-    <img src="logo.png">
+    <img src="src/renderer/logos/sizes/256-BCL-Logo-shadow.png" alt="BetterCrewLink Logo" width="256" height="256">
   </a>
   <br/>
   <sub>Logo made by <a href="https://github.com/SirBuvex">SirBuvex</a></sub>
