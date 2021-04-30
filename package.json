@@ -29,10 +29,6 @@
 		"publish:linux": "yarn compile && electron-builder --x64 --linux --publish always"
 	},
 	"dependencies": {
-		"react-dom": "^17.0.2",
-		"react": "^17.0.2",
-		"react-i18next": "^9.0.10",
-		"react-tooltip-lite": "^1.12.0",
 		"@material-ui/core": "^4.11.4",
 		"@material-ui/data-grid": "^4.0.0-alpha.26",
 		"@material-ui/icons": "^4.11.2",
@@ -46,11 +42,15 @@
 		"electron-window-state": "^5.0.3",
 		"i18next": "^19.9.2",
 		"jimp": "^0.16.1",
-		"memoryjs": "git://github.com/OhMyGuus/memoryjs",
+		"memoryjs": "^3.4.0",
 		"minimist": "^1.2.5",
 		"node-keyboard-watcher": "git://github.com/OhMyGuus/node-keyboard-watcher",
 		"path-intersection": "^2.2.0",
 		"pretty-bytes": "^5.5.0",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2",
+		"react-i18next": "^9.0.10",
+		"react-tooltip-lite": "^1.12.0",
 		"registry-js": "1.13.0",
 		"simple-peer": "https://github.com/vrnagy/simple-peer.git",
 		"socket.io-client": "2.4.0",
@@ -62,8 +62,6 @@
 		"webrtc-adapter": "^7.7.0"
 	},
 	"devDependencies": {
-		"@types/react-dom": "^17.0.2",
-		"@types/react": "^17.0.2",
 		"@types/color": "^3.0.1",
 		"@types/cross-spawn": "^6.0.2",
 		"@types/deep-equal": "^1.0.1",
@@ -71,6 +69,8 @@
 		"@types/js-yaml": "^3.12.5",
 		"@types/node": "12",
 		"@types/pretty-bytes": "^5.2.0",
+		"@types/react": "^17.0.2",
+		"@types/react-dom": "^17.0.2",
 		"@types/simple-peer": "^9.6.1",
 		"@types/socket.io-client": "^1.4.36",
 		"@types/valid-url": "^1.0.3",
@@ -95,7 +95,7 @@
 	"electronWebpack": {
 		"renderer": {
 			"webpackConfig": "webpack.renderer.config.js",
-			"webpackDllConfig":  "webpack.renderer.config.js"
+			"webpackDllConfig": "webpack.renderer.config.js"
 		}
 	}
 }

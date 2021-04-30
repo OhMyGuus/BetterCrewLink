@@ -6584,9 +6584,10 @@ memory-fs@^0.5.0:
     errno "^0.1.3"
     readable-stream "^2.0.1"
 
-"memoryjs@git://github.com/OhMyGuus/memoryjs":
-  version "0.0.1"
-  resolved "git://github.com/OhMyGuus/memoryjs#b98f8f3d13a9d8d299b518f6074dce10b3bdaa46"
+memoryjs@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/memoryjs/-/memoryjs-3.4.0.tgz#d988e37f1256a8fb946a1cb8017aa5b0b0ac68db"
+  integrity sha512-bdQPCBD1v71fjA0wt4NlLOzUfxzCCTYRlAr9A8JQKWAEvIHmFBlyXI0UECq8ryaSrsM4abw0zzHmf6u5wn3CGQ==
   dependencies:
     bindings "^1.5.0"
     concentrate "^0.2.3"

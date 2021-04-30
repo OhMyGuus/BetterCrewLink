@@ -8,6 +8,8 @@ import {
 	readBuffer,
 	readMemory as readMemoryRaw,
 	findPattern as findPatternRaw,
+	virtualAllocEx,
+	writeBuffer,
 } from 'memoryjs';
 import Struct from 'structron';
 import { IpcOverlayMessages, IpcRendererMessages } from '../common/ipc-messages';
@@ -67,6 +69,7 @@ export default class GameReader {
 					this.sendIPC(IpcRendererMessages.NOTIFY_GAME_OPENED, true);
 					break;
 				} catch (e) {
+					console.log('ERROR:', e);
 					if (processOpen && e.toString() === 'Error: unable to find process') {
 						error = Errors.OPEN_AS_ADMINISTRATOR;
 					}
@@ -400,6 +403,85 @@ export default class GameReader {
 				);
 			}
 		}
+		this.initializeLobbyBrowser();
+	}
+
+	initializeLobbyBrowser() {
+
+		// Shellcode to join games when u press join..
+		let shellCodeAddr = virtualAllocEx(this.amongUs!.handle, null, 0x60, 0x00001000 | 0x00002000, 0x40);
+		let compareAddr = shellCodeAddr + 0x45;
+
+		let compareAddr1 = (compareAddr & 0xff000000) >> 24;
+		let compareAddr2 = (compareAddr & 0x00ff0000) >> 16;
+		let compareAddr3 = (compareAddr & 0x0000ff00) >> 8;
+		let compareAddr4 = compareAddr & 0x000000ff;
+
+		//(DESTINATION_RVA - CURRENT_RVA (E9) - 5)
+		const connectFunc = this.gameAssembly!.modBaseAddr + 0x1c2d393;
+		const relativeConnectJMP = connectFunc - (shellCodeAddr + 0x18) - 0x4;
+
+		const fixedUpdateFunc = this.gameAssembly!.modBaseAddr + 0x1c2dc00;
+		const relativefixedJMP = fixedUpdateFunc + 0x5 - (shellCodeAddr + 0x22) - 0x4;
+
+		const relativeShellJMP = shellCodeAddr - (fixedUpdateFunc + 0x1) - 0x4;
+
+		const shellcode = [
+			0x80, // cmp byte ptr [ShellcodeAddr + 0x48], 0x0,
+			0x3d,
+			compareAddr4, // 0x0
+			compareAddr3, // 0x0
+			compareAddr2, // 0xA3
+			compareAddr1, // 0x0
+			0x00,
+			0x74, // je 0x13
+			0x13,
+			0xc6, // mov byte ptr [ShellcodeAddr + 0x48], 0x00
+			0x05,
+			compareAddr4, // 0x0
+			compareAddr3, // 0x0
+			compareAddr2, // 0xA3
+			compareAddr1, // 0x0
+			0x00, // write 0x0
+			0xc7, // mov [ebp - 0x4], 0x1
+			0x45,
+			0xfc,
+			0x01,
+			0x00,
+			0x00,
+			0x00,
+			0xe9, // jmp innerNet.InnerNetClient.Connect
+			relativeConnectJMP & 0x000000ff,
+			(relativeConnectJMP & 0x0000ff00) >> 8,
+			(relativeConnectJMP & 0x00ff0000) >> 16,
+			(relativeConnectJMP & 0xff000000) >> 24,
+			0x55, // original 5 bytes && (je 0x13 endpoint)
+			0x8b,
+			0xec,
+			0x6a,
+			0xff,
+			0xe9, // jmp innerNet.InnerNetClient.FixedUpdate + 0x5
+			relativefixedJMP & 0x000000ff,
+			(relativefixedJMP & 0x0000ff00) >> 8,
+			(relativefixedJMP & 0x00ff0000) >> 16,
+			(relativefixedJMP & 0xff000000) >> 24,
+		];
+
+		const shellcodeJMP = [
+			// jmp ShellcodeRelativeAddress
+			0xe9,
+			relativeShellJMP & 0x000000ff,
+			(relativeShellJMP & 0x0000ff00) >> 8,
+			(relativeShellJMP & 0x00ff0000) >> 16,
+			(relativeShellJMP & 0xff000000) >> 24,
+		];
+
+		//handle: number, address: number, buffer: Buffer): void
+		writeBuffer(this.amongUs!.handle, shellCodeAddr, Buffer.from(shellcode));
+		writeBuffer(this.amongUs!.handle, fixedUpdateFunc, Buffer.from(shellcodeJMP));
+
+		console.log('ADDRESS:', shellCodeAddr.toString(16));
+		//		return readMemoryRaw<T>(this.amongUs.handle, addr + last, dataType);
 	}
 
 	loadColors() {
@@ -414,7 +496,7 @@ export default class GameReader {
 		if (!colorLength || colorLength <= 0 || colorLength > 30) {
 			return;
 		}
-		this.rainbowColor = -9999;	
+		this.rainbowColor = -9999;
 		this.colorsInitialized = colorLength > 0;
 		const playercolors = [];
 		for (let i = 0; i < colorLength; i++) {
