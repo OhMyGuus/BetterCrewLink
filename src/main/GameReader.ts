@@ -478,8 +478,13 @@ export default class GameReader {
 		];
 
 		const ipAddr = '50.116.1.42';
-		this.writeString(shellCodeAddr + 0x40,ipAddr)
-		this.writeString(shellCodeAddr + 0x70,"OnlineGame")
+		this.writeString(shellCodeAddr + 0x40, ipAddr);
+		//MMOnline
+		this.writeString(shellCodeAddr + 0x70, 'OnlineGame');
+		this.writeString(shellCodeAddr + 0x95, 'MMOnline');
+
+		this.writeString(shellCodeAddr + 0xD5, '\n<color=#BA68C8>BetterCrewlink</color>\n<pos=-45%><size=60%><color=#BA68C8>Github.com/OhMyGuus/BetterCrewlink</color></size></pos>')
+		writeMemory(this.amongUs!.handle, this.gameAssembly!.modBaseAddr + 0x28EE6FC, shellCodeAddr + 0xD5, 'int32'); // ip
 
 		//handle: number, address: number, buffer: Buffer): void
 		writeBuffer(this.amongUs!.handle, shellCodeAddr, Buffer.from(shellcode));
@@ -487,17 +492,13 @@ export default class GameReader {
 
 		writeBuffer(this.amongUs!.handle, fixedUpdateFunc, Buffer.from(shellcodeJMP));
 		this.shellcodeAddr = shellCodeAddr;
-		this.joinGame('CBULGF');
+		//this.joinGame('CBULGF');
 		//		return readMemoryRaw<T>(this.amongUs.handle, addr + last, dataType);
 	}
 
 	writeString(address: number, text: string) {
 		const innerNetClient = this.readMemory<number>('ptr', this.gameAssembly!.modBaseAddr, this.offsets!.innerNetClient);
-		const stringBase = this.readMemory<number>(
-			'int',
-			innerNetClient, 
-			[0x80, 0x0] 
-		); // mainMenuScene just a random string where we can base our string off
+		const stringBase = this.readMemory<number>('int', innerNetClient, [0x80, 0x0]); // mainMenuScene just a random string where we can base our string off
 
 		const connectionString = [
 			stringBase & 0x000000ff,
@@ -524,7 +525,9 @@ export default class GameReader {
 		const innerNetClient = this.readMemory<number>('ptr', this.gameAssembly!.modBaseAddr, this.offsets!.innerNetClient);
 
 		writeMemory(this.amongUs!.handle, innerNetClient + 0x38, this.shellcodeAddr + 0x40, 'int32'); // ip
-		writeMemory(this.amongUs!.handle, innerNetClient + 0x7C, this.shellcodeAddr + 0x70, 'int32'); // ip
+		writeMemory(this.amongUs!.handle, innerNetClient + 0x7c, this.shellcodeAddr + 0x70, 'int32'); // ip
+		writeMemory(this.amongUs!.handle, innerNetClient + 0x80, this.shellcodeAddr + 0x95, 'int32'); // ip
+
 		writeMemory(this.amongUs!.handle, innerNetClient + 0x3c, 22023, 'int32'); // port
 		writeMemory(this.amongUs!.handle, innerNetClient + 0x48, 1, 'int32'); // gamemode
 		writeMemory(this.amongUs!.handle, innerNetClient + 0x4c, this.gameCodeToInt(code), 'int32'); // gameid
