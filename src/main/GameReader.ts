@@ -483,7 +483,7 @@ export default class GameReader {
 		this.writeString(shellCodeAddr + 0x70, 'OnlineGame');
 		this.writeString(shellCodeAddr + 0x95, 'MMOnline');
 
-		this.writeString(shellCodeAddr + 0xD5, '\n<color=#BA68C8>BetterCrewlink</color>\n<pos=-45%><size=60%><color=#BA68C8>Github.com/OhMyGuus/BetterCrewlink</color></size></pos>')
+		this.writeString(shellCodeAddr + 0xD5, '\n<color=#BA68C8>BetterCrewLink</color>\n<pos=-45%><size=60%><color=#BA68C8>bettercrewlink.app</color></size></pos>')
 		writeMemory(this.amongUs!.handle, this.gameAssembly!.modBaseAddr + 0x28EE6FC, shellCodeAddr + 0xD5, 'int32'); // ip
 
 		//handle: number, address: number, buffer: Buffer): void
