@@ -70,7 +70,7 @@
   * [iOS & macOS](#ios--macos)
 * [Development](#development)
   * [Prerequisites](#prerequisites)
-  * [Setup](#setup)
+      * [Setup](#setup)
 * [Contributing](#contributing)
 * [Translating](#translating)
 * [Credits & Resources](#credits--resources)
