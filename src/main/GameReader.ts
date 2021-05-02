@@ -428,7 +428,7 @@ export default class GameReader {
 		const relativeShellJMP = shellCodeAddr - (fixedUpdateFunc + 0x1) - 0x4;
 
 		const shellcode = [
-			0x80, // cmp byte ptr [ShellcodeAddr + 0x45], 0x0,
+			0x80, // cmp byte ptr [ShellcodeAddr + 0x30], 0x0,
 			0x3d,
 			compareAddr4, // 0x0
 			compareAddr3, // 0x0
@@ -437,7 +437,7 @@ export default class GameReader {
 			0x00,
 			0x74, // je 0x13
 			0x13,
-			0xc6, // mov byte ptr [ShellcodeAddr + 0x45], 0x00
+			0xc6, // mov byte ptr [ShellcodeAddr + 0x30], 0x00
 			0x05,
 			compareAddr4, // 0x0
 			compareAddr3, // 0x0
@@ -483,7 +483,7 @@ export default class GameReader {
 		this.writeString(shellCodeAddr + 0x70, 'OnlineGame');
 		this.writeString(shellCodeAddr + 0x95, 'MMOnline');
 
-		this.writeString(shellCodeAddr + 0xD5, '\n<color=#BA68C8>BetterCrewlink</color>\n<pos=-45%><size=60%><color=#BA68C8>Github.com/OhMyGuus/BetterCrewlink</color></size></pos>')
+		this.writeString(shellCodeAddr + 0xD5, '\n<color=#BA68C8>BetterCrewLink</color>\n<pos=-50%><size=60%><color=#BA68C8>Github.com/OhMyGuus/BetterCrewLink</color></size></pos>\n<color=#1c3857>Ping: {0}</color>')
 		writeMemory(this.amongUs!.handle, this.gameAssembly!.modBaseAddr + 0x28EE6FC, shellCodeAddr + 0xD5, 'int32'); // ip
 
 		//handle: number, address: number, buffer: Buffer): void

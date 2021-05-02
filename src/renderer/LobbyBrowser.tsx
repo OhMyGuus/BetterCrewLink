@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import { ipcRenderer } from 'electron';
+import { IpcHandlerMessages } from '../common/ipc-messages';
 
 const StyledTableCell = withStyles((theme) => ({
 	head: {
@@ -42,6 +44,17 @@ function createData(
 	return { joinId, title, host, current_players, max_players, language, mods };
 }
 
+interface PublicLobby {
+	Id: number;
+	title: string;
+	host: string;
+	current_players: number;
+	max_players: number;
+	language: string;
+	mods: string;
+	isPublic: boolean;
+}
+
 const useStyles = makeStyles({
 	table: {
 		minWidth: 700,
@@ -51,21 +64,50 @@ const useStyles = makeStyles({
 	},
 });
 
-export default function lobbyBrowser() {
+export interface lobbyMap {
+	[peer: number]: PublicLobby;
+}
+
+export interface LobbyBrowserProps {
+	socket: SocketIOClient.Socket | undefined;
+}
+
+export default function lobbyBrowser({ socket }: LobbyBrowserProps) {
 	const classes = useStyles();
+	const [publiclobbies, setPublicLobbies] = useState<lobbyMap>({});
 
 	useEffect(() => {
 		window.resizeTo(900, 500);
+		setPublicLobbies({});
 		return () => {
+			socket?.emit('lobbybrowser', false);
 			window.resizeTo(250, 350);
 		};
 	}, []);
 
-	const rows = useMemo(() => {
-		const rows = [createData(0, 'FUN 18+', 'player2', 1, 10, 'EN', 'NONE')];
-		for (let i = 0; i < 5; i++) rows.push(createData(1 + i, 'FUN 18+', `player${i}`, 1, 10, 'EN', 'NONE'));
-		return rows;
-	}, []);
+	useEffect(() => {
+		if (!socket) return;
+		socket.on('update_lobby', (lobby: PublicLobby) => {
+			setPublicLobbies((old) => ({ ...old, [lobby.Id]: lobby }));
+		});
+
+		socket.on('new_lobbies', (lobbies: PublicLobby[]) => {
+			setPublicLobbies((old) => {
+				for (let index in lobbies) {
+					old[lobbies[index].Id] = lobbies[index];
+				}
+				return old;
+			});
+		});
+		socket.on('remove_lobby', (lobbyId: number) => {
+			setPublicLobbies((old) => {
+				delete old[lobbyId];
+				return old;
+			});
+		});
+
+		socket.emit('lobbybrowser', true);
+	}, [socket]);
 
 	return (
 		<div style={{ height: '100%', width: '100%', paddingTop: '15px' }}>
@@ -86,8 +128,8 @@ export default function lobbyBrowser() {
 								</TableRow>
 							</TableHead>
 							<TableBody>
-								{rows.map((row) => (
-									<StyledTableRow key={row.joinId}>
+								{Object.values(publiclobbies).map((row) => (
+									<StyledTableRow key={row.Id}>
 										<StyledTableCell component="th" scope="row">
 											{row.title}
 										</StyledTableCell>
@@ -96,9 +138,21 @@ export default function lobbyBrowser() {
 											{row.current_players}/{row.max_players}
 										</StyledTableCell>
 										<StyledTableCell align="left">{row.mods}</StyledTableCell>
-                    <StyledTableCell align="left">{row.language}</StyledTableCell>
+										<StyledTableCell align="left">{row.language}</StyledTableCell>
 										<StyledTableCell align="right">
-											<Button variant="contained" color="secondary">
+											<Button
+												variant="contained"
+												color="secondary"
+												onClick={() => {
+													socket?.emit('join_lobby', row.Id, (state: number, msg: string) => {
+														if (state === 0) {
+															ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, msg);
+														} else {
+															window.alert(`Error: ${msg}`);
+														}
+													});
+												}}
+											>
 												Join
 											</Button>
 											{/* <Button variant="contained" color="secondary" style={{ marginLeft: '5px' }}>

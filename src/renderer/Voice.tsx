@@ -42,7 +42,7 @@ import adapter from 'webrtc-adapter';
 import { VADOptions } from './vad';
 import { pushToTalkOptions } from './settings/Settings';
 import { poseCollide } from '../common/ColliderMap';
-import LobbyBrowser  from './LobbyBrowser';
+import LobbyBrowser from './LobbyBrowser';
 
 console.log(adapter.browserDetails.browser);
 
@@ -204,6 +204,10 @@ const defaultlocalLobbySettings: ILobbySettings = {
 	wallsBlockAudio: false,
 	meetingGhostOnly: false,
 	visionHearing: false,
+	publicLobby_on: false,
+	publicLobby_title: '',
+	publicLobby_language: 'en',
+	publicLobby_mods: 'NONE',
 };
 const radioOnAudio = new Audio();
 radioOnAudio.src = radioOnSound;
@@ -640,6 +644,38 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			}
 		}
 	}, [settings.microphoneGain, settings.micSensitivity]);
+
+	const updateLobby = () => {
+		if (
+			!gameState ||
+			!gameState.isHost ||
+			!gameState.lobbyCode ||
+			gameState.gameState === GameState.MENU ||
+			!gameState.players
+		) {
+			return;
+		}
+		connectionStuff.current.socket?.emit('lobby', gameState.lobbyCode, {
+			id: -1,
+			title: lobbySettings.publicLobby_title,
+			host: myPlayer?.name,
+			current_players: gameState.players.length,
+			max_players: 10,
+			language: lobbySettings.publicLobby_language,
+			mods: lobbySettings.publicLobby_mods,
+			isPublic: lobbySettings.publicLobby_on,
+		});
+	};
+
+	useEffect(() => {
+		updateLobby();
+	}, [
+		gameState?.players?.length,
+		lobbySettings.publicLobby_title,
+		lobbySettings.publicLobby_language,
+		lobbySettings.publicLobby_mods,
+		lobbySettings.publicLobby_on,
+	]);
 
 	// Add lobbySettings to lobbySettingsRef
 	useEffect(() => {
@@ -1197,6 +1233,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	useEffect(() => {
 		if (connect?.connect) {
 			connect.connect(gameState?.lobbyCode ?? 'MENU', myPlayer?.id ?? 0, gameState.clientId, gameState.isHost);
+			updateLobby();
 		}
 	}, [connect?.connect, gameState?.lobbyCode, connected]);
 
@@ -1270,7 +1307,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		impostorRadioClientId.current,
 	]);
 
-	if (gameState?.gameState === GameState.MENU) return <LobbyBrowser></LobbyBrowser>;
+	return <LobbyBrowser socket={connectionStuff.current.socket}></LobbyBrowser>;
 
 	return (
 		<div className={classes.root}>
@@ -1330,9 +1367,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						)}
 					</div>
 				</div>
-				{/* <
-							
-						< */}
 			</div>
 			{lobbySettings.deadOnly && (
 				<div className={classes.top}>

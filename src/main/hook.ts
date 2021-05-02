@@ -39,6 +39,11 @@ ipcMain.on(IpcHandlerMessages.RESET_KEYHOOKS, () => {
 	resetKeyHooks();
 });
 
+ipcMain.on(IpcHandlerMessages.JOIN_LOBBY, (event, lobbycode) => {
+	gameReader?.joinGame(lobbycode)
+});
+
+
 ipcMain.on(IpcSyncMessages.GET_INITIAL_STATE, (event) => {
 	if (!readingGame) {
 		console.error('Recieved GET_INITIAL_STATE message before the START_HOOK message was received');
