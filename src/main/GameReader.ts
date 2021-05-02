@@ -45,7 +45,7 @@ export default class GameReader {
 	sendIPC: Electron.WebContents['send'];
 	offsets: IOffsets | undefined;
 	PlayerStruct: Struct | undefined;
-
+	initializedWrite: boolean = false;
 	menuUpdateTimer = 20;
 	lastPlayerPtr = 0;
 	shouldReadLobby = false;
@@ -338,7 +338,7 @@ export default class GameReader {
 		this.is_64bit = this.isX64Version();
 		this.shellcodeAddr = -1;
 		this.offsets = this.is_64bit ? offsetStore.x64 : offsetStore.x86;
-
+		this.initializedWrite = false;
 		const innerNetClient = this.findPattern(
 			this.offsets.signatures.innerNetClient.sig,
 			this.offsets.signatures.innerNetClient.patternOffset,
@@ -405,10 +405,14 @@ export default class GameReader {
 				);
 			}
 		}
-		this.initializeLobbyBrowser();
+		this.initializeWrites();
 	}
 
-	initializeLobbyBrowser() {
+	initializeWrites() {
+		if (this.isX64Version()) {
+			//not supported atm
+			return;
+		}
 		// Shellcode to join games when u press join..
 		let shellCodeAddr = virtualAllocEx(this.amongUs!.handle, null, 0x60, 0x00001000 | 0x00002000, 0x40);
 		let compareAddr = shellCodeAddr + 0x30;
@@ -483,8 +487,11 @@ export default class GameReader {
 		this.writeString(shellCodeAddr + 0x70, 'OnlineGame');
 		this.writeString(shellCodeAddr + 0x95, 'MMOnline');
 
-		this.writeString(shellCodeAddr + 0xD5, '\n<color=#BA68C8>BetterCrewLink</color>\n<pos=-45%><size=60%><color=#BA68C8>bettercrewlink.app</color></size></pos>')
-		writeMemory(this.amongUs!.handle, this.gameAssembly!.modBaseAddr + 0x28EE6FC, shellCodeAddr + 0xD5, 'int32'); // ip
+		this.writeString(
+			shellCodeAddr + 0xd5,
+			'\n<color=#BA68C8>BetterCrewLink</color>\n<size=60%><color=#BA68C8>https://bettercrewlink.app</color></size>'
+		);
+		writeMemory(this.amongUs!.handle, this.gameAssembly!.modBaseAddr + 0x28ee6fc, shellCodeAddr + 0xd5, 'int32'); // ip
 
 		//handle: number, address: number, buffer: Buffer): void
 		writeBuffer(this.amongUs!.handle, shellCodeAddr, Buffer.from(shellcode));
@@ -492,6 +499,7 @@ export default class GameReader {
 
 		writeBuffer(this.amongUs!.handle, fixedUpdateFunc, Buffer.from(shellcodeJMP));
 		this.shellcodeAddr = shellCodeAddr;
+		this.initializedWrite = true;
 		//this.joinGame('CBULGF');
 		//		return readMemoryRaw<T>(this.amongUs.handle, addr + last, dataType);
 	}
@@ -521,7 +529,10 @@ export default class GameReader {
 		writeBuffer(this.amongUs!.handle, address, Buffer.from(connectionString));
 	}
 
-	joinGame(code: string) {
+	joinGame(code: string): boolean {
+		if (!this.initializedWrite) {
+			return false;
+		}
 		const innerNetClient = this.readMemory<number>('ptr', this.gameAssembly!.modBaseAddr, this.offsets!.innerNetClient);
 
 		writeMemory(this.amongUs!.handle, innerNetClient + 0x38, this.shellcodeAddr + 0x40, 'int32'); // ip
@@ -532,6 +543,7 @@ export default class GameReader {
 		writeMemory(this.amongUs!.handle, innerNetClient + 0x48, 1, 'int32'); // gamemode
 		writeMemory(this.amongUs!.handle, innerNetClient + 0x4c, this.gameCodeToInt(code), 'int32'); // gameid
 		writeMemory(this.amongUs!.handle, this.shellcodeAddr + 0x30, 1, 'int32'); // call connect function
+		return true;
 		//22023
 	}
 
