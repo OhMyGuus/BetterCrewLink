@@ -58,6 +58,7 @@ export default class GameReader {
 	rainbowColor = -9999;
 	gameCode = 'MENU';
 	shellcodeAddr = -1;
+	currentServer = '';
 	checkProcessOpen(): void {
 		const processesOpen = getProcesses().filter((p) => p.szExeFile === 'Among Us.exe');
 		let error = '';
@@ -164,6 +165,14 @@ export default class GameReader {
 			let map = MapType.UNKNOWN;
 			const closedDoors: number[] = [];
 			let localPlayer = undefined;
+			if (
+				this.currentServer === '' ||
+				(this.oldGameState != state &&
+					(this.oldGameState === GameState.MENU || this.oldGameState === GameState.UNKNOWN))
+			) {
+				this.readCurrentServer();
+			}
+
 			if (this.gameCode && playerCount) {
 				for (let i = 0; i < Math.min(playerCount, 20); i++) {
 					const { address, last } = this.offsetAddress(playerAddrPtr, this.offsets.player.offsets);
@@ -314,6 +323,7 @@ export default class GameReader {
 				lightRadiusChanged: lightRadius != this.lastState?.lightRadius,
 				map,
 				closedDoors,
+				currentServer: this.currentServer
 			};
 			//	const stateHasChanged = !equal(this.lastState, newState);
 			//	if (stateHasChanged) {
@@ -481,8 +491,6 @@ export default class GameReader {
 			(relativeShellJMP & 0xff000000) >> 24,
 		];
 
-		const ipAddr = '50.116.1.42';
-		this.writeString(shellCodeAddr + 0x40, ipAddr);
 		//MMOnline
 		this.writeString(shellCodeAddr + 0x70, 'OnlineGame');
 		this.writeString(shellCodeAddr + 0x95, 'MMOnline');
@@ -491,7 +499,7 @@ export default class GameReader {
 			shellCodeAddr + 0xd5,
 			'\n<color=#BA68C8>BetterCrewLink</color>\n<size=60%><color=#BA68C8>https://bettercrewlink.app</color></size>'
 		);
-		writeMemory(this.amongUs!.handle, this.gameAssembly!.modBaseAddr + 0x28ee6fc, shellCodeAddr + 0xd5, 'int32'); // ip
+		writeMemory(this.amongUs!.handle, this.gameAssembly!.modBaseAddr + 0x28ee6fc, shellCodeAddr + 0xd5, 'int32'); // pingmessage
 
 		//handle: number, address: number, buffer: Buffer): void
 		writeBuffer(this.amongUs!.handle, shellCodeAddr, Buffer.from(shellcode));
@@ -529,20 +537,21 @@ export default class GameReader {
 		writeBuffer(this.amongUs!.handle, address, Buffer.from(connectionString));
 	}
 
-	joinGame(code: string): boolean {
-		if (!this.initializedWrite) {
+	joinGame(code: string, server: string): boolean {
+		if (!this.amongUs || !this.initializedWrite || server.length > 15) {
 			return false;
 		}
 		const innerNetClient = this.readMemory<number>('ptr', this.gameAssembly!.modBaseAddr, this.offsets!.innerNetClient);
 
-		writeMemory(this.amongUs!.handle, innerNetClient + 0x38, this.shellcodeAddr + 0x40, 'int32'); // ip
-		writeMemory(this.amongUs!.handle, innerNetClient + 0x7c, this.shellcodeAddr + 0x70, 'int32'); // ip
-		writeMemory(this.amongUs!.handle, innerNetClient + 0x80, this.shellcodeAddr + 0x95, 'int32'); // ip
+		this.writeString(this.shellcodeAddr + 0x40, server);
+		writeMemory(this.amongUs.handle, innerNetClient + 0x38, this.shellcodeAddr + 0x40, 'int32'); // ip
+		writeMemory(this.amongUs.handle, innerNetClient + 0x7c, this.shellcodeAddr + 0x70, 'int32'); // ip
+		writeMemory(this.amongUs.handle, innerNetClient + 0x80, this.shellcodeAddr + 0x95, 'int32'); // ip
 
-		writeMemory(this.amongUs!.handle, innerNetClient + 0x3c, 22023, 'int32'); // port
-		writeMemory(this.amongUs!.handle, innerNetClient + 0x48, 1, 'int32'); // gamemode
-		writeMemory(this.amongUs!.handle, innerNetClient + 0x4c, this.gameCodeToInt(code), 'int32'); // gameid
-		writeMemory(this.amongUs!.handle, this.shellcodeAddr + 0x30, 1, 'int32'); // call connect function
+		writeMemory(this.amongUs.handle, innerNetClient + 0x3c, 22023, 'int32'); // port
+		writeMemory(this.amongUs.handle, innerNetClient + 0x48, 1, 'int32'); // gamemode
+		writeMemory(this.amongUs.handle, innerNetClient + 0x4c, this.gameCodeToInt(code), 'int32'); // gameid
+		writeMemory(this.amongUs.handle, this.shellcodeAddr + 0x30, 1, 'int32'); // call connect function
 		return true;
 		//22023
 	}
@@ -551,6 +560,7 @@ export default class GameReader {
 		if (this.colorsInitialized) {
 			return;
 		}
+		console.log("Initializecolors");
 		const palletePtr = this.readMemory<number>('ptr', this.gameAssembly!.modBaseAddr, this.offsets!.palette);
 		const PlayerColorsPtr = this.readMemory<number>('ptr', palletePtr, this.offsets!.palette_playercolor);
 		const ShadowColorsPtr = this.readMemory<number>('ptr', palletePtr, this.offsets!.palette_shadowColor);
@@ -596,6 +606,17 @@ export default class GameReader {
 		);
 		//	console.log(optionalHeader_magic, 'optionalHeader_magic');
 		return optionalHeader_magic === 0x20b;
+	}
+
+	readCurrentServer() {
+		const currentServer = this.readMemory<number>('ptr', this.gameAssembly!.modBaseAddr, [
+			0x28fa588,
+			0x5c,
+			0x8,
+			0x10,
+			0x14,
+		]);
+		this.currentServer = this.readString(currentServer);
 	}
 
 	readMemory<T>(dataType: DataType, address: number, offsets?: number[], defaultParam?: T): T {

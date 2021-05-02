@@ -32,18 +32,6 @@ const StyledTableRow = withStyles((theme) => ({
 	},
 }))(TableRow);
 
-function createData(
-	joinId: number,
-	title: string,
-	host: string,
-	current_players: number,
-	max_players: number,
-	language: string,
-	mods: string
-) {
-	return { joinId, title, host, current_players, max_players, language, mods };
-}
-
 interface PublicLobby {
 	Id: number;
 	title: string;
@@ -53,6 +41,7 @@ interface PublicLobby {
 	language: string;
 	mods: string;
 	isPublic: boolean;
+	server: string;
 }
 
 const useStyles = makeStyles({
@@ -144,11 +133,11 @@ export default function lobbyBrowser({ socket }: LobbyBrowserProps) {
 												variant="contained"
 												color="secondary"
 												onClick={() => {
-													socket?.emit('join_lobby', row.Id, (state: number, msg: string) => {
+													socket?.emit('join_lobby', row.Id, (state: number, codeOrError: string, server: string) => {
 														if (state === 0) {
-															ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, msg);
+															ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);
 														} else {
-															window.alert(`Error: ${msg}`);
+															window.alert(`Error: ${codeOrError}`);
 														}
 													});
 												}}

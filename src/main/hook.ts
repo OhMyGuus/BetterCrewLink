@@ -39,8 +39,8 @@ ipcMain.on(IpcHandlerMessages.RESET_KEYHOOKS, () => {
 	resetKeyHooks();
 });
 
-ipcMain.on(IpcHandlerMessages.JOIN_LOBBY, (event, lobbycode) => {
-	gameReader?.joinGame(lobbycode)
+ipcMain.on(IpcHandlerMessages.JOIN_LOBBY, (event, lobbycode, server) => {
+	gameReader?.joinGame(lobbycode, server)
 });
 
 

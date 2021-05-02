@@ -364,7 +364,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			case GameState.DISCUSSION:
 				panPos = [0, 0];
 				endGain = 1;
-				// Mute dead players for still living players
 				if (!me.isDead && other.isDead) {
 					endGain = 0;
 				}
@@ -395,16 +394,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		}
 
 		let isOnCamera = state.currentCamera !== CameraLocation.NONE;
-		// console.log(
-		// 	'ISONCAMERA???',
-		// 	isOnCamera,
-		// 	skipDistanceCheck,
-		// 	!skipDistanceCheck && Math.sqrt(panPos[0] * panPos[0] + panPos[1] * panPos[1]) > maxdistance
-		// );
-		// Mute players if distancte between two players is too big
-		// console.log({ x: other.x, y: other.y }, Math.sqrt(panPos[0] * panPos[0] + panPos[1] * panPos[1]));
-		//console.log(state.currentCamera);
-
 		if (!skipDistanceCheck && Math.sqrt(panPos[0] * panPos[0] + panPos[1] * panPos[1]) > maxdistance) {
 			if (lobbySettings.hearThroughCameras && state.gameState === GameState.TASKS) {
 				if (state.currentCamera !== CameraLocation.NONE && state.currentCamera !== CameraLocation.Skeld) {
@@ -470,12 +459,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	}
 
 	function notifyMobilePlayers() {
-		// console.log(
-		// 	'notifyMobilePLayersCheck',
-		// 	settingsRef.current.mobileHost,
-		// 	hostRef.current.gamestate !== GameState.MENU,
-		// 	hostRef.current.gamestate !== GameState.UNKNOWN
-		// );
 		if (
 			settingsRef.current.mobileHost &&
 			hostRef.current.gamestate !== GameState.MENU &&
@@ -661,6 +644,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			host: myPlayer?.name,
 			current_players: gameState.players.length,
 			max_players: 10,
+			server: gameState.currentServer,
 			language: lobbySettings.publicLobby_language,
 			mods: lobbySettings.publicLobby_mods,
 			isPublic: lobbySettings.publicLobby_on,

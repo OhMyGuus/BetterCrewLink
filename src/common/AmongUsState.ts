@@ -15,6 +15,7 @@ export interface AmongUsState {
 	lightRadius: number;
 	lightRadiusChanged: boolean;
 	closedDoors: number[];
+	currentServer: string;
 }
 
 export interface Player {
