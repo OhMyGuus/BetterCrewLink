@@ -19,7 +19,6 @@ export interface IOffsets {
 	allPlayers: number[];
 	playerCount: number[];
 	playerAddrPtr: number;
-	exiledPlayerId: number[];
 	gameCode: number[];
 	hostId: number[];
 	clientId: number[];
@@ -98,7 +97,6 @@ export default {
 		allPlayers: [0x10],
 		playerCount: [0x18],
 		playerAddrPtr: 0x20,
-		exiledPlayerId: [0xff, 0x21d03e0, 0xb8, 0, 0xe0, 0x10],
 		shipStatus: [0x21d0ce0, 0xb8, 0x0],
 		shipStatus_systems: [0xd0],
 		shipStatus_map: [0x174],
@@ -203,7 +201,6 @@ export default {
 		allPlayers: [0x08],
 		playerCount: [0xC],
 		playerAddrPtr: 0x10,
-		exiledPlayerId: [0xff, 0x1c573a4, 0x5c, 0, 0x94, 0x08],
 		shipStatus: [0x1c57cac, 0x5c, 0x0],
 		shipStatus_systems: [0x8c],
 		shipStatus_map: [0xe4],

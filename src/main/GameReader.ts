@@ -157,11 +157,6 @@ export default class GameReader {
 			const hostId = this.readMemory<number>('uint32', innerNetClient, this.offsets.hostId);
 			const clientId = this.readMemory<number>('uint32', innerNetClient, this.offsets.clientId);
 
-			const exiledPlayerId = this.readMemory<number>(
-				'byte',
-				this.gameAssembly.modBaseAddr,
-				this.offsets.exiledPlayerId
-			);
 			let lightRadius = 1;
 			let comsSabotaged = false;
 			let currentCamera = CameraLocation.NONE;
@@ -192,7 +187,6 @@ export default class GameReader {
 					}
 
 					players.push(player);
-					if (player.id === exiledPlayerId || player.isDead || player.disconnected || player.name === '') continue;
 				}
 				if (localPlayer) {
 					lightRadius = this.readMemory<number>('float', localPlayer.objectPtr, this.offsets.lightRadius, -1);
@@ -396,7 +390,6 @@ export default class GameReader {
 		this.offsets.playerControl_GameOptions[0] = playerControl;
 		this.offsets.palette[0] = palette;
 		this.offsets.meetingHud[0] = meetingHud;
-		this.offsets.exiledPlayerId[1] = meetingHud;
 		this.offsets.allPlayersPtr[0] = gameData;
 		this.offsets.innerNetClient[0] = innerNetClient;
 		this.offsets.shipStatus[0] = shipStatus;
