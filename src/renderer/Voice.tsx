@@ -8,10 +8,10 @@ import {
 	Player,
 	SocketClientMap,
 	AudioConnected,
-	OtherTalking,
+	ClientBoolMap,
+	numberStringMap,
 	Client,
 	VoiceState,
-	OtherDead,
 } from '../common/AmongUsState';
 import Peer from 'simple-peer';
 import { ipcRenderer } from 'electron';
@@ -38,7 +38,6 @@ import VolumeOff from '@material-ui/icons/VolumeOff';
 import VolumeUp from '@material-ui/icons/VolumeUp';
 import Mic from '@material-ui/icons/Mic';
 import MicOff from '@material-ui/icons/MicOff';
-import { numberStringMap } from '../common/AmongUsState';
 import adapter from 'webrtc-adapter';
 import { VADOptions } from './vad';
 import { pushToTalkOptions } from './settings/Settings';
@@ -242,8 +241,10 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	const [connect, setConnect] = useState<{
 		connect: (lobbyCode: string, playerId: number, clientId: number, isHost: boolean) => void;
 	} | null>(null);
-	const [otherTalking, setOtherTalking] = useState<OtherTalking>({});
-	const [otherDead, setOtherDead] = useState<OtherDead>({});
+	const [otherTalking, setOtherTalking] = useState<ClientBoolMap>({});
+	const [otherVAD, setOtherVAD] = useState<ClientBoolMap>({});
+
+	const [otherDead, setOtherDead] = useState<ClientBoolMap>({});
 	const impostorRadioClientId = useRef<number>(-1);
 
 	const audioElements = useRef<AudioElements>({});
@@ -389,12 +390,12 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		}
 
 		let isOnCamera = state.currentCamera !== CameraLocation.NONE;
-		console.log(
-			'ISONCAMERA???',
-			isOnCamera,
-			skipDistanceCheck,
-			!skipDistanceCheck && Math.sqrt(panPos[0] * panPos[0] + panPos[1] * panPos[1]) > maxdistance
-		);
+		// console.log(
+		// 	'ISONCAMERA???',
+		// 	isOnCamera,
+		// 	skipDistanceCheck,
+		// 	!skipDistanceCheck && Math.sqrt(panPos[0] * panPos[0] + panPos[1] * panPos[1]) > maxdistance
+		// );
 		// Mute players if distancte between two players is too big
 		// console.log({ x: other.x, y: other.y }, Math.sqrt(panPos[0] * panPos[0] + panPos[1] * panPos[1]));
 		//console.log(state.currentCamera);
@@ -575,15 +576,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			((gameState.gameState !== GameState.UNKNOWN && gameState.gameState !== GameState.MENU) ||
 				gameState.oldGameState !== gameState.gameState)
 		) {
-			if (!connectionStuff.current.overlaySocket) {
-				if (settings.obsComptaibilityMode && settings.obsOverlay && !settings.serverURL.includes('bettercrewl.ink')) {
-					connectionStuff.current.overlaySocket = io('https://bettercrewl.ink', {
-						transports: ['websocket'],
-					});
-				} else {
-					connectionStuff.current.overlaySocket = connectionStuff.current.socket;
-				}
-			}
+			connectionStuff.current.overlaySocket = connectionStuff.current.socket;
 
 			const obsvoiceState: ObsVoiceState = {
 				overlayState: {
@@ -687,7 +680,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 	useEffect(() => {
 		const pressing = connectionStuff.current.impostorRadio;
-		if ( 
+		if (
 			pressing == null ||
 			!myPlayer ||
 			!myPlayer.isImpostor ||
@@ -763,6 +756,25 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			};
 		});
 
+		socket.on('VAD', (data: { activity: boolean; client: Client; socketId: string }) => {
+			console.log('Recieved VAD data: ', data);
+			// if (!socketClientsRef.current[peer]) {
+			// 	console.log('error with settalking: ', talking);
+			// 	return;
+			// }
+			// const reallyTalking = talking && gain.gain.value > 0;
+			setOtherVAD((old) => ({
+				...old,
+				[data.client.clientId]: data.activity,
+			}));
+		});
+
+		socket.on('setClient', (socketId: string, client: Client) => {
+			setSocketClients((old) => ({ ...old, [socketId]: client }));
+		});
+		socket.on('setClients', (clients: SocketClientMap) => {
+			setSocketClients(clients);
+		});
 		// Initialize variables
 		let audioListener: VadNode;
 
@@ -882,24 +894,14 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 							disconnectPeer(k);
 						});
 						setSocketClients({});
+						setOtherTalking({});
+						setOtherVAD({});
 						currentLobby = lobbyCode;
 					} else if (currentLobby !== lobbyCode) {
 						socket.emit('leave');
 						socket.emit('id', playerId, clientId);
 						socket.emit('join', lobbyCode, playerId, clientId);
 						currentLobby = lobbyCode;
-						if (!isHost) {
-							// fix for buggy cross compatibility with offical crewlink (they aren't sending the host settings 9/10 times.)
-							Object.keys(lobbySettings).forEach((field: string) => {
-								const officalCrewlinkSettings = ['maxDistance', 'haunting', 'hearImpostorsInVents', 'commsSabotage'];
-								if (officalCrewlinkSettings.indexOf(field) === -1) {
-									setLobbySettings({
-										type: 'setOne',
-										action: [field, defaultlocalLobbySettings[field as keyof ILobbySettings]],
-									});
-								}
-							});
-						}
 					}
 				};
 				setConnect({ connect });
@@ -957,13 +959,13 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						const reverb = context.createConvolver();
 						reverb.buffer = convolverBuffer.current;
 						const destination: AudioNode = dest;
-						if (settingsRef.current.vadEnabled) {
-							VAD(context, gain, undefined, {
-								onVoiceStart: () => setTalking(true),
-								onVoiceStop: () => setTalking(false),
-								stereo: false,
-							});
-						}
+						// if (settingsRef.current.vadEnabled) {
+						// 	VAD(context, gain, undefined, {
+						// 		onVoiceStart: () => setTalking(true),
+						// 		onVoiceStop: () => setTalking(false),
+						// 		stereo: false,
+						// 	});
+						// }
 						gain.connect(destination);
 						const audio = document.createElement('audio') as ExtendedAudioElement;
 						document.body.appendChild(audio);
@@ -973,18 +975,18 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 							audio.setSinkId(settingsRef.current.speaker);
 						}
 
-						const setTalking = (talking: boolean) => {
-							if (!socketClientsRef.current[peer]) {
-								console.log('error with settalking: ', talking);
-								return;
-							}
+						// const setTalking = (talking: boolean) => {
+						// 	if (!socketClientsRef.current[peer]) {
+						// 		console.log('error with settalking: ', talking);
+						// 		return;
+						// 	}
 
-							const reallyTalking = talking && gain.gain.value > 0;
-							setOtherTalking((old) => ({
-								...old,
-								[socketClientsRef.current[peer]?.clientId]: reallyTalking,
-							}));
-						};
+						// 	const reallyTalking = talking && gain.gain.value > 0;
+						// 	setOtherTalking((old) => ({
+						// 		...old,
+						// 		[socketClientsRef.current[peer]?.clientId]: reallyTalking,
+						// 	}));
+						// };
 						audioElements.current[peer] = {
 							dummyAudioElement: dummyAudio,
 							audioElement: audio,
@@ -1014,6 +1016,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 							} else if (impostorRadioClientId.current === clientId && !parsedData['impostorRadio']) {
 								impostorRadioClientId.current = -1;
 							}
+							console.log('Recieved impostor radio request', parsedData);
 						}
 						if (parsedData.hasOwnProperty('maxDistance')) {
 							if (!hostRef.current || hostRef.current.hostId !== socketClientsRef.current[peer]?.clientId) return;
@@ -1073,13 +1076,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						connection = createPeerConnection(from, false);
 					}
 					connection.signal(data);
-				});
-
-				socket.on('setClient', (socketId: string, client: Client) => {
-					setSocketClients((old) => ({ ...old, [socketId]: client }));
-				});
-				socket.on('setClients', (clients: SocketClientMap) => {
-					setSocketClients(clients);
 				});
 			},
 			(error) => {
@@ -1176,9 +1172,13 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					gain = gain * (settings.masterVolume / 100);
 				}
 				audio.gain.gain.value = gain;
+				otherTalking[player.clientId] = otherVAD[player.clientId] && gain > 0;
 			}
 		}
-		if ((!foundRadioUser && impostorRadioClientId.current !== myPlayer.clientId) || !myPlayer.isImpostor) {
+		if (
+			((!foundRadioUser && impostorRadioClientId.current !== myPlayer.clientId) || !myPlayer.isImpostor) &&
+			impostorRadioClientId.current !== -1
+		) {
 			impostorRadioClientId.current = -1;
 		}
 		for (const peerId in Object.keys(audioElements.current).filter((e) => !handledPeerIds.includes(e))) {
@@ -1239,7 +1239,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		if (connectionStuff.current.socket && myPlayer && myPlayer.clientId !== undefined) {
 			connectionStuff.current.socket.emit('id', myPlayer.id, gameState.clientId);
 		}
-	}, [myPlayer?.id]);
+	}, [myPlayer?.id, myPlayer?.clientId]);
 
 	// Pass voice state to overlay
 	useEffect(() => {
@@ -1318,7 +1318,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						{gameState.lobbyCode !== 'MENU' && (
 							<div className={classes.muteButtons}>
 								<IconButton onClick={connectionStuff.current.toggleMute} size="small">
-									{(mutedState || deafenedState) ? <MicOff /> : <Mic />}
+									{mutedState || deafenedState ? <MicOff /> : <Mic />}
 								</IconButton>
 								<IconButton onClick={connectionStuff.current.toggleDeafen} size="small">
 									{deafenedState ? <VolumeOff /> : <VolumeUp />}

@@ -77,6 +77,7 @@
 			"title": "BETA/DEBUG",
 			"mobilehost": "Mobile Host",
 			"vad_enabled": "VAD Enabled",
+			"hardware_acceleration" : "Use GPU",
 			"vad_enabled_warning": "You won't see who's talking if deactivate.",
 			"echocancellation": "Echo Cancellation",
 			"noiseSuppression": "Noise Suppression",

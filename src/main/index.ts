@@ -12,6 +12,8 @@ import { initializeIpcHandlers, initializeIpcListeners } from './ipc-handlers';
 import { IpcRendererMessages /*AutoUpdaterState*/ } from '../common/ipc-messages';
 import { ProgressInfo, UpdateInfo } from 'builder-util-runtime';
 import { protocol } from 'electron';
+import Store from 'electron-store';
+import { ISettings } from '../common/ISettings';
 
 const args = require('minimist')(process.argv); // eslint-disable-line
 
@@ -30,10 +32,11 @@ declare global {
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 global.mainWindow = null;
 global.overlay = null;
+const store = new Store<ISettings>();
 
 app.commandLine.appendSwitch('disable-pinch');
 // app.disableHardwareAcceleration();
-if (platform() === 'linux') {
+if (platform() === 'linux' || !store.get('hardware_acceleration', true)) {
 	app.disableHardwareAcceleration();
 }
 
