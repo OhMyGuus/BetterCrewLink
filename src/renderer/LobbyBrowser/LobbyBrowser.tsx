@@ -74,22 +74,13 @@ export default function lobbyBrowser({ t }) {
 		setSocket(s);
 		s.on('connect', () => {
 			s.emit('lobbybrowser', false);
+			
 		});
-
-		setPublicLobbies({});
-		return () => {
-			socket?.emit('lobbybrowser', false);
-			socket?.close();
-		};
-	}, []);
-
-	useEffect(() => {
-		if (!socket) return;
-		socket.on('update_lobby', (lobby: PublicLobby) => {
+		s.on('update_lobby', (lobby: PublicLobby) => {
 			setPublicLobbies((old) => ({ ...old, [lobby.Id]: lobby }));
 		});
 
-		socket.on('new_lobbies', (lobbies: PublicLobby[]) => {
+		s.on('new_lobbies', (lobbies: PublicLobby[]) => {
 			setPublicLobbies((old) => {
 				for (let index in lobbies) {
 					old[lobbies[index].Id] = lobbies[index];
@@ -97,15 +88,19 @@ export default function lobbyBrowser({ t }) {
 				return old;
 			});
 		});
-		socket.on('remove_lobby', (lobbyId: number) => {
+		s.on('remove_lobby', (lobbyId: number) => {
 			setPublicLobbies((old) => {
 				delete old[lobbyId];
 				return old;
 			});
 		});
+		setPublicLobbies({});
+		return () => {
+			socket?.emit('lobbybrowser', false);
+			socket?.close();
+		};
+	}, []);
 
-		socket.emit('lobbybrowser', true);
-	}, [socket]);
 
 	return (
 		<div style={{ height: '100%', width: '100%', paddingTop: '15px' }}>
