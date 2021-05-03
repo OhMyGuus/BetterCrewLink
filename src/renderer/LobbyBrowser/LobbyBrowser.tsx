@@ -13,10 +13,12 @@ import { IpcHandlerMessages } from '../../common/ipc-messages';
 import io from 'socket.io-client';
 import Store from 'electron-store';
 import { ISettings } from '../../common/ISettings';
+import i18next from 'i18next';
 
 const store = new Store<ISettings>();
 const serverUrl = store.get('serverURL', 'https://bettercrewl.ink/');
 const language = store.get('language', 'en');
+i18next.changeLanguage(language);
 
 const StyledTableCell = withStyles((theme) => ({
 	head: {
@@ -61,8 +63,10 @@ const useStyles = makeStyles({
 });
 
 export interface lobbyMap {
-	[peer: number]: PublicLobby;
+	[id: number]: PublicLobby;
 }
+
+// @ts-ignore
 export default function lobbyBrowser({ t }) {
 	const classes = useStyles();
 	const [publiclobbies, setPublicLobbies] = useState<lobbyMap>({});
@@ -72,35 +76,34 @@ export default function lobbyBrowser({ t }) {
 			transports: ['websocket'],
 		});
 		setSocket(s);
-		s.on('connect', () => {
-			s.emit('lobbybrowser', true);
-			
-		});
+
 		s.on('update_lobby', (lobby: PublicLobby) => {
 			setPublicLobbies((old) => ({ ...old, [lobby.id]: lobby }));
 		});
 
 		s.on('new_lobbies', (lobbies: PublicLobby[]) => {
 			setPublicLobbies((old) => {
+				let lobbyMap: lobbyMap = { ...old };
 				for (let index in lobbies) {
-					old[lobbies[index].id] = lobbies[index];
+					lobbyMap[lobbies[index].id] = lobbies[index];
 				}
-				return old;
+				return lobbyMap;
 			});
 		});
 		s.on('remove_lobby', (lobbyId: number) => {
 			setPublicLobbies((old) => {
 				delete old[lobbyId];
-				return old;
+				return { ...old };
 			});
 		});
-		setPublicLobbies({});
+		s.on('connect', () => {
+			s.emit('lobbybrowser', true);
+		});
 		return () => {
 			socket?.emit('lobbybrowser', false);
 			socket?.close();
 		};
 	}, []);
-
 
 	return (
 		<div style={{ height: '100%', width: '100%', paddingTop: '15px' }}>

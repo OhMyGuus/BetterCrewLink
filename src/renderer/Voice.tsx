@@ -1307,7 +1307,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				</div>
 			)}
 			<div className={classes.top}>
-				{myPlayer && (
+				{myPlayer && gameState.lobbyCode !== 'MENU' && (
 					<>
 						<div className={classes.avatarWrapper}>
 							<Avatar
@@ -1377,47 +1377,49 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					</Button>
 				</div>
 			)}
-			<Grid
-				container
-				spacing={1}
-				className={classes.otherplayers}
-				alignItems="flex-start"
-				alignContent="flex-start"
-				justify="flex-start"
-			>
-				{otherPlayers.map((player) => {
-					const peer = playerSocketIdsRef.current[player.clientId];
-					const connected = socketClients[peer]?.clientId === player.clientId || false;
-					const audio = audioConnected[peer];
+			{myPlayer && gameState.lobbyCode !== 'MENU' && (
+				<Grid
+					container
+					spacing={1}
+					className={classes.otherplayers}
+					alignItems="flex-start"
+					alignContent="flex-start"
+					justify="flex-start"
+				>
+					{otherPlayers.map((player) => {
+						const peer = playerSocketIdsRef.current[player.clientId];
+						const connected = socketClients[peer]?.clientId === player.clientId || false;
+						const audio = audioConnected[peer];
 
-					if (!playerConfigs[player.nameHash]) {
-						playerConfigs[player.nameHash] = { volume: 1, isMuted: false };
-					}
-					const socketConfig = playerConfigs[player.nameHash];
+						if (!playerConfigs[player.nameHash]) {
+							playerConfigs[player.nameHash] = { volume: 1, isMuted: false };
+						}
+						const socketConfig = playerConfigs[player.nameHash];
 
-					return (
-						<Grid item key={player.id} xs={getPlayersPerRow(otherPlayers.length)}>
-							<Avatar
-								connectionState={!connected ? 'disconnected' : audio ? 'connected' : 'novoice'}
-								player={player}
-								talking={!player.inVent && otherTalking[player.clientId]}
-								borderColor="#2ecc71"
-								isAlive={!otherDead[player.clientId]}
-								isUsingRadio={
-									myPlayer?.isImpostor &&
-									!(player.disconnected || player.bugged) &&
-									impostorRadioClientId.current === player.clientId
-								}
-								size={50}
-								socketConfig={socketConfig}
-								onConfigChange={() => {
-									store.set(`playerConfigMap.${player.nameHash}`, playerConfigs[player.nameHash]);
-								}}
-							/>
-						</Grid>
-					);
-				})}
-			</Grid>
+						return (
+							<Grid item key={player.id} xs={getPlayersPerRow(otherPlayers.length)}>
+								<Avatar
+									connectionState={!connected ? 'disconnected' : audio ? 'connected' : 'novoice'}
+									player={player}
+									talking={!player.inVent && otherTalking[player.clientId]}
+									borderColor="#2ecc71"
+									isAlive={!otherDead[player.clientId]}
+									isUsingRadio={
+										myPlayer?.isImpostor &&
+										!(player.disconnected || player.bugged) &&
+										impostorRadioClientId.current === player.clientId
+									}
+									size={50}
+									socketConfig={socketConfig}
+									onConfigChange={() => {
+										store.set(`playerConfigMap.${player.nameHash}`, playerConfigs[player.nameHash]);
+									}}
+								/>
+							</Grid>
+						);
+					})}
+				</Grid>
+			)}
 			{otherPlayers.length <= 6 && <Footer />}
 		</div>
 	);
