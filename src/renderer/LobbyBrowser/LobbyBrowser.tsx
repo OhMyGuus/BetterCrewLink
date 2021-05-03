@@ -73,7 +73,7 @@ export default function lobbyBrowser({ t }) {
 		});
 		setSocket(s);
 		s.on('connect', () => {
-			s.emit('lobbybrowser', false);
+			s.emit('lobbybrowser', true);
 			
 		});
 		s.on('update_lobby', (lobby: PublicLobby) => {
