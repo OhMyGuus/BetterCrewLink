@@ -91,12 +91,15 @@ export default class GameReader {
 		}
 		return;
 	}
-
+	checkProcessDelay = 0;
 	loop(): string | null {
-		try {
-			this.checkProcessOpen();
-		} catch (e) {
-			return `Error with chcecking the process, ${e.toString()}`;
+		if (this.checkProcessDelay-- <= 0) {
+			this.checkProcessDelay = 30;
+			try {
+				this.checkProcessOpen();
+			} catch (e) {
+				return `Error with chcecking the process, ${e.toString()}`;
+			}
 		}
 		if (
 			this.PlayerStruct &&
@@ -204,7 +207,7 @@ export default class GameReader {
 					const shipPtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets.shipStatus);
 
 					const systemsPtr = this.readMemory<number>('ptr', shipPtr, this.offsets.shipStatus_systems);
-					
+
 					map = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MapId);
 
 					if (systemsPtr !== 0 && state === GameState.TASKS) {
@@ -327,7 +330,7 @@ export default class GameReader {
 				map,
 				closedDoors,
 				currentServer: this.currentServer,
-				maxPlayers
+				maxPlayers,
 			};
 			//	const stateHasChanged = !equal(this.lastState, newState);
 			//	if (stateHasChanged) {
@@ -564,7 +567,7 @@ export default class GameReader {
 		if (this.colorsInitialized) {
 			return;
 		}
-		console.log("Initializecolors");
+		console.log('Initializecolors');
 		const palletePtr = this.readMemory<number>('ptr', this.gameAssembly!.modBaseAddr, this.offsets!.palette);
 		const PlayerColorsPtr = this.readMemory<number>('ptr', palletePtr, this.offsets!.palette_playercolor);
 		const ShadowColorsPtr = this.readMemory<number>('ptr', palletePtr, this.offsets!.palette_shadowColor);
