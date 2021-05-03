@@ -9,7 +9,14 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { ipcRenderer } from 'electron';
-import { IpcHandlerMessages } from '../common/ipc-messages';
+import { IpcHandlerMessages } from '../../common/ipc-messages';
+import io from 'socket.io-client';
+import Store from 'electron-store';
+import { ISettings } from '../../common/ISettings';
+
+const store = new Store<ISettings>();
+const serverUrl = store.get('serverURL', 'https://bettercrewl.ink/');
+const language = store.get('language', 'en');
 
 const StyledTableCell = withStyles((theme) => ({
 	head: {
@@ -56,21 +63,23 @@ const useStyles = makeStyles({
 export interface lobbyMap {
 	[peer: number]: PublicLobby;
 }
-
-export interface LobbyBrowserProps {
-	socket: SocketIOClient.Socket | undefined;
-}
-
-export default function lobbyBrowser({ socket }: LobbyBrowserProps) {
+export default function lobbyBrowser({ t }) {
 	const classes = useStyles();
 	const [publiclobbies, setPublicLobbies] = useState<lobbyMap>({});
-
+	const [socket, setSocket] = useState<SocketIOClient.Socket>();
 	useEffect(() => {
-		window.resizeTo(900, 500);
+		let s = io(serverUrl, {
+			transports: ['websocket'],
+		});
+		setSocket(s);
+		s.on('connect', () => {
+			s.emit('lobbybrowser', false);
+		});
+
 		setPublicLobbies({});
 		return () => {
 			socket?.emit('lobbybrowser', false);
-			window.resizeTo(250, 350);
+			socket?.close();
 		};
 	}, []);
 
@@ -101,18 +110,18 @@ export default function lobbyBrowser({ socket }: LobbyBrowserProps) {
 	return (
 		<div style={{ height: '100%', width: '100%', paddingTop: '15px' }}>
 			<div style={{ height: '500px', padding: '20px' }}>
-				<b>Public lobbies</b>
+				<b>{t('lobbybrowser.header')}</b>
 
 				<Paper>
 					<TableContainer component={Paper} className={classes.container}>
 						<Table className={classes.table} aria-label="customized table" stickyHeader>
 							<TableHead>
 								<TableRow>
-									<StyledTableCell>Title</StyledTableCell>
-									<StyledTableCell align="left">Host</StyledTableCell>
-									<StyledTableCell align="left">Players</StyledTableCell>
-									<StyledTableCell align="left">Mods</StyledTableCell>
-									<StyledTableCell align="left">Language</StyledTableCell>
+									<StyledTableCell>{t('lobbybrowser.list.title')}</StyledTableCell>
+									<StyledTableCell align="left">{t('lobbybrowser.list.host')}</StyledTableCell>
+									<StyledTableCell align="left">{t('lobbybrowser.list.players')}</StyledTableCell>
+									<StyledTableCell align="left">{t('lobbybrowser.list.mods')}</StyledTableCell>
+									<StyledTableCell align="left">{t('lobbybrowser.list.language')}</StyledTableCell>
 									<StyledTableCell align="left"></StyledTableCell>
 								</TableRow>
 							</TableHead>

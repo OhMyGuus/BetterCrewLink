@@ -43,7 +43,8 @@ export interface IOffsets {
 	palette_playercolor: number[];
 	playerControl_GameOptions: number[];
 	gameOptions_MapId: number[];
-
+	gameOptions_MaxPLayers: number[];
+	
 	player: {
 		isLocal: number[];
 		localX: number[];
@@ -119,6 +120,7 @@ export default {
 		palette_shadowColor: [0xf8],
 		playerControl_GameOptions: [0xffff, 0xb8, 0x8],
 		gameOptions_MapId: [0x18],
+		gameOptions_MaxPLayers: [0x10],
 
 		player: {
 			struct: [
@@ -222,6 +224,7 @@ export default {
 		lightRadius: [0x54, 0x1c],
 		playerControl_GameOptions: [0xffff, 0x5c, 0x4],
 		gameOptions_MapId: [0x10],
+		gameOptions_MaxPLayers: [0x8],
 		player: {
 			struct: [
 				{ type: 'SKIP', skip: 8, name: 'unused' },

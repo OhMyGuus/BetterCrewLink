@@ -17,7 +17,7 @@ import Peer from 'simple-peer';
 import { ipcRenderer } from 'electron';
 import VAD from './vad';
 import { ISettings, playerConfigMap, ILobbySettings } from '../common/ISettings';
-import { IpcRendererMessages, IpcMessages, IpcOverlayMessages } from '../common/ipc-messages';
+import { IpcRendererMessages, IpcMessages, IpcOverlayMessages, IpcHandlerMessages } from '../common/ipc-messages';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -33,6 +33,8 @@ import { CameraLocation, AmongUsMaps } from '../common/AmongusMap';
 import Store from 'electron-store';
 import { ObsVoiceState } from '../common/ObsOverlay';
 // import { poseCollide } from '../common/ColliderMap';
+import Footer from './Footer';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import VolumeOff from '@material-ui/icons/VolumeOff';
 import VolumeUp from '@material-ui/icons/VolumeUp';
@@ -42,7 +44,6 @@ import adapter from 'webrtc-adapter';
 import { VADOptions } from './vad';
 import { pushToTalkOptions } from './settings/Settings';
 import { poseCollide } from '../common/ColliderMap';
-import LobbyBrowser from './LobbyBrowser';
 
 console.log(adapter.browserDetails.browser);
 
@@ -643,17 +644,18 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			title: lobbySettings.publicLobby_title,
 			host: myPlayer?.name,
 			current_players: gameState.players.length,
-			max_players: 10,
+			max_players: gameState.maxPlayers,
 			server: gameState.currentServer,
 			language: lobbySettings.publicLobby_language,
 			mods: lobbySettings.publicLobby_mods,
-			isPublic: lobbySettings.publicLobby_on,
+			isPublic: lobbySettings.publicLobby_on && gameState.gameState == GameState.LOBBY,
 		});
 	};
 
 	useEffect(() => {
 		updateLobby();
 	}, [
+		gameState.gameState,
 		gameState?.players?.length,
 		lobbySettings.publicLobby_title,
 		lobbySettings.publicLobby_language,
@@ -1291,8 +1293,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		impostorRadioClientId.current,
 	]);
 
-	return <LobbyBrowser socket={connectionStuff.current.socket}></LobbyBrowser>;
-
 	return (
 		<div className={classes.root}>
 			{error && (
@@ -1363,6 +1363,20 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				</div>
 			)}
 			{gameState.lobbyCode && <Divider />}
+			{displayedLobbyCode === 'MENU' && (
+				<div className={classes.top}>
+					<Button
+						style={{ margin: '10px' }}
+						onClick={() => {
+							ipcRenderer.send(IpcHandlerMessages.OPEN_LOBBYBROWSER);
+						}}
+						color="primary"
+						variant="outlined"
+					>
+						{t('buttons.public_lobby')}
+					</Button>
+				</div>
+			)}
 			<Grid
 				container
 				spacing={1}
@@ -1404,6 +1418,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					);
 				})}
 			</Grid>
+			<Footer />
 		</div>
 	);
 };

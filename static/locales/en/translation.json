@@ -26,9 +26,9 @@
 			"public_lobby": {
 				"change_settings": "Change lobby info",
 				"enabled": "Lobby is public",
-				"title" : "Title",
-				"mods" : "Mods",
-				"language" : "language"
+				"title": "Title",
+				"mods": "Mods",
+				"language": "language"
 			}
 		},
 		"audio": {
@@ -105,11 +105,22 @@
 			"warning": "Not available as host in game!"
 		}
 	},
+	"lobbybrowser": {
+		"header": "Public lobbies",
+		"list": {
+			"title": "Title",
+			"host": "Host",
+			"players": "Players",
+			"mods": "Mods",
+			"language": "Language"
+		}
+	},
 	"buttons": {
 		"default": "Default",
 		"confirm": "Confirm",
 		"cancel": "Cancel",
-		"exit": "Exit Settings to apply changes"
+		"exit": "Exit Settings to apply changes",
+		"public_lobby": "Public lobbies"
 	},
 	"game": {
 		"menu": "MENU",

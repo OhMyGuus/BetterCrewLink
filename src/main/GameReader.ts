@@ -163,6 +163,7 @@ export default class GameReader {
 			let comsSabotaged = false;
 			let currentCamera = CameraLocation.NONE;
 			let map = MapType.UNKNOWN;
+			let maxPlayers = 10;
 			const closedDoors: number[] = [];
 			let localPlayer = undefined;
 			if (
@@ -193,17 +194,19 @@ export default class GameReader {
 				if (localPlayer) {
 					lightRadius = this.readMemory<number>('float', localPlayer.objectPtr, this.offsets.lightRadius, -1);
 				}
+				const gameOptionsPtr = this.readMemory<number>(
+					'ptr',
+					this.gameAssembly.modBaseAddr,
+					this.offsets.playerControl_GameOptions
+				);
+				maxPlayers = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MaxPLayers);
 				if (state === GameState.TASKS) {
 					const shipPtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets.shipStatus);
 
 					const systemsPtr = this.readMemory<number>('ptr', shipPtr, this.offsets.shipStatus_systems);
-					const gameOptionsPtr = this.readMemory<number>(
-						'ptr',
-						this.gameAssembly.modBaseAddr,
-						this.offsets.playerControl_GameOptions
-					);
-
+					
 					map = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MapId);
+
 					if (systemsPtr !== 0 && state === GameState.TASKS) {
 						this.readDictionary(systemsPtr, 47, (k, v) => {
 							const key = this.readMemory<number>('int32', k);
@@ -323,7 +326,8 @@ export default class GameReader {
 				lightRadiusChanged: lightRadius != this.lastState?.lightRadius,
 				map,
 				closedDoors,
-				currentServer: this.currentServer
+				currentServer: this.currentServer,
+				maxPlayers
 			};
 			//	const stateHasChanged = !equal(this.lastState, newState);
 			//	if (stateHasChanged) {
