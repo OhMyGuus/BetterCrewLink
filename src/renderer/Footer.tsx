@@ -29,7 +29,7 @@ const Footer: React.FC = function () {
 			<div className={classes.row}>
 				<Button
 					onClick={() => {
-						shell.openExternal('https://github.com/OhMyGuus/BetterCrewlink');
+						shell.openExternal('https://github.com/OhMyGuus/BetterCrewLink');
 					}}
 				>
 					<Tooltip title="Our Github page!" arrow>
