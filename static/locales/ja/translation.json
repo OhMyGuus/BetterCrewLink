@@ -10,12 +10,12 @@
 			"voicedistance": "ボイスの距離",
 			"voicedistance_impostor": "インポスターに届く音声距離",
 			"wallsblockaudio": "壁越しで音声をブロック",
-			"visiononly": "視界に入った人の声だけを聞く",
-			"impostorshearsghost": "インポスターは幽霊の声を聞く",
-			"hear_imposters_invents": "ベント内でインポスターを聞く",
-			"private_talk_invents": "ベント内のプライベートトーク",
-			"comms_sabotage_audio": "Commsのサボタージュで音声の無効化",
-			"hear_through_cameras": "カメラを通して聞く",
+			"visiononly": "視界内のプレイヤーの声だけが聞こえる",
+			"impostorshearsghost": "インポスターが幽霊の声も聞こえる",
+			"hear_imposters_invents": "インポスターはベント内にいても声が聞こえる",
+			"private_talk_invents": "インポスター同士でベント内で会話ができる",
+			"comms_sabotage_audio": "Commsサボタージュで音声を無効化",
+			"hear_through_cameras": "カメラ越しに声が聞こえる",
 			"ghost_only": "幽霊だけが話す/聞くことが可能",
 			"ghost_only_warning": "生きているプレーヤーのサウンドを無効にする。",
 			"ghost_only_warning2": "ゴーストが話せるのは有効な場合のみ",
@@ -78,7 +78,7 @@
 			"mobilehost": "モバイル ホスト",
 			"vad_enabled": "音声アクティビティ検出",
 			"vad_enabled_warning": "非アクティブにすると誰が話しているのかわからなくなります。",
-			"echocancellation": "エコーキャンセル",
+			"echocancellation": "エコーキャンセラー",
 			"noiseSuppression": "ノイズ防止",
 			"spatial_audio": "立体音響"
 		},
@@ -93,7 +93,7 @@
 		"troubleshooting": {
 			"title": "トラブルシューティング",
 			"restore": "デフォルトに戻す",
-			"restore_warning": "これにより、すべての設定が初期値に戻ります。",
+			"restore_warning": "すべての設定がリセットされます。",
 			"warning": "ゲーム内ではホストとして利用できません！"
 		}
 	},
@@ -101,7 +101,7 @@
 		"default": "デフォルト",
 		"confirm": "確認",
 		"cancel": "キャンセル",
-		"exit": "設定を終了して変更を適用する"
+		"exit": "変更を適用するために設定を終了する"
 	},
 	"game": {
 		"menu": "メニュー",
@@ -112,5 +112,5 @@
 		"error_admin": "Among Usに接続できませんでした。\n管理者としてBetterCrewLinkを再度開いてください。",
 		"error_unsupport": "お使いのバージョンの「Among Us」は、BetterCrewLinkに対応していません。"
 	},
-	"translator_name": "Aorin"
+	"translator_name": "Aorin and Sakurai"
 }
