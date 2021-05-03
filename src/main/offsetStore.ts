@@ -53,6 +53,7 @@ export interface IOffsets {
 		offsets: number[];
 		inVent: number[];
 		clientId: number[];
+		isDummy: number[]; // used for muting
 		struct: {
 			type:
 				| 'INT'
@@ -137,6 +138,7 @@ export default {
 				{ type: 'SKIP', skip: 6, name: 'unused' },
 				{ type: 'UINT', name: 'objectPtr' },
 			],
+			isDummy: [0xE1],
 			isLocal: [0x78],
 			localX: [0x98, 0x6c],
 			localY: [0x98, 0x70],
@@ -236,6 +238,7 @@ export default {
 				{ type: 'SKIP', skip: 2, name: 'unused' },
 				{ type: 'UINT', name: 'objectPtr' },
 			],
+			isDummy: [0x89],
 			isLocal: [0x54],
 			localX: [0x64, 80],
 			localY: [0x64, 84],
