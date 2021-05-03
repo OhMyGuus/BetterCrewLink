@@ -40,7 +40,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 interface PublicLobby {
-	Id: number;
+	id: number;
 	title: string;
 	host: string;
 	current_players: number;
@@ -77,13 +77,13 @@ export default function lobbyBrowser({ t }) {
 			
 		});
 		s.on('update_lobby', (lobby: PublicLobby) => {
-			setPublicLobbies((old) => ({ ...old, [lobby.Id]: lobby }));
+			setPublicLobbies((old) => ({ ...old, [lobby.id]: lobby }));
 		});
 
 		s.on('new_lobbies', (lobbies: PublicLobby[]) => {
 			setPublicLobbies((old) => {
 				for (let index in lobbies) {
-					old[lobbies[index].Id] = lobbies[index];
+					old[lobbies[index].id] = lobbies[index];
 				}
 				return old;
 			});
@@ -122,7 +122,7 @@ export default function lobbyBrowser({ t }) {
 							</TableHead>
 							<TableBody>
 								{Object.values(publiclobbies).map((row) => (
-									<StyledTableRow key={row.Id}>
+									<StyledTableRow key={row.id}>
 										<StyledTableCell component="th" scope="row">
 											{row.title}
 										</StyledTableCell>
@@ -137,7 +137,7 @@ export default function lobbyBrowser({ t }) {
 												variant="contained"
 												color="secondary"
 												onClick={() => {
-													socket?.emit('join_lobby', row.Id, (state: number, codeOrError: string, server: string) => {
+													socket?.emit('join_lobby', row.id, (state: number, codeOrError: string, server: string) => {
 														if (state === 0) {
 															ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);
 														} else {
