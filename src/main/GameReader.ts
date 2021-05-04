@@ -840,6 +840,8 @@ export default class GameReader {
 
 		let x = this.readMemory<number>('float', data.objectPtr, positionOffsets[0]);
 		let y = this.readMemory<number>('float', data.objectPtr, positionOffsets[1]);
+		let isDummy = this.readMemory<boolean>('boolean', data.objectPtr, this.offsets.player.isDummy);
+
 		let bugged = false;
 		if (x === undefined || y === undefined || data.disconnected != 0 || data.color > 40) {
 			x = 9999;
@@ -874,6 +876,7 @@ export default class GameReader {
 			bugged,
 			inVent: this.readMemory<number>('byte', data.objectPtr, this.offsets.player.inVent) > 0,
 			isLocal,
+			isDummy,
 			x: x_round || x || 999,
 			y: y_round || y || 999,
 		};

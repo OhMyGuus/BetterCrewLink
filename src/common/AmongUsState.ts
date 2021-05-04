@@ -39,6 +39,7 @@ export interface Player {
 	x: number;
 	y: number;
 	inVent: boolean;
+	isDummy: boolean;
 }
 
 export enum GameState {

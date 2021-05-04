@@ -297,7 +297,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		let skipDistanceCheck = false;
 		let muffleEnabled = false;
 
-		if (other.disconnected) {
+		if (other.disconnected || other.isDummy) {
 			return 0;
 		}
 
