@@ -31,7 +31,8 @@
 				"language": "Language",
 				"enable_warning": "Enabling this will make your public to other BCL users!",
 				"ban_warning": "Inappropriate text will result in a ban from BCL"
-			},
+			}
+		},
 			"audio": {
 				"title": "Audio",
 				"microphone": "Microphone",
@@ -105,7 +106,6 @@
 				"restore_warning": "This will reset ALL settings to their default values.",
 				"warning": "Not available as host in game!"
 			}
-		}
 	},
 	"lobbybrowser": {
 		"header": "Public Lobbies",
