@@ -46,7 +46,7 @@ function createMainWindow() {
 	const mainWindowState = windowStateKeeper({});
 
 	const window = new BrowserWindow({
-		title: 'Bettercrewlink-GUI',
+		title: 'BetterCrewLink GUI',
 		width: 250,
 		height: 350,
 		maxWidth: 250,
@@ -122,7 +122,7 @@ function createMainWindow() {
 
 function createLobbyBrowser() {
 	const window = new BrowserWindow({
-		title: 'Bettercrewlink-Browser',
+		title: 'BetterCrewLink Browser',
 		width: 900,
 		height: 500,
 		minWidth: 250,
@@ -172,7 +172,7 @@ function createLobbyBrowser() {
 
 function createOverlay() {
 	const overlay = new BrowserWindow({
-		title: 'Bettercrewlink-overlay',
+		title: 'BetterCrewLink Overlay',
 		width: 400,
 		height: 300,
 		webPreferences: {

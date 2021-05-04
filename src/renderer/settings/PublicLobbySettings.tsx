@@ -21,17 +21,20 @@ const modlist: mod[] = [
 	// recieve this later from git?
 	{ id: 'NONE', label: 'None' },
 	{
+		id: 'TOWN_OF_US',
+		label: 'Town of Us',
+	},
+	{
 		id: 'TOWN_OF_IMPOSTORS',
 		label: 'Town of Impostors',
 	},
 	{
+		id: 'THE_OTHER_ROLES',
+		label: 'The Other Roles',
+	},
+	{
 		id: 'EXTRA_ROLES',
 		label: 'Extra Roles',
-	},
-
-	{
-		id: 'TOWN_OF_US',
-		label: 'Town of Us',
 	},
 	{
 		id: 'OTHER',
