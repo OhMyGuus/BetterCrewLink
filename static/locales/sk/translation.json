@@ -134,5 +134,5 @@
 		"error_admin": "Nepodarilo sa pripojiť k Among Us.\n Prosím, znovu otvor CrewLink ako administrátor.",
 		"error_unsupport": "Tvoja verzia Among Us nie je CrewLinkom podporovaná."
 	},
-	"translator" : "KaldonM"
+	"translator_name" : "KaldonM"
 }
