@@ -24,11 +24,11 @@
 			"meetings_only_warning2": "Talking in meetings only enabled.",
 			"impostor_radio": "Impostor Radio",
 			"public_lobby": {
-				"change_settings": "Change lobby info",
-				"enabled": "Lobby is public",
+				"change_settings": "Change Lobby Info",
+				"enabled": "The Lobby is Public",
 				"title": "Title",
 				"mods": "Mods",
-				"language": "language"
+				"language": "Language"
 			}
 		},
 		"audio": {
@@ -55,7 +55,7 @@
 		},
 		"overlay": {
 			"title": "Overlay",
-			"always_on_top": "BetterCrewLink on Top",
+			"always_on_top": "BetterCrewLink On Top",
 			"enabled": "Enable Overlay",
 			"compact": "Compact Overlay",
 			"meeting": "Meeting Overlay",
@@ -84,7 +84,7 @@
 			"title": "BETA/DEBUG",
 			"mobilehost": "Mobile Host",
 			"vad_enabled": "VAD Enabled",
-			"hardware_acceleration": "Use GPU",
+			"hardware_acceleration": "Hardware Acceleration",
 			"vad_enabled_warning": "You won't see who's talking if deactivate.",
 			"echocancellation": "Echo Cancellation",
 			"noiseSuppression": "Noise Suppression",
@@ -106,7 +106,7 @@
 		}
 	},
 	"lobbybrowser": {
-		"header": "Public lobbies",
+		"header": "Public Lobbies",
 		"list": {
 			"title": "Title",
 			"host": "Host",
@@ -119,8 +119,8 @@
 		"default": "Default",
 		"confirm": "Confirm",
 		"cancel": "Cancel",
-		"exit": "Exit Settings to apply changes",
-		"public_lobby": "Public lobbies"
+		"exit": "Exit Settings to Apply Changes",
+		"public_lobby": "Public Lobbies"
 	},
 	"game": {
 		"menu": "MENU",
