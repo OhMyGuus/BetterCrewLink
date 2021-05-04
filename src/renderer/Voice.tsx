@@ -17,7 +17,7 @@ import Peer from 'simple-peer';
 import { ipcRenderer } from 'electron';
 import VAD from './vad';
 import { ISettings, playerConfigMap, ILobbySettings } from '../common/ISettings';
-import { IpcRendererMessages, IpcMessages, IpcOverlayMessages } from '../common/ipc-messages';
+import { IpcRendererMessages, IpcMessages, IpcOverlayMessages, IpcHandlerMessages } from '../common/ipc-messages';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -33,6 +33,8 @@ import { CameraLocation, AmongUsMaps } from '../common/AmongusMap';
 import Store from 'electron-store';
 import { ObsVoiceState } from '../common/ObsOverlay';
 // import { poseCollide } from '../common/ColliderMap';
+import Footer from './Footer';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import VolumeOff from '@material-ui/icons/VolumeOff';
 import VolumeUp from '@material-ui/icons/VolumeUp';
@@ -203,6 +205,10 @@ const defaultlocalLobbySettings: ILobbySettings = {
 	wallsBlockAudio: false,
 	meetingGhostOnly: false,
 	visionHearing: false,
+	publicLobby_on: false,
+	publicLobby_title: '',
+	publicLobby_language: 'en',
+	publicLobby_mods: 'NONE',
 };
 const radioOnAudio = new Audio();
 radioOnAudio.src = radioOnSound;
@@ -359,7 +365,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			case GameState.DISCUSSION:
 				panPos = [0, 0];
 				endGain = 1;
-				// Mute dead players for still living players
 				if (!me.isDead && other.isDead) {
 					endGain = 0;
 				}
@@ -399,7 +404,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		// Mute players if distancte between two players is too big
 		// console.log({ x: other.x, y: other.y }, Math.sqrt(panPos[0] * panPos[0] + panPos[1] * panPos[1]));
 		//console.log(state.currentCamera);
-
+      
 		if (!skipDistanceCheck && Math.sqrt(panPos[0] * panPos[0] + panPos[1] * panPos[1]) > maxdistance) {
 			if (lobbySettings.hearThroughCameras && state.gameState === GameState.TASKS) {
 				if (state.currentCamera !== CameraLocation.NONE && state.currentCamera !== CameraLocation.Skeld) {
@@ -465,12 +470,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	}
 
 	function notifyMobilePlayers() {
-		// console.log(
-		// 	'notifyMobilePLayersCheck',
-		// 	settingsRef.current.mobileHost,
-		// 	hostRef.current.gamestate !== GameState.MENU,
-		// 	hostRef.current.gamestate !== GameState.UNKNOWN
-		// );
 		if (
 			settingsRef.current.mobileHost &&
 			hostRef.current.gamestate !== GameState.MENU &&
@@ -639,6 +638,40 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			}
 		}
 	}, [settings.microphoneGain, settings.micSensitivity]);
+
+	const updateLobby = () => {
+		if (
+			!gameState ||
+			!gameState.isHost ||
+			!gameState.lobbyCode ||
+			gameState.gameState === GameState.MENU ||
+			!gameState.players
+		) {
+			return;
+		}
+		connectionStuff.current.socket?.emit('lobby', gameState.lobbyCode, {
+			id: -1,
+			title: lobbySettings.publicLobby_title,
+			host: myPlayer?.name,
+			current_players: gameState.players.length,
+			max_players: gameState.maxPlayers,
+			server: gameState.currentServer,
+			language: lobbySettings.publicLobby_language,
+			mods: lobbySettings.publicLobby_mods,
+			isPublic: lobbySettings.publicLobby_on && gameState.gameState == GameState.LOBBY,
+		});
+	};
+
+	useEffect(() => {
+		updateLobby();
+	}, [
+		gameState.gameState,
+		gameState?.players?.length,
+		lobbySettings.publicLobby_title,
+		lobbySettings.publicLobby_language,
+		lobbySettings.publicLobby_mods,
+		lobbySettings.publicLobby_on,
+	]);
 
 	// Add lobbySettings to lobbySettingsRef
 	useEffect(() => {
@@ -1196,6 +1229,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	useEffect(() => {
 		if (connect?.connect) {
 			connect.connect(gameState?.lobbyCode ?? 'MENU', myPlayer?.id ?? 0, gameState.clientId, gameState.isHost);
+			updateLobby();
 		}
 	}, [connect?.connect, gameState?.lobbyCode, connected]);
 
@@ -1283,7 +1317,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				</div>
 			)}
 			<div className={classes.top}>
-				{myPlayer && (
+				{myPlayer && gameState.lobbyCode !== 'MENU' && (
 					<>
 						<div className={classes.avatarWrapper}>
 							<Avatar
@@ -1327,9 +1361,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						)}
 					</div>
 				</div>
-				{/* <
-							
-						< */}
 			</div>
 			{lobbySettings.deadOnly && (
 				<div className={classes.top}>
@@ -1342,47 +1373,64 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				</div>
 			)}
 			{gameState.lobbyCode && <Divider />}
-			<Grid
-				container
-				spacing={1}
-				className={classes.otherplayers}
-				alignItems="flex-start"
-				alignContent="flex-start"
-				justify="flex-start"
-			>
-				{otherPlayers.map((player) => {
-					const peer = playerSocketIdsRef.current[player.clientId];
-					const connected = socketClients[peer]?.clientId === player.clientId || false;
-					const audio = audioConnected[peer];
+			{displayedLobbyCode === 'MENU' && (
+				<div className={classes.top}>
+					<Button
+						style={{ margin: '10px' }}
+						onClick={() => {
+							ipcRenderer.send(IpcHandlerMessages.OPEN_LOBBYBROWSER);
+						}}
+						color="primary"
+						variant="outlined"
+					>
+						{t('buttons.public_lobby')}
+					</Button>
+				</div>
+			)}
+			{myPlayer && gameState.lobbyCode !== 'MENU' && (
+				<Grid
+					container
+					spacing={1}
+					className={classes.otherplayers}
+					alignItems="flex-start"
+					alignContent="flex-start"
+					justify="flex-start"
+				>
+					{otherPlayers.map((player) => {
+						const peer = playerSocketIdsRef.current[player.clientId];
+						const connected = socketClients[peer]?.clientId === player.clientId || false;
+						const audio = audioConnected[peer];
 
-					if (!playerConfigs[player.nameHash]) {
-						playerConfigs[player.nameHash] = { volume: 1, isMuted: false };
-					}
-					const socketConfig = playerConfigs[player.nameHash];
+						if (!playerConfigs[player.nameHash]) {
+							playerConfigs[player.nameHash] = { volume: 1, isMuted: false };
+						}
+						const socketConfig = playerConfigs[player.nameHash];
 
-					return (
-						<Grid item key={player.id} xs={getPlayersPerRow(otherPlayers.length)}>
-							<Avatar
-								connectionState={!connected ? 'disconnected' : audio ? 'connected' : 'novoice'}
-								player={player}
-								talking={!player.inVent && otherTalking[player.clientId]}
-								borderColor="#2ecc71"
-								isAlive={!otherDead[player.clientId]}
-								isUsingRadio={
-									myPlayer?.isImpostor &&
-									!(player.disconnected || player.bugged) &&
-									impostorRadioClientId.current === player.clientId
-								}
-								size={50}
-								socketConfig={socketConfig}
-								onConfigChange={() => {
-									store.set(`playerConfigMap.${player.nameHash}`, playerConfigs[player.nameHash]);
-								}}
-							/>
-						</Grid>
-					);
-				})}
-			</Grid>
+						return (
+							<Grid item key={player.id} xs={getPlayersPerRow(otherPlayers.length)}>
+								<Avatar
+									connectionState={!connected ? 'disconnected' : audio ? 'connected' : 'novoice'}
+									player={player}
+									talking={!player.inVent && otherTalking[player.clientId]}
+									borderColor="#2ecc71"
+									isAlive={!otherDead[player.clientId]}
+									isUsingRadio={
+										myPlayer?.isImpostor &&
+										!(player.disconnected || player.bugged) &&
+										impostorRadioClientId.current === player.clientId
+									}
+									size={50}
+									socketConfig={socketConfig}
+									onConfigChange={() => {
+										store.set(`playerConfigMap.${player.nameHash}`, playerConfigs[player.nameHash]);
+									}}
+								/>
+							</Grid>
+						);
+					})}
+				</Grid>
+			)}
+			{otherPlayers.length <= 6 && <Footer />}
 		</div>
 	);
 };

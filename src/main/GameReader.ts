@@ -8,6 +8,9 @@ import {
 	readBuffer,
 	readMemory as readMemoryRaw,
 	findPattern as findPatternRaw,
+	virtualAllocEx,
+	writeBuffer,
+	writeMemory,
 } from 'memoryjs';
 import Struct from 'structron';
 import { IpcOverlayMessages, IpcRendererMessages } from '../common/ipc-messages';
@@ -18,6 +21,7 @@ import { CameraLocation, MapType } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
 import { RainbowColorId } from '../renderer/cosmetics';
 import { TempFixOffsets, TempFixOffsets2 } from './offsetStore';
+import { platform } from 'os';
 
 interface ValueType<T> {
 	read(buffer: BufferSource, offset: number): T;
@@ -42,7 +46,7 @@ export default class GameReader {
 	sendIPC: Electron.WebContents['send'];
 	offsets: IOffsets | undefined;
 	PlayerStruct: Struct | undefined;
-
+	initializedWrite: boolean = false;
 	menuUpdateTimer = 20;
 	lastPlayerPtr = 0;
 	shouldReadLobby = false;
@@ -54,7 +58,9 @@ export default class GameReader {
 	colorsInitialized = false;
 	rainbowColor = -9999;
 	gameCode = 'MENU';
-
+	shellcodeAddr = -1;
+	currentServer = '';
+	disableWriting = false;
 	checkProcessOpen(): void {
 		const processesOpen = getProcesses().filter((p) => p.szExeFile === 'Among Us.exe');
 		let error = '';
@@ -67,6 +73,7 @@ export default class GameReader {
 					this.sendIPC(IpcRendererMessages.NOTIFY_GAME_OPENED, true);
 					break;
 				} catch (e) {
+					console.log('ERROR:', e);
 					if (processOpen && e.toString() === 'Error: unable to find process') {
 						error = Errors.OPEN_AS_ADMINISTRATOR;
 					}
@@ -86,12 +93,15 @@ export default class GameReader {
 		}
 		return;
 	}
-
+	checkProcessDelay = 0;
 	loop(): string | null {
-		try {
-			this.checkProcessOpen();
-		} catch (e) {
-			return `Error with chcecking the process, ${e.toString()}`;
+		if (this.checkProcessDelay-- <= 0) {
+			this.checkProcessDelay = 30;
+			try {
+				this.checkProcessOpen();
+			} catch (e) {
+				return `Error with chcecking the process, ${e.toString()}`;
+			}
 		}
 		if (
 			this.PlayerStruct &&
@@ -108,9 +118,13 @@ export default class GameReader {
 			const meetingHudState =
 				meetingHud_cachePtr === 0 ? 4 : this.readMemory('int', meetingHud, this.offsets.meetingHudState, 4);
 
-			const innerNetClient = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets.innerNetClient);
+			const innerNetClient = this.readMemory<number>(
+				'ptr',
+				this.gameAssembly.modBaseAddr,
+				this.offsets.innerNetClient.base
+			);
 
-			const gameState = this.readMemory<number>('int', innerNetClient, this.offsets.gameState);
+			const gameState = this.readMemory<number>('int', innerNetClient, this.offsets.innerNetClient.gameState);
 
 			switch (gameState) {
 				case 0:
@@ -127,7 +141,9 @@ export default class GameReader {
 			}
 			// const DEBUG = true;
 			const lobbyCodeInt =
-				state === GameState.MENU ? -1 : this.readMemory<number>('int32', innerNetClient, this.offsets.gameCode);
+				state === GameState.MENU
+					? -1
+					: this.readMemory<number>('int32', innerNetClient, this.offsets.innerNetClient.gameId);
 			this.gameCode =
 				state === GameState.MENU
 					? ''
@@ -146,15 +162,24 @@ export default class GameReader {
 			let playerAddrPtr = allPlayers + this.offsets.playerAddrPtr;
 			const players = [];
 
-			const hostId = this.readMemory<number>('uint32', innerNetClient, this.offsets.hostId);
-			const clientId = this.readMemory<number>('uint32', innerNetClient, this.offsets.clientId);
+			const hostId = this.readMemory<number>('uint32', innerNetClient, this.offsets.innerNetClient.hostId);
+			const clientId = this.readMemory<number>('uint32', innerNetClient, this.offsets.innerNetClient.clientId);
 
 			let lightRadius = 1;
 			let comsSabotaged = false;
 			let currentCamera = CameraLocation.NONE;
 			let map = MapType.UNKNOWN;
+			let maxPlayers = 10;
 			const closedDoors: number[] = [];
 			let localPlayer = undefined;
+			if (
+				this.currentServer === '' ||
+				(this.oldGameState != state &&
+					(this.oldGameState === GameState.MENU || this.oldGameState === GameState.UNKNOWN))
+			) {
+				this.readCurrentServer();
+			}
+
 			if (this.gameCode && playerCount) {
 				for (let i = 0; i < Math.min(playerCount, 20); i++) {
 					const { address, last } = this.offsetAddress(playerAddrPtr, this.offsets.player.offsets);
@@ -174,17 +199,19 @@ export default class GameReader {
 				if (localPlayer) {
 					lightRadius = this.readMemory<number>('float', localPlayer.objectPtr, this.offsets.lightRadius, -1);
 				}
+				const gameOptionsPtr = this.readMemory<number>(
+					'ptr',
+					this.gameAssembly.modBaseAddr,
+					this.offsets.playerControl_GameOptions
+				);
+				maxPlayers = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MaxPLayers);
 				if (state === GameState.TASKS) {
 					const shipPtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets.shipStatus);
 
 					const systemsPtr = this.readMemory<number>('ptr', shipPtr, this.offsets.shipStatus_systems);
-					const gameOptionsPtr = this.readMemory<number>(
-						'ptr',
-						this.gameAssembly.modBaseAddr,
-						this.offsets.playerControl_GameOptions
-					);
 
 					map = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MapId);
+
 					if (systemsPtr !== 0 && state === GameState.TASKS) {
 						this.readDictionary(systemsPtr, 47, (k, v) => {
 							const key = this.readMemory<number>('int32', k);
@@ -304,6 +331,8 @@ export default class GameReader {
 				lightRadiusChanged: lightRadius != this.lastState?.lightRadius,
 				map,
 				closedDoors,
+				currentServer: this.currentServer,
+				maxPlayers,
 			};
 			//	const stateHasChanged = !equal(this.lastState, newState);
 			//	if (stateHasChanged) {
@@ -326,8 +355,9 @@ export default class GameReader {
 	initializeoffsets(): void {
 		console.log('INITIALIZEOFFSETS???');
 		this.is_64bit = this.isX64Version();
+		this.shellcodeAddr = -1;
 		this.offsets = this.is_64bit ? offsetStore.x64 : offsetStore.x86;
-
+		this.initializedWrite = false;
 		const innerNetClient = this.findPattern(
 			this.offsets.signatures.innerNetClient.sig,
 			this.offsets.signatures.innerNetClient.patternOffset,
@@ -369,16 +399,39 @@ export default class GameReader {
 		this.offsets.palette[0] = palette;
 		this.offsets.meetingHud[0] = meetingHud;
 		this.offsets.allPlayersPtr[0] = gameData;
-		this.offsets.innerNetClient[0] = innerNetClient;
+		this.offsets.innerNetClient.base[0] = innerNetClient;
 		this.offsets.shipStatus[0] = shipStatus;
 		this.offsets.miniGame[0] = miniGame;
+		if (!this.is_64bit) {
+			this.offsets.connectFunc = this.findPattern(
+				this.offsets.signatures.connectFunc.sig,
+				this.offsets.signatures.connectFunc.patternOffset,
+				this.offsets.signatures.connectFunc.addressOffset,
+				true
+			);
+			this.offsets.fixedUpdateFunc = this.findPattern(
+				this.offsets.signatures.fixedUpdateFunc.sig,
+				this.offsets.signatures.fixedUpdateFunc.patternOffset,
+				this.offsets.signatures.fixedUpdateFunc.addressOffset,
+				false,
+				true
+			);
+		}
+		this.offsets.serverManager_currentServer[0] = this.findPattern(
+			this.offsets.signatures.serverManager.sig,
+			this.offsets.signatures.serverManager.patternOffset,
+			this.offsets.signatures.serverManager.addressOffset
+		);
+
 		this.colorsInitialized = false;
 		console.log('innerNetClient', innerNetClient);
 		if (innerNetClient === 0x2c6c278) {
 			// temp fix for older game until I added more sigs.. //
+			this.disableWriting = true;
 			this.offsets = TempFixOffsets(this.offsets);
 		}
 		if (innerNetClient === 0x1c57f54) {
+			this.disableWriting = true;
 			// temp fix for older game until I added more sigs.. // 12/9
 			this.offsets = TempFixOffsets2(this.offsets);
 		}
@@ -393,12 +446,202 @@ export default class GameReader {
 				);
 			}
 		}
+		this.initializeWrites();
+	}
+
+	initializeWrites() {
+		if (
+			this.isX64Version() ||
+			!this.offsets ||
+			!this.amongUs ||
+			!this.gameAssembly ||
+			this.disableWriting ||
+			platform() === 'linux'
+		) {
+			//not supported atm
+			return;
+		}
+		// Shellcode to join games when u press join..
+		let shellCodeAddr = virtualAllocEx(this.amongUs.handle, null, 0x60, 0x00001000 | 0x00002000, 0x40);
+		let compareAddr = shellCodeAddr + 0x30;
+
+		let compareAddr1 = (compareAddr & 0xff000000) >> 24;
+		let compareAddr2 = (compareAddr & 0x00ff0000) >> 16;
+		let compareAddr3 = (compareAddr & 0x0000ff00) >> 8;
+		let compareAddr4 = compareAddr & 0x000000ff;
+
+		//(DESTINATION_RVA - CURRENT_RVA (E9) - 5)
+		const connectFunc = this.gameAssembly.modBaseAddr + this.offsets.connectFunc;
+		const relativeConnectJMP = connectFunc - (shellCodeAddr + 0x18) - 0x4;
+
+		const fixedUpdateFunc = this.gameAssembly!.modBaseAddr + this.offsets.fixedUpdateFunc;
+		const relativefixedJMP = fixedUpdateFunc + 0x5 - (shellCodeAddr + 0x22) - 0x4;
+
+		const relativeShellJMP = shellCodeAddr - (fixedUpdateFunc + 0x1) - 0x4;
+
+		const shellcode = [
+			0x80, // cmp byte ptr [ShellcodeAddr + 0x30], 0x0,
+			0x3d,
+			compareAddr4, // 0x0
+			compareAddr3, // 0x0
+			compareAddr2, // 0xA3
+			compareAddr1, // 0x0
+			0x00,
+			0x74, // je 0x13
+			0x13,
+			0xc6, // mov byte ptr [ShellcodeAddr + 0x30], 0x00
+			0x05,
+			compareAddr4, // 0x0
+			compareAddr3, // 0x0
+			compareAddr2, // 0xA3
+			compareAddr1, // 0x0
+			0x00, // write 0x0
+			0xc7, // mov [ebp - 0x4], 0x1
+			0x45,
+			0xfc,
+			0x01,
+			0x00,
+			0x00,
+			0x00,
+			0xe9, // jmp innerNet.InnerNetClient.Connect
+			relativeConnectJMP & 0x000000ff,
+			(relativeConnectJMP & 0x0000ff00) >> 8,
+			(relativeConnectJMP & 0x00ff0000) >> 16,
+			(relativeConnectJMP & 0xff000000) >> 24,
+			0x55, // original 5 bytes && (je 0x13 endpoint)
+			0x8b,
+			0xec,
+			0x6a,
+			0xff,
+			0xe9, // jmp innerNet.InnerNetClient.FixedUpdate + 0x5
+			relativefixedJMP & 0x000000ff,
+			(relativefixedJMP & 0x0000ff00) >> 8,
+			(relativefixedJMP & 0x00ff0000) >> 16,
+			(relativefixedJMP & 0xff000000) >> 24,
+		];
+
+		const shellcodeJMP = [
+			// jmp ShellcodeRelativeAddress
+			0xe9,
+			relativeShellJMP & 0x000000ff,
+			(relativeShellJMP & 0x0000ff00) >> 8,
+			(relativeShellJMP & 0x00ff0000) >> 16,
+			(relativeShellJMP & 0xff000000) >> 24,
+		];
+
+		//MMOnline
+		this.writeString(shellCodeAddr + 0x70, 'OnlineGame');
+		this.writeString(shellCodeAddr + 0x95, 'MMOnline');
+
+		this.writeString(
+			shellCodeAddr + 0xd5,
+			'\n<color=#BA68C8>BetterCrewLink</color>\n<size=60%><color=#BA68C8>https://bettercrewlink.app</color></size>'
+		);
+
+		for (let index = 0; index < 3; index++) {
+			const stringOffset = this.findPattern(
+				this.offsets.signatures.pingMessageString.sig,
+				this.offsets.signatures.pingMessageString.patternOffset,
+				this.offsets.signatures.pingMessageString.addressOffset,
+				false,
+				false,
+				index
+			);
+			const stringPtr = this.readMemory<number>('int', this.gameAssembly.modBaseAddr, stringOffset);
+			const pingstring = this.readString(stringPtr);
+			if (pingstring.includes('Ping') || pingstring.includes('<color=#BA68C8')) {
+				writeMemory(
+					this.amongUs!.handle,
+					this.gameAssembly!.modBaseAddr + stringOffset,
+					shellCodeAddr + 0xd5,
+					'int32'
+				); 
+				break;
+			}
+		}
+
+		writeBuffer(this.amongUs!.handle, shellCodeAddr, Buffer.from(shellcode));
+		writeBuffer(this.amongUs!.handle, fixedUpdateFunc, Buffer.from(shellcodeJMP));
+		this.shellcodeAddr = shellCodeAddr;
+		this.initializedWrite = true;
+
+	}
+
+	writeString(address: number, text: string) {
+		const innerNetClient = this.readMemory<number>(
+			'ptr',
+			this.gameAssembly!.modBaseAddr,
+			this.offsets!.innerNetClient.base
+		);
+		const stringBase = this.readMemory<number>('int', innerNetClient, [0x80, 0x0]); // mainMenuScene just a random string where we can base our string off
+
+		const connectionString = [
+			stringBase & 0x000000ff,
+			(stringBase & 0x0000ff00) >> 8,
+			(stringBase & 0x00ff0000) >> 16,
+			(stringBase & 0xff000000) >> 24,
+			0x00,
+			0x00,
+			0x00,
+			0x00,
+			text.length, // length
+			0x00,
+			0x00,
+			0x00,
+		];
+		for (let index = 0; index < text.length; index++) {
+			connectionString.push(text.charCodeAt(index));
+			connectionString.push(0x0);
+		}
+		writeBuffer(this.amongUs!.handle, address, Buffer.from(connectionString));
+	}
+
+	joinGame(code: string, server: string): boolean {
+		if (!this.amongUs || !this.initializedWrite || server.length > 15 || !this.offsets || this.is_64bit) {
+			return false;
+		}
+		const innerNetClient = this.readMemory<number>(
+			'ptr',
+			this.gameAssembly!.modBaseAddr,
+			this.offsets!.innerNetClient.base
+		);
+
+		this.writeString(this.shellcodeAddr + 0x40, server);
+		writeMemory(
+			this.amongUs.handle,
+			innerNetClient + this.offsets.innerNetClient.networkAddress,
+			this.shellcodeAddr + 0x40,
+			'int32'
+		);
+		writeMemory(
+			this.amongUs.handle,
+			innerNetClient + this.offsets.innerNetClient.onlineScene,
+			this.shellcodeAddr + 0x70,
+			'int32'
+		);
+		writeMemory(
+			this.amongUs.handle,
+			innerNetClient + this.offsets.innerNetClient.mainMenuScene,
+			this.shellcodeAddr + 0x95,
+			'int32'
+		);
+		writeMemory(this.amongUs.handle, innerNetClient + this.offsets.innerNetClient.networkPort, 22023, 'int32');
+		writeMemory(this.amongUs.handle, innerNetClient + this.offsets.innerNetClient.gameMode, 1, 'int32');
+		writeMemory(
+			this.amongUs.handle,
+			innerNetClient + this.offsets.innerNetClient.gameId,
+			this.gameCodeToInt(code),
+			'int32'
+		);
+		writeMemory(this.amongUs.handle, this.shellcodeAddr + 0x30, 1, 'int32'); // call connect function
+		return true;
 	}
 
 	loadColors() {
 		if (this.colorsInitialized) {
 			return;
 		}
+		console.log('Initializecolors');
 		const palletePtr = this.readMemory<number>('ptr', this.gameAssembly!.modBaseAddr, this.offsets!.palette);
 		const PlayerColorsPtr = this.readMemory<number>('ptr', palletePtr, this.offsets!.palette_playercolor);
 		const ShadowColorsPtr = this.readMemory<number>('ptr', palletePtr, this.offsets!.palette_shadowColor);
@@ -407,7 +650,7 @@ export default class GameReader {
 		if (!colorLength || colorLength <= 0 || colorLength > 30) {
 			return;
 		}
-		this.rainbowColor = -9999;	
+		this.rainbowColor = -9999;
 		this.colorsInitialized = colorLength > 0;
 		const playercolors = [];
 		for (let i = 0; i < colorLength; i++) {
@@ -446,10 +689,25 @@ export default class GameReader {
 		return optionalHeader_magic === 0x20b;
 	}
 
-	readMemory<T>(dataType: DataType, address: number, offsets?: number[], defaultParam?: T): T {
+	readCurrentServer() {
+		if (this.is_64bit) {
+			return;
+		}
+		const currentServer = this.readMemory<number>(
+			'ptr',
+			this.gameAssembly!.modBaseAddr,
+			this.offsets!.serverManager_currentServer
+		);
+		this.currentServer = this.readString(currentServer);
+	}
+
+	readMemory<T>(dataType: DataType, address: number, offsets?: number[] | number, defaultParam?: T): T {
 		if (!this.amongUs) return defaultParam as T;
 		if (address === 0) return defaultParam as T;
 		dataType = dataType == 'pointer' || dataType == 'ptr' ? (this.is_64bit ? 'uint64' : 'uint32') : dataType;
+		if (typeof offsets === 'number') {
+			offsets = [offsets];
+		}
 		const { address: addr, last } = this.offsetAddress(address, offsets || []);
 		if (addr === 0) return defaultParam as T;
 		return readMemoryRaw<T>(this.amongUs.handle, addr + last, dataType);
@@ -501,7 +759,14 @@ export default class GameReader {
 		}
 	}
 
-	findPattern(signature: string, patternOffset = 0x1, addressOffset = 0x0): number {
+	findPattern(
+		signature: string,
+		patternOffset = 0x1,
+		addressOffset = 0x0,
+		relative: boolean = false,
+		getLocation: boolean = false,
+		skip: number = 0
+	): number {
 		if (!this.amongUs || !this.gameAssembly) return 0x0;
 		const signatureTypes = 0x0 | 0x2;
 		const instruction_location = findPatternRaw(
@@ -510,10 +775,15 @@ export default class GameReader {
 			signature,
 			signatureTypes,
 			patternOffset,
-			0x0
+			0x0,
+			skip
 		);
+		if (getLocation) {
+			return instruction_location + addressOffset;
+		}
 		const offsetAddr = this.readMemory<number>('int', this.gameAssembly.modBaseAddr, [instruction_location]);
-		return this.is_64bit
+
+		return this.is_64bit || relative
 			? offsetAddr + instruction_location + addressOffset
 			: offsetAddr - this.gameAssembly.modBaseAddr;
 	}
@@ -534,6 +804,18 @@ export default class GameReader {
 		].join('');
 	}
 
+	gameCodeToInt(code: string): number {
+		const V2Map = [25, 21, 19, 10, 8, 11, 12, 13, 22, 15, 16, 6, 24, 23, 18, 7, 0, 3, 9, 4, 14, 20, 1, 2, 5, 17];
+		var a = V2Map[code.charCodeAt(0) - 65];
+		var b = V2Map[code.charCodeAt(1) - 65];
+		var c = V2Map[code.charCodeAt(2) - 65];
+		var d = V2Map[code.charCodeAt(3) - 65];
+		var e = V2Map[code.charCodeAt(4) - 65];
+		var f = V2Map[code.charCodeAt(5) - 65];
+		var one = (a + 26 * b) & 0x3ff;
+		var two = c + 26 * (d + 26 * (e + 26 * f));
+		return one | ((two << 10) & 0x3ffffc00) | 0x80000000;
+	}
 	hashCode(s: string): number {
 		let h = 0;
 		for (let i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;

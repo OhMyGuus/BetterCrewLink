@@ -4,34 +4,31 @@ import { SettingsContext, LobbySettingsContext, GameStateContext } from '../cont
 import MicrophoneSoundBar from './MicrophoneSoundBar';
 import TestSpeakersButton from './TestSpeakersButton';
 import { ISettings, ILobbySettings } from '../../common/ISettings';
-import TextField from '@material-ui/core/TextField';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Box from '@material-ui/core/Box';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
-import Checkbox from '@material-ui/core/Checkbox';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import MuiDivider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import { isHttpUri, isHttpsUri } from 'valid-url';
+import {
+	Grid,
+	RadioGroup,
+	Checkbox,
+	FormControlLabel,
+	Box,
+	Typography,
+	IconButton,
+	Button,
+	Radio,
+} from '@material-ui/core';
+import { DialogContent, DialogContentText, DialogActions, DialogTitle, Slider, Tooltip } from '@material-ui/core';
+import { Dialog, TextField } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ArrowBack';
-import IconButton from '@material-ui/core/IconButton';
 import Alert from '@material-ui/lab/Alert';
-import Slider from '@material-ui/core/Slider';
-import Tooltip from '@material-ui/core/Tooltip';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
 import { GameState } from '../../common/AmongUsState';
-import Button from '@material-ui/core/Button';
 import { ipcRenderer, remote } from 'electron';
 import { IpcHandlerMessages } from '../../common/ipc-messages';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import i18next, { TFunction } from 'i18next';
 import languages from '../language/languages';
+import ServerURLInput from './ServerURLInput';
+import MuiDivider from '@material-ui/core/Divider';
+import PublicLobbySettings from './PublicLobbySettings';
 
 interface StyleInput {
 	open: boolean;
@@ -93,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
 		bottom: theme.spacing(1),
 		zIndex: 10,
 	},
-	urlDialog: {
+	dialog: {
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
@@ -389,6 +386,22 @@ const store = new Store<ISettings>({
 					type: 'boolean',
 					default: false,
 				},
+				publicLobby_on: {
+					type: 'boolean',
+					default: false,
+				},
+				publicLobby_title: {
+					type: 'string',
+					default: '',
+				},
+				publicLobby_language: {
+					type: 'string',
+					default: 'en',
+				},
+				publicLobby_mods: {
+					type: 'string',
+					default: 'NONE',
+				},
 			},
 			default: {
 				maxDistance: 5.32,
@@ -400,6 +413,10 @@ const store = new Store<ISettings>({
 				deadOnly: false,
 				meetingGhostOnly: false,
 				visionHearing: false,
+				publicLobby_on: false,
+				publicLobby_title: '',
+				publicLobby_language: 'en',
+				publicLobby_mods: 'NONE',
 			},
 		},
 	},
@@ -457,105 +474,6 @@ interface MediaDevice {
 	kind: MediaDeviceKind;
 	label: string;
 }
-
-function validateServerUrl(uri: string): boolean {
-	try {
-		if (!isHttpUri(uri) && !isHttpsUri(uri)) return false;
-		const url = new URL(uri);
-		if (url.hostname === 'discord.gg') return false;
-		if (url.pathname !== '/') return false;
-		return true;
-	} catch (_) {
-		return false;
-	}
-}
-
-type URLInputProps = {
-	t: (key: string) => string;
-	initialURL: string;
-	onValidURL: (url: string) => void;
-	className: string;
-};
-
-const URLInput: React.FC<URLInputProps> = function ({ t, initialURL, onValidURL, className }: URLInputProps) {
-	const [isValidURL, setURLValid] = useState(true);
-	const [currentURL, setCurrentURL] = useState(initialURL);
-	const [open, setOpen] = useState(false);
-
-	useEffect(() => {
-		setCurrentURL(initialURL);
-	}, [initialURL]);
-
-	function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-		const url = event.target.value.trim();
-		setCurrentURL(url);
-		if (validateServerUrl(url)) {
-			setURLValid(true);
-		} else {
-			setURLValid(false);
-		}
-	}
-
-	return (
-		<>
-			<Button variant="contained" color="secondary" onClick={() => setOpen(true)}>
-				{t('settings.advanced.change_server')}
-			</Button>
-			<Dialog fullScreen open={open} onClose={() => setOpen(false)}>
-				<DialogTitle>{t('settings.advanced.change_server')}</DialogTitle>
-				<DialogContent className={className}>
-					<TextField
-						fullWidth
-						error={!isValidURL}
-						spellCheck={false}
-						label={t('settings.advanced.voice_server')}
-						value={currentURL}
-						onChange={handleChange}
-						variant="outlined"
-						color="primary"
-						helperText={isValidURL ? '' : t('settings.advanced.voice_server')}
-					/>
-					<Alert severity="error">{t('settings.advanced.voice_server_warning')}</Alert>
-					<Button
-						color="primary"
-						variant="contained"
-						onClick={() => {
-							setOpen(false);
-							setURLValid(true);
-							onValidURL('https://bettercrewl.ink');
-						}}
-					>
-						{t('settings.advanced.reset_default')}
-					</Button>
-				</DialogContent>
-				<DialogActions>
-					<Button
-						color="primary"
-						onClick={() => {
-							setURLValid(true);
-							setOpen(false);
-							setCurrentURL(initialURL);
-						}}
-					>
-						{t('buttons.cancel')}
-					</Button>
-					<Button
-						disabled={!isValidURL}
-						color="primary"
-						onClick={() => {
-							setOpen(false);
-							let url = currentURL;
-							if (url.endsWith('/')) url = url.substring(0, url.length - 1);
-							onValidURL(url);
-						}}
-					>
-						{t('buttons.confirm')}
-					</Button>
-				</DialogActions>
-			</Dialog>
-		</>
-	);
-};
 
 interface DisabledTooltipProps {
 	disabled: boolean;
@@ -760,6 +678,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 			setWarningDialog({ title: dialogTitle, description: dialogDescription, open: true, confirmCallback });
 		}
 	};
+
 	return (
 		<Box className={classes.root}>
 			<div className={classes.header}>
@@ -837,6 +756,49 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					</DisabledTooltip>
 				</div>
 				<div>
+					<DisabledTooltip
+						disabled={!canChangeLobbySettings}
+						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
+					>
+						<FormControlLabel
+							className={classes.formLabel}
+							label={t('settings.lobbysettings.public_lobby.enabled')}
+							disabled={!canChangeLobbySettings}
+							onChange={(_, newValue: boolean) => {
+								openWarningDialog(
+									t('settings.warning'),
+									t('settings.lobbysettings.public_lobby.enable_warning'),
+									() => {
+										localLobbySettings.publicLobby_on = newValue;
+										setLocalLobbySettings(localLobbySettings);
+										setSettings({
+											type: 'setLobbySetting',
+											action: ['publicLobby_on', newValue],
+										});
+									},
+									!localLobbySettings.publicLobby_on
+								);
+							}}
+							value={canChangeLobbySettings ? localLobbySettings.publicLobby_on : lobbySettings.publicLobby_on}
+							checked={canChangeLobbySettings ? localLobbySettings.publicLobby_on : lobbySettings.publicLobby_on}
+							control={<Checkbox />}
+						/>
+					</DisabledTooltip>
+					<PublicLobbySettings
+						t={t}
+						updateSetting={(setting: string, newValue: any) => {
+							// @ts-ignore
+							setLocalLobbySettings({ ...localLobbySettings, setting: newValue });
+							setSettings({
+								type: 'setLobbySetting',
+								action: [setting, newValue],
+							});
+						}}
+						lobbySettings={localLobbySettings}
+						canChange={!canChangeLobbySettings}
+						className={classes.dialog}
+					/>
+
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
@@ -1492,8 +1454,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						control={<Checkbox />}
 					/>
 				</div>
-
-				<URLInput
+				<ServerURLInput
 					t={t}
 					initialURL={settings.serverURL}
 					onValidURL={(url: string) => {
@@ -1502,7 +1463,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							action: ['serverURL', url],
 						});
 					}}
-					className={classes.urlDialog}
+					className={classes.dialog}
 				/>
 				<Divider />
 				<Typography variant="h6">{t('settings.beta.title')}</Typography>
