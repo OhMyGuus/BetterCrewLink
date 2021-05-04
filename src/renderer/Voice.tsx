@@ -395,6 +395,16 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		}
 
 		let isOnCamera = state.currentCamera !== CameraLocation.NONE;
+		// console.log(
+		// 	'ISONCAMERA???',
+		// 	isOnCamera,
+		// 	skipDistanceCheck,
+		// 	!skipDistanceCheck && Math.sqrt(panPos[0] * panPos[0] + panPos[1] * panPos[1]) > maxdistance
+		// );
+		// Mute players if distancte between two players is too big
+		// console.log({ x: other.x, y: other.y }, Math.sqrt(panPos[0] * panPos[0] + panPos[1] * panPos[1]));
+		//console.log(state.currentCamera);
+      
 		if (!skipDistanceCheck && Math.sqrt(panPos[0] * panPos[0] + panPos[1] * panPos[1]) > maxdistance) {
 			if (lobbySettings.hearThroughCameras && state.gameState === GameState.TASKS) {
 				if (state.currentCamera !== CameraLocation.NONE && state.currentCamera !== CameraLocation.Skeld) {

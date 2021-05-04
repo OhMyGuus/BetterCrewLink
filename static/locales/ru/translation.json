@@ -22,7 +22,14 @@
 			"meetings_only": "Только на собрании или в комнате",
 			"meetings_only_warning": "Это отключает звук для живых игроков вне собраний.",
 			"meetings_only_warning2": "Включён разговор только на собраниях.",
-			"impostor_radio": "Радио предателей"
+			"impostor_radio": "Радио предателей",
+			"public_lobby": {
+				"change_settings": "Изменить информацию о комнате",
+				"enabled": "Публичная комната",
+				"title": "Название",
+				"mods": "Моды",
+				"language": "Язык"
+			}
 		},
 		"audio": {
 			"title": "Звук",
@@ -77,6 +84,7 @@
 			"title": "БЕТА/ОТЛАДКА",
 			"mobilehost": "Хост для мобильных",
 			"vad_enabled": "Включение VAD",
+			"hardware_acceleration": "Аппаратное ускорение",
 			"vad_enabled_warning": "Если отключить, то не будет видно, кто говорит.",
 			"echocancellation": "Эхоподавление",
 			"noiseSuppression": "Шумопонижение",
@@ -97,11 +105,24 @@
 			"warning": "Недоступно для владельца комнаты во время игры!"
 		}
 	},
+	"lobbybrowser": {
+		"header": "Публичные комнаты",
+		"code": "Код комнаты",
+		"list": {
+			"title": "Название",
+			"host": "Владелец комнаты",
+			"players": "Игроки",
+			"mods": "Моды",
+			"language": "Язык"
+		}
+	},
 	"buttons": {
 		"default": "По умолчанию",
 		"confirm": "Подтвердить",
 		"cancel": "Отмена",
-		"exit": "Закройте настройки для применения изменений"
+		"close": "Закрыть",
+		"exit": "Выйдите из настроек, чтобы применить изменения",
+		"public_lobby": "Публичные комнаты"
 	},
 	"game": {
 		"menu": "МЕНЮ",
@@ -112,5 +133,5 @@
 		"error_admin": "Не удалось подсоединиться к Among Us.\nПожалуйста, откройте BetterCrewLink снова как администратор.",
 		"error_unsupport": "Ваша версия Among Us не поддерживается BetterCrewLink."
 	},
-	"translator_name": "Translator Name"
+	"translator_name": "XRevan86"
 }

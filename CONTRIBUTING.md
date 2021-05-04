@@ -1,3 +1,4 @@
+<!-- DEVELOPMENT -->
 ## Development
 
 You only need to follow the below instructions if you are trying to modify this software. Otherwise, please download the latest version from the [github releases](https://github.com/OhMyGuus/BetterCrewLink/releases).
@@ -32,6 +33,8 @@ yarn dev
 
 <!-- CONTRIBUTING -->
 ## Contributing
+
+[![Contributors][contributors-shield]][contributors-url]
 
 Any contributions you make are greatly appreciated.
 
@@ -76,5 +79,7 @@ There are two methods.
 
 </details>
 
+[contributors-shield]: https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink?label=Contributors&logo=GitHub
+[contributors-url]: https://github.com/OhMyGuus/BetterCrewLink/graphs/contributors
 [crowdin-shield]: https://badges.crowdin.net/bettercrewlink/localized.svg
 [crowdin-url]: https://crowdin.com/project/bettercrewlink

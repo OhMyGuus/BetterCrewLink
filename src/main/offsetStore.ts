@@ -17,6 +17,9 @@ export interface IOffsets {
 	allPlayers: number[];
 	playerCount: number[];
 	playerAddrPtr: number;
+	gameCode: number[];
+	hostId: number[];
+	clientId: number[];
 	shipStatus: number[];
 	lightRadius: number[];
 	shipStatus_systems: number[];
