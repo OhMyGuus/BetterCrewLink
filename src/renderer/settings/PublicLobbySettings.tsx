@@ -3,6 +3,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { DialogContent, DialogTitle, DialogActions, Dialog, Button, TextField } from '@material-ui/core';
 import languages from '../language/languages';
 import { ILobbySettings } from '../../common/ISettings';
+import Alert from '@material-ui/lab/Alert';
 
 type publicLobbySettingProps = {
 	t: (key: string) => string;
@@ -122,7 +123,7 @@ const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 							</option>
 						))}
 					</TextField>
-					{/* <Alert severity="error">{t('settings.advanced.voice_server_warning')}</Alert> */}
+					 <Alert severity="error">{t('settings.lobbysettings.public_lobby.ban_warning')}</Alert> 
 				</DialogContent>
 				<DialogActions>
 					{/* <Button
