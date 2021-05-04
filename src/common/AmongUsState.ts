@@ -54,8 +54,12 @@ export interface Client {
 export interface SocketClientMap {
 	[socketId: string]: Client;
 }
-export interface ClientBoolMap {
-	[clientId: number]: boolean; // isTalking
+export interface OtherTalking {
+	[playerId: number]: boolean; // isTalking
+}
+
+export interface OtherDead {
+	[playerId: number]: boolean; // isTalking
 }
 
 export interface AudioConnected {
@@ -67,9 +71,9 @@ export interface numberStringMap {
 }
 
 export interface VoiceState {
-	otherTalking: ClientBoolMap;
+	otherTalking: OtherTalking;
 	playerSocketIds: numberStringMap;
-	otherDead: ClientBoolMap;
+	otherDead: OtherDead;
 	socketClients: SocketClientMap;
 	audioConnected: AudioConnected;
 	impostorRadioClientId: number;

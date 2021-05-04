@@ -1,4 +1,4 @@
-import { GameState,  ClientBoolMap } from './AmongUsState';
+import { GameState, OtherTalking, OtherDead } from './AmongUsState';
 
 export interface OverlayState {
 	gameState: GameState;
@@ -23,8 +23,8 @@ export interface overlayPlayer {
 
 export interface ObsVoiceState {
 	overlayState: OverlayState;
-	otherTalking: ClientBoolMap;
-	otherDead: ClientBoolMap;
+	otherTalking: OtherTalking;
+	otherDead: OtherDead;
 	localTalking: boolean;
 	localIsAlive: boolean;
 }
