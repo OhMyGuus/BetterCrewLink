@@ -22,7 +22,14 @@
 			"meetings_only": "Sadece Toplantı/Lobi",
 			"meetings_only_warning": "Hayattaki oyuncular için toplantı dışında sesi kapatır.",
 			"meetings_only_warning2": "Sadece toplantılarda konuşma aktif.",
-			"impostor_radio": "Impostor Telsizi"
+			"impostor_radio": "Impostor Telsizi",
+			"public_lobby": {
+				"change_settings": "Lobi Bilgisini Değiştir",
+				"enabled": "Lobi Herkese Açık",
+				"title": "Başlık",
+				"mods": "Modlar",
+				"language": "Dil"
+			}
 		},
 		"audio": {
 			"title": "Ses",
@@ -77,6 +84,7 @@
 			"title": "BETA/DEBUG",
 			"mobilehost": "Mobil Oyun Kurucu",
 			"vad_enabled": "VAD Aktif",
+			"hardware_acceleration": "Donanım Hızlandırma",
 			"vad_enabled_warning": "Kapatılırsa kimin konuştuğunu görmezsin.",
 			"echocancellation": "Yankı İptali",
 			"noiseSuppression": "Gürültü Azaltma",
@@ -97,11 +105,24 @@
 			"warning": "Oyun Kurucu iken yapılamaz!"
 		}
 	},
+	"lobbybrowser": {
+		"header": "Herkese Açık Lobiler",
+		"code": "Lobi Kodu",
+		"list": {
+			"title": "Başlık",
+			"host": "Oyun Kurucu",
+			"players": "Oyuncular",
+			"mods": "Modlar",
+			"language": "Dil"
+		}
+	},
 	"buttons": {
 		"default": "Varsayılan",
 		"confirm": "Onayla",
 		"cancel": "İptal",
-		"exit": "Değişklikleri uygulamak için Ayarlardan çıkın"
+		"close": "Kapat",
+		"exit": "Ayarları Kaydetmek İçin Ayarlardan Çıkın",
+		"public_lobby": "Herkese Açık Lobiler"
 	},
 	"game": {
 		"menu": "MENÜ",
@@ -112,5 +133,5 @@
 		"error_admin": "Among Us'a bağlanılamadı.\nLütfen BetterCrewLink'i Yönetici olarak başlatın.",
 		"error_unsupport": "Kullandığınız Among Us versiyonu BetterCrewLink tarafından desteklenmemektedir."
 	},
-	"translator_name": "Translator Name"
+	"translator_name": "Archerist"
 }

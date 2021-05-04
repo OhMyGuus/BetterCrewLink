@@ -22,7 +22,14 @@
 			"meetings_only": "Audio nur in Meetings/Lobby",
 			"meetings_only_warning": "Sound für lebende Mitspieler außerhalb von Meetings deaktivieren.",
 			"meetings_only_warning2": "Sprechen nur in Treffen aktiviert",
-			"impostor_radio": "Impostor Radio"
+			"impostor_radio": "Impostor Radio",
+			"public_lobby": {
+				"change_settings": "Lobbyinfo ändern",
+				"enabled": "Diese Lobby ist öffentlich",
+				"title": "Titel",
+				"mods": "Mods",
+				"language": "Sprache"
+			}
 		},
 		"audio": {
 			"title": "Audio",
@@ -48,7 +55,7 @@
 		},
 		"overlay": {
 			"title": "Überlagerung",
-			"always_on_top": "BetterCrewLink oben anpinnen",
+			"always_on_top": "BetterCrewLink immer im Vordergrund",
 			"enabled": "Overlay aktivieren",
 			"compact": "Kompaktes Overlay",
 			"meeting": "Meeting-Overlay",
@@ -77,6 +84,7 @@
 			"title": "BETA/FEHLER BESEITIGEN",
 			"mobilehost": "Mobiler Host",
 			"vad_enabled": "VAD Aktiviert",
+			"hardware_acceleration": "Hardwarebeschleunigung",
 			"vad_enabled_warning": "Wenn deaktivert, wird nicht angezeigt, wer aktuell spricht.",
 			"echocancellation": "Echounterdrückung",
 			"noiseSuppression": "Geräuschunterdrückung",
@@ -97,11 +105,24 @@
 			"warning": "Nicht als Host im Spiel verfügbar!"
 		}
 	},
+	"lobbybrowser": {
+		"header": "Öffentliche Lobbys",
+		"code": "Lobbycode",
+		"list": {
+			"title": "Titel",
+			"host": "Host",
+			"players": "Spieler",
+			"mods": "Mods",
+			"language": "Sprache"
+		}
+	},
 	"buttons": {
 		"default": "Standard",
 		"confirm": "OK",
 		"cancel": "Abbrechen",
-		"exit": "Einstellungen verlassen, um Änderungen anzuwenden"
+		"close": "Schließen",
+		"exit": "Einstellungen verlassen, um Änderungen anzuwenden",
+		"public_lobby": "Öffentliche Lobbys"
 	},
 	"game": {
 		"menu": "MENÜ",
@@ -112,5 +133,5 @@
 		"error_admin": "Konnte keine Verbindung zu \"Among Us\" herstellen.\nBitte BetterCrewLink mit Administratorrechten neu starten.",
 		"error_unsupport": "Ihre Version von Among Us wird nicht von BetterCrewLink unterstützt."
 	},
-	"translator_name": "Translator Name"
+	"translator_name": "KadenBiel, SirBuvex, Jeddunk and Fauli1221"
 }

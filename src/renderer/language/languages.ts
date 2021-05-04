@@ -18,6 +18,7 @@ import translationSK from '../../../static/locales/sk/translation.json';
 import translationSL from '../../../static/locales/sl/translation.json';
 import translationESES from '../../../static/locales/es-ES/translation.json';
 import translationSVSE from '../../../static/locales/sv-SE/translation.json';
+import translationTTRU from '../../../static/locales/tt-RU/translation.json';
 import translationTR from '../../../static/locales/tr/translation.json';
 import translationUK from '../../../static/locales/uk/translation.json';
 
@@ -101,6 +102,10 @@ const languages = {
 	'sv-SE': {
 		translation: translationSVSE,
 		name: 'Svenska',
+	},
+	'tt-RU': {
+		translation: translationTTRU,
+		name: 'Татар',
 	},
 	tr: {
 		translation: translationTR,
