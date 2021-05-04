@@ -25,11 +25,12 @@
 			"impostor_radio": "Impostor Radio",
 			"public_lobby": {
 				"change_settings": "Change Lobby Info",
-				"enabled": "The Lobby is Public",
 				"title": "Title",
+				"enabled": "The Lobby is Public",
 				"mods": "Mods",
 				"language": "Language"
-			}
+				"enable_warning" : "Enabling this will make your public to other BCL users!",
+				"ban_warning" : "Inappropriate text will result in a ban from BCL"
 		},
 		"audio": {
 			"title": "Audio",

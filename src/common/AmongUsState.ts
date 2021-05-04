@@ -15,6 +15,8 @@ export interface AmongUsState {
 	lightRadius: number;
 	lightRadiusChanged: boolean;
 	closedDoors: number[];
+	currentServer: string;
+	maxPlayers: number;
 }
 
 export interface Player {
@@ -37,6 +39,7 @@ export interface Player {
 	x: number;
 	y: number;
 	inVent: boolean;
+	isDummy: boolean;
 }
 
 export enum GameState {
@@ -54,12 +57,8 @@ export interface Client {
 export interface SocketClientMap {
 	[socketId: string]: Client;
 }
-export interface OtherTalking {
-	[playerId: number]: boolean; // isTalking
-}
-
-export interface OtherDead {
-	[playerId: number]: boolean; // isTalking
+export interface ClientBoolMap {
+	[clientId: number]: boolean; // isTalking
 }
 
 export interface AudioConnected {
@@ -71,9 +70,9 @@ export interface numberStringMap {
 }
 
 export interface VoiceState {
-	otherTalking: OtherTalking;
+	otherTalking: ClientBoolMap;
 	playerSocketIds: numberStringMap;
-	otherDead: OtherDead;
+	otherDead: ClientBoolMap;
 	socketClients: SocketClientMap;
 	audioConnected: AudioConnected;
 	impostorRadioClientId: number;

@@ -25,12 +25,12 @@ export interface ISettings {
 	micSensitivityEnabled: boolean;
 	mobileHost: boolean;
 	vadEnabled: boolean;
+	hardware_acceleration: boolean;
 	echoCancellation: boolean;
 	noiseSuppression: boolean;
 	enableSpatialAudio: boolean;
 	playerConfigMap: playerConfigMap;
 	obsOverlay: boolean;
-	obsComptaibilityMode: boolean;
 	obsSecret: string | undefined;
 }
 
@@ -46,6 +46,10 @@ export interface ILobbySettings {
 	meetingGhostOnly: boolean;
 	hearThroughCameras: boolean;
 	wallsBlockAudio: boolean;
+	publicLobby_on: boolean;
+	publicLobby_title: string;
+	publicLobby_language: string;
+	publicLobby_mods: string;
 }
 
 export interface SocketConfig {

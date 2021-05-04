@@ -416,7 +416,7 @@ export enum cosmeticType {
 }
 
 export const RainbowColorId = -99234;
-export function getCosmetic(color: number, isAlive: boolean, type: cosmeticType, id = -1) {
+export function getCosmetic(color: number, isAlive: boolean, type: cosmeticType, id = -1) : string {
 	if (type === cosmeticType.base || (type === cosmeticType.hat && coloredHatsIds.has(id))) {
 		if (color === RainbowColorId) {
 			if (type === cosmeticType.base) {
