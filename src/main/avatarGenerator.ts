@@ -62,7 +62,7 @@ async function colorImage(playerColors: string[][], image: string, imagename: st
 	}
 }
 
-export async function GenerateAvatars(colors: string[][]): void {
+export async function GenerateAvatars(colors: string[][]): Promise<void> {
 	console.log('Generating avatars..', `${app.getPath('userData')}/static/generated/`);
 	try {
 		await colorImage(colors, ghostBase, 'ghost');
