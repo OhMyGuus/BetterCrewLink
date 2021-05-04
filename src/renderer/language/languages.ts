@@ -18,6 +18,7 @@ import translationSK from '../../../static/locales/sk/translation.json';
 import translationSL from '../../../static/locales/sl/translation.json';
 import translationESES from '../../../static/locales/es-ES/translation.json';
 import translationSVSE from '../../../static/locales/sv-SE/translation.json';
+import translationTTRU from '../../../static/locales/tt-RU/translation.json';
 import translationTR from '../../../static/locales/tr/translation.json';
 import translationUK from '../../../static/locales/uk/translation.json';
 
@@ -39,8 +40,8 @@ const languages = {
 		name: 'Català',
 	},
 	'zh-CN': {
-		translation: translationZHCN, 
-		name: '汉语'
+		translation: translationZHCN,
+		name: '汉语',
 	},
 	cs: {
 		translation: translationCS,
@@ -67,8 +68,8 @@ const languages = {
 		name: 'Bahasa Indonesia',
 	},
 	ja: {
-		translation: translationJA, 
-		name: '日本語'
+		translation: translationJA,
+		name: '日本語',
 	},
 	pl: {
 		translation: translationPL,
@@ -102,6 +103,10 @@ const languages = {
 		translation: translationSVSE,
 		name: 'Svenska',
 	},
+	'tt-RU': {
+		translation: translationTTRU,
+		name: 'Татар',
+	},
 	tr: {
 		translation: translationTR,
 		name: 'Türkçe',
@@ -109,7 +114,7 @@ const languages = {
 	uk: {
 		translation: translationUK,
 		name: 'Українська',
-	}
+	},
 };
 
 export default languages;

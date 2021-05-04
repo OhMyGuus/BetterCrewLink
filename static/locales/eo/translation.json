@@ -9,20 +9,27 @@
 			"inlobbyonly": "Vi povas ŝanĝi tion nur en atendejo!",
 			"voicedistance": "Voĉdistanco",
 			"voicedistance_impostor": "Trompista voĉdistanco",
-			"wallsblockaudio": "Aŭdebleco tra muroj",
+			"wallsblockaudio": "Aŭdi tra muroj",
 			"visiononly": "Aŭdi nur vidatojn",
 			"impostorshearsghost": "Trompistoj aŭdu fantomojn",
 			"hear_imposters_invents": "Trompistoj en ventoliloj aŭdeblu",
 			"private_talk_invents": "Privataj interparoloj en ventoliloj",
 			"comms_sabotage_audio": "Malebligi paroladon ĉe komunikilaj sabotoj",
-			"hear_through_cameras": "Aŭdebleco per kameraoj",
+			"hear_through_cameras": "Aŭdi per kameraoj",
 			"ghost_only": "Nur por fantomoj",
 			"ghost_only_warning": "Tio malebligas paroladon de vivantoj.",
 			"ghost_only_warning2": "Parolebleco nur por fantomoj estas ŝaltita.",
 			"meetings_only": "Nur renkontiĝe/atendeje",
 			"meetings_only_warning": "Tio malebligas paroladon de vivantoj ekster renkontiĝoj.",
 			"meetings_only_warning2": "Parolebleco nur renkontiĝe/atendeje estas ŝaltita.",
-			"impostor_radio": "Trompista radio"
+			"impostor_radio": "Trompista radio",
+			"public_lobby": {
+				"change_settings": "Ŝanĝi ludejajn informojn",
+				"enabled": "La ludejo estas publika",
+				"title": "Titolo",
+				"mods": "Modifoj",
+				"language": "Lingvo"
+			}
 		},
 		"audio": {
 			"title": "Sonoj",
@@ -48,8 +55,8 @@
 		},
 		"overlay": {
 			"title": "Plustavolo",
-			"always_on_top": "BetterCrewLink supre",
-			"enabled": "Ebligi plustavolon",
+			"always_on_top": "BetterCrewLink estu supre",
+			"enabled": "Ŝalti plustavolon",
 			"compact": "Kompaktigi la plustavolon",
 			"meeting": "Renkontiĝa plustavolo",
 			"pos": "Lokiĝo de la plustavolo",
@@ -77,6 +84,7 @@
 			"title": "BETA/SENCIMIGO",
 			"mobilehost": "Poŝtelefona ludejestro",
 			"vad_enabled": "VAD estas ŝaltita",
+			"hardware_acceleration": "Aparata plirapidigo",
 			"vad_enabled_warning": "Oni ne vidos, kiu parolas, se la agordo estos malŝaltita.",
 			"echocancellation": "Seneĥigo",
 			"noiseSuppression": "Senbruigo",
@@ -97,11 +105,24 @@
 			"warning": "La agordoj ne ŝanĝeblas dum ludoj!"
 		}
 	},
+	"lobbybrowser": {
+		"header": "Publikaj ludejoj",
+		"code": "Ludeja kodo",
+		"list": {
+			"title": "Titolo",
+			"host": "Ludejestro",
+			"players": "Ludantoj",
+			"mods": "Modifoj",
+			"language": "Lingvo"
+		}
+	},
 	"buttons": {
 		"default": "Defaŭlte",
 		"confirm": "Konfirmi",
 		"cancel": "Nuligi",
-		"exit": "Eliru la agordejon por efektivigi la ŝanĝojn"
+		"close": "Fermi",
+		"exit": "Eliru la agordejon por efektivigi la ŝanĝojn",
+		"public_lobby": "Publikaj ludejoj"
 	},
 	"game": {
 		"menu": "MENUE",
@@ -109,8 +130,8 @@
 		"open_error": "Komenci la ludon mane. \n(ĉi-butono estas nur por dissendado)",
 		"waiting": "Atendado de la ludo",
 		"error": "ERARO",
-		"error_admin": "Ne povis konekti al Among Us.\nBonvolu remalfermi je BetterCrewLink kiel administranto.",
+		"error_admin": "Ne eblis konekti al Among Us.\nBonvolu remalfermi BetterCrewLink kiel administranto.",
 		"error_unsupport": "BetterCrewLink ne subtenas vian version de Among Us."
 	},
-	"translator_name": "Translator Name"
+	"translator_name": "Ajno and Jano Miĥalako"
 }
