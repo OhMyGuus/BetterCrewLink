@@ -107,6 +107,7 @@
 	},
 	"lobbybrowser": {
 		"header": "Public lobbies",
+		"code": "Lobby code",
 		"list": {
 			"title": "Title",
 			"host": "Host",
@@ -119,6 +120,7 @@
 		"default": "Default",
 		"confirm": "Confirm",
 		"cancel": "Cancel",
+		"close": "Close",
 		"exit": "Exit Settings to apply changes",
 		"public_lobby": "Public lobbies"
 	},

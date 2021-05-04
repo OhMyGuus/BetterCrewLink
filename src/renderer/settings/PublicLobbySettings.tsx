@@ -58,7 +58,6 @@ const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 	const classes = useStyles();
 	useEffect(() => {
 		setLobbySettingState(lobbySettings);
-		console.log('HEY12334');
 	}, [lobbySettings]);
 
 	const [lobbySettingState, setLobbySettingState] = useState(lobbySettings);

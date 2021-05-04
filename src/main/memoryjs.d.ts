@@ -81,7 +81,8 @@ declare module 'memoryjs' {
 		signature: string,
 		signatureType: number,
 		patternOffset: number,
-		addressOffset: number
+		addressOffset: number,
+		skip: number
 	): number;
 
 	// Functions

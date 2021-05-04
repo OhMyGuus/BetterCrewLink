@@ -40,9 +40,13 @@ ipcMain.on(IpcHandlerMessages.RESET_KEYHOOKS, () => {
 });
 
 ipcMain.on(IpcHandlerMessages.JOIN_LOBBY, (event, lobbycode, server) => {
-	gameReader?.joinGame(lobbycode, server)
-});
+	let tryjoin = gameReader?.joinGame(lobbycode, server);
+	console.log('JOIN LOBBY:', lobbycode, tryjoin);
 
+	if (!tryjoin) {
+		event.reply(IpcHandlerMessages.JOIN_LOBBY_ERROR, lobbycode, server);
+	}
+});
 
 ipcMain.on(IpcSyncMessages.GET_INITIAL_STATE, (event) => {
 	if (!readingGame) {

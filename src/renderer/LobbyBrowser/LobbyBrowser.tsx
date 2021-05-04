@@ -14,6 +14,7 @@ import io from 'socket.io-client';
 import Store from 'electron-store';
 import { ISettings } from '../../common/ISettings';
 import i18next from 'i18next';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 
 const store = new Store<ISettings>();
 const serverUrl = store.get('serverURL', 'https://bettercrewl.ink/');
@@ -65,12 +66,21 @@ const useStyles = makeStyles({
 export interface lobbyMap {
 	[id: number]: PublicLobby;
 }
+const servers: {
+	[server: string]: string;
+} = {
+	// '50.116.1.42': 'North America',
+	// '172.105.251.170': 'Europe',
+	// '139.162.111.196': 'Asia',
+};
 
 // @ts-ignore
 export default function lobbyBrowser({ t }) {
 	const classes = useStyles();
 	const [publiclobbies, setPublicLobbies] = useState<lobbyMap>({});
 	const [socket, setSocket] = useState<SocketIOClient.Socket>();
+	const [code, setCode] = React.useState('');
+
 	useEffect(() => {
 		let s = io(serverUrl, {
 			transports: ['websocket'],
@@ -99,6 +109,11 @@ export default function lobbyBrowser({ t }) {
 		s.on('connect', () => {
 			s.emit('lobbybrowser', true);
 		});
+
+		ipcRenderer.on(IpcHandlerMessages.JOIN_LOBBY_ERROR, (event, code, server) => {
+			console.log('ERROR: ', code);
+			setCode(`${code}  ${servers[server] ? `on region ${servers[server]}` : `\n Custom server: ${server}`}`);
+		});
 		return () => {
 			socket?.emit('lobbybrowser', false);
 			socket?.close();
@@ -109,7 +124,27 @@ export default function lobbyBrowser({ t }) {
 		<div style={{ height: '100%', width: '100%', paddingTop: '15px' }}>
 			<div style={{ height: '500px', padding: '20px' }}>
 				<b>{t('lobbybrowser.header')}</b>
-
+				<Dialog
+					open={code !== ''}
+					// TransitionComponent={Transition}
+					keepMounted
+					aria-labelledby="alert-dialog-slide-title"
+					aria-describedby="alert-dialog-slide-description"
+				>
+					<DialogTitle id="alert-dialog-slide-title">{t('lobbybrowser.code')}</DialogTitle>
+					<DialogContent>
+						<DialogContentText id="alert-dialog-slide-description">
+							{code.split('\n').map((i, key) => {
+								return <p key={key}>{i}</p>;
+							})}
+						</DialogContentText>
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={() => setCode('')} color="primary">
+							{t('buttons.close')}
+						</Button>
+					</DialogActions>
+				</Dialog>
 				<Paper>
 					<TableContainer component={Paper} className={classes.container}>
 						<Table className={classes.table} aria-label="customized table" stickyHeader>
@@ -144,7 +179,7 @@ export default function lobbyBrowser({ t }) {
 														if (state === 0) {
 															ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);
 														} else {
-															window.alert(`Error: ${codeOrError}`);
+															setCode(`Error: ${codeOrError}`);
 														}
 													});
 												}}

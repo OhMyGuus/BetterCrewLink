@@ -42,7 +42,7 @@
 		"electron-window-state": "^5.0.3",
 		"i18next": "^19.9.2",
 		"jimp": "^0.16.1",
-		"memoryjs": "^3.4.0",
+		"memoryjs": "git://github.com/OhMyGuus/memoryjs",
 		"minimist": "^1.2.5",
 		"node-keyboard-watcher": "git://github.com/OhMyGuus/node-keyboard-watcher",
 		"path-intersection": "^2.2.0",

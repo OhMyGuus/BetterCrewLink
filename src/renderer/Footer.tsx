@@ -65,50 +65,13 @@ const Footer: React.FC = function () {
 					}}
 				>
 					<Tooltip title="Donate to support us!" arrow>
+						
 						<svg width={36} height={36} viewBox="0 0 24 24">
 							<path
-								fill="url(#pattern)"
+								fill="#d4af37"
 								d="M7,15H9C9,16.08 10.37,17 12,17C13.63,17 15,16.08 15,15C15,13.9 13.96,13.5 11.76,12.97C9.64,12.44 7,11.78 7,9C7,7.21 8.47,5.69 10.5,5.18V3H13.5V5.18C15.53,5.69 17,7.21 17,9H15C15,7.92 13.63,7 12,7C10.37,7 9,7.92 9,9C9,10.1 10.04,10.5 12.24,11.03C14.36,11.56 17,12.22 17,15C17,16.79 15.53,18.31 13.5,18.82V21H10.5V18.82C8.47,18.31 7,16.79 7,15Z"
 							/>
-							<defs>
-								<linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0">
-									<stop offset="0%" style={{ stopColor: '#FF6663' }} />
-									<stop offset="9.1%" style={{ stopColor: '#FEB144' }} />
-									<stop offset="18.2%" style={{ stopColor: '#FEB144' }} />
-									<stop offset="27.3%" style={{ stopColor: '#FDFD97' }} />
-									<stop offset="36.4%" style={{ stopColor: '#FDFD97' }} />
-									<stop offset="45.5%" style={{ stopColor: '#9EE09E' }} />
-									<stop offset="54.6%" style={{ stopColor: '#9EE09E' }} />
-									<stop offset="63.6%" style={{ stopColor: '#9EC1CF' }} />
-									<stop offset="72.7%" style={{ stopColor: '#9EC1CF' }} />
-									<stop offset="81.8%" style={{ stopColor: '#CC99C9' }} />
-									<stop offset="90.9%" style={{ stopColor: '#CC99C9' }} />
-									<stop offset="100%" style={{ stopColor: '#FF6663' }} />
-								</linearGradient>
-
-								<pattern id="pattern" x="0" y="0" width="300%" height="100%" patternUnits="userSpaceOnUse">
-									<rect x="0" y="0" width="150%" height="100%" fill="url(#gradient)">
-										<animate
-											attributeType="XML"
-											attributeName="x"
-											from="0"
-											to="150%"
-											dur="2s"
-											repeatCount="indefinite"
-										/>
-									</rect>
-									<rect x="-150%" y="0" width="150%" height="100%" fill="url(#gradient)">
-										<animate
-											attributeType="XML"
-											attributeName="x"
-											from="-150%"
-											to="0"
-											dur="2s"
-											repeatCount="indefinite"
-										/>
-									</rect>
-								</pattern>
-							</defs>
+							
 						</svg>
 					</Tooltip>
 				</Button>
