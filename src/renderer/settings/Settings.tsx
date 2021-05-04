@@ -749,13 +749,19 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							label={t('settings.lobbysettings.public_lobby.enabled')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
-								localLobbySettings.publicLobby_on = newValue;
-								setLocalLobbySettings(localLobbySettings);
-
-								setSettings({
-									type: 'setLobbySetting',
-									action: ['publicLobby_on', newValue],
-								});
+								openWarningDialog(
+									t('settings.warning'),
+									t('settings.lobbysettings.public_lobby.enable_warning'),
+									() => {
+										localLobbySettings.publicLobby_on = newValue;
+										setLocalLobbySettings(localLobbySettings);
+										setSettings({
+											type: 'setLobbySetting',
+											action: ['publicLobby_on', newValue],
+										});
+									},
+									!localLobbySettings.publicLobby_on
+								);
 							}}
 							value={canChangeLobbySettings ? localLobbySettings.publicLobby_on : lobbySettings.publicLobby_on}
 							checked={canChangeLobbySettings ? localLobbySettings.publicLobby_on : lobbySettings.publicLobby_on}
