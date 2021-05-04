@@ -22,7 +22,14 @@
 			"meetings_only": "Meetings/Lobby Only",
 			"meetings_only_warning": "This disables the sound for alive players outside meetings.",
 			"meetings_only_warning2": "Talking in meetings only enabled.",
-			"impostor_radio": "Impostor Radio"
+			"impostor_radio": "Impostor Radio",
+			"public_lobby": {
+				"change_settings": "Change Lobby Info",
+				"enabled": "The Lobby is Public",
+				"title": "Title",
+				"mods": "Mods",
+				"language": "Language"
+			}
 		},
 		"audio": {
 			"title": "Audio",
@@ -48,7 +55,7 @@
 		},
 		"overlay": {
 			"title": "Overlay",
-			"always_on_top": "BetterCrewLink on Top",
+			"always_on_top": "BetterCrewLink On Top",
 			"enabled": "Enable Overlay",
 			"compact": "Compact Overlay",
 			"meeting": "Meeting Overlay",
@@ -77,7 +84,7 @@
 			"title": "BETA/DEBUG",
 			"mobilehost": "Mobile Host",
 			"vad_enabled": "VAD Enabled",
-			"hardware_acceleration" : "Use GPU",
+			"hardware_acceleration": "Hardware Acceleration",
 			"vad_enabled_warning": "You won't see who's talking if deactivate.",
 			"echocancellation": "Echo Cancellation",
 			"noiseSuppression": "Noise Suppression",
@@ -98,11 +105,24 @@
 			"warning": "Not available as host in game!"
 		}
 	},
+	"lobbybrowser": {
+		"header": "Public Lobbies",
+		"code": "Lobby code",
+		"list": {
+			"title": "Title",
+			"host": "Host",
+			"players": "Players",
+			"mods": "Mods",
+			"language": "Language"
+		}
+	},
 	"buttons": {
 		"default": "Default",
 		"confirm": "Confirm",
 		"cancel": "Cancel",
-		"exit": "Exit Settings to apply changes"
+		"close": "Close",
+		"exit": "Exit Settings to Apply Changes",
+		"public_lobby": "Public Lobbies"
 	},
 	"game": {
 		"menu": "MENU",

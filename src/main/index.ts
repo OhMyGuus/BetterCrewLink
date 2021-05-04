@@ -9,7 +9,7 @@ import { format as formatUrl } from 'url';
 import './hook';
 import { overlayWindow } from 'electron-overlay-window';
 import { initializeIpcHandlers, initializeIpcListeners } from './ipc-handlers';
-import { IpcRendererMessages /*AutoUpdaterState*/ } from '../common/ipc-messages';
+import { IpcRendererMessages /*AutoUpdaterState*/, IpcHandlerMessages } from '../common/ipc-messages';
 import { ProgressInfo, UpdateInfo } from 'builder-util-runtime';
 import { protocol } from 'electron';
 import Store from 'electron-store';
@@ -26,6 +26,8 @@ declare global {
 		interface Global {
 			mainWindow: BrowserWindow | null;
 			overlay: BrowserWindow | null;
+			lobbyBrowser: BrowserWindow | null;
+
 		}
 	}
 }
@@ -44,7 +46,7 @@ function createMainWindow() {
 	const mainWindowState = windowStateKeeper({});
 
 	const window = new BrowserWindow({
-		title: 'Bettercrewlink-GUI',
+		title: 'BetterCrewLink GUI',
 		width: 250,
 		height: 350,
 		maxWidth: 250,
@@ -53,12 +55,10 @@ function createMainWindow() {
 		minHeight: 350,
 		x: mainWindowState.x,
 		y: mainWindowState.y,
-
 		resizable: false,
 		frame: false,
 		fullscreenable: false,
 		maximizable: false,
-		transparent: true,
 		webPreferences: {
 			enableRemoteModule: true,
 			nodeIntegration: true,
@@ -119,9 +119,60 @@ function createMainWindow() {
 	return window;
 }
 
+
+function createLobbyBrowser() {
+	const window = new BrowserWindow({
+		title: 'BetterCrewLink Browser',
+		width: 900,
+		height: 500,
+		minWidth: 250,
+		minHeight: 350,
+		resizable: true,
+		frame: false,
+		fullscreenable: false,
+		closable: true,
+		maximizable: false,
+		webPreferences: {
+			enableRemoteModule: true,
+			nodeIntegration: true,
+			webSecurity: false,
+		},
+	});
+	window.on('closed', () => {
+		global.lobbyBrowser = null;
+	});
+	// if (devTools) {
+	// 	// Force devtools into detached mode otherwise they are unusable
+	// 	window.webContents.openDevTools({
+	// 		mode: 'detach',
+	// 	});
+	// }
+	let crewlinkVersion: string;
+	if (isDevelopment) {
+		crewlinkVersion = '0.0.0';
+		window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}?version=DEV&view=lobbies`);
+	} else {
+		crewlinkVersion = autoUpdater.currentVersion.version;
+		window.loadURL(
+			formatUrl({
+				pathname: joinPath(__dirname, 'index.html'),
+				protocol: 'file',
+				query: {
+					version: autoUpdater.currentVersion.version,
+					view: 'lobbies',
+				},
+				slashes: true,
+			})
+		);
+	}
+	window.webContents.userAgent = `CrewLink/2.0.1 (win32)`;
+	console.log('Opened app version: ', crewlinkVersion);
+	return window;
+}
+
 function createOverlay() {
 	const overlay = new BrowserWindow({
-		title: 'Bettercrewlink-overlay',
+		title: 'BetterCrewLink Overlay',
 		width: 400,
 		height: 300,
 		webPreferences: {
@@ -214,39 +265,6 @@ if (!gotTheLock) {
 		}
 	});
 
-	// Mock auto-update download
-	/*
-	setTimeout(() => {
-		global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
-	 		state: 'available'
-	 	});
-	 	let total = 1000*1000;
-	 	let i = 0;
-	 	let interval = setInterval(() => {
-	 		global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
-	 			state: 'downloading',
-	 			progress: {
-	 				total,
-	 				delta: total * 0.01,
-	 				transferred: i * total / 100,
-	 				percent: i,
-	 				bytesPerSecond: 1000
-	 			}
-	 		} as AutoUpdaterState);
-	 		i++;
-	 		if (i === 100) {
-	 			clearInterval(interval);
-	 			global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
-	 				state: 'downloaded',
-					info: {
-						version: 'DEV'
-					}
-	 			});
-	 		}
-	 	}, 100);
-	}, 10000);
-	*/
-
 	// quit application when all windows are closed
 	app.on('window-all-closed', () => {
 		// on macOS it is common for applications to stay open until the user explicitly quits
@@ -309,6 +327,15 @@ if (!gotTheLock) {
 		app.relaunch();
 		autoUpdater.quitAndInstall();
 	});
+
+	ipcMain.on(IpcHandlerMessages.OPEN_LOBBYBROWSER, () => {
+		if(!global.lobbyBrowser){
+			global.lobbyBrowser = createLobbyBrowser();
+		}else{
+			global.lobbyBrowser.show();
+			global.lobbyBrowser.moveTop();
+		}
+	})
 
 	ipcMain.on('enableOverlay', async (_event, enable) => {
 		try {

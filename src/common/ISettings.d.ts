@@ -46,7 +46,13 @@ export interface ILobbySettings {
 	meetingGhostOnly: boolean;
 	hearThroughCameras: boolean;
 	wallsBlockAudio: boolean;
+	publicLobby_on : boolean
+	publicLobby_title : string
+	publicLobby_language : string
+	publicLobby_mods : string
+
 }
+
 
 export interface SocketConfig {
 	volume: number;
