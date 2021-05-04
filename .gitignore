@@ -6,3 +6,4 @@ thumbs.db
 yarn-error.log
 .vscode/
 package-lock.json
+debug.log
