@@ -22,7 +22,14 @@
 			"meetings_only": "ミーティング/ロビーのみ",
 			"meetings_only_warning": "会議以外での生存プレイヤーのサウンドを無効にします",
 			"meetings_only_warning2": "会議での発言のみ有効",
-			"impostor_radio": "インポスターラジオ"
+			"impostor_radio": "インポスターラジオ",
+			"public_lobby": {
+				"change_settings": "ロビー情報の変更",
+				"enabled": "ロビーは公開されています",
+				"title": "タイトル",
+				"mods": "モッド",
+				"language": "言語"
+			}
 		},
 		"audio": {
 			"title": "オーディオ",
@@ -77,6 +84,7 @@
 			"title": "ベータ/デバッグ",
 			"mobilehost": "モバイル ホスト",
 			"vad_enabled": "音声アクティビティ検出",
+			"hardware_acceleration": "ハードウェア アクセラレーション",
 			"vad_enabled_warning": "非アクティブにすると誰が話しているのかわからなくなります。",
 			"echocancellation": "エコーキャンセラー",
 			"noiseSuppression": "ノイズ防止",
@@ -97,11 +105,24 @@
 			"warning": "ゲーム内ではホストとして利用できません！"
 		}
 	},
+	"lobbybrowser": {
+		"header": "公開ロビー",
+		"code": "Lobby Code",
+		"list": {
+			"title": "タイトル",
+			"host": "ホスト",
+			"players": "プレイヤー",
+			"mods": "Mods",
+			"language": "言語"
+		}
+	},
 	"buttons": {
 		"default": "デフォルト",
 		"confirm": "確認",
 		"cancel": "キャンセル",
-		"exit": "変更を適用するために設定を終了する"
+		"close": "Close",
+		"exit": "変更を適用し設定を終了",
+		"public_lobby": "公開ロビー"
 	},
 	"game": {
 		"menu": "メニュー",

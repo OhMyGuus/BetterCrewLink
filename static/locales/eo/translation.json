@@ -22,7 +22,14 @@
 			"meetings_only": "Nur renkontiĝe/atendeje",
 			"meetings_only_warning": "Tio malebligas paroladon de vivantoj ekster renkontiĝoj.",
 			"meetings_only_warning2": "Parolebleco nur renkontiĝe/atendeje estas ŝaltita.",
-			"impostor_radio": "Trompista radio"
+			"impostor_radio": "Trompista radio",
+			"public_lobby": {
+				"change_settings": "Change Lobby Info",
+				"enabled": "The Lobby is Public",
+				"title": "Titolo",
+				"mods": "Mods",
+				"language": "Lingvo"
+			}
 		},
 		"audio": {
 			"title": "Sonoj",
@@ -48,7 +55,7 @@
 		},
 		"overlay": {
 			"title": "Plustavolo",
-			"always_on_top": "BetterCrewLink supre",
+			"always_on_top": "BetterCrewLink On Top",
 			"enabled": "Ebligi plustavolon",
 			"compact": "Kompaktigi la plustavolon",
 			"meeting": "Renkontiĝa plustavolo",
@@ -77,6 +84,7 @@
 			"title": "BETA/SENCIMIGO",
 			"mobilehost": "Poŝtelefona ludejestro",
 			"vad_enabled": "VAD estas ŝaltita",
+			"hardware_acceleration": "Hardware Acceleration",
 			"vad_enabled_warning": "Oni ne vidos, kiu parolas, se la agordo estos malŝaltita.",
 			"echocancellation": "Seneĥigo",
 			"noiseSuppression": "Senbruigo",
@@ -97,11 +105,24 @@
 			"warning": "La agordoj ne ŝanĝeblas dum ludoj!"
 		}
 	},
+	"lobbybrowser": {
+		"header": "Public Lobbies",
+		"code": "Lobby Code",
+		"list": {
+			"title": "Title",
+			"host": "Host",
+			"players": "Ludantoj",
+			"mods": "Mods",
+			"language": "Lingvo"
+		}
+	},
 	"buttons": {
 		"default": "Defaŭlte",
 		"confirm": "Konfirmi",
 		"cancel": "Nuligi",
-		"exit": "Eliru la agordejon por efektivigi la ŝanĝojn"
+		"close": "Close",
+		"exit": "Exit Settings to Apply Changes",
+		"public_lobby": "Public Lobbies"
 	},
 	"game": {
 		"menu": "MENUE",
@@ -112,5 +133,5 @@
 		"error_admin": "Ne povis konekti al Among Us.\nBonvolu remalfermi je BetterCrewLink kiel administranto.",
 		"error_unsupport": "BetterCrewLink ne subtenas vian version de Among Us."
 	},
-	"translator_name": "Translator Name"
+	"translator_name": "Ajno and Jano Miĥalako"
 }

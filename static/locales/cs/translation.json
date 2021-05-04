@@ -22,7 +22,14 @@
 			"meetings_only": "Pouze při schůzích a v lobby",
 			"meetings_only_warning": "Živí hráči se uslyší pouze při schůzích.",
 			"meetings_only_warning2": "Mluvení pouze při schůzích povoleno.",
-			"impostor_radio": "Impostoři mají vysílačky"
+			"impostor_radio": "Impostoři mají vysílačky",
+			"public_lobby": {
+				"change_settings": "Změnit informace o Lobby",
+				"enabled": "Lobby je veřejné",
+				"title": "Název",
+				"mods": "Módy",
+				"language": "Jazyk"
+			}
 		},
 		"audio": {
 			"title": "Zvuk",
@@ -48,7 +55,7 @@
 		},
 		"overlay": {
 			"title": "Překrytí",
-			"always_on_top": "BetterCrewLink bude vždy nad aplikacemi",
+			"always_on_top": "BetterCrewLink vždy navrchu",
 			"enabled": "Povolit překrytí",
 			"compact": "Kompaktní překrytí",
 			"meeting": "Překrytí při schůzích",
@@ -77,6 +84,7 @@
 			"title": "BETA/DEBUG",
 			"mobilehost": "Povolit mobilní uživatele",
 			"vad_enabled": "VAD povoleno",
+			"hardware_acceleration": "Hardwarová Akcelerace",
 			"vad_enabled_warning": "Neuvidíte, kdo mluví, když je tato funkce deaktivována.",
 			"echocancellation": "Odstranění ozvěny",
 			"noiseSuppression": "Potlačení šumu",
@@ -97,11 +105,24 @@
 			"warning": "Není k dispozici pro hostitele během hry!"
 		}
 	},
+	"lobbybrowser": {
+		"header": "Veřejná Lobby",
+		"code": "Kód Lobby",
+		"list": {
+			"title": "Název",
+			"host": "Hostitel",
+			"players": "Hráči",
+			"mods": "Módy",
+			"language": "Jazyk"
+		}
+	},
 	"buttons": {
 		"default": "Výchozí",
 		"confirm": "Potvrdit",
 		"cancel": "Zrušit",
-		"exit": "Opusťte nastavení pro aplikaci změn"
+		"close": "Zavřít",
+		"exit": "Opusťte nastavení pro použití změn",
+		"public_lobby": "Veřejná Lobby"
 	},
 	"game": {
 		"menu": "MENU",
@@ -112,5 +133,5 @@
 		"error_admin": "Nelze se připojit k Among Us.\nProsím znovu otevřete BetterCrewLink jako správce.",
 		"error_unsupport": "Tvá verze Among Us není podporována BetterCrewlinkem."
 	},
-	"translator_name": "Tiquis#2659"
+	"translator_name": "Tiquis#2659 fajnyCreeper"
 }
