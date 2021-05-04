@@ -35,7 +35,7 @@ export function numberToColorHex(colour: number): string {
 	);
 }
 
-async function colorImage(playerColors: string[][], image: string, imagename: string): void {
+async function colorImage(playerColors: string[][], image: string, imagename: string): Promise<void> {
 	const img = await jimp.read(Buffer.from(image.replace(/^data:image\/png;base64,/, ''), 'base64')); //`${app.getAppPath()}/../test/${imagename}.png`
 	const originalData = new Uint8Array(img.bitmap.data);
 	for (let colorId = 0; colorId < playerColors.length; colorId++) {
