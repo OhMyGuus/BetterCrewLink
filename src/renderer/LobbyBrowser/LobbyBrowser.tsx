@@ -31,7 +31,7 @@ const StyledTableCell = withStyles((theme) => ({
 	},
 }))(TableCell);
 
-const StyledTableRow = withStyles((theme) => ({
+const StyledTableRow = withStyles(() => ({
 	root: {
 		'&:nth-of-type(odd)': {
 			backgroundColor: '#25232a',
@@ -82,7 +82,7 @@ export default function lobbyBrowser({ t }) {
 	const [code, setCode] = React.useState('');
 
 	useEffect(() => {
-		let s = io(serverUrl, {
+		const s = io(serverUrl, {
 			transports: ['websocket'],
 		});
 		setSocket(s);
@@ -93,8 +93,8 @@ export default function lobbyBrowser({ t }) {
 
 		s.on('new_lobbies', (lobbies: PublicLobby[]) => {
 			setPublicLobbies((old) => {
-				let lobbyMap: lobbyMap = { ...old };
-				for (let index in lobbies) {
+				const lobbyMap: lobbyMap = { ...old };
+				for (const index in lobbies) {
 					lobbyMap[lobbies[index].id] = lobbies[index];
 				}
 				return lobbyMap;

@@ -38,7 +38,7 @@ declare module 'memoryjs' {
 		allocationType: number,
 		protection: number,
 		callback?: Callback<ModuleObject[]>
-	): any
+	): number;
 
 	// Memory
 

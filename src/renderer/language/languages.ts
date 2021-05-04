@@ -39,8 +39,8 @@ const languages = {
 		name: 'Català',
 	},
 	'zh-CN': {
-		translation: translationZHCN, 
-		name: '汉语'
+		translation: translationZHCN,
+		name: '汉语',
 	},
 	cs: {
 		translation: translationCS,
@@ -67,8 +67,8 @@ const languages = {
 		name: 'Bahasa Indonesia',
 	},
 	ja: {
-		translation: translationJA, 
-		name: '日本語'
+		translation: translationJA,
+		name: '日本語',
 	},
 	pl: {
 		translation: translationPL,
@@ -109,7 +109,7 @@ const languages = {
 	uk: {
 		translation: translationUK,
 		name: 'Українська',
-	}
+	},
 };
 
 export default languages;

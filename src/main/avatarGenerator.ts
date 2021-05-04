@@ -23,7 +23,7 @@ import kidBase from '../../static/generate/kid.png'; // @ts-ignore
 import ghostBase from '../../static/generate/ghost.png'; // @ts-ignore
 import { app } from 'electron';
 
-export function numberToColorHex(colour: number) {
+export function numberToColorHex(colour: number): string {
 	return (
 		'#' +
 		(colour & 0x00ffffff)
@@ -35,7 +35,7 @@ export function numberToColorHex(colour: number) {
 	);
 }
 
-async function colorImage(playerColors: string[][], image: string, imagename: string) {
+async function colorImage(playerColors: string[][], image: string, imagename: string): void {
 	const img = await jimp.read(Buffer.from(image.replace(/^data:image\/png;base64,/, ''), 'base64')); //`${app.getAppPath()}/../test/${imagename}.png`
 	const originalData = new Uint8Array(img.bitmap.data);
 	for (let colorId = 0; colorId < playerColors.length; colorId++) {
@@ -62,7 +62,7 @@ async function colorImage(playerColors: string[][], image: string, imagename: st
 	}
 }
 
-export async function GenerateAvatars(colors: string[][]) {
+export async function GenerateAvatars(colors: string[][]): void {
 	console.log('Generating avatars..', `${app.getPath('userData')}/static/generated/`);
 	try {
 		await colorImage(colors, ghostBase, 'ghost');

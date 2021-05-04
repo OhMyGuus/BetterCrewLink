@@ -689,8 +689,12 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		deafened: false,
 		muted: false,
 		impostorRadio: null,
-		toggleMute: () => {},
-		toggleDeafen: () => {},
+		toggleMute: () => {
+			/*empty*/
+		},
+		toggleDeafen: () => {
+			/*empty*/
+		},
 	});
 
 	useEffect(() => {

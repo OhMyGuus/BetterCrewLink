@@ -27,7 +27,6 @@ declare global {
 			mainWindow: BrowserWindow | null;
 			overlay: BrowserWindow | null;
 			lobbyBrowser: BrowserWindow | null;
-
 		}
 	}
 }
@@ -118,7 +117,6 @@ function createMainWindow() {
 	console.log('Opened app version: ', crewlinkVersion);
 	return window;
 }
-
 
 function createLobbyBrowser() {
 	const window = new BrowserWindow({
@@ -329,13 +327,13 @@ if (!gotTheLock) {
 	});
 
 	ipcMain.on(IpcHandlerMessages.OPEN_LOBBYBROWSER, () => {
-		if(!global.lobbyBrowser){
+		if (!global.lobbyBrowser) {
 			global.lobbyBrowser = createLobbyBrowser();
-		}else{
+		} else {
 			global.lobbyBrowser.show();
 			global.lobbyBrowser.moveTop();
 		}
-	})
+	});
 
 	ipcMain.on('enableOverlay', async (_event, enable) => {
 		try {

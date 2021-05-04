@@ -46,7 +46,7 @@ export default class GameReader {
 	sendIPC: Electron.WebContents['send'];
 	offsets: IOffsets | undefined;
 	PlayerStruct: Struct | undefined;
-	initializedWrite: boolean = false;
+	initializedWrite = false;
 	menuUpdateTimer = 20;
 	lastPlayerPtr = 0;
 	shouldReadLobby = false;
@@ -449,7 +449,7 @@ export default class GameReader {
 		this.initializeWrites();
 	}
 
-	initializeWrites() {
+	initializeWrites(): void {
 		if (
 			this.isX64Version() ||
 			!this.offsets ||
@@ -462,13 +462,13 @@ export default class GameReader {
 			return;
 		}
 		// Shellcode to join games when u press join..
-		let shellCodeAddr = virtualAllocEx(this.amongUs.handle, null, 0x60, 0x00001000 | 0x00002000, 0x40);
-		let compareAddr = shellCodeAddr + 0x30;
+		const shellCodeAddr = virtualAllocEx(this.amongUs.handle, null, 0x60, 0x00001000 | 0x00002000, 0x40);
+		const compareAddr = shellCodeAddr + 0x30;
 
-		let compareAddr1 = (compareAddr & 0xff000000) >> 24;
-		let compareAddr2 = (compareAddr & 0x00ff0000) >> 16;
-		let compareAddr3 = (compareAddr & 0x0000ff00) >> 8;
-		let compareAddr4 = compareAddr & 0x000000ff;
+		const compareAddr1 = (compareAddr & 0xff000000) >> 24;
+		const compareAddr2 = (compareAddr & 0x00ff0000) >> 16;
+		const compareAddr3 = (compareAddr & 0x0000ff00) >> 8;
+		const compareAddr4 = compareAddr & 0x000000ff;
 
 		//(DESTINATION_RVA - CURRENT_RVA (E9) - 5)
 		const connectFunc = this.gameAssembly.modBaseAddr + this.offsets.connectFunc;
@@ -550,12 +550,7 @@ export default class GameReader {
 			const stringPtr = this.readMemory<number>('int', this.gameAssembly.modBaseAddr, stringOffset);
 			const pingstring = this.readString(stringPtr);
 			if (pingstring.includes('Ping') || pingstring.includes('<color=#BA68C8')) {
-				writeMemory(
-					this.amongUs!.handle,
-					this.gameAssembly!.modBaseAddr + stringOffset,
-					shellCodeAddr + 0xd5,
-					'int32'
-				); 
+				writeMemory(this.amongUs!.handle, this.gameAssembly!.modBaseAddr + stringOffset, shellCodeAddr + 0xd5, 'int32');
 				break;
 			}
 		}
@@ -564,10 +559,9 @@ export default class GameReader {
 		writeBuffer(this.amongUs!.handle, fixedUpdateFunc, Buffer.from(shellcodeJMP));
 		this.shellcodeAddr = shellCodeAddr;
 		this.initializedWrite = true;
-
 	}
 
-	writeString(address: number, text: string) {
+	writeString(address: number, text: string): void {
 		const innerNetClient = this.readMemory<number>(
 			'ptr',
 			this.gameAssembly!.modBaseAddr,
@@ -637,7 +631,7 @@ export default class GameReader {
 		return true;
 	}
 
-	loadColors() {
+	loadColors(): void {
 		if (this.colorsInitialized) {
 			return;
 		}
@@ -689,7 +683,7 @@ export default class GameReader {
 		return optionalHeader_magic === 0x20b;
 	}
 
-	readCurrentServer() {
+	readCurrentServer(): void {
 		if (this.is_64bit) {
 			return;
 		}
@@ -763,9 +757,9 @@ export default class GameReader {
 		signature: string,
 		patternOffset = 0x1,
 		addressOffset = 0x0,
-		relative: boolean = false,
-		getLocation: boolean = false,
-		skip: number = 0
+		relative = false,
+		getLocation = false,
+		skip = 0
 	): number {
 		if (!this.amongUs || !this.gameAssembly) return 0x0;
 		const signatureTypes = 0x0 | 0x2;
@@ -806,14 +800,14 @@ export default class GameReader {
 
 	gameCodeToInt(code: string): number {
 		const V2Map = [25, 21, 19, 10, 8, 11, 12, 13, 22, 15, 16, 6, 24, 23, 18, 7, 0, 3, 9, 4, 14, 20, 1, 2, 5, 17];
-		var a = V2Map[code.charCodeAt(0) - 65];
-		var b = V2Map[code.charCodeAt(1) - 65];
-		var c = V2Map[code.charCodeAt(2) - 65];
-		var d = V2Map[code.charCodeAt(3) - 65];
-		var e = V2Map[code.charCodeAt(4) - 65];
-		var f = V2Map[code.charCodeAt(5) - 65];
-		var one = (a + 26 * b) & 0x3ff;
-		var two = c + 26 * (d + 26 * (e + 26 * f));
+		const a = V2Map[code.charCodeAt(0) - 65];
+		const b = V2Map[code.charCodeAt(1) - 65];
+		const c = V2Map[code.charCodeAt(2) - 65];
+		const d = V2Map[code.charCodeAt(3) - 65];
+		const e = V2Map[code.charCodeAt(4) - 65];
+		const f = V2Map[code.charCodeAt(5) - 65];
+		const one = (a + 26 * b) & 0x3ff;
+		const two = c + 26 * (d + 26 * (e + 26 * f));
 		return one | ((two << 10) & 0x3ffffc00) | 0x80000000;
 	}
 	hashCode(s: string): number {
@@ -840,7 +834,7 @@ export default class GameReader {
 
 		let x = this.readMemory<number>('float', data.objectPtr, positionOffsets[0]);
 		let y = this.readMemory<number>('float', data.objectPtr, positionOffsets[1]);
-		let isDummy = this.readMemory<boolean>('boolean', data.objectPtr, this.offsets.player.isDummy);
+		const isDummy = this.readMemory<boolean>('boolean', data.objectPtr, this.offsets.player.isDummy);
 
 		let bugged = false;
 		if (x === undefined || y === undefined || data.disconnected != 0 || data.color > 40) {

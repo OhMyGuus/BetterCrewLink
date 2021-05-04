@@ -106,7 +106,7 @@ export default {
 		allPlayersPtr: [0x21d0e60, 0xb8, 0, 0x30],
 		allPlayers: [0x10],
 		playerCount: [0x18],
-		playerAddrPtr: 0x20, 
+		playerAddrPtr: 0x20,
 		shipStatus: [0x21d0ce0, 0xb8, 0x0],
 		shipStatus_systems: [0xd0],
 		shipStatus_map: [0x174],
@@ -165,7 +165,7 @@ export default {
 				{ type: 'SKIP', skip: 6, name: 'unused' },
 				{ type: 'UINT', name: 'objectPtr' },
 			],
-			isDummy: [0xE1],
+			isDummy: [0xe1],
 			isLocal: [0x78],
 			localX: [0x98, 0x6c],
 			localY: [0x98, 0x70],
@@ -232,7 +232,8 @@ export default {
 				addressOffset: 0,
 			},
 			serverManager: {
-				sig: '48 8B 05 ? ? ? ? F6 80 ? ? ? ? ? 74 18 44 39 A8 ? ? ? ? 75 0F 48 8B C8 E8 ? ? ? ? 48 8B 05 ? ? ? ? 48 85 DB 0F 84 ? ? ? ? ',
+				sig:
+					'48 8B 05 ? ? ? ? F6 80 ? ? ? ? ? 74 18 44 39 A8 ? ? ? ? 75 0F 48 8B C8 E8 ? ? ? ? 48 8B 05 ? ? ? ? 48 85 DB 0F 84 ? ? ? ? ',
 				patternOffset: 4,
 				addressOffset: 4,
 			},
@@ -352,22 +353,26 @@ export default {
 			},
 			connectFunc: {
 				//0x1c2d390
-				sig: 'E8 ? ? ? ? 83 C4 0C 80 3D ? ? ? ? ? 75 14 68 ? ? ? ? E8 ? ? ? ? C6 05 ? ? ? ? ? 83 C4 04 FF 35 ? ? ? ? E8 ? ? ? ? 6A 00 8B F0 6A 00',
+				sig:
+					'E8 ? ? ? ? 83 C4 0C 80 3D ? ? ? ? ? 75 14 68 ? ? ? ? E8 ? ? ? ? C6 05 ? ? ? ? ? 83 C4 04 FF 35 ? ? ? ? E8 ? ? ? ? 6A 00 8B F0 6A 00',
 				patternOffset: 1,
 				addressOffset: 4,
 			},
 			fixedUpdateFunc: {
-				sig: '68 ? ? ? ? 64 A1 ? ? ? ? 50 64 89 25 ? ? ? ? 83 EC 14 80 3D ? ? ? ? ? 53 56 57 89 65 F0 75 28 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 83 C4 0C C6 05 ? ? ? ? ? 8B 7D 08 8B 47',
+				sig:
+					'68 ? ? ? ? 64 A1 ? ? ? ? 50 64 89 25 ? ? ? ? 83 EC 14 80 3D ? ? ? ? ? 53 56 57 89 65 F0 75 28 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 83 C4 0C C6 05 ? ? ? ? ? 8B 7D 08 8B 47',
 				patternOffset: 0,
 				addressOffset: -5,
 			},
 			pingMessageString: {
-				sig: '55 8B EC 51 80 3D ? ? ? ? ? 75 32 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 83 C4 10 C6 05 ? ? ? ? ? A1 ? ? ? ? 56 8B 40 5C 8B 30 A1 ? ? ? ? F6 80 ? ? ? ? ? 74 0F 83 78 74 00 75 09 50 E8 ? ? ? ? 83 C4 04 6A 00 56 E8 ? ? ? ? 83 C4 08 84 C0 0F 84 ? ? ? ? 8B 0D ? ? ? ? 8B 41 5C 8B 00 85 C0 0F 84 ? ? ? ? 83 78 48 02 8B 75 08 75 22 6A 00 56 E8 ? ? ? ? 83 C4 08 85 C0 74 6A 6A 00 6A 00 50 E8 ? ? ? ? 8B 0D ? ? ? ? 83 C4 0C 8B 41 5C 8B 76 0C 8B 00 85 C0 74 4B 6A 00 50 E8 ? ? ? ? 89 45 FC 8D 45 FC 50 FF 35 ? ? ? ? E8 ? ? ? ? 6A 00 50 FF 35 ? ? ? ? E8 ? ? ? ? 83 C4 1C 8B C8 85 F6 74 1A 8B 06 FF B0 ? ? ? ? 8B',
-				patternOffset: 0xE3,
+				sig:
+					'55 8B EC 51 80 3D ? ? ? ? ? 75 32 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 83 C4 10 C6 05 ? ? ? ? ? A1 ? ? ? ? 56 8B 40 5C 8B 30 A1 ? ? ? ? F6 80 ? ? ? ? ? 74 0F 83 78 74 00 75 09 50 E8 ? ? ? ? 83 C4 04 6A 00 56 E8 ? ? ? ? 83 C4 08 84 C0 0F 84 ? ? ? ? 8B 0D ? ? ? ? 8B 41 5C 8B 00 85 C0 0F 84 ? ? ? ? 83 78 48 02 8B 75 08 75 22 6A 00 56 E8 ? ? ? ? 83 C4 08 85 C0 74 6A 6A 00 6A 00 50 E8 ? ? ? ? 8B 0D ? ? ? ? 83 C4 0C 8B 41 5C 8B 76 0C 8B 00 85 C0 74 4B 6A 00 50 E8 ? ? ? ? 89 45 FC 8D 45 FC 50 FF 35 ? ? ? ? E8 ? ? ? ? 6A 00 50 FF 35 ? ? ? ? E8 ? ? ? ? 83 C4 1C 8B C8 85 F6 74 1A 8B 06 FF B0 ? ? ? ? 8B',
+				patternOffset: 0xe3,
 				addressOffset: 0,
 			},
 			serverManager: {
-				sig: '8B 0D ? ? ? ? 83 C4 14 8B 41 5C 89 58 08 FF 35 ? ? ? ? 53 FF 75 08 E8 ? ? ? ? 8B 0D ? ? ? ? 83 C4 0C 89 45 08 F6 81 ? ? ? ? ? 74 15',
+				sig:
+					'8B 0D ? ? ? ? 83 C4 14 8B 41 5C 89 58 08 FF 35 ? ? ? ? 53 FF 75 08 E8 ? ? ? ? 8B 0D ? ? ? ? 83 C4 0C 89 45 08 F6 81 ? ? ? ? ? 74 15',
 				patternOffset: 2,
 				addressOffset: 0,
 			},
@@ -377,34 +382,33 @@ export default {
 
 export function TempFixOffsets(offsetsOld: IOffsets): IOffsets {
 	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
-	offsets!.innerNetClient.gameState = 0x6c;
-	offsets!.innerNetClient.gameId = 0x48;
-	offsets!.innerNetClient.hostId = 0x4c;
-	offsets!.innerNetClient.clientId = 0x50;
-	offsets!.player.struct[3].skip = 1;
-	offsets!.player.struct[4].type = 'USHORT';
-	offsets!.player.struct.splice(5, 0, { type: 'SKIP', skip: 1, name: 'unused' });
+	offsets.innerNetClient.gameState = 0x6c;
+	offsets.innerNetClient.gameId = 0x48;
+	offsets.innerNetClient.hostId = 0x4c;
+	offsets.innerNetClient.clientId = 0x50;
+	offsets.player.struct[3].skip = 1;
+	offsets.player.struct[4].type = 'USHORT';
+	offsets.player.struct.splice(5, 0, { type: 'SKIP', skip: 1, name: 'unused' });
 	return offsets;
 }
 
 export function TempFixOffsets2(offsetsOld: IOffsets): IOffsets {
 	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
-	offsets!.player.localX[0] = 0x60;
-	offsets!.player.localY[0] = 0x60;
-	offsets!.player.remoteX[0] = 0x60;
-	offsets!.player.remoteY[0] = 0x60;
-	offsets!.shipStatus_map[0] = 0xd4;
-	offsets!.innerNetClient.gameState = 0x64;
-	offsets!.innerNetClient.gameId = 0x40;
-	offsets!.innerNetClient.hostId = 0x44;
-	offsets!.innerNetClient.clientId = 0x48;
-	offsets!.player.struct = offsets!.player.struct.filter((o) => o.name !== 'COLORBEFORE');
-	console.log(offsets!.player.struct);
-	offsets!.player.struct[4].skip = 2;
-	offsets!.palette[0] = 0x1c57fc4;
-	offsets!.palette_playercolor[0] = 0xe4;
-	offsets!.palette_shadowColor[0] = 0xe8;
-	offsets!.shipStatus_systems[0] = 0x84;
+	offsets.player.localX[0] = 0x60;
+	offsets.player.localY[0] = 0x60;
+	offsets.player.remoteX[0] = 0x60;
+	offsets.player.remoteY[0] = 0x60;
+	offsets.shipStatus_map[0] = 0xd4;
+	offsets.innerNetClient.gameState = 0x64;
+	offsets.innerNetClient.gameId = 0x40;
+	offsets.innerNetClient.hostId = 0x44;
+	offsets.innerNetClient.clientId = 0x48;
+	offsets.player.struct = offsets.player.struct.filter((o) => o.name !== 'COLORBEFORE');
+	offsets.player.struct[4].skip = 2;
+	offsets.palette[0] = 0x1c57fc4;
+	offsets.palette_playercolor[0] = 0xe4;
+	offsets.palette_shadowColor[0] = 0xe8;
+	offsets.shipStatus_systems[0] = 0x84;
 
 	return offsets;
 }
