@@ -21,8 +21,8 @@
 			"ghost_only_warning2": "Iba duch môže hovoriť je zapnuté.",
 			"meetings_only": "Iba mítingy/lobby",
 			"meetings_only_warning": "Toto zakáže zvuk pre živých ľudí mimo mítingov",
-			"meetings_only_warning2": "Rozprávanie iba v mítingoch je zapnuté."
-			"impostor_radio": "Impostor Rádio"
+			"meetings_only_warning2": "Rozprávanie iba v mítingoch je zapnuté.",
+			"impostor_radio": "Impostor Rádio",
 			"public_lobby": {
 				"change_settings": "Zmeniť lobby info",
 				"enabled": "Lobby je verejné",
@@ -53,7 +53,7 @@
 			"title": "Klávesové skratky",
 			"push_to_talk": "Tlač pre rozprávanie",
 			"deafen": "Stlmiť zvuk",
-			"mute": "Stlmiť mikrofón"
+			"mute": "Stlmiť mikrofón",
 			"impostor_radio": "Impostor Rádio"
 		},
 		"overlay": {
@@ -122,7 +122,7 @@
 		"default": "Predvolené",
 		"confirm": "Potvrdiť",
 		"cancel": "Zrušiť",
-		"exit": "Ak chceš zmeny použiť, ukonči nastavenia"
+		"exit": "Ak chceš zmeny použiť, ukonči nastavenia",
 		"public_lobby": "Verejné Lobby"
 	},
 	"game": {
