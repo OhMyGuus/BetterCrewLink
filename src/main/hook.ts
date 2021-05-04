@@ -39,15 +39,6 @@ ipcMain.on(IpcHandlerMessages.RESET_KEYHOOKS, () => {
 	resetKeyHooks();
 });
 
-ipcMain.on(IpcHandlerMessages.JOIN_LOBBY, (event, lobbycode, server) => {
-	let tryjoin = gameReader?.joinGame(lobbycode, server);
-	console.log('JOIN LOBBY:', lobbycode, tryjoin);
-
-	if (!tryjoin) {
-		event.reply(IpcHandlerMessages.JOIN_LOBBY_ERROR, lobbycode, server);
-	}
-});
-
 ipcMain.on(IpcSyncMessages.GET_INITIAL_STATE, (event) => {
 	if (!readingGame) {
 		console.error('Recieved GET_INITIAL_STATE message before the START_HOOK message was received');

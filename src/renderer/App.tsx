@@ -168,10 +168,6 @@ export default function App({ t }): JSX.Element {
 			hearThroughCameras: false,
 			wallsBlockAudio: false,
 			visionHearing: false,
-			publicLobby_on: false,
-			publicLobby_title: '',
-			publicLobby_language: 'en',
-			publicLobby_mods: 'NONE'
 		},
 	});
 	const lobbySettings = useReducer(lobbySettingsReducer, settings[0].localLobbySettings);
