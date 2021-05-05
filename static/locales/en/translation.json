@@ -30,7 +30,7 @@
 				"mods": "Mods",
 				"language": "Language",
 				"enable_warning": "Enabling this will make your lobby public to other BetterCrewLink users!",
-				"ban_warning": "Inappropriate text will result in a ban from BrewCrewLink."
+				"ban_warning": "Inappropriate texts will result in a ban from BetterCrewLink."
 			}
 		},
 			"audio": {
