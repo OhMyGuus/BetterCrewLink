@@ -129,7 +129,7 @@ export default {
 		playerControl_GameOptions: [0xffff, 0xb8, 0x8],
 		gameOptions_MapId: [0x18],
 		gameOptions_MaxPLayers: [0x10],
-		serverManager_currentServer: [0xffff, 0xb8, 0x8, 0x20, 0x28],
+		serverManager_currentServer: [0xffff, 0xb8, 0x10, 0x20, 0x28],
 		connectFunc: 0xfff,
 		fixedUpdateFunc: 0xfff,
 		pingMessageString: 0xfff,
@@ -213,28 +213,13 @@ export default {
 				patternOffset: 3,
 				addressOffset: 4,
 			},
-			connectFunc: {
-				//0x1c2d390
-				sig: '8B 0D ? ? ? ? 83 C4 04 8B 41 5C 8B 00 85 C0 74 2B C6 40 30 00',
-				patternOffset: 2,
-				addressOffset: 0,
-			},
-			fixedUpdateFunc: {
-				//0x1c2dc00
-				sig: '8B 0D ? ? ? ? 83 C4 04 8B 41 5C 8B 00 85 C0 74 2B C6 40 30 00',
-				patternOffset: 2,
-				addressOffset: 0,
-			},
-			pingMessageString: {
-				//0x28ee6fc
-				sig: '8B 0D ? ? ? ? 83 C4 04 8B 41 5C 8B 00 85 C0 74 2B C6 40 30 00',
-				patternOffset: 0,
-				addressOffset: 0,
-			},
+			connectFunc: {},
+			fixedUpdateFunc: {},
+			pingMessageString: {},
 			serverManager: {
 				sig:
 					'48 8B 05 ? ? ? ? F6 80 ? ? ? ? ? 74 18 44 39 A8 ? ? ? ? 75 0F 48 8B C8 E8 ? ? ? ? 48 8B 05 ? ? ? ? 48 85 DB 0F 84 ? ? ? ? ',
-				patternOffset: 4,
+				patternOffset: 3,
 				addressOffset: 4,
 			},
 		},
@@ -367,7 +352,7 @@ export default {
 			pingMessageString: {
 				sig:
 					'75 32 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 83 C4 10 C6 05 ? ? ? ? ? A1 ? ? ? ? 56 8B 40 5C 8B 30 A1 ? ? ? ? F6 80 ? ? ? ? ? 74 0F 83 78 74 00 75 09 50 E8 ? ? ? ? 83 C4 04 6A 00 56 E8 ? ? ? ? 83 C4 08 84 C0 0F 84 ? ? ? ? 8B 0D ? ? ? ? 8B 41 5C 8B 00 85 C0 0F 84 ? ? ? ? 83 78 48 02 8B 75 08 75 22 6A 00 56 E8 ? ? ? ? 83 C4 08 85 C0 74 6A 6A 00 6A 00 50 E8 ? ? ? ? 8B 0D ? ? ? ? 83 C4 0C 8B 41 5C 8B 76 0C 8B 00 85 C0 74 4B 6A 00 50 E8 ? ? ? ? 89 45 FC 8D 45 FC 50 FF 35 ? ? ? ? E8 ? ? ? ? 6A 00 50 FF 35 ? ? ? ? E8 ? ? ? ? 83 C4 1C 8B C8 85 F6 74 1A 8B 06 FF B0 ? ? ? ? 8B',
-				patternOffset: 0xD8,
+				patternOffset: 0xd8,
 				addressOffset: 0,
 			},
 			serverManager: {
