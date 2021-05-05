@@ -29,8 +29,8 @@
 				"enabled": "The Lobby is Public",
 				"mods": "Mods",
 				"language": "Language",
-				"enable_warning": "Enabling this will make your public to other BCL users!",
-				"ban_warning": "Inappropriate text will result in a ban from BCL"
+				"enable_warning": "Enabling this will make your lobby public to other BetterCrewLink users!",
+				"ban_warning": "Inappropriate text will result in a ban from BrewCrewLink."
 			}
 		},
 			"audio": {
@@ -96,7 +96,7 @@
 				"title": "Streaming Settings",
 				"hidecode": "Show Lobby Code",
 				"obs_overlay": "OBS Browser Overlay",
-				"obs_url": "OBS Browsersource URL",
+				"obs_url": "OBS Browser Source URL",
 				"voice_server_comp": "VS Compatibility Mode",
 				"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
 			},
