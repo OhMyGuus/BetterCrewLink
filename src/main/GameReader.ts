@@ -47,6 +47,7 @@ export default class GameReader {
 	offsets: IOffsets | undefined;
 	PlayerStruct: Struct | undefined;
 	initializedWrite = false;
+	writtenPingMessage = true;
 	menuUpdateTimer = 20;
 	lastPlayerPtr = 0;
 	shouldReadLobby = false;
@@ -61,12 +62,15 @@ export default class GameReader {
 	shellcodeAddr = -1;
 	currentServer = '';
 	disableWriting = false;
+	pid = -1;
 	checkProcessOpen(): void {
 		const processesOpen = getProcesses().filter((p) => p.szExeFile === 'Among Us.exe');
 		let error = '';
-		if (!this.amongUs && processesOpen.length > 0) {
+		const reset = this.amongUs && processesOpen.filter((o) => o.th32ProcessID === this.pid).length === 0;
+		if ((!this.amongUs || reset) && processesOpen.length > 0) {
 			for (const processOpen of processesOpen) {
 				try {
+					this.pid = processOpen.th32ProcessID;
 					this.amongUs = openProcess(processOpen.th32ProcessID);
 					this.gameAssembly = findModule('GameAssembly.dll', this.amongUs.th32ProcessID);
 					this.initializeoffsets();
@@ -83,7 +87,7 @@ export default class GameReader {
 			if (!this.amongUs && error) {
 				throw error;
 			}
-		} else if (this.amongUs && processesOpen.length === 0) {
+		} else if (this.amongUs && (processesOpen.length === 0 || reset)) {
 			this.amongUs = null;
 			try {
 				this.sendIPC(IpcRendererMessages.NOTIFY_GAME_OPENED, false);
@@ -111,6 +115,7 @@ export default class GameReader {
 			this.offsets !== undefined
 		) {
 			this.loadColors();
+
 			let state = GameState.UNKNOWN;
 			const meetingHud = this.readMemory<number>('pointer', this.gameAssembly.modBaseAddr, this.offsets.meetingHud);
 			const meetingHud_cachePtr =
@@ -197,6 +202,7 @@ export default class GameReader {
 					players.push(player);
 				}
 				if (localPlayer) {
+					this.fixPingMessage();
 					lightRadius = this.readMemory<number>('float', localPlayer.objectPtr, this.offsets.lightRadius, -1);
 				}
 				const gameOptionsPtr = this.readMemory<number>(
@@ -424,7 +430,7 @@ export default class GameReader {
 		);
 
 		this.colorsInitialized = false;
-		console.log('innerNetClient', innerNetClient);
+		console.log('serverManager_currentServer', this.offsets.serverManager_currentServer[0].toString(16));
 		if (innerNetClient === 0x2c6c278) {
 			// temp fix for older game until I added more sigs.. //
 			this.disableWriting = true;
@@ -538,26 +544,10 @@ export default class GameReader {
 			'\n<color=#BA68C8>BetterCrewLink</color>\n<size=60%><color=#BA68C8>https://bettercrewlink.app</color></size>'
 		);
 
-		for (let index = 0; index < 3; index++) {
-			const stringOffset = this.findPattern(
-				this.offsets.signatures.pingMessageString.sig,
-				this.offsets.signatures.pingMessageString.patternOffset,
-				this.offsets.signatures.pingMessageString.addressOffset,
-				false,
-				false,
-				index
-			);
-			const stringPtr = this.readMemory<number>('int', this.gameAssembly.modBaseAddr, stringOffset);
-			const pingstring = this.readString(stringPtr);
-			if (pingstring.includes('Ping') || pingstring.includes('<color=#BA68C8')) {
-				writeMemory(this.amongUs!.handle, this.gameAssembly!.modBaseAddr + stringOffset, shellCodeAddr + 0xd5, 'int32');
-				break;
-			}
-		}
-
 		writeBuffer(this.amongUs!.handle, shellCodeAddr, Buffer.from(shellcode));
 		writeBuffer(this.amongUs!.handle, fixedUpdateFunc, Buffer.from(shellcodeJMP));
 		this.shellcodeAddr = shellCodeAddr;
+		this.writtenPingMessage = false;
 		this.initializedWrite = true;
 	}
 
@@ -588,6 +578,41 @@ export default class GameReader {
 			connectionString.push(0x0);
 		}
 		writeBuffer(this.amongUs!.handle, address, Buffer.from(connectionString));
+	}
+	skipPingMessage = 25;
+	fixPingMessage() {
+		if (
+			!this.offsets ||
+			!this.gameAssembly ||
+			!this.initializedWrite ||
+			this.writtenPingMessage ||
+			this.skipPingMessage-- > 0
+		) {
+			return;
+		}
+		this.skipPingMessage = 25;
+		this.writtenPingMessage = true;
+		for (let index = 0; index < 3; index++) {
+			const stringOffset = this.findPattern(
+				this.offsets.signatures.pingMessageString.sig,
+				this.offsets.signatures.pingMessageString.patternOffset,
+				this.offsets.signatures.pingMessageString.addressOffset,
+				false,
+				false,
+				index
+			);
+			const stringPtr = this.readMemory<number>('int', this.gameAssembly.modBaseAddr, stringOffset);
+			const pingstring = this.readString(stringPtr);
+			if (pingstring.includes('Ping') || pingstring.includes('<color=#BA68C8')) {
+				writeMemory(
+					this.amongUs!.handle,
+					this.gameAssembly!.modBaseAddr + stringOffset,
+					this.shellcodeAddr + 0xd5,
+					'int32'
+				);
+				break;
+			}
+		}
 	}
 
 	joinGame(code: string, server: string): boolean {
@@ -684,9 +709,6 @@ export default class GameReader {
 	}
 
 	readCurrentServer(): void {
-		if (this.is_64bit) {
-			return;
-		}
 		const currentServer = this.readMemory<number>(
 			'ptr',
 			this.gameAssembly!.modBaseAddr,
