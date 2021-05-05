@@ -69,9 +69,9 @@ export interface lobbyMap {
 const servers: {
 	[server: string]: string;
 } = {
-	// '50.116.1.42': 'North America',
-	// '172.105.251.170': 'Europe',
-	// '139.162.111.196': 'Asia',
+	'50.116.1.42': 'North America',
+	'172.105.251.170': 'Europe',
+	'139.162.111.196': 'Asia',
 };
 
 // @ts-ignore
