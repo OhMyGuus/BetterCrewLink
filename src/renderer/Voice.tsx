@@ -33,6 +33,7 @@ import { CameraLocation, AmongUsMaps } from '../common/AmongusMap';
 import Store from 'electron-store';
 import { ObsVoiceState } from '../common/ObsOverlay';
 // import { poseCollide } from '../common/ColliderMap';
+import { GameState } from '../common/AmongUsState';
 import Footer from './Footer';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -127,6 +128,13 @@ export interface VoiceProps {
 	t: (key: string) => string;
 	error: string;
 }
+
+const SIGNALACTIONS = {
+	GAMESTATE: 'GAMESTATE',
+	VAD_STATE: 'VAD_STATE',
+	MOBILEHOST_INFO: 'MOBILEHOST_INFO',
+	OBS_STATE: 'OBS_STATE',
+};
 
 const useStyles = makeStyles((theme) => ({
 	error: {
@@ -467,7 +475,10 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		) {
 			connectionStuff.current.socket?.emit('signal', {
 				to: hostRef.current.code + '_mobile',
-				data: { mobileHostInfo: { isHostingMobile: true, isGameHost: hostRef.current.isHost } },
+				data: {
+					action: SIGNALACTIONS.MOBILEHOST_INFO,
+					mobileHostInfo: { isHostingMobile: true, isGameHost: hostRef.current.isHost },
+				},
 			});
 		}
 		setTimeout(() => notifyMobilePlayers(), 5000);
@@ -543,10 +554,10 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	}, [lobbySettings.maxDistance, lobbySettings.visionHearing]);
 
 	useEffect(() => {
-		if (myPlayer?.clientId && gameState?.lobbyCode?.length > 2 ) {
+		if (myPlayer?.clientId && gameState?.lobbyCode?.length > 2) {
 			connectionStuff.current.socket?.emit('signal', {
 				to: gameState.lobbyCode,
-				data: { action: 'VAD_STATE', clientId: myPlayer?.clientId, activity: talking },
+				data: { action: SIGNALACTIONS.VAD_STATE, clientId: myPlayer?.clientId, activity: talking },
 			});
 		}
 	}, [talking]);
@@ -563,7 +574,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		if (hostRef.current.mobileRunning) {
 			connectionStuff.current.socket?.emit('signal', {
 				to: gameState.lobbyCode + '_mobile',
-				data: { gameState, lobbySettings },
+				data: { action: SIGNALACTIONS.GAMESTATE, gameState, lobbySettings },
 			});
 		}
 
@@ -606,7 +617,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			};
 			connectionStuff.current.overlaySocket?.emit('signal', {
 				to: settings.obsSecret,
-				data: obsvoiceState,
+				data: { action: SIGNALACTIONS.OBS_STATE, obsvoiceState },
 			});
 		}
 	}, [gameState]);
@@ -1076,26 +1087,24 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				});
 
 				socket.on('signal', ({ data, from }: { data: Peer.SignalData | any; from: string }) => {
-					if (data.hasOwnProperty('mobilePlayerInfo')) {
-						const mobiledata = data as mobileHostInfo;
-						if (
-							mobiledata.mobilePlayerInfo.code === hostRef.current.code &&
-							hostRef.current.gamestate !== GameState.MENU
-						) {
-							hostRef.current.mobileRunning = true;
-							console.log('setting mobileRunning to true..');
-						}
-						return;
-					}
-
 					if (data.hasOwnProperty('action')) {
 						switch (data['action']) {
-							case 'VAD_STATE': {
+							case SIGNALACTIONS.VAD_STATE: {
 								const vad_data: { clientId: number; activity: boolean } = data;
 								setOtherVAD((old) => ({
 									...old,
 									[vad_data.clientId]: vad_data.activity,
 								}));
+								return;
+							}
+							case SIGNALACTIONS.MOBILEHOST_INFO: {
+								const mobiledata = data as mobileHostInfo;
+								if (
+									mobiledata.mobilePlayerInfo.code === hostRef.current.code &&
+									hostRef.current.gamestate !== GameState.MENU
+								) {
+									hostRef.current.mobileRunning = true;
+								}
 							}
 						}
 						return;
@@ -1112,10 +1121,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			(error) => {
 				console.error(error);
 				setError("Couldn't connect to your microphone:\n" + error);
-				// ipcRenderer.send(IpcMessages.SHOW_ERROR_DIALOG, {
-				// 	title: 'Error',
-				// 	content: 'Couldn\'t connect to your microphone:\n' + error
-				// });
 			}
 		);
 
@@ -1129,7 +1134,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 			audioListener?.destroy();
 		};
-		// })();
 	}, []);
 
 	interface mobileHostInfo {
@@ -1139,7 +1143,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		};
 	}
 
-	//data: { mobilePlayerInfo: { code: this.gamecode, askingForHost: true }
 	const myPlayer = useMemo(() => {
 		if (!gameState || !gameState.players) {
 			return undefined;
