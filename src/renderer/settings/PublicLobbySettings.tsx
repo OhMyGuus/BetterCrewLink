@@ -4,6 +4,7 @@ import { DialogContent, DialogTitle, DialogActions, Dialog, Button, TextField } 
 import languages from '../language/languages';
 import { ILobbySettings } from '../../common/ISettings';
 import Alert from '@material-ui/lab/Alert';
+import { modList } from '../../common/PublicLobby';
 
 type publicLobbySettingProps = {
 	t: (key: string) => string;
@@ -12,36 +13,6 @@ type publicLobbySettingProps = {
 	canChange: boolean;
 	className: string;
 };
-
-interface mod {
-	id: string;
-	label: string;
-}
-
-const modlist: mod[] = [
-	// recieve this later from git?
-	{ id: 'NONE', label: 'None' },
-	{
-		id: 'TOWN_OF_US',
-		label: 'Town of Us',
-	},
-	{
-		id: 'TOWN_OF_IMPOSTORS',
-		label: 'Town of Impostors',
-	},
-	{
-		id: 'THE_OTHER_ROLES',
-		label: 'The Other Roles',
-	},
-	{
-		id: 'EXTRA_ROLES',
-		label: 'Extra Roles',
-	},
-	{
-		id: 'OTHER',
-		label: 'Other',
-	},
-];
 
 const useStyles = makeStyles(() => ({
 	specialButton: {
@@ -117,7 +88,7 @@ const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 						onBlur={(ev) => updateSetting('publicLobby_mods', ev.target.value)}
 						disabled={canChange}
 					>
-						{modlist.map((d) => (
+						{modList.map((d) => (
 							<option key={d.id} value={d.id}>
 								{d.label}
 							</option>

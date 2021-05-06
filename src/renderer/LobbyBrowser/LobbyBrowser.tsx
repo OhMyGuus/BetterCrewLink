@@ -15,6 +15,8 @@ import Store from 'electron-store';
 import { ISettings } from '../../common/ISettings';
 import i18next from 'i18next';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
+import languages from '../language/languages';
+import { PublicLobbyMap, PublicLobby, modList } from '../../common/PublicLobby';
 
 const store = new Store<ISettings>();
 const serverUrl = store.get('serverURL', 'https://bettercrewl.ink/');
@@ -42,18 +44,6 @@ const StyledTableRow = withStyles(() => ({
 	},
 }))(TableRow);
 
-interface PublicLobby {
-	id: number;
-	title: string;
-	host: string;
-	current_players: number;
-	max_players: number;
-	language: string;
-	mods: string;
-	isPublic: boolean;
-	server: string;
-}
-
 const useStyles = makeStyles({
 	table: {
 		minWidth: 700,
@@ -63,9 +53,6 @@ const useStyles = makeStyles({
 	},
 });
 
-export interface lobbyMap {
-	[id: number]: PublicLobby;
-}
 const servers: {
 	[server: string]: string;
 } = {
@@ -77,7 +64,7 @@ const servers: {
 // @ts-ignore
 export default function lobbyBrowser({ t }) {
 	const classes = useStyles();
-	const [publiclobbies, setPublicLobbies] = useState<lobbyMap>({});
+	const [publiclobbies, setPublicLobbies] = useState<PublicLobbyMap>({});
 	const [socket, setSocket] = useState<SocketIOClient.Socket>();
 	const [code, setCode] = React.useState('');
 
@@ -93,7 +80,7 @@ export default function lobbyBrowser({ t }) {
 
 		s.on('new_lobbies', (lobbies: PublicLobby[]) => {
 			setPublicLobbies((old) => {
-				const lobbyMap: lobbyMap = { ...old };
+				const lobbyMap: PublicLobbyMap = { ...old };
 				for (const index in lobbies) {
 					lobbyMap[lobbies[index].id] = lobbies[index];
 				}
@@ -159,7 +146,7 @@ export default function lobbyBrowser({ t }) {
 								</TableRow>
 							</TableHead>
 							<TableBody>
-								{Object.values(publiclobbies).map((row) => (
+								{Object.values(publiclobbies).map((row: PublicLobby) => (
 									<StyledTableRow key={row.id}>
 										<StyledTableCell component="th" scope="row">
 											{row.title}
@@ -168,8 +155,8 @@ export default function lobbyBrowser({ t }) {
 										<StyledTableCell align="left">
 											{row.current_players}/{row.max_players}
 										</StyledTableCell>
-										<StyledTableCell align="left">{row.mods}</StyledTableCell>
-										<StyledTableCell align="left">{row.language}</StyledTableCell>
+										<StyledTableCell align="left">{modList.find((o) => o.id === row.mods)?.label ?? 'NONE'}</StyledTableCell>
+										<StyledTableCell align="left">{(languages as any)[row.language].name ?? 'English'}</StyledTableCell>
 										<StyledTableCell align="right">
 											<Button
 												variant="contained"
