@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ipcRenderer, remote } from 'electron';
+import {  remote } from 'electron';
 import { ThemeProvider } from '@material-ui/core/styles';
 import RefreshSharpIcon from '@material-ui/icons/RefreshSharp';
 import CloseIcon from '@material-ui/icons/Close';
