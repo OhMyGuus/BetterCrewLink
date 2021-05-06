@@ -25,10 +25,12 @@
 			"impostor_radio": "Trompista radio",
 			"public_lobby": {
 				"change_settings": "Ŝanĝi ludejajn informojn",
-				"enabled": "La ludejo estas publika",
 				"title": "Titolo",
+				"enabled": "La ludejo estas publika",
 				"mods": "Modifoj",
-				"language": "Lingvo"
+				"language": "Lingvo",
+				"enable_warning": "Ŝaltinte ĉi tion vi igos la ludejon publika por aliaj uzantoj de BetterCrewLink!",
+				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
 			}
 		},
 		"audio": {

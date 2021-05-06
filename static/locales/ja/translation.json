@@ -25,10 +25,12 @@
 			"impostor_radio": "インポスターラジオ",
 			"public_lobby": {
 				"change_settings": "ロビー情報の変更",
-				"enabled": "ロビーは公開されています",
 				"title": "タイトル",
+				"enabled": "ロビーは公開されています",
 				"mods": "モッド",
-				"language": "言語"
+				"language": "言語",
+				"enable_warning": "これを有効にすると、あなたのロビーは他のBetterCrewLinkユーザーに公開されます！",
+				"ban_warning": "不適切なテキストはBetterCrewLinkから禁止されます。"
 			}
 		},
 		"audio": {
@@ -107,7 +109,7 @@
 	},
 	"lobbybrowser": {
 		"header": "公開ロビー",
-		"code": "Lobby Code",
+		"code": "ロビーコード",
 		"list": {
 			"title": "タイトル",
 			"host": "ホスト",
@@ -120,7 +122,7 @@
 		"default": "デフォルト",
 		"confirm": "確認",
 		"cancel": "キャンセル",
-		"close": "Close",
+		"close": "閉じる",
 		"exit": "変更を適用し設定を終了",
 		"public_lobby": "公開ロビー"
 	},

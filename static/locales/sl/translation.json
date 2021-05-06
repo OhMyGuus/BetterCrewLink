@@ -25,10 +25,12 @@
 			"impostor_radio": "Vsiljivčev oddajnik",
 			"public_lobby": {
 				"change_settings": "Spremeni informacije čakalnice",
-				"enabled": "Čakalnica je javna",
 				"title": "Ime",
+				"enabled": "Čakalnica je javna",
 				"mods": "Modifikacije",
-				"language": "Jezik"
+				"language": "Jezik",
+				"enable_warning": "Vključitev tega bo prikazala čakalnico na javnem seznamu ostalim igralcem BetterCrewLink-a!",
+				"ban_warning": "Neprimerne besede so lahko razlog za ban."
 			}
 		},
 		"audio": {
@@ -94,7 +96,7 @@
 			"title": "Nastavitve za prenašanje v živo",
 			"hidecode": "Pokaži kodo čakalnice",
 			"obs_overlay": "OBS Browser Overlay",
-			"obs_url": "Obs browsersource url",
+			"obs_url": "OBS Browser Source URL",
 			"voice_server_comp": "GS združljivostni način",
 			"voice_server_comp_warning": "Priporočeno je, da samo spremenite glasovni strežnik na uradni bettercrewlink strežnik na naslovu https://bettercrewl.ink."
 		},
@@ -107,7 +109,7 @@
 	},
 	"lobbybrowser": {
 		"header": "Javne čakalnice",
-		"code": "Lobby Code",
+		"code": "Koda",
 		"list": {
 			"title": "Ime",
 			"host": "Gostitelj",
@@ -120,7 +122,7 @@
 		"default": "Privzeto",
 		"confirm": "Potrdi",
 		"cancel": "Prekliči",
-		"close": "Close",
+		"close": "Zapri",
 		"exit": "Zapustite nastavitve, da se spremembe upoštevajo",
 		"public_lobby": "Javne čakalnice"
 	},

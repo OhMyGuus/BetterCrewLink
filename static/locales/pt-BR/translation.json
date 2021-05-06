@@ -25,10 +25,12 @@
 			"impostor_radio": "Rádio do Impostor",
 			"public_lobby": {
 				"change_settings": "Alterar as Informações da Sala",
-				"enabled": "O Sala está Pública",
 				"title": "Título",
+				"enabled": "O Sala está Pública",
 				"mods": "Mods",
-				"language": "Idioma"
+				"language": "Idioma",
+				"enable_warning": "Habilitando isso tornará sua sala pública para outros usuários do BetterCrewLink!",
+				"ban_warning": "Texto inapropriado resultará em banimento do BrewCrewLink."
 			}
 		},
 		"audio": {

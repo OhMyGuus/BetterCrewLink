@@ -20,9 +20,18 @@
 			"ghost_only_warning": "Це відключає звук для живих гравців.",
 			"ghost_only_warning2": "Включена розмова тільки для привидів.",
 			"meetings_only": "Тільки на зборах чи в кімнаті",
-			"meetings_only_warning": "This disables the sound for alive players outside meetings.",
+			"meetings_only_warning": "Це відключає звук для живих гравців поза зборами.",
 			"meetings_only_warning2": "Включена розмова тільки на зборах.",
-			"impostor_radio": "Impostor Radio"
+			"impostor_radio": "Радіо самозванців",
+			"public_lobby": {
+				"change_settings": "Змінити відомості про кімнату",
+				"title": "Заголовок",
+				"enabled": "Кімната відкрита",
+				"mods": "Моди",
+				"language": "Мова",
+				"enable_warning": "Enabling this will make your lobby public to other BetterCrewLink users!",
+				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
+			}
 		},
 		"audio": {
 			"title": "Звук",
@@ -33,22 +42,22 @@
 			"push_to_mute": "Відключення голосу по кнопці",
 			"microphone_volume": "Гучність мікрофона",
 			"microphone_sens": "Чутливість мікрофона",
-			"microphone_sens_warning": "If you set the sensitivity any lower it might not work.",
+			"microphone_sens_warning": "Якщо виставити чутливість ще нижче, вона може не спрацювати.",
 			"mastervolume": "Загальна гучність",
 			"crewvolume": "Гучність команди для привида",
-			"test_speaker_start": "Test Speaker",
+			"test_speaker_start": "Перевірка динаміка",
 			"test_speaker_stop": "Зупинити перевірку динаміка"
 		},
 		"keyboard": {
-			"title": "Keyboard Shortcuts",
+			"title": "Сполучення клавіш",
 			"push_to_talk": "Активація голосу",
 			"mute": "Вимкнути мікрофон",
 			"deafen": "Вимкнути звук",
-			"impostor_radio": "Impostor Radio"
+			"impostor_radio": "Радіо самозванців"
 		},
 		"overlay": {
 			"title": "Оверлей",
-			"always_on_top": "BetterCrewLink on Top",
+			"always_on_top": "BetterCrewLink на передньому плані",
 			"enabled": "Увімкнути оверлей",
 			"compact": "Компактний оверлей",
 			"meeting": "Оверлей на зборах",
@@ -58,37 +67,38 @@
 				"top": "Посередині зверху",
 				"bottom": "Внизу зліва",
 				"right": "Справа",
-				"right1": "Right with Background",
+				"right1": "Справа з фоном",
 				"left": "Зліва",
-				"left1": "Left with Background"
+				"left1": "Зліва з фоном"
 			}
 		},
 		"advanced": {
 			"title": "Розширені",
 			"nat_fix": "Виправлення NAT",
-			"nat_fix_warning": "This will FIX the NAT issues but will add a delay since it is using a server instead of Peer to Peer (P2P).",
+			"nat_fix_warning": "Це виправить проблеми з NAT, але створить затримку через використання центрального сервера замість піринговой мережі (P2P).",
 			"change_server": "Змінити голосовий сервер",
 			"voice_server": "Голосовий сервер",
 			"invalid_url": "Неправильний URL",
-			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash BetterCrewLink.",
-			"reset_default": "Reset To Default"
+			"voice_server_warning": "Це налаштування тільки для просунутих користувачів. Інші сервери можуть вкрасти ваші дані або викликати падіння BetterCrewLink.",
+			"reset_default": "Скинути налаштування"
 		},
 		"beta": {
 			"title": "БЕТА/ВІДЛАДКА",
 			"mobilehost": "Хост для мобільних",
 			"vad_enabled": "Включення VAD",
+			"hardware_acceleration": "Апаратне прискорення",
 			"vad_enabled_warning": "Якщо відключити, то не буде видно, хто говорить.",
 			"echocancellation": "Усунення відлуння",
 			"noiseSuppression": "Зниження шуму",
 			"spatial_audio": "Просторовий звук"
 		},
 		"streaming": {
-			"title": "Streaming Settings",
+			"title": "Налаштування для стрімінгу",
 			"hidecode": "Показати код кімнати",
 			"obs_overlay": "Оверлей OBS-браузера",
-			"obs_url": "Obs Browsersource URL",
-			"voice_server_comp": "VS Compatibility Mode",
-			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
+			"obs_url": "OBS Browser Source URL",
+			"voice_server_comp": "Режим сумісності ГС",
+			"voice_server_comp_warning": "Рекомендується просто змінити голосовий сервер, наприклад, на Голосовий сервер BetterCrewLink (https://bettercrewl.ink)."
 		},
 		"troubleshooting": {
 			"title": "Вирішення проблем",
@@ -97,11 +107,24 @@
 			"warning": "Недоступно для власника кімнати під час гри!"
 		}
 	},
+	"lobbybrowser": {
+		"header": "Відкриті кімнати",
+		"code": "Код кімнати",
+		"list": {
+			"title": "Заголовок",
+			"host": "Власник",
+			"players": "Гравці",
+			"mods": "Моди",
+			"language": "Мова"
+		}
+	},
 	"buttons": {
 		"default": "За замовчуванням",
 		"confirm": "Підтвердити",
 		"cancel": "Скасувати",
-		"exit": "Закрийте налаштування для застосування змін"
+		"close": "Закрити",
+		"exit": "Закрийте налаштування для застосування змін",
+		"public_lobby": "Відкриті кімнати"
 	},
 	"game": {
 		"menu": "МЕНЮ",
@@ -109,8 +132,8 @@
 		"open_error": "Запустити гру вручну. \r\n(ця кнопка тільки для steam)",
 		"waiting": "Очікування Among Us",
 		"error": "ПОМИЛКА",
-		"error_admin": "Couldn't connect to Among Us.\nPlease re-open BetterCrewLink as Administrator.",
-		"error_unsupport": "Your version of Among Us is unsupported by BetterCrewLink."
+		"error_admin": "Неможливо під'єднатися до Among Us.\nБудь ласка, відкрийте BetterCrewLink знову як адміністратор.",
+		"error_unsupport": "Ваша версія Among Us не підтримується BetterCrewLink."
 	},
-	"translator_name": "Translator Name"
+	"translator_name": "XRevan86"
 }

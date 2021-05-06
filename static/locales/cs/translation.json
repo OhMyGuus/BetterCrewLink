@@ -25,10 +25,12 @@
 			"impostor_radio": "Impostoři mají vysílačky",
 			"public_lobby": {
 				"change_settings": "Změnit informace o Lobby",
-				"enabled": "Lobby je veřejné",
 				"title": "Název",
+				"enabled": "Lobby je veřejné",
 				"mods": "Módy",
-				"language": "Jazyk"
+				"language": "Jazyk",
+				"enable_warning": "Povolením zveřejníte své lobby ostatním BetterCrewLink uživatelům!",
+				"ban_warning": "Nevhodný text povede k zabanování z BetterCrewLink."
 			}
 		},
 		"audio": {
@@ -93,8 +95,8 @@
 		"streaming": {
 			"title": "Nastavení pro streamování",
 			"hidecode": "Zobrazit kód lobby",
-			"obs_overlay": "OBS Browser Overlay",
-			"obs_url": "OBS Browsersource URL",
+			"obs_overlay": "OBS Webové Překrytí",
+			"obs_url": "OBS URL Webového Překrytí",
 			"voice_server_comp": "Kompatabilita zvukového servru",
 			"voice_server_comp_warning": "Doporučujeme pouze změnit hlasový server na BetterCrewLink Voice Server (např: https://bettercrewl.ink.)."
 		},

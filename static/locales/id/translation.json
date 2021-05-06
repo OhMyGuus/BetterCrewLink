@@ -22,7 +22,16 @@
 			"meetings_only": "Hanya Meeting/Lobi",
 			"meetings_only_warning": "Ini mematikan suara pemain yang masih hidup di luar meeting.",
 			"meetings_only_warning2": "Berbicara hanya dalam meeting dihidupkan.",
-			"impostor_radio": "Radio Penipu"
+			"impostor_radio": "Radio Penipu",
+			"public_lobby": {
+				"change_settings": "Ubah Info Lobi",
+				"title": "Judul",
+				"enabled": "Lobi Terbuka untuk Umum",
+				"mods": "Modifikasi",
+				"language": "Bahasa",
+				"enable_warning": "Menghidupkan ini akan membuat lobi Anda terbuka untuk pengguna BetterCrewLink lainnya!",
+				"ban_warning": "Teks yang tidak pantas akan mengakibatkan pemblokiran (ban) dari BetterCrewLink."
+			}
 		},
 		"audio": {
 			"title": "Audio",
@@ -48,7 +57,7 @@
 		},
 		"overlay": {
 			"title": "Overlay",
-			"always_on_top": "BetterCrewLink di Atas",
+			"always_on_top": "BetterCrewLink Di Atas",
 			"enabled": "Hidupkan Overlay",
 			"compact": "Overlay Kemas",
 			"meeting": "Overlay Meeting",
@@ -77,6 +86,7 @@
 			"title": "BETA/DEBUG",
 			"mobilehost": "Host Seluler",
 			"vad_enabled": "VAD Diaktifkan",
+			"hardware_acceleration": "Akselerasi Perangkat Keras",
 			"vad_enabled_warning": "Anda tidak akan melihat siapa yang berbicara jika dimatikan.",
 			"echocancellation": "Penghilangan Gema",
 			"noiseSuppression": "Peredaman Kebisingan",
@@ -86,7 +96,7 @@
 			"title": "Penyetelan Streaming",
 			"hidecode": "Tunjukkan Kode Lobi",
 			"obs_overlay": "Overlay OBS Browser",
-			"obs_url": "URL OBS Browsersource",
+			"obs_url": "URL OBS Browser Source",
 			"voice_server_comp": "Mode Kompatibilitas Server Suara",
 			"voice_server_comp_warning": "Disarankan untuk hanya mengubah server suara ke Server Suara BetterCrewLink misalnya (https://bettercrewl.ink)."
 		},
@@ -97,11 +107,24 @@
 			"warning": "Tidak tersedia sebagai host dalam permainan!"
 		}
 	},
+	"lobbybrowser": {
+		"header": "Lobi-lobi Publik",
+		"code": "Kode Lobi",
+		"list": {
+			"title": "Judul",
+			"host": "Host",
+			"players": "Pemain",
+			"mods": "Modifikasi",
+			"language": "Bahasa"
+		}
+	},
 	"buttons": {
 		"default": "Bawaan",
 		"confirm": "Konfirmasi",
 		"cancel": "Batalkan",
-		"exit": "Keluar dari Penyetelan untuk menerapkan perubahan"
+		"close": "Tutup",
+		"exit": "Keluar dari Penyetelan untuk Menerapkan Perubahan",
+		"public_lobby": "Lobi-lobi Publik"
 	},
 	"game": {
 		"menu": "MENU",
@@ -112,5 +135,5 @@
 		"error_admin": "Tidak bisa terhubung ke Among Us.\nHarap buka kembali BetterCrewLink sebagai Administrator.",
 		"error_unsupport": "Versi Among Us Anda tidak didukung oleh BetterCrewLink."
 	},
-	"translator_name": "Translator Name"
+	"translator_name": "LaneGL"
 }

@@ -5,67 +5,69 @@
 		"warning": "Сез ризамы?",
 		"lobbysettings": {
 			"title": "Бүлмә көйләүләре",
-			"gamehostonly": "Only the game host can change this!",
-			"inlobbyonly": "You can only change this in the lobby!",
+			"gamehostonly": "Бүлмә хуҗасы гына моны үзгәртә ала!",
+			"inlobbyonly": "Сез моны бүлмәдә генә үзгәртә аласыз!",
 			"voicedistance": "Тавыш ераклыгы",
 			"voicedistance_impostor": "Хыянәтченең тавыш ераклыгы",
-			"wallsblockaudio": "Walls Block Audio",
-			"visiononly": "Hear People in Vision Only",
-			"impostorshearsghost": "Impostors Hear Dead",
-			"hear_imposters_invents": "Hear Impostors in Vents",
+			"wallsblockaudio": "Диварлар тавышны блоклый",
+			"visiononly": "Кешеләрне күз алдында гына ишетү",
+			"impostorshearsghost": "Хыянәтчеләр өрәкләрне ишетү",
+			"hear_imposters_invents": "Хыянәтчеләрне җилләткечтә ишетү",
 			"private_talk_invents": "Җилләтүгә шәхси әңгәмә",
-			"comms_sabotage_audio": "Comms Sabotage Disables Voice",
-			"hear_through_cameras": "Hear Through Cameras",
-			"ghost_only": "Only Ghosts Can Talk/Hear",
-			"ghost_only_warning": "This disables the sound for alive players.",
-			"ghost_only_warning2": "Ghost can talk only enabled.",
+			"comms_sabotage_audio": "Элемтә саботажы тавышны сүндерә",
+			"hear_through_cameras": "Камералар аша ишетү",
+			"ghost_only": "Өрәкләр генә сөйләшә/ишетә ала",
+			"ghost_only_warning": "Бу исән уенчылар өчен тавышны сүндерә.",
+			"ghost_only_warning2": "Өрәк сөйләшә генә ала.",
 			"meetings_only": "Җыелышта яки бүлмәдә генә",
-			"meetings_only_warning": "This disables the sound for alive players outside meetings.",
-			"meetings_only_warning2": "Talking in meetings only enabled.",
+			"meetings_only_warning": "Бу исән уенчылар өчен тавышны сүндерә очрашулардан башка.",
+			"meetings_only_warning2": "Очрашуларда гына сөйләшү кушылган.",
 			"impostor_radio": "Хыянәтчеләр радиосы",
 			"public_lobby": {
-				"change_settings": "Change Lobby Info",
-				"enabled": "The Lobby is Public",
+				"change_settings": "Бүлмә мәгълүматларен үзгәртү",
 				"title": "Исем",
+				"enabled": "Бүлмә ачык",
 				"mods": "Модлар",
-				"language": "Тел"
+				"language": "Тел",
+				"enable_warning": "Бу көйләнүне эшләтеп җибәрү сезнең бүлмәне бүтән BetterCrewLink кулланучылары өчен ачык итәчәк!",
+				"ban_warning": "Килешмәгән текстлар BetterCrewLink-та блокировкага китерәчәк."
 			}
 		},
 		"audio": {
 			"title": "Тавыш",
 			"microphone": "Микрофон",
-			"speaker": "Speaker",
+			"speaker": "Динамик",
 			"voice_activity": "Тавыш активлыгы",
 			"push_to_talk": "Төймә буенча тавыш активациясе",
-			"push_to_mute": "Push To Mute",
+			"push_to_mute": "Басыгыз, тавышны сүндерү өчен",
 			"microphone_volume": "Микрофон тавышы",
 			"microphone_sens": "Микрофон сизгерлеге",
-			"microphone_sens_warning": "If you set the sensitivity any lower it might not work.",
+			"microphone_sens_warning": "Әгәр сизгерлекне бераз азрак куйсагыз, эшләмәскә мөмкин.",
 			"mastervolume": "Уртак тавыш",
-			"crewvolume": "Crew Volume as Ghost",
-			"test_speaker_start": "Test Speaker",
-			"test_speaker_stop": "Stop Test Speaker"
+			"crewvolume": "Экипаж тавышы өрәкләр сыман",
+			"test_speaker_start": "Тавышны тикшерү",
+			"test_speaker_stop": "Тавышны тикшерүне туктату"
 		},
 		"keyboard": {
-			"title": "Keyboard Shortcuts",
+			"title": "Клавиатура кыскартулары",
 			"push_to_talk": "Тавыш активациясе",
-			"mute": "Mute",
-			"deafen": "Deafen",
-			"impostor_radio": "Impostor Radio"
+			"mute": "Тавышны сүндерү",
+			"deafen": "Тавышны сүндерү",
+			"impostor_radio": "Хыянәтчеләр радиосы"
 		},
 		"overlay": {
 			"title": "Оверлей",
-			"always_on_top": "BetterCrewLink On Top",
-			"enabled": "Enable Overlay",
-			"compact": "Compact Overlay",
-			"meeting": "Meeting Overlay",
-			"pos": "Overlay Position",
+			"always_on_top": "BetterCrewLink алгы планда",
+			"enabled": "Оверлейны кушу",
+			"compact": "Җыйнак оверлей",
+			"meeting": "Җыелышта оверлей",
+			"pos": "Оверлея урыны",
 			"locations": {
 				"hidden": "Яшерелгән",
 				"top": "Өстә уртада",
 				"bottom": "Аста сулда",
 				"right": "Уңда",
-				"right1": "Right with Background",
+				"right1": "Уңда фон белән",
 				"left": "Сулда",
 				"left1": "Сулда фон белән"
 			}
@@ -73,65 +75,65 @@
 		"advanced": {
 			"title": "Алга киткән",
 			"nat_fix": "NAT төзәтмәсе",
-			"nat_fix_warning": "This will FIX the NAT issues but will add a delay since it is using a server instead of Peer to Peer (P2P).",
-			"change_server": "Change Voice Server",
+			"nat_fix_warning": "Бу NAT проблемаларын чишәчәк, ләкин тоткарлык тудырачак пиринг челтәре урынына (P2P) үзәк сервер куллану аркасында.",
+			"change_server": "Тавыш серверын узгәртү",
 			"voice_server": "Тавыш серверы",
 			"invalid_url": "Хаталы URL",
-			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash BetterCrewLink.",
+			"voice_server_warning": "Бу көйләү алдынгы кулланучылар өчен генә. Башка серверлар сезнең мәгълүматны урлый яки BetterCrewLink ябылуга китерә ала.",
 			"reset_default": "Әүвәлге"
 		},
 		"beta": {
 			"title": "БЕТА/ТӨЗӘТҮ",
-			"mobilehost": "Mobile Host",
-			"vad_enabled": "VAD Enabled",
-			"hardware_acceleration": "Hardware Acceleration",
-			"vad_enabled_warning": "You won't see who's talking if deactivate.",
-			"echocancellation": "Echo Cancellation",
-			"noiseSuppression": "Noise Suppression",
-			"spatial_audio": "Spatial Audio"
+			"mobilehost": "Телефон өчен бүлмә хуҗасы",
+			"vad_enabled": "VAD кушылган",
+			"hardware_acceleration": "Аппарат тизләнеше",
+			"vad_enabled_warning": "Сүнгән булса, кем сөйләгәнен күрмисез.",
+			"echocancellation": "Эхо бетерүче",
+			"noiseSuppression": "Тавыш бетерүче",
+			"spatial_audio": "Киңлектәге тавыш"
 		},
 		"streaming": {
-			"title": "Streaming Settings",
+			"title": "Стрим көйләүләре",
 			"hidecode": "Бүлмә кодын күрсәтергә",
 			"obs_overlay": "OBS-браузер оверлее",
-			"obs_url": "OBS-браузер URL",
-			"voice_server_comp": "VS Compatibility Mode",
-			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
+			"obs_url": "OBS-браузер чыганак URL",
+			"voice_server_comp": "VS белән яраклашу шарты",
+			"voice_server_comp_warning": "Тавыш серверын BetterCrewLink тавыш серверына үзгәртү тәкъдим ителә (https://bettercrewl.ink), мәсәлән."
 		},
 		"troubleshooting": {
-			"title": "Troubleshooting",
-			"restore": "Restore Defaults",
-			"restore_warning": "This will reset ALL settings to their default values.",
-			"warning": "Not available as host in game!"
+			"title": "Диагностика",
+			"restore": "Әүвәлге",
+			"restore_warning": "Бу БӨТЕН көйләүләрне әүвәлге әйләндерә.",
+			"warning": "Уен вакытында бүлмә хуҗасы өчен мөмкин түгел!"
 		}
 	},
 	"lobbybrowser": {
-		"header": "Public Lobbies",
-		"code": "Lobby Code",
+		"header": "Ачык бүлмәләр",
+		"code": "Бүлмә коды",
 		"list": {
-			"title": "Title",
-			"host": "Host",
-			"players": "Players",
-			"mods": "Mods",
-			"language": "Language"
+			"title": "Исем",
+			"host": "Бүлмә хуҗасы",
+			"players": "Уенчылар",
+			"mods": "Модлар",
+			"language": "Тел"
 		}
 	},
 	"buttons": {
 		"default": "Әүвәлге",
-		"confirm": "Тикшерергә",
+		"confirm": "Расларга",
 		"cancel": "Баш тарту",
-		"close": "Close",
-		"exit": "Exit Settings to Apply Changes",
-		"public_lobby": "Public Lobbies"
+		"close": "Ябу",
+		"exit": "Үзгәрешләр куллану өчен көйләүләрне ябыгыз",
+		"public_lobby": "Ачык бүлмәләр"
 	},
 	"game": {
 		"menu": "МЕНЮ",
 		"open": "Уенны ачарга",
-		"open_error": "Start the game manually. \r\n(this button is only for steam)",
+		"open_error": "Уенны кулдан ачу. (бу төймә Steam өчен генә)",
 		"waiting": "Among Us көтүе",
 		"error": "ХАТА",
-		"error_admin": "Couldn't connect to Among Us.\nPlease re-open BetterCrewLink as Administrator.",
-		"error_unsupport": "Your version of Among Us is unsupported by BetterCrewLink."
+		"error_admin": "Among Us-га тоташып булмады. Зинһар, BetterCrewLink-ны администратор исеменнән ачыгыз.",
+		"error_unsupport": "Сезнең Among Us версиясендә BetterCrewLink эшләми."
 	},
 	"translator_name": "Amirhan-Taipovjan-Greatest-I (Әлмәт Ак Арыслан) һәм morewaves (күбрәк дулкыннар plz)"
 }

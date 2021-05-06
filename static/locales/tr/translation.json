@@ -25,10 +25,12 @@
 			"impostor_radio": "Impostor Telsizi",
 			"public_lobby": {
 				"change_settings": "Lobi Bilgisini Değiştir",
-				"enabled": "Lobi Herkese Açık",
 				"title": "Başlık",
+				"enabled": "Lobi Herkese Açık",
 				"mods": "Modlar",
-				"language": "Dil"
+				"language": "Dil",
+				"enable_warning": "Bunu aktif ederek lobini diğer BetterCrewLink kullanıcılarına açabilirsin!",
+				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
 			}
 		},
 		"audio": {

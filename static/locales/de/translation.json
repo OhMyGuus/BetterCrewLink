@@ -25,10 +25,12 @@
 			"impostor_radio": "Impostor Radio",
 			"public_lobby": {
 				"change_settings": "Lobbyinfo ändern",
-				"enabled": "Diese Lobby ist öffentlich",
 				"title": "Titel",
+				"enabled": "Diese Lobby ist öffentlich",
 				"mods": "Mods",
-				"language": "Sprache"
+				"language": "Sprache",
+				"enable_warning": "Mit dieser Aktivierung wird deine Lobby für andere BetterCrewLink Nutzer sichtbar!",
+				"ban_warning": "Unangebrachter Text kann zum Verbot der Nutzung von BetterCrewLink führen."
 			}
 		},
 		"audio": {
@@ -50,11 +52,11 @@
 			"title": "Tastaturkürzel",
 			"push_to_talk": "Zum Sprechen Drücken",
 			"mute": "Stummschalten",
-			"deafen": "Taube",
+			"deafen": "Ton aus",
 			"impostor_radio": "Imposter-Radio"
 		},
 		"overlay": {
-			"title": "Überlagerung",
+			"title": "Overlay",
 			"always_on_top": "BetterCrewLink immer im Vordergrund",
 			"enabled": "Overlay aktivieren",
 			"compact": "Kompaktes Overlay",
@@ -62,7 +64,7 @@
 			"pos": "Overlay-Position",
 			"locations": {
 				"hidden": "Versteckt",
-				"top": "Mitte oben",
+				"top": "Oben zentriert",
 				"bottom": "Unten Links",
 				"right": "Rechts",
 				"right1": "Rechts mit Hintergrund",
@@ -81,11 +83,11 @@
 			"reset_default": "Einstellungen zurücksetzen"
 		},
 		"beta": {
-			"title": "BETA/FEHLER BESEITIGEN",
+			"title": "BETA/DEBUG",
 			"mobilehost": "Mobiler Host",
-			"vad_enabled": "VAD Aktiviert",
+			"vad_enabled": "VAD einschalten",
 			"hardware_acceleration": "Hardwarebeschleunigung",
-			"vad_enabled_warning": "Wenn deaktivert, wird nicht angezeigt, wer aktuell spricht.",
+			"vad_enabled_warning": "Falls VAD deaktivert ist, wird nicht angezeigt, wer derzeit spricht.",
 			"echocancellation": "Echounterdrückung",
 			"noiseSuppression": "Geräuschunterdrückung",
 			"spatial_audio": "Räumliches Audio"
@@ -94,13 +96,13 @@
 			"title": "Streaming Einstellungen",
 			"hidecode": "Lobby-Code anzeigen",
 			"obs_overlay": "OBS-Browser-Overlay",
-			"obs_url": "OBS Browsersource URL",
+			"obs_url": "OBS-Browser-Overlay",
 			"voice_server_comp": "VS Kompatibilitätsmodus",
 			"voice_server_comp_warning": "Es wird empfohlen, den Sprachserver auf einen BetterCrewLink Voice Server (z.B. https://bettercrewl.ink) zu ändern."
 		},
 		"troubleshooting": {
 			"title": "Fehlerbehebung",
-			"restore": "Installationswerte wiederherstellen",
+			"restore": "Einstellungen zurücksetzen",
 			"restore_warning": "Dadurch werden ALLE Einstellungen auf die Standardwerte zurückgesetzt.",
 			"warning": "Nicht als Host im Spiel verfügbar!"
 		}
@@ -126,7 +128,7 @@
 	},
 	"game": {
 		"menu": "MENÜ",
-		"open": "Spiel öffnen",
+		"open": "Spiel starten",
 		"open_error": "Spiel manuell starten \r\n(Diese Taste ist nur für Steam)",
 		"waiting": "Warten auf Among Us",
 		"error": "FEHLER",
