@@ -543,6 +543,15 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	}, [lobbySettings.maxDistance, lobbySettings.visionHearing]);
 
 	useEffect(() => {
+		if (myPlayer?.clientId && gameState?.lobbyCode?.length > 2 ) {
+			connectionStuff.current.socket?.emit('signal', {
+				to: gameState.lobbyCode,
+				data: { action: 'VAD_STATE', clientId: myPlayer?.clientId, activity: talking },
+			});
+		}
+	}, [talking]);
+
+	useEffect(() => {
 		if (
 			!gameState ||
 			!gameState.players ||
@@ -783,19 +792,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			};
 		});
 
-		socket.on('VAD', (data: { activity: boolean; client: Client; socketId: string }) => {
-			console.log('Recieved VAD data: ', data);
-			// if (!socketClientsRef.current[peer]) {
-			// 	console.log('error with settalking: ', talking);
-			// 	return;
-			// }
-			// const reallyTalking = talking && gain.gain.value > 0;
-			setOtherVAD((old) => ({
-				...old,
-				[data.client.clientId]: data.activity,
-			}));
-		});
-
 		socket.on('setClient', (socketId: string, client: Client) => {
 			setSocketClients((old) => ({ ...old, [socketId]: client }));
 		});
@@ -846,14 +842,12 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 									? settingsRef.current.microphoneGain / 100
 									: 1;
 							}
-							connectionStuff.current.socket?.emit('VAD', true);
 							setTalking(true);
 						},
 						onVoiceStop: () => {
 							if (microphoneGain && settingsRef.current.micSensitivityEnabled) {
 								microphoneGain.gain.value = 0;
 							}
-							connectionStuff.current.socket?.emit('VAD', false);
 							setTalking(false);
 						},
 						noiseCaptureDuration: 0,
@@ -1081,10 +1075,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					setSocketClients((old) => ({ ...old, [peer]: client }));
 				});
 
-				socket.on('signal', ({ data, from }: { data: Peer.SignalData; from: string }) => {
-					//console.log('onsignal', JSON.stringify(data));
+				socket.on('signal', ({ data, from }: { data: Peer.SignalData | any; from: string }) => {
 					if (data.hasOwnProperty('mobilePlayerInfo')) {
-						// eslint-disable-line
 						const mobiledata = data as mobileHostInfo;
 						if (
 							mobiledata.mobilePlayerInfo.code === hostRef.current.code &&
@@ -1096,6 +1088,18 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						return;
 					}
 
+					if (data.hasOwnProperty('action')) {
+						switch (data['action']) {
+							case 'VAD_STATE': {
+								const vad_data: { clientId: number; activity: boolean } = data;
+								setOtherVAD((old) => ({
+									...old,
+									[vad_data.clientId]: vad_data.activity,
+								}));
+							}
+						}
+						return;
+					}
 					let connection: Peer.Instance;
 					if (peerConnections[from]) {
 						connection = peerConnections[from];
