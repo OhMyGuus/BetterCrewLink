@@ -33,7 +33,6 @@ import { CameraLocation, AmongUsMaps } from '../common/AmongusMap';
 import Store from 'electron-store';
 import { ObsVoiceState } from '../common/ObsOverlay';
 // import { poseCollide } from '../common/ColliderMap';
-import { GameState } from '../common/AmongUsState';
 import Footer from './Footer';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
