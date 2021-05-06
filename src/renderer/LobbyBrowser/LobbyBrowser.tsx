@@ -112,7 +112,7 @@ export default function lobbyBrowser({ t }) {
 
 		ipcRenderer.on(IpcHandlerMessages.JOIN_LOBBY_ERROR, (event, code, server) => {
 			console.log('ERROR: ', code);
-			setCode(`${code}  ${servers[server] ? `on region ${servers[server]}` : `\n Custom server: ${server}`}`);
+			setCode(`${code}  ${servers[server] ? `on region ${servers[server]}` : `\n Custom Server: ${server}`}`);
 		});
 		return () => {
 			socket?.emit('lobbybrowser', false);
