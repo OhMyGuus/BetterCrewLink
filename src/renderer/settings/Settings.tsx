@@ -396,7 +396,7 @@ const store = new Store<ISettings>({
 				},
 				publicLobby_language: {
 					type: 'string',
-					default: 'English',
+					default: 'en',
 				},
 				publicLobby_mods: {
 					type: 'string',
@@ -415,7 +415,7 @@ const store = new Store<ISettings>({
 				visionHearing: false,
 				publicLobby_on: false,
 				publicLobby_title: '',
-				publicLobby_language: 'English',
+				publicLobby_language: 'en',
 				publicLobby_mods: 'None',
 			},
 		},

@@ -116,6 +116,8 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 
 ipcMain.on('reload', async () => {
 	global.mainWindow?.reload();
+	global.lobbyBrowser?.reload();
+
 	//	global.overlay?.reload();
 });
 

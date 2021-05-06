@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ipcRenderer, remote } from 'electron';
+import {  remote } from 'electron';
 import { ThemeProvider } from '@material-ui/core/styles';
 import RefreshSharpIcon from '@material-ui/icons/RefreshSharp';
 import CloseIcon from '@material-ui/icons/Close';
@@ -54,7 +54,7 @@ const TitleBar = function () {
 			<span className={classes.title} style={{ marginLeft: 10 }}>
 				LobbyBrowser
 			</span>
-			<IconButton className={classes.button} size="small" onClick={() => ipcRenderer.send('reload')}>
+			<IconButton className={classes.button} size="small" onClick={() => remote.getCurrentWindow().reload()}>
 				<RefreshSharpIcon htmlColor="#777" />
 			</IconButton>
 			<IconButton
