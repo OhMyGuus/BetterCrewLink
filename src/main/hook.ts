@@ -110,6 +110,7 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 		frame();
 	} else if (gameReader) {
 		gameReader.amongUs = null;
+		gameReader.checkProcessDelay = 0;
 	}
 });
 
