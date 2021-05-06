@@ -1,4 +1,4 @@
-import { GameState,  ClientBoolMap } from './AmongUsState';
+import { GameState, ClientBoolMap } from './AmongUsState';
 
 export interface OverlayState {
 	gameState: GameState;

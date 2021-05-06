@@ -22,7 +22,16 @@
 			"meetings_only": "Apenas nas Reuniões/Lobby",
 			"meetings_only_warning": "Isso desativa o som dos jogadores vivos fora das reuniões de emergência.",
 			"meetings_only_warning2": "Conversar apenas na reuniões de emergência se estiver habilitado.",
-			"impostor_radio": "Rádio do Impostor"
+			"impostor_radio": "Rádio do Impostor",
+			"public_lobby": {
+				"change_settings": "Alterar as Informações da Sala",
+				"title": "Título",
+				"enabled": "O Sala está Pública",
+				"mods": "Mods",
+				"language": "Idioma",
+				"enable_warning": "Habilitando isso tornará sua sala pública para outros usuários do BetterCrewLink!",
+				"ban_warning": "Texto inapropriado resultará em banimento do BrewCrewLink."
+			}
 		},
 		"audio": {
 			"title": "Áudio",
@@ -65,7 +74,7 @@
 		},
 		"advanced": {
 			"title": "Avançado",
-			"nat_fix": "NAT Fix",
+			"nat_fix": "Correção de NAT",
 			"nat_fix_warning": "Isso CORRIGIRÁ os problemas de NAT, mas adicionará um atraso, pois está usando um servidor em vez de está usando Peer to Peer (P2P)",
 			"change_server": "Alterar Servidor de Voz",
 			"voice_server": "Servidor de Voz",
@@ -74,9 +83,10 @@
 			"reset_default": "Restaurar Ao Padrão"
 		},
 		"beta": {
-			"title": "BETA/DEBUG",
+			"title": "BETA/DEPURAÇÃO",
 			"mobilehost": "Permitir jogadores Android/iOS",
 			"vad_enabled": "VAD Habilitado",
+			"hardware_acceleration": "Aceleração de Hardware",
 			"vad_enabled_warning": "Você não verá quem está falando se desativar.",
 			"echocancellation": "Cancelamento de Eco",
 			"noiseSuppression": "Supressão de Ruído",
@@ -97,11 +107,24 @@
 			"warning": "Opção indisponível como anfitrião do jogo!"
 		}
 	},
+	"lobbybrowser": {
+		"header": "Salas Públicas",
+		"code": "Código da Sala",
+		"list": {
+			"title": "Título",
+			"host": "Anfitrião",
+			"players": "Jogadores",
+			"mods": "Mods",
+			"language": "Idioma"
+		}
+	},
 	"buttons": {
 		"default": "Padrão",
 		"confirm": "Confirmar",
 		"cancel": "Cancelar",
-		"exit": "Saia das configurações para aplicar as alterações"
+		"close": "Fechar",
+		"exit": "Saia das Configurações para Aplicar as Alterações",
+		"public_lobby": "Salas Públicas"
 	},
 	"game": {
 		"menu": "MENU",

@@ -17,7 +17,10 @@ import translationRU from '../../../static/locales/ru/translation.json';
 import translationSK from '../../../static/locales/sk/translation.json';
 import translationSL from '../../../static/locales/sl/translation.json';
 import translationESES from '../../../static/locales/es-ES/translation.json';
+import translationESAR from '../../../static/locales/es-AR/translation.json';
+import translationESUS from '../../../static/locales/es-US/translation.json';
 import translationSVSE from '../../../static/locales/sv-SE/translation.json';
+import translationTTRU from '../../../static/locales/tt-RU/translation.json';
 import translationTR from '../../../static/locales/tr/translation.json';
 import translationUK from '../../../static/locales/uk/translation.json';
 
@@ -39,8 +42,8 @@ const languages = {
 		name: 'Català',
 	},
 	'zh-CN': {
-		translation: translationZHCN, 
-		name: '汉语'
+		translation: translationZHCN,
+		name: '汉语',
 	},
 	cs: {
 		translation: translationCS,
@@ -67,8 +70,8 @@ const languages = {
 		name: 'Bahasa Indonesia',
 	},
 	ja: {
-		translation: translationJA, 
-		name: '日本語'
+		translation: translationJA,
+		name: '日本語',
 	},
 	pl: {
 		translation: translationPL,
@@ -98,9 +101,21 @@ const languages = {
 		translation: translationESES,
 		name: 'Español',
 	},
+	'es-AR': {
+		translation: translationESAR,
+		name: 'Español, Argentina',
+	},
+	'es-US': {
+		translation: translationESUS,
+		name: 'Español, Estados Unidos',
+	},
 	'sv-SE': {
 		translation: translationSVSE,
 		name: 'Svenska',
+	},
+	'tt-RU': {
+		translation: translationTTRU,
+		name: 'Татар',
 	},
 	tr: {
 		translation: translationTR,
@@ -109,7 +124,7 @@ const languages = {
 	uk: {
 		translation: translationUK,
 		name: 'Українська',
-	}
+	},
 };
 
 export default languages;

@@ -22,7 +22,16 @@
 			"meetings_only": "Samo na sestankih/v čakalnici",
 			"meetings_only_warning": "Ta možnost onemogoči pogovor za žive igralce, ko ti niso na sestanku.",
 			"meetings_only_warning2": "Omogočen je samo pogovor med sestankom.",
-			"impostor_radio": "Vsiljivčev oddajnik"
+			"impostor_radio": "Vsiljivčev oddajnik",
+			"public_lobby": {
+				"change_settings": "Spremeni informacije čakalnice",
+				"title": "Ime",
+				"enabled": "Čakalnica je javna",
+				"mods": "Modifikacije",
+				"language": "Jezik",
+				"enable_warning": "Vključitev tega bo prikazala čakalnico na javnem seznamu ostalim igralcem BetterCrewLink-a!",
+				"ban_warning": "Neprimerne besede so lahko razlog za ban."
+			}
 		},
 		"audio": {
 			"title": "Zvok",
@@ -48,7 +57,7 @@
 		},
 		"overlay": {
 			"title": "Prikaz govorca",
-			"always_on_top": "Bettercrewlink v ospredju",
+			"always_on_top": "BetterCrewLink v ospredju",
 			"enabled": "Omogoči prikaz govorca",
 			"compact": "Kompakten prikaz govorca",
 			"meeting": "Prikaz govorca na sestankih",
@@ -77,6 +86,7 @@
 			"title": "BETA/Dodatne nastavitve",
 			"mobilehost": "Gostitelj za mobilne naprave",
 			"vad_enabled": "VAD omogočen",
+			"hardware_acceleration": "Pospeševanje s pomočjo strojne opreme",
 			"vad_enabled_warning": "Če onemogočite, ne boste videli kdo govori.",
 			"echocancellation": "Odstrani odmevanje",
 			"noiseSuppression": "Odstrani šume",
@@ -86,7 +96,7 @@
 			"title": "Nastavitve za prenašanje v živo",
 			"hidecode": "Pokaži kodo čakalnice",
 			"obs_overlay": "OBS Browser Overlay",
-			"obs_url": "Obs browsersource url",
+			"obs_url": "OBS Browser Source URL",
 			"voice_server_comp": "GS združljivostni način",
 			"voice_server_comp_warning": "Priporočeno je, da samo spremenite glasovni strežnik na uradni bettercrewlink strežnik na naslovu https://bettercrewl.ink."
 		},
@@ -97,11 +107,24 @@
 			"warning": "Ni na voljo, ker je gostitelj že v igri!"
 		}
 	},
+	"lobbybrowser": {
+		"header": "Javne čakalnice",
+		"code": "Koda",
+		"list": {
+			"title": "Ime",
+			"host": "Gostitelj",
+			"players": "Igralci",
+			"mods": "Modifikacije",
+			"language": "Jezik"
+		}
+	},
 	"buttons": {
 		"default": "Privzeto",
 		"confirm": "Potrdi",
 		"cancel": "Prekliči",
-		"exit": "Zapustite nastavitve, da se spremembe upoštevajo"
+		"close": "Zapri",
+		"exit": "Zapustite nastavitve, da se spremembe upoštevajo",
+		"public_lobby": "Javne čakalnice"
 	},
 	"game": {
 		"menu": "MENI",
@@ -112,5 +135,5 @@
 		"error_admin": "Odpiranje Among Us neuspešno.\nProsimo zaženite Bettercrewlink kot administrator.",
 		"error_unsupport": "Bettercrewlink ne podpira vaše verzije igre."
 	},
-	"translator_name": "Translator Name"
+	"translator_name": "Stročji fižol"
 }

@@ -15,6 +15,8 @@ export interface AmongUsState {
 	lightRadius: number;
 	lightRadiusChanged: boolean;
 	closedDoors: number[];
+	currentServer: string;
+	maxPlayers: number;
 }
 
 export interface Player {
@@ -37,6 +39,7 @@ export interface Player {
 	x: number;
 	y: number;
 	inVent: boolean;
+	isDummy: boolean;
 }
 
 export enum GameState {

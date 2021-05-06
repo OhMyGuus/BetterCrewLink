@@ -30,6 +30,15 @@ declare module 'memoryjs' {
 	}
 
 	export function findModule(identifier: string, processId: number, callback?: Callback<ModuleObject>): ModuleObject;
+	//  virtualAllocEx(handle, address, size, allocationType, protection, callback) {
+	export function virtualAllocEx(
+		handle: number,
+		address: number | null,
+		size: number,
+		allocationType: number,
+		protection: number,
+		callback?: Callback<ModuleObject[]>
+	): number;
 
 	// Memory
 
@@ -72,7 +81,8 @@ declare module 'memoryjs' {
 		signature: string,
 		signatureType: number,
 		patternOffset: number,
-		addressOffset: number
+		addressOffset: number,
+		skip: number
 	): number;
 
 	// Functions

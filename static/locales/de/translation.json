@@ -22,7 +22,16 @@
 			"meetings_only": "Audio nur in Meetings/Lobby",
 			"meetings_only_warning": "Sound für lebende Mitspieler außerhalb von Meetings deaktivieren.",
 			"meetings_only_warning2": "Sprechen nur in Treffen aktiviert",
-			"impostor_radio": "Impostor Radio"
+			"impostor_radio": "Impostor Radio",
+			"public_lobby": {
+				"change_settings": "Lobbyinfo ändern",
+				"title": "Titel",
+				"enabled": "Diese Lobby ist öffentlich",
+				"mods": "Mods",
+				"language": "Sprache",
+				"enable_warning": "Mit dieser Aktivierung wird deine Lobby für andere BetterCrewLink Nutzer sichtbar!",
+				"ban_warning": "Unangebrachter Text kann zum Verbot der Nutzung von BetterCrewLink führen."
+			}
 		},
 		"audio": {
 			"title": "Audio",
@@ -43,19 +52,19 @@
 			"title": "Tastaturkürzel",
 			"push_to_talk": "Zum Sprechen Drücken",
 			"mute": "Stummschalten",
-			"deafen": "Taube",
+			"deafen": "Ton aus",
 			"impostor_radio": "Imposter-Radio"
 		},
 		"overlay": {
-			"title": "Überlagerung",
-			"always_on_top": "BetterCrewLink oben anpinnen",
+			"title": "Overlay",
+			"always_on_top": "BetterCrewLink immer im Vordergrund",
 			"enabled": "Overlay aktivieren",
 			"compact": "Kompaktes Overlay",
 			"meeting": "Meeting-Overlay",
 			"pos": "Overlay-Position",
 			"locations": {
 				"hidden": "Versteckt",
-				"top": "Mitte oben",
+				"top": "Oben zentriert",
 				"bottom": "Unten Links",
 				"right": "Rechts",
 				"right1": "Rechts mit Hintergrund",
@@ -74,10 +83,11 @@
 			"reset_default": "Einstellungen zurücksetzen"
 		},
 		"beta": {
-			"title": "BETA/FEHLER BESEITIGEN",
+			"title": "BETA/DEBUG",
 			"mobilehost": "Mobiler Host",
-			"vad_enabled": "VAD Aktiviert",
-			"vad_enabled_warning": "Wenn deaktivert, wird nicht angezeigt, wer aktuell spricht.",
+			"vad_enabled": "VAD einschalten",
+			"hardware_acceleration": "Hardwarebeschleunigung",
+			"vad_enabled_warning": "Falls VAD deaktivert ist, wird nicht angezeigt, wer derzeit spricht.",
 			"echocancellation": "Echounterdrückung",
 			"noiseSuppression": "Geräuschunterdrückung",
 			"spatial_audio": "Räumliches Audio"
@@ -86,31 +96,44 @@
 			"title": "Streaming Einstellungen",
 			"hidecode": "Lobby-Code anzeigen",
 			"obs_overlay": "OBS-Browser-Overlay",
-			"obs_url": "OBS Browsersource URL",
+			"obs_url": "OBS-Browser-Overlay",
 			"voice_server_comp": "VS Kompatibilitätsmodus",
 			"voice_server_comp_warning": "Es wird empfohlen, den Sprachserver auf einen BetterCrewLink Voice Server (z.B. https://bettercrewl.ink) zu ändern."
 		},
 		"troubleshooting": {
 			"title": "Fehlerbehebung",
-			"restore": "Installationswerte wiederherstellen",
+			"restore": "Einstellungen zurücksetzen",
 			"restore_warning": "Dadurch werden ALLE Einstellungen auf die Standardwerte zurückgesetzt.",
 			"warning": "Nicht als Host im Spiel verfügbar!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "Öffentliche Lobbys",
+		"code": "Lobbycode",
+		"list": {
+			"title": "Titel",
+			"host": "Host",
+			"players": "Spieler",
+			"mods": "Mods",
+			"language": "Sprache"
 		}
 	},
 	"buttons": {
 		"default": "Standard",
 		"confirm": "OK",
 		"cancel": "Abbrechen",
-		"exit": "Einstellungen verlassen, um Änderungen anzuwenden"
+		"close": "Schließen",
+		"exit": "Einstellungen verlassen, um Änderungen anzuwenden",
+		"public_lobby": "Öffentliche Lobbys"
 	},
 	"game": {
 		"menu": "MENÜ",
-		"open": "Spiel öffnen",
+		"open": "Spiel starten",
 		"open_error": "Spiel manuell starten \r\n(Diese Taste ist nur für Steam)",
 		"waiting": "Warten auf Among Us",
 		"error": "FEHLER",
 		"error_admin": "Konnte keine Verbindung zu \"Among Us\" herstellen.\nBitte BetterCrewLink mit Administratorrechten neu starten.",
 		"error_unsupport": "Ihre Version von Among Us wird nicht von BetterCrewLink unterstützt."
 	},
-	"translator_name": "Translator Name"
+	"translator_name": "KadenBiel, SirBuvex, Jeddunk and Fauli1221"
 }

@@ -22,7 +22,16 @@
 			"meetings_only": "Meetings/Lobby uniquement",
 			"meetings_only_warning": "Cela désactive le son pour les joueurs vivants en dehors des meetings.",
 			"meetings_only_warning2": "Meetings/Lobby uniquement activé.",
-			"impostor_radio": "Vocal imposteur"
+			"impostor_radio": "Vocal imposteur",
+			"public_lobby": {
+				"change_settings": "Changer les Infos du Lobby",
+				"title": "Titre",
+				"enabled": "Le Lobby est Publique",
+				"mods": "Mods",
+				"language": "Langue",
+				"enable_warning": "Activez ceci rendre votre lobby publique aux autres utilisateurs de BetterCrewLink !",
+				"ban_warning": "Un texte inapproprié entraînera un bannissement de BetterCrewLink."
+			}
 		},
 		"audio": {
 			"title": "Audio",
@@ -48,7 +57,7 @@
 		},
 		"overlay": {
 			"title": "Overlay",
-			"always_on_top": "BetterCrewLink toujours visible",
+			"always_on_top": "BetterCrewLink Au Dessus",
 			"enabled": "Activer l'overlay",
 			"compact": "Overlay compact",
 			"meeting": "Meeting overlay",
@@ -77,6 +86,7 @@
 			"title": "BETA/DEBUG",
 			"mobilehost": "Hôte pour mobile",
 			"vad_enabled": "VAD activée",
+			"hardware_acceleration": "Accélération Matérielle",
 			"vad_enabled_warning": "Vous ne verrez pas qui parle si vous désactivez cette option.",
 			"echocancellation": "Annulation de l'écho",
 			"noiseSuppression": "Réducteur de bruit",
@@ -86,7 +96,7 @@
 			"title": "Paramètres streaming",
 			"hidecode": "Afficher le code de la partie",
 			"obs_overlay": "Navigateur Overlay Obs",
-			"obs_url": "OBS browsersource URL",
+			"obs_url": "URL de la source du navigateur OBS",
 			"voice_server_comp": "Mode compatibilité VS",
 			"voice_server_comp_warning": "Il est recommandé de simplement changer le serveur vocal pour un serveur vocal BetterCrewLink, par exemple https://bettercrewl.ink."
 		},
@@ -97,11 +107,24 @@
 			"warning": "Non disponible comme hôte dans le jeu!"
 		}
 	},
+	"lobbybrowser": {
+		"header": "Lobbies Publiques",
+		"code": "Code du Lobby",
+		"list": {
+			"title": "Titre",
+			"host": "Hôte",
+			"players": "Joueurs",
+			"mods": "Mods",
+			"language": "Langue"
+		}
+	},
 	"buttons": {
 		"default": "Par défaut",
 		"confirm": "Valider",
 		"cancel": "Annuler",
-		"exit": "Quitter les paramètres pour appliquer les changements"
+		"close": "Fermer",
+		"exit": "Quittez les Paramètres pour Appliquer les Changements",
+		"public_lobby": "Lobbies Publiques"
 	},
 	"game": {
 		"menu": "MENU",
@@ -112,5 +135,5 @@
 		"error_admin": "Impossible de se connecter à Among Us.\nVeuillez rouvrir BetterCrewLink en tant qu'administrateur.",
 		"error_unsupport": "Votre version de Among Us n'est pas supporté par BetterCrewLink."
 	},
-	"translator_name": "Translator Name"
+	"translator_name": "Adofou"
 }

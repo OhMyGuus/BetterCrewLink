@@ -22,7 +22,16 @@
 			"meetings_only": "Solo Reuniones/Sala",
 			"meetings_only_warning": "Esto desactiva el sonido para los jugadores fuera de las reuniones y la sala.",
 			"meetings_only_warning2": "Hablar solo en reuniones activado.",
-			"impostor_radio": "Radio de Impostores"
+			"impostor_radio": "Radio de Impostores",
+			"public_lobby": {
+				"change_settings": "Cambiar Información de la Sala",
+				"title": "Título",
+				"enabled": "La Sala es Pública",
+				"mods": "Mods",
+				"language": "Idioma",
+				"enable_warning": "¡Activar esto hará que tu lobby sea público para otros usuarios de BetterCrewLink!",
+				"ban_warning": "Texto inapropiado resultará en una prohibición de BetterCrewLink."
+			}
 		},
 		"audio": {
 			"title": "Audio",
@@ -77,6 +86,7 @@
 			"title": "BETA/DEPURACIÓN",
 			"mobilehost": "Host móvil",
 			"vad_enabled": "VAD activado",
+			"hardware_acceleration": "Aceleración de Hardware",
 			"vad_enabled_warning": "No serás capaz de ver quién habla si se desactiva.",
 			"echocancellation": "Cancelación de Eco",
 			"noiseSuppression": "Supresión de Ruido",
@@ -86,7 +96,7 @@
 			"title": "Opciones para Directos",
 			"hidecode": "Enseñar código de la Sala",
 			"obs_overlay": "Overlay de Buscador de OBS",
-			"obs_url": "URL de fuente de Navegador de OBS",
+			"obs_url": "URL de la fuente del navegador OBS",
 			"voice_server_comp": "Modo de compatiblidad de Servidores de Voz",
 			"voice_server_comp_warning": "Es recomendado que se cambie el servidor de voz a un Servidor de Voz de BetterCrewLink, (https://bettercrewl.ink) por ejemplo."
 		},
@@ -97,11 +107,24 @@
 			"warning": "¡No disponible como anfitrión en partida!"
 		}
 	},
+	"lobbybrowser": {
+		"header": "Salas Públicas",
+		"code": "Código de la Sala",
+		"list": {
+			"title": "Título",
+			"host": "Anfitrión",
+			"players": "Jugadores",
+			"mods": "Mods",
+			"language": "Idioma"
+		}
+	},
 	"buttons": {
 		"default": "Por defecto",
 		"confirm": "Confirmar",
 		"cancel": "Cancelar",
-		"exit": "Salte de las Opciones para  guardar los cambios"
+		"close": "Cerrar",
+		"exit": "Salte de las Opciones para Aplicar los Cambios",
+		"public_lobby": "Salas públicas"
 	},
 	"game": {
 		"menu": "MENÚ",
@@ -112,5 +135,5 @@
 		"error_admin": "No se pudo conectar a Among Us.\nPor favor vuelve a abrir BetterCrewLink como un administrador.",
 		"error_unsupport": "Tu versión de Among Us no es soportada por BetterCrewLink."
 	},
-	"translator_name": "Translator Name"
+	"translator_name": "LukehTM"
 }

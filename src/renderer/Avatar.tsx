@@ -156,7 +156,7 @@ const Avatar: React.FC<AvatarProps> = function ({
 									onClick={() => {
 										socketConfig.isMuted = !socketConfig.isMuted;
 									}}
-									style={{margin: '1px 1px 0px 0px'}}
+									style={{ margin: '1px 1px 0px 0px' }}
 								>
 									{muteButtonIcon}
 								</IconButton>
@@ -283,6 +283,7 @@ function Canvas({
 		paddingLeft: -7,
 	});
 
+//@ts-ignore
 	const onerror = (e: any) => {
 		e.target.onError = null;
 		e.target.src = '';
@@ -304,6 +305,7 @@ function Canvas({
 						src={getCosmetic(color, isAlive, cosmeticType.base)}
 						ref={image}
 						className={classes.base}
+						//@ts-ignore
 						onError={(e: any) => {
 							e.target.onError = null;
 							e.target.src = redAlive;
