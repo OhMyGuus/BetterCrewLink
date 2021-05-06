@@ -288,8 +288,9 @@ There are two methods.
 * [SirBuvex](https://github.com/SirBuvex) & [Jeddunk](https://github.com/jeddunk) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to German
 * [Steby5](https://github.com/Steby5) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Slovenian and Slovak
 * [XRevan86](https://github.com/XRevan86) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Russian and Ukrainian
+* [Xoyn](https://crowdin.com/profile/xoyn) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Russian
 * [Ajno, Jano Miĥalako](https://crowdin.com/profile/Ajno) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Esperanto
-* [Tiquis](https://crowdin.com/profile/tiquis) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Czech
+* [Tiquis](https://crowdin.com/profile/tiquis) & [fajnyCreeper](https://github.com/fajnyCreeper) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Czech
 * [ElBusAlv](https://github.com/ElBusAlv) & [nyanya4444](https://github.com/nyanya4444) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Catalan
 * [Achs gaming](https://crowdin.com/profile/Achsan4) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Arabic and Arabic Egpyt
 * [Fixuuu](https://github.com/Fixuuu) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Polish
@@ -297,7 +298,9 @@ There are two methods.
 * [Hani Rouatbi](https://crowdin.com/profile/lamjed001) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Arabic
 * [NoikzGaming](https://crowdin.com/profile/NoikzGaming) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Swedish
 * [Zheng Syameimaru](https://github.com/0999312) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Chinese Simplified
-* [Aorin](https://crowdin.com/profile/aorin) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Japanese
+* [Aorin](https://crowdin.com/profile/aorin) & [Sakurai00](https://crowdin.com/profile/sakurai00) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Japanese
+* [MrAngelos6](https://crowdin.com/profile/mrangelos6) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to French and Spanish
+* [Amirhan-Taipovjan-Greatest-I](https://github.com/Amirhan-Taipovjan-Greatest-I) & [morewaves](https://crowdin.com/profile/morewaves) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Tatar
 
 A big thank you to all those people who translated and still translate this project to stay alive, thank you so much for being part of this BetterCrewLink community!
 
