@@ -54,7 +54,7 @@ const TitleBar = function () {
 			<span className={classes.title} style={{ marginLeft: 10 }}>
 				LobbyBrowser
 			</span>
-			<IconButton className={classes.button} size="small" onClick={() => ipcRenderer.send('reload')}>
+			<IconButton className={classes.button} size="small" onClick={() => remote.getCurrentWindow().reload()}>
 				<RefreshSharpIcon htmlColor="#777" />
 			</IconButton>
 			<IconButton
