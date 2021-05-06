@@ -5,7 +5,7 @@
 		"warning": "¿Estás seguro?",
 		"lobbysettings": {
 			"title": "Opciones de la Sala",
-			"gamehostonly": "¡Solo el anfitrión de la sala puede cambiar esto! ",
+			"gamehostonly": "¡Solo el anfitrón de la sala puede cambiar esto! ",
 			"inlobbyonly": "¡Solo puedes cambiar esto en la sala!",
 			"voicedistance": "Distancia de la Voz",
 			"voicedistance_impostor": "Distancia de Voz del Impostor",
@@ -25,10 +25,12 @@
 			"impostor_radio": "Radio de Impostores",
 			"public_lobby": {
 				"change_settings": "Cambiar Información de la Sala",
-				"enabled": "La Sala es Pública",
 				"title": "Título",
+				"enabled": "La Sala es Pública",
 				"mods": "Mods",
-				"language": "Idioma"
+				"language": "Idioma",
+				"enable_warning": "¡Activar esto hará que tu lobby sea público para otros usuarios de BetterCrewLink!",
+				"ban_warning": "Texto inapropiado resultará en una prohibición de BetterCrewLink."
 			}
 		},
 		"audio": {
@@ -94,7 +96,7 @@
 			"title": "Opciones para Directos",
 			"hidecode": "Enseñar código de la Sala",
 			"obs_overlay": "Overlay de Buscador de OBS",
-			"obs_url": "URL de fuente de Navegador de OBS",
+			"obs_url": "URL de la fuente del navegador OBS",
 			"voice_server_comp": "Modo de compatiblidad de Servidores de Voz",
 			"voice_server_comp_warning": "Es recomendado que se cambie el servidor de voz a un Servidor de Voz de BetterCrewLink, (https://bettercrewl.ink) por ejemplo."
 		},
