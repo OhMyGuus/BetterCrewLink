@@ -64,10 +64,10 @@
 * [Extra features/bug fixes in this fork](#extra-featuresbug-fixes-in-this-fork)
 * [Supported Plataforms](#supported-plataforms)
 * [Installation](#installation)
-  * [Windows](#windows)
-  * [Linux](#linux)
+  * [Windows](#windows-)
+  * [Linux](#linux-)
   * [Android/Chromebook/Bluestacks](#androidchromebookbluestacks)
-  * [iOS & macOS](#ios--macos)
+  * [iOS & macOS](#ios--macos-)
 * [Development](#development)
   * [Prerequisites](#prerequisites)
       * [Setup](#setup)
@@ -329,7 +329,7 @@ If you like the BetterCrewLink and want to help it to stay alive and with new fe
 
 Any donations you make are greatly appreciated.
 
-**Donations Goals**
+### Donations Goals
 - Bring BetterCrewLink to iOS & Mobile progression 
 - US NAT FIX/server location 
 - ASIA NAT FIX/server location 
