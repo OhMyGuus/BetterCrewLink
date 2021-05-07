@@ -329,21 +329,33 @@ If you like the BetterCrewLink and want to help it to stay alive and with new fe
 
 Any donations you make are greatly appreciated.
 
+**Donations Goals**
+- Bring BetterCrewLink to iOS & Mobile progression 
+- US NAT FIX/server location 
+- ASIA NAT FIX/server location 
+
+<hr />
+
 <details>
 <summary> Donators </summary>
 
 * Johann: Donated 40$ for the iOS & Mobile progression and to thank me, thanks you soo much!
-* stročji fižol: Donated 6$ to bring the app on iOS thanks and thanks for testing the app with me.
-* alexdu645: Donated 20$ to bring the app on iOS thanks.
-* imy: Donated 53$ THANKS so much and we got now enough to get the app on iOS :heart: :heart: :heart:
-* kev: Donated 10$ to bring the app on iOS :heart: Thanks :smile:
-* unkown: Donated 10$ to bring the app on iOS :heart: Thanks :smile:
-* Danger: Donated 5$ :heart: Thanks :smile:
-* Fauli1221: Donated 10$ :heart: Thanks :smile:
-* Joerg: Donated 5$ :heart: Thanks :smile:
-* Jaden: Donated 11,05$ :heart: Thanks :smile:
-* BChoy: Donated 47$ :heart: :heart: :heart: Thanks :smile: :smile:
-* Bambii: Donated 51$ :heart: :heart: :heart: :heart: Thanks :smile: :smile: :smile: :smile:
+* stročji fižol: Donated 6$ to bring the app on iOS & Mobile progression thanks and thanks for testing the app with me.
+* alexdu645: Donated 20$ to bring the app on iOS & Mobile progression thanks.
+* imy: Donated 53$ THANKS you so much and we got now enough to get the app on iOS!
+* kev: Donated 10$ to bring the app on iOS & Mobile progression thanks.
+* unkown: Donated 10$ to bring the app on iOS & Mobile progression thanks.
+* Danger: Donated 5$ thanks.
+* Fauli1221: Donated 10$ thanks.
+* Joerg: Donated 5$ thanks.
+* Jaden: Donated 11,05$ thanks.
+* BChoy: Donated 47$ thanks.
+* Bambii: Donated 51$ thanks.
+
+
+</details>
+
+<hr />
 
 <!-- BUGS/SUGGESTIONS/QUESTIONS -->
 ## Bugs & Suggestions
