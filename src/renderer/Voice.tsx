@@ -221,7 +221,7 @@ radioOnAudio.volume = 0.02;
 const store = new Store<ISettings>();
 const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceProps) {
 	const [error, setError] = useState(initialError);
-	const [settings, setSettings] = useContext(SettingsContext);
+	const [settings] = useContext(SettingsContext);
 
 	const settingsRef = useRef<ISettings>(settings);
 	const [lobbySettings, setLobbySettings] = useContext(LobbySettingsContext);

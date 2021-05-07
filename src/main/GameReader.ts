@@ -186,8 +186,9 @@ export default class GameReader {
 			}
 
 			if (this.gameCode && playerCount) {
-				for (let i = 0; i < Math.min(playerCount, 20); i++) {
+				for (let i = 0; i < Math.min(playerCount, 40); i++) {
 					const { address, last } = this.offsetAddress(playerAddrPtr, this.offsets.player.offsets);
+					if (address === 0) continue;
 					const playerData = readBuffer(this.amongUs.handle, address + last, this.offsets.player.bufferLength);
 					const player = this.parsePlayer(address + last, playerData, clientId);
 					playerAddrPtr += this.is_64bit ? 8 : 4;
