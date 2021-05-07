@@ -59,6 +59,7 @@ const servers: {
 	'50.116.1.42': 'North America',
 	'172.105.251.170': 'Europe',
 	'139.162.111.196': 'Asia',
+	'192.241.154.115' : 'skeld.net'
 };
 
 // @ts-ignore
@@ -156,7 +157,7 @@ export default function lobbyBrowser({ t }) {
 											{row.current_players}/{row.max_players}
 										</StyledTableCell>
 										<StyledTableCell align="left">{modList.find((o) => o.id === row.mods)?.label ?? 'NONE'}</StyledTableCell>
-										<StyledTableCell align="left">{(languages as any)[row.language].name ?? 'English'}</StyledTableCell>
+										<StyledTableCell align="left">{(languages as any)[row.language]?.name ?? 'English'}</StyledTableCell>
 										<StyledTableCell align="right">
 											<Button
 												variant="contained"

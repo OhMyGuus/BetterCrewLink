@@ -54,7 +54,7 @@ const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 						onBlur={(ev) => updateSetting('publicLobby_title', ev.target.value)}
 						variant="outlined"
 						color="primary"
-						disabled={canChange}
+						disabled={!canChange}
 					/>
 					<TextField
 						fullWidth
@@ -67,7 +67,7 @@ const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 						value={lobbySettingState.publicLobby_language}
 						onChange={(ev) => setLobbySettingState({ ...lobbySettingState, publicLobby_language: ev.target.value })}
 						onBlur={(ev) => updateSetting('publicLobby_language', ev.target.value)}
-						disabled={canChange}
+						disabled={!canChange}
 					>
 						{Object.entries(languages).map(([key, value]) => (
 							<option key={key} value={key}>
@@ -86,7 +86,7 @@ const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 						value={lobbySettingState.publicLobby_mods}
 						onChange={(ev) => setLobbySettingState({ ...lobbySettingState, publicLobby_mods: ev.target.value })}
 						onBlur={(ev) => updateSetting('publicLobby_mods', ev.target.value)}
-						disabled={canChange}
+						disabled={!canChange}
 					>
 						{modList.map((d) => (
 							<option key={d.id} value={d.id}>
@@ -94,19 +94,9 @@ const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 							</option>
 						))}
 					</TextField>
-					 <Alert severity="error">{t('settings.lobbysettings.public_lobby.ban_warning')}</Alert> 
+					<Alert severity="error">{t('settings.lobbysettings.public_lobby.ban_warning')}</Alert>
 				</DialogContent>
 				<DialogActions>
-					{/* <Button
-						color="primary"
-						onClick={() => {
-							// setURLValid(true);
-							setOpen(false);
-							// setCurrentURL(initialURL);
-						}}
-					>
-						{t('buttons.cancel')}
-					</Button> */}
 					<Button
 						color="primary"
 						onClick={() => {

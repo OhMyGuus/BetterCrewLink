@@ -526,13 +526,10 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				console.warn('failed to update lobby settings: ', e);
 			}
 		});
-		Object.keys(lobbySettings).forEach((field: string) => {
-			if (field in lobbySettings) {
-				setLobbySettings({
-					type: 'set',
-					action: settings.localLobbySettings,
-				});
-			}
+
+		setLobbySettings({
+			type: 'set',
+			action: settings.localLobbySettings,
 		});
 	}, [settings.localLobbySettings]);
 
@@ -746,12 +743,13 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		});
 		socket.on('connect', () => {
 			setConnected(true);
-			// send current room code?
 		});
+
 		socket.on('disconnect', () => {
 			setConnected(false);
 			currentLobby = 'MENU';
 		});
+
 		notifyMobilePlayers();
 
 		let iceConfig: RTCConfiguration = DEFAULT_ICE_CONFIG;
@@ -784,12 +782,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		});
 
 		socket.on('VAD', (data: { activity: boolean; client: Client; socketId: string }) => {
-			console.log('Recieved VAD data: ', data);
-			// if (!socketClientsRef.current[peer]) {
-			// 	console.log('error with settalking: ', talking);
-			// 	return;
-			// }
-			// const reallyTalking = talking && gain.gain.value > 0;
 			setOtherVAD((old) => ({
 				...old,
 				[data.client.clientId]: data.activity,
@@ -1170,6 +1162,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		playerSocketIdsRef.current = playerSocketIds;
 		const handledPeerIds: string[] = [];
 		let foundRadioUser = false;
+		let tempTalking = { ...otherTalking };
+		let talkingUpdate = false;
 		for (const player of otherPlayers) {
 			const peerId = playerSocketIds[player.clientId];
 			const audio = player.clientId === myPlayer.clientId ? undefined : audioElements.current[peerId];
@@ -1199,9 +1193,16 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					gain = gain * (settings.masterVolume / 100);
 				}
 				audio.gain.gain.value = gain;
-				otherTalking[player.clientId] = otherVAD[player.clientId] && gain > 0;
+				tempTalking[player.clientId] = otherVAD[player.clientId] && gain > 0;
+				if (tempTalking[player.clientId] != otherTalking[player.clientId]) {
+					talkingUpdate = true;
+				}
 			}
 		}
+		if (talkingUpdate) {
+			setOtherTalking(tempTalking);
+		}
+
 		if (
 			((!foundRadioUser && impostorRadioClientId.current !== myPlayer.clientId) || !myPlayer.isImpostor) &&
 			impostorRadioClientId.current !== -1
@@ -1255,9 +1256,9 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 	useEffect(() => {
 		if (gameState.isHost) {
-			setSettings({
-				type: 'setOne',
-				action: ['localLobbySettings', lobbySettings],
+			setLobbySettings({
+				type: 'set',
+				action: settings.localLobbySettings,
 			});
 		}
 	}, [gameState.isHost]);

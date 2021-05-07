@@ -794,8 +794,8 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								action: [setting, newValue],
 							});
 						}}
-						lobbySettings={localLobbySettings}
-						canChange={!canChangeLobbySettings}
+						lobbySettings={canChangeLobbySettings? localLobbySettings : lobbySettings}
+						canChange={canChangeLobbySettings}
 						className={classes.dialog}
 					/>
 
