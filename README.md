@@ -66,7 +66,7 @@
 * [Installation](#installation)
   * [Windows](#windows)
   * [Linux](#linux)
-  * [Android & Chromebook](#android--chromebook)
+  * [Android/Chromebook/Bluestacks](#androidchromebookbluestacks)
   * [iOS & macOS](#ios--macos)
 * [Development](#development)
   * [Prerequisites](#prerequisites)
@@ -90,6 +90,8 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 - Hear People in Vision Only.
 - Walls Block Audio. 
 - Volume Sliders.
+- Public Lobby List.
+- Other languages.
 - It doesn't break when someone leaves/disconnects.
 - It works on any network even with UPnP disabled. (Strict NAT)
 - More fun settings like hearing through cameras, impostor radio.
@@ -130,7 +132,7 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 <!-- INSTALLATION -->
 ## Installation
 
-### Windows
+### Windows ![Windows](https://i.imgur.com/CX1j48h.png)
 
 Download the latest version from [releases](https://github.com/OhMyGuus/BetterCrewLink/releases/latest) and run the `BetterCrewLink-Setup-X.X.X.exe` file. You may get antivirus warnings, because this program hooks into the Among Us process to read game data.
 
@@ -138,7 +140,7 @@ Download the latest version from [releases](https://github.com/OhMyGuus/BetterCr
 
 [![Setup Video](https://img.youtube.com/vi/_8F4f5iQEIc/0.jpg)](https://www.youtube.com/watch?v=_8F4f5iQEIc "BetterCrewLink Setup Instructions")
 
-### Linux
+### Linux ![Linux](https://i.imgur.com/xFFj5PT.png)
 
 To install & run it on Linux run the following commands:
 
@@ -155,15 +157,15 @@ The Linux version is thanks to the following contributors:
 - [zbanks](https://github.com/zbanks) -> Memoryjs fork
 - [Donokami](https://github.com/Donokami) -> Testing and helping  
 
-### Android & Chromebook
+### Android/Chromebook/Bluestacks
 
-Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) in BetterCrewlink-mobile to see how to install the Android/Chromebook version. (requires a PC player)
+Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) in BetterCrewlink-mobile to see how to install the Android/Chromebook/Bluestacks version. (requires a PC player)
 
 [![BetterCrewLink on Play Store](https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0)](https://play.google.com/store/apps/details?id=io.bettercrewlink.app "Get BetterCrewLink on Play Store")
 
 [![Play Store Latest Version][playstore_latest_version-shield]][playstore_latest_version-url] 
 
-### iOS & macOS
+### iOS & macOS ![iOS & macOS](https://i.imgur.com/d4X3mKz.png)
 
 Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) in BetterCrewlink-mobile to see how to install the iOS/macOS version. (requires a PC player)
 
@@ -326,6 +328,22 @@ If you like the BetterCrewLink and want to help it to stay alive and with new fe
 [![Support BetterCrewLink (PayPal)][paypal-shield]][paypal-url] [![Support BetterCrewLink (Ko-fi)][kofi-shield]][kofi-url]
 
 Any donations you make are greatly appreciated.
+
+<details>
+<summary> Donators </summary>
+
+* Johann: Donated 40$ for the iOS & Mobile progression and to thank me, thanks you soo much!
+* stročji fižol: Donated 6$ to bring the app on iOS thanks and thanks for testing the app with me.
+* alexdu645: Donated 20$ to bring the app on iOS thanks.
+* imy: Donated 53$ THANKS so much and we got now enough to get the app on iOS :heart: :heart: :heart:
+* kev: Donated 10$ to bring the app on iOS :heart: Thanks :smile:
+* unkown: Donated 10$ to bring the app on iOS :heart: Thanks :smile:
+* Danger: Donated 5$ :heart: Thanks :smile:
+* Fauli1221: Donated 10$ :heart: Thanks :smile:
+* Joerg: Donated 5$ :heart: Thanks :smile:
+* Jaden: Donated 11,05$ :heart: Thanks :smile:
+* BChoy: Donated 47$ :heart: :heart: :heart: Thanks :smile: :smile:
+* Bambii: Donated 51$ :heart: :heart: :heart: :heart: Thanks :smile: :smile: :smile: :smile:
 
 <!-- BUGS/SUGGESTIONS/QUESTIONS -->
 ## Bugs & Suggestions
