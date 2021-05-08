@@ -31,6 +31,7 @@
 				"language": "Linguagem",
 				"enable_warning": "Esta opção vai abrir o Lobby para outros utilizadores do BetterCrewLink!",
 				"ban_warning": "Texto inapropriado levará a um ban do BetterCrewLink."
+			}
 		},
 		"audio": {
 			"title": "Áudio",
@@ -106,6 +107,17 @@
 			"warning": "Opção indisponível como anfitrião do jogo!"
 		}
 	},
+		"lobbybrowser": {
+			"header": "Lobbies Públicos",
+			"code": "Código do Lobby",
+			"list": {
+				"title": "Título",
+				"host": "Anfitrião",
+				"players": "Jogadores",
+				"mods": "Mods",
+				"language": "Linguagem"
+		}
+	},
 	"buttons": {
 		"default": "Predefinido",
 		"confirm": "Confirmar",
@@ -124,5 +136,4 @@
 		"error_unsupport": "A versão do Among Us não é suportada pelo BetterCrewLink."
 	},
 	"translator_name": "Translator Name"
-
 }
