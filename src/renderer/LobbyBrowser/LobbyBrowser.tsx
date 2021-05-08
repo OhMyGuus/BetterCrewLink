@@ -156,7 +156,7 @@ export default function lobbyBrowser({ t }) {
 										<StyledTableCell align="left">
 											{row.current_players}/{row.max_players}
 										</StyledTableCell>
-										<StyledTableCell align="left">{modList.find((o) => o.id === row.mods)?.label ?? 'NONE'}</StyledTableCell>
+										<StyledTableCell align="left">{modList.find((o) => o.id === row.mods)?.label ?? 'None'}</StyledTableCell>
 										<StyledTableCell align="left">{(languages as any)[row.language]?.name ?? 'English'}</StyledTableCell>
 										<StyledTableCell align="right">
 											<Button
