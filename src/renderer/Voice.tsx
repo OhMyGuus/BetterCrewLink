@@ -486,16 +486,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		element.load();
 		element.remove();
 	}
-	function disconnectPeer(peer: string) {
-		const connection = peerConnections[peer];
-		if (!connection) {
-			return;
-		}
-		connection.destroy();
-		setPeerConnections((connections) => {
-			delete connections[peer];
-			return connections;
-		});
+	function disconnectAudioElement(peer: string) {
 		if (audioElements.current[peer]) {
 			console.log('removing element..');
 			disconnectAudioHtmlElement(audioElements.current[peer].audioElement);
@@ -506,6 +497,19 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			if (audioElements.current[peer].reverb != null) audioElements.current[peer].reverb?.disconnect();
 			delete audioElements.current[peer];
 		}
+	}
+
+	function disconnectPeer(peer: string) {
+		const connection = peerConnections[peer];
+		if (!connection) {
+			return;
+		}
+		connection.destroy();
+		setPeerConnections((connections) => {
+			delete connections[peer];
+			return connections;
+		});
+		disconnectAudioElement(peer);
 	}
 	// Handle pushToTalk, if set
 	useEffect(() => {
@@ -952,6 +956,9 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 					connection.on('stream', async (stream: MediaStream) => {
 						console.log('ONSTREAM');
+						if (audioElements.current[peer]) {
+							disconnectAudioElement(peer);
+						}
 
 						setAudioConnected((old) => ({ ...old, [peer]: true }));
 						const dummyAudio = new Audio();
@@ -1253,8 +1260,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			setOtherDead({});
 		}
 	}, [gameState.gameState]);
-
-
 
 	// Emit player id to socket
 	useEffect(() => {
