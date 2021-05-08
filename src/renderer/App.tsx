@@ -171,7 +171,7 @@ export default function App({ t }): JSX.Element {
 			publicLobby_on: false,
 			publicLobby_title: '',
 			publicLobby_language: 'en',
-			publicLobby_mods: 'NONE',
+			publicLobby_mods: 'None',
 		},
 	});
 	const lobbySettings = useReducer(lobbySettingsReducer, settings[0].localLobbySettings);
@@ -291,7 +291,7 @@ export default function App({ t }): JSX.Element {
 							</DialogContent>
 							{updaterState.state === 'error' && (
 								<DialogActions>
-									<Button href="https://github.com/OhMyGuus/CrewLink/releases/latest">Download Manually</Button>
+									<Button href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest">Download Manually</Button>
 								</DialogActions>
 							)}
 							{updaterState.state === 'downloaded' && (
