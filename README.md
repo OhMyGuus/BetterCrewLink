@@ -1,7 +1,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/OhMyGuus/BetterCrewLink">
-    <img src="src/renderer/logos/sizes/256-BCL-Logo-shadow.png" alt="BetterCrewLink Logo" width="256" height="256">
+    <img src="src/renderer/logos/sizes/256-BCL-Logo-shadow.png" alt="BetterCrewLink Logo">
   </a>
   <br/>
   <sub>Logo made by <a href="https://github.com/SirBuvex">SirBuvex</a></sub>
@@ -109,7 +109,7 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 - Microphone Eoise Suppression.
 - More overlay positions and you can set the overlay to the top/bottom and you can set it so it shows everyone even when they aren't talking.
 - You can set the lobby up so only death people can talk. (normal lobbies but then with death talk)
-- Support for new versions of Among Us. (v2021.3.31.3 and v2021.4.1)
+- Support for new/older versions of Among Us. (v2021.4.14)
 - Support for Custom Colors. (mods that add more colors)
 - Support for Linux.
 - Support for Mobile.
