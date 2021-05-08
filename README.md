@@ -287,7 +287,6 @@ There are two methods.
 * [MatadorProBr](https://github.com/MatadorProBr) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Portuguese (Brazil)
 * [vb-03](https://github.com/vb-03) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Portuguese (Portugal)
 * [LaneGL](https://github.com/LaneGL) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Indonesian
-* [SirBuvex](https://github.com/SirBuvex) & [Jeddunk](https://github.com/jeddunk) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to German
 * [Steby5](https://github.com/Steby5) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Slovenian and Slovak
 * [XRevan86](https://github.com/XRevan86) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Russian and Ukrainian
 * [Xoyn](https://crowdin.com/profile/xoyn) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Russian
