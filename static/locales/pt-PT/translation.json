@@ -23,6 +23,14 @@
 			"meetings_only_warning": "Isto desativa o som dos jogadores vivos fora das reuniões de emergência.",
 			"meetings_only_warning2": "Apenas se pode falar apenas nas reuniões de emergência.",
 			"impostor_radio": "Rádio do Impostor"
+			"public_lobby": {
+				"change_settings": "Change Lobby Info",
+				"title": "Título",
+				"enabled": "Lobby Aberto",
+				"mods": "Mods",
+				"language": "Linguagem",
+				"enable_warning": "Esta opção vai abrir o Lobby para outros utilizadores do BetterCrewLink!",
+				"ban_warning": "Texto inapropriado levará a um ban do BetterCrewLink."
 		},
 		"audio": {
 			"title": "Áudio",
@@ -77,6 +85,7 @@
 			"title": "BETA/DEBUG",
 			"mobilehost": "Permitir jogadores Android/iOS",
 			"vad_enabled": "VAD Ativo",
+			"hardware_acceleration" : "Utilizar Aceleração por Hardware",
 			"vad_enabled_warning": "Ao desativar, não será vísivel quem está a falar.",
 			"echocancellation": "Cancelamento de Eco",
 			"noiseSuppression": "Supressão de Ruído",
@@ -101,7 +110,9 @@
 		"default": "Predefinido",
 		"confirm": "Confirmar",
 		"cancel": "Cancelar",
-		"exit": "Sair das definições para aplicar as alterações"
+		"close": "Fechar",
+		"exit": "As definições são aplicadas ao sair",
+		"public_lobby": "Lobbies Públicos"
 	},
 	"game": {
 		"menu": "MENU",
@@ -113,4 +124,5 @@
 		"error_unsupport": "A versão do Among Us não é suportada pelo BetterCrewLink."
 	},
 	"translator_name": "Translator Name"
+
 }
