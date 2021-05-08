@@ -11,6 +11,7 @@ import {
 	virtualAllocEx,
 	writeBuffer,
 	writeMemory,
+	getProcessPath,
 } from 'memoryjs';
 import Struct from 'structron';
 import { IpcOverlayMessages, IpcRendererMessages } from '../common/ipc-messages';
@@ -22,6 +23,9 @@ import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
 import { RainbowColorId } from '../renderer/cosmetics';
 import { TempFixOffsets, TempFixOffsets2 } from './offsetStore';
 import { platform } from 'os';
+import fs from 'fs';
+import path from 'path';
+import { AmongusMod, modList } from '../common/PublicLobby';
 
 interface ValueType<T> {
 	read(buffer: BufferSource, offset: number): T;
@@ -52,6 +56,7 @@ export default class GameReader {
 	lastPlayerPtr = 0;
 	shouldReadLobby = false;
 	is_64bit = false;
+	is_linux = false;
 	oldGameState = GameState.UNKNOWN;
 	lastState: AmongUsState = {} as AmongUsState;
 	amongUs: ProcessObject | null = null;
@@ -63,6 +68,14 @@ export default class GameReader {
 	currentServer = '';
 	disableWriting = false;
 	pid = -1;
+	loadedMod = modList[0];
+	gamePath = '';
+
+	constructor(sendIPC: Electron.WebContents['send']) {
+		this.is_linux = platform() === 'linux';
+		this.sendIPC = sendIPC;
+	}
+
 	checkProcessOpen(): void {
 		const processesOpen = getProcesses().filter((p) => p.szExeFile === 'Among Us.exe');
 		let error = '';
@@ -73,6 +86,8 @@ export default class GameReader {
 					this.pid = processOpen.th32ProcessID;
 					this.amongUs = openProcess(processOpen.th32ProcessID);
 					this.gameAssembly = findModule('GameAssembly.dll', this.amongUs.th32ProcessID);
+					this.gamePath = getProcessPath(this.amongUs.handle);
+					this.loadedMod = this.getInstalledMods(this.gamePath);
 					this.initializeoffsets();
 					this.sendIPC(IpcRendererMessages.NOTIFY_GAME_OPENED, true);
 					break;
@@ -97,6 +112,25 @@ export default class GameReader {
 		}
 		return;
 	}
+
+	getInstalledMods(filePath: string): AmongusMod {
+		const pathLower = filePath.toLowerCase();
+		if (pathLower.includes('epic') || pathLower.includes('?\\volume') || this.is_linux) {
+			return modList[0];
+		} else {
+			let dir = path.dirname(filePath);
+			let loadedWinHttp = fs.existsSync(path.join(dir, 'winhttp.dll'));
+			if (!loadedWinHttp) {
+				return modList[0];
+			}
+			for (const file of fs.readdirSync(path.join(dir, 'BepInEx\\plugins'))) {
+				let mod = modList.find((o) => o.dllStartsWith && file.includes(o.dllStartsWith));
+				if (mod) return mod;
+			}
+			return modList[0];
+		}
+	}
+
 	checkProcessDelay = 0;
 	loop(): string | null {
 		if (this.checkProcessDelay-- <= 0) {
@@ -355,10 +389,6 @@ export default class GameReader {
 		return null;
 	}
 
-	constructor(sendIPC: Electron.WebContents['send']) {
-		this.sendIPC = sendIPC;
-	}
-
 	initializeoffsets(): void {
 		console.log('INITIALIZEOFFSETS???');
 		this.is_64bit = this.isX64Version();
@@ -457,14 +487,7 @@ export default class GameReader {
 	}
 
 	initializeWrites(): void {
-		if (
-			this.isX64Version() ||
-			!this.offsets ||
-			!this.amongUs ||
-			!this.gameAssembly ||
-			this.disableWriting ||
-			platform() === 'linux'
-		) {
+		if (this.is_64bit || !this.offsets || !this.amongUs || !this.gameAssembly || this.disableWriting || this.is_linux) {
 			//not supported atm
 			return;
 		}
