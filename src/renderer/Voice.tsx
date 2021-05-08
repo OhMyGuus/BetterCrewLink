@@ -531,7 +531,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			type: 'set',
 			action: settings.localLobbySettings,
 		});
-	}, [settings.localLobbySettings]);
+	}, [settings.localLobbySettings, gameState.isHost]);
 
 	useEffect(() => {
 		for (const peer in audioElements.current) {
@@ -1254,14 +1254,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		}
 	}, [gameState.gameState]);
 
-	useEffect(() => {
-		if (gameState.isHost) {
-			setLobbySettings({
-				type: 'set',
-				action: settings.localLobbySettings,
-			});
-		}
-	}, [gameState.isHost]);
+
 
 	// Emit player id to socket
 	useEffect(() => {
