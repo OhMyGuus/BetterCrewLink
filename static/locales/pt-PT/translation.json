@@ -22,9 +22,9 @@
 			"meetings_only": "Apenas nas Reuniões/Lobby",
 			"meetings_only_warning": "Isto desativa o som dos jogadores vivos fora das reuniões de emergência.",
 			"meetings_only_warning2": "Apenas se pode falar apenas nas reuniões de emergência.",
-			"impostor_radio": "Rádio do Impostor"
+			"impostor_radio": "Rádio do Impostor",
 			"public_lobby": {
-				"change_settings": "Change Lobby Info",
+				"change_settings": "Mudar Definições do Lobby",
 				"title": "Título",
 				"enabled": "Lobby Aberto",
 				"mods": "Mods",
@@ -135,5 +135,5 @@
 		"error_admin": "Não foi possível ligar ao Among Us.\nAbra novamente o BetterCrewLink como administrador.",
 		"error_unsupport": "A versão do Among Us não é suportada pelo BetterCrewLink."
 	},
-	"translator_name": "Translator Name"
+	"translator_name": "vbtop/vb-03"
 }
