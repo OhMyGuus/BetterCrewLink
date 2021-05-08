@@ -400,7 +400,7 @@ const store = new Store<ISettings>({
 				},
 				publicLobby_mods: {
 					type: 'string',
-					default: 'None',
+					default: 'NONE',
 				},
 			},
 			default: {
@@ -416,7 +416,7 @@ const store = new Store<ISettings>({
 				publicLobby_on: false,
 				publicLobby_title: '',
 				publicLobby_language: 'en',
-				publicLobby_mods: 'None',
+				publicLobby_mods: 'NONE',
 			},
 		},
 	},
