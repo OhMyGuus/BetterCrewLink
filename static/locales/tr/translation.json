@@ -30,7 +30,7 @@
 				"mods": "Modlar",
 				"language": "Dil",
 				"enable_warning": "Bunu aktif ederek lobini diğer BetterCrewLink kullanıcılarına açabilirsin!",
-				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
+				"ban_warning": "Uygunsuz dil kullanmak BetterCrewLink'ten banlanmana sebep olabilir."
 			}
 		},
 		"audio": {

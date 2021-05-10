@@ -22,7 +22,16 @@
 			"meetings_only": "الاجتماعات/الردهة فقط",
 			"meetings_only_warning": "هذا يعطل صوت اللاعبين الأحياء خارج الاجتماعات.",
 			"meetings_only_warning2": "التحدث في الاجتماعات مفعل فقط.",
-			"impostor_radio": "راديو المحتال"
+			"impostor_radio": "راديو المحتال",
+			"public_lobby": {
+				"change_settings": "تغيير معلومات الردهة",
+				"title": "العنوان",
+				"enabled": "الردهة عامة",
+				"mods": "التعديلات",
+				"language": "اللغة",
+				"enable_warning": "تفعيل هذا سيؤدي إلى جعل الردهة الخاصة بك عامة لمستخدمي BetterCrewLink الآخرين!",
+				"ban_warning": "سيؤدي النص الغير مناسب إلى حظر من BetterCrewLink."
+			}
 		},
 		"audio": {
 			"title": "صوت",
@@ -77,6 +86,7 @@
 			"title": "BETA/DEBUG",
 			"mobilehost": "مضيف الجوال",
 			"vad_enabled": "تمكين VAD",
+			"hardware_acceleration": "تسريع الجهاز",
 			"vad_enabled_warning": "لن ترى من يتحدث إذا تم إلغاء التنشيط.",
 			"echocancellation": "إلغاء الصدى",
 			"noiseSuppression": "قمع الضوضاء",
@@ -86,7 +96,7 @@
 			"title": "إعدادات البث",
 			"hidecode": "إظهار كود اللوبي",
 			"obs_overlay": "تراكب متصفح OBS",
-			"obs_url": "عنوان URL لمصدر متصفح Obs",
+			"obs_url": "عنوان URL لمصدر متصفح OBS",
 			"voice_server_comp": "وضع التوافق مع خادم الصوت",
 			"voice_server_comp_warning": "يوصى بتغيير خادم الصوت إلى خادم صوت BetterCrewLink (https://bettercrewl.ink) على سبيل المثال."
 		},
@@ -97,11 +107,24 @@
 			"warning": "غير متوفر كمضيف في اللعبة!"
 		}
 	},
+	"lobbybrowser": {
+		"header": "الردهات العامة",
+		"code": "كود الردهة",
+		"list": {
+			"title": "العنوان",
+			"host": "المضيف",
+			"players": "اللاعبين",
+			"mods": "التعديلات",
+			"language": "اللغة"
+		}
+	},
 	"buttons": {
 		"default": "الافتراضي",
 		"confirm": "تأكيد",
 		"cancel": "إلغاء",
-		"exit": "اخرج من الإعدادات لتطبيق التغييرات"
+		"close": "غلق",
+		"exit": "الخروج من الإعدادات لتطبيق التغييرات",
+		"public_lobby": "الردهات العامة"
 	},
 	"game": {
 		"menu": "قائمة",
