@@ -550,8 +550,8 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					if (d.deviceId === 'default') {
 						label = t('buttons.default');
 					} else {
-						const match = /(.+?)\)/.exec(d.label);
-						if (match && match[1]) label = match[1] + ')';
+						const match = /.+?\([^(]+\)/.exec(d.label);
+						if (match && match[0]) label = match[0];
 					}
 					return {
 						id: d.deviceId,
