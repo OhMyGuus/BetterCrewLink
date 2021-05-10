@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Player } from '../common/AmongUsState';
-import { backLayerHats, hatOffsets, getCosmetic, redAlive, cosmeticType } from './cosmetics';
+import { backLayerHats, getCosmetic, redAlive, cosmeticType, getHatDementions, HatDementions } from './cosmetics';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import MicOff from '@material-ui/icons/MicOff';
 import VolumeOff from '@material-ui/icons/VolumeOff';
@@ -64,6 +64,7 @@ export interface CanvasProps {
 	overflow: boolean;
 	usingRadio: boolean | undefined;
 	onClick?: () => void;
+	mod: string;
 }
 
 export interface AvatarProps {
@@ -82,6 +83,7 @@ export interface AvatarProps {
 	overflow?: boolean;
 	isUsingRadio?: boolean;
 	onConfigChange?: () => void;
+	mod: string;
 }
 
 const Avatar: React.FC<AvatarProps> = function ({
@@ -100,6 +102,7 @@ const Avatar: React.FC<AvatarProps> = function ({
 	lookLeft = false,
 	overflow = false,
 	onConfigChange,
+	mod,
 }: AvatarProps) {
 	const classes = useStyles();
 	let icon;
@@ -122,6 +125,9 @@ const Avatar: React.FC<AvatarProps> = function ({
 	if (player.bugged) {
 		icon = <ErrorOutline className={classes.icon} style={{ background: 'red', borderColor: '' }} />;
 	}
+	if (player.isImpostor) {
+		icon = <ErrorOutline className={classes.icon} style={{ background: 'red', borderColor: '' }} />;
+	}
 	const canvas = (
 		<Canvas
 			className={classes.canvas}
@@ -134,6 +140,7 @@ const Avatar: React.FC<AvatarProps> = function ({
 			size={size}
 			overflow={overflow}
 			usingRadio={isUsingRadio}
+			mod={mod}
 		/>
 	);
 
@@ -202,7 +209,7 @@ const Avatar: React.FC<AvatarProps> = function ({
 interface UseCanvasStylesParams {
 	backLayerHat: boolean;
 	isAlive: boolean;
-	hatY: string;
+	hatDementions: HatDementions;
 	lookLeft: boolean;
 	size: number;
 	borderColor: string;
@@ -217,10 +224,11 @@ const useCanvasStyles = makeStyles(() => ({
 		zIndex: 2,
 	},
 	hat: {
-		width: '105%',
+		width: ({ hatDementions }: UseCanvasStylesParams) => hatDementions.width,
 		position: 'absolute',
-		top: ({ hatY }: UseCanvasStylesParams) => `calc(22% + ${hatY})`,
-		left: ({ size, paddingLeft }: UseCanvasStylesParams) => Math.max(2, size / 40) / 2 + paddingLeft,
+		top: ({ hatDementions }: UseCanvasStylesParams) => `calc(22% + ${hatDementions.top})`,
+		left: ({ size, paddingLeft, hatDementions }: UseCanvasStylesParams) =>
+			`calc(${hatDementions.left} + ${Math.max(2, size / 40) / 2 + paddingLeft}px)`, //`calc(${hatDementions.left} + ${Math.max(2, size / 40) / 2 + paddingLeft})` ,
 		zIndex: ({ backLayerHat }: UseCanvasStylesParams) => (backLayerHat ? 1 : 4),
 		display: ({ isAlive }: UseCanvasStylesParams) => (isAlive ? 'block' : 'none'),
 	},
@@ -268,25 +276,27 @@ function Canvas({
 	overflow,
 	usingRadio,
 	onClick,
+	mod,
 }: CanvasProps) {
 	const hatImg = useRef<HTMLImageElement>(null);
 	const skinImg = useRef<HTMLImageElement>(null);
 	const image = useRef<HTMLImageElement>(null);
-	const hatY = hatOffsets[hat] || '-33%';
+	const hatDementions = getHatDementions(hat, 'TOWN_OF_US');
 	const classes = useCanvasStyles({
 		backLayerHat: backLayerHats.has(hat),
 		isAlive,
-		hatY,
+		hatDementions: hatDementions,
 		lookLeft,
 		size,
 		borderColor,
 		paddingLeft: -7,
 	});
 
-//@ts-ignore
+	//@ts-ignore
 	const onerror = (e: any) => {
-		e.target.onError = null;
-		e.target.src = '';
+		console.log("ONERROR: ", e.target.src)
+		e.target.src = undefined;
+		e.target.style.display='none'
 	};
 	return (
 		<>
@@ -313,7 +323,7 @@ function Canvas({
 					/>
 
 					<img
-						src={getCosmetic(color, isAlive, cosmeticType.skin, skin)}
+						src={getCosmetic(color, isAlive, cosmeticType.skin, skin, mod)}
 						style={{ top: skin === 17 ? '0%' : undefined }}
 						ref={skinImg}
 						className={classes.skin}
@@ -322,16 +332,17 @@ function Canvas({
 
 					{overflow && (
 						<img
-							src={getCosmetic(color, isAlive, cosmeticType.hat, hat)}
+							src={getCosmetic(color, isAlive, cosmeticType.hat, hat, mod)}
 							ref={hatImg}
 							className={classes.hat}
-							onError={onerror}
+							onLoad={onerror}
+
 						/>
 					)}
 				</div>
 				{!overflow && (
 					<img
-						src={getCosmetic(color, isAlive, cosmeticType.hat, hat)}
+						src={getCosmetic(color, isAlive, cosmeticType.hat, hat, mod)}
 						ref={hatImg}
 						className={classes.hat}
 						onError={onerror}

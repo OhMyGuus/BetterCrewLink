@@ -17,6 +17,7 @@ export interface AmongUsState {
 	closedDoors: number[];
 	currentServer: string;
 	maxPlayers: number;
+	mod: string;
 }
 
 export interface Player {
@@ -80,4 +81,5 @@ export interface VoiceState {
 	localIsAlive: boolean;
 	muted: boolean;
 	deafened: boolean;
+	mod: string;
 }

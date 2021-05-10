@@ -1,6 +1,7 @@
 export interface AmongusMod {
 	id: string;
 	label: string;
+	dllStartsWith?: string
 }
 
 
@@ -13,18 +14,23 @@ export const modList: AmongusMod[] = [
 	{
 		id: 'TOWN_OF_US',
 		label: 'Town of Us',
+		dllStartsWith: 'TownOfUs'
 	},
 	{
 		id: 'TOWN_OF_IMPOSTORS',
 		label: 'Town of Impostors',
+		dllStartsWith: 'TownOfImpostors'
+
 	},
 	{
 		id: 'THE_OTHER_ROLES',
 		label: 'The Other Roles',
+		dllStartsWith: 'TheOtherRoles'
 	},
 	{
 		id: 'EXTRA_ROLES',
 		label: 'Extra Roles',
+		dllStartsWith: 'ExtraRoles'
 	},
 	{
 		id: 'OTHER',
