@@ -290,13 +290,13 @@ function Canvas({
 		size,
 		borderColor,
 		paddingLeft: -7,
-		mod = { mod },
 	});
 
 	//@ts-ignore
 	const onerror = (e: any) => {
-		e.target.onError = null;
-		e.target.src = '';
+		console.log("ONERROR: ", e.target.src)
+		e.target.src = undefined;
+		e.target.style.display='none'
 	};
 	return (
 		<>
@@ -335,7 +335,8 @@ function Canvas({
 							src={getCosmetic(color, isAlive, cosmeticType.hat, hat, mod)}
 							ref={hatImg}
 							className={classes.hat}
-							onError={onerror}
+							onLoad={onerror}
+
 						/>
 					)}
 				</div>

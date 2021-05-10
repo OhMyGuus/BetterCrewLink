@@ -349,10 +349,10 @@ function getModHat(color: number, id = -1, mod: string) {
 		fetch(`${MODHATS_BASE}/hats.json`)
 			.then((response) => response.json())
 			.then((data) => (modHats = data));
-		return '';
+		return undefined;
 	}
 	const hat = modHats[mod]?.hats[id]?.image;
-	return hat ? `${MODHATS_BASE}/${mod}/${hat}` : hats[id] ? hats[id] : '';
+	return hat ? `${MODHATS_BASE}/${mod}/${hat}` : hats[id] ? hats[id] : undefined;
 }
 
 export interface HatDementions {
