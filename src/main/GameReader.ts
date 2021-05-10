@@ -371,6 +371,7 @@ export default class GameReader {
 				lightRadius,
 				lightRadiusChanged: lightRadius != this.lastState?.lightRadius,
 				map,
+				mod: this.loadedMod.id,
 				closedDoors,
 				currentServer: this.currentServer,
 				maxPlayers,
@@ -881,7 +882,9 @@ export default class GameReader {
 		let x = this.readMemory<number>('float', data.objectPtr, positionOffsets[0]);
 		let y = this.readMemory<number>('float', data.objectPtr, positionOffsets[1]);
 		const isDummy = this.readMemory<boolean>('boolean', data.objectPtr, this.offsets.player.isDummy);
-
+		if (isDummy) {
+			console.log('ISDUMMY!!!!@!@!');
+		}
 		let bugged = false;
 		if (x === undefined || y === undefined || data.disconnected != 0 || data.color > 40) {
 			x = 9999;
