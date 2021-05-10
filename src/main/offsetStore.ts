@@ -310,8 +310,7 @@ export default {
 				addressOffset: 0,
 			},
 			gameData: {
-				sig:
-					'8B 0D ? ? ? ? 8B F0 83 C4 10 8B 49 5C 8B 01 85 C0 0F 84 ? ? ? ? 6A 00 FF 75 F4 50 E8 ? ? ? ? 83 C4 0C 89 45 E8 85 C0',
+				sig: '8B 0D ? ? ? ? 8B F0 83 C4 10 8B 49 5C 8B 01',
 				patternOffset: 2,
 				addressOffset: 0,
 			},
@@ -332,7 +331,7 @@ export default {
 				addressOffset: 0,
 			},
 			playerControl: {
-				sig: '8B 0D ? ? ? ? 83 C4 04 8B 41 5C 8B 00 85 C0 74 2B C6 40 30 00',
+				sig: '8B 0D ? ? ? ? 83 C4 04 8B 41 5C 8B 00 85 C0 74 2B',
 				patternOffset: 2,
 				addressOffset: 0,
 			},

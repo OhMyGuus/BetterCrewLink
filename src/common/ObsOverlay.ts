@@ -27,4 +27,5 @@ export interface ObsVoiceState {
 	otherDead: ClientBoolMap;
 	localTalking: boolean;
 	localIsAlive: boolean;
+	mod: string;
 }

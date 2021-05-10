@@ -71,6 +71,9 @@ declare module 'memoryjs' {
 
 	export function readBuffer(handle: number, address: number, size: number, callback?: Callback<Buffer>): Buffer;
 
+	export function getProcessPath(handle: number): string;
+
+
 	export function writeMemory<T>(handle: number, address: number, value: T, dataType: DataType): void;
 
 	export function writeBuffer(handle: number, address: number, buffer: Buffer): void;

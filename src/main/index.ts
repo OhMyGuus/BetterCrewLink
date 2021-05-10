@@ -322,7 +322,6 @@ if (!gotTheLock) {
 	});
 
 	ipcMain.on('update-app', () => {
-		app.relaunch();
 		autoUpdater.quitAndInstall();
 	});
 

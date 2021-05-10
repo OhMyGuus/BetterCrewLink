@@ -595,6 +595,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				otherDead,
 				localTalking: talking,
 				localIsAlive: !myPlayer?.isDead,
+				mod: gameState.mod,
 			};
 			connectionStuff.current.overlaySocket?.emit('signal', {
 				to: settings.obsSecret,
@@ -648,8 +649,10 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			max_players: gameState.maxPlayers,
 			server: gameState.currentServer,
 			language: lobbySettings.publicLobby_language,
-			mods: lobbySettings.publicLobby_mods,
+			mods: gameState.mod !== 'NONE' ? gameState.mod : lobbySettings.publicLobby_mods,
 			isPublic: lobbySettings.publicLobby_on && gameState.gameState == GameState.LOBBY,
+			isPublic2:lobbySettings.publicLobby_on, // TEMP DEBUG 
+			gameState: gameState.gameState,
 		});
 	};
 
@@ -1284,6 +1287,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			impostorRadioClientId: !myPlayer?.isImpostor ? -1 : impostorRadioClientId.current,
 			muted: mutedState,
 			deafened: deafenedState,
+			mod: gameState.mod,
 		} as VoiceState);
 	}, [
 		otherTalking,
@@ -1323,6 +1327,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 								talking={talking}
 								isAlive={!myPlayer.isDead}
 								size={100}
+								mod={gameState.mod}
 							/>
 						</div>
 					</>
@@ -1417,6 +1422,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 									onConfigChange={() => {
 										store.set(`playerConfigMap.${player.nameHash}`, playerConfigs[player.nameHash]);
 									}}
+									mod={gameState.mod}
 								/>
 							</Grid>
 						);

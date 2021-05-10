@@ -209,6 +209,7 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 						lookLeft={!(positionParse === 'left' || positionParse === 'bottom_left')}
 						overflow={isOnSide && !showName}
 						showHat={true}
+						mod={voiceState.mod}
 					/>
 				</div>
 				{showName && (
