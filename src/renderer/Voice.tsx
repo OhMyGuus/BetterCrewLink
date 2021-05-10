@@ -649,7 +649,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			max_players: gameState.maxPlayers,
 			server: gameState.currentServer,
 			language: lobbySettings.publicLobby_language,
-			mods: lobbySettings.publicLobby_mods !== 'OTHER' ? gameState.mod : lobbySettings.publicLobby_mods,
+			mods: gameState.mod !== 'NONE' ? gameState.mod : lobbySettings.publicLobby_mods,
 			isPublic: lobbySettings.publicLobby_on && gameState.gameState == GameState.LOBBY,
 		});
 	};
