@@ -1,3 +1,4 @@
+import { GameState } from './AmongUsState';
 export interface AmongusMod {
 	id: string;
 	label: string;
@@ -48,6 +49,8 @@ export interface PublicLobby {
 	mods: string;
 	isPublic: boolean;
 	server: string;
+	gameState: GameState;
+	stateTime: number;
 }
 
 export interface PublicLobbyMap {

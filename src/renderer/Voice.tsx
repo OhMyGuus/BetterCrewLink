@@ -650,8 +650,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			server: gameState.currentServer,
 			language: lobbySettings.publicLobby_language,
 			mods: gameState.mod !== 'NONE' ? gameState.mod : lobbySettings.publicLobby_mods,
-			isPublic: lobbySettings.publicLobby_on && gameState.gameState == GameState.LOBBY,
-			isPublic2:lobbySettings.publicLobby_on, // TEMP DEBUG 
+			isPublic: lobbySettings.publicLobby_on,
 			gameState: gameState.gameState,
 		});
 	};

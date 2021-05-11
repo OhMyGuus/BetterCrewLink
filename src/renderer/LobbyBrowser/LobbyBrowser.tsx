@@ -17,6 +17,7 @@ import i18next from 'i18next';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import languages from '../language/languages';
 import { PublicLobbyMap, PublicLobby, modList } from '../../common/PublicLobby';
+import { GameState } from '../../common/AmongUsState';
 
 const store = new Store<ISettings>();
 const serverUrl = store.get('serverURL', 'https://bettercrewl.ink/');
@@ -59,8 +60,26 @@ const servers: {
 	'50.116.1.42': 'North America',
 	'172.105.251.170': 'Europe',
 	'139.162.111.196': 'Asia',
-	'192.241.154.115' : 'skeld.net'
+	'192.241.154.115': 'skeld.net',
 };
+
+function sortLobbies(a: PublicLobby, b: PublicLobby) {
+	if (a.gameState === GameState.LOBBY && b.gameState !== GameState.LOBBY) {
+		return -1;
+	} else if (b.gameState === GameState.LOBBY && a.gameState !== GameState.LOBBY) {
+		return 1;
+	} else {
+		if (b.current_players === b.max_players && a.current_players !== a.max_players) {
+			return -1;
+		}
+		if (a.current_players < b.current_players) {
+			return 1;
+		} else if (a.current_players > b.current_players) {
+			return -1;
+		}
+		return 0;
+	}
+}
 
 // @ts-ignore
 export default function lobbyBrowser({ t }) {
@@ -68,6 +87,7 @@ export default function lobbyBrowser({ t }) {
 	const [publiclobbies, setPublicLobbies] = useState<PublicLobbyMap>({});
 	const [socket, setSocket] = useState<SocketIOClient.Socket>();
 	const [code, setCode] = React.useState('');
+	const [, forceRender] = useState({});
 
 	useEffect(() => {
 		const s = io(serverUrl, {
@@ -102,9 +122,13 @@ export default function lobbyBrowser({ t }) {
 			console.log('ERROR: ', code);
 			setCode(`${code}  ${servers[server] ? `on region ${servers[server]}` : `\n Custom Server: ${server}`}`);
 		});
+		var secondPassed = setInterval(() => {
+			forceRender({});
+		}, 1000);
 		return () => {
 			socket?.emit('lobbybrowser', false);
 			socket?.close();
+			clearInterval(secondPassed);
 		};
 	}, []);
 
@@ -123,7 +147,7 @@ export default function lobbyBrowser({ t }) {
 					<DialogContent>
 						<DialogContentText id="alert-dialog-slide-description">
 							{code.split('\n').map((i, key) => {
-								return <p key={key}>{i}</p>;
+								return <span key={key}>{i}</span>;
 							})}
 						</DialogContentText>
 					</DialogContent>
@@ -143,43 +167,56 @@ export default function lobbyBrowser({ t }) {
 									<StyledTableCell align="left">{t('lobbybrowser.list.players')}</StyledTableCell>
 									<StyledTableCell align="left">{t('lobbybrowser.list.mods')}</StyledTableCell>
 									<StyledTableCell align="left">{t('lobbybrowser.list.language')}</StyledTableCell>
+									<StyledTableCell align="left">Status</StyledTableCell>
+									{/* {t('lobbybrowser.list.staut')} */}
 									<StyledTableCell align="left"></StyledTableCell>
 								</TableRow>
 							</TableHead>
 							<TableBody>
-								{Object.values(publiclobbies).map((row: PublicLobby) => (
-									<StyledTableRow key={row.id}>
-										<StyledTableCell component="th" scope="row">
-											{row.title}
-										</StyledTableCell>
-										<StyledTableCell align="left">{row.host}</StyledTableCell>
-										<StyledTableCell align="left">
-											{row.current_players}/{row.max_players}
-										</StyledTableCell>
-										<StyledTableCell align="left">{modList.find((o) => o.id === row.mods)?.label ?? 'None'}</StyledTableCell>
-										<StyledTableCell align="left">{(languages as any)[row.language]?.name ?? 'English'}</StyledTableCell>
-										<StyledTableCell align="right">
-											<Button
-												variant="contained"
-												color="secondary"
-												onClick={() => {
-													socket?.emit('join_lobby', row.id, (state: number, codeOrError: string, server: string) => {
-														if (state === 0) {
-															ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);
-														} else {
-															setCode(`Error: ${codeOrError}`);
-														}
-													});
-												}}
-											>
-												Join
-											</Button>
-											{/* <Button variant="contained" color="secondary" style={{ marginLeft: '5px' }}>
+								{Object.values(publiclobbies)
+									.sort(sortLobbies)
+									.map((row: PublicLobby) => (
+										<StyledTableRow key={row.id}>
+											<StyledTableCell component="th" scope="row">
+												{row.title}
+											</StyledTableCell>
+											<StyledTableCell align="left">{row.host}</StyledTableCell>
+											<StyledTableCell align="left">
+												{row.current_players}/{row.max_players}
+											</StyledTableCell>
+											<StyledTableCell align="left">
+												{modList.find((o) => o.id === row.mods)?.label ?? 'None'}
+											</StyledTableCell>
+											<StyledTableCell align="left">
+												{(languages as any)[row.language]?.name ?? 'English'}
+											</StyledTableCell>
+											<StyledTableCell align="left">
+												{row.gameState === GameState.LOBBY ? 'Lobby' : 'In game'}{' '}
+												{row.stateTime && new Date(Date.now() - row.stateTime).toISOString().substr(14, 5)}
+											</StyledTableCell>
+											<StyledTableCell align="right">
+												<Button
+													disabled={row.gameState !== GameState.LOBBY || row.max_players === row.current_players}
+													variant="contained"
+													color="secondary"
+													onClick={() => {
+														socket?.emit('join_lobby', row.id, (state: number, codeOrError: string, server: string, publicLobby: PublicLobby) => {
+															if (state === 0) {
+																ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);
+															} else {
+																setCode(`Error: ${codeOrError}`);
+															}
+														});
+													}}
+												>
+													Join
+												</Button>
+												{/* <Button variant="contained" color="secondary" style={{ marginLeft: '5px' }}>
 												report
 											</Button> */}
-										</StyledTableCell>
-									</StyledTableRow>
-								))}
+											</StyledTableCell>
+										</StyledTableRow>
+									))}
 							</TableBody>
 						</Table>
 					</TableContainer>
