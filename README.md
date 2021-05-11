@@ -205,7 +205,9 @@ yarn dev
 <!-- CONTRIBUTING -->
 ## Contributing
 
-[![Contributors][contributors-shield]][contributors-url]
+PC: [![Contributors][contributors-shield]][contributors-url]\
+Mobile/Web: [![BetterCrewLink Mobile Contributors](https://img.shields.io/github/contributors/OhMyGuus/BetterCrewlink-mobile?label=Contributors&logo=GitHub)](https://github.com/OhMyGuus/BetterCrewlink-mobile/graphs/contributors)\
+Server: [![BetterCrewLink Server Contributors](https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink-server?label=Contributors&logo=GitHub)](https://github.com/OhMyGuus/BetterCrewLink-server/graphs/contributors)
 
 Any contributions you make are greatly appreciated.
 
