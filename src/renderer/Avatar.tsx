@@ -278,7 +278,7 @@ function Canvas({
 	const hatImg = useRef<HTMLImageElement>(null);
 	const skinImg = useRef<HTMLImageElement>(null);
 	const image = useRef<HTMLImageElement>(null);
-	const hatDementions = getHatDementions(hat, 'TOWN_OF_US');
+	const hatDementions = getHatDementions(hat, mod);
 	const classes = useCanvasStyles({
 		backLayerHat: backLayerHats.has(hat),
 		isAlive,
@@ -332,7 +332,7 @@ function Canvas({
 							src={getCosmetic(color, isAlive, cosmeticType.hat, hat, mod)}
 							ref={hatImg}
 							className={classes.hat}
-							onLoad={onerror}
+							onError={onerror}
 
 						/>
 					)}
