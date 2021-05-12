@@ -10,27 +10,27 @@
 			"voicedistance": "Дальність голосу",
 			"voicedistance_impostor": "Дальність голосу самозванця",
 			"wallsblockaudio": "Стіни перепиняють звук",
-			"visiononly": "Чути лише тих, хто в полі зору",
+			"visiononly": "Чути людей тільки в полі зору",
 			"impostorshearsghost": "Самозванці чують привидів",
 			"hear_imposters_invents": "Чути самозванців у вентиляції",
 			"private_talk_invents": "Особиста розмова в вентиляції",
 			"comms_sabotage_audio": "Саботаж комунікацій глушить голос",
-			"hear_through_cameras": "Передача голосу через камери",
+			"hear_through_cameras": "Чути через камери",
 			"ghost_only": "Тільки привиди можуть розмовляти/чути",
 			"ghost_only_warning": "Це відключає звук для живих гравців.",
 			"ghost_only_warning2": "Включена розмова тільки для привидів.",
 			"meetings_only": "Тільки на зборах чи в кімнаті",
 			"meetings_only_warning": "Це відключає звук для живих гравців поза зборами.",
 			"meetings_only_warning2": "Включена розмова тільки на зборах.",
-			"impostor_radio": "Радіо самозванців",
+			"impostor_radio": "Радіо самозванця",
 			"public_lobby": {
 				"change_settings": "Змінити відомості про кімнату",
-				"title": "Заголовок",
-				"enabled": "Кімната відкрита",
+				"title": "Назва",
+				"enabled": "Відкрита кімната",
 				"mods": "Моди",
 				"language": "Мова",
-				"enable_warning": "Enabling this will make your lobby public to other BetterCrewLink users!",
-				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
+				"enable_warning": "Це відкриє кімнату для іншіх користувачів BetterCrewLink!",
+				"ban_warning": "Недоречні висловлювання приведуть до заборони використання BetterCrewLink."
 			}
 		},
 		"audio": {
@@ -53,7 +53,7 @@
 			"push_to_talk": "Активація голосу",
 			"mute": "Вимкнути мікрофон",
 			"deafen": "Вимкнути звук",
-			"impostor_radio": "Радіо самозванців"
+			"impostor_radio": "Радіо самозванця"
 		},
 		"overlay": {
 			"title": "Оверлей",
@@ -96,7 +96,7 @@
 			"title": "Налаштування для стрімінгу",
 			"hidecode": "Показати код кімнати",
 			"obs_overlay": "Оверлей OBS-браузера",
-			"obs_url": "OBS Browser Source URL",
+			"obs_url": "URL OBS-браузера",
 			"voice_server_comp": "Режим сумісності ГС",
 			"voice_server_comp_warning": "Рекомендується просто змінити голосовий сервер, наприклад, на Голосовий сервер BetterCrewLink (https://bettercrewl.ink)."
 		},
