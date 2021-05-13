@@ -1,6 +1,6 @@
 <br />
 <p align="center">
-  <a href="https://youtu.be/dQw4w9WgXcQ">
+  <a href="https://github.com/OhMyGuus/BetterCrewLink">
     <img src="src/renderer/logos/sizes/256-BCL-Logo-shadow.png" alt="BetterCrewLink Logo">
   </a>
   <br/>
