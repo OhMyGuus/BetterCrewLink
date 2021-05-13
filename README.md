@@ -1,6 +1,6 @@
 <br />
 <p align="center">
-  <a href="https://github.com/OhMyGuus/BetterCrewLink">
+  <a href="https://youtu.be/dQw4w9WgXcQ">
     <img src="src/renderer/logos/sizes/256-BCL-Logo-shadow.png" alt="BetterCrewLink Logo">
   </a>
   <br/>
@@ -132,7 +132,7 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 <!-- INSTALLATION -->
 ## Installation
 
-### Windows ![Windows](https://i.imgur.com/CX1j48h.png)
+### Windows [![Windows](https://i.imgur.com/CX1j48h.png)](https://youtu.be/dQw4w9WgXcQ)
 
 Download the latest version from [releases](https://github.com/OhMyGuus/BetterCrewLink/releases/latest) and run the `BetterCrewLink-Setup-X.X.X.exe` file. You may get antivirus warnings, because this program hooks into the Among Us process to read game data.
 
@@ -140,7 +140,7 @@ Download the latest version from [releases](https://github.com/OhMyGuus/BetterCr
 
 [![Setup Video](https://img.youtube.com/vi/_8F4f5iQEIc/0.jpg)](https://www.youtube.com/watch?v=_8F4f5iQEIc "BetterCrewLink Setup Instructions")
 
-### Linux ![Linux](https://i.imgur.com/xFFj5PT.png)
+### Linux [![Linux](https://i.imgur.com/xFFj5PT.png)](https://youtu.be/dQw4w9WgXcQ)
 
 To install & run it on Linux run the following commands:
 
@@ -165,7 +165,7 @@ Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#
 
 [![Play Store Latest Version][playstore_latest_version-shield]][playstore_latest_version-url] 
 
-### iOS & macOS ![iOS & macOS](https://i.imgur.com/d4X3mKz.png)
+### iOS & macOS [![iOS & macOS](https://i.imgur.com/d4X3mKz.png)](https://youtu.be/dQw4w9WgXcQ)
 
 Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) in BetterCrewlink-mobile to see how to install the iOS/macOS version. (requires a PC player)
 
