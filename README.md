@@ -282,7 +282,7 @@ There are two methods.
 <summary> Translators </summary>
 
 * [OhMyGuus](https://github.com/OhMyGuus) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Netherlands
-* [adofou](https://github.com/adofou) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to French
+* [adofou](https://github.com/adofou) & [ClementRoyer](https://github.com/ClementRoyer) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to French
 * [KadenBiel](https://github.com/KadenBiel), [SirBuvex](https://github.com/SirBuvex) and [Jeddunk](https://github.com/jeddunk) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to German
 * [LukehTM](https://github.com/LukehTM) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish
 * [KaldonM](https://github.com/KaldonM) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Slovak
@@ -304,6 +304,8 @@ There are two methods.
 * [Aorin](https://crowdin.com/profile/aorin) & [Sakurai00](https://crowdin.com/profile/sakurai00) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Japanese
 * [MrAngelos6](https://crowdin.com/profile/mrangelos6) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to French and Spanish
 * [Amirhan-Taipovjan-Greatest-I](https://github.com/Amirhan-Taipovjan-Greatest-I) & [morewaves](https://crowdin.com/profile/morewaves) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Tatar
+* [Bubbycolditz](https://github.com/Bubbycolditz) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish United States
+* [Kajachuan](https://github.com/Kajachuan) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish Argentina
 
 A big thank you to all those people who translated and still translate this project to stay alive, thank you so much for being part of this BetterCrewLink community!
 
@@ -317,9 +319,9 @@ A big thank you to all those people who translated and still translate this proj
 * [CrewLink](https://github.com/ottomated) - The official CrewLink app.
 * [Electron](https://www.electronjs.org/) - For make the app BetterCrewLink.
 * [memoryjs](https://github.com/TheGreatMcPain/memoryjs) - For make BetterCrewLink works for Linux.
-* [node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) - For make it easy to Push To Talk, Push To Mute and Impostor Radio.
-* [electron-overlay-window](https://github.com/OhMyGuus/electron-overlay-window) - For make it easier to do Overlays.
-* [WebRTC](https://webrtc.org/) - For make the [Voice Servers](https://github.com/OhMyGuus/BetterCrewLink-server).
+* [node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) - For make it easy to make Push To Talk, Push To Mute and Impostor Radio.
+* [electron-overlay-window](https://github.com/OhMyGuus/electron-overlay-window) - For make it easy to make Overlays.
+* [simple-peer](https://github.com/vrnagy/simple-peer) - For make it easy to make [WebRTC](https://webrtc.org/) for [Voice Servers](https://github.com/OhMyGuus/BetterCrewLink-server).
 
 <!-- DONATE -->
 ## Donate
