@@ -92,6 +92,7 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 - Volume Sliders.
 - Public Lobby List.
 - Other languages.
+- Better mod compatibility.
 - It doesn't break when someone leaves/disconnects.
 - It works on any network even with UPnP disabled. (Strict NAT)
 - More fun settings like hearing through cameras, impostor radio.
