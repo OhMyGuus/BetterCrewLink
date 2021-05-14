@@ -123,12 +123,12 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 
 | Plataform | Supported |
 | ------- | ------------------ |
-| [Steam](https://github.com/OhMyGuus/BetterCrewLink) | ✅ |
-| [itch.io](https://github.com/OhMyGuus/BetterCrewLink) | ✅ |
-| [Microsoft Store](https://github.com/OhMyGuus/BetterCrewLink) | ✅ |
-| [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile) | ✅ |
-| [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile) | ✅ |
-| [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile) | ✅ |
+| [Steam](#installation) | ✅ |
+| [itch.io](#installation) | ✅ |
+| [Microsoft Store](#windows-) | ✅ |
+| [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) | ✅ |
+| [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) | ✅ |
+| [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web) | ✅ |
 | Beta | ✅ |
 
 <!-- INSTALLATION -->
@@ -359,9 +359,7 @@ Any donations you make are greatly appreciated.
 * BChoy: Donated 47$ thanks.
 * Bambii: Donated 51$ thanks.
 
-
 </details>
-
 <hr />
 
 <!-- BUGS/SUGGESTIONS/QUESTIONS -->
