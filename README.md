@@ -104,8 +104,8 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 - CPU usage is lower than original CrewLink.
 - You can actually press the mute key/deafen key while clicked on BetterCrewLink.
 - Your mouse doesn't start to lag because of the buggy input hook.
+- You can play BetterCrewLink without having to be stuck in MENU infinitely.
 - Changing the speaker setting does actually something unlike original CrewLink where it is always using the default output.
-- Compatible with CrewLink 2.0 
 - Microphone Echo Cancellation.
 - Microphone Eoise Suppression.
 - More overlay positions and you can set the overlay to the top/bottom and you can set it so it shows everyone even when they aren't talking.
@@ -128,6 +128,7 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 | [Microsoft Store](https://github.com/OhMyGuus/BetterCrewLink) | ✅ |
 | [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile) | ✅ |
 | [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile) | ✅ |
+| [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile) | ✅ |
 | Beta | ✅ |
 
 <!-- INSTALLATION -->
@@ -152,11 +153,13 @@ echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 ./BetterCrewlink-Linux.AppImage
 ```
 
+[![GitHub Latest Release][latest_release-shield]][latest_release-url]
+
 The Linux version is thanks to the following contributors:
 
 - [TheGreatMcPain](https://github.com/TheGreatMcPain) -> CrewLink fork, Keyboard watcher fork, Memoryjs fork
 - [zbanks](https://github.com/zbanks) -> Memoryjs fork
-- [Donokami](https://github.com/Donokami) -> Testing and helping  
+- [Donokami](https://github.com/Donokami) -> Testing and helping
 
 ### Android/Chromebook/Bluestacks
 
