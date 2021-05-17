@@ -40,7 +40,7 @@
     <a href="https://ko-fi.com/ohmyguus"><img src="https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=Ko-fi&logoColor=white" alt="Support BetterCrewLink (Ko-fi)"></img></a>
     <a href="https://discord.gg/qDqTzvj4SH"><img src="https://img.shields.io/discord/791516611143270410?color=cornflowerblue&label=Discord&logo=Discord&logoColor=white" alt="Discord Server"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/graphs/contributors"><img src="https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink?label=Contributors&logo=GitHub" alt="GitHub Contributors"></img></a>
-    <a href="https://crowdin.com/project/bettercrewlink"><img src="https://badges.crowdin.net/bettercrewlink/localized.svg" alt="Translations"></img></a>
+    <a href="https://crwd.in/bettercrewlink"><img src="https://badges.crowdin.net/bettercrewlink/localized.svg" alt="Translations"></img></a>
 </p>
 <hr />
 
@@ -407,4 +407,4 @@ Distributed under the GNU General Public License v3.0. See <a href="https://gith
 [contributors-shield]: https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink?label=Contributors&logo=GitHub
 [contributors-url]: https://github.com/OhMyGuus/BetterCrewLink/graphs/contributors
 [crowdin-shield]: https://badges.crowdin.net/bettercrewlink/localized.svg
-[crowdin-url]: https://crowdin.com/project/bettercrewlink
+[crowdin-url]: https://crwd.in/bettercrewlink
