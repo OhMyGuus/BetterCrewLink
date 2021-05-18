@@ -260,7 +260,7 @@ There are two methods.
 <details>
 <summary> In Crowdin </summary>
 
-1. [Go to Crowdin Page](https://crowdin.com/project/bettercrewlink).
+1. [Go to Crowdin Page](https://crwd.in/bettercrewlink).
 2. Search for the name of your language you want to translate.
 3. Click on it and start translating.
 
