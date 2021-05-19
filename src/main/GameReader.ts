@@ -119,8 +119,7 @@ export default class GameReader {
 			return modList[0];
 		} else {
 			let dir = path.dirname(filePath);
-			let loadedWinHttp = fs.existsSync(path.join(dir, 'winhttp.dll'));
-			if (!loadedWinHttp) {
+			if (!fs.existsSync(path.join(dir, 'winhttp.dll')) || !fs.existsSync(path.join(dir, 'BepInEx\\plugins'))) {
 				return modList[0];
 			}
 			for (const file of fs.readdirSync(path.join(dir, 'BepInEx\\plugins'))) {
