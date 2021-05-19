@@ -44,6 +44,7 @@ import adapter from 'webrtc-adapter';
 import { VADOptions } from './vad';
 import { pushToTalkOptions } from './settings/Settings';
 import { poseCollide } from '../common/ColliderMap';
+import { type } from 'node:os';
 
 console.log(adapter.browserDetails.browser);
 
@@ -244,6 +245,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	const [peerConnections, setPeerConnections] = useState<PeerConnections>({});
 	const convolverBuffer = useRef<AudioBuffer | null>(null);
 	const playerSocketIdsRef = useRef<numberStringMap>({});
+	const classes = useStyles();
+
 	const [connect, setConnect] = useState<{
 		connect: (lobbyCode: string, playerId: number, clientId: number, isHost: boolean) => void;
 	} | null>(null);
@@ -255,13 +258,13 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 	const audioElements = useRef<AudioElements>({});
 	const [audioConnected, setAudioConnected] = useState<AudioConnected>({});
-	const classes = useStyles();
 
 	const [deafenedState, setDeafened] = useState(false);
 	const [mutedState, setMuted] = useState(false);
 	const [connected, setConnected] = useState(false);
 
 	function applyEffect(gain: AudioNode, effectNode: AudioNode, destination: AudioNode, player: Player) {
+		console.log('Apply effect->', effectNode);
 		try {
 			gain.disconnect(destination);
 			gain.connect(effectNode);
@@ -272,6 +275,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	}
 
 	function restoreEffect(gain: AudioNode, effectNode: AudioNode, destination: AudioNode, player: Player) {
+		console.log('restore effect->', effectNode);
 		try {
 			effectNode.disconnect(destination);
 			gain.disconnect(effectNode);
@@ -500,6 +504,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	}
 
 	function disconnectPeer(peer: string) {
+		console.log('Disconnect peer: ', peer);
 		const connection = peerConnections[peer];
 		if (!connection) {
 			return;
@@ -734,9 +739,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		// (async function anyNameFunction() {
 		let currentLobby = '';
 		// Connect to voice relay server
-		connectionStuff.current.socket = io(settings.serverURL, {
-			transports: ['websocket'],
-		});
+		connectionStuff.current.socket = io(settings.serverURL);
 
 		const { socket } = connectionStuff.current;
 
@@ -749,11 +752,13 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		});
 		socket.on('connect', () => {
 			setConnected(true);
+			console.log('CONNECTED??');
 		});
 
 		socket.on('disconnect', () => {
 			setConnected(false);
 			currentLobby = 'MENU';
+			console.log('DISCONNECTED??');
 		});
 
 		notifyMobilePlayers();
@@ -797,9 +802,11 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		socket.on('setClient', (socketId: string, client: Client) => {
 			setSocketClients((old) => ({ ...old, [socketId]: client }));
 		});
+
 		socket.on('setClients', (clients: SocketClientMap) => {
 			setSocketClients(clients);
 		});
+
 		// Initialize variables
 		let audioListener: VadNode;
 
@@ -914,23 +921,30 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 				const connect = (lobbyCode: string, playerId: number, clientId: number, isHost: boolean) => {
 					console.log('connect called..', lobbyCode);
+					setOtherVAD({});
+					setOtherTalking({});
 					if (lobbyCode === 'MENU') {
 						Object.keys(peerConnections).forEach((k) => {
 							disconnectPeer(k);
 						});
 						setSocketClients({});
-						setOtherTalking({});
-						setOtherVAD({});
 						currentLobby = lobbyCode;
 					} else if (currentLobby !== lobbyCode) {
+						console.log('Currentlobby', currentLobby, lobbyCode);
 						socket.emit('leave');
 						socket.emit('id', playerId, clientId);
 						socket.emit('join', lobbyCode, playerId, clientId);
 						currentLobby = lobbyCode;
 					}
 				};
+
 				setConnect({ connect });
+
 				function createPeerConnection(peer: string, initiator: boolean) {
+					console.log('CreatePeerConnection: ', peer, initiator);
+					if (audioElements.current[peer]) {
+						disconnectAudioElement(peer);
+					}
 					const connection = new Peer({
 						stream,
 						initiator, // @ts-ignore-line
@@ -958,9 +972,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 					connection.on('stream', async (stream: MediaStream) => {
 						console.log('ONSTREAM');
-						if (audioElements.current[peer]) {
-							disconnectAudioElement(peer);
-						}
 
 						setAudioConnected((old) => ({ ...old, [peer]: true }));
 						const dummyAudio = new Audio();
@@ -1003,18 +1014,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 							audio.setSinkId(settingsRef.current.speaker);
 						}
 
-						// const setTalking = (talking: boolean) => {
-						// 	if (!socketClientsRef.current[peer]) {
-						// 		console.log('error with settalking: ', talking);
-						// 		return;
-						// 	}
-
-						// 	const reallyTalking = talking && gain.gain.value > 0;
-						// 	setOtherTalking((old) => ({
-						// 		...old,
-						// 		[socketClientsRef.current[peer]?.clientId]: reallyTalking,
-						// 	}));
-						// };
 						audioElements.current[peer] = {
 							dummyAudioElement: dummyAudio,
 							audioElement: audio,
@@ -1027,8 +1026,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 							destination,
 						};
 					});
+
 					connection.on('signal', (data) => {
-						// console.log('signal', JSON.stringify(data));
 						socket.emit('signal', {
 							data,
 							to: peer,
@@ -1096,14 +1095,21 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						}
 						return;
 					}
-
+					console.log('ONSIGNAL', data);
 					let connection: Peer.Instance;
-					if (peerConnections[from]) {
+					if (data.hasOwnProperty('type')) {
+						// if (data.type === 'offer' && peerConnections[from]) {
+						// 	console.log("Got offer with already a connection")
+						// }
+						if (peerConnections[from] && data.type !== 'offer') {
+							console.log('Send to existing peer 1');
 						connection = peerConnections[from];
 					} else {
+							console.log('Send to new peer 1');
 						connection = createPeerConnection(from, false);
 					}
 					connection.signal(data);
+					}
 				});
 			},
 			(error) => {
@@ -1253,6 +1259,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			gameState.oldGameState !== GameState.MENU &&
 			gameState.gameState === GameState.MENU
 		) {
+			console.log('DISCONNECT TO MENU!');
 			// On change from a game to menu, exit from the current game properly
 			hostRef.current.mobileRunning = false; // On change from a game to menu, exit from the current game properly
 			connectionStuff.current.socket?.emit('leave');

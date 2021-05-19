@@ -348,14 +348,14 @@ export default class GameReader {
 				this.oldGameState === GameState.MENU &&
 				state === GameState.LOBBY &&
 				this.menuUpdateTimer > 0 &&
-				(this.lastPlayerPtr === allPlayers || players.length === 1 || !players.find((p) => p.isLocal))
+				(this.lastPlayerPtr === allPlayers || !players.find((p) => p.isLocal))
 			) {
 				state = GameState.MENU;
 				this.menuUpdateTimer--;
 			} else {
 				this.menuUpdateTimer = 20;
+				this.lastPlayerPtr = allPlayers;
 			}
-			this.lastPlayerPtr = allPlayers;
 			const lobbyCode = state !== GameState.MENU ? this.gameCode || 'MENU' : 'MENU';
 			const newState: AmongUsState = {
 				lobbyCode: lobbyCode,
@@ -377,11 +377,12 @@ export default class GameReader {
 				maxPlayers,
 			};
 			//	const stateHasChanged = !equal(this.lastState, newState);
-			//	if (stateHasChanged) {
-			try {
-				this.sendIPC(IpcRendererMessages.NOTIFY_GAME_STATE_CHANGED, newState);
-			} catch (e) {
-				process.exit(0);
+			if (state !== GameState.MENU || this.oldGameState !== GameState.MENU) {
+				try {
+					this.sendIPC(IpcRendererMessages.NOTIFY_GAME_STATE_CHANGED, newState);
+				} catch (e) {
+					process.exit(0);
+				}
 			}
 			//	}
 			this.lastState = newState;

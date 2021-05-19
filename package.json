@@ -52,7 +52,7 @@
 		"react-i18next": "^9.0.10",
 		"react-tooltip-lite": "^1.12.0",
 		"registry-js": "1.13.0",
-		"simple-peer": "https://github.com/vrnagy/simple-peer.git",
+		"simple-peer": "^9.11.0",
 		"socket.io-client": "2.4.0",
 		"source-code-pro": "^2.30.2",
 		"source-map-support": "^0.5.16",
