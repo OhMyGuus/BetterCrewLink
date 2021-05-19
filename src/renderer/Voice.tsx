@@ -44,7 +44,6 @@ import adapter from 'webrtc-adapter';
 import { VADOptions } from './vad';
 import { pushToTalkOptions } from './settings/Settings';
 import { poseCollide } from '../common/ColliderMap';
-import { type } from 'node:os';
 
 console.log(adapter.browserDetails.browser);
 
