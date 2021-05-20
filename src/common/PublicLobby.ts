@@ -1,6 +1,7 @@
 import { GameState } from './AmongUsState';
+export type MODS = "NONE" | "TOWN_OF_IMPOSTORS" | "TOWN_OF_US" | "THE_OTHER_ROLES" | "EXTRA_ROLES" | "OTHER";
 export interface AmongusMod {
-	id: string;
+	id: MODS;
 	label: string;
 	dllStartsWith?: string
 }
