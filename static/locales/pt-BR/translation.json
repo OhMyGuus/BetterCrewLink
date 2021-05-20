@@ -26,7 +26,7 @@
 			"public_lobby": {
 				"change_settings": "Alterar as Informações da Sala",
 				"title": "Título",
-				"enabled": "O Sala está Pública",
+				"enabled": "Deixar a Sala Pública",
 				"mods": "Mods",
 				"language": "Idioma",
 				"enable_warning": "Habilitando isso tornará sua sala pública para outros usuários do BetterCrewLink!",

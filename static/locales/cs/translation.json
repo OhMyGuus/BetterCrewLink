@@ -53,7 +53,7 @@
 			"push_to_talk": "Push to talk",
 			"mute": "Ztlumit mikrofon",
 			"deafen": "Ztlumit zvuk",
-			"impostor_radio": "Impostoři mají vysílačky"
+			"impostor_radio": "Impostor vysílačka"
 		},
 		"overlay": {
 			"title": "Překrytí",
@@ -97,7 +97,7 @@
 			"hidecode": "Zobrazit kód lobby",
 			"obs_overlay": "OBS Webové Překrytí",
 			"obs_url": "OBS URL Webového Překrytí",
-			"voice_server_comp": "Kompatabilita zvukového servru",
+			"voice_server_comp": "Kompatabilita zvukového serveru",
 			"voice_server_comp_warning": "Doporučujeme pouze změnit hlasový server na BetterCrewLink Voice Server (např: https://bettercrewl.ink.)."
 		},
 		"troubleshooting": {
@@ -135,5 +135,5 @@
 		"error_admin": "Nelze se připojit k Among Us.\nProsím znovu otevřete BetterCrewLink jako správce.",
 		"error_unsupport": "Tvá verze Among Us není podporována BetterCrewlinkem."
 	},
-	"translator_name": "Tiquis#2659 fajnyCreeper"
+	"translator_name": "Tiquis & fajnyCreeper"
 }

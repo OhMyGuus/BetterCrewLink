@@ -32,7 +32,7 @@ const Footer: React.FC = function () {
 						shell.openExternal('https://github.com/OhMyGuus/BetterCrewLink');
 					}}
 				>
-					<Tooltip title="Our Github page!" arrow>
+					<Tooltip title="Our GitHub page!" arrow>
 						<svg width={36} height={36} viewBox="0 0 24 24">
 							<path
 								fill="currentColor"
@@ -46,7 +46,7 @@ const Footer: React.FC = function () {
 						shell.openExternal('https://discord.gg/qDqTzvj4SH');
 					}}
 				>
-					<Tooltip title="Join our discord for support" arrow>
+					<Tooltip title="Join our Discord for support" arrow>
 						<svg viewBox="0 0 245 240" width={36} height={36}>
 							<path
 								fill="#7289DA"
