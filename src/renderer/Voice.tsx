@@ -269,7 +269,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			state: GameStateToString(hostRef.current.gamestate),
 			startTimestamp: new Date(),
 			largeImageKey: 'logo512',
-			largeImageText: 'BetterCrewLink (a proximity voice chat mod for Among Us): https://bettercrewlink.app',
+			largeImageText: 'BetterCrewLink (a proximity voice chat for Among Us): https://bettercrewlink.app',
 			instance: true,
 			partySize,
 			partyMax: 10,
