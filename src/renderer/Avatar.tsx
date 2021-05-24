@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Player } from '../common/AmongUsState';
-import { backLayerHats, getCosmetic, redAlive, cosmeticType, getHatDementions, HatDementions } from './cosmetics';
+import { getCosmetic, redAlive, cosmeticType, getHatDementions, HatDementions } from './cosmetics';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import MicOff from '@material-ui/icons/MicOff';
 import VolumeOff from '@material-ui/icons/VolumeOff';
@@ -204,7 +204,6 @@ const Avatar: React.FC<AvatarProps> = function ({
 };
 
 interface UseCanvasStylesParams {
-	backLayerHat: boolean;
 	isAlive: boolean;
 	hatDementions: HatDementions;
 	lookLeft: boolean;
@@ -226,7 +225,7 @@ const useCanvasStyles = makeStyles(() => ({
 		top: ({ hatDementions }: UseCanvasStylesParams) => `calc(22% + ${hatDementions.top})`,
 		left: ({ size, paddingLeft, hatDementions }: UseCanvasStylesParams) =>
 			`calc(${hatDementions.left} + ${Math.max(2, size / 40) / 2 + paddingLeft}px)`, //`calc(${hatDementions.left} + ${Math.max(2, size / 40) / 2 + paddingLeft})` ,
-		zIndex: ({ backLayerHat }: UseCanvasStylesParams) => (backLayerHat ? 1 : 4),
+		zIndex: 4,
 		display: ({ isAlive }: UseCanvasStylesParams) => (isAlive ? 'block' : 'none'),
 	},
 	skin: {
@@ -280,7 +279,6 @@ function Canvas({
 	const image = useRef<HTMLImageElement>(null);
 	const hatDementions = getHatDementions(hat, mod);
 	const classes = useCanvasStyles({
-		backLayerHat: backLayerHats.has(hat),
 		isAlive,
 		hatDementions: hatDementions,
 		lookLeft,
@@ -291,10 +289,34 @@ function Canvas({
 
 	//@ts-ignore
 	const onerror = (e: any) => {
-		console.log("ONERROR: ", e.target.src)
-		e.target.src = undefined;
-		e.target.style.display='none'
+		e.target.style.display = 'none';
 	};
+
+	//@ts-ignore
+	const onload = (e: any) => {
+		e.target.style.display = '';
+	};
+
+	const hatElement = (
+		<>
+			<img
+				src={getCosmetic(color, isAlive, cosmeticType.hat, hat, mod)}
+				ref={hatImg}
+				className={classes.hat}
+				onError={onerror}
+				onLoad={onload}
+			/>
+			<img
+				src={getCosmetic(color, isAlive, cosmeticType.hat_back, hat, mod)}
+				ref={hatImg}
+				className={classes.hat}
+				style={{ zIndex: 1 }}
+				onError={onerror}
+				onLoad={onload}
+			/>
+		</>
+	);
+	
 	return (
 		<>
 			<div className={classes.avatar} onClick={onClick}>
@@ -325,26 +347,12 @@ function Canvas({
 						ref={skinImg}
 						className={classes.skin}
 						onError={onerror}
+						onLoad={onload}
 					/>
 
-					{overflow && (
-						<img
-							src={getCosmetic(color, isAlive, cosmeticType.hat, hat, mod)}
-							ref={hatImg}
-							className={classes.hat}
-							onError={onerror}
-
-						/>
-					)}
+					{overflow && hatElement}
 				</div>
-				{!overflow && (
-					<img
-						src={getCosmetic(color, isAlive, cosmeticType.hat, hat, mod)}
-						ref={hatImg}
-						className={classes.hat}
-						onError={onerror}
-					/>
-				)}
+				{!overflow && hatElement}
 				{usingRadio && <img src={RadioSVG} className={classes.radio} />}
 			</div>
 		</>

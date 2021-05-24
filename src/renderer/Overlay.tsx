@@ -11,6 +11,7 @@ import { DEFAULT_PLAYERCOLORS } from '../main/avatarGenerator';
 
 interface UseStylesProps {
 	hudHeight: number;
+	smallContainer: boolean;
 }
 
 const useStyles = makeStyles(() => ({
@@ -20,27 +21,22 @@ const useStyles = makeStyles(() => ({
 		left: '50%',
 		transform: 'translate(-50%, -50%)',
 	},
-	playerIcons: {
-		width: '83.45%',
-		height: '63.2%',
-		left: '5%',
+	tabletContainer: {
+		width: '88.45%',
+		height: '10.5%',
+		left: '4.7%',
 		top: '18.4703%',
 		position: 'absolute',
 		display: 'flex',
-		'&>*:nth-child(odd)': {
-			marginRight: '1.4885%',
-		},
-		'&>*:nth-child(even)': {
-			marginLeft: '1.4885%',
-		},
 		flexWrap: 'wrap',
 	},
-	icon: {
-		width: '48.51%',
-		height: '16.49%',
+	playerContainer: {
+		width: ({ smallContainer }: UseStylesProps) => smallContainer? '29.91%' : '46.41%',
+		height: '100%',  
 		borderRadius: ({ hudHeight }: UseStylesProps) => hudHeight / 100,
 		transition: 'opacity .1s linear',
-		marginBottom: '2.25%',
+		marginBottom: '2%',
+		marginRight: '2.34%',
 		boxSizing: 'border-box',
 	},
 }));
@@ -195,7 +191,7 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 				<div>
 					<Avatar
 						key={player.id}
-						// connectionState={!connected ? 'disconnected' : audio ? 'connected' : 'novoice'}d
+						// connectionState={!connected ? 'disconnected' : audio ? 'connected' : 'novoice'}
 						player={player}
 						showborder={isOnSide && !compactOverlay}
 						muted={voiceState.muted && player.isLocal}
@@ -258,7 +254,7 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 		hudWidth = width;
 		hudHeight = width * (1 / iPadRatio);
 	}
-	const classes = useStyles({ hudHeight });
+	const classes = useStyles({ hudHeight, smallContainer: gameState.players.length > 10});
 	const players = useMemo(() => {
 		if (!gameState.players) return null;
 		return gameState.players.slice().sort((a, b) => {
@@ -280,34 +276,22 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 		return (
 			<div
 				key={player.id}
-				className={classes.icon}
+				className={classes.playerContainer}
 				style={{
 					opacity: voiceState.otherTalking[player.clientId] || (player.isLocal && voiceState.localTalking) ? 1 : 0,
 					border: 'solid',
 					borderWidth: '2px',
 					borderColor: '#00000037',
-					boxShadow: `0 0 ${hudHeight / 100}px ${hudHeight / 100}px ${color}`,
+					 boxShadow: `0 0 ${hudHeight / 100}px ${hudHeight / 100}px ${color}`,
 					transition: 'opacity 400ms',
 				}}
 			/>
 		);
 	});
 
-	while (overlays.length < 10) {
-		overlays.push(
-			<div
-				key={`spacer-${overlays.length}`}
-				className={classes.icon}
-				style={{
-					opacity: 0,
-				}}
-			/>
-		);
-	}
-
 	return (
 		<div className={classes.meetingHud} style={{ width: hudWidth, height: hudHeight }}>
-			<div className={classes.playerIcons}>{overlays}</div>
+			<div className={classes.tabletContainer}>{overlays}</div>
 		</div>
 	);
 };

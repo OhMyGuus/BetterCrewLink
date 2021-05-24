@@ -322,6 +322,7 @@ const hats = [
 export enum cosmeticType {
 	base,
 	hat,
+	hat_back,
 	skin,
 }
 
@@ -333,18 +334,20 @@ var modHats: {
 		hats: {
 			[id: number]: {
 				image: string;
+				back_image: string;
 				top: string | undefined;
 				width: string | undefined;
 				left: string | undefined;
-				multi_color: string | undefined;
+				multi_color: boolean | undefined;
+				multi_color_back: boolean | undefined;
 			};
 		};
 	};
 } = {};
 
 var requestingModHats = false;
-const MODHATS_BASE = 'https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-ModHats/master';
-function getModHat(color: number, id = -1, mod: string) {
+const MODHATS_BASE = 'http://192.168.2.155:8081';
+function getModHat(color: number, id = -1, mod: string, back: boolean = false) {
 	if (!requestingModHats) {
 		requestingModHats = true;
 		fetch(`${MODHATS_BASE}/hats.json`)
@@ -352,9 +355,9 @@ function getModHat(color: number, id = -1, mod: string) {
 			.then((data) => (modHats = data));
 		return undefined;
 	}
-	const hat = modHats[mod]?.hats[id]?.image;
-	const multiColor = modHats[mod]?.hats[id]?.multi_color? `${color}_` : '';
-	return hat ? `${MODHATS_BASE}/${mod}/${multiColor}${hat}` : hats[id] ? hats[id] : undefined;
+	const hat = back ? modHats[mod]?.hats[id]?.back_image : modHats[mod]?.hats[id]?.image;
+	const multiColor = modHats[mod]?.hats[id]?.[back ? 'multi_color_back' : 'multi_color'] ? `${color}_` : '';
+	return hat ? `${MODHATS_BASE}/${mod}/${multiColor}${hat}` : undefined;
 }
 
 export interface HatDementions {
@@ -382,7 +385,13 @@ export function getHatDementions(id: number, mod: string): HatDementions {
 }
 
 export const RainbowColorId = -99234;
-export function getCosmetic(color: number, isAlive: boolean, type: cosmeticType, id = -1, mod: string = 'NONE'): string {
+export function getCosmetic(
+	color: number,
+	isAlive: boolean,
+	type: cosmeticType,
+	id = -1,
+	mod: string = 'NONE'
+): string {
 	if (type === cosmeticType.base || (type === cosmeticType.hat && coloredHatsIds.has(id))) {
 		if (color === RainbowColorId) {
 			if (type === cosmeticType.base) {
@@ -394,9 +403,18 @@ export function getCosmetic(color: number, isAlive: boolean, type: cosmeticType,
 		const folder = type === cosmeticType.base ? (isAlive ? `player` : `ghost`) : id;
 		return `static:///generated/${folder}/${color}.png`;
 	} else {
-		if (type === cosmeticType.hat && mod !== 'NONE') {
-			return getModHat(color, id, mod);
+		if ((type === cosmeticType.hat || type === cosmeticType.hat_back) && mod !== 'NONE') {
+			let modHat =  getModHat(color, id, mod, type === cosmeticType.hat_back);
+			if(modHat) return modHat;
 		}
-		return type === cosmeticType.hat ? hats[id] : skins[id];
+		return type === cosmeticType.hat
+			? !backLayerHats.has(id)
+				? hats[id]
+				: undefined
+			: type === cosmeticType.hat_back
+			? backLayerHats.has(id)
+				? hats[id]
+				: undefined
+			: skins[id];
 	}
 }
