@@ -346,7 +346,7 @@ var modHats: {
 } = {};
 
 var requestingModHats = false;
-const MODHATS_BASE = 'http://192.168.2.155:8081';
+const MODHATS_BASE = 'https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-ModHats/master';
 function getModHat(color: number, id = -1, mod: string, back: boolean = false) {
 	if (!requestingModHats) {
 		requestingModHats = true;
