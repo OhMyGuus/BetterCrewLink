@@ -339,7 +339,6 @@ var modHats: {
 				width: string | undefined;
 				left: string | undefined;
 				multi_color: boolean | undefined;
-				multi_color_back: boolean | undefined;
 			};
 		};
 	};
@@ -356,7 +355,7 @@ function getModHat(color: number, id = -1, mod: string, back: boolean = false) {
 		return undefined;
 	}
 	const hat = back ? modHats[mod]?.hats[id]?.back_image : modHats[mod]?.hats[id]?.image;
-	const multiColor = modHats[mod]?.hats[id]?.[back ? 'multi_color_back' : 'multi_color'] ? `${color}_` : '';
+	const multiColor = modHats[mod]?.hats[id]?.multi_color ? `${color}_` : '';
 	return hat ? `${MODHATS_BASE}/${mod}/${multiColor}${hat}` : undefined;
 }
 
