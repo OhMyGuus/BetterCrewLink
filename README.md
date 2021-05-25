@@ -47,7 +47,9 @@
 <!-- NOTES -->
 ## Notes
 
-- This is an unofficial fork of CrewLink, for any problem, question, issue or suggestion you have with BetterCrewLink talk to us on our [Discord](https://discord.gg/qDqTzvj4SH), or [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or message me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) do not report any problems to the official Discord or GitHub of CrewLink as they will not support you.
+- This is an unofficial fork of CrewLink, for any problem, question, issue or suggestion you have with **Better**CrewLink talk to us on our [Discord](https://discord.gg/qDqTzvj4SH), or [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or message me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) do not report any problems to the official Discord or GitHub of normal and official CrewLink as they will not support you.
+
+- We are not affiliated with CrewLink, we are just a modified/better version of the original CrewLink, so if you need help with CrewLink, we will not offer any help for you about CrewLink here, we will only offer help you if you are using **Better**CrewLink, if you want to download BetterCrewLink look at the [GitHub](https://github.com/OhMyGuus/BetterCrewLink/releases/latest).
 
 - To get the most of BetterCrewLink use the Voice Server: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
 
@@ -116,7 +118,7 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 - Support for Mobile.
 ```
 
-**If I missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), or in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) it so I can add it** 
+**If I missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) it so I can add it** 
 
 <!-- SUPPORTED PLATAFORMS -->
 ## Supported Plataforms
