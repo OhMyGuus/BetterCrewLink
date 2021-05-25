@@ -11,6 +11,7 @@ files:
       - app
 
 win:
+  target: "nsis"
   publish:
     - github
 linux:
@@ -18,3 +19,9 @@ linux:
     - "AppImage"
   publish:
     - github
+
+nsis: 
+  allowElevation: false
+  allowToChangeInstallationDirectory: true
+  oneClick: false
+  perMachine: true
