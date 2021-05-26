@@ -118,7 +118,9 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 - Support for Mobile.
 ```
 
-**If I missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) it so I can add it** 
+**If I missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) it so I can add it**
+
+[![Discord Server][discord-shield]][discord-url]
 
 <!-- SUPPORTED PLATAFORMS -->
 ## Supported Plataforms
