@@ -6,7 +6,16 @@ BetterCrewLink now officially supports other languages, that is, you can use Bet
 
 Any translations you make are greatly appreciated.
 
-There are two methods for this:
+There are two methods.
+
+<details>
+<summary> In Crowdin </summary>
+
+1. [Go to Crowdin Page](https://crwd.in/bettercrewlink).
+2. Search for the name of your language you want to translate.
+3. Click on it and start translating.
+
+</details>
 
 <details>
 <summary> In GitHub </summary>
@@ -22,12 +31,5 @@ There are two methods for this:
 
 </details>
 
-<details>
-<summary> In Crowdin </summary>
-
-1. [Go to Crowdin Page](https://crowdin.com/project/bettercrewlink).
-2. Search for the name of your language you want to translate.
-3. Click on it and start translating.
-
 [crowdin-shield]: https://badges.crowdin.net/bettercrewlink/localized.svg
-[crowdin-url]: https://crowdin.com/project/bettercrewlink
+[crowdin-url]: https://crwd.in/bettercrewlink
