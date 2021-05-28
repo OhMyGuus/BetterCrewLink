@@ -128,6 +128,7 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 | Plataform | Supported |
 | ------- | ------------------ |
 | [Steam](#installation) | ✅ |
+| [Epic Games](#installation) | ✅ |
 | [itch.io](#installation) | ✅ |
 | [Microsoft Store](#windows-) | ✅ |
 | [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) | ✅ |
@@ -246,6 +247,8 @@ Needed [Git](https://git-scm.com/downloads) for Contributing.
 * [cybershard](https://github.com/cybershard) & [edqx](https://github.com/edqx) for make Only hear people in vision, Walls block voice and Hear through cameras
 * [MatadorProBr](https://github.com/MatadorProBr) for make this list of Contribuators, better README.md, wiki
 
+A big thanks for all those people who contributed and still contributing this project to stay alive, thank you so much for being part of this BetterCrewLink community!
+
 </details>
 
 <hr />
@@ -303,7 +306,7 @@ There are two methods.
 * [Ajno, Jano Miĥalako](https://crowdin.com/profile/Ajno) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Esperanto
 * [Tiquis](https://crowdin.com/profile/tiquis) & [fajnyCreeper](https://github.com/fajnyCreeper) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Czech
 * [ElBusAlv](https://github.com/ElBusAlv) & [nyanya4444](https://github.com/nyanya4444) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Catalan
-* [Achs gaming](https://crowdin.com/profile/Achsan4) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Arabic and Arabic Egpyt
+* [Achs gaming](https://crowdin.com/profile/Achsan4) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Arabic and Arabic (Egpyt)
 * [Fixuuu](https://github.com/Fixuuu) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Polish
 * [canicjusz](https://github.com/canicjusz) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Esperanto and Polish
 * [Hani Rouatbi](https://crowdin.com/profile/lamjed001) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Arabic
@@ -312,10 +315,10 @@ There are two methods.
 * [Aorin](https://crowdin.com/profile/aorin) & [Sakurai00](https://crowdin.com/profile/sakurai00) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Japanese
 * [MrAngelos6](https://crowdin.com/profile/mrangelos6) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to French and Spanish
 * [Amirhan-Taipovjan-Greatest-I](https://github.com/Amirhan-Taipovjan-Greatest-I) & [morewaves](https://crowdin.com/profile/morewaves) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Tatar
-* [Bubbycolditz](https://github.com/Bubbycolditz) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish United States
-* [Kajachuan](https://github.com/Kajachuan) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish Argentina
+* [Bubbycolditz](https://github.com/Bubbycolditz) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish (United States)
+* [Kajachuan](https://github.com/Kajachuan) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish (Argentina)
 
-A big thank you to all those people who translated and still translate this project to stay alive, thank you so much for being part of this BetterCrewLink community!
+A big thanks for all those people who translated and still translating this project to stay alive, thank you so much for being part of this BetterCrewLink community!
 
 </details>
 
