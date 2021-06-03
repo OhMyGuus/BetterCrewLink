@@ -51,6 +51,15 @@
 
 - We are not affiliated with CrewLink, we are just a modified/better version of the original CrewLink, so if you need help with CrewLink, we will not offer any help for you about CrewLink here, we will only offer help you if you are using **Better**CrewLink, if you want to download BetterCrewLink look at the [GitHub](https://github.com/OhMyGuus/BetterCrewLink/releases/latest).
 
+<details>
+<summary> CrewLink is now no longer supported </summary>
+
+![CrewLink end of support](https://user-images.githubusercontent.com/71022656/120219995-713daf80-c212-11eb-8305-330aab91ccef.png)
+
+</details>
+
+- This mod is not affiliated with Among Us or Innersloth LLC, and the content contained therein is not endorsed or otherwise sponsored by Innersloth LLC. Portions of the materials contained herein are property of Innersloth LLC. © Innersloth LLC.
+
 - To get the most of BetterCrewLink use the Voice Server: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
 
 <div>
@@ -65,6 +74,7 @@
 * [About the Project](#about-the-project)
 * [Extra features/bug fixes in this fork](#extra-featuresbug-fixes-in-this-fork)
 * [Supported Plataforms](#supported-plataforms)
+* [Supported Versions of Among Us](#supported-versions-of-among-us)
 * [Installation](#installation)
   * [Windows](#windows-)
   * [Linux](#linux-)
@@ -126,16 +136,30 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 <!-- SUPPORTED PLATAFORMS -->
 ## Supported Plataforms
 
-| Plataform | Supported |
-| ------- | ------------------ |
-| [Steam](#installation) | ✅ |
-| [Epic Games](#installation) | ✅ |
-| [itch.io](#installation) | ✅ |
-| [Microsoft Store](#windows-) | ✅ |
-| [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) | ✅ |
-| [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) | ✅ |
-| [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web) | ✅ |
-| Beta | ✅ |
+| Plataform         | Supported? |
+|-----------------|:------------:|
+| [Windows 7/10](#windows-)                                                                   |      ✔️     |
+| [Linux](#linux-)                                                                            |      ✔️     |
+| [Android](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks)    |      ✔️     |
+| [iOS](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos)                         |      ✔️     |
+| [Chromebook](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) |      ✔️     |
+| [macOS](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos)                       |      ✔️     |
+| [Bluestacks](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) |      ✔️     |
+| [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web)                    |      ✔️     |
+
+<!-- SUPPORTED VERSIONS OF AMONG US -->
+## Supported Versions of Among Us
+
+| Version         | Supported? |
+|-----------------|:------------:|
+| [Steam](#installation)                                                                      |      ✔️     |
+| [Epic Games](#installation)                                                                 |      ✔️     |
+| [itch.io](#installation)                                                                    |      ✔️     |
+| [Microsoft Store](#windows-)                                                                |      ✔️     |
+| [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) |      ✔️     |
+| [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos)                   |      ✔️     |
+| [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web)                    |      ✔️     |
+| Beta                                                                                        |      ✔️     |
 
 <!-- INSTALLATION -->
 ## Installation
@@ -251,7 +275,6 @@ Needed [Git](https://git-scm.com/downloads) for Contributing.
 A big thanks for all those people who contributed and still contributing this project to stay alive, thank you so much for being part of this BetterCrewLink community!
 
 </details>
-
 <hr />
 
 <!-- TRANSLATING -->
@@ -287,7 +310,6 @@ There are two methods.
 8. Open a Pull Request.
 
 </details>
-
 <hr />
 
 <details>
@@ -322,7 +344,6 @@ There are two methods.
 A big thanks for all those people who translated and still translating this project to stay alive, thank you so much for being part of this BetterCrewLink community!
 
 </details>
-
 <hr />
 
 <!-- CREDITS & RESOURCES -->
