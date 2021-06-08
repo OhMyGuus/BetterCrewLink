@@ -172,7 +172,7 @@ Download the latest version from [releases](https://github.com/OhMyGuus/BetterCr
 
 [![Setup Video](https://img.youtube.com/vi/_8F4f5iQEIc/0.jpg)](https://www.youtube.com/watch?v=_8F4f5iQEIc "BetterCrewLink Setup Instructions")
 
-### Linux [![Linux](https://i.imgur.com/xFFj5PT.png)](https://youtu.be/dQw4w9WgXcQ "Do not click here")
+### Linux [![Linux](https://i.imgur.com/xFFj5PT.png)](https://youtu.be/6n3pFFPSlW4 "Do not click here")
 
 To install & run it on Linux run the following commands:
 
@@ -199,7 +199,7 @@ Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#
 
 [![Play Store Latest Version][playstore_latest_version-shield]][playstore_latest_version-url] 
 
-### iOS & macOS [![iOS & macOS](https://i.imgur.com/d4X3mKz.png)](https://youtu.be/dQw4w9WgXcQ "Do not click here")
+### iOS & macOS [![iOS & macOS](https://i.imgur.com/d4X3mKz.png)](https://youtu.be/qYvDg4dktI4 "Do not click here")
 
 Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) in BetterCrewlink-mobile to see how to install the iOS/macOS version. (requires a PC player)
 
