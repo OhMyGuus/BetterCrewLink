@@ -1,3 +1,5 @@
+import { GamePlatform } from "./GamePlatform";
+
 export interface ISettings {
 	alwaysOnTop: boolean;
 	language: string;
@@ -32,6 +34,9 @@ export interface ISettings {
 	playerConfigMap: playerConfigMap;
 	obsOverlay: boolean;
 	obsSecret: string | undefined;
+
+	launchPlatformSettings: GamePlatformMap;
+	launchPlatform: GamePlatform;
 }
 
 export interface ILobbySettings {
@@ -59,4 +64,16 @@ export interface SocketConfig {
 
 export interface playerConfigMap {
 	[socketId: number]: SocketConfig;
+}
+
+export interface GamePlatformMap {
+	[name: string]: GamePlatformInstance
+}
+
+export interface GamePlatformInstance {
+    available: boolean,
+	key: GamePlatform,
+    name: string,
+    registryKey: string,
+    shellPath: string
 }

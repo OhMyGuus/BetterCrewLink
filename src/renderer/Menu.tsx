@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ipcRenderer } from 'electron';
 import Footer from './Footer';
 import { IpcMessages } from '../common/ipc-messages';
-import { GamePlatform } from '../common/Platform';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import SupportLink from './SupportLink';
+import { useContext } from 'react';
+import { TextField } from '@material-ui/core';
+import { SettingsContext } from './contexts';
+import { GamePlatformMap } from '../common/ISettings';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -53,6 +56,33 @@ export interface MenuProps {
 
 const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 	const classes = useStyles();
+
+	const [settings, setSettings] = useContext(SettingsContext);
+
+	useEffect(() => {
+		ipcRenderer.invoke(IpcMessages.REQUEST_PLATFORMS_AVAILABLE, settings.launchPlatformSettings).then((result: GamePlatformMap) => {
+			setSettings({
+				type: 'setOne',
+				action: ['launchPlatformSettings', result]
+			});
+		});
+	}, [])
+
+	useEffect(() => {
+		if (!settings.launchPlatformSettings[settings.launchPlatform].available) {
+			for (const key in settings.launchPlatformSettings) {
+				const platform = settings.launchPlatformSettings[key];
+				if (platform.available) {
+					setSettings({
+						type: 'setOne',
+						action: ['launchPlatform', key]
+					})
+					break;
+				}
+			}
+		}
+	}, [settings.launchPlatformSettings])
+
 	return (
 		<div className={classes.root}>
 			<div className={classes.menu}>
@@ -73,11 +103,39 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 						<button
 							className={classes.button}
 							onClick={() => {
-								ipcRenderer.send(IpcMessages.OPEN_AMONG_US_GAME, GamePlatform.STEAM);
+								ipcRenderer.send(IpcMessages.OPEN_AMONG_US_GAME, settings.launchPlatformSettings[settings.launchPlatform]);
 							}}
 						>
 							{t('game.open')}
 						</button>
+						<TextField
+							select
+							label="Platform"
+							variant="outlined"
+							color="secondary"
+							value={settings.launchPlatform}
+							SelectProps={{ native: true }}
+							InputLabelProps={{ shrink: true }}
+							onChange={(ev) => {
+								setSettings({
+									type: 'setOne',
+									action: ['launchPlatform', ev.target.value],
+								});
+							}}
+						>
+							{Array.from(Object.keys(settings.launchPlatformSettings)).reduce((filtered: any[], key) => {
+								console.log("Platforms: ", settings.launchPlatformSettings);
+								const value = settings.launchPlatformSettings[key];
+								if (value.available) {
+									filtered.push(
+										<option key={value.name} value={key}>
+											{value.name}
+										</option>
+									);
+								}
+								return filtered;
+							}, [])}
+						</TextField>
 					</>
 				)}
 				<Footer />

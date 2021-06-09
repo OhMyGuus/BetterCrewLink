@@ -29,6 +29,7 @@ import languages from '../language/languages';
 import ServerURLInput from './ServerURLInput';
 import MuiDivider from '@material-ui/core/Divider';
 import PublicLobbySettings from './PublicLobbySettings';
+import { GamePlatform } from '../../common/GamePlatform';
 
 interface StyleInput {
 	open: boolean;
@@ -430,6 +431,39 @@ const store = new Store<ISettings>({
 				publicLobby_mods: 'NONE',
 			},
 		},
+		launchPlatformSettings: {
+			type: 'object',
+			default: {},
+			additionalProperties: {
+				type: 'object',
+				properties: {
+					available: {
+						type: 'boolean',
+						default: false,
+					},
+					key: {
+						type: 'string',
+						default: '',
+					},
+					name: {
+						type: 'string',
+						default: '',
+					},
+					registryKey: {
+						type: 'string',
+						default: '',
+					},
+					shellPath: {
+						type: 'string',
+						default: '',
+					},
+				},
+			},
+		},
+		launchPlatform: {
+			type: 'string',
+			default: GamePlatform.STEAM
+		}
 	},
 });
 

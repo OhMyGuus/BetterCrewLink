@@ -1,8 +1,10 @@
 import { app, dialog, ipcMain, shell } from 'electron';
+import { platform } from 'os';
 import { HKEY, enumerateValues } from 'registry-js';
+import { GamePlatform } from '../common/GamePlatform';
 
 import { IpcMessages, IpcOverlayMessages } from '../common/ipc-messages';
-import { GamePlatform, GamePlatforms } from '../common/Platform';
+import { GamePlatformInstance, GamePlatformMap } from '../common/ISettings';
 
 // Listeners are fire and forget, they do not have "responses" or return values
 export const initializeIpcListeners = (): void => {
@@ -12,21 +14,32 @@ export const initializeIpcListeners = (): void => {
 		}
 	});
 
-	ipcMain.on(IpcMessages.OPEN_AMONG_US_GAME, (_, platform: GamePlatform) => {
-		// Get steam path from registry
+	ipcMain.handle(IpcMessages.REQUEST_PLATFORMS_AVAILABLE, (_, platforms: GamePlatformMap) => {
+		if (platform() === 'win32') {
+			for (const key in platforms) {
+				const platform = platforms[key];
+				if (enumerateValues(HKEY.HKEY_CLASSES_ROOT, platform.registryKey).find(
+					(v) => v.name === 'URL Protocol'
+				)) {
+					platform.available = true;
+				}
+			}
+		} else if (platform() === 'linux') {
+			// TODO: Platform checking on Linux
+		}
+		return platforms;
+	});
+
+	ipcMain.on(IpcMessages.OPEN_AMONG_US_GAME, (_, platform: GamePlatformInstance) => {
 
 		const error = () => dialog.showErrorBox('Error', 'Could not start the game.');
-
-		if (platform === GamePlatform.STEAM || platform === GamePlatform.EPIC) {
-			
-			const protocol = enumerateValues(HKEY.HKEY_CLASSES_ROOT, platform).find(
-				(v) => v.name === 'URL Protocol'
-			);
-
-			if (!protocol) {
-				error();
+		
+		if (platform.key === GamePlatform.STEAM || platform.key === GamePlatform.EPIC) {
+			if (platform.available) {
+				// TODO: Try to add error checking here
+				shell.openPath(platform.shellPath);
 			} else {
-				shell.openPath(GamePlatforms.get(platform)!.shellPath);
+				error();
 			}
 		}
 	});
