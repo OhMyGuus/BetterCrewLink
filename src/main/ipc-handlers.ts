@@ -1,9 +1,8 @@
-import { app, dialog, ipcMain } from 'electron';
+import { app, dialog, ipcMain, shell } from 'electron';
 import { HKEY, enumerateValues } from 'registry-js';
-import spawn from 'cross-spawn';
-import path from 'path';
 
 import { IpcMessages, IpcOverlayMessages } from '../common/ipc-messages';
+import { GamePlatform, GamePlatforms } from '../common/Platform';
 
 // Listeners are fire and forget, they do not have "responses" or return values
 export const initializeIpcListeners = (): void => {
@@ -13,21 +12,21 @@ export const initializeIpcListeners = (): void => {
 		}
 	});
 
-	ipcMain.on(IpcMessages.OPEN_AMONG_US_GAME, () => {
+	ipcMain.on(IpcMessages.OPEN_AMONG_US_GAME, (_, platform: GamePlatform) => {
 		// Get steam path from registry
-		const steamPath = enumerateValues(HKEY.HKEY_LOCAL_MACHINE, 'SOFTWARE\\WOW6432Node\\Valve\\Steam').find(
-			(v) => v.name === 'InstallPath'
-		);
-		// Check if Steam is installed
-		const error = () => dialog.showErrorBox('Error', 'Start the game manually. \r\n(this button is only for steam)');
-		if (!steamPath) {
-			error();
-		} else {
-			try {
-				const process = spawn(path.join(steamPath.data as string, 'steam.exe'), ['-applaunch', '945360']);
-				process.on('error', error);
-			} catch (e) {
+
+		const error = () => dialog.showErrorBox('Error', 'Could not start the game.');
+
+		if (platform === GamePlatform.STEAM || platform === GamePlatform.EPIC) {
+			
+			const protocol = enumerateValues(HKEY.HKEY_CLASSES_ROOT, platform).find(
+				(v) => v.name === 'URL Protocol'
+			);
+
+			if (!protocol) {
 				error();
+			} else {
+				shell.openPath(GamePlatforms.get(platform)!.shellPath);
 			}
 		}
 	});

@@ -2,6 +2,7 @@ import React from 'react';
 import { ipcRenderer } from 'electron';
 import Footer from './Footer';
 import { IpcMessages } from '../common/ipc-messages';
+import { GamePlatform } from '../common/Platform';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
@@ -72,7 +73,7 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 						<button
 							className={classes.button}
 							onClick={() => {
-								ipcRenderer.send(IpcMessages.OPEN_AMONG_US_GAME);
+								ipcRenderer.send(IpcMessages.OPEN_AMONG_US_GAME, GamePlatform.STEAM);
 							}}
 						>
 							{t('game.open')}
