@@ -59,9 +59,16 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 	const classes = useStyles();
 
 	const [settings, setSettings] = useContext(SettingsContext);
+
 	const [launchItemList, setLaunchItemList] = useState([] as any[]);
 	const [openMessage, setOpenMessage] = useState(<>{t('game.error_platform')}</>);
+	const [dropdownOpen, setDropdownOpen] = useState(false);
 
+	const anchorRef = useRef(null);
+
+	const toggleDropdownOpen = () => { setDropdownOpen((status) => !status); };
+
+	// Grab available platforms from main thread
 	useEffect(() => {
 		ipcRenderer.invoke(IpcMessages.REQUEST_PLATFORMS_AVAILABLE, settings.launchPlatformSettings).then((result: GamePlatformMap) => {
 			setSettings({
@@ -71,6 +78,7 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 		});
 	}, []);
 
+	// If launchPlatformSettings changes: select the first available platform and re-compute list of platforms
 	useEffect(() => {
 		if (!settings.launchPlatformSettings[settings.launchPlatform].available) {
 			for (const key in settings.launchPlatformSettings) {
@@ -85,19 +93,20 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 			}
 		}
 
+		// Generate an array of <MenuItem>'s from available platforms for dropdown
 		setLaunchItemList(Array.from(Object.keys(settings.launchPlatformSettings)).reduce((filtered: any[], key) => {
-			const value = settings.launchPlatformSettings[key];
-			if (value.available) {
+			const platform = settings.launchPlatformSettings[key];
+			if (platform.available) {
 				filtered.push(
-					<MenuItem key={t(value.translateKey)}
+					<MenuItem key={t(platform.translateKey)}
 					onClick={(_) => {
 						setSettings({
 							type: 'setOne',
-							action: ['launchPlatform', value.key],
+							action: ['launchPlatform', platform.key],
 						});
 						toggleDropdownOpen();
 					}}>
-						{t(value.translateKey)}
+						{t(platform.translateKey)}
 					</MenuItem>
 				);
 			}
@@ -105,6 +114,7 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 		}, []));
 	}, [settings.launchPlatformSettings]);
 
+	// Update button message when platform changes or no platforms are available (list empty)
 	useEffect(() => {
 		if (launchItemList.length != 0) {
 			setOpenMessage(<>{t('game.open')}<br/>{t(settings.launchPlatformSettings[settings.launchPlatform].translateKey)}</>)
@@ -112,13 +122,6 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 			setOpenMessage(<>{t('game.error_platform')}</>);
 		}
 	}, [launchItemList, settings.launchPlatform]);
-
-	const [open, setDropdownOpen] = useState(false);
-	const anchorRef = useRef(null);
-
-	const toggleDropdownOpen = () => {
-		setDropdownOpen((status) => !status);
-	};
 
 	return (
 		<div className={classes.root}>
@@ -156,7 +159,7 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 							</Button>
 						</ButtonGroup>
 						<Popper 
-							open={open}
+							open={dropdownOpen}
 							anchorEl={anchorRef.current}
 							placement="bottom-end"
 							disablePortal={false}

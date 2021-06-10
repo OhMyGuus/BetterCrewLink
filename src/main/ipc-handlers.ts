@@ -28,18 +28,19 @@ export const initializeIpcListeners = (): void => {
 			if (desktop_platform === 'win32') {
 			
 				if (game_platform.key === GamePlatform.EPIC || game_platform.key === GamePlatform.STEAM) {
+					// Search registry for the URL Protocol
 					if (enumerateValues(game_platform.registryKey, game_platform.registrySubKey).find(
 						(value) => value ? value.name === game_platform.registryKeyValue : false
 					)) {
 						game_platform.available = true;
 					}
 				} else if (game_platform.key === GamePlatform.MICROSOFT) {
-					// Search for Innersloth.Among Us.... key and grab it
+					// Search for 'Innersloth.Among Us....' key and grab it
 					const key_found = enumerateKeys(game_platform.registryKey, game_platform.registrySubKey).find(
 						(reg_key) => reg_key.startsWith(game_platform.registryFindKey as string));
 					
 					if (key_found) {
-						// Grab the specific value for the above key
+						// Grab the game path from the above key
 						const value_found = enumerateValues(game_platform.registryKey, game_platform.registrySubKey + '\\' + key_found).find(
 							(value) => value ? value.name === game_platform.registryKeyValue : false
 						);
@@ -50,7 +51,9 @@ export const initializeIpcListeners = (): void => {
 					}
 				}
 			} else if (desktop_platform === 'linux') {
-			// TODO: Platform checking on Linux
+				// TODO: Platform checking on Linux
+				// Set 'game_platform.available' true and setup data if platform is available, do nothing otherwise
+				continue;
 			}
 		}
 		return platforms;
@@ -61,6 +64,7 @@ export const initializeIpcListeners = (): void => {
 		const error = () => dialog.showErrorBox('Error', 'Could not start the game.');
 		
 		if (platform.launchType === PlatformRunType.URI) {
+			// Just open the URI if we can to launch the game
 			// TODO: Try to add error checking here
 			shell.openPath(platform.run);
 		} else if (platform.launchType === PlatformRunType.EXE) {
