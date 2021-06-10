@@ -2,8 +2,8 @@ import { HKEY } from "registry-js";
 import { GamePlatformMap } from "./ISettings";
 
 export enum GamePlatform {
-    EPIC = 'EPIC',
-    STEAM = 'STEAM',
+	EPIC = 'EPIC',
+	STEAM = 'STEAM',
 	MICROSOFT = 'MICROSOFT',
 }
 
@@ -21,21 +21,21 @@ export const DefaultGamePlatforms: GamePlatformMap = {
 		registrySubKey: 'steam',
 		registryKeyValue: 'URL Protocol',
 		run: 'steam://rungameid/945360',
-        translateKey: 'platform.steam',
+		translateKey: 'platform.steam',
 	},
 	[GamePlatform.EPIC]: {
 		available: false,
-        key: GamePlatform.EPIC,
+		key: GamePlatform.EPIC,
 		launchType: PlatformRunType.URI,
 		registryKey: HKEY.HKEY_CLASSES_ROOT,
 		registrySubKey: 'com.epicgames.launcher',
 		registryKeyValue: 'URL Protocol',
 		run: 'com.epicgames.launcher://apps/963137e4c29d4c79a81323b8fab03a40?action=launch&silent=true',
-        translateKey: 'platform.epicgames',
+		translateKey: 'platform.epicgames',
 	},
 	[GamePlatform.MICROSOFT]: {
 		available: false,
-        key: GamePlatform.MICROSOFT,
+		key: GamePlatform.MICROSOFT,
 		launchType: PlatformRunType.EXE,
 		registryKey: HKEY.HKEY_CURRENT_USER,
 		registrySubKey: 'SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\Repository\\Packages',
@@ -43,6 +43,6 @@ export const DefaultGamePlatforms: GamePlatformMap = {
 		registryKeyValue: 'PackageRootFolder',
 		run: 'none',
 		exeFile: 'Among Us.exe',
-        translateKey: 'platform.microsoft',
+		translateKey: 'platform.microsoft',
 	},
 }

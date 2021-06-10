@@ -72,14 +72,14 @@ export interface GamePlatformMap {
 }
 
 export interface GamePlatformInstance {
-    available: boolean,
+	available: boolean,
 	key: GamePlatform,
 	launchType: PlatformRunType,
 	registryKey: HKEY,
-    registrySubKey: string,
+	registrySubKey: string,
 	registryFindKey?: string,
 	registryKeyValue: string,
-    run: string,
+	run: string,
 	exeFile?: string,
 	translateKey: string,
 }
