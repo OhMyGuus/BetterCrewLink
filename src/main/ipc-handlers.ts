@@ -1,7 +1,9 @@
 import { app, dialog, ipcMain, shell } from 'electron';
 import { platform } from 'os';
-import { HKEY, enumerateValues } from 'registry-js';
-import { GamePlatform } from '../common/GamePlatform';
+import { enumerateValues, enumerateKeys } from 'registry-js';
+import { GamePlatform, PlatformRunType } from '../common/GamePlatform';
+import spawn from 'cross-spawn';
+import path from 'path';
 
 import { IpcMessages, IpcOverlayMessages } from '../common/ipc-messages';
 import { GamePlatformInstance, GamePlatformMap } from '../common/ISettings';
@@ -18,10 +20,27 @@ export const initializeIpcListeners = (): void => {
 		if (platform() === 'win32') {
 			for (const key in platforms) {
 				const platform = platforms[key];
-				if (enumerateValues(HKEY.HKEY_CLASSES_ROOT, platform.registryKey).find(
-					(v) => v.name === 'URL Protocol'
-				)) {
-					platform.available = true;
+				if (platform.key === GamePlatform.EPIC || platform.key === GamePlatform.STEAM) {
+					if (enumerateValues(platform.registryKey, platform.registrySubKey).find(
+						(value) => value ? value.name === platform.registryKeyValue : false
+					)) {
+						platform.available = true;
+					}
+				} else if (platform.key === GamePlatform.MICROSOFT) {
+					// Search for Innersloth.Among Us.... key and grab it
+					const key_found = enumerateKeys(platform.registryKey, platform.registrySubKey).find(
+						(reg_key) => reg_key.startsWith(platform.registryFindKey as string));
+					
+					if (key_found) {
+						// Grab the specific value for the above key
+						const value_found = enumerateValues(platform.registryKey, platform.registrySubKey + '\\' + key_found).find(
+							(value) => value ? value.name === platform.registryKeyValue : false
+						);
+						if (value_found) {
+							platform.available = true;
+							platform.run = value_found.data as string;
+						}
+					}
 				}
 			}
 		} else if (platform() === 'linux') {
@@ -34,11 +53,14 @@ export const initializeIpcListeners = (): void => {
 
 		const error = () => dialog.showErrorBox('Error', 'Could not start the game.');
 		
-		if (platform.key === GamePlatform.STEAM || platform.key === GamePlatform.EPIC) {
-			if (platform.available) {
-				// TODO: Try to add error checking here
-				shell.openPath(platform.shellPath);
-			} else {
+		if (platform.launchType === PlatformRunType.URI) {
+			// TODO: Try to add error checking here
+			shell.openPath(platform.run);
+		} else if (platform.launchType === PlatformRunType.EXE) {
+			try {
+				const process = spawn(path.join(platform.run, platform.exeFile!));
+				process.on('error', error);
+			} catch (e) {
 				error();
 			}
 		}

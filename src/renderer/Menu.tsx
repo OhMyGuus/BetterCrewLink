@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import { ipcRenderer } from 'electron';
 import Footer from './Footer';
 import { IpcMessages } from '../common/ipc-messages';
@@ -6,10 +6,10 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import SupportLink from './SupportLink';
-import { useContext } from 'react';
-import { TextField } from '@material-ui/core';
+import { Button, ButtonGroup, ClickAwayListener, MenuItem, MenuList, Paper, Popper } from '@material-ui/core';
 import { SettingsContext } from './contexts';
 import { GamePlatformMap } from '../common/ISettings';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
 			borderColor: '#00ff00',
 			cursor: 'pointer',
 		},
+		textTransform: 'none',
 	},
 }));
 
@@ -58,6 +59,8 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 	const classes = useStyles();
 
 	const [settings, setSettings] = useContext(SettingsContext);
+	const [launchItemList, setLaunchItemList] = useState([] as any[]);
+	const [openMessage, setOpenMessage] = useState(<>{t('game.error_platform')}</>);
 
 	useEffect(() => {
 		ipcRenderer.invoke(IpcMessages.REQUEST_PLATFORMS_AVAILABLE, settings.launchPlatformSettings).then((result: GamePlatformMap) => {
@@ -66,7 +69,7 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 				action: ['launchPlatformSettings', result]
 			});
 		});
-	}, [])
+	}, []);
 
 	useEffect(() => {
 		if (!settings.launchPlatformSettings[settings.launchPlatform].available) {
@@ -81,7 +84,41 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 				}
 			}
 		}
-	}, [settings.launchPlatformSettings])
+
+		setLaunchItemList(Array.from(Object.keys(settings.launchPlatformSettings)).reduce((filtered: any[], key) => {
+			const value = settings.launchPlatformSettings[key];
+			if (value.available) {
+				filtered.push(
+					<MenuItem key={t(value.translateKey)}
+					onClick={(_) => {
+						setSettings({
+							type: 'setOne',
+							action: ['launchPlatform', value.key],
+						});
+						toggleDropdownOpen();
+					}}>
+						{t(value.translateKey)}
+					</MenuItem>
+				);
+			}
+			return filtered;
+		}, []));
+	}, [settings.launchPlatformSettings]);
+
+	useEffect(() => {
+		if (launchItemList.length != 0) {
+			setOpenMessage(<>{t('game.open')}<br/>{t(settings.launchPlatformSettings[settings.launchPlatform].translateKey)}</>)
+		} else {
+			setOpenMessage(<>{t('game.error_platform')}</>);
+		}
+	}, [launchItemList, settings.launchPlatform]);
+
+	const [open, setDropdownOpen] = useState(false);
+	const anchorRef = useRef(null);
+
+	const toggleDropdownOpen = () => {
+		setDropdownOpen((status) => !status);
+	};
 
 	return (
 		<div className={classes.root}>
@@ -100,42 +137,47 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 					<>
 						<span className={classes.waiting}>{t('game.waiting')}</span>
 						<CircularProgress color="primary" size={40} />
-						<button
-							className={classes.button}
-							onClick={() => {
-								ipcRenderer.send(IpcMessages.OPEN_AMONG_US_GAME, settings.launchPlatformSettings[settings.launchPlatform]);
-							}}
+						<ButtonGroup variant="contained" ref={anchorRef}>
+							<Button
+								className={classes.button}
+								disabled={launchItemList.length === 0}
+								onClick={() => {
+									ipcRenderer.send(IpcMessages.OPEN_AMONG_US_GAME, settings.launchPlatformSettings[settings.launchPlatform]);
+								}}
+							>
+								{openMessage}
+							</Button>
+							<Button
+								className={classes.button}
+								disabled={launchItemList.length === 0}
+								onClick={toggleDropdownOpen}
+							>
+								<ArrowDropDownIcon />
+							</Button>
+						</ButtonGroup>
+						<Popper 
+							open={open}
+							anchorEl={anchorRef.current}
+							placement="bottom-end"
+							disablePortal={false}
+							modifiers={{
+								flip: {
+								  enabled: false,
+								},
+								preventOverflow: {
+								  enabled: true,
+								  boundariesElement: 'viewport',
+								},
+							  }}
 						>
-							{t('game.open')}
-						</button>
-						<TextField
-							select
-							label="Platform"
-							variant="outlined"
-							color="secondary"
-							value={settings.launchPlatform}
-							SelectProps={{ native: true }}
-							InputLabelProps={{ shrink: true }}
-							onChange={(ev) => {
-								setSettings({
-									type: 'setOne',
-									action: ['launchPlatform', ev.target.value],
-								});
-							}}
-						>
-							{Array.from(Object.keys(settings.launchPlatformSettings)).reduce((filtered: any[], key) => {
-								console.log("Platforms: ", settings.launchPlatformSettings);
-								const value = settings.launchPlatformSettings[key];
-								if (value.available) {
-									filtered.push(
-										<option key={value.name} value={key}>
-											{value.name}
-										</option>
-									);
-								}
-								return filtered;
-							}, [])}
-						</TextField>
+							<Paper>
+								<ClickAwayListener onClickAway={toggleDropdownOpen}>
+									<MenuList>
+										{launchItemList}
+									</MenuList>
+								</ClickAwayListener>
+							</Paper>
+						</Popper>
 					</>
 				)}
 				<Footer />

@@ -1,4 +1,5 @@
-import { GamePlatform } from "./GamePlatform";
+import { GamePlatform, PlatformRunType, PlatformFindType } from "./GamePlatform";
+import { HKEY } from 'registry-js';
 
 export interface ISettings {
 	alwaysOnTop: boolean;
@@ -73,7 +74,12 @@ export interface GamePlatformMap {
 export interface GamePlatformInstance {
     available: boolean,
 	key: GamePlatform,
-    name: string,
-    registryKey: string,
-    shellPath: string
+	launchType: PlatformRunType,
+	registryKey: HKEY,
+    registrySubKey: string,
+	registryFindKey?: string,
+	registryKeyValue: string,
+    run: string,
+	exeFile?: string,
+	translateKey: string,
 }

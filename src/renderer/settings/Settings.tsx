@@ -29,7 +29,7 @@ import languages from '../language/languages';
 import ServerURLInput from './ServerURLInput';
 import MuiDivider from '@material-ui/core/Divider';
 import PublicLobbySettings from './PublicLobbySettings';
-import { GamePlatform } from '../../common/GamePlatform';
+import { DefaultGamePlatforms, GamePlatform } from '../../common/GamePlatform';
 
 interface StyleInput {
 	open: boolean;
@@ -433,7 +433,7 @@ const store = new Store<ISettings>({
 		},
 		launchPlatformSettings: {
 			type: 'object',
-			default: {},
+			default: DefaultGamePlatforms,
 			additionalProperties: {
 				type: 'object',
 				properties: {
@@ -445,11 +445,15 @@ const store = new Store<ISettings>({
 						type: 'string',
 						default: '',
 					},
-					name: {
+					launchType: {
 						type: 'string',
 						default: '',
 					},
 					registryKey: {
+						type: 'string',
+						default: '',
+					},
+					run: {
 						type: 'string',
 						default: '',
 					},
