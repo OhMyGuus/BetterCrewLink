@@ -453,11 +453,27 @@ const store = new Store<ISettings>({
 						type: 'string',
 						default: '',
 					},
+					registrySubKey: {
+						type: 'string',
+						default: '',
+					},
+					registryFindKey: {
+						type: 'string',
+						default: '',
+					},
+					registryKeyValue: {
+						type: 'string',
+						default: '',
+					},
 					run: {
 						type: 'string',
 						default: '',
 					},
-					shellPath: {
+					exeFile: {
+						type: 'string',
+						default: '',
+					},
+					translateKey: {
 						type: 'string',
 						default: '',
 					},
