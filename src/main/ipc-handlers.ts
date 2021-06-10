@@ -17,34 +17,41 @@ export const initializeIpcListeners = (): void => {
 	});
 
 	ipcMain.handle(IpcMessages.REQUEST_PLATFORMS_AVAILABLE, (_, platforms: GamePlatformMap) => {
-		if (platform() === 'win32') {
-			for (const key in platforms) {
-				const platform = platforms[key];
-				if (platform.key === GamePlatform.EPIC || platform.key === GamePlatform.STEAM) {
-					if (enumerateValues(platform.registryKey, platform.registrySubKey).find(
-						(value) => value ? value.name === platform.registryKeyValue : false
+		
+		const desktop_platform = platform();
+
+		// Assume all platforms are false unless proven otherwise
+		for (const key in platforms) {
+			const game_platform = platforms[key];
+			game_platform.available = false;
+
+			if (desktop_platform === 'win32') {
+			
+				if (game_platform.key === GamePlatform.EPIC || game_platform.key === GamePlatform.STEAM) {
+					if (enumerateValues(game_platform.registryKey, game_platform.registrySubKey).find(
+						(value) => value ? value.name === game_platform.registryKeyValue : false
 					)) {
-						platform.available = true;
+						game_platform.available = true;
 					}
-				} else if (platform.key === GamePlatform.MICROSOFT) {
+				} else if (game_platform.key === GamePlatform.MICROSOFT) {
 					// Search for Innersloth.Among Us.... key and grab it
-					const key_found = enumerateKeys(platform.registryKey, platform.registrySubKey).find(
-						(reg_key) => reg_key.startsWith(platform.registryFindKey as string));
+					const key_found = enumerateKeys(game_platform.registryKey, game_platform.registrySubKey).find(
+						(reg_key) => reg_key.startsWith(game_platform.registryFindKey as string));
 					
 					if (key_found) {
 						// Grab the specific value for the above key
-						const value_found = enumerateValues(platform.registryKey, platform.registrySubKey + '\\' + key_found).find(
-							(value) => value ? value.name === platform.registryKeyValue : false
+						const value_found = enumerateValues(game_platform.registryKey, game_platform.registrySubKey + '\\' + key_found).find(
+							(value) => value ? value.name === game_platform.registryKeyValue : false
 						);
 						if (value_found) {
-							platform.available = true;
-							platform.run = value_found.data as string;
+							game_platform.available = true;
+							game_platform.run = value_found.data as string;
 						}
 					}
 				}
-			}
-		} else if (platform() === 'linux') {
+			} else if (desktop_platform === 'linux') {
 			// TODO: Platform checking on Linux
+			}
 		}
 		return platforms;
 	});
