@@ -85,7 +85,6 @@ export const initializeIpcHandlers = (): void => {
 		// Assume all platforms are false unless proven otherwise
 		for (const key in DefaultGamePlatforms) {
 			const game_platform = DefaultGamePlatforms[key];
-			game_platform.available = false;
 
 			if (desktop_platform === 'win32') {
 			
