@@ -42,7 +42,7 @@
 			"push_to_mute": "Відключення голосу по кнопці",
 			"microphone_volume": "Гучність мікрофона",
 			"microphone_sens": "Чутливість мікрофона",
-			"microphone_sens_warning": "Якщо виставити чутливість ще нижче, вона може не спрацювати.",
+			"microphone_sens_warning": "Якщо виставити чутливість трохи нижче, вона може не спрацювати.",
 			"mastervolume": "Загальна гучність",
 			"crewvolume": "Гучність команди для привида",
 			"test_speaker_start": "Перевірка динаміка",
@@ -52,7 +52,7 @@
 			"title": "Сполучення клавіш",
 			"push_to_talk": "Активація голосу",
 			"mute": "Вимкнути мікрофон",
-			"deafen": "Вимкнути звук",
+			"deafen": "Заглушити звук",
 			"impostor_radio": "Радіо самозванця"
 		},
 		"overlay": {
@@ -128,12 +128,18 @@
 	},
 	"game": {
 		"menu": "МЕНЮ",
-		"open": "Відкрити гру",
+		"open": "Відкрити через",
 		"open_error": "Запустити гру вручну. \r\n(ця кнопка тільки для steam)",
 		"waiting": "Очікування Among Us",
 		"error": "ПОМИЛКА",
 		"error_admin": "Неможливо під'єднатися до Among Us.\nБудь ласка, відкрийте BetterCrewLink знову як адміністратор.",
+		"error_platform": "Не виявлено платформи",
 		"error_unsupport": "Ваша версія Among Us не підтримується BetterCrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft Store"
 	},
 	"translator_name": "XRevan86"
 }

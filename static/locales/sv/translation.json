@@ -128,12 +128,18 @@
 	},
 	"game": {
 		"menu": "MENY",
-		"open": "Öppna Spelet",
+		"open": "Öppna via",
 		"open_error": "Starta spelet manuellt. \n(denna knapp är endast för steam)",
 		"waiting": "Väntar på Among Us",
 		"error": "ERROR",
 		"error_admin": "Det gick inte att ansluta till Among Us.\nVänligen öppna BetterCrewLink på nytt som administratör.",
+		"error_platform": "Ingen plattform upptäckt",
 		"error_unsupport": "Din version av Among Us stöds inte av BetterCrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft Store"
 	},
 	"translator_name": "NoikzGaming"
 }

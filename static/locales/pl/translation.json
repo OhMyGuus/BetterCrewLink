@@ -22,7 +22,16 @@
 			"meetings_only": "Czat głosowy włączony tylko podczas spotkań i w poczekalni",
 			"meetings_only_warning": "To ustawienie wyłącza czat głosowy dla graczy, którzy nie są w spotkaniu.",
 			"meetings_only_warning2": "Czat głosowy jest włączony tylko na spotkaniach.",
-			"impostor_radio": "Radio dla impostorów"
+			"impostor_radio": "Radio dla impostorów",
+			"public_lobby": {
+				"change_settings": "Zmień informacje o poczekalni",
+				"title": "Nazwa",
+				"enabled": "Poczekalnia jest publiczna",
+				"mods": "Moderatorzy",
+				"language": "Język",
+				"enable_warning": "Włączenie tego sprawi, że Twoja poczekalnia stanie się publiczna dla innych użytkowników BetterCrewLink!",
+				"ban_warning": "Nieodpowiednia nazwa spowoduje otrzymanie blokady od BetterCrewLink."
+			}
 		},
 		"audio": {
 			"title": "Dźwięk",
@@ -77,6 +86,7 @@
 			"title": "BETA/DEBUG",
 			"mobilehost": "Host mobilny",
 			"vad_enabled": "VAD włączone",
+			"hardware_acceleration": "Przyspieszenie sprzętowe",
 			"vad_enabled_warning": "Nie będziesz widział kto mówi, jeśli jest wyłączone.",
 			"echocancellation": "Tłumienie echa",
 			"noiseSuppression": "Tłumienie hałasu",
@@ -86,7 +96,7 @@
 			"title": "Ustawienia streamingu",
 			"hidecode": "Pokaż kod poczekalni",
 			"obs_overlay": "Nakładka przeglądarki do OBS",
-			"obs_url": "Adres URL pluginu Browsersource do OBS'a",
+			"obs_url": "OBS Browser Source URL",
 			"voice_server_comp": "Tryb kompatybilnośći z serwerem głosowym",
 			"voice_server_comp_warning": "Zaleca się zamianę serwera głosowego na oficjalny serwer BetterCrewlink, czyli https://bettercrewl.ink"
 		},
@@ -97,20 +107,39 @@
 			"warning": "Niedostępne bo host nie jest w grze!"
 		}
 	},
+	"lobbybrowser": {
+		"header": "Publiczne poczekalnie",
+		"code": "Kod poczekalni",
+		"list": {
+			"title": "Nazwa",
+			"host": "Gospodarz",
+			"players": "Gracze",
+			"mods": "Moderatorzy",
+			"language": "Język"
+		}
+	},
 	"buttons": {
 		"default": "Domyślny",
 		"confirm": "Zatwierdź",
 		"cancel": "Anuluj",
-		"exit": "Wyjdź z ustawień by zastosować zmiany"
+		"close": "Zamknij",
+		"exit": "Wyjdź z ustawień by zastosować zmiany",
+		"public_lobby": "Publiczne poczekalnie"
 	},
 	"game": {
 		"menu": "MENU",
-		"open": "Uruchom grę",
+		"open": "Otwórz przez",
 		"open_error": "Uruchom grę ręcznie.\n(ten przycisk jest tylko dla użytkowników steam)",
 		"waiting": "Oczekiwanie na uruchomienie Among Us",
 		"error": "BŁĄD",
 		"error_admin": "Nie można połączyć się z Among Us.\nProszę otworzyć BetterCrewLink jako administrator.",
+		"error_platform": "Nie wykryto platformy",
 		"error_unsupport": "BetterCrewLink nie wspiera twojej wersji Among Us."
 	},
-	"translator_name": "Translator Name"
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft Store"
+	},
+	"translator_name": "Fixuuu and canicjusz"
 }

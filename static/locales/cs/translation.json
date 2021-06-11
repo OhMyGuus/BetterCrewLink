@@ -128,12 +128,18 @@
 	},
 	"game": {
 		"menu": "MENU",
-		"open": "Otevřít hru",
+		"open": "Otevřít pomocí",
 		"open_error": "Spusťte hru ručně. \n(toto tlačítko je pouze pro stream)",
 		"waiting": "Čekání na Among Us",
 		"error": "CHYBA",
 		"error_admin": "Nelze se připojit k Among Us.\nProsím znovu otevřete BetterCrewLink jako správce.",
+		"error_platform": "Nebyla detekována žádná platforma",
 		"error_unsupport": "Tvá verze Among Us není podporována BetterCrewlinkem."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft Store"
 	},
 	"translator_name": "Tiquis & fajnyCreeper"
 }

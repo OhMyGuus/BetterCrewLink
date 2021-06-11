@@ -128,12 +128,18 @@
 	},
 	"game": {
 		"menu": "MENI",
-		"open": "Zaženi igro",
+		"open": "Odpri preko",
 		"open_error": "Igro zaženite ročno. \n(ta gumb je samo v primeru prenašanja v živo)",
 		"waiting": "Čakanje na odziv",
 		"error": "NAPAKA",
 		"error_admin": "Odpiranje Among Us neuspešno.\nProsimo zaženite Bettercrewlink kot administrator.",
+		"error_platform": "No Platform Detected",
 		"error_unsupport": "Bettercrewlink ne podpira vaše verzije igre."
+	},
+	"platform": {
+		"steam": "Steam-a",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft trgovine"
 	},
 	"translator_name": "Stročji fižol"
 }

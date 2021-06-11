@@ -128,7 +128,7 @@
 	},
 	"game": {
 		"menu": "MENU",
-		"open": "Open via",
+		"open": "Open Via",
 		"open_error": "Start the game manually. \r\n(this button is only for steam)",
 		"waiting": "Waiting for Among Us",
 		"error": "ERROR",

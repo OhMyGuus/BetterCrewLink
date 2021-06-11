@@ -128,12 +128,18 @@
 	},
 	"game": {
 		"menu": "MENU",
-		"open": "Buka Permainan",
+		"open": "Buka Melalui",
 		"open_error": "Mulai permainan secara manual.\n(tombol ini hanya untuk steam)",
 		"waiting": "Menunggu Among Us",
 		"error": "KESALAHAN",
 		"error_admin": "Tidak bisa terhubung ke Among Us.\nHarap buka kembali BetterCrewLink sebagai Administrator.",
+		"error_platform": "Tidak Ada Platform yang Terdeteksi",
 		"error_unsupport": "Versi Among Us Anda tidak didukung oleh BetterCrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft Store"
 	},
 	"translator_name": "LaneGL"
 }
