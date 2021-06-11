@@ -36,7 +36,6 @@ export interface ISettings {
 	obsOverlay: boolean;
 	obsSecret: string | undefined;
 
-	launchPlatformSettings: GamePlatformMap;
 	launchPlatform: GamePlatform;
 }
 
@@ -65,21 +64,4 @@ export interface SocketConfig {
 
 export interface playerConfigMap {
 	[socketId: number]: SocketConfig;
-}
-
-export interface GamePlatformMap {
-	[name: string]: GamePlatformInstance
-}
-
-export interface GamePlatformInstance {
-	available: boolean,
-	key: GamePlatform,
-	launchType: PlatformRunType,
-	registryKey: HKEY,
-	registrySubKey: string,
-	registryFindKey?: string,
-	registryKeyValue: string,
-	run: string,
-	exeFile?: string,
-	translateKey: string,
 }

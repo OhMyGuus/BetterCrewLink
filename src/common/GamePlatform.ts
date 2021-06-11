@@ -1,5 +1,4 @@
 import { HKEY } from "registry-js";
-import { GamePlatformMap } from "./ISettings";
 
 export enum GamePlatform {
 	EPIC = 'EPIC',
@@ -10,6 +9,23 @@ export enum GamePlatform {
 export enum PlatformRunType {
 	URI = 'URI',
 	EXE = 'EXE',
+}
+
+export interface GamePlatformMap {
+	[name: string]: GamePlatformInstance
+}
+
+export interface GamePlatformInstance {
+	available: boolean,
+	key: GamePlatform,
+	launchType: PlatformRunType,
+	registryKey: HKEY,
+	registrySubKey: string,
+	registryFindKey?: string,
+	registryKeyValue: string,
+	run: string,
+	exeFile?: string,
+	translateKey: string,
 }
 
 export const DefaultGamePlatforms: GamePlatformMap = {
