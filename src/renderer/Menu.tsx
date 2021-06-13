@@ -95,13 +95,15 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 	const [settings, setSettings] = useContext(SettingsContext);
 
 	const [launchPlatforms, setLaunchPlatforms] = useState<GamePlatformMap>();
-	const [launchItemList, setLaunchItemList] = useState([] as any[]);
+	const [launchItemList, setLaunchItemList] = useState([] as JSX.Element[]);
 	const [openMessage, setOpenMessage] = useState(<>{t('game.error_platform')}</>);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 
 	const anchorRef = useRef(null);
 
-	const toggleDropdownOpen = () => { setDropdownOpen((status) => !status); };
+	const toggleDropdownOpen = () => {
+		setDropdownOpen((status) => !status);
+	};
 
 	// Grab available platforms from main thread
 	useEffect(() => {
@@ -119,39 +121,43 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 				if (platform.available) {
 					setSettings({
 						type: 'setOne',
-						action: ['launchPlatform', key]
-					})
+						action: ['launchPlatform', key],
+					});
 					break;
 				}
 			}
 		}
 
 		// Generate an array of <MenuItem>'s from available platforms for dropdown
-		setLaunchItemList(Array.from(Object.keys(launchPlatforms)).reduce((filtered: any[], key) => {
-			const platform = launchPlatforms[key];
-			if (platform.available) {
-				filtered.push(
-					<MenuItem key={t(platform.translateKey)}
-					onClick={(_) => {
-						setSettings({
-							type: 'setOne',
-							action: ['launchPlatform', platform.key],
-						});
-						toggleDropdownOpen();
-					}}>
-						{t(platform.translateKey)}
-					</MenuItem>
-				);
-			}
-			return filtered;
-		}, []));
+		setLaunchItemList(
+			Array.from(Object.keys(launchPlatforms)).reduce((filtered: JSX.Element[], key) => {
+				const platform = launchPlatforms[key];
+				if (platform.available) {
+					filtered.push(
+						<MenuItem
+							key={t(platform.translateKey)}
+							onClick={() => {
+								setSettings({
+									type: 'setOne',
+									action: ['launchPlatform', platform.key],
+								});
+								toggleDropdownOpen();
+							}}
+						>
+							{t(platform.translateKey)}
+						</MenuItem>
+					);
+				}
+				return filtered;
+			}, [])
+		);
 	}, [launchPlatforms]);
 
 	// Update button message when platform changes or no platforms are available (list empty)
 	useEffect(() => {
 		if (!launchPlatforms) return;
 		if (launchItemList.length != 0) {
-			setOpenMessage(<>{t(launchPlatforms[settings.launchPlatform].translateKey)}</>)
+			setOpenMessage(<>{t(launchPlatforms[settings.launchPlatform].translateKey)}</>);
 		} else {
 			setOpenMessage(<>{t('game.error_platform')}</>);
 		}
@@ -194,7 +200,7 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 								<ArrowDropDownIcon />
 							</ToggleButton>
 						</div>
-						<Popper 
+						<Popper
 							open={dropdownOpen}
 							anchorEl={anchorRef.current}
 							placement="bottom-end"
@@ -212,9 +218,7 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 						>
 							<Paper>
 								<ClickAwayListener onClickAway={toggleDropdownOpen}>
-									<MenuList>
-										{launchItemList}
-									</MenuList>
+									<MenuList>{launchItemList}</MenuList>
 								</ClickAwayListener>
 							</Paper>
 						</Popper>

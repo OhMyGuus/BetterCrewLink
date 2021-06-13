@@ -181,7 +181,6 @@ const store = new Store<ISettings>({
 				store.get('serverURL') === 'https://www.curseforge.com/among-us/all-mods/bettercrewlink-proximity-chat' ||
 				store.get('serverURL') === 'https://web.bettercrewl.ink' ||
 				store.get('serverURL') === 'https://obs.bettercrewlink.app'
-				
 			) {
 				store.set('serverURL', 'https://bettercrewl.ink');
 			}
@@ -433,8 +432,8 @@ const store = new Store<ISettings>({
 		},
 		launchPlatform: {
 			type: 'string',
-			default: GamePlatform.STEAM
-		}
+			default: GamePlatform.STEAM,
+		},
 	},
 });
 
@@ -810,7 +809,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								action: [setting, newValue],
 							});
 						}}
-						lobbySettings={canChangeLobbySettings? localLobbySettings : lobbySettings}
+						lobbySettings={canChangeLobbySettings ? localLobbySettings : lobbySettings}
 						canChange={canChangeLobbySettings}
 						className={classes.dialog}
 					/>

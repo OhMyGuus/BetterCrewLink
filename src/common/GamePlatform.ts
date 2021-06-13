@@ -1,4 +1,4 @@
-import { HKEY } from "registry-js";
+import { HKEY } from 'registry-js';
 
 export enum GamePlatform {
 	EPIC = 'EPIC',
@@ -12,20 +12,20 @@ export enum PlatformRunType {
 }
 
 export interface GamePlatformMap {
-	[name: string]: GamePlatformInstance
+	[name: string]: GamePlatformInstance;
 }
 
 export interface GamePlatformInstance {
-	available: boolean,
-	key: GamePlatform,
-	launchType: PlatformRunType,
-	registryKey: HKEY,
-	registrySubKey: string,
-	registryFindKey?: string,
-	registryKeyValue: string,
-	run: string,
-	exeFile?: string,
-	translateKey: string,
+	available: boolean;
+	key: GamePlatform;
+	launchType: PlatformRunType;
+	registryKey: HKEY;
+	registrySubKey: string;
+	registryFindKey?: string;
+	registryKeyValue: string;
+	run: string;
+	exeFile?: string;
+	translateKey: string;
 }
 
 export const DefaultGamePlatforms: GamePlatformMap = {
@@ -54,11 +54,12 @@ export const DefaultGamePlatforms: GamePlatformMap = {
 		key: GamePlatform.MICROSOFT,
 		launchType: PlatformRunType.EXE,
 		registryKey: HKEY.HKEY_CURRENT_USER,
-		registrySubKey: 'SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\Repository\\Packages',
+		registrySubKey:
+			'SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\Repository\\Packages',
 		registryFindKey: 'Innersloth.AmongUs',
 		registryKeyValue: 'PackageRootFolder',
 		run: 'none',
 		exeFile: 'Among Us.exe',
 		translateKey: 'platform.microsoft',
 	},
-}
+};

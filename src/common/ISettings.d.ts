@@ -1,5 +1,4 @@
-import { GamePlatform, PlatformRunType, PlatformFindType } from "./GamePlatform";
-import { HKEY } from 'registry-js';
+import { GamePlatform } from './GamePlatform';
 
 export interface ISettings {
 	alwaysOnTop: boolean;

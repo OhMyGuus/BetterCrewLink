@@ -16,11 +16,10 @@ export const initializeIpcListeners = (): void => {
 	});
 
 	ipcMain.on(IpcMessages.OPEN_AMONG_US_GAME, (_, platformKey: GamePlatform) => {
-
 		const platform = DefaultGamePlatforms[platformKey];
 
 		const error = () => dialog.showErrorBox('Error', 'Could not start the game.');
-		
+
 		if (platform.launchType === PlatformRunType.URI) {
 			// Just open the URI if we can to launch the game
 			// TODO: Try to add error checking here
@@ -79,7 +78,6 @@ export const initializeIpcListeners = (): void => {
 // consider making it a "listener" instead for performance and readability
 export const initializeIpcHandlers = (): void => {
 	ipcMain.handle(IpcMessages.REQUEST_PLATFORMS_AVAILABLE, () => {
-		
 		const desktop_platform = platform();
 
 		// Assume all platforms are false unless proven otherwise
@@ -87,7 +85,6 @@ export const initializeIpcHandlers = (): void => {
 			const game_platform = DefaultGamePlatforms[key];
 
 			if (desktop_platform === 'win32') {
-			
 				if (game_platform.key === GamePlatform.EPIC || game_platform.key === GamePlatform.STEAM) {
 					// Search registry for the URL Protocol
 					if (enumerateValues(game_platform.registryKey, game_platform.registrySubKey).find(
@@ -103,7 +100,7 @@ export const initializeIpcHandlers = (): void => {
 					if (key_found) {
 						// Grab the game path from the above key
 						const value_found = enumerateValues(game_platform.registryKey, game_platform.registrySubKey + '\\' + key_found).find(
-							(value) => value ? value.name === game_platform.registryKeyValue : false
+							(value) => (value ? value.name === game_platform.registryKeyValue : false)
 						);
 						if (value_found) {
 							game_platform.available = true;
