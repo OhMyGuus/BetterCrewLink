@@ -6,10 +6,11 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import SupportLink from './SupportLink';
-import { Button, ButtonGroup, ClickAwayListener, MenuItem, MenuList, Paper, Popper } from '@material-ui/core';
+import { Button, ClickAwayListener, MenuItem, MenuList, Paper, Popper } from '@material-ui/core';
 import { SettingsContext } from './contexts';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { GamePlatformMap } from '../common/GamePlatform';
+import { ToggleButton } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -31,22 +32,55 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: 12,
 		marginBottom: 12,
 	},
-	button: {
+	open_message: {
+		fontSize: 24,
+		marginTop: '15px',
+		marginBottom: '5px',
+	},
+	button_group: {
+		display: 'inline-flex',
+		margin: '0px 10px',
+	},
+	button_primary: {
 		color: 'white',
 		background: 'none',
 		padding: '2px 10px',
-		borderRadius: 10,
-		border: '4px solid white',
+		borderRadius: '10px 0px 0px 10px',
+		borderWidth: '4px 2px 4px 4px',
+		borderStyle: 'solid',
+		borderColor: 'white',
 		fontSize: 24,
 		outline: 'none',
 		fontWeight: 500,
 		fontFamily: '"Varela", sans-serif',
-		marginTop: 24,
 		'&:hover': {
 			borderColor: '#00ff00',
 			cursor: 'pointer',
 		},
 		textTransform: 'none',
+	},
+	button_dropdown: {
+		'&.Mui-selected': {
+			borderColor: '#00ff00',
+		},
+		color: 'white',
+		background: 'none',
+		padding: '0px 0px',
+		borderRadius: '0px 10px 10px 0px',
+		borderWidth: '4px 4px 4px 2px',
+		borderStyle: 'solid',
+		borderColor: 'white',
+		'&:hover': {
+			borderColor: '#00ff00',
+			cursor: 'pointer',
+		},
+		minWidth: '40px',
+	},
+	dropdown: {
+		maxHeight: 110,
+		overflow: 'auto',
+		border: '1px solid rgba(255, 255, 255, 0.3)',
+		background: '#272727',
 	},
 }));
 
@@ -117,7 +151,7 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 	useEffect(() => {
 		if (!launchPlatforms) return;
 		if (launchItemList.length != 0) {
-			setOpenMessage(<>{t('game.open')}<br/>{t(launchPlatforms[settings.launchPlatform].translateKey)}</>)
+			setOpenMessage(<>{t(launchPlatforms[settings.launchPlatform].translateKey)}</>)
 		} else {
 			setOpenMessage(<>{t('game.error_platform')}</>);
 		}
@@ -140,9 +174,10 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 					<>
 						<span className={classes.waiting}>{t('game.waiting')}</span>
 						<CircularProgress color="primary" size={40} />
-						<ButtonGroup variant="contained" ref={anchorRef}>
+						<span className={classes.open_message}>{t('game.open')}</span>
+						<div className={classes.button_group} ref={anchorRef}>
 							<Button
-								className={classes.button}
+								className={classes.button_primary}
 								disabled={launchItemList.length === 0}
 								onClick={() => {
 									ipcRenderer.send(IpcMessages.OPEN_AMONG_US_GAME, settings.launchPlatform);
@@ -150,28 +185,30 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 							>
 								{openMessage}
 							</Button>
-							<Button
-								className={classes.button}
+							<ToggleButton
+								className={classes.button_dropdown}
 								disabled={launchItemList.length === 0}
 								onClick={toggleDropdownOpen}
+								selected={dropdownOpen}
 							>
 								<ArrowDropDownIcon />
-							</Button>
-						</ButtonGroup>
+							</ToggleButton>
+						</div>
 						<Popper 
 							open={dropdownOpen}
 							anchorEl={anchorRef.current}
 							placement="bottom-end"
 							disablePortal={false}
+							className={classes.dropdown}
 							modifiers={{
 								flip: {
-								  enabled: false,
+								enabled: false,
 								},
 								preventOverflow: {
-								  enabled: true,
-								  boundariesElement: 'viewport',
+								enabled: true,
+								boundariesElement: 'viewport',
 								},
-							  }}
+							}}
 						>
 							<Paper>
 								<ClickAwayListener onClickAway={toggleDropdownOpen}>
