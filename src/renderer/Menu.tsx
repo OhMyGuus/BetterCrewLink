@@ -202,11 +202,11 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 							className={classes.dropdown}
 							modifiers={{
 								flip: {
-								enabled: false,
+									enabled: false,
 								},
 								preventOverflow: {
-								enabled: true,
-								boundariesElement: 'viewport',
+									enabled: true,
+									boundariesElement: 'viewport',
 								},
 							}}
 						>
