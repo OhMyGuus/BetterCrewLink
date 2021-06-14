@@ -133,13 +133,13 @@
 		"waiting": "Čakanje na odziv",
 		"error": "NAPAKA",
 		"error_admin": "Odpiranje Among Us neuspešno.\nProsimo zaženite Bettercrewlink kot administrator.",
-		"error_platform": "No Platform Detected",
+		"error_platform": "Ni zaznanega programa za zagon igre",
 		"error_unsupport": "Bettercrewlink ne podpira vaše verzije igre."
 	},
 	"platform": {
 		"steam": "Steam-a",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft trgovine"
+		"microsoft": "Microsoft"
 	},
 	"translator_name": "Stročji fižol"
 }

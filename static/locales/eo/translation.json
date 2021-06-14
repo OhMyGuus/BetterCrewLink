@@ -30,7 +30,7 @@
 				"mods": "Modifoj",
 				"language": "Lingvo",
 				"enable_warning": "Ŝaltinte ĉi tion vi igos la ludejon publika por aliaj uzantoj de BetterCrewLink!",
-				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
+				"ban_warning": "Maldecaj mesaĝoj kaŭzos forbaron el BetterCrewLink."
 			}
 		},
 		"audio": {
@@ -128,12 +128,18 @@
 	},
 	"game": {
 		"menu": "MENUE",
-		"open": "Malfermi la ludon",
+		"open": "Malfermi per",
 		"open_error": "Komenci la ludon mane. \n(ĉi-butono estas nur por dissendado)",
 		"waiting": "Atendado de la ludo",
 		"error": "ERARO",
 		"error_admin": "Ne eblis konekti al Among Us.\nBonvolu remalfermi BetterCrewLink kiel administranto.",
+		"error_platform": "La platformo ne detekteblis",
 		"error_unsupport": "BetterCrewLink ne subtenas vian version de Among Us."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft"
 	},
 	"translator_name": "Ajno and Jano Miĥalako"
 }

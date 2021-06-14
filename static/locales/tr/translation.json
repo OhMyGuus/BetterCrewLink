@@ -128,12 +128,18 @@
 	},
 	"game": {
 		"menu": "MENÜ",
-		"open": "Oyunu Aç",
+		"open": "Birlikte Aç",
 		"open_error": "Oyunu Elle Aç.\n(Bu buton sadece Steam için)",
 		"waiting": "Among Us Bekleniyor",
 		"error": "HATA",
 		"error_admin": "Among Us'a bağlanılamadı.\nLütfen BetterCrewLink'i Yönetici olarak başlatın.",
+		"error_platform": "Platform Bulunamadı",
 		"error_unsupport": "Kullandığınız Among Us versiyonu BetterCrewLink tarafından desteklenmemektedir."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft"
 	},
 	"translator_name": "Archerist"
 }

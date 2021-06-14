@@ -128,12 +128,18 @@
 	},
 	"game": {
 		"menu": "МЕНЮ",
-		"open": "Уенны ачарга",
+		"open": "Open Via",
 		"open_error": "Уенны кулдан ачу. (бу төймә Steam өчен генә)",
 		"waiting": "Among Us көтүе",
 		"error": "ХАТА",
 		"error_admin": "Among Us-га тоташып булмады. Зинһар, BetterCrewLink-ны администратор исеменнән ачыгыз.",
+		"error_platform": "No Platform Detected",
 		"error_unsupport": "Сезнең Among Us версиясендә BetterCrewLink эшләми."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft"
 	},
 	"translator_name": "Amirhan-Taipovjan-Greatest-I (Әлмәт Ак Арыслан) һәм morewaves (күбрәк дулкыннар plz)"
 }
