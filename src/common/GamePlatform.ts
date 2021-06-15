@@ -1,4 +1,4 @@
-// import { HKEY } from 'registry-js';
+import { HKEY } from 'registry-js';
 
 export enum GamePlatform {
 	EPIC = 'EPIC',
@@ -11,10 +11,6 @@ export enum PlatformRunType {
 	EXE = 'EXE',
 }
 
-export enum HKEY {
-	HKEY_CLASSES_ROOT,
-	HKEY_CURRENT_USER
-}
 export interface GamePlatformMap {
 	[name: string]: GamePlatformInstance;
 }
