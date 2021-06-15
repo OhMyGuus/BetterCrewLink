@@ -395,3 +395,18 @@ export function TempFixOffsets2(offsetsOld: IOffsets): IOffsets {
 
 	return offsets;
 }
+
+export function TempFixOffsets3(offsetsOld: IOffsets): IOffsets {
+	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
+	offsets.player.localX[0] = 0x64;
+	offsets.player.localY[0] = 0x64;
+	offsets.player.remoteX[0] = 0x64;
+	offsets.player.remoteY[0] = 0x64;
+	offsets.palette_playercolor[0] = 0xE8;
+	offsets.palette_shadowColor[0] =  0xEC;
+
+	offsets.signatures.gameData.patternOffset = 2;
+	offsets.signatures.gameData.sig = '8B 0D ? ? ? ? 8B F0 83 C4 10 8B 49 5C 8B 01';
+
+	return offsets;
+}

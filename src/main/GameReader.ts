@@ -21,7 +21,7 @@ import Errors from '../common/Errors';
 import { CameraLocation, MapType } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
 import { RainbowColorId } from '../renderer/cosmetics';
-import { TempFixOffsets, TempFixOffsets2 } from './offsetStore';
+import { TempFixOffsets, TempFixOffsets2, TempFixOffsets3 } from './offsetStore';
 import { platform } from 'os';
 import fs from 'fs';
 import path from 'path';
@@ -472,6 +472,18 @@ export default class GameReader {
 			this.disableWriting = true;
 			// temp fix for older game until I added more sigs.. // 12/9
 			this.offsets = TempFixOffsets2(this.offsets);
+		}
+
+		if (innerNetClient === 0x1D9DBB4) {
+			this.disableWriting = true;
+			// temp fix for older game until I added more sigs.. // 25/5
+			this.offsets = TempFixOffsets3(this.offsets);
+			const gameData = this.findPattern(
+				this.offsets.signatures.gameData.sig,
+				this.offsets.signatures.gameData.patternOffset,
+				this.offsets.signatures.gameData.addressOffset
+			);
+			this.offsets.allPlayersPtr[0] = gameData;
 		}
 		console.log("Offsets: ", this.offsets);
 		this.PlayerStruct = new Struct();
