@@ -70,7 +70,7 @@ export default class GameReader {
 	pid = -1;
 	loadedMod = modList[0];
 	gamePath = '';
-
+	oldMeetingHud = false;
 	constructor(sendIPC: Electron.WebContents['send']) {
 		this.is_linux = platform() === 'linux';
 		this.sendIPC = sendIPC;
@@ -374,6 +374,7 @@ export default class GameReader {
 				closedDoors,
 				currentServer: this.currentServer,
 				maxPlayers,
+				oldMeetingHud: this.oldMeetingHud
 			};
 			//	const stateHasChanged = !equal(this.lastState, newState);
 			if (state !== GameState.MENU || this.oldGameState !== GameState.MENU) {
@@ -396,6 +397,7 @@ export default class GameReader {
 		this.shellcodeAddr = -1;
 		this.offsets = this.is_64bit ? offsetStore.x64 : offsetStore.x86;
 		this.initializedWrite = false;
+		this.disableWriting = false;
 		const innerNetClient = this.findPattern(
 			this.offsets.signatures.innerNetClient.sig,
 			this.offsets.signatures.innerNetClient.patternOffset,
@@ -466,17 +468,19 @@ export default class GameReader {
 		if (innerNetClient === 0x2c6c278) {
 			// temp fix for older game until I added more sigs.. //
 			this.disableWriting = true;
+			this.oldMeetingHud = true;
 			this.offsets = TempFixOffsets(this.offsets);
 		}
 		if (innerNetClient === 0x1c57f54) {
 			this.disableWriting = true;
+			this.oldMeetingHud = true;
 			// temp fix for older game until I added more sigs.. // 12/9
 			this.offsets = TempFixOffsets2(this.offsets);
 		}
 
 		if (innerNetClient === 0x1D9DBB4) {
-			this.disableWriting = true;
 			// temp fix for older game until I added more sigs.. // 25/5
+			this.oldMeetingHud = true;
 			this.offsets = TempFixOffsets3(this.offsets);
 			const gameData = this.findPattern(
 				this.offsets.signatures.gameData.sig,
@@ -485,7 +489,6 @@ export default class GameReader {
 			);
 			this.offsets.allPlayersPtr[0] = gameData;
 		}
-		console.log("Offsets: ", this.offsets);
 		this.PlayerStruct = new Struct();
 		for (const member of this.offsets.player.struct) {
 			if (member.type === 'SKIP' && member.skip) {

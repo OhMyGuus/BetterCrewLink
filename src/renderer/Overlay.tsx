@@ -11,6 +11,7 @@ import { DEFAULT_PLAYERCOLORS } from '../main/avatarGenerator';
 
 interface UseStylesProps {
 	hudHeight: number;
+	oldHud: boolean;
 }
 
 const useStyles = makeStyles(() => ({
@@ -21,21 +22,21 @@ const useStyles = makeStyles(() => ({
 		transform: 'translate(-50%, -50%)',
 	},
 	tabletContainer: {
-		width: '105%',
+		width:  ({ oldHud }: UseStylesProps) => oldHud? '88.45%' : '105%',
 		height: '10.5%',
-		left: '0.7%',
+		left: ({ oldHud }: UseStylesProps) => oldHud? '4.7%' : '0.7%',
 		top: '18.4703%',
 		position: 'absolute',
 		display: 'flex',
 		flexWrap: 'wrap',
 	},
 	playerContainer: {
-		width: '29.5%',
+		width: ({ oldHud }: UseStylesProps) => oldHud? '46.41%' : '29.5%',
 		height: '100%',  
 		borderRadius: ({ hudHeight }: UseStylesProps) => hudHeight / 100,
 		transition: 'opacity .1s linear',
-		marginBottom: '1.7%',
-		marginRight: '3%',
+		marginBottom: ({ oldHud }: UseStylesProps) => oldHud? '2%' : '1.7%',
+		marginRight: ({ oldHud }: UseStylesProps) => oldHud?  '2.34%' : '3%',
 		boxSizing: 'border-box',
 	},
 }));
@@ -257,7 +258,7 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 		console.log("Hudheight2 ", hudHeight, hudWidth)
 	}
 
-	const classes = useStyles({ hudHeight});
+	const classes = useStyles({ hudHeight, oldHud : gameState.oldMeetingHud});
 	const players = useMemo(() => {
 		if (!gameState.players) return null;
 		return gameState.players.slice().sort((a, b) => {
