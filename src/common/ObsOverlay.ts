@@ -28,4 +28,5 @@ export interface ObsVoiceState {
 	localTalking: boolean;
 	localIsAlive: boolean;
 	mod: string;
+	oldMeetingHud: boolean;
 }

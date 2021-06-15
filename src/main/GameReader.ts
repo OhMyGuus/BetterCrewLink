@@ -21,7 +21,7 @@ import Errors from '../common/Errors';
 import { CameraLocation, MapType } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
 import { RainbowColorId } from '../renderer/cosmetics';
-import { TempFixOffsets, TempFixOffsets2 } from './offsetStore';
+import { TempFixOffsets, TempFixOffsets2, TempFixOffsets3 } from './offsetStore';
 import { platform } from 'os';
 import fs from 'fs';
 import path from 'path';
@@ -70,7 +70,7 @@ export default class GameReader {
 	pid = -1;
 	loadedMod = modList[0];
 	gamePath = '';
-
+	oldMeetingHud = false;
 	constructor(sendIPC: Electron.WebContents['send']) {
 		this.is_linux = platform() === 'linux';
 		this.sendIPC = sendIPC;
@@ -374,6 +374,7 @@ export default class GameReader {
 				closedDoors,
 				currentServer: this.currentServer,
 				maxPlayers,
+				oldMeetingHud: this.oldMeetingHud
 			};
 			//	const stateHasChanged = !equal(this.lastState, newState);
 			if (state !== GameState.MENU || this.oldGameState !== GameState.MENU) {
@@ -396,6 +397,7 @@ export default class GameReader {
 		this.shellcodeAddr = -1;
 		this.offsets = this.is_64bit ? offsetStore.x64 : offsetStore.x86;
 		this.initializedWrite = false;
+		this.disableWriting = false;
 		const innerNetClient = this.findPattern(
 			this.offsets.signatures.innerNetClient.sig,
 			this.offsets.signatures.innerNetClient.patternOffset,
@@ -466,12 +468,26 @@ export default class GameReader {
 		if (innerNetClient === 0x2c6c278) {
 			// temp fix for older game until I added more sigs.. //
 			this.disableWriting = true;
+			this.oldMeetingHud = true;
 			this.offsets = TempFixOffsets(this.offsets);
 		}
 		if (innerNetClient === 0x1c57f54) {
 			this.disableWriting = true;
+			this.oldMeetingHud = true;
 			// temp fix for older game until I added more sigs.. // 12/9
 			this.offsets = TempFixOffsets2(this.offsets);
+		}
+
+		if (innerNetClient === 0x1D9DBB4) {
+			// temp fix for older game until I added more sigs.. // 25/5
+			this.oldMeetingHud = true;
+			this.offsets = TempFixOffsets3(this.offsets);
+			const gameData = this.findPattern(
+				this.offsets.signatures.gameData.sig,
+				this.offsets.signatures.gameData.patternOffset,
+				this.offsets.signatures.gameData.addressOffset
+			);
+			this.offsets.allPlayersPtr[0] = gameData;
 		}
 		this.PlayerStruct = new Struct();
 		for (const member of this.offsets.player.struct) {
@@ -867,7 +883,6 @@ export default class GameReader {
 		if (!this.PlayerStruct || !this.offsets) return undefined;
 
 		const { data } = this.PlayerStruct.report<PlayerReport>(buffer, 0, {});
-
 		if (this.is_64bit) {
 			data.objectPtr = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('objectPtr')]);
 			data.name = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('name')]);
@@ -882,9 +897,6 @@ export default class GameReader {
 		let x = this.readMemory<number>('float', data.objectPtr, positionOffsets[0]);
 		let y = this.readMemory<number>('float', data.objectPtr, positionOffsets[1]);
 		const isDummy = this.readMemory<boolean>('boolean', data.objectPtr, this.offsets.player.isDummy);
-		if (isDummy) {
-			console.log('ISDUMMY!!!!@!@!');
-		}
 		let bugged = false;
 		if (x === undefined || y === undefined || data.disconnected != 0 || data.color > 40) {
 			x = 9999;
@@ -895,9 +907,7 @@ export default class GameReader {
 		const x_round = parseFloat(x?.toFixed(4));
 		const y_round = parseFloat(y?.toFixed(4));
 
-		// if (isLocal) {
-		// 	console.log('Current position: ', { x_low: x_round, y_low: y_round });
-		// }
+		
 		const name = this.readString(data.name);
 		const nameHash = this.hashCode(name);
 		const colorId = data.color === this.rainbowColor ? RainbowColorId : data.color;

@@ -196,6 +196,7 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 								disabled={launchItemList.length === 0}
 								onClick={toggleDropdownOpen}
 								selected={dropdownOpen}
+								value=""
 							>
 								<ArrowDropDownIcon />
 							</ToggleButton>
@@ -206,6 +207,7 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 							placement="bottom-end"
 							disablePortal={false}
 							className={classes.dropdown}
+						
 							modifiers={{
 								flip: {
 									enabled: false,

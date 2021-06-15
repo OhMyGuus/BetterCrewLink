@@ -600,6 +600,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				localTalking: talking,
 				localIsAlive: !myPlayer?.isDead,
 				mod: gameState.mod,
+				oldMeetingHud: gameState.oldMeetingHud
 			};
 			connectionStuff.current.overlaySocket?.emit('signal', {
 				to: settings.obsSecret,

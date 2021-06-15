@@ -18,6 +18,7 @@ export interface AmongUsState {
 	currentServer: string;
 	maxPlayers: number;
 	mod: string;
+	oldMeetingHud: boolean;
 }
 
 export interface Player {
