@@ -123,7 +123,7 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 - Microphone Eoise Suppression.
 - More overlay positions and you can set the overlay to the top/bottom and you can set it so it shows everyone even when they aren't talking.
 - You can set the lobby up so only death people can talk. (normal lobbies but then with death talk)
-- Support for new/older versions of Among Us. (v2021.5.25.2)
+- Support for new/older versions of Among Us. (v2021.6.15)
 - Support for other platforms. (itch.io, Play Store, App Store, Nintendo Switch, Beta)
 - Support for Custom Colors/Hats/Skins. (mods that add more colors/hats/skins)
 - Support for Linux.
