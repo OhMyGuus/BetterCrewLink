@@ -1,5 +1,5 @@
 import { app, dialog, ipcMain, shell } from 'electron';
-import { platform } from 'os';
+// import { platform } from 'os';
 // import { enumerateValues } from 'registry-js';
 import { DefaultGamePlatforms, GamePlatform, PlatformRunType } from '../common/GamePlatform';
 import spawn from 'cross-spawn';
