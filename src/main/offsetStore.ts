@@ -247,8 +247,8 @@ export default {
 		planetSurveillanceMinigame_camarasCount: [0x58, 0x0c],
 		surveillanceMinigame_FilteredRoomsCount: [0x40, 0x0c],
 		palette: [0xffff, 0x5c],
-		palette_playercolor: [0xe8],
-		palette_shadowColor: [0xec],
+		palette_playercolor: [0xF4],
+		palette_shadowColor: [0xF8],
 		lightRadius: [0x54, 0x1c],
 		playerControl_GameOptions: [0xffff, 0x5c, 0x4],
 		gameOptions_MapId: [0x10],
@@ -310,8 +310,8 @@ export default {
 				addressOffset: 0,
 			},
 			gameData: {
-				sig: '8B 0D ? ? ? ? 8B F0 83 C4 10 8B 49 5C 8B 01',
-				patternOffset: 2,
+				sig: '68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 83 C4 18 C6 05 ? ? ? ? ? 53 8B 5D 08 33 C0 56 57 FF 35 ? ? ? ? 8B 73 30 66 89 45 F8 E8 ? ? ? ? FF 35 ? ? ? ? ', //'8B 0D ? ? ? ? 8B F0 83 C4 10 8B 49 5C 8B 01',
+				patternOffset: 1,
 				addressOffset: 0,
 			},
 			shipStatus: {

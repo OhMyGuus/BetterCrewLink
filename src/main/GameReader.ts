@@ -218,6 +218,7 @@ export default class GameReader {
 				this.readCurrentServer();
 			}
 
+			console.log("PlayerCount: ", playerCount);
 			if (this.gameCode && playerCount) {
 				for (let i = 0; i < Math.min(playerCount, 40); i++) {
 					const { address, last } = this.offsetAddress(playerAddrPtr, this.offsets.player.offsets);
@@ -473,6 +474,7 @@ export default class GameReader {
 			// temp fix for older game until I added more sigs.. // 12/9
 			this.offsets = TempFixOffsets2(this.offsets);
 		}
+		console.log("Offsets: ", this.offsets);
 		this.PlayerStruct = new Struct();
 		for (const member of this.offsets.player.struct) {
 			if (member.type === 'SKIP' && member.skip) {
