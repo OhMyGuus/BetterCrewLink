@@ -1,6 +1,6 @@
 import { app, dialog, ipcMain, shell } from 'electron';
 import { platform } from 'os';
-import { enumerateValues, enumerateKeys } from 'registry-js';
+// import { enumerateValues } from 'registry-js';
 import { DefaultGamePlatforms, GamePlatform, PlatformRunType } from '../common/GamePlatform';
 import spawn from 'cross-spawn';
 import path from 'path';
@@ -78,42 +78,42 @@ export const initializeIpcListeners = (): void => {
 // consider making it a "listener" instead for performance and readability
 export const initializeIpcHandlers = (): void => {
 	ipcMain.handle(IpcMessages.REQUEST_PLATFORMS_AVAILABLE, () => {
-		const desktop_platform = platform();
+		// const desktop_platform = platform();
 
-		// Assume all platforms are false unless proven otherwise
-		for (const key in DefaultGamePlatforms) {
-			const game_platform = DefaultGamePlatforms[key];
+		// // Assume all platforms are false unless proven otherwise
+		// for (const key in DefaultGamePlatforms) {
+		// 	const game_platform = DefaultGamePlatforms[key];
 
-			if (desktop_platform === 'win32') {
-				if (game_platform.key === GamePlatform.EPIC || game_platform.key === GamePlatform.STEAM) {
-					// Search registry for the URL Protocol
-					if (enumerateValues(game_platform.registryKey, game_platform.registrySubKey).find(
-						(value) => value ? value.name === game_platform.registryKeyValue : false
-					)) {
-						game_platform.available = true;
-					}
-				} else if (game_platform.key === GamePlatform.MICROSOFT) {
-					// Search for 'Innersloth.Among Us....' key and grab it
-					const key_found = enumerateKeys(game_platform.registryKey, game_platform.registrySubKey).find(
-						(reg_key) => reg_key.startsWith(game_platform.registryFindKey as string));
+		// 	if (desktop_platform === 'win32') {
+		// 		if (game_platform.key === GamePlatform.EPIC || game_platform.key === GamePlatform.STEAM) {
+		// 			// Search registry for the URL Protocol
+		// 			if (enumerateValues(game_platform.registryKey, game_platform.registrySubKey).find(
+		// 				(value) => value ? value.name === game_platform.registryKeyValue : false
+		// 			)) {
+		// 				game_platform.available = true;
+		// 			}
+		// 		} else if (game_platform.key === GamePlatform.MICROSOFT) {
+		// 			// Search for 'Innersloth.Among Us....' key and grab it
+		// 			const key_found = true;// enumerateKeys(game_platform.registryKey, game_platform.registrySubKey).find(
+		// 				//(reg_key) => reg_key.startsWith(game_platform.registryFindKey as string));
 					
-					if (key_found) {
-						// Grab the game path from the above key
-						const value_found = enumerateValues(game_platform.registryKey, game_platform.registrySubKey + '\\' + key_found).find(
-							(value) => (value ? value.name === game_platform.registryKeyValue : false)
-						);
-						if (value_found) {
-							game_platform.available = true;
-							game_platform.run = value_found.data as string;
-						}
-					}
-				}
-			} else if (desktop_platform === 'linux') {
-				// TODO: Platform checking on Linux
-				// Set 'game_platform.available' true and setup data if platform is available, do nothing otherwise
-				continue;
-			}
-		}
+		// 			if (key_found) {
+		// 				// Grab the game path from the above key
+		// 				const value_found = enumerateValues(game_platform.registryKey, game_platform.registrySubKey + '\\' + key_found).find(
+		// 					(value) => (value ? value.name === game_platform.registryKeyValue : false)
+		// 				);
+		// 				if (value_found) {
+		// 					game_platform.available = true;
+		// 					game_platform.run = value_found.data as string;
+		// 				}
+		// 			}
+		// 		}
+		// 	} else if (desktop_platform === 'linux') {
+		// 		// TODO: Platform checking on Linux
+		// 		// Set 'game_platform.available' true and setup data if platform is available, do nothing otherwise
+		// 		continue;
+		// 	}
+		// }
 		return DefaultGamePlatforms;
 	});
 };
