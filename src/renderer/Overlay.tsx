@@ -11,7 +11,6 @@ import { DEFAULT_PLAYERCOLORS } from '../main/avatarGenerator';
 
 interface UseStylesProps {
 	hudHeight: number;
-	smallContainer: boolean;
 }
 
 const useStyles = makeStyles(() => ({
@@ -22,21 +21,21 @@ const useStyles = makeStyles(() => ({
 		transform: 'translate(-50%, -50%)',
 	},
 	tabletContainer: {
-		width: '88.45%',
+		width: '105%',
 		height: '10.5%',
-		left: '4.7%',
+		left: '0.7%',
 		top: '18.4703%',
 		position: 'absolute',
 		display: 'flex',
 		flexWrap: 'wrap',
 	},
 	playerContainer: {
-		width: ({ smallContainer }: UseStylesProps) => smallContainer? '29.91%' : '46.41%',
+		width: '29.5%',
 		height: '100%',  
 		borderRadius: ({ hudHeight }: UseStylesProps) => hudHeight / 100,
 		transition: 'opacity .1s linear',
-		marginBottom: '2%',
-		marginRight: '2.34%',
+		marginBottom: '1.7%',
+		marginRight: '3%',
 		boxSizing: 'border-box',
 	},
 }));
@@ -247,14 +246,18 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 
 	let hudWidth = 0,
 		hudHeight = 0;
+		console.log('Calculation ipadwith/height: ', width, height, (width / (height * 0.96)), iPadRatio )
 	if (width / (height * 0.96) > iPadRatio) {
 		hudHeight = height * 0.96;
 		hudWidth = hudHeight * iPadRatio;
+		console.log("Hudheight1 ", hudHeight, hudWidth)
 	} else {
 		hudWidth = width;
 		hudHeight = width * (1 / iPadRatio);
+		console.log("Hudheight2 ", hudHeight, hudWidth)
 	}
-	const classes = useStyles({ hudHeight, smallContainer: gameState.players.length > 10});
+
+	const classes = useStyles({ hudHeight});
 	const players = useMemo(() => {
 		if (!gameState.players) return null;
 		return gameState.players.slice().sort((a, b) => {
@@ -278,7 +281,7 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 				key={player.id}
 				className={classes.playerContainer}
 				style={{
-					opacity: voiceState.otherTalking[player.clientId] || (player.isLocal && voiceState.localTalking) ? 1 : 0,
+					opacity: 1, //voiceState.otherTalking[player.clientId] || (player.isLocal && voiceState.localTalking) ? 1 : 0,
 					border: 'solid',
 					borderWidth: '2px',
 					borderColor: '#00000037',
