@@ -128,12 +128,18 @@
 	},
 	"game": {
 		"menu": "MENU",
-		"open": "Otvor hru",
+		"open": "Otvoriť cez",
 		"open_error": "Spusti hru manuálne. \r\n(toto tlačidlo je iba pre Steam)",
 		"waiting": "Čaká sa na Among Us",
 		"error": "CHYBA",
-		"error_admin": "Nepodarilo sa pripojiť k Among Us.\n Prosím, znovu otvor CrewLink ako administrátor.",
-		"error_unsupport": "Tvoja verzia Among Us nie je CrewLinkom podporovaná."
+		"error_admin": "Nepodarilo sa pripojiť k Among Us.\n Prosím, znovu otvor BetterCrewLink ako administrátor.",
+		"error_platform": "Nezistená žiadna platforma",
+		"error_unsupport": "Tvoja verzia Among Us nie je BetterCrewLinkom podporovaná."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft"
 	},
 	"translator_name": "KaldonM"
 }

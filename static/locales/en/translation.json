@@ -128,12 +128,18 @@
 	},
 	"game": {
 		"menu": "MENU",
-		"open": "Open Game",
+		"open": "Open Via",
 		"open_error": "Start the game manually. \r\n(this button is only for steam)",
 		"waiting": "Waiting for Among Us",
 		"error": "ERROR",
 		"error_admin": "Couldn't connect to Among Us.\nPlease re-open BetterCrewLink as Administrator.",
+		"error_platform": "No Platform Detected",
 		"error_unsupport": "Your version of Among Us is unsupported by BetterCrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft"
 	},
 	"translator_name": "None"
 }

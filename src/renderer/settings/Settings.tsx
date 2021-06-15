@@ -29,6 +29,7 @@ import languages from '../language/languages';
 import ServerURLInput from './ServerURLInput';
 import MuiDivider from '@material-ui/core/Divider';
 import PublicLobbySettings from './PublicLobbySettings';
+import { GamePlatform } from '../../common/GamePlatform';
 
 interface StyleInput {
 	open: boolean;
@@ -180,7 +181,6 @@ const store = new Store<ISettings>({
 				store.get('serverURL') === 'https://www.curseforge.com/among-us/all-mods/bettercrewlink-proximity-chat' ||
 				store.get('serverURL') === 'https://web.bettercrewl.ink' ||
 				store.get('serverURL') === 'https://obs.bettercrewlink.app'
-				
 			) {
 				store.set('serverURL', 'https://bettercrewl.ink');
 			}
@@ -429,6 +429,10 @@ const store = new Store<ISettings>({
 				publicLobby_language: 'en',
 				publicLobby_mods: 'NONE',
 			},
+		},
+		launchPlatform: {
+			type: 'string',
+			default: GamePlatform.STEAM,
 		},
 	},
 });
@@ -805,7 +809,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								action: [setting, newValue],
 							});
 						}}
-						lobbySettings={canChangeLobbySettings? localLobbySettings : lobbySettings}
+						lobbySettings={canChangeLobbySettings ? localLobbySettings : lobbySettings}
 						canChange={canChangeLobbySettings}
 						className={classes.dialog}
 					/>

@@ -1,3 +1,5 @@
+import { GamePlatform } from './GamePlatform';
+
 export interface ISettings {
 	alwaysOnTop: boolean;
 	language: string;
@@ -32,6 +34,8 @@ export interface ISettings {
 	playerConfigMap: playerConfigMap;
 	obsOverlay: boolean;
 	obsSecret: string | undefined;
+
+	launchPlatform: GamePlatform;
 }
 
 export interface ILobbySettings {

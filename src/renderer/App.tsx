@@ -35,6 +35,7 @@ import 'typeface-varela/index.css';
 import { DEFAULT_PLAYERCOLORS } from '../main/avatarGenerator';
 import './language/i18n';
 import { withNamespaces } from 'react-i18next';
+import { GamePlatform } from '../common/GamePlatform';
 let appVersion = '';
 if (typeof window !== 'undefined' && window.location) {
 	const query = new URLSearchParams(window.location.search.substring(1));
@@ -173,6 +174,7 @@ export default function App({ t }): JSX.Element {
 			publicLobby_language: 'en',
 			publicLobby_mods: 'NONE',
 		},
+		launchPlatform: GamePlatform.STEAM,
 	});
 	const lobbySettings = useReducer(lobbySettingsReducer, settings[0].localLobbySettings);
 

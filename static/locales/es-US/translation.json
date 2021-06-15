@@ -16,7 +16,7 @@
 			"private_talk_invents": "Charla privada en los respiraderos",
 			"comms_sabotage_audio": "El sabotaje de comunicaciones desactiva la voz",
 			"hear_through_cameras": "Escuchar a través de las cámaras",
-			"ghost_only": "Only Ghosts Can Talk/Hear",
+			"ghost_only": "Solo los fantasmas pueden Hablar/Escuchar",
 			"ghost_only_warning": "This disables the sound for alive players.",
 			"ghost_only_warning2": "Ghost can talk only enabled.",
 			"meetings_only": "Meetings/Lobby Only",
@@ -128,12 +128,18 @@
 	},
 	"game": {
 		"menu": "El menú",
-		"open": "Open Game",
+		"open": "Open Via",
 		"open_error": "Abrir el juego manualmente. \n(este botón es solo para Steam)",
 		"waiting": "Esperando a Among Us",
 		"error": "ERROR",
 		"error_admin": "No podía conectarse a Among Us.\nVuelva a abrir BetterCrewLink como administrador.",
+		"error_platform": "No Platform Detected",
 		"error_unsupport": "Su versión de Among Us no es compatible con BetterCrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft Store"
 	},
 	"translator_name": "Bubbycolditz - GitHub username\n\"Bubbycolditz#5816 Bubbycolditz\""
 }

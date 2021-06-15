@@ -16,7 +16,7 @@ import translationPTBR from '../../../static/locales/pt-BR/translation.json';
 import translationRU from '../../../static/locales/ru/translation.json';
 import translationSK from '../../../static/locales/sk/translation.json';
 import translationSL from '../../../static/locales/sl/translation.json';
-import translationESES from '../../../static/locales/es-ES/translation.json';
+import translationES from '../../../static/locales/es/translation.json';
 import translationESAR from '../../../static/locales/es-AR/translation.json';
 import translationESUS from '../../../static/locales/es-US/translation.json';
 import translationSVSE from '../../../static/locales/sv-SE/translation.json';
@@ -97,8 +97,8 @@ const languages = {
 		translation: translationSL,
 		name: 'Slovenščina',
 	},
-	'es-ES': {
-		translation: translationESES,
+	es: {
+		translation: translationES,
 		name: 'Español',
 	},
 	'es-AR': {

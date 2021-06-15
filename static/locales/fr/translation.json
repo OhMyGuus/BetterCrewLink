@@ -2,7 +2,7 @@
 	"settings": {
 		"title": "Paramètres",
 		"language": "Langue",
-		"warning": "Vous êtes sûr?",
+		"warning": "Êtes-vous sûr ?",
 		"lobbysettings": {
 			"title": "Paramètres du lobby",
 			"gamehostonly": "Seul l'hôte de la partie peut modifier cela!",
@@ -29,7 +29,7 @@
 				"enabled": "Le Lobby est Publique",
 				"mods": "Mods",
 				"language": "Langue",
-				"enable_warning": "Activez ceci rendre votre lobby publique aux autres utilisateurs de BetterCrewLink !",
+				"enable_warning": "Activer cette option rendra votre lobby public aux autres utilisateurs de BetterCrewLink !",
 				"ban_warning": "Un texte inapproprié entraînera un bannissement de BetterCrewLink."
 			}
 		},
@@ -128,12 +128,18 @@
 	},
 	"game": {
 		"menu": "MENU",
-		"open": "Ouvrir le jeu",
+		"open": "Ouvrir via",
 		"open_error": "Démarrez le jeu manuellement. \r\n(ce bouton est uniquement pour Steam)",
 		"waiting": "En attente d'Among Us",
 		"error": "ERREUR",
 		"error_admin": "Impossible de se connecter à Among Us.\nVeuillez rouvrir BetterCrewLink en tant qu'administrateur.",
+		"error_platform": "Aucune plateforme détectée",
 		"error_unsupport": "Votre version de Among Us n'est pas supporté par BetterCrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft"
 	},
 	"translator_name": "Adofou"
 }
