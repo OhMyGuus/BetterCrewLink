@@ -218,7 +218,6 @@ export default class GameReader {
 				this.readCurrentServer();
 			}
 
-			console.log("PlayerCount: ", playerCount);
 			if (this.gameCode && playerCount) {
 				for (let i = 0; i < Math.min(playerCount, 40); i++) {
 					const { address, last } = this.offsetAddress(playerAddrPtr, this.offsets.player.offsets);
@@ -869,7 +868,6 @@ export default class GameReader {
 		if (!this.PlayerStruct || !this.offsets) return undefined;
 
 		const { data } = this.PlayerStruct.report<PlayerReport>(buffer, 0, {});
-
 		if (this.is_64bit) {
 			data.objectPtr = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('objectPtr')]);
 			data.name = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('name')]);
@@ -884,9 +882,6 @@ export default class GameReader {
 		let x = this.readMemory<number>('float', data.objectPtr, positionOffsets[0]);
 		let y = this.readMemory<number>('float', data.objectPtr, positionOffsets[1]);
 		const isDummy = this.readMemory<boolean>('boolean', data.objectPtr, this.offsets.player.isDummy);
-		if (isDummy) {
-			console.log('ISDUMMY!!!!@!@!');
-		}
 		let bugged = false;
 		if (x === undefined || y === undefined || data.disconnected != 0 || data.color > 40) {
 			x = 9999;
@@ -897,9 +892,7 @@ export default class GameReader {
 		const x_round = parseFloat(x?.toFixed(4));
 		const y_round = parseFloat(y?.toFixed(4));
 
-		// if (isLocal) {
-		// 	console.log('Current position: ', { x_low: x_round, y_low: y_round });
-		// }
+		
 		const name = this.readString(data.name);
 		const nameHash = this.hashCode(name);
 		const colorId = data.color === this.rainbowColor ? RainbowColorId : data.color;
