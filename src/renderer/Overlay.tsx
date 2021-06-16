@@ -296,7 +296,7 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 				key={player.id}
 				className={classes.playerContainer}
 				style={{
-					opacity: 1, //voiceState.otherTalking[player.clientId] || (player.isLocal && voiceState.localTalking) ? 1 : 0,
+					opacity: voiceState.otherTalking[player.clientId] || (player.isLocal && voiceState.localTalking) ? 1 : 0,
 					border: 'solid',
 					borderWidth: '2px',
 					borderColor: '#00000037',
