@@ -58,7 +58,7 @@ function useWindowSize() {
 	return windowSize;
 }
 
-// const iPadRatio = 854 / 579;
+const iPadRatio = 854 / 579;
 
 const Overlay: React.FC = function () {
 	const [gameState, setGameState] = useState<AmongUsState>((undefined as unknown) as AmongUsState);
@@ -247,18 +247,18 @@ interface MeetingHudProps {
 const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerColors }: MeetingHudProps) => {
 	let [width, height] = useWindowSize();
 
-	// let hudWidth = 0,
-	// 	hudHeight = 0;
-	// 	console.log('Calculation ipadwith/height: ', width, height, (width / (height * 0.96)), iPadRatio )
-	// if (width / (height * 0.96) > iPadRatio) {
-	// 	hudHeight = height * 0.96;
-	// 	hudWidth = hudHeight * iPadRatio;
-	// 	console.log("Hudheight1 ", hudHeight, hudWidth)
-	// } else {
-	// 	hudWidth = width;
-	// 	hudHeight = width * (1 / iPadRatio);
-	// 	console.log("Hudheight2 ", hudHeight, hudWidth)
-	// }
+	let hudWidth = 0,
+		hudHeight = 0;
+		console.log('Calculation ipadwith/height: ', width, height, (width / (height * 0.96)), iPadRatio )
+	if (width / (height * 0.96) > iPadRatio) {
+		hudHeight = height * 0.96;
+		hudWidth = hudHeight * iPadRatio;
+		console.log("Hudheight1 ", hudHeight, hudWidth)
+	} else {
+		hudWidth = width;
+		hudHeight = width * (1 / iPadRatio);
+		console.log("Hudheight2 ", hudHeight, hudWidth)
+	}
 
 	function arrayEquals(arr1: number[], arr2: number[]) {
 		for (let i = 0; i < arr1.length; i++) {
@@ -269,10 +269,10 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 		return true;
 	}
 
-	width = gameState.oldMeetingHud ? width : [[1176, 664], [1280, 720], [1360, 768], [1366, 768], [1600,900], [1920, 1080]].find(e => arrayEquals(e, [width, height])) ? width / 1.192 : width / 1.146;
-	height = gameState.oldMeetingHud ? height : width / 1.72;
-	
-	const classes = useStyles({ width, height, oldHud : gameState.oldMeetingHud});
+	width = [[1176, 664], [1280, 720], [1360, 768], [1366, 768], [1600,900], [1920, 1080]].find(e => arrayEquals(e, [width, height])) ? width / 1.192 : width / 1.146;
+	height = width / 1.72;
+
+	const classes = useStyles({ width: gameState.oldMeetingHud ? hudWidth : width, height: gameState.oldMeetingHud ? hudHeight : height, oldHud : gameState.oldMeetingHud});
 	const players = useMemo(() => {
 		if (!gameState.players) return null;
 		return gameState.players.slice().sort((a, b) => {
