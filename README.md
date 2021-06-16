@@ -34,8 +34,8 @@
     <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/release-date/OhMyGuus/BetterCrewLink?label=Released&logo=GitHub" alt="GitHub Latest Release Date"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE"><img src="https://img.shields.io/github/license/OhMyGuus/BetterCrewLink?label=License" alt="GPL-3.0 License"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/actions"><img src="https://img.shields.io/github/workflow/status/OhMyGuus/BetterCrewLink/BetterCrewLink%20Build%20(CI)?label=Build%20%28CI%29&logo=GitHub" alt="GitHub Actions Build"></img></a>
-    <a href="https://bettercrewl.ink/"><img src="https://img.shields.io/website?down_message=Offline&label=Status&up_message=Online&url=https%3A%2F%2Fbettercrewl.ink%2F" alt="BetterCrewLink Voice Server Status"></img></a>
-    <a href="https://bettercrewl.ink/"><img src="https://img.shields.io/uptimerobot/ratio/m787827421-93842e7a0fa80efd6eb22092?label=Uptime" alt="BetterCrewLink Voice Server Uptime"></img></a>
+    <a href="https://matadorprobr.github.io/BetterCrewLink-status/history/better-crew-link-voice-server"><img src="https://img.shields.io/website?down_message=Offline&label=Status&up_message=Online&url=https%3A%2F%2Fbettercrewl.ink%2F" alt="BetterCrewLink Voice Server Status"></img></a>
+    <a href="https://matadorprobr.github.io/BetterCrewLink-status/history/better-crew-link-voice-server"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/MatadorProBr/BetterCrewLink-status/master/api/better-crew-link-voice-server/uptime.json&label=Uptime" alt="BetterCrewLink Voice Server Uptime"></img></a>
     <a href="https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ"><img src="https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=PayPal" alt="Support BetterCrewLink (PayPal)"></img></a>
     <a href="https://ko-fi.com/ohmyguus"><img src="https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=Ko-fi&logoColor=white" alt="Support BetterCrewLink (Ko-fi)"></img></a>
     <a href="https://discord.gg/qDqTzvj4SH"><img src="https://img.shields.io/discord/791516611143270410?color=cornflowerblue&label=Discord&logo=Discord&logoColor=white" alt="Discord Server"></img></a>
@@ -51,6 +51,15 @@
 
 - We are not affiliated with CrewLink, we are just a modified/better version of the original CrewLink, so if you need help with CrewLink, we will not offer any help for you about CrewLink here, we will only offer help you if you are using **Better**CrewLink, if you want to download BetterCrewLink look at the [GitHub](https://github.com/OhMyGuus/BetterCrewLink/releases/latest).
 
+<details>
+<summary> CrewLink is now no longer supported </summary>
+
+![CrewLink end of support](https://user-images.githubusercontent.com/71022656/120219995-713daf80-c212-11eb-8305-330aab91ccef.png)
+
+</details>
+
+- This mod is not affiliated with Among Us or Innersloth LLC, and the content contained therein is not endorsed or otherwise sponsored by Innersloth LLC. Portions of the materials contained herein are property of Innersloth LLC. © Innersloth LLC.
+
 - To get the most of BetterCrewLink use the Voice Server: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
 
 <div>
@@ -65,6 +74,7 @@
 * [About the Project](#about-the-project)
 * [Extra features/bug fixes in this fork](#extra-featuresbug-fixes-in-this-fork)
 * [Supported Plataforms](#supported-plataforms)
+* [Supported Versions of Among Us](#supported-versions-of-among-us)
 * [Installation](#installation)
   * [Windows](#windows-)
   * [Linux](#linux-)
@@ -87,6 +97,7 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 
 <!-- EXTRA FEATURES-->
 ## Extra features/bug fixes in this fork
+
 ```
 - OBS Browsersource Overlay.
 - Hear People in Vision Only.
@@ -112,7 +123,7 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 - Microphone Eoise Suppression.
 - More overlay positions and you can set the overlay to the top/bottom and you can set it so it shows everyone even when they aren't talking.
 - You can set the lobby up so only death people can talk. (normal lobbies but then with death talk)
-- Support for new/older versions of Among Us. (v2021.5.25.2)
+- Support for new/older versions of Among Us. (v2021.6.15)
 - Support for other platforms. (itch.io, Play Store, App Store, Nintendo Switch, Beta)
 - Support for Custom Colors/Hats/Skins. (mods that add more colors/hats/skins)
 - Support for Linux.
@@ -126,16 +137,30 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 <!-- SUPPORTED PLATAFORMS -->
 ## Supported Plataforms
 
-| Plataform | Supported |
-| ------- | ------------------ |
-| [Steam](#installation) | ✅ |
-| [Epic Games](#installation) | ✅ |
-| [itch.io](#installation) | ✅ |
-| [Microsoft Store](#windows-) | ✅ |
-| [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) | ✅ |
-| [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) | ✅ |
-| [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web) | ✅ |
-| Beta | ✅ |
+| Plataform         | Supported? |
+|-----------------|:------------:|
+| [Windows 7/10](#windows-)                                                                   |      ✔️     |
+| [Linux](#linux-)                                                                            |      ✔️     |
+| [Android](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks)    |      ✔️     |
+| [iOS](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos)                         |      ✔️     |
+| [Chromebook](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) |      ✔️     |
+| [macOS](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos)                       |      ✔️     |
+| [Bluestacks](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) |      ✔️     |
+| [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web)                    |      ✔️     |
+
+<!-- SUPPORTED VERSIONS OF AMONG US -->
+## Supported Versions of Among Us
+
+| Version         | Supported? |
+|-----------------|:------------:|
+| [Steam](#installation)                                                                      |      ✔️     |
+| [Epic Games](#installation)                                                                 |      ✔️     |
+| [itch.io](#installation)                                                                    |      ✔️     |
+| [Microsoft Store](#windows-)                                                                |      ✔️     |
+| [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) |      ✔️     |
+| [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos)                   |      ✔️     |
+| [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web)                    |      ✔️     |
+| Beta                                                                                        |      ✔️     |
 
 <!-- INSTALLATION -->
 ## Installation
@@ -148,7 +173,7 @@ Download the latest version from [releases](https://github.com/OhMyGuus/BetterCr
 
 [![Setup Video](https://img.youtube.com/vi/_8F4f5iQEIc/0.jpg)](https://www.youtube.com/watch?v=_8F4f5iQEIc "BetterCrewLink Setup Instructions")
 
-### Linux [![Linux](https://i.imgur.com/xFFj5PT.png)](https://youtu.be/dQw4w9WgXcQ "Do not click here")
+### Linux [![Linux](https://i.imgur.com/xFFj5PT.png)](https://youtu.be/6n3pFFPSlW4 "Do not click here")
 
 To install & run it on Linux run the following commands:
 
@@ -175,7 +200,7 @@ Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#
 
 [![Play Store Latest Version][playstore_latest_version-shield]][playstore_latest_version-url] 
 
-### iOS & macOS [![iOS & macOS](https://i.imgur.com/d4X3mKz.png)](https://youtu.be/dQw4w9WgXcQ "Do not click here")
+### iOS & macOS [![iOS & macOS](https://i.imgur.com/d4X3mKz.png)](https://youtu.be/qYvDg4dktI4 "Do not click here")
 
 Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) in BetterCrewlink-mobile to see how to install the iOS/macOS version. (requires a PC player)
 
@@ -251,7 +276,6 @@ Needed [Git](https://git-scm.com/downloads) for Contributing.
 A big thanks for all those people who contributed and still contributing this project to stay alive, thank you so much for being part of this BetterCrewLink community!
 
 </details>
-
 <hr />
 
 <!-- TRANSLATING -->
@@ -287,7 +311,6 @@ There are two methods.
 8. Open a Pull Request.
 
 </details>
-
 <hr />
 
 <details>
@@ -322,7 +345,6 @@ There are two methods.
 A big thanks for all those people who translated and still translating this project to stay alive, thank you so much for being part of this BetterCrewLink community!
 
 </details>
-
 <hr />
 
 <!-- CREDITS & RESOURCES -->
@@ -403,9 +425,9 @@ Distributed under the GNU General Public License v3.0. See <a href="https://gith
 [github_actions-shield]: https://img.shields.io/github/workflow/status/OhMyGuus/BetterCrewLink/BetterCrewLink%20Build%20(CI)?label=Build%20%28CI%29&logo=GitHub
 [github_actions-url]: https://github.com/OhMyGuus/BetterCrewLink/actions
 [status-shield]: https://img.shields.io/website?down_message=Offline&label=Status&up_message=Online&url=https%3A%2F%2Fbettercrewl.ink%2F
-[status-url]: https://bettercrewl.ink/
-[uptime-shield]: https://img.shields.io/uptimerobot/ratio/m787827421-93842e7a0fa80efd6eb22092?label=Uptime
-[uptime-url]: https://bettercrewl.ink/
+[status-url]: https://matadorprobr.github.io/BetterCrewLink-status/history/better-crew-link-voice-server
+[uptime-shield]: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/MatadorProBr/BetterCrewLink-status/master/api/better-crew-link-voice-server/uptime.json&label=Uptime
+[uptime-url]: https://matadorprobr.github.io/BetterCrewLink-status/history/better-crew-link-voice-server
 [paypal-shield]: https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=PayPal
 [paypal-url]: https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ
 [kofi-shield]: https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=Ko-fi&logoColor=white
