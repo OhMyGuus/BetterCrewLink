@@ -248,14 +248,6 @@ interface MeetingHudProps {
 
 const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerColors }: MeetingHudProps) => {
 	let [windowWidth, windowheight] = useWindowSize();
-	function arrayEquals(arr1: number[], arr2: number[]) {
-		for (let i = 0; i < arr1.length; i++) {
-			if (arr1[i] != arr2[i]) {
-				return false;
-			}
-		}
-		return true;
-	}
 	let [width, height] = useMemo(() => {
 		if (gameState.oldMeetingHud) {
 			let hudWidth = 0,
