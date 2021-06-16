@@ -26,14 +26,14 @@ const useStyles = makeStyles(() => ({
 		width:  ({ oldHud }: UseStylesProps) => oldHud? '88.45%' : '100%',
 		height: '10.5%',
 		left: ({ oldHud }: UseStylesProps) => oldHud? '4.7%' : '0.4%',
-		top: '15%',
+		top: ({ oldHud }: UseStylesProps) => oldHud? '18.4703%' : '15%',
 		position: 'absolute',
 		display: 'flex',
 		flexWrap: 'wrap',
 	},
 	playerContainer: {
 		width: ({ oldHud }: UseStylesProps) => oldHud? '46.41%' : '30%',
-		height: '109%',  
+		height: ({ oldHud }: UseStylesProps) => oldHud? '100%' : '109%',  
 		borderRadius: ({ height }: UseStylesProps) => height / 100,
 		transition: 'opacity .1s linear',
 		marginBottom: ({ oldHud }: UseStylesProps) => oldHud? '2%' : '1.9%',
@@ -269,8 +269,9 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 		return true;
 	}
 
-	width = [[1176, 664], [1280, 720], [1360, 768], [1366, 768], [1600,900], [1920, 1080]].find(e => arrayEquals(e, [width, height])) ? width / 1.192 : width / 1.146;
-	height = width / 1.72;
+	width = gameState.oldMeetingHud ? width : [[1176, 664], [1280, 720], [1360, 768], [1366, 768], [1600,900], [1920, 1080]].find(e => arrayEquals(e, [width, height])) ? width / 1.192 : width / 1.146;
+	height = gameState.oldMeetingHud ? height : width / 1.72;
+	
 	const classes = useStyles({ width, height, oldHud : gameState.oldMeetingHud});
 	const players = useMemo(() => {
 		if (!gameState.players) return null;
