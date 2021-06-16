@@ -20,25 +20,27 @@ const useStyles = makeStyles(() => ({
 		position: 'absolute',
 		top: '50%',
 		left: '50%',
+		width: ({ width }: UseStylesProps) => width,
+		height: ({ height }: UseStylesProps) => height,
 		transform: 'translate(-50%, -50%)',
 	},
 	tabletContainer: {
-		width:  ({ oldHud }: UseStylesProps) => oldHud? '88.45%' : '100%',
+		width: ({ oldHud }: UseStylesProps) => (oldHud ? '88.45%' : '100%'),
 		height: '10.5%',
-		left: ({ oldHud }: UseStylesProps) => oldHud? '4.7%' : '0.4%',
-		top: ({ oldHud }: UseStylesProps) => oldHud? '18.4703%' : '15%',
+		left: ({ oldHud }: UseStylesProps) => (oldHud ? '4.7%' : '0.4%'),
+		top: ({ oldHud }: UseStylesProps) => (oldHud ? '18.4703%' : '15%'),
 		position: 'absolute',
 		display: 'flex',
 		flexWrap: 'wrap',
 	},
 	playerContainer: {
-		width: ({ oldHud }: UseStylesProps) => oldHud? '46.41%' : '30%',
-		height: ({ oldHud }: UseStylesProps) => oldHud? '100%' : '109%',  
+		width: ({ oldHud }: UseStylesProps) => (oldHud ? '46.41%' : '30%'),
+		height: ({ oldHud }: UseStylesProps) => (oldHud ? '100%' : '109%'),
 		borderRadius: ({ height }: UseStylesProps) => height / 100,
 		transition: 'opacity .1s linear',
-		marginBottom: ({ oldHud }: UseStylesProps) => oldHud? '2%' : '1.9%',
-		marginRight: ({ oldHud }: UseStylesProps) => oldHud?  '2.34%' : '0.23%',
-		marginLeft: ({ oldHud }: UseStylesProps) => oldHud?  '0%' : '2.4%',
+		marginBottom: ({ oldHud }: UseStylesProps) => (oldHud ? '2%' : '1.9%'),
+		marginRight: ({ oldHud }: UseStylesProps) => (oldHud ? '2.34%' : '0.23%'),
+		marginLeft: ({ oldHud }: UseStylesProps) => (oldHud ? '0%' : '2.4%'),
 		boxSizing: 'border-box',
 	},
 }));
@@ -245,21 +247,7 @@ interface MeetingHudProps {
 }
 
 const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerColors }: MeetingHudProps) => {
-	let [width, height] = useWindowSize();
-
-	let hudWidth = 0,
-		hudHeight = 0;
-		console.log('Calculation ipadwith/height: ', width, height, (width / (height * 0.96)), iPadRatio )
-	if (width / (height * 0.96) > iPadRatio) {
-		hudHeight = height * 0.96;
-		hudWidth = hudHeight * iPadRatio;
-		console.log("Hudheight1 ", hudHeight, hudWidth)
-	} else {
-		hudWidth = width;
-		hudHeight = width * (1 / iPadRatio);
-		console.log("Hudheight2 ", hudHeight, hudWidth)
-	}
-
+	let [windowWidth, windowheight] = useWindowSize();
 	function arrayEquals(arr1: number[], arr2: number[]) {
 		for (let i = 0; i < arr1.length; i++) {
 			if (arr1[i] != arr2[i]) {
@@ -268,11 +256,31 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 		}
 		return true;
 	}
+	let [width, height] = useMemo(() => {
+		if (gameState.oldMeetingHud) {
+			let hudWidth = 0,
+				hudHeight = 0;
+			if (windowWidth / (windowheight * 0.96) > iPadRatio) {
+				hudHeight = windowWidth * 0.96;
+				hudWidth = hudHeight * iPadRatio;
+			} else {
+				hudWidth = windowWidth;
+				hudHeight = windowWidth * (1 / iPadRatio);
+			}
+			return [hudWidth, hudWidth];
+		}
 
-	width = [[1176, 664], [1280, 720], [1360, 768], [1366, 768], [1600,900], [1920, 1080], [2560, 1440]].find(e => arrayEquals(e, [width, height])) ? width / 1.192 : width / 1.146;
-	height = width / 1.72;
+		let ratio = windowWidth / windowheight;
+		let resultW = ratio.toFixed(1) == '1.7' ? windowWidth / 1.192 : windowWidth /  1.192;
+		let resultH = resultW / 1.72;
+		return [resultW, resultH];
+	}, [windowWidth, windowheight, gameState.oldMeetingHud]);
 
-	const classes = useStyles({ width: gameState.oldMeetingHud ? hudWidth : width, height: gameState.oldMeetingHud ? hudHeight : height, oldHud : gameState.oldMeetingHud});
+	const classes = useStyles({
+		width: width,
+		height: height,
+		oldHud: gameState.oldMeetingHud,
+	});
 	const players = useMemo(() => {
 		if (!gameState.players) return null;
 		return gameState.players.slice().sort((a, b) => {
@@ -300,7 +308,7 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 					border: 'solid',
 					borderWidth: '2px',
 					borderColor: '#00000037',
-					 boxShadow: `0 0 ${(gameState.oldMeetingHud ? hudHeight : height) / 100}px ${(gameState.oldMeetingHud ? hudHeight : height) / 100}px ${color}`,
+					boxShadow: `0 0 ${height / 100}px ${height / 100}px ${color}`,
 					transition: 'opacity 400ms',
 				}}
 			/>
@@ -308,7 +316,7 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 	});
 
 	return (
-		<div className={classes.meetingHud} style={{ width: gameState.oldMeetingHud ? hudWidth : width, height: gameState.oldMeetingHud ? hudHeight : height }}>
+		<div className={classes.meetingHud}>
 			<div className={classes.tabletContainer}>{overlays}</div>
 		</div>
 	);
