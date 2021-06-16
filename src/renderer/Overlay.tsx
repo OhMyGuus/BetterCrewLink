@@ -300,7 +300,7 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 					border: 'solid',
 					borderWidth: '2px',
 					borderColor: '#00000037',
-					 boxShadow: `0 0 ${height / 100}px ${height / 100}px ${color}`,
+					 boxShadow: `0 0 ${(gameState.oldMeetingHud ? hudHeight : height) / 100}px ${(gameState.oldMeetingHud ? hudHeight : height) / 100}px ${color}`,
 					transition: 'opacity 400ms',
 				}}
 			/>
@@ -308,7 +308,7 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 	});
 
 	return (
-		<div className={classes.meetingHud} style={{ width: width, height: height }}>
+		<div className={classes.meetingHud} style={{ width: gameState.oldMeetingHud ? hudWidth : width, height: gameState.oldMeetingHud ? hudHeight : height }}>
 			<div className={classes.tabletContainer}>{overlays}</div>
 		</div>
 	);
