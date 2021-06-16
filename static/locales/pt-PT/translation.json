@@ -86,7 +86,7 @@
 			"title": "BETA/DEBUG",
 			"mobilehost": "Permitir jogadores Android/iOS",
 			"vad_enabled": "VAD Ativo",
-			"hardware_acceleration" : "Utilizar Aceleração por Hardware",
+			"hardware_acceleration": "Utilizar Aceleração por Hardware",
 			"vad_enabled_warning": "Ao desativar, não será vísivel quem está a falar.",
 			"echocancellation": "Cancelamento de Eco",
 			"noiseSuppression": "Supressão de Ruído",
@@ -107,15 +107,15 @@
 			"warning": "Opção indisponível como anfitrião do jogo!"
 		}
 	},
-		"lobbybrowser": {
-			"header": "Lobbies Públicos",
-			"code": "Código do Lobby",
-			"list": {
-				"title": "Título",
-				"host": "Anfitrião",
-				"players": "Jogadores",
-				"mods": "Mods",
-				"language": "Linguagem"
+	"lobbybrowser": {
+		"header": "Lobbies Públicos",
+		"code": "Código do Lobby",
+		"list": {
+			"title": "Título",
+			"host": "Anfitrião",
+			"players": "Jogadores",
+			"mods": "Mods",
+			"language": "Linguagem"
 		}
 	},
 	"buttons": {
@@ -128,12 +128,18 @@
 	},
 	"game": {
 		"menu": "MENU",
-		"open": "Abrir o Jogo",
+		"open": "Abrir",
 		"open_error": "Inicie o jogo manualmente. \r\n(este botão é apenas para a versão Steam)",
 		"waiting": "À espera do Among Us",
 		"error": "ERRO",
 		"error_admin": "Não foi possível ligar ao Among Us.\nAbra novamente o BetterCrewLink como administrador.",
+		"error_platform": "Plataforma não detetada",
 		"error_unsupport": "A versão do Among Us não é suportada pelo BetterCrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft"
 	},
 	"translator_name": "vbtop/vb-03"
 }

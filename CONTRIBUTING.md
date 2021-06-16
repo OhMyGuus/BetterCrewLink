@@ -1,7 +1,7 @@
 <!-- DEVELOPMENT -->
 ## Development
 
-You only need to follow the below instructions if you are trying to modify this software. Otherwise, please download the latest version from the [github releases](https://github.com/OhMyGuus/BetterCrewLink/releases).
+You only need to follow the below instructions if you are trying to modify this software. Otherwise, please download the latest version from the [GitHub releases](https://github.com/OhMyGuus/BetterCrewLink/releases).
 
 Server code is located at [OhMyGuus/BetterCrewLink-server](https://github.com/OhMyGuus/BetterCrewLink-server). Please use a local server for development purposes.
 
@@ -34,7 +34,9 @@ yarn dev
 <!-- CONTRIBUTING -->
 ## Contributing
 
-[![Contributors][contributors-shield]][contributors-url]
+PC: [![Contributors][contributors-shield]][contributors-url]\
+Mobile/Web: [![BetterCrewLink Mobile Contributors](https://img.shields.io/github/contributors/OhMyGuus/BetterCrewlink-mobile?label=Contributors&logo=GitHub)](https://github.com/OhMyGuus/BetterCrewlink-mobile/graphs/contributors)\
+Server: [![BetterCrewLink Server Contributors](https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink-server?label=Contributors&logo=GitHub)](https://github.com/OhMyGuus/BetterCrewLink-server/graphs/contributors)
 
 Any contributions you make are greatly appreciated.
 
@@ -46,6 +48,7 @@ Needed [Git](https://git-scm.com/downloads) for Contributing.
 4. Push to the Branch. (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request.
 
+
 ### Translating
 
 [![Crowdin][crowdin-shield]][crowdin-url]
@@ -55,6 +58,15 @@ BetterCrewLink now officially supports other languages, that is, you can use Bet
 Any translations you make are greatly appreciated.
 
 There are two methods.
+
+<details>
+<summary> In Crowdin </summary>
+
+1. [Go to Crowdin Page](https://crwd.in/bettercrewlink).
+2. Search for the name of your language you want to translate.
+3. Click on it and start translating.
+
+</details>
 
 <details>
 <summary> In GitHub </summary>
@@ -68,16 +80,6 @@ There are two methods.
 7. Throw everything to your fork.
 8. Open a Pull Request.
 
-</details>
-
-<details>
-<summary> In Crowdin </summary>
-
-1. [Go to Crowdin Page](https://crowdin.com/project/bettercrewlink).
-2. Search for the name of your language you want to translate.
-3. Click on it and start translating.
-
-</details>
 
 [contributors-shield]: https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink?label=Contributors&logo=GitHub
 [contributors-url]: https://github.com/OhMyGuus/BetterCrewLink/graphs/contributors
