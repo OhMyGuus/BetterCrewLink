@@ -10,7 +10,8 @@ import { ISettings } from '../common/ISettings';
 import { DEFAULT_PLAYERCOLORS } from '../main/avatarGenerator';
 
 interface UseStylesProps {
-	hudHeight: number;
+	height: number;
+	width: number;
 	oldHud: boolean;
 }
 
@@ -22,21 +23,22 @@ const useStyles = makeStyles(() => ({
 		transform: 'translate(-50%, -50%)',
 	},
 	tabletContainer: {
-		width:  ({ oldHud }: UseStylesProps) => oldHud? '88.45%' : '105%',
+		width:  ({ oldHud }: UseStylesProps) => oldHud? '88.45%' : '100%',
 		height: '10.5%',
-		left: ({ oldHud }: UseStylesProps) => oldHud? '4.7%' : '0.7%',
-		top: '18.4703%',
+		left: ({ oldHud }: UseStylesProps) => oldHud? '4.7%' : '0.4%',
+		top: '15%',
 		position: 'absolute',
 		display: 'flex',
 		flexWrap: 'wrap',
 	},
 	playerContainer: {
-		width: ({ oldHud }: UseStylesProps) => oldHud? '46.41%' : '29.5%',
-		height: '100%',  
-		borderRadius: ({ hudHeight }: UseStylesProps) => hudHeight / 100,
+		width: ({ oldHud }: UseStylesProps) => oldHud? '46.41%' : '30%',
+		height: '109%',  
+		borderRadius: ({ height }: UseStylesProps) => height / 100,
 		transition: 'opacity .1s linear',
-		marginBottom: ({ oldHud }: UseStylesProps) => oldHud? '2%' : '1.7%',
-		marginRight: ({ oldHud }: UseStylesProps) => oldHud?  '2.34%' : '3%',
+		marginBottom: ({ oldHud }: UseStylesProps) => oldHud? '2%' : '1.9%',
+		marginRight: ({ oldHud }: UseStylesProps) => oldHud?  '2.34%' : '0.23%',
+		marginLeft: ({ oldHud }: UseStylesProps) => oldHud?  '0%' : '2.4%',
 		boxSizing: 'border-box',
 	},
 }));
@@ -56,7 +58,7 @@ function useWindowSize() {
 	return windowSize;
 }
 
-const iPadRatio = 854 / 579;
+// const iPadRatio = 854 / 579;
 
 const Overlay: React.FC = function () {
 	const [gameState, setGameState] = useState<AmongUsState>((undefined as unknown) as AmongUsState);
@@ -243,22 +245,33 @@ interface MeetingHudProps {
 }
 
 const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerColors }: MeetingHudProps) => {
-	const [width, height] = useWindowSize();
+	let [width, height] = useWindowSize();
 
-	let hudWidth = 0,
-		hudHeight = 0;
-		console.log('Calculation ipadwith/height: ', width, height, (width / (height * 0.96)), iPadRatio )
-	if (width / (height * 0.96) > iPadRatio) {
-		hudHeight = height * 0.96;
-		hudWidth = hudHeight * iPadRatio;
-		console.log("Hudheight1 ", hudHeight, hudWidth)
-	} else {
-		hudWidth = width;
-		hudHeight = width * (1 / iPadRatio);
-		console.log("Hudheight2 ", hudHeight, hudWidth)
+	// let hudWidth = 0,
+	// 	hudHeight = 0;
+	// 	console.log('Calculation ipadwith/height: ', width, height, (width / (height * 0.96)), iPadRatio )
+	// if (width / (height * 0.96) > iPadRatio) {
+	// 	hudHeight = height * 0.96;
+	// 	hudWidth = hudHeight * iPadRatio;
+	// 	console.log("Hudheight1 ", hudHeight, hudWidth)
+	// } else {
+	// 	hudWidth = width;
+	// 	hudHeight = width * (1 / iPadRatio);
+	// 	console.log("Hudheight2 ", hudHeight, hudWidth)
+	// }
+
+	function arrayEquals(arr1: number[], arr2: number[]) {
+		for (let i = 0; i < arr1.length; i++) {
+			if (arr1[i] != arr2[i]) {
+				return false;
+			}
+		}
+		return true;
 	}
 
-	const classes = useStyles({ hudHeight, oldHud : gameState.oldMeetingHud});
+	width = [[1176, 664], [1280, 720], [1360, 768], [1366, 768], [1600,900], [1920, 1080]].find(e => arrayEquals(e, [width, height])) ? width / 1.192 : width / 1.146;
+	height = width / 1.72;
+	const classes = useStyles({ width, height, oldHud : gameState.oldMeetingHud});
 	const players = useMemo(() => {
 		if (!gameState.players) return null;
 		return gameState.players.slice().sort((a, b) => {
@@ -286,7 +299,7 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 					border: 'solid',
 					borderWidth: '2px',
 					borderColor: '#00000037',
-					 boxShadow: `0 0 ${hudHeight / 100}px ${hudHeight / 100}px ${color}`,
+					 boxShadow: `0 0 ${height / 100}px ${height / 100}px ${color}`,
 					transition: 'opacity 400ms',
 				}}
 			/>
@@ -294,7 +307,7 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 	});
 
 	return (
-		<div className={classes.meetingHud} style={{ width: hudWidth, height: hudHeight }}>
+		<div className={classes.meetingHud} style={{ width: width, height: height }}>
 			<div className={classes.tabletContainer}>{overlays}</div>
 		</div>
 	);
