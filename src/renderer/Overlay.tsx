@@ -269,7 +269,7 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 		return true;
 	}
 
-	width = [[1176, 664], [1280, 720], [1360, 768], [1366, 768], [1600,900], [1920, 1080]].find(e => arrayEquals(e, [width, height])) ? width / 1.192 : width / 1.146;
+	width = [[1176, 664], [1280, 720], [1360, 768], [1366, 768], [1600,900], [1920, 1080], [2560, 1440]].find(e => arrayEquals(e, [width, height])) ? width / 1.192 : width / 1.146;
 	height = width / 1.72;
 
 	const classes = useStyles({ width: gameState.oldMeetingHud ? hudWidth : width, height: gameState.oldMeetingHud ? hudHeight : height, oldHud : gameState.oldMeetingHud});
