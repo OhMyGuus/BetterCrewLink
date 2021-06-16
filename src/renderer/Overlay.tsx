@@ -263,8 +263,9 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 		}
 
 		let ratio = windowWidth / windowheight;
-		let resultW = ratio.toFixed(1) == '1.7' ? windowWidth / 1.192 : windowWidth /  1.146;
+		let resultW = Math.abs(ratio - 1.7) < 0.25 ? windowWidth / 1.192 : windowWidth /  1.146;
 		let resultH = resultW / 1.72;
+		console.log("Ratio: ", windowWidth,windowheight, ratio.toFixed(1), ratio, Math.round(ratio * 10) / 10, Math.abs(ratio - 1.7))
 		return [resultW, resultH];
 	}, [windowWidth, windowheight, gameState.oldMeetingHud]);
 
