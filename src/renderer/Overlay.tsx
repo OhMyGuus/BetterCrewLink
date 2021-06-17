@@ -177,22 +177,17 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 	// 	if (!gameState.players) return null;
 	// 	return gameState.players.find(o => o.isLocal && (!o.disconnected || !o.bugged))
 	// }, [gameState.players]);
-
-	players?.forEach((player) => {
-		if (!voiceState.otherTalking[player.clientId] && !(player.isLocal && voiceState.localTalking) && compactOverlay) {
-			return;
-		}
-		const peer = voiceState.playerSocketIds[player.clientId];
-		const connected = voiceState.socketClients[peer]?.clientId === player.clientId;
-		if (!connected && !player.isLocal) {
-			return;
-		}
+	const pFilter = players?.filter(
+		(o) => voiceState.otherTalking[o.clientId] || (o.isLocal && voiceState.localTalking) || !compactOverlay
+	);
+	const cwidth = 75 / pFilter.length + 'vh';
+	pFilter.forEach((player) => {
 		const talking =
 			!player.inVent && (voiceState.otherTalking[player.clientId] || (player.isLocal && voiceState.localTalking));
 		// const audio = voiceState.audioConnected[peer];
 		avatars.push(
 			<div key={player.id} className="player_wrapper">
-				<div>
+				<div style={{ width: cwidth }}>
 					<Avatar
 						key={player.id}
 						// connectionState={!connected ? 'disconnected' : audio ? 'connected' : 'novoice'}
@@ -263,9 +258,17 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 		}
 
 		let ratio = windowWidth / windowheight;
-		let resultW = Math.abs(ratio - 1.7) < 0.25 ? windowWidth / 1.192 : windowWidth /  1.146;
+		let resultW = Math.abs(ratio - 1.7) < 0.25 ? windowWidth / 1.192 : windowWidth / 1.146;
 		let resultH = resultW / 1.72;
-		console.log("Ratio: ", windowWidth,windowheight, ratio.toFixed(1), ratio, Math.round(ratio * 10) / 10, Math.abs(ratio - 1.7))
+		console.log(
+			'Ratio: ',
+			windowWidth,
+			windowheight,
+			ratio.toFixed(1),
+			ratio,
+			Math.round(ratio * 10) / 10,
+			Math.abs(ratio - 1.7)
+		);
 		return [resultW, resultH];
 	}, [windowWidth, windowheight, gameState.oldMeetingHud]);
 
