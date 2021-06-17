@@ -73,7 +73,7 @@
 
 * [About the Project](#about-the-project)
 * [Extra features/bug fixes in this fork](#extra-featuresbug-fixes-in-this-fork)
-* [Supported Plataforms](#supported-plataforms)
+* [Supported Plataforms](#supported-platforms)
 * [Supported Versions of Among Us](#supported-versions-of-among-us)
 * [Installation](#installation)
   * [Windows](#windows-)
@@ -170,7 +170,7 @@ Download the latest version from [releases](https://github.com/OhMyGuus/BetterCr
 
 [![GitHub Latest Release][latest_release-shield]][latest_release-url]
 
-[![Setup Video](https://img.youtu.be/L--8RpSzmps/0.jpg)](https://youtu.be/L--8RpSzmps "BetterCrewLink Setup Instructions")
+[![Setup Video](https://i.ytimg.com/vi/L--8RpSzmps/maxresdefault.jpg)](https://youtu.be/L--8RpSzmps "BetterCrewLink Setup Instructions")
 
 ### Linux [![Linux](https://i.imgur.com/xFFj5PT.png)](https://youtu.be/6n3pFFPSlW4 "Do not click here")
 
