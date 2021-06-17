@@ -711,6 +711,8 @@ export default class GameReader {
 		) {
 			return;
 		}
+		writeMemory(this.amongUs!.handle, this.shellcodeAddr + 0x44, 1, 'int32'); // enable ModIcon
+
 		this.skipPingMessage = 25;
 		this.writtenPingMessage = true;
 		for (let index = 0; index < 3; index++) {
@@ -790,7 +792,6 @@ export default class GameReader {
 		if (!colorLength || colorLength <= 0 || colorLength > 30) {
 			return;
 		}
-		writeMemory(this.amongUs.handle, this.shellcodeAddr + 0x44, 1, 'int32'); // call connect function
 
 		this.rainbowColor = -9999;
 		this.colorsInitialized = colorLength > 0;
