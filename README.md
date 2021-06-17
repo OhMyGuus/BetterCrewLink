@@ -73,7 +73,7 @@
 
 * [About the Project](#about-the-project)
 * [Extra features/bug fixes in this fork](#extra-featuresbug-fixes-in-this-fork)
-* [Supported Plataforms](#supported-plataforms)
+* [Supported Plataforms](#supported-platforms)
 * [Supported Versions of Among Us](#supported-versions-of-among-us)
 * [Installation](#installation)
   * [Windows](#windows-)
@@ -104,9 +104,9 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 - Walls Block Audio. 
 - Volume Sliders.
 - Public Lobby List.
-- Other languages.
+- Multiple languages.
 - Better mod compatibility.
-- It doesn't break when someone leaves/disconnects.
+- It doesn't break when players leave/disconnect.
 - It works on any network even with UPnP disabled. (Strict NAT)
 - More fun settings like hearing through cameras, impostor radio.
 - You can actually disable the overlay.
@@ -127,17 +127,17 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 - Support for other platforms. (itch.io, Play Store, App Store, Nintendo Switch, Beta)
 - Support for Custom Colors/Hats/Skins. (mods that add more colors/hats/skins)
 - Support for Linux.
-- Support for Mobile.
+- Support for Mobile. (iOS App Coming Soon)
 ```
 
 **If I missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) so I can add it to BetterCrewLink.**
 
 [![Discord Server][discord-shield]][discord-url]
 
-<!-- SUPPORTED PLATAFORMS -->
-## Supported Plataforms
+<!-- SUPPORTED PLATFORMS -->
+## Supported Platforms
 
-| Plataform         | Supported? |
+| Game Platform         | Supported? |
 |-----------------|:------------:|
 | [Windows 7/10](#windows-)                                                                   |      ✔️     |
 | [Linux](#linux-)                                                                            |      ✔️     |
@@ -151,27 +151,26 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 <!-- SUPPORTED VERSIONS OF AMONG US -->
 ## Supported Versions of Among Us
 
-| Version         | Supported? |
+| Game Version         | Supported? |
 |-----------------|:------------:|
-| [Steam](#installation)                                                                      |      ✔️     |
-| [Epic Games](#installation)                                                                 |      ✔️     |
-| [itch.io](#installation)                                                                    |      ✔️     |
-| [Microsoft Store](#windows-)                                                                |      ✔️     |
-| [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) |      ✔️     |
-| [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos)                   |      ✔️     |
-| [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web)                    |      ✔️     |
-| Beta                                                                                        |      ✔️     |
-
+|  [Steam](#installation)                                                                      |      ✔️     |
+|  [Epic Games](#installation)                                                                 |      ✔️     |
+|  [itch.io](#installation)                                                                    |      ✔️     |
+|  [Microsoft Store](#windows-)                                                                |      ✔️     |
+|  [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) |      ✔️     |
+|  [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos)                   |      ✔️     |
+|  [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web)                    |      ✔️     |  
+|  Beta                                                                                        |      ✔️     | 
 <!-- INSTALLATION -->
 ## Installation
 
-### Windows [![Windows](https://i.imgur.com/CX1j48h.png)](https://youtu.be/dQw4w9WgXcQ "Do not click here")
+### Windows [![Windows](https://i.imgur.com/CX1j48h.png)](https://youtu.be/L--8RpSzmps "Do not click here")
 
 Download the latest version from [releases](https://github.com/OhMyGuus/BetterCrewLink/releases/latest) and run the `BetterCrewLink-Setup-X.X.X.exe` file. You may get antivirus warnings, because this program hooks into the Among Us process to read game data.
 
 [![GitHub Latest Release][latest_release-shield]][latest_release-url]
 
-[![Setup Video](https://img.youtube.com/vi/_8F4f5iQEIc/0.jpg)](https://www.youtube.com/watch?v=_8F4f5iQEIc "BetterCrewLink Setup Instructions")
+[![Setup Video](https://i.ytimg.com/vi/L--8RpSzmps/maxresdefault.jpg)](https://youtu.be/L--8RpSzmps "BetterCrewLink Setup Instructions")
 
 ### Linux [![Linux](https://i.imgur.com/xFFj5PT.png)](https://youtu.be/6n3pFFPSlW4 "Do not click here")
 
@@ -395,7 +394,7 @@ Any donations you make are greatly appreciated.
 <!-- BUGS/SUGGESTIONS/QUESTIONS -->
 ## Bugs & Suggestions
 
-If you found any bugs, have an idea for a new feature, join our [Discord server](https://discord.gg/qDqTzvj4SH) or make a issue in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues).
+If you have found any bugs, have an idea for a new feature, join our [Discord server](https://discord.gg/qDqTzvj4SH) or make a issue in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues).
 
 ### Questions
 
