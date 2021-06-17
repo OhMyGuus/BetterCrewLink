@@ -53,11 +53,17 @@ const TestMicrophoneButton: React.FC<TestMicProps> = function ({ microphone }: T
 			setRms(rms);
 		};
 
-		const audio_options: MediaTrackConstraintSet = {
+		// @ts-ignore-line
+		const audio_options: any = {
 			deviceId: microphone ?? 'default',
 			autoGainControl: false,
 			echoCancellation: false,
 			noiseSuppression: false,
+            googEchoCancellation: false,
+            googAutoGainControl2: false,
+            googNoiseSuppression: false,
+            googHighpassFilter: false,
+            googTypingNoiseDetection: false,
 		};
 
 		navigator.mediaDevices
