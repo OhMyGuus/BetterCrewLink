@@ -53,9 +53,16 @@ const TestMicrophoneButton: React.FC<TestMicProps> = function ({ microphone }: T
 			setRms(rms);
 		};
 
+		const audio_options: MediaTrackConstraintSet = {
+			deviceId: microphone ?? 'default',
+			autoGainControl: false,
+			echoCancellation: false,
+			noiseSuppression: false,
+		};
+
 		navigator.mediaDevices
 			.getUserMedia({
-				audio: { deviceId: microphone ?? 'default' },
+				audio: audio_options,
 				video: false,
 			})
 			.then((stream) => {
