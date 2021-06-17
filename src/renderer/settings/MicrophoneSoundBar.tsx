@@ -59,11 +59,11 @@ const TestMicrophoneButton: React.FC<TestMicProps> = function ({ microphone }: T
 			autoGainControl: false,
 			echoCancellation: false,
 			noiseSuppression: false,
-            googEchoCancellation: false,
-            googAutoGainControl2: false,
-            googNoiseSuppression: false,
-            googHighpassFilter: false,
-            googTypingNoiseDetection: false,
+			googEchoCancellation: false,
+			googAutoGainControl2: false,
+			googNoiseSuppression: false,
+			googHighpassFilter: false,
+			googTypingNoiseDetection: false,
 		};
 
 		navigator.mediaDevices
