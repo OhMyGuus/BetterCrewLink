@@ -810,15 +810,17 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		// Initialize variables
 		let audioListener: VadNode;
 
-		const audio: MediaTrackConstraintSet = {
+		 // @ts-ignore-line
+		const audio: any = {
 			deviceId: (undefined as unknown) as string,
+			echoCancellation: false,
+			googEchoCancellation: false,
+			googAutoGainControl2: false,
+			googNoiseSuppression: false,
+			googHighpassFilter: false,
+			googTypingNoiseDetection: false,
+			noiseSuppression: false,
 			autoGainControl: false,
-			channelCount: 2,
-			echoCancellation: settings.echoCancellation,
-			latency: 0,
-			noiseSuppression: settings.noiseSuppression,
-			sampleRate: 48000,
-			sampleSize: 16,
 		};
 
 		// Get microphone settings
@@ -874,6 +876,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					connectionStuff.current.audioListener = audioListener;
 					connectionStuff.current.microphoneGain = microphoneGain;
 				}
+				
 				connectionStuff.current.stream = stream;
 				connectionStuff.current.instream = inStream;
 
