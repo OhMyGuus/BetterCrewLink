@@ -40,6 +40,7 @@ export interface IOffsets {
 	gameOptions_MaxPLayers: number[];
 	connectFunc: number;
 	fixedUpdateFunc: number;
+	showModStampFunc: number;
 	pingMessageString: number;
 	serverManager_currentServer: number[];
 	innerNetClient: {
@@ -95,6 +96,7 @@ export interface IOffsets {
 		fixedUpdateFunc: ISignature;
 		pingMessageString: ISignature;
 		serverManager: ISignature;
+		showModStamp: ISignature;
 	};
 }
 
@@ -131,6 +133,7 @@ export default {
 		gameOptions_MaxPLayers: [0x10],
 		serverManager_currentServer: [0xffff, 0xb8, 0x10, 0x20, 0x28],
 		connectFunc: 0xfff,
+		showModStampFunc: 0xfff,
 		fixedUpdateFunc: 0xfff,
 		pingMessageString: 0xfff,
 
@@ -213,6 +216,7 @@ export default {
 				patternOffset: 3,
 				addressOffset: 4,
 			},
+			showModStamp: {},
 			connectFunc: {},
 			fixedUpdateFunc: {},
 			pingMessageString: {},
@@ -295,6 +299,7 @@ export default {
 			clientId: [0x1c],
 		},
 		connectFunc: 0xfff,
+		showModStampFunc: 0xfff,
 		fixedUpdateFunc: 0xfff,
 		pingMessageString: 0xfff,
 		signatures: {
@@ -358,6 +363,11 @@ export default {
 					'A1 ? ? ? ? F6 80 ? ? ? ? ? 74 14 83 78 74 00 75 0E 50 E8 ? ? ? ? A1 ? ? ? ? 83 C4 04 8B 40 5C 8B 00 85 C0 0F 84 ? ? ? ? 83 78 0C 00 0F 86 ? ? ? ? 8B 40 10 85 C0 0F 84 ? ? ? ? 50',
 				patternOffset: 1,
 				addressOffset: 0,
+			},
+			showModStamp: {
+				sig:'55 8B EC 8B 45 08 8B 40 10 85 C0 74 0F 6A 00 6A 01 50 E8 ? ? ? ? 83 C4 0C 5D C3 E9 ? ? ? ?',
+				patternOffset: 0,
+				addressOffset: -5,
 			},
 		},
 	},
