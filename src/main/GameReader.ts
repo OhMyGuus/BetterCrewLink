@@ -238,7 +238,6 @@ export default class GameReader {
 				if (localPlayer) {
 					this.fixPingMessage();
 					lightRadius = this.readMemory<number>('float', localPlayer.objectPtr, this.offsets.lightRadius, -1);
-					console.log("LightRadius:", lightRadius);
 				}
 				const gameOptionsPtr = this.readMemory<number>(
 					'ptr',
@@ -464,6 +463,13 @@ export default class GameReader {
 				false,
 				true
 			);
+			this.offsets.modLateUpdateFunc = this.findPattern(
+				this.offsets.signatures.modLateUpdate.sig,
+				this.offsets.signatures.modLateUpdate.patternOffset,
+				this.offsets.signatures.modLateUpdate.addressOffset,
+				false,
+				true
+			);
 		}
 		this.offsets.serverManager_currentServer[0] = this.findPattern(
 			this.offsets.signatures.serverManager.sig,
@@ -586,7 +592,7 @@ export default class GameReader {
 		];
 
 
-		const modManagerLateUpdate = this.gameAssembly!.modBaseAddr + 0x7726C0;
+		const modManagerLateUpdate = this.gameAssembly!.modBaseAddr + this.offsets.modLateUpdateFunc;
 		const shellCodeAddr_1 = shellCodeAddr + 0x300;
 		const relativeShellJMP_1 = shellCodeAddr_1 - (modManagerLateUpdate + 0x1) - 0x4;
 		const relativefixedJMP_1 = modManagerLateUpdate + 0x5 - (shellCodeAddr_1 + 0x1C) - 0x4;

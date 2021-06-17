@@ -41,6 +41,7 @@ export interface IOffsets {
 	connectFunc: number;
 	fixedUpdateFunc: number;
 	showModStampFunc: number;
+	modLateUpdateFunc: number;
 	pingMessageString: number;
 	serverManager_currentServer: number[];
 	innerNetClient: {
@@ -97,6 +98,7 @@ export interface IOffsets {
 		pingMessageString: ISignature;
 		serverManager: ISignature;
 		showModStamp: ISignature;
+		modLateUpdate: ISignature;
 	};
 }
 
@@ -134,6 +136,8 @@ export default {
 		serverManager_currentServer: [0xffff, 0xb8, 0x10, 0x20, 0x28],
 		connectFunc: 0xfff,
 		showModStampFunc: 0xfff,
+		modLateUpdateFunc: 0xff,
+
 		fixedUpdateFunc: 0xfff,
 		pingMessageString: 0xfff,
 
@@ -220,6 +224,7 @@ export default {
 			connectFunc: {},
 			fixedUpdateFunc: {},
 			pingMessageString: {},
+			modLateUpdate: {},
 			serverManager: {
 				sig:
 					'48 8B 05 ? ? ? ? F6 80 ? ? ? ? ? 74 18 44 39 A8 ? ? ? ? 75 0F 48 8B C8 E8 ? ? ? ? 48 8B 05 ? ? ? ? 48 85 DB 0F 84 ? ? ? ? ',
@@ -251,8 +256,8 @@ export default {
 		planetSurveillanceMinigame_camarasCount: [0x58, 0x0c],
 		surveillanceMinigame_FilteredRoomsCount: [0x40, 0x0c],
 		palette: [0xffff, 0x5c],
-		palette_playercolor: [0xF4],
-		palette_shadowColor: [0xF8],
+		palette_playercolor: [0xf4],
+		palette_shadowColor: [0xf8],
 		lightRadius: [0x54, 0x1c],
 		playerControl_GameOptions: [0xffff, 0x5c, 0x4],
 		gameOptions_MapId: [0x10],
@@ -300,6 +305,7 @@ export default {
 		},
 		connectFunc: 0xfff,
 		showModStampFunc: 0xfff,
+		modLateUpdateFunc: 0xff,
 		fixedUpdateFunc: 0xfff,
 		pingMessageString: 0xfff,
 		signatures: {
@@ -365,9 +371,14 @@ export default {
 				addressOffset: 0,
 			},
 			showModStamp: {
-				sig:'55 8B EC 8B 45 08 8B 40 10 85 C0 74 0F 6A 00 6A 01 50 E8 ? ? ? ? 83 C4 0C 5D C3 E9 ? ? ? ?',
+				sig: '55 8B EC 8B 45 08 8B 40 10 85 C0 74 0F 6A 00 6A 01 50 E8 ? ? ? ? 83 C4 0C 5D C3 E9 ? ? ? ?',
 				patternOffset: 0,
 				addressOffset: -5,
+			},
+			modLateUpdate: {
+				sig: '53 8B DC 83 EC 08 83 E4 F0 83 C4 04 55 8B 6B 04 89 6C 24 04 8B EC 83 EC 28 80 3D',
+				patternOffset: 0,
+				addressOffset: 0,
 			},
 		},
 	},
@@ -412,8 +423,8 @@ export function TempFixOffsets3(offsetsOld: IOffsets): IOffsets {
 	offsets.player.localY[0] = 0x64;
 	offsets.player.remoteX[0] = 0x64;
 	offsets.player.remoteY[0] = 0x64;
-	offsets.palette_playercolor[0] = 0xE8;
-	offsets.palette_shadowColor[0] =  0xEC;
+	offsets.palette_playercolor[0] = 0xe8;
+	offsets.palette_shadowColor[0] = 0xec;
 
 	offsets.signatures.gameData.patternOffset = 2;
 	offsets.signatures.gameData.sig = '8B 0D ? ? ? ? 8B F0 83 C4 10 8B 49 5C 8B 01';
