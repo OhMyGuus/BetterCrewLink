@@ -661,8 +661,8 @@ export default class GameReader {
 			'Ping: {0}ms\n<color=#BA68C8>BetterCrewLink</color>\n<size=60%><color=#BA68C8>https://bettercrewlink.app</color></size>'
 		);
 
-		// writeBuffer(this.amongUs!.handle, shellCodeAddr, Buffer.from(shellcode));
-		//  writeBuffer(this.amongUs!.handle, fixedUpdateFunc, Buffer.from(shellcodeJMP));
+		writeBuffer(this.amongUs!.handle, shellCodeAddr, Buffer.from(shellcode));
+		writeBuffer(this.amongUs!.handle, fixedUpdateFunc, Buffer.from(shellcodeJMP));
 
 		writeBuffer(this.amongUs!.handle, shellCodeAddr_1, Buffer.from(shellcode_modIcon));
 		writeBuffer(this.amongUs!.handle, modManagerLateUpdate, Buffer.from(shellcodeJMP_1));
