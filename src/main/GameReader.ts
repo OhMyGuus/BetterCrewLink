@@ -471,7 +471,7 @@ export default class GameReader {
 			this.oldMeetingHud = true;
 			this.offsets = TempFixOffsets(this.offsets);
 		}
-		if (innerNetClient === 0x1c57f54) {
+		if (innerNetClient === 0x1c57f54 || innerNetClient === 0x1D9DBB4) {
 			this.disableWriting = true;
 			this.oldMeetingHud = true;
 			// temp fix for older game until I added more sigs.. // 12/9
