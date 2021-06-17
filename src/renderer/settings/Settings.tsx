@@ -1,7 +1,7 @@
 import Store from 'electron-store';
 import React, { ReactChild, useContext, useEffect, useReducer, useState } from 'react';
 import { SettingsContext, LobbySettingsContext, GameStateContext } from '../contexts';
-import MicrophoneSoundBar from './MicrophoneSoundBar';
+// import MicrophoneSoundBar from './MicrophoneSoundBar';
 import TestSpeakersButton from './TestSpeakersButton';
 import { ISettings, ILobbySettings } from '../../common/ISettings';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -1112,7 +1112,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						</option>
 					))}
 				</TextField>
-				{open && <MicrophoneSoundBar microphone={settings.microphone} />}
+				{/* {open && <MicrophoneSoundBar microphone={settings.microphone} />} */}
 				<TextField
 					select
 					label={t('settings.audio.speaker')}
