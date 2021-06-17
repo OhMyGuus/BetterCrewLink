@@ -137,8 +137,8 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 <!-- SUPPORTED PLATFORMS -->
 ## Supported Platforms
 
-| Game Platform         | Supported? |
-|-----------------|:------------:|
+| Game Platform | Supported? |
+| ----------------- | :------------: |
 | [Windows 7/10](#windows-)                                                                   |      ✔️     |
 | [Linux](#linux-)                                                                            |      ✔️     |
 | [Android](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks)    |      ✔️     |
@@ -151,8 +151,8 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 <!-- SUPPORTED VERSIONS OF AMONG US -->
 ## Supported Versions of Among Us
 
-| Game Version         | Supported? |
-|-----------------|:------------:|
+| Game Version | Supported? |
+| ----------------- | :------------: |
 |  [Steam](#installation)                                                                      |      ✔️     |
 |  [Epic Games](#installation)                                                                 |      ✔️     |
 |  [itch.io](#installation)                                                                    |      ✔️     |
