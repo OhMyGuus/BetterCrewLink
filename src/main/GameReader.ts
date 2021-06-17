@@ -516,31 +516,22 @@ export default class GameReader {
 			//not supported atm
 			return;
 		}
+	
 		// Shellcode to join games when u press join..
 		const shellCodeAddr = virtualAllocEx(this.amongUs.handle, null, 0x60, 0x00001000 | 0x00002000, 0x40);
-		const compareAddr = shellCodeAddr + 0x40;
+		const compareAddr = shellCodeAddr + 0x30;
 
 		const compareAddr1 = (compareAddr & 0xff000000) >> 24;
 		const compareAddr2 = (compareAddr & 0x00ff0000) >> 16;
 		const compareAddr3 = (compareAddr & 0x0000ff00) >> 8;
 		const compareAddr4 = compareAddr & 0x000000ff;
 
-		const _compareAddr = shellCodeAddr + 0x44;
-
-		const _compareAddr1 = (_compareAddr & 0xff000000) >> 24;
-		const _compareAddr2 = (_compareAddr & 0x00ff0000) >> 16;
-		const _compareAddr3 = (_compareAddr & 0x0000ff00) >> 8;
-		const _compareAddr4 = _compareAddr & 0x000000ff;
-
 		//(DESTINATION_RVA - CURRENT_RVA (E9) - 5)
 		const connectFunc = this.gameAssembly.modBaseAddr + this.offsets.connectFunc;
 		const relativeConnectJMP = connectFunc - (shellCodeAddr + 0x18) - 0x4;
 
 		const fixedUpdateFunc = this.gameAssembly!.modBaseAddr + this.offsets.fixedUpdateFunc;
-		const relativefixedJMP = fixedUpdateFunc + 0x5 - (shellCodeAddr + 0x3C) - 0x4;
-
-		const showModStampFunc = this.gameAssembly!.modBaseAddr + this.offsets.showModStampFunc;
-		const relativeShowModStamp = showModStampFunc + 0x5 - (shellCodeAddr + 0x37) - 0x4;
+		const relativefixedJMP = fixedUpdateFunc + 0x5 - (shellCodeAddr + 0x22) - 0x4;
 
 		const relativeShellJMP = shellCodeAddr - (fixedUpdateFunc + 0x1) - 0x4;
 
@@ -573,37 +564,11 @@ export default class GameReader {
 			(relativeConnectJMP & 0x0000ff00) >> 8,
 			(relativeConnectJMP & 0x00ff0000) >> 16,
 			(relativeConnectJMP & 0xff000000) >> 24,
-					0x55, // original 5 bytes && (je 0x13 endpoint)
+			0x55, // original 5 bytes && (je 0x13 endpoint)
 			0x8b,
 			0xec,
 			0x6a,
 			0xff,
-			0x80, // cmp byte ptr [ShellcodeAddr + 0x30], 0x0,
-			0x3d,
-			_compareAddr4, // 0x0
-			_compareAddr3, // 0x0
-			_compareAddr2, // 0xA3
-			_compareAddr1, // 0x0
-			0x00,
-			0x74, // je 0x13
-			0x11,
-			0xc6, // mov byte ptr [ShellcodeAddr + 0x30], 0x00
-			0x05,
-			_compareAddr4, // 0x0
-			_compareAddr3, // 0x0
-			_compareAddr2, // 0xA3
-			_compareAddr1, // 0x0
-			0x00, // write 0x0
-			0x68,
-			0x20,
-			0xB8,
-			0x80,
-			0x0C,
-			0xE8,
-			relativeShowModStamp & 0x000000ff,
-			(relativeShowModStamp & 0x0000ff00) >> 8,
-			(relativeShowModStamp & 0x00ff0000) >> 16,
-			(relativeShowModStamp & 0xff000000) >> 24,
 			0xe9, // jmp innerNet.InnerNetClient.FixedUpdate + 0x5
 			relativefixedJMP & 0x000000ff,
 			(relativefixedJMP & 0x0000ff00) >> 8,
@@ -620,6 +585,67 @@ export default class GameReader {
 			(relativeShellJMP & 0xff000000) >> 24,
 		];
 
+
+		const modManagerLateUpdate = this.gameAssembly!.modBaseAddr + 0x7726C0;
+		const shellCodeAddr_1 = shellCodeAddr + 0x300;
+		const relativeShellJMP_1 = shellCodeAddr_1 - (modManagerLateUpdate + 0x1) - 0x4;
+		const relativefixedJMP_1 = modManagerLateUpdate + 0x5 - (shellCodeAddr_1 + 0x1C) - 0x4;
+		const showModStampFunc = this.gameAssembly!.modBaseAddr + this.offsets.showModStampFunc;
+		const relativeShowModStamp = showModStampFunc + 0x6 - (shellCodeAddr_1 + 0x12) - 0x4;
+
+
+		const _compareAddr = shellCodeAddr + 0x44;
+
+		const _compareAddr1 = (_compareAddr & 0xff000000) >> 24;
+		const _compareAddr2 = (_compareAddr & 0x00ff0000) >> 16;
+		const _compareAddr3 = (_compareAddr & 0x0000ff00) >> 8;
+		const _compareAddr4 = _compareAddr & 0x000000ff;
+
+		const shellcode_modIcon = [
+			0x80, // cmp byte ptr [ShellcodeAddr + 0x30], 0x0,
+			0x3d,
+			_compareAddr4, // 0x0
+			_compareAddr3, // 0x0
+			_compareAddr2, // 0xA3
+			_compareAddr1, // 0x0
+			0x00,
+			0x74, // je 0x13
+			0x0C,
+			0xc6, // mov byte ptr [ShellcodeAddr + 0x30], 0x00
+			0x05,
+			_compareAddr4, // 0x0
+			_compareAddr3, // 0x0
+			_compareAddr2, // 0xA3
+			_compareAddr1, // 0x0
+			0x00, // write 0x0
+			0xE9,
+			relativeShowModStamp & 0x000000ff,
+			(relativeShowModStamp & 0x0000ff00) >> 8,
+			(relativeShowModStamp & 0x00ff0000) >> 16,
+			(relativeShowModStamp & 0xff000000) >> 24,
+			0x53,
+			0x8B,
+			0xDC,
+			0x83,
+			0xEC,
+			0x08,
+			0xe9, // jmp innerNet.InnerNetClient.FixedUpdate + 0x5
+			relativefixedJMP_1 & 0x000000ff,
+			(relativefixedJMP_1 & 0x0000ff00) >> 8,
+			(relativefixedJMP_1 & 0x00ff0000) >> 16,
+			(relativefixedJMP_1 & 0xff000000) >> 24,
+		];
+
+		const shellcodeJMP_1 = [
+			// jmp ShellcodeRelativeAddress
+			0xe9,
+			relativeShellJMP_1 & 0x000000ff,
+			(relativeShellJMP_1 & 0x0000ff00) >> 8,
+			(relativeShellJMP_1 & 0x00ff0000) >> 16,
+			(relativeShellJMP_1 & 0xff000000) >> 24,
+			0x90
+		];
+
 		//MMOnline
 		this.writeString(shellCodeAddr + 0x70, 'OnlineGame');
 		this.writeString(shellCodeAddr + 0x95, 'MMOnline');
@@ -629,8 +655,12 @@ export default class GameReader {
 			'Ping: {0}ms\n<color=#BA68C8>BetterCrewLink</color>\n<size=60%><color=#BA68C8>https://bettercrewlink.app</color></size>'
 		);
 
-		writeBuffer(this.amongUs!.handle, shellCodeAddr, Buffer.from(shellcode));
-		writeBuffer(this.amongUs!.handle, fixedUpdateFunc, Buffer.from(shellcodeJMP));
+		// writeBuffer(this.amongUs!.handle, shellCodeAddr, Buffer.from(shellcode));
+		//  writeBuffer(this.amongUs!.handle, fixedUpdateFunc, Buffer.from(shellcodeJMP));
+
+		writeBuffer(this.amongUs!.handle, shellCodeAddr_1, Buffer.from(shellcode_modIcon));
+		writeBuffer(this.amongUs!.handle, modManagerLateUpdate, Buffer.from(shellcodeJMP_1));
+
 		this.shellcodeAddr = shellCodeAddr;
 		this.writtenPingMessage = false;
 		this.initializedWrite = true;
@@ -754,6 +784,8 @@ export default class GameReader {
 		if (!colorLength || colorLength <= 0 || colorLength > 30) {
 			return;
 		}
+		writeMemory(this.amongUs.handle, this.shellcodeAddr + 0x44, 1, 'int32'); // call connect function
+
 		this.rainbowColor = -9999;
 		this.colorsInitialized = colorLength > 0;
 		const playercolors = [];
