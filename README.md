@@ -47,7 +47,7 @@
 <!-- NOTES -->
 ## Notes
 
-- This is an unofficial fork of CrewLink, for any problem, question, issue or suggestion you have with **Better**CrewLink talk to us on our [Discord](https://discord.gg/qDqTzvj4SH), or [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or message me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) do not report any problems to the official Discord or GitHub of normal and official CrewLink as they will not support you.
+- This is an unofficial fork of CrewLink, for any problem, question, issue or suggestion you have with **Better**CrewLink talk to us on our [Discord](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or message me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) do not report any problems to the official Discord or GitHub of normal and official CrewLink as they will not support you.
 
 - We are not affiliated with CrewLink, we are just a modified/better version of the original CrewLink, so if you need help with CrewLink, we will not offer any help for you about CrewLink here, we will only offer help you if you are using **Better**CrewLink, if you want to download BetterCrewLink look at the [GitHub](https://github.com/OhMyGuus/BetterCrewLink/releases/latest).
 
@@ -159,12 +159,14 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 |  [Microsoft Store](#windows-)                                                                |      ✔️     |
 |  [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) |      ✔️     |
 |  [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos)                   |      ✔️     |
-|  [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web)                    |      ✔️     |  
-|  Beta                                                                                        |      ✔️     | 
+|  [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web)                    |      ✔️     |
+|  Beta                                                                                        |      ✔️     |
+|  Cracked                                                                                     |[❓](https://youtu.be/dQw4w9WgXcQ "Click here to install a version of BetterCrewLink that supports cracked Among Us")|
+
 <!-- INSTALLATION -->
 ## Installation
 
-### Windows [![Windows](https://i.imgur.com/CX1j48h.png)](https://youtu.be/L--8RpSzmps "Do not click here")
+### Windows [![Windows](https://i.imgur.com/CX1j48h.png)](https://youtu.be/L--8RpSzmps)
 
 Download the latest version from [releases](https://github.com/OhMyGuus/BetterCrewLink/releases/latest) and run the `BetterCrewLink-Setup-X.X.X.exe` file. You may get antivirus warnings, because this program hooks into the Among Us process to read game data.
 
