@@ -500,6 +500,7 @@ export default class GameReader {
 				);
 			}
 		}
+		console.log(this.offsets);
 		this.initializeWrites();
 	}
 
