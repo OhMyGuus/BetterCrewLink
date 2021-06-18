@@ -149,8 +149,9 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 
 | Future Platforms | Availability Status |
 | :-----------------: | :------------: |
-| [PS4/PS5](https://twitter.com/PlayStation/status/1387883940778627073?s=20) | Coming Soon |
-| [XBOX Series X/S](https://twitter.com/Xbox/status/1339647203724312578?s=20) | Coming Soon|
+| [PS4/PS5](https://twitter.com/PlayStation/status/1387883940778627073?s=20)  | Coming Soon |
+| [XBOX Series X/S](https://twitter.com/Xbox/status/1339647203724312578?s=20) | Coming Soon |
+
 <!-- SUPPORTED VERSIONS OF AMONG US -->
 ## Supported Versions of Among Us
 
@@ -158,10 +159,10 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 | :-----------------: | :------------: |
 |  [Steam](#installation)  (v2021.6.15s)     |      ✔️     |
 |  [Epic Games](#installation) (v2021.6.15e) |      ✔️     |
-|  [itch.io](#installation) (Unknown)            |      ✔️     |
+|  [itch.io](#installation) (Unknown)        |      ✔️     |
 |  [Microsoft Store](#windows-) (v2021.6.15m) |      ✔️     |
 |  [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) (v2021.6.16a) |      ✔️     |
-|  [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) (v2021.6.15o) |      ✔️     | 
+|  [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) (v2021.6.15i) |      ✔️     | 
 |  [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web)  (v2021.6.15n) |      ✔️     |
 |  Beta  |      ✔️     |
 |  Cracked  |      [❓](https://youtu.be/dQw4w9WgXcQ "Click here to install a version of BetterCrewLink that supports cracked Among Us")     |
