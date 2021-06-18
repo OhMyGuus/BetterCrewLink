@@ -84,7 +84,7 @@
   * [Prerequisites](#prerequisites)
       * [Setup](#setup)
 * [Contributing](#contributing)
-* [App Availability](#App--Availability)
+* [App Availability](#App-Availability)
 * [Translating](#translating)
 * [Credits & Resources](#credits--resources)
 * [Donate](#donate)
