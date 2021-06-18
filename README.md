@@ -84,6 +84,7 @@
   * [Prerequisites](#prerequisites)
       * [Setup](#setup)
 * [Contributing](#contributing)
+* [App Availability](#App--Availability)
 * [Translating](#translating)
 * [Credits & Resources](#credits--resources)
 * [Donate](#donate)
@@ -153,13 +154,13 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 
 | Game Version | Supported? |
 | ----------------- | :------------: |
-|  [Steam](#installation)                                                                      |      ✔️     |
-|  [Epic Games](#installation)                                                                 |      ✔️     |
-|  [itch.io](#installation)                                                                    |      ✔️     |
-|  [Microsoft Store](#windows-)                                                                |      ✔️     |
-|  [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) |      ✔️     |
-|  [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos)                   |      ✔️     |
-|  [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web)                    |      ✔️     |
+|  [Steam](#installation)  (v2021.6.15)                                                                    |      ✔️     |
+|  [Epic Games](#installation)    (v2021.6.15)                                                             |      ✔️     |
+|  [itch.io](#installation)   (v68)                                                                 |      ✔️     |
+|  [Microsoft Store](#windows-) (v2021.6.15)                                                               |      ✔️     |
+|  [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) (v2021.6.16) |      ✔️     |
+|  [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) (v2021.6.15)                   |      ✔️     | 
+|  [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web)    (v2021.6.15)              |      ✔️     |
 |  Beta                                                                                        |      ✔️     |
 |  Cracked                                                                                     |[❓](https://youtu.be/dQw4w9WgXcQ "Click here to install a version of BetterCrewLink that supports cracked Among Us")|
 
@@ -278,6 +279,23 @@ A big thanks for all those people who contributed and still contributing this pr
 
 </details>
 <hr />
+
+
+<!-- APP Availability -->
+## App Availability
+
+*Windows (Available)
+
+*Linux (Available)
+
+*Android (Available)
+
+*iOS/MacOS (Web) | App Available Soon!
+
+*Nintendo Switch (Web)
+
+*ChromeBook (Available Via Play Store Or Web)
+
 
 <!-- TRANSLATING -->
 ## Translating
