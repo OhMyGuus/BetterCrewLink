@@ -72,7 +72,7 @@
 ## Table of Contents
 
 * [About The Project](#about-the-project)
-* [Extra Features/Bug Fixes In This Fork](#extra-featuresbug-fixes-in-this-fork)
+* [BetterCrewLink Extra Features](#bettercrewlink-extra-features)
 * [App Availability](#app-availability)
 * [Supported Versions Of Among Us](#supported-versions-of-among-us)
 * [Installation](#installation)
@@ -95,8 +95,8 @@
 
 This Project Implements Proximity Voice Chat In Among Us. Everyone In An Among Us Lobby With This Program Running Will Be Able To Communicate Over Voice In-Game, With No Third-Party Programs Required. Spatial Audio Ensures That You Can Only Hear People Close To You.
 
-<!-- EXTRA FEATURES-->
-## Extra Features/Bug Fixes In This Fork
+<!-- BetterCrewLink Extra Features-->
+## BetterCrewLink Extra Features
 
 ```
 - OBS Browsersource Overlay.
@@ -114,24 +114,24 @@ This Project Implements Proximity Voice Chat In Among Us. Everyone In An Among U
 - Windows 7 Support.
 - You Can Change The Volume Of Alive Players After You Die.
 - You Can Set BetterCrewLink To Topmost.
-- Settings actually sync between players and not half.
-- CPU usage is lower than original CrewLink.
-- You can actually press the mute key/deafen key while clicked on BetterCrewLink.
-- Your mouse doesn't start to lag because of the buggy input hook.
-- You can play BetterCrewLink without having to be stuck in MENU infinitely.
-- Changing the speaker setting does actually something unlike original CrewLink where it is always using the default output.
+- Settings Actually Sync Between Players And Not Half.
+- CPU Usage Is Lower Than Original CrewLink.
+- You Can Actually Press The Mute Key/Deafen Key While Clicked On BetterCrewLink.
+- Your Mouse Doesn't Start To Lag Because Of The Buggy Input Hook.
+- You Can Play BetterCrewLink Without Having To Be Stuck In MENU Infinitely.
+- Changing The Speaker Setting Does Actually Something Unlike Original CrewLink Where It Is Always Using The Default Output.
 - Microphone Echo Cancellation.
 - Microphone Eoise Suppression.
-- More overlay positions and you can set the overlay to the top/bottom and you can set it so it shows everyone even when they aren't talking.
+- More Overlay Positions And You Can Set The Overlay To The Top/Bottom And You Can Set It So It Shows Everyone Even When Dead.
 - You can set the lobby up so only death people can talk. (normal lobbies but then with death talk)
 - Support for new/older versions of Among Us. (v2021.6.15)
-- Support for other platforms. (itch.io, Play Store, App Store, Nintendo Switch, Beta)
+- Support for other platforms. (itch.io, Play Store, App Store, Nintendo Switch, Beta) PlayStation 4 and PlayStation 5 & XBOX Series X/S (Coming Soon)
 - Support for Custom Colors/Hats/Skins. (mods that add more colors/hats/skins)
 - Support for Linux.
 - Support for Mobile. (iOS App Coming Soon)
 ```
 
-**If I missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) so I can add it to BetterCrewLink.**
+**If We missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) so I can add it to BetterCrewLink.**
 
 [![Discord Server][discord-shield]][discord-url]
 
