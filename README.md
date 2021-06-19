@@ -154,7 +154,7 @@ This Project Implements Proximity Voice Chat In Among Us. Everyone In An Among U
  | [XBOX Series X/S](https://twitter.com/Xbox/status/1339647203724312578?s=20) | Coming Soon |
 
 <!-- SUPPORTED VERSIONS OF AMONG US -->
-## Supported Versions of Among Us
+## Supported Versions Of Among Us
 
 | Game Version | Supported? |
 | :-----------------: | :------------: |
@@ -178,7 +178,7 @@ This Project Implements Proximity Voice Chat In Among Us. Everyone In An Among U
 
 ### Windows [![Windows](https://i.imgur.com/CX1j48h.png)](https://youtu.be/L--8RpSzmps)
 
-Download the latest version from [releases](https://github.com/OhMyGuus/BetterCrewLink/releases/latest) and run the `BetterCrewLink-Setup-X.X.X.exe` file. You may get antivirus warnings, because this program hooks into the Among Us process to read game data.
+Download The Latest Version From [releases](https://github.com/OhMyGuus/BetterCrewLink/releases/latest) And Run The `BetterCrewLink-Setup-X.X.X.exe` File. You May Get Antivirus Warnings, Because This Program Hooks Into The Among Us Process To Read Game Data.
 
 [![GitHub Latest Release][latest_release-shield]][latest_release-url]
 
@@ -186,7 +186,7 @@ Download the latest version from [releases](https://github.com/OhMyGuus/BetterCr
 
 ### Linux [![Linux](https://i.imgur.com/xFFj5PT.png)](https://youtu.be/6n3pFFPSlW4 "Do not click here")
 
-To install & run it on Linux run the following commands:
+To Install & Run It On Linux Run The Following Commands:
 
 ```
 wget "https://mirror.bettercrewl.ink/pc/latest/BetterCrewlink-Linux.AppImage"
@@ -197,7 +197,7 @@ echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 
 [![GitHub Latest Release][latest_release-shield]][latest_release-url]
 
-The Linux version is thanks to the following contributors:
+The Linux Version Is Thanks To The Following Contributors:
 
 - [TheGreatMcPain](https://github.com/TheGreatMcPain) -> CrewLink fork, Keyboard watcher fork, Memoryjs fork
 - [zbanks](https://github.com/zbanks) -> Memoryjs fork
@@ -205,26 +205,26 @@ The Linux version is thanks to the following contributors:
 
 ### Android/Chromebook/Bluestacks
 
-Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) in BetterCrewlink-mobile to see how to install the Android/Chromebook/Bluestacks version. (requires a PC player)
+Go To Category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) In BetterCrewlink-Mobile To See How To Install The Android/Chromebook/BlueStacks Version. (Requires A PC Player)
 
-[![BetterCrewLink on Play Store](https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0)](https://play.google.com/store/apps/details?id=io.bettercrewlink.app "Get BetterCrewLink on Play Store")
+[![BetterCrewLink on Play Store](https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0)](https://play.google.com/store/apps/details?id=io.bettercrewlink.app "Get BetterCrewLink On Play Store")
 
 [![Play Store Latest Version][playstore_latest_version-shield]][playstore_latest_version-url] 
 
-### iOS & macOS [![iOS & macOS](https://i.imgur.com/d4X3mKz.png)](https://youtu.be/qYvDg4dktI4 "Do not click here")
+### iOS & MacOS [![iOS & macOS](https://i.imgur.com/d4X3mKz.png)](https://youtu.be/qYvDg4dktI4 "Do not click here")
 
-Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) in BetterCrewlink-mobile to see how to install the iOS/macOS version. (requires a PC player)
+Go To Category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) In BetterCrewlink-mobile To See How To Install The iOS/macOS Version. (Requires A PC Player)
 
 <!-- DEVELOPMENT -->
 ## Development
 
-You only need to follow the below instructions if you are trying to modify this software. Otherwise, please download the latest version from the [GitHub releases](https://github.com/OhMyGuus/BetterCrewLink/releases).
+You Only Need To Follow The Instructions Below If You Are Trying To Modify This Software. Otherwise, Please Download The Latest Version From The [GitHub releases](https://github.com/OhMyGuus/BetterCrewLink/releases).
 
-Server code is located at [OhMyGuus/BetterCrewLink-server](https://github.com/OhMyGuus/BetterCrewLink-server). Please use a local server for development purposes.
+Server Code Is Located At [OhMyGuus/BetterCrewLink-server](https://github.com/OhMyGuus/BetterCrewLink-server). Please Use A Local Server For Development Purposes.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+This Is An Example Of How To List Things You Need To Use The Software And How To Install Them.
 * [Python](https://www.python.org/downloads/)
 * [node.js](https://nodejs.org/en/download/)
 * yarn
