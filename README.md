@@ -270,21 +270,21 @@ Needed [Git](https://git-scm.com/downloads) For Contributing.
 <details>
 <summary> Contributors </summary>
 
-* [OhMyGuus](https://github.com/OhMyGuus) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), example: NAT Fix, more overlays, support for Mobile and owner of project
-* [ottomated](https://github.com/ottomated) for make [CrewLink](https://github.com/ottomated/CrewLink)
-* [SirBuvex](https://github.com/SirBuvex) for make new logo for BetterCrewLink ([PC](https://github.com/OhMyGuus/BetterCrewLink), [Mobile](https://github.com/OhMyGuus/BetterCrewlink-mobile) and [Server](https://github.com/OhMyGuus/BetterCrewLink-server))
-* [vrnagy](https://github.com/vrnagy) for make WebRTC reconnects automatically for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink)
-* [TheGreatMcPain](https://github.com/TheGreatMcPain) & [Donokami](https://github.com/Donokami) for make support for Linux
-* [squarebracket](https://github.com/squarebracket) for make support overlay for Linux
-* [JKohlman](https://github.com/JKohlman) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), example: push to mute, visual changes, mute button and making Multi Stage builds for [BetterCrewLink Server](https://github.com/OhMyGuus/BetterCrewLink-server)
-* [Diemo-zz](https://github.com/Diemo-zz) for make the default Voice Server for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink): <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
-* [KadenBiel](https://github.com/KadenBiel) for make various things for [BetterCrewLink Mobile](https://github.com/OhMyGuus/BetterCrewlink-mobile), example: Better UI, Settings page
-* [adofou](https://github.com/adofou) for make new parameters for node-turn server for [BetterCrewLink-Server](https://github.com/OhMyGuus/BetterCrewLink-server)
-* [Kore-Development](https://github.com/Kore-Development) for make support for Repl.it and gitignore changes for [BetterCrewLink-Server](https://github.com/OhMyGuus/BetterCrewLink-server)
-* [cybershard](https://github.com/cybershard) & [edqx](https://github.com/edqx) for make Only hear people in vision, Walls block voice and Hear through cameras
-* [MatadorProBr](https://github.com/MatadorProBr) for make this list of Contribuators, better README.md, wiki
+* [OhMyGuus](https://github.com/OhMyGuus) For Make Various Things For [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), Example: NAT Fix, More Overlays, Support For Mobile And Owner Of Project
+* [ottomated](https://github.com/ottomated) For Make [CrewLink](https://github.com/ottomated/CrewLink)
+* [SirBuvex](https://github.com/SirBuvex) For Make New Logo For BetterCrewLink ([PC](https://github.com/OhMyGuus/BetterCrewLink), [Mobile](https://github.com/OhMyGuus/BetterCrewlink-mobile) And [Server](https://github.com/OhMyGuus/BetterCrewLink-server))
+* [vrnagy](https://github.com/vrnagy) For Make WebRTC Reconnects Automatically For [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink)
+* [TheGreatMcPain](https://github.com/TheGreatMcPain) & [Donokami](https://github.com/Donokami) For Make Support For Linux
+* [squarebracket](https://github.com/squarebracket) For Make Support Overlay For Linux
+* [JKohlman](https://github.com/JKohlman) For Make Various Things For [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), Example: Push To Mute, Visual Changes, Mute Button And Making Multi Stage Builds For [BetterCrewLink Server](https://github.com/OhMyGuus/BetterCrewLink-server)
+* [Diemo-zz](https://github.com/Diemo-zz) For Make The Default Voice Server For [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink): <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
+* [KadenBiel](https://github.com/KadenBiel) For Make Various Things For [BetterCrewLink Mobile](https://github.com/OhMyGuus/BetterCrewlink-mobile), Example: Better UI, Settings Page
+* [adofou](https://github.com/adofou) For Make New Parameters For Node-Turn Server For [BetterCrewLink-Server](https://github.com/OhMyGuus/BetterCrewLink-server)
+* [Kore-Development](https://github.com/Kore-Development) For Make Support For Repl.it And Gitignore Changes For [BetterCrewLink-Server](https://github.com/OhMyGuus/BetterCrewLink-server)
+* [cybershard](https://github.com/cybershard) & [edqx](https://github.com/edqx) For Make Only Hear People In Invision, Walls Block Voice And Hear Through Cameras
+* [MatadorProBr](https://github.com/MatadorProBr) For Make This List Of Contribuators, Better README.md, Wiki
 
-A big thanks for all those people who contributed and still contributing this project to stay alive, thank you so much for being part of this BetterCrewLink community!
+A Big Thanks For All Those People Who Contributed And Still Contributing To Keep This Project Stay Alive, Thank You So Much For Being Part Of This BetterCrewLink Community!
 
 </details>
 <hr />
