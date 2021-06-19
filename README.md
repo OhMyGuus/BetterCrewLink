@@ -4,13 +4,13 @@
     <img src="src/renderer/logos/sizes/256-BCL-Logo-shadow.png" alt="BetterCrewLink Logo">
   </a>
   <br/>
-  <sub>Logo made by <a href="https://github.com/SirBuvex">SirBuvex</a></sub>
+  <sub>Logo Made By <a href="https://github.com/SirBuvex">SirBuvex</a></sub>
 </p>
-<h3 align="center"><a href="https://github.com/OhMyGuus/BetterCrewLink">BetterCrewLink</a> a <a href="https://github.com/ottomated/CrewLink">CrewLink</a> fork with extra features & better support</h3>
+<h3 align="center"><a href="https://github.com/OhMyGuus/BetterCrewLink">BetterCrewLink</a> A <a href="https://github.com/ottomated/CrewLink">CrewLink</a> Fork With Extra Features & Better Support</h3>
 
 
   <p align="center">
-    Free, open, Among Us proximity voice chat.
+    Free, Open, Among Us Proximity Voice Chat.
     <br />
     <a href="https://github.com/OhMyGuus/BetterCrewLink/issues">Report Bug</a>
     ·
@@ -20,8 +20,8 @@
   </p>
   <p align="center">
     <b><a href="#donate">Donate to BetterCrewLink</a></b></br>
-  (all donations will be used for the apple developer license and extra servers)</br>
-   <b><a href="https://paypal.me/ottomated">Donate to ottomated (official CrewLink)</a></b>
+  (All Donations Will Be Used For The Apple Developer License And Extra Servers)</br>
+   <b><a href="https://paypal.me/ottomated">Donate To Ottomated (Official CrewLink)</a></b>
   </p>
 </p>
 <hr />
@@ -47,7 +47,7 @@
 <!-- NOTES -->
 ## Notes
 
-- This is an unofficial fork of CrewLink, for any problem, question, issue or suggestion you have with **Better**CrewLink talk to us on our [Discord](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or message me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) do not report any problems to the official Discord or GitHub of normal and official CrewLink as they will not support you.
+- This Is An Unofficial Fork Of CrewLink, For Any Problem, Question, Issue Or Suggestion You Have With **Better**CrewLink Talk To Us On Our [Discord](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) Or Message Me On Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) Do Not Report Any Problems To The Official Discord Or GitHub Of Normal And Official CrewLink As They Will Not Help You.
 
 - We are not affiliated with CrewLink, we are just a modified/better version of the original CrewLink, so if you need help with CrewLink, we will not offer any help for you about CrewLink here, we will only offer help you if you are using **Better**CrewLink, if you want to download BetterCrewLink look at the [GitHub](https://github.com/OhMyGuus/BetterCrewLink/releases/latest).
 
