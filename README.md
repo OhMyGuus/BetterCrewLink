@@ -409,20 +409,20 @@ Any Donations You Make Are Greatly Appreciated.
 <hr />
 
 <!-- BUGS/SUGGESTIONS/QUESTIONS -->
-## Bugs & Suggestions
+## Bugs, Suggestions & Questions
 
-If you have found any bugs, have an idea for a new feature, join our [Discord server](https://discord.gg/qDqTzvj4SH) or make a issue in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues).
+If You Have Found Any Bugs, Have A Suggestion, Join Our [Discord Server](https://discord.gg/qDqTzvj4SH) Or Make A Issue In [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues).
 
 ### Questions
 
-If you found any question, see the [Wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki), but if the answer to your question is not on the Wiki, [join our Discord](https://discord.gg/qDqTzvj4SH) and ask in [#✋bettercrewlink-help](https://discordapp.com/channels/791516611143270410/791518772770897980), **do not ask your question in GitHub Issues**, we want to keep GitHub Issues a place to report bugs and suggestions, without any question.
+If You Have Any Questions, See The [Wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki), But If The Answer To Your Question Is Not On The Wiki, [Join Our Discord](https://discord.gg/qDqTzvj4SH) And Ask In [#✋bettercrewlink-help](https://discordapp.com/channels/791516611143270410/791518772770897980), **Do Not Ask Your Question In GitHub Issues**, We Want To Keep GitHub Issues A Place To Report Bugs And Suggestions, Without Any Question.
 
 [![Discord Server][discord-shield]][discord-url]
 
 <!-- LICENSE -->
 ## License
 
-Distributed under the GNU General Public License v3.0. See <a href="https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE">`LICENSE`</a> for more information.
+Distributed Under The GNU General Public License v3.0. See <a href="https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE">`LICENSE`</a> For More Information.
 
 [downloads-shield]: https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/total?logo=GitHub&label=Downloads
 [downloads-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/
