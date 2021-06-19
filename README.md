@@ -6,7 +6,7 @@
   <br/>
   <sub>Logo Made By <a href="https://github.com/SirBuvex">SirBuvex</a></sub>
 </p>
-<h3 align="center"><a href="https://github.com/OhMyGuus/BetterCrewLink">BetterCrewLink</a> A <a href="https://github.com/ottomated/CrewLink">CrewLink</a> Fork With Extra Features & Better Support</h3>
+<h3 align="center"><a href="https://github.com/OhMyGuus/BetterCrewLink">BetterCrewLink</a> A <a href="https://github.com/ottomated/CrewLink">CrewLink</a> fork With Extra Features & Better Support</h3>
 
 
   <p align="center">
