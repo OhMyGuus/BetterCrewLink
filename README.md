@@ -69,13 +69,13 @@
 </div>
 
 <!-- TABLE OF CONTENTS -->
-## Table of Contents
+## Table Of Contents
 
 * [About The Project](#about-the-project)
 * [BetterCrewLink Extra Features](#bettercrewlink-extra-features)
 * [App Availability](#app-availability)
 * [Supported Versions Of Among Us](#supported-versions-of-among-us)
-* [Installation](#installation)
+* [App Installation](#app-installation)
   * [Windows](#windows-)
   * [Linux](#linux-)
   * [Android/Chromebook/Bluestacks](#androidchromebookbluestacks)
@@ -88,7 +88,9 @@
 * [Translation Credits](#translation-credits)
 * [Credits & Resources](#credits--resources)
 * [Donate](#donate)
-* [Bugs/Suggestions/Questions](#bugs--suggestions)
+* [Bug Infomation](#bug-infomation)
+* [Suggestions Infomation](#suggestions-infomation)
+* [Questions?](#questions)
 * [License](#license)
 
 <!-- ABOUT THE PROJECT -->
@@ -174,8 +176,8 @@ This Project Implements Proximity Voice Chat In Among Us. Everyone In An Among U
 | [PS4/PS5](https://twitter.com/PlayStation/status/1387883940778627073?s=20) (Unknown) | Coming Soon |
 | [XBOX Series X/S](https://twitter.com/Xbox/status/1339647203724312578?s=20) (Unknown) | Coming Soon |
 
-<!-- INSTALLATION -->
-## Installation
+<!-- APP INSTALLATION -->
+## App Installation
 
 ### Windows [![Windows](https://i.imgur.com/CX1j48h.png)](https://youtu.be/L--8RpSzmps)
 
@@ -297,30 +299,30 @@ A Big Thanks For All Those People Who Contributed And Still Contributing To Keep
 
 BetterCrewLink now officially supports other languages, that is, you can use BetterCrewLink without any problem of not understanding a part in English, but with that we need help with translations because nobody is born knowing everything languages.
 
-Any translations you make are greatly appreciated.
+Any Translations You Make Are Greatly Appreciated.
 
-There are two methods.
+There Are Two Methods.
 
 <details>
 <summary> In Crowdin </summary>
 
-1. [Go to Crowdin Page](https://crwd.in/bettercrewlink).
-2. Search for the name of your language you want to translate.
-3. Click on it and start translating.
+1. [Go To Crowdin Page](https://crwd.in/bettercrewlink).
+2. Search For The Name Of Your Language You Want To Translate.
+3. Click On It And Start Translating.
 
 </details>
 
 <details>
 <summary> In GitHub </summary>
 
-1. [Fork the Project](https://github.com/OhMyGuus/BetterCrewLink/fork).
-2. Create your Translation Branch.
-3. Go to static **->** locales **->** en **->** translation.json and Download this file.
-4. Open the translation.json with your text editor of preference.
-5. Edit the file but not edit this parts like: "gamehostonly", "inlobbyonly", just translate the text.
-6. Create a folder with the acronym of your language that you translated with translation.json inside the folder.
-7. Throw everything to your fork.
-8. Open a Pull Request.
+1. [Fork The Project](https://github.com/OhMyGuus/BetterCrewLink/fork).
+2. Create Your Translation Branch.
+3. Go To Static **->** locales **->** en **->** translation.json and Download this file.
+4. Open The translation.json With Your Text Editor Of Preference.
+5. Edit The File But Not Edit This Parts Like: "gamehostonly", "inlobbyonly", Just Translate The Text.
+6. Create A Folder With The Acronym Of Your Language That You Translated With translation.json Inside The Folder.
+7. Throw Everything To Your Fork.
+8. Open A Pull Request.
 
 </details>
 <hr />
@@ -392,28 +394,38 @@ Any Donations You Make Are Greatly Appreciated.
 
 <Donators>
 
-* Johann: Donated 40$ For The iOS & Mobile Progression And To Thank The Developer, Thanks You Soo Much!
-* stročji fižol: Donated 6$ To Bring The App On iOS & Mobile Progression Thanks And Thanks For Testing The App With The Developer.
-* alexdu645: Donated 20$ To Bring The App On iOS & Mobile Progression Thank You.
-* imy: Donated 53$ Thank You So Much And We Now Have Enough Too Get The App On iOS!
-* kev: Donated 10$ To Bring The App On iOS & Mobile Progression Thank You.
-* unkown: Donated 10$ To Bring The App On iOS & Mobile Progression Thank You.
-* Danger: Donated 5$ Thank You.
-* Fauli1221: Donated 10$ Thank You.
-* Joerg: Donated 5$ Thank You.
-* Jaden: Donated 11,05$ Thank You.
-* BChoy: Donated 47$ Thank You.
-* Bambii: Donated 51$ Thank You.
+* Johann: Donated $40 For The iOS & Mobile Progression And To Thank The Developer, Thanks You Soo Much!
+* stročji fižol: Donated $6 To Bring The App On iOS & Mobile Progression Thanks And Thanks For Testing The App With The Developer.
+* alexdu645: Donated $20 To Bring The App On iOS & Mobile Progression Thank You.
+* imy: Donated $53 Thank You So Much And We Now Have Enough Too Get The App On iOS!
+* kev: Donated $10 To Bring The App On iOS & Mobile Progression Thank You.
+* unkown: Donated $10 To Bring The App On iOS & Mobile Progression Thank You.
+* Danger: Donated $5 Thank You.
+* Fauli1221: Donated $10 Thank You.
+* Joerg: Donated $5 Thank You.
+* Jaden: Donated $11,05 Thank You.
+* BChoy: Donated $47 Thank You.
+* Bambii: Donated $51 Thank You.
 
 </details>
 <hr />
 
-<!-- BUGS/SUGGESTIONS/QUESTIONS -->
-## Bugs, Suggestions & Questions
+<!-- BUG INFOMATION -->
 
-If You Have Found Any Bugs, Have A Suggestion, Join Our [Discord Server](https://discord.gg/qDqTzvj4SH) Or Make A Issue In [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues).
+## Bug Infomation
 
-### Questions
+If You Have Found Any Bugs, Join Our [Discord Server](https://discord.gg/qDqTzvj4SH) Or Make A Issue In [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues).
+
+<!-- SUGGESTIONS INFOMATION -->
+
+## Suggestions Infomation
+
+If You Have Any Suggestions, Join Our [Discord Server](https://discord.gg/qDqTzvj4SH)
+
+
+<!-- QUESTIONS -->
+
+## Questions?
 
 If You Have Any Questions, See The [Wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki), But If The Answer To Your Question Is Not On The Wiki, [Join Our Discord](https://discord.gg/qDqTzvj4SH) And Ask In [#✋bettercrewlink-help](https://discordapp.com/channels/791516611143270410/791518772770897980), **Do Not Ask Your Question In GitHub Issues**, We Want To Keep GitHub Issues A Place To Report Bugs And Suggestions, Without Any Question.
 
