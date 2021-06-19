@@ -84,13 +84,15 @@
   * [Prerequisites](#prerequisites)
       * [Setup](#setup)
 * [Contributing](#contributing)
-* [Translation Infomation](#translation-infomation)
+* [Contribution Credits](#contribution-credits)
+* [Translating](#translating)
 * [Translation Credits](#translation-credits)
 * [Credits & Resources](#credits--resources)
 * [Donate](#donate)
-* [Bug Information](#bug-information)
-* [Suggestions Information](#suggestions-information)
-* [Questions?](#questions)
+* [Donators](#donators)
+* [Bugs](#bugs)
+* [Suggestions](#suggestions-information)
+* [Questions](#questions)
 * [License](#license)
 
 <!-- ABOUT THIS PROJECT -->
@@ -268,10 +270,8 @@ Needed [Git](https://git-scm.com/downloads) For Contributing.
 4. Push to the Branch. (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request.
 
-<hr />
-
-<details>
-<summary> Contributors </summary>
+<!-- CONTRIBUTION CREDITS -->
+## Contribution Credits
 
 * [OhMyGuus](https://github.com/OhMyGuus) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), Example: NAT Fix, more overlays, support for mobile and owner of project
 * [ottomated](https://github.com/ottomated) for make [CrewLink](https://github.com/ottomated/CrewLink)
@@ -289,11 +289,8 @@ Needed [Git](https://git-scm.com/downloads) For Contributing.
 
 A big thanks for all those people who contributed and still contributing to keep this project stay alive, thank you so much for being part of this BetterCrewLink Community!
 
-</details>
-<hr />
-
-<!-- TRANSLATION INFOMATION -->
-## Translation Infomation
+<!-- TRANSLATING -->
+## Translating
 
 [![Crowdin][crowdin-shield]][crowdin-url]
 
@@ -325,13 +322,9 @@ There are two methods.
 8. Open a Pull Request.
 
 </details>
-<hr />
 
-  
  <!-- TRANSLATION CREDITS -->
 ## Translation Credits
-  
- <translators>
 
 * [OhMyGuus](https://github.com/OhMyGuus) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Dutch
 * [adofou](https://github.com/adofou) & [ClementRoyer](https://github.com/ClementRoyer) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to French
@@ -361,9 +354,6 @@ There are two methods.
 
 A big thanks to all those who translated and are still translating to keep this project alive, thank you all so much for being part of the BetterCrewLink Community!
 
-</details>
-<hr />
-
 <!-- CREDITS & RESOURCES -->
 ## Credits & Resources
 
@@ -388,11 +378,7 @@ Any Donations You Make Are Greatly Appreciated.
 - US NAT FIX/Server location 
 - ASIA NAT FIX/Server location 
 
-<hr />
-
-### Donators
-
-<Donators>
+## Donators
 
 * Johann: Donated $40 for the iOS & Mobile progression and to thank The Developer, Thank You Soo Much!
 * stročji fižol: Donated $6 to bring the app on iOS & Mobile progression thanks And thanks for testing the app with The Developer.
@@ -407,27 +393,20 @@ Any Donations You Make Are Greatly Appreciated.
 * BChoy: Donated $47 Thank You.
 * Bambii: Donated $51 Thank You.
 
-</details>
-<hr />
+<!-- BUGS -->
+## Bugs
 
-<!-- BUG INFORMATION -->
+If you have found any bug, Join Our [Discord Server](https://discord.gg/qDqTzvj4SH) or make a issue in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues).
 
-## Bug Information
+<!-- SUGGESTIONS -->
+## Suggestions
 
-If you have found any bugs, Join Our [Discord Server](https://discord.gg/qDqTzvj4SH) or make a issue in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues).
-
-<!-- SUGGESTIONS INFORMATION -->
-
-## Suggestions Information
-
-If you have any suggestions, Join Our [Discord Server](https://discord.gg/qDqTzvj4SH)
-
+If you have any suggestion, Join Our [Discord Server](https://discord.gg/qDqTzvj4SH)
 
 <!-- QUESTIONS -->
+## Questions
 
-## Questions?
-
-If you have any questions, See The [Wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki), but if the answer to your question is not on the Wiki, [Join Our Discord](https://discord.gg/qDqTzvj4SH) and ask in [#✋bettercrewlink-help](https://discordapp.com/channels/791516611143270410/791518772770897980), **Do Not Ask Your Question In GitHub Issues**, we want to keep GitHub issues a place to report bugs and suggestions, without any question.
+If you have any question, See The [Wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki), but if the answer to your question is not on the Wiki, [Join Our Discord](https://discord.gg/qDqTzvj4SH) and ask in [#✋bettercrewlink-help](https://discordapp.com/channels/791516611143270410/791518772770897980), **Do Not Ask Your Question In GitHub Issues**, we want to keep GitHub issues a place to report bugs and suggestions, without any question.
 
 [![Discord Server][discord-shield]][discord-url]
 
