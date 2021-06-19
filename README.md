@@ -71,7 +71,7 @@
 <!-- TABLE OF CONTENTS -->
 ## Table Of Contents
 
-* [About The Project](#about-the-project)
+* [About This Project](#about-this-project)
 * [BetterCrewLink Extra Features/Bug Fixes](#bettercrewlink-extra-featuresbug-fixes)
 * [App Availability](#app-availability)
 * [Supported Versions Of Among Us](#supported-versions-of-among-us)
@@ -93,12 +93,12 @@
 * [Questions?](#questions)
 * [License](#license)
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
+<!-- ABOUT THIS PROJECT -->
+## About This Project
 
 This Project Implements Proximity Voice Chat In Among Us. Everyone In An Among Us Lobby With This Program Running Will Be Able To Communicate Over Voice In-Game, With No Third-Party Programs Required. Spatial Audio Ensures That You Can Only Hear People Close To You.
 
-<!-- BetterCrewLink Extra Features/Bug Fixes-->
+<!-- BETTERCREWLINK EXTRA FEATURES/BUG FIXES-->
 ## BetterCrewLink Extra Features/Bug Fixes
 
 ```
@@ -134,7 +134,7 @@ This Project Implements Proximity Voice Chat In Among Us. Everyone In An Among U
 - Support For Mobile. (iOS App Coming Soon)
 ```
 
-**If We missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM The Developer on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) So He Can Add It To BetterCrewLink.**
+**If We Missed Something You Can Join In [Discord server](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM The Developer On Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) So He Can Add It To BetterCrewLink.**
 
 [![Discord Server][discord-shield]][discord-url]
 
