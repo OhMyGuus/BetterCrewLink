@@ -338,8 +338,8 @@ There Are Two Methods.
 * [KadenBiel](https://github.com/KadenBiel), [SirBuvex](https://github.com/SirBuvex) And [Jeddunk](https://github.com/jeddunk) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To German
 * [LukehTM](https://github.com/LukehTM) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Spanish
 * [KaldonM](https://github.com/KaldonM) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Slovak
-* [MatadorProBr](https://github.com/MatadorProBr) For translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Portuguese (Brazil)
-* [vb-03](https://github.com/vb-03) For translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Portuguese (Portugal)
+* [MatadorProBr](https://github.com/MatadorProBr) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Portuguese (Brazil)
+* [vb-03](https://github.com/vb-03) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Portuguese (Portugal)
 * [LaneGL](https://github.com/LaneGL) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Indonesian
 * [Steby5](https://github.com/Steby5) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Slovenian And Slovak
 * [XRevan86](https://github.com/XRevan86) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Russian And Ukrainian
@@ -350,7 +350,7 @@ There Are Two Methods.
 * [Achs gaming](https://crowdin.com/profile/Achsan4) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Arabic And Arabic (Egpyt)
 * [Fixuuu](https://github.com/Fixuuu) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Polish
 * [canicjusz](https://github.com/canicjusz) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Esperanto And Polish
-* [Hani Rouatbi](https://crowdin.com/profile/lamjed001) For translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Arabic
+* [Hani Rouatbi](https://crowdin.com/profile/lamjed001) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Arabic
 * [NoikzGaming](https://crowdin.com/profile/NoikzGaming) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Swedish
 * [Zheng Syameimaru](https://github.com/0999312) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Chinese Simplified
 * [Aorin](https://crowdin.com/profile/aorin) & [Sakurai00](https://crowdin.com/profile/sakurai00) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Japanese
@@ -370,7 +370,7 @@ A Big Thanks To All Those Who Translated And Are Still Translating To Keep This 
 * [CrewLink](https://github.com/ottomated) - The Official CrewLink App.
 * [Electron](https://www.electronjs.org/) - For Make The App BetterCrewLink.
 * [memoryjs](https://github.com/TheGreatMcPain/memoryjs) - For Making BetterCrewLink Work With Linux.
-* [node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) - For Making it Easy To Make A Push To Talk, Push To Mute and Impostor Radio.
+* [node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) - For Making It Easy To Make A Push To Talk, Push To Mute and Impostor Radio.
 * [electron-overlay-window](https://github.com/OhMyGuus/electron-overlay-window) - For Making It Easy To Make Overlays.
 * [simple-peer](https://github.com/vrnagy/simple-peer) - For Making It Easy To Make [WebRTC](https://webrtc.org/) For [Voice Servers](https://github.com/OhMyGuus/BetterCrewLink-server).
 
