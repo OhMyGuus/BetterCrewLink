@@ -49,18 +49,18 @@
 
 - This Is An Unofficial Fork Of CrewLink, For Any Problem, Question, Issue Or Suggestion You Have With **Better**CrewLink Talk To Us On Our [Discord](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) Or Message Me On Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) Do Not Report Any Problems To The Official Discord Or GitHub Of Normal And Official CrewLink As They Will Not Help You.
 
-- We are not affiliated with CrewLink, we are just a modified/better version of the original CrewLink, so if you need help with CrewLink, we will not offer any help for you about CrewLink here, we will only offer help you if you are using **Better**CrewLink, if you want to download BetterCrewLink look at the [GitHub](https://github.com/OhMyGuus/BetterCrewLink/releases/latest).
+- We Are Not Affiliated With CrewLink, We Are Just A Modified/Better Version Of The Original CrewLink, So If You Need Help With CrewLink, We Will Not Offer Any Help For You About CrewLink Here, We Will Only Offer Help You If You Are Using **Better**CrewLink, If You Want To Download BetterCrewLink Look At The [GitHub](https://github.com/OhMyGuus/BetterCrewLink/releases/latest).
 
 <details>
-<summary> CrewLink is now no longer supported </summary>
+<summary> CrewLink Is Now No Longer Supported </summary>
 
-![CrewLink end of support](https://user-images.githubusercontent.com/71022656/120219995-713daf80-c212-11eb-8305-330aab91ccef.png)
+![CrewLink End Of Support](https://user-images.githubusercontent.com/71022656/120219995-713daf80-c212-11eb-8305-330aab91ccef.png)
 
 </details>
 
 - This mod is not affiliated with Among Us or Innersloth LLC, and the content contained therein is not endorsed or otherwise sponsored by Innersloth LLC. Portions of the materials contained herein are property of Innersloth LLC. © Innersloth LLC.
 
-- To get the most of BetterCrewLink use the Voice Server: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
+- To Get The Most Of BetterCrewLink Use The Voice Server: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
 
 <div>
   <a target="_blank" href="https://discord.gg/qDqTzvj4SH" title="Join our Discord!">
@@ -71,15 +71,15 @@
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
-* [About the Project](#about-the-project)
-* [Extra features/bug fixes in this fork](#extra-featuresbug-fixes-in-this-fork)
+* [About The Project](#about-the-project)
+* [Extra Features/Bug Fixes In This Fork](#extra-featuresbug-fixes-in-this-fork)
 * [App Availability](#app-availability)
-* [Supported Versions of Among Us](#supported-versions-of-among-us)
+* [Supported Versions Of Among Us](#supported-versions-of-among-us)
 * [Installation](#installation)
   * [Windows](#windows-)
   * [Linux](#linux-)
   * [Android/Chromebook/Bluestacks](#androidchromebookbluestacks)
-  * [iOS & macOS](#ios--macos-)
+  * [iOS & MacOS](#ios--macos-)
 * [Development](#development)
   * [Prerequisites](#prerequisites)
       * [Setup](#setup)
@@ -93,26 +93,27 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This project implements proximity voice chat in Among Us. Everyone in an Among Us lobby with this program running will be able to communicate over voice in-game, with no third-party programs required. Spatial audio ensures that you can only hear people close to you.
+This Project Implements Proximity Voice Chat In Among Us. Everyone In An Among Us Lobby With This Program Running Will Be Able To Communicate Over Voice In-Game, With No Third-Party Programs Required. Spatial Audio Ensures That You Can Only Hear People Close To You.
 
 <!-- EXTRA FEATURES-->
-## Extra features/bug fixes in this fork
+## Extra Features/Bug Fixes In This Fork
 
 ```
 - OBS Browsersource Overlay.
-- Hear People in Vision Only.
+- Hear People In Vision Only.
 - Walls Block Audio. 
 - Volume Sliders.
 - Public Lobby List.
-- Multiple languages.
-- Better mod compatibility.
-- It doesn't break when players leave/disconnect.
-- It works on any network even with UPnP disabled. (Strict NAT)
-- More fun settings like hearing through cameras, impostor radio.
-- You can actually disable the overlay.
-- 32bit support, Windows 7 support.
-- You can change the volume of alive players after you died.
-- You can set BetterCrewLink to topmost.
+- Multiple Languages.
+- Better Mod Compatibility.
+- It Doesn't Break When Players Leave/Disconnect.
+- It Works On Any Network Even With UPnP Disabled. (Strict NAT)
+- More Fun Settings Like Hearing Through Cameras, Impostor Radio.
+- You Can Actually Disable The Overlay.
+- 32bit Support
+- Windows 7 Support.
+- You Can Change The Volume Of Alive Players After You Die.
+- You Can Set BetterCrewLink To Topmost.
 - Settings actually sync between players and not half.
 - CPU usage is lower than original CrewLink.
 - You can actually press the mute key/deafen key while clicked on BetterCrewLink.
@@ -147,10 +148,10 @@ This project implements proximity voice chat in Among Us. Everyone in an Among U
 |  [Chromebook](https://play.google.com/store/apps/details?id=io.bettercrewlink.app) | Available Via [Play Store](https://play.google.com/store/apps/details?id=io.bettercrewlink.app) Or [Web](https://web.bettercrewl.ink/) |
 |  [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web) | Available Via [Web](https://web.bettercrewl.ink/) |              |      ✔️     |
 
-| Future Platforms | Availability Status |
-| :-----------------: | :------------: |
-| [PS4/PS5](https://twitter.com/PlayStation/status/1387883940778627073?s=20)  | Coming Soon |
-| [XBOX Series X/S](https://twitter.com/Xbox/status/1339647203724312578?s=20) | Coming Soon |
+ | Future Platforms | Availability Status |
+ | :-----------------: | :------------: |
+ | [PS4/PS5](https://twitter.com/PlayStation/status/1387883940778627073?s=20)  | Coming Soon |
+ | [XBOX Series X/S](https://twitter.com/Xbox/status/1339647203724312578?s=20) | Coming Soon |
 
 <!-- SUPPORTED VERSIONS OF AMONG US -->
 ## Supported Versions of Among Us
