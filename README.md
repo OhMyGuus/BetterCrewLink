@@ -78,7 +78,7 @@
 * [Installation](installation)
   * [Windows](#windows-)
   * [Linux](#linux-)
-  * [Android/Chromebook/Bluestacks](#androidchromebookbluestacks)
+  * [Android/Chromebook/BlueStacks](#androidchromebookbluestacks)
   * [iOS & MacOS](#ios--macos-)
 * [Development](#development)
   * [Prerequisites](#prerequisites)
@@ -202,11 +202,11 @@ echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 
 The Linux Version Is Thanks To The Following Contributors:
 
-- [TheGreatMcPain](https://github.com/TheGreatMcPain) -> CrewLink fork, Keyboard watcher fork, Memoryjs fork
+- [TheGreatMcPain](https://github.com/TheGreatMcPain) -> CrewLink fork, Keyboard Watcher fork, Memoryjs fork
 - [zbanks](https://github.com/zbanks) -> Memoryjs fork
-- [Donokami](https://github.com/Donokami) -> Testing and helping
+- [Donokami](https://github.com/Donokami) -> Testing And Helping
 
-### Android/Chromebook/Bluestacks
+### Android/Chromebook/BlueStacks
 
 Go To Category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) In BetterCrewlink-Mobile To See How To Install The Android/Chromebook/BlueStacks Version. (Requires A PC Player)
 
