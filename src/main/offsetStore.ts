@@ -204,7 +204,7 @@ export default {
 			},
 			palette: {
 				sig:
-					'48 8B 05 ? ? ? ? 48 8B 80 ? ? ? ? 4C 8D 44 24 ? 0F 28 DF 66 0F 7F 74 24 ? 48 8D 54 24 ? 48 89 74 24 ? 48 8D 4C 24 ? 0F 10 40 40 0F 29 44 24 ?',
+					'48 8B 05 ? ? ? ? 0F 57 C9 0F 10 45 38',
 				patternOffset: 3,
 				addressOffset: 4,
 			},
