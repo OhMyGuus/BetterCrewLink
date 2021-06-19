@@ -123,12 +123,12 @@ This Project Implements Proximity Voice Chat In Among Us. Everyone In An Among U
 - Microphone Echo Cancellation.
 - Microphone Eoise Suppression.
 - More Overlay Positions And You Can Set The Overlay To The Top/Bottom And You Can Set It So It Shows Everyone Even When Dead.
-- You can set the lobby up so only death people can talk. (normal lobbies but then with death talk)
-- Support for new/older versions of Among Us. (v2021.6.15)
-- Support for other platforms. (itch.io, Play Store, App Store, Nintendo Switch, Beta) PlayStation 4 and PlayStation 5 & XBOX Series X/S (Coming Soon)
-- Support for Custom Colors/Hats/Skins. (mods that add more colors/hats/skins)
-- Support for Linux.
-- Support for Mobile. (iOS App Coming Soon)
+- You Can Set The Lobby Up So Only Death people can talk. (Normal Lobbies But Then With Death Talk)
+- Support For new/older versions of Among Us. (v2021.6.15)
+- Support For other platforms. (itch.io, Play Store, App Store, Nintendo Switch, Beta) PlayStation 4 and PlayStation 5 & XBOX Series X/S (Coming Soon)
+- Support For Custom Colors/Hats/Skins. (Mods That Add More Colors/Hats/Skins)
+- Support For Linux.
+- Support For Mobile. (iOS App Coming Soon)
 ```
 
 **If We missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) so I can add it to BetterCrewLink.**
