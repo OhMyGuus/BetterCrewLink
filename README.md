@@ -84,7 +84,8 @@
   * [Prerequisites](#prerequisites)
       * [Setup](#setup)
 * [Contributing](#contributing)
-* [Translating](#translating)
+* [Translation Infomation](#translation-infomation)
+* [Translation Credits](#translation-credits)
 * [Credits & Resources](#credits--resources)
 * [Donate](#donate)
 * [Bugs/Suggestions/Questions](#bugs--suggestions)
@@ -289,8 +290,8 @@ A Big Thanks For All Those People Who Contributed And Still Contributing To Keep
 </details>
 <hr />
 
-<!-- TRANSLATING -->
-## Translating
+<!-- TRANSLATION INFOMATION -->
+## Translation Infomation
 
 [![Crowdin][crowdin-shield]][crowdin-url]
 
@@ -324,36 +325,39 @@ There are two methods.
 </details>
 <hr />
 
-<details>
-<summary> Translators </summary>
+  
+ <!-- TRANSLATION CREDITS -->
+## Translation Credits
+  
+ <translators>
 
-* [OhMyGuus](https://github.com/OhMyGuus) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Netherlands
-* [adofou](https://github.com/adofou) & [ClementRoyer](https://github.com/ClementRoyer) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to French
-* [KadenBiel](https://github.com/KadenBiel), [SirBuvex](https://github.com/SirBuvex) and [Jeddunk](https://github.com/jeddunk) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to German
-* [LukehTM](https://github.com/LukehTM) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish
-* [KaldonM](https://github.com/KaldonM) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Slovak
-* [MatadorProBr](https://github.com/MatadorProBr) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Portuguese (Brazil)
-* [vb-03](https://github.com/vb-03) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Portuguese (Portugal)
-* [LaneGL](https://github.com/LaneGL) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Indonesian
-* [Steby5](https://github.com/Steby5) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Slovenian and Slovak
-* [XRevan86](https://github.com/XRevan86) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Russian and Ukrainian
-* [Xoyn](https://crowdin.com/profile/xoyn) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Russian
-* [Ajno, Jano Miĥalako](https://crowdin.com/profile/Ajno) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Esperanto
-* [Tiquis](https://crowdin.com/profile/tiquis) & [fajnyCreeper](https://github.com/fajnyCreeper) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Czech
-* [ElBusAlv](https://github.com/ElBusAlv) & [nyanya4444](https://github.com/nyanya4444) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Catalan
-* [Achs gaming](https://crowdin.com/profile/Achsan4) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Arabic and Arabic (Egpyt)
-* [Fixuuu](https://github.com/Fixuuu) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Polish
-* [canicjusz](https://github.com/canicjusz) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Esperanto and Polish
-* [Hani Rouatbi](https://crowdin.com/profile/lamjed001) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Arabic
-* [NoikzGaming](https://crowdin.com/profile/NoikzGaming) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Swedish
-* [Zheng Syameimaru](https://github.com/0999312) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Chinese Simplified
-* [Aorin](https://crowdin.com/profile/aorin) & [Sakurai00](https://crowdin.com/profile/sakurai00) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Japanese
-* [MrAngelos6](https://crowdin.com/profile/mrangelos6) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to French and Spanish
-* [Amirhan-Taipovjan-Greatest-I](https://github.com/Amirhan-Taipovjan-Greatest-I) & [morewaves](https://crowdin.com/profile/morewaves) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Tatar
-* [Bubbycolditz](https://github.com/Bubbycolditz) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish (United States)
-* [Kajachuan](https://github.com/Kajachuan) for translate [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish (Argentina)
+* [OhMyGuus](https://github.com/OhMyGuus) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Netherlands
+* [adofou](https://github.com/adofou) & [ClementRoyer](https://github.com/ClementRoyer) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To French
+* [KadenBiel](https://github.com/KadenBiel), [SirBuvex](https://github.com/SirBuvex) And [Jeddunk](https://github.com/jeddunk) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To German
+* [LukehTM](https://github.com/LukehTM) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Spanish
+* [KaldonM](https://github.com/KaldonM) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Slovak
+* [MatadorProBr](https://github.com/MatadorProBr) For translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Portuguese (Brazil)
+* [vb-03](https://github.com/vb-03) For translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Portuguese (Portugal)
+* [LaneGL](https://github.com/LaneGL) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Indonesian
+* [Steby5](https://github.com/Steby5) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Slovenian And Slovak
+* [XRevan86](https://github.com/XRevan86) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Russian And Ukrainian
+* [Xoyn](https://crowdin.com/profile/xoyn) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Russian
+* [Ajno, Jano Miĥalako](https://crowdin.com/profile/Ajno) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Esperanto
+* [Tiquis](https://crowdin.com/profile/tiquis) & [fajnyCreeper](https://github.com/fajnyCreeper) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Czech
+* [ElBusAlv](https://github.com/ElBusAlv) & [nyanya4444](https://github.com/nyanya4444) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Catalan
+* [Achs gaming](https://crowdin.com/profile/Achsan4) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Arabic And Arabic (Egpyt)
+* [Fixuuu](https://github.com/Fixuuu) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Polish
+* [canicjusz](https://github.com/canicjusz) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Esperanto And Polish
+* [Hani Rouatbi](https://crowdin.com/profile/lamjed001) For translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Arabic
+* [NoikzGaming](https://crowdin.com/profile/NoikzGaming) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Swedish
+* [Zheng Syameimaru](https://github.com/0999312) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Chinese Simplified
+* [Aorin](https://crowdin.com/profile/aorin) & [Sakurai00](https://crowdin.com/profile/sakurai00) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Japanese
+* [MrAngelos6](https://crowdin.com/profile/mrangelos6) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To French And Spanish
+* [Amirhan-Taipovjan-Greatest-I](https://github.com/Amirhan-Taipovjan-Greatest-I) & [morewaves](https://crowdin.com/profile/morewaves) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Tatar
+* [Bubbycolditz](https://github.com/Bubbycolditz) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Spanish (United States)
+* [Kajachuan](https://github.com/Kajachuan) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Spanish (Argentina)
 
-A big thanks for all those people who translated and still translating this project to stay alive, thank you so much for being part of this BetterCrewLink community!
+A Big Thanks To All Those Who Translated And Are Still Translating To Keep This Project Alive, Thank You All So Much For Being Part Of The BetterCrewLink Community!
 
 </details>
 <hr />
@@ -361,44 +365,45 @@ A big thanks for all those people who translated and still translating this proj
 <!-- CREDITS & RESOURCES -->
 ## Credits & Resources
 
-* [CrewLink](https://github.com/ottomated) - The official CrewLink app.
-* [Electron](https://www.electronjs.org/) - For make the app BetterCrewLink.
-* [memoryjs](https://github.com/TheGreatMcPain/memoryjs) - For make BetterCrewLink works for Linux.
-* [node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) - For make it easy to make Push To Talk, Push To Mute and Impostor Radio.
-* [electron-overlay-window](https://github.com/OhMyGuus/electron-overlay-window) - For make it easy to make Overlays.
-* [simple-peer](https://github.com/vrnagy/simple-peer) - For make it easy to make [WebRTC](https://webrtc.org/) for [Voice Servers](https://github.com/OhMyGuus/BetterCrewLink-server).
+* [CrewLink](https://github.com/ottomated) - The Official CrewLink App.
+* [Electron](https://www.electronjs.org/) - For Make The App BetterCrewLink.
+* [memoryjs](https://github.com/TheGreatMcPain/memoryjs) - For Making BetterCrewLink Work With Linux.
+* [node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) - For Making it Easy To Make A Push To Talk, Push To Mute and Impostor Radio.
+* [electron-overlay-window](https://github.com/OhMyGuus/electron-overlay-window) - For Making It Easy To Make Overlays.
+* [simple-peer](https://github.com/vrnagy/simple-peer) - For Making It Easy To Make [WebRTC](https://webrtc.org/) For [Voice Servers](https://github.com/OhMyGuus/BetterCrewLink-server).
 
 <!-- DONATE -->
 ## Donate
 
-If you like the BetterCrewLink and want to help it to stay alive and with new features, bug fixes, support for other platforms, pay for servers, donate money for the project, of course if you want and can, this is an optional choice, we currently support PayPal and Ko-fi, choose the best donate option for you and click on the image below:
+If You Like Using BetterCrewLink And Want To Help It Stay Alive And With New Features, Bug Fixes, Support For Other Platforms, Pay For Servers, Donate Money For The Project, Of Course If You Want And Can, This Is An Optional Choice, We Currently Support PayPal And Ko-fi, Choose The Best Donation Option For You And Click On The Image Below:
 
 [![Support BetterCrewLink (PayPal)][paypal-shield]][paypal-url] [![Support BetterCrewLink (Ko-fi)][kofi-shield]][kofi-url]
 
-Any donations you make are greatly appreciated.
+Any Donations You Make Are Greatly Appreciated.
 
 ### Donations Goals
-- Bring BetterCrewLink to iOS & Mobile progression 
-- US NAT FIX/server location 
-- ASIA NAT FIX/server location 
+- Bring BetterCrewLink To iOS & Mobile Progression 
+- US NAT FIX/Server Location 
+- ASIA NAT FIX/Server Location 
 
 <hr />
 
-<details>
-<summary> Donators </summary>
+### Donators
 
-* Johann: Donated 40$ for the iOS & Mobile progression and to thank me, thanks you soo much!
-* stročji fižol: Donated 6$ to bring the app on iOS & Mobile progression thanks and thanks for testing the app with me.
-* alexdu645: Donated 20$ to bring the app on iOS & Mobile progression thanks.
-* imy: Donated 53$ THANKS you so much and we got now enough to get the app on iOS!
-* kev: Donated 10$ to bring the app on iOS & Mobile progression thanks.
-* unkown: Donated 10$ to bring the app on iOS & Mobile progression thanks.
-* Danger: Donated 5$ thanks.
-* Fauli1221: Donated 10$ thanks.
-* Joerg: Donated 5$ thanks.
-* Jaden: Donated 11,05$ thanks.
-* BChoy: Donated 47$ thanks.
-* Bambii: Donated 51$ thanks.
+<Donators>
+
+* Johann: Donated 40$ For The iOS & Mobile Progression And To Thank The Developer, Thanks You Soo Much!
+* stročji fižol: Donated 6$ To Bring The App On iOS & Mobile Progression Thanks And Thanks For Testing The App With The Developer.
+* alexdu645: Donated 20$ To Bring The App On iOS & Mobile Progression Thank You.
+* imy: Donated 53$ Thank You So Much And We Now Have Enough Too Get The App On iOS!
+* kev: Donated 10$ To Bring The App On iOS & Mobile Progression Thank You.
+* unkown: Donated 10$ To Bring The App On iOS & Mobile Progression Thank You.
+* Danger: Donated 5$ Thank You.
+* Fauli1221: Donated 10$ Thank You.
+* Joerg: Donated 5$ Thank You.
+* Jaden: Donated 11,05$ Thank You.
+* BChoy: Donated 47$ Thank You.
+* Bambii: Donated 51$ Thank You.
 
 </details>
 <hr />
