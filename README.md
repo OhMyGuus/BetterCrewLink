@@ -6,7 +6,7 @@
   <br/>
   <sub>Logo Made By <a href="https://github.com/SirBuvex">SirBuvex</a></sub>
 </p>
-<h3 align="center"><a href="https://github.com/OhMyGuus/BetterCrewLink">BetterCrewLink</a> A <a href="https://github.com/ottomated/CrewLink">CrewLink</a> fork With Extra Features & Better Support</h3>
+<h3 align="center"><a href="https://github.com/OhMyGuus/BetterCrewLink">BetterCrewLink</a> a <a href="https://github.com/ottomated/CrewLink">CrewLink</a> fork with extra features & better support</h3>
 
 
   <p align="center">
@@ -19,7 +19,7 @@
     <a href="#installation">Installation Instructions</a>
   </p>
   <p align="center">
-    <b><a href="#donate">Donate to BetterCrewLink</a></b></br>
+    <b><a href="#donate">Donate To BetterCrewLink</a></b></br>
   (All Donations Will Be Used For The Apple Developer License And Extra Servers)</br>
    <b><a href="https://paypal.me/ottomated">Donate To Ottomated (Official CrewLink)</a></b>
   </p>
@@ -47,9 +47,9 @@
 <!-- NOTES -->
 ## Notes
 
-- This Is An Unofficial Fork Of CrewLink, For Any Problem, Question, Issue Or Suggestion You Have With **Better**CrewLink Talk To Us On Our [Discord](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) Or Message Me On Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) Do Not Report Any Problems To The Official Discord Or GitHub Of Normal And Official CrewLink As They Will Not Help You.
+- This is an unofficial fork of CrewLink, for Any problem, question, issue or suggestion you have with **Better**CrewLink talk to us on our [Discord](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or message the developer on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) Do not report any problems to The official Discord or GitHub of normal and official CrewLink as they will not help you.
 
-- We Are Not Affiliated With CrewLink, We Are Just A Modified/Better Version Of The Original CrewLink, So If You Need Help With CrewLink, We Will Not Offer Any Help For You About CrewLink Here, We Will Only Offer Help You If You Are Using **Better**CrewLink, If You Want To Download BetterCrewLink Look At The [GitHub](https://github.com/OhMyGuus/BetterCrewLink/releases/latest).
+- We are not affiliated with CrewLink, we are just a modified/better version of the original CrewLink, so if you need help with CrewLink, we will not offer any help for you about CrewLink here, we will only help you if you are using **Better**CrewLink, if you want to download BetterCrewLink look at the [GitHub](https://github.com/OhMyGuus/BetterCrewLink/releases/latest).
 
 <details>
 <summary> CrewLink Is Now No Longer Supported </summary>
@@ -60,7 +60,7 @@
 
 - This mod is not affiliated with Among Us or Innersloth LLC, and the content contained therein is not endorsed or otherwise sponsored by Innersloth LLC. Portions of the materials contained herein are property of Innersloth LLC. © Innersloth LLC.
 
-- To Get The Most Of BetterCrewLink Use The Voice Server: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
+- To get the most of BetterCrewLink use the Voice Server: <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
 
 <div>
   <a target="_blank" href="https://discord.gg/qDqTzvj4SH" title="Join our Discord!">
@@ -96,7 +96,7 @@
 <!-- ABOUT THIS PROJECT -->
 ## About This Project
 
-This Project Implements Proximity Voice Chat In Among Us. Everyone In An Among Us Lobby With This Program Running Will Be Able To Communicate Over Voice In-Game, With No Third-Party Programs Required. Spatial Audio Ensures That You Can Only Hear People Close To You.
+This project implements Proximity Voice Chat In Among Us. Everyone in an Among Us lobby with this program running will be able to communicate over Voice In-Game, with no Third-Party programs required. Spatial audio ensures that You can only hear people close to you.
 
 <!-- BETTERCREWLINK EXTRA FEATURES/BUG FIXES-->
 ## BetterCrewLink Extra Features/Bug Fixes
@@ -181,7 +181,7 @@ This Project Implements Proximity Voice Chat In Among Us. Everyone In An Among U
 
 ### Windows [![Windows](https://i.imgur.com/CX1j48h.png)](https://youtu.be/L--8RpSzmps)
 
-Download The Latest Version From [releases](https://github.com/OhMyGuus/BetterCrewLink/releases/latest) And Run The `BetterCrewLink-Setup-X.X.X.exe` File. You May Get Antivirus Warnings, Because This Program Hooks Into The Among Us Process To Read Game Data.
+Download the latest version from [releases](https://github.com/OhMyGuus/BetterCrewLink/releases/latest) an Run The `BetterCrewLink-Setup-X.X.X.exe` File. You May Get Antivirus Warnings, Because This Program Hooks Into The Among Us Process To Read Game Data.
 
 [![GitHub Latest Release][latest_release-shield]][latest_release-url]
 
