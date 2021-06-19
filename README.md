@@ -72,7 +72,7 @@
 ## Table Of Contents
 
 * [About The Project](#about-the-project)
-* [BetterCrewLink Extra Features](#bettercrewlink-extra-features)
+* [BetterCrewLink Extra Features/Bug Fixes](#bettercrewlink-extra-featuresbug-fixes)
 * [App Availability](#app-availability)
 * [Supported Versions Of Among Us](#supported-versions-of-among-us)
 * [Installation](installation)
@@ -98,8 +98,8 @@
 
 This Project Implements Proximity Voice Chat In Among Us. Everyone In An Among Us Lobby With This Program Running Will Be Able To Communicate Over Voice In-Game, With No Third-Party Programs Required. Spatial Audio Ensures That You Can Only Hear People Close To You.
 
-<!-- BetterCrewLink Extra Features-->
-## BetterCrewLink Extra Features
+<!-- BetterCrewLink Extra Features/Bug Fixes-->
+## BetterCrewLink Extra Features/Bug Fixes
 
 ```
 - OBS Browsersource Overlay.
