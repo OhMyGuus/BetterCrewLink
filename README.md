@@ -75,7 +75,7 @@
 * [BetterCrewLink Extra Features](#bettercrewlink-extra-features)
 * [App Availability](#app-availability)
 * [Supported Versions Of Among Us](#supported-versions-of-among-us)
-* [App Installation](#app-installation)
+* [Installation](#installation)
   * [Windows](#windows-)
   * [Linux](#linux-)
   * [Android/Chromebook/Bluestacks](#androidchromebookbluestacks)
@@ -176,8 +176,8 @@ This Project Implements Proximity Voice Chat In Among Us. Everyone In An Among U
 | [PS4/PS5](https://twitter.com/PlayStation/status/1387883940778627073?s=20) (Unknown) | Coming Soon |
 | [XBOX Series X/S](https://twitter.com/Xbox/status/1339647203724312578?s=20) (Unknown) | Coming Soon |
 
-<!-- APP INSTALLATION -->
-## App Installation
+<!-- INSTALLATION -->
+## Installation
 
 ### Windows [![Windows](https://i.imgur.com/CX1j48h.png)](https://youtu.be/L--8RpSzmps)
 
