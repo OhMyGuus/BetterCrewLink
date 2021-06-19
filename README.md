@@ -131,7 +131,7 @@ This Project Implements Proximity Voice Chat In Among Us. Everyone In An Among U
 - Support For Mobile. (iOS App Coming Soon)
 ```
 
-**If We missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) so I can add it to BetterCrewLink.**
+**If We missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM The Developer on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) So He Can Add It To BetterCrewLink.**
 
 [![Discord Server][discord-shield]][discord-url]
 
@@ -234,16 +234,16 @@ npm install yarn -g
 
 ### Setup
 
-1. Clone the repo
+1. Clone The Repo
 ```sh
 git clone https://github.com/OhMyGuus/BetterCrewLink.git
 cd BetterCrewLink
 ```
-2. Install NPM packages
+2. Install NPM Packages
 ```sh
 yarn install
 ```
-3. Run the project
+3. Run The Project
 ```JS
 yarn dev
 ```
@@ -255,11 +255,11 @@ PC: [![Contributors][contributors-shield]][contributors-url]\
 Mobile/Web: [![BetterCrewLink Mobile Contributors](https://img.shields.io/github/contributors/OhMyGuus/BetterCrewlink-mobile?label=Contributors&logo=GitHub)](https://github.com/OhMyGuus/BetterCrewlink-mobile/graphs/contributors)\
 Server: [![BetterCrewLink Server Contributors](https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink-server?label=Contributors&logo=GitHub)](https://github.com/OhMyGuus/BetterCrewLink-server/graphs/contributors)
 
-Any contributions you make are greatly appreciated.
+Any Contributions You Make Are Greatly Appreciated.
 
-Needed [Git](https://git-scm.com/downloads) for Contributing.
+Needed [Git](https://git-scm.com/downloads) For Contributing.
 
-1. [Fork the Project](https://github.com/OhMyGuus/BetterCrewLink/fork).
+1. [Fork The Project](https://github.com/OhMyGuus/BetterCrewLink/fork).
 2. Create your Feature Branch. (`git checkout -b feature/AmazingFeature`)
 3. Commit your Changes. (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch. (`git push origin feature/AmazingFeature`)
