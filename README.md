@@ -75,7 +75,7 @@
 * [BetterCrewLink Extra Features](#bettercrewlink-extra-features)
 * [App Availability](#app-availability)
 * [Supported Versions Of Among Us](#supported-versions-of-among-us)
-* [Installation](#installation)
+* [Installation](installation)
   * [Windows](#windows-)
   * [Linux](#linux-)
   * [Android/Chromebook/Bluestacks](#androidchromebookbluestacks)
