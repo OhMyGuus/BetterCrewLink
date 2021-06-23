@@ -78,8 +78,11 @@
 * [Installation](installation)
   * [Windows](#windows-)
   * [Linux](#linux-)
-  * [Android/Chromebook/BlueStacks](#androidchromebookbluestacks)
+  * [Android OS](#android-os)
+  * [Chrome OS](#chrome-os)
+  * [BlueStacks](#bluestacks)
   * [iOS & MacOS](#ios--macos-)
+  * [Console](#console)
 * [Development](#development)
   * [Prerequisites](#prerequisites)
       * [Setup](#setup)
@@ -91,7 +94,7 @@
 * [Donate](#donate)
 * [Donators](#donators)
 * [Bugs](#bugs)
-* [Suggestions](#suggestions-information)
+* [Suggestions](#suggestions)
 * [Questions](#questions)
 * [License](#license)
 
@@ -208,7 +211,7 @@ The Linux Version Is Thanks To The Following Contributors:
 - [zbanks](https://github.com/zbanks) -> Memoryjs fork
 - [Donokami](https://github.com/Donokami) -> Testing And Helping
 
-### Android/Chromebook/BlueStacks
+### Android OS
 
 Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) In BetterCrewlink-Mobile to see how to install the Android/Chromebook/BlueStacks Version. (Requires A PC Player)
 
@@ -216,9 +219,31 @@ Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#
 
 [![Play Store Latest Version][playstore_latest_version-shield]][playstore_latest_version-url] 
 
+### Chrome OS
+
+Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) In BetterCrewlink-Mobile to see how to install the Android/Chromebook/BlueStacks Version. (Requires A PC Player)
+
+[![BetterCrewLink on Play Store](https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0)](https://play.google.com/store/apps/details?id=io.bettercrewlink.app "Get BetterCrewLink On Play Store")
+
+[![Play Store Latest Version][playstore_latest_version-shield]][playstore_latest_version-url] 
+
+### BlueStacks
+
+Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) In BetterCrewlink-Mobile to see how to install the Android/Chromebook/BlueStacks Version. (Requires A PC Player)
+
+[![BetterCrewLink on Play Store](https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0)](https://play.google.com/store/apps/details?id=io.bettercrewlink.app "Get BetterCrewLink On Play Store")
+
+[![Play Store Latest Version][playstore_latest_version-shield]][playstore_latest_version-url] 
+
+
 ### iOS & MacOS [![iOS & MacOS](https://i.imgur.com/d4X3mKz.png)](https://youtu.be/qYvDg4dktI4 "Do not click here")
 
 Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) In BetterCrewlink-mobile to see how to install the iOS/MacOS Version. (Requires A PC Player)
+
+### Console 
+
+Go to [Web](https://web.bettercrewl.ink/game) to play Among Us with BetterCrewLink on console.
+ *Note: XBOX and PlayStation ports for Among Us is still coming soon
 
 <!-- DEVELOPMENT -->
 ## Development
@@ -358,7 +383,7 @@ A big thanks to all those who translated and are still translating to keep this 
 ## Credits & Resources
 
 * [CrewLink](https://github.com/ottomated) - The Official CrewLink App.
-* [Electron](https://www.electronjs.org/) - For make the app BetterCrewLink.
+* [Electron](https://www.electronjs.org/) - For making the app BetterCrewLink.
 * [memoryjs](https://github.com/TheGreatMcPain/memoryjs) - For making BetterCrewLink work with Linux.
 * [node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) - For making it easy to make a Push To Talk, Push To Mute and Impostor Radio.
 * [electron-overlay-window](https://github.com/OhMyGuus/electron-overlay-window) - For making it easy to make Overlays.
@@ -396,17 +421,17 @@ Any Donations You Make Are Greatly Appreciated.
 <!-- BUGS -->
 ## Bugs
 
-If you have found any bug, Join Our [Discord Server](https://discord.gg/qDqTzvj4SH) or make a issue in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues).
+If you have found any bugs, Join Our [Discord Server](https://discord.gg/qDqTzvj4SH) or make a issue in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues).
 
 <!-- SUGGESTIONS -->
 ## Suggestions
 
-If you have any suggestion, Join Our [Discord Server](https://discord.gg/qDqTzvj4SH)
+If you have any suggestions, Join Our [Discord Server](https://discord.gg/qDqTzvj4SH)
 
 <!-- QUESTIONS -->
 ## Questions
 
-If you have any question, See The [Wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki), but if the answer to your question is not on the Wiki, [Join Our Discord](https://discord.gg/qDqTzvj4SH) and ask in [#✋bettercrewlink-help](https://discordapp.com/channels/791516611143270410/791518772770897980), **Do Not Ask Your Question In GitHub Issues**, we want to keep GitHub issues a place to report bugs and suggestions, without any question.
+If you have any questions, See The [Wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki), but if the answer to your question is not on the Wiki, Join Our [Discord Server](https://discord.gg/qDqTzvj4SH) and ask in [#✋bettercrewlink-help](https://discordapp.com/channels/791516611143270410/791518772770897980), **Do Not Ask Your Question In GitHub Issues**, we want to keep GitHub issues a place to report bugs and suggestions, without any question.
 
 [![Discord Server][discord-shield]][discord-url]
 
