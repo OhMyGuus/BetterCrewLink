@@ -213,7 +213,7 @@ The Linux Version Is Thanks To The Following Contributors:
 
 ### Android OS
 
-Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) In BetterCrewlink-Mobile to see how to install the Android/Chromebook/BlueStacks Version. (Requires A PC Player)
+Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) In BetterCrewlink-Mobile to see how to install the Android OS Version. (Requires a PC Player)
 
 [![BetterCrewLink on Play Store](https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0)](https://play.google.com/store/apps/details?id=io.bettercrewlink.app "Get BetterCrewLink On Play Store")
 
@@ -221,7 +221,7 @@ Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#
 
 ### Chrome OS
 
-Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) In BetterCrewlink-Mobile to see how to install the Android/Chromebook/BlueStacks Version. (Requires a PC Player)
+Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) In BetterCrewlink-Mobile to see how to install the Chrome OS Version. (Requires a PC Player)
 
 [![BetterCrewLink on Play Store](https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0)](https://play.google.com/store/apps/details?id=io.bettercrewlink.app "Get BetterCrewLink On Play Store")
 
@@ -229,7 +229,7 @@ Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#
 
 ### BlueStacks
 
-Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) In BetterCrewlink-Mobile to see how to install the Android/Chromebook/BlueStacks Version. (Requires a PC Player)
+Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) In BetterCrewlink-Mobile to see how to install the BlueStacks Version. (Requires a PC Player)
 
 [![BetterCrewLink on Play Store](https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0)](https://play.google.com/store/apps/details?id=io.bettercrewlink.app "Get BetterCrewLink On Play Store")
 
@@ -238,11 +238,11 @@ Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#
 
 ### iOS & MacOS [![iOS & MacOS](https://i.imgur.com/d4X3mKz.png)](https://youtu.be/qYvDg4dktI4 "Do not click here")
 
-Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) In BetterCrewlink-mobile to see how to install the iOS/MacOS Version. (Requires A PC Player)
+Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) In BetterCrewlink-mobile to see how to install the iOS/MacOS Version. (Requires a PC Player)
 
 ### Console 
 
-Go to [Web](https://web.bettercrewl.ink/game) to play Among Us with BetterCrewLink on console. (Requires a PC Player)
+Go to [Web](https://web.bettercrewl.ink/game) to play Among Us with BetterCrewLink on Console. (Requires a PC Player)
 
 ###### Note: XBOX and PlayStation ports for Among Us is still coming soon
 
@@ -286,7 +286,7 @@ PC: [![Contributors][contributors-shield]][contributors-url]\
 Mobile/Web: [![BetterCrewLink Mobile Contributors](https://img.shields.io/github/contributors/OhMyGuus/BetterCrewlink-mobile?label=Contributors&logo=GitHub)](https://github.com/OhMyGuus/BetterCrewlink-mobile/graphs/contributors)\
 Server: [![BetterCrewLink Server Contributors](https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink-server?label=Contributors&logo=GitHub)](https://github.com/OhMyGuus/BetterCrewLink-server/graphs/contributors)
 
-Any Contributions You Make Are Greatly Appreciated.
+Any Contributions you make are Greatly Appreciated.
 
 Needed [Git](https://git-scm.com/downloads) For Contributing.
 
