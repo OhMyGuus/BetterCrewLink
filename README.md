@@ -52,7 +52,7 @@
 - We are not affiliated with CrewLink, we are just a modified/better version of the original CrewLink, so if you need help with CrewLink, we will not offer any help for you about CrewLink here, we will only help you if you are using **Better**CrewLink, if you want to download BetterCrewLink look at the [GitHub](https://github.com/OhMyGuus/BetterCrewLink/releases/latest).
 
 <details>
-<summary> CrewLink Is Now No Longer Supported </summary>
+<summary> CrewLink is now No Longer Supported </summary>
 
 ![CrewLink End Of Support](https://user-images.githubusercontent.com/71022656/120219995-713daf80-c212-11eb-8305-330aab91ccef.png)
 
