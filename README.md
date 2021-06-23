@@ -20,7 +20,7 @@
   </p>
   <p align="center">
     <b><a href="#donate">Donate To BetterCrewLink</a></b></br>
-  (All Donations Will Be Used For The Apple Developer License And Extra Servers)</br>
+  (All Donations will be used for the Apple Developer License and Extra Servers)</br>
    <b><a href="https://paypal.me/ottomated">Donate To Ottomated (Official CrewLink)</a></b>
   </p>
 </p>
@@ -235,14 +235,13 @@ Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#
 
 [![Play Store Latest Version][playstore_latest_version-shield]][playstore_latest_version-url] 
 
-
 ### iOS & MacOS [![iOS & MacOS](https://i.imgur.com/d4X3mKz.png)](https://youtu.be/qYvDg4dktI4 "Do not click here")
 
-Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) In BetterCrewlink-mobile to see how to install the iOS/MacOS Version. (Requires a PC Player)
+Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) in BetterCrewlink-mobile to see how to install the iOS/MacOS Version. (Requires a PC Player)
 
 ### Console 
 
-Go to [Web](https://web.bettercrewl.ink/game) to play Among Us with BetterCrewLink on Console. (Requires a PC Player)
+Go to category [Web](https://web.bettercrewl.ink/) to play Among Us with BetterCrewLink on Console. (Requires a PC Player)
 
 ###### Note: XBOX and PlayStation ports for Among Us is still coming soon
 
@@ -422,17 +421,17 @@ Any Donations You Make Are Greatly Appreciated.
 <!-- BUGS -->
 ## Bugs
 
-If you have found any bugs, Join Our [Discord Server](https://discord.gg/qDqTzvj4SH) or make a issue in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues).
+If you have found any bugs, join our [Discord Server](https://discord.gg/qDqTzvj4SH) or make a issue in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues).
 
 <!-- SUGGESTIONS -->
 ## Suggestions
 
-If you have any suggestions, Join Our [Discord Server](https://discord.gg/qDqTzvj4SH)
+If you have any suggestions, join our [Discord Server](https://discord.gg/qDqTzvj4SH).
 
 <!-- QUESTIONS -->
 ## Questions
 
-If you have any questions, See The [Wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki), but if the answer to your question is not on the Wiki, Join Our [Discord Server](https://discord.gg/qDqTzvj4SH) and ask in [#✋bettercrewlink-help](https://discordapp.com/channels/791516611143270410/791518772770897980), **Do Not Ask Your Question In GitHub Issues**, we want to keep GitHub issues a place to report bugs and suggestions, without any question.
+If you have any questions, See The [Wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki), but if the answer to your question is not on the Wiki, join our [Discord Server](https://discord.gg/qDqTzvj4SH) and ask in [#✋bettercrewlink-help](https://discordapp.com/channels/791516611143270410/791518772770897980), **Do not ask your Question in GitHub Issues**, we want to keep GitHub issues a place to report bugs and suggestions, without any question.
 
 [![Discord Server][discord-shield]][discord-url]
 
