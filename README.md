@@ -20,7 +20,7 @@
   </p>
   <p align="center">
     <b><a href="#donate">Donate To BetterCrewLink</a></b></br>
-  (All Donations Will Be Used For The Apple Developer License And Extra Servers)</br>
+  (All Donations will be used for the Apple Developer License and Extra Servers)</br>
    <b><a href="https://paypal.me/ottomated">Donate To Ottomated (Official CrewLink)</a></b>
   </p>
 </p>
@@ -52,7 +52,7 @@
 - We are not affiliated with CrewLink, we are just a modified/better version of the original CrewLink, so if you need help with CrewLink, we will not offer any help for you about CrewLink here, we will only help you if you are using **Better**CrewLink, if you want to download BetterCrewLink look at the [GitHub](https://github.com/OhMyGuus/BetterCrewLink/releases/latest).
 
 <details>
-<summary> CrewLink Is Now No Longer Supported </summary>
+<summary> CrewLink is now No Longer Supported </summary>
 
 ![CrewLink End Of Support](https://user-images.githubusercontent.com/71022656/120219995-713daf80-c212-11eb-8305-330aab91ccef.png)
 
@@ -78,8 +78,11 @@
 * [Installation](installation)
   * [Windows](#windows-)
   * [Linux](#linux-)
-  * [Android/Chromebook/BlueStacks](#androidchromebookbluestacks)
+  * [Android OS](#android-os)
+  * [Chrome OS](#chrome-os)
+  * [BlueStacks](#bluestacks)
   * [iOS & MacOS](#ios--macos-)
+  * [Console](#console)
 * [Development](#development)
   * [Prerequisites](#prerequisites)
       * [Setup](#setup)
@@ -91,7 +94,7 @@
 * [Donate](#donate)
 * [Donators](#donators)
 * [Bugs](#bugs)
-* [Suggestions](#suggestions-information)
+* [Suggestions](#suggestions)
 * [Questions](#questions)
 * [License](#license)
 
@@ -111,32 +114,32 @@ This project implements Proximity Voice Chat In Among Us. Everyone in an Among U
 - Public Lobby List.
 - Multiple Languages.
 - Better Mod Compatibility.
-- It Doesn't Break When Players Leave/Disconnect.
-- It Works On Any Network Even With UPnP Disabled. (Strict NAT)
+- It Doesn't break when Players Leave/Disconnect.
+- It Works on Any Network even with UPnP Disabled. (Strict NAT)
 - More Fun Settings Like Hearing Through Cameras, Impostor Radio.
-- You Can Actually Disable The Overlay.
-- 32bit Support
+- You can actually disable the Overlay.
+- 32bit Support.
 - Windows 7 Support.
-- You Can Change The Volume Of Alive Players After You Die.
-- You Can Set BetterCrewLink To Topmost.
-- Settings Actually Sync Between Players And Not Half.
-- CPU Usage Is Lower Than Original CrewLink.
-- You Can Actually Press The Mute Key/Deafen Key While Clicked On BetterCrewLink.
-- Your Mouse Doesn't Start To Lag Because Of The Buggy Input Hook.
-- You Can Play BetterCrewLink Without Having To Be Stuck In MENU Infinitely.
-- Changing The Speaker Setting Does Actually Something Unlike Original CrewLink Where It Is Always Using The Default Output.
+- You can change the Volume of Alive Players after you die.
+- You can set BetterCrewLink to Topmost.
+- Settings Actually Sync Between Players and not Half.
+- CPU Usage is Lower than Original CrewLink.
+- You can actually press the Mute Key/Deafen Key while clicked on BetterCrewLink.
+- Your Mouse doesn't start to Lag because of the Buggy Input Hook.
+- You can play BetterCrewLink without having to be stuck in MENU Infinitely.
+- Changing the Speaker Setting does actually something unlike Original CrewLink where it is always using the Default Output.
 - Microphone Echo Cancellation.
 - Microphone Eoise Suppression.
-- More Overlay Positions And You Can Set The Overlay To The Top/Bottom And You Can Set It So It Shows Everyone Even When Dead.
-- You Can Set The Lobby Up So Only Death people can talk. (Normal Lobbies But Then With Death Talk)
-- Support For new/older versions of Among Us. (v2021.6.15)
-- Support For other platforms. (itch.io, Play Store, App Store, Nintendo Switch, Beta) PlayStation 4 and PlayStation 5 & XBOX Series X/S (Coming Soon)
-- Support For Custom Colors/Hats/Skins. (Mods That Add More Colors/Hats/Skins)
+- More Overlay Positions and you can set the Overlay to the Top/Bottom and you can set It so It shows Everyone Even When Dead.
+- You can set the Lobby Up so Only Death people can talk. (Normal Lobbies but then with Death Talk)
+- Support For New/Older Versions of Among Us. (v2021.6.15)
+- Support For Other Platforms. (itch.io, Play Store, App Store, Nintendo Switch, Beta, PlayStation 4 and PlayStation 5 & XBOX Series X/S (Coming Soon)
+- Support For Custom Colors/Hats/Skins. (Mods that Add More Colors/Hats/Skins)
 - Support For Linux.
 - Support For Mobile. (iOS App Coming Soon)
 ```
 
-**If We Missed Something You Can Join In [Discord server](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM The Developer On Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) So He Can Add It To BetterCrewLink.**
+**If we missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) so we can add It to BetterCrewLink.**
 
 [![Discord Server][discord-shield]][discord-url]
 
@@ -208,9 +211,25 @@ The Linux Version Is Thanks To The Following Contributors:
 - [zbanks](https://github.com/zbanks) -> Memoryjs fork
 - [Donokami](https://github.com/Donokami) -> Testing And Helping
 
-### Android/Chromebook/BlueStacks
+### Android OS
 
-Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) In BetterCrewlink-Mobile to see how to install the Android/Chromebook/BlueStacks Version. (Requires A PC Player)
+Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) In BetterCrewlink-Mobile to see how to install the Android OS Version. (Requires a PC Player)
+
+[![BetterCrewLink on Play Store](https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0)](https://play.google.com/store/apps/details?id=io.bettercrewlink.app "Get BetterCrewLink On Play Store")
+
+[![Play Store Latest Version][playstore_latest_version-shield]][playstore_latest_version-url] 
+
+### Chrome OS
+
+Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) In BetterCrewlink-Mobile to see how to install the Chrome OS Version. (Requires a PC Player)
+
+[![BetterCrewLink on Play Store](https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0)](https://play.google.com/store/apps/details?id=io.bettercrewlink.app "Get BetterCrewLink On Play Store")
+
+[![Play Store Latest Version][playstore_latest_version-shield]][playstore_latest_version-url] 
+
+### BlueStacks
+
+Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#android--chromebook) In BetterCrewlink-Mobile to see how to install the BlueStacks Version. (Requires a PC Player)
 
 [![BetterCrewLink on Play Store](https://lh3.googleusercontent.com/cjsqrWQKJQp9RFO7-hJ9AfpKzbUb_Y84vXfjlP0iRHBvladwAfXih984olktDhPnFqyZ0nu9A5jvFwOEQPXzv7hr3ce3QVsLN8kQ2Ao=s0)](https://play.google.com/store/apps/details?id=io.bettercrewlink.app "Get BetterCrewLink On Play Store")
 
@@ -218,7 +237,13 @@ Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#
 
 ### iOS & MacOS [![iOS & MacOS](https://i.imgur.com/d4X3mKz.png)](https://youtu.be/qYvDg4dktI4 "Do not click here")
 
-Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) In BetterCrewlink-mobile to see how to install the iOS/MacOS Version. (Requires A PC Player)
+Go to category [Installation](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) in BetterCrewlink-mobile to see how to install the iOS/MacOS Version. (Requires a PC Player)
+
+### Console 
+
+Go to category [Web](https://web.bettercrewl.ink/) to play Among Us with BetterCrewLink on Console. (Requires a PC Player)
+
+###### Note: XBOX and PlayStation ports for Among Us is still coming soon
 
 <!-- DEVELOPMENT -->
 ## Development
@@ -260,7 +285,7 @@ PC: [![Contributors][contributors-shield]][contributors-url]\
 Mobile/Web: [![BetterCrewLink Mobile Contributors](https://img.shields.io/github/contributors/OhMyGuus/BetterCrewlink-mobile?label=Contributors&logo=GitHub)](https://github.com/OhMyGuus/BetterCrewlink-mobile/graphs/contributors)\
 Server: [![BetterCrewLink Server Contributors](https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink-server?label=Contributors&logo=GitHub)](https://github.com/OhMyGuus/BetterCrewLink-server/graphs/contributors)
 
-Any Contributions You Make Are Greatly Appreciated.
+Any Contributions you make are Greatly Appreciated.
 
 Needed [Git](https://git-scm.com/downloads) For Contributing.
 
@@ -358,7 +383,7 @@ A big thanks to all those who translated and are still translating to keep this 
 ## Credits & Resources
 
 * [CrewLink](https://github.com/ottomated) - The Official CrewLink App.
-* [Electron](https://www.electronjs.org/) - For make the app BetterCrewLink.
+* [Electron](https://www.electronjs.org/) - For making the app BetterCrewLink.
 * [memoryjs](https://github.com/TheGreatMcPain/memoryjs) - For making BetterCrewLink work with Linux.
 * [node-keyboard-watcher](https://github.com/OhMyGuus/node-keyboard-watcher) - For making it easy to make a Push To Talk, Push To Mute and Impostor Radio.
 * [electron-overlay-window](https://github.com/OhMyGuus/electron-overlay-window) - For making it easy to make Overlays.
@@ -396,17 +421,17 @@ Any Donations You Make Are Greatly Appreciated.
 <!-- BUGS -->
 ## Bugs
 
-If you have found any bug, Join Our [Discord Server](https://discord.gg/qDqTzvj4SH) or make a issue in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues).
+If you have found any bugs, join our [Discord Server](https://discord.gg/qDqTzvj4SH) or make a issue in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues).
 
 <!-- SUGGESTIONS -->
 ## Suggestions
 
-If you have any suggestion, Join Our [Discord Server](https://discord.gg/qDqTzvj4SH)
+If you have any suggestions, join our [Discord Server](https://discord.gg/qDqTzvj4SH).
 
 <!-- QUESTIONS -->
 ## Questions
 
-If you have any question, See The [Wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki), but if the answer to your question is not on the Wiki, [Join Our Discord](https://discord.gg/qDqTzvj4SH) and ask in [#✋bettercrewlink-help](https://discordapp.com/channels/791516611143270410/791518772770897980), **Do Not Ask Your Question In GitHub Issues**, we want to keep GitHub issues a place to report bugs and suggestions, without any question.
+If you have any questions, See The [Wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki), but if the answer to your question is not on the Wiki, join our [Discord Server](https://discord.gg/qDqTzvj4SH) and ask in [#✋bettercrewlink-help](https://discordapp.com/channels/791516611143270410/791518772770897980), **do not ask your Question in GitHub Issues**, we want to keep GitHub issues a place to report bugs and suggestions, without any question.
 
 [![Discord Server][discord-shield]][discord-url]
 
