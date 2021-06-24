@@ -65,7 +65,7 @@ body:
       description: If applicable, add screenshots to help explain your problem.
       placeholder: If you can, add a screenshot here
     validations:
-      required: true
+      required: false
   - type: textarea
     id: desktop
     attributes:
