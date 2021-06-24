@@ -30,7 +30,7 @@ body:
         - label: I have a screenshot of any errors
           required: false
         - label: I have checked that someone else has not reported this using the [search bar](https://github.com/OhMyGuus/BetterCrewLink/issues?q=is%3Aissue)
-          required: false
+          required: true
   - type: textarea
     id: bug-desc
     attributes:
