@@ -1,46 +1,84 @@
----
 name: Bug Report
 about: Create a report to help us improve
 title: '[BUG REPORT]'
 labels: 'Bug Report'
 assignees: ''
----
-# You MUST use this template or your issue will be deleted.
-
-**Before reporting a bug, always look at the [wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki/common-issues) or [FAQ](https://discord.gg/qDqTzvj4SH) in Discord Server that there usually has a solution for your bug**
-
-**If your problem is with BetterCrewLink on your mobile or the web version, [click here](https://github.com/OhMyGuus/BetterCrewlink-mobile/issues) and make an issue there, if your problem is with BetterCrewLink on the PC, ignore that and continue with your bug report**
-
-# Pre-Flight Checklist
-Please use this checklist to avoid spamming:
-
-1. [ ] I am not asking a question => use the [Discord](https://discord.gg/qDqTzvj4SH) if you are
-2. [ ] I have tried to use an [alternative voice server](https://bettercrewl.ink/)
-3. [ ] I have checked everyone in my lobby is on the same BetterCrewLink/CrewLink server
-4. [ ] I have refreshed and activated <kbd>NAT Fix</kbd> on the BetterCrewLink app when I can't hear some people (this is a known issue)
-5. [ ] I have checked that the BetterCrewLink/CrewLink server I'm using is up to date
-6. [ ] I have a screenshot of any errors
-7. [ ] I have checked that someone else has not reported this using the [search bar](https://github.com/OhMyGuus/BetterCrewLink/issues?q=is%3Aissue)
-
-**Describe the bug**
-<!-- A clear and concise description of what the bug is. -->
-
-**To Reproduce**
-Steps to reproduce the behaviour:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
-
-**Expected behaviour**
-<!-- A clear and concise description of what you expected to happen. -->
-
-**Screenshots**
-<!-- If applicable, add screenshots to help explain your problem. -->
-
-**Desktop (please complete the following information):**
- - OS: [e.g. Windows 10]
- - Version: [e.g. 2.4.0]
-
-**Additional context**
-<!-- Add any other context about the problem here. -->
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Before reporting a bug, always look at the [wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki/common-issues) or [FAQ](https://discord.gg/qDqTzvj4SH) in Discord Server that there usually has a solution for your bug**
+  - type: markdown
+    attributes:
+      value: |
+        **If your problem is with BetterCrewLink on your mobile or the web version, [click here](https://github.com/OhMyGuus/BetterCrewlink-mobile/issues) and make an issue there, if your problem is with BetterCrewLink on the PC, ignore that and continue with your bug report**
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-Flight Checklist
+      description: Please use this checklist to avoid spamming.
+      options:
+        - label: I am not asking a question => use the [Discord](https://discord.gg/qDqTzvj4SH) if you are
+          required: true
+        - label: I have tried to use an [alternative voice server](https://bettercrewl.ink/)
+          required: true
+        - label: I have checked everyone in my lobby is on the same BetterCrewLink/CrewLink server
+          required: true
+        - label: I have refreshed and activated <kbd>NAT Fix</kbd> on the BetterCrewLink app when I can't hear some people (this is a known issue)
+          required: true
+        - label: I have checked that the BetterCrewLink/CrewLink server I'm using is up to date
+          required: true
+        - label: I have a screenshot of any errors
+          required: false
+        - label: I have checked that someone else has not reported this using the [search bar](https://github.com/OhMyGuus/BetterCrewLink/issues?q=is%3Aissue)
+          required: false
+  - type: textarea
+    id: bug-desc
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+      placeholder: Tell us what happened
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce the behavior
+      description: A clear and concise description of what the bug is.
+      placeholder: Tell us how to reproduce
+      value: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen.
+      placeholder: What was suppose to happen
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain your problem.
+      placeholder: If you can, add a screenshot here
+    validations:
+      required: true
+  - type: textarea
+    id: desktop
+    attributes:
+      label: Desktop
+      description: Your OS info, game version etc.
+      value: |
+         - OS: [e.g. Windows 10]
+         - Version: [e.g. 2.7.2]
+    validations:
+      required: true
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here.
