@@ -64,8 +64,6 @@ body:
       label: Screenshots
       description: If applicable, add screenshots to help explain your problem.
       placeholder: If you can, add a screenshot here
-    validations:
-      required: false
   - type: textarea
     id: desktop
     attributes:
