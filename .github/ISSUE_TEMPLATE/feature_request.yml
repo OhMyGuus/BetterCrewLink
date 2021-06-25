@@ -1,0 +1,43 @@
+name: Feature Request
+description: Suggest an idea for this project
+title: "[FEATURE] "
+labels: [Enhancement]
+body:
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-Flight Checklist
+      description: Please use this checklist to avoid spamming.
+      options:
+        - label: I am not asking a question => use the [Discord](https://discord.gg/qDqTzvj4SH) if you are
+          required: true
+        - label: I have checked that someone else has not reported this using the [search bar](https://github.com/OhMyGuus/BetterCrewLink/issues?q=is%3Aissue)
+          required: true
+        - label: "My feature request is not one of the **commonly suggested features**: iOS app (it's already being development)"
+          required: true
+  - type: textarea
+    id: is-related
+    attributes:
+      label: Is your feature request related to a problem? Please describe.
+      description: A clear and concise description of what the problem is. Ex. I'm always frustrated when [...].
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like
+      description: A clear and concise description of what you want to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Describe alternatives you've considered
+      description: A clear and concise description of any alternative solutions or features you've considered.
+    validations:
+      required: true
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Add any other context or screenshots about the feature request here.
