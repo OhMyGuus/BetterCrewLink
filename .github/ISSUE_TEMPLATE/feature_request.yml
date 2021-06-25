@@ -15,7 +15,7 @@ body:
           required: true
         - label: |
         My feature request is not one of the **commonly suggested features**:
-        - iOS app (it's already being development)
+        iOS app (it's already being development)
           required: true
   - type: textarea
     id: is-related
