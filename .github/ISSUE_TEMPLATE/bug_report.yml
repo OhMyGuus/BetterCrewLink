@@ -10,7 +10,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        **If your problem is with BetterCrewLink on your mobile or the web version, [click here](https://github.com/OhMyGuus/BetterCrewlink-mobile/issues) and make an issue there, if your problem is with BetterCrewLink on the PC, ignore that and continue with your bug report**
+        **If your problem is with BetterCrewLink on your mobile or web version, [click here](https://github.com/OhMyGuus/BetterCrewlink-mobile/issues) and make an issue there, if your problem is with BetterCrewLink on PC, ignore it and continue with your bug report**
   - type: checkboxes
     id: checklist
     attributes:
