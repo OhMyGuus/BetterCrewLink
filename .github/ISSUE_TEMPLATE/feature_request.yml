@@ -13,7 +13,7 @@ body:
           required: true
         - label: I have checked that someone else has not reported this using the [search bar](https://github.com/OhMyGuus/BetterCrewLink/issues?q=is%3Aissue)
           required: true
-        - label: "My feature request is not one of the commonly suggested features: iOS app (it's already being development)"
+        - label: "My feature request is not one of the **commonly suggested features**: iOS app (it's already being development)"
           required: true
   - type: textarea
     id: is-related
