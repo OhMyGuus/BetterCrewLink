@@ -53,9 +53,22 @@ const TestMicrophoneButton: React.FC<TestMicProps> = function ({ microphone }: T
 			setRms(rms);
 		};
 
+		// @ts-ignore-line
+		const audio_options: any = {
+			deviceId: microphone ?? 'default',
+			autoGainControl: false,
+			echoCancellation: false,
+			noiseSuppression: false,
+			googEchoCancellation: false,
+			googAutoGainControl2: false,
+			googNoiseSuppression: false,
+			googHighpassFilter: false,
+			googTypingNoiseDetection: false,
+		};
+
 		navigator.mediaDevices
 			.getUserMedia({
-				audio: { deviceId: microphone ?? 'default' },
+				audio: audio_options,
 				video: false,
 			})
 			.then((stream) => {
