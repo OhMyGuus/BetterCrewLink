@@ -456,6 +456,20 @@ export default class GameReader {
 				false,
 				true
 			);
+			this.offsets.showModStampFunc = this.findPattern(
+				this.offsets.signatures.showModStamp.sig,
+				this.offsets.signatures.showModStamp.patternOffset,
+				this.offsets.signatures.showModStamp.addressOffset,
+				false,
+				true
+			);
+			this.offsets.modLateUpdateFunc = this.findPattern(
+				this.offsets.signatures.modLateUpdate.sig,
+				this.offsets.signatures.modLateUpdate.patternOffset,
+				this.offsets.signatures.modLateUpdate.addressOffset,
+				false,
+				true
+			);
 		}
 		this.offsets.serverManager_currentServer[0] = this.findPattern(
 			this.offsets.signatures.serverManager.sig,
@@ -509,6 +523,7 @@ export default class GameReader {
 			//not supported atm
 			return;
 		}
+	
 		// Shellcode to join games when u press join..
 		const shellCodeAddr = virtualAllocEx(this.amongUs.handle, null, 0x60, 0x00001000 | 0x00002000, 0x40);
 		const compareAddr = shellCodeAddr + 0x30;
@@ -577,6 +592,67 @@ export default class GameReader {
 			(relativeShellJMP & 0xff000000) >> 24,
 		];
 
+
+		const modManagerLateUpdate = this.gameAssembly!.modBaseAddr + this.offsets.modLateUpdateFunc;
+		const shellCodeAddr_1 = shellCodeAddr + 0x300;
+		const relativeShellJMP_1 = shellCodeAddr_1 - (modManagerLateUpdate + 0x1) - 0x4;
+		const relativefixedJMP_1 = modManagerLateUpdate + 0x5 - (shellCodeAddr_1 + 0x1C) - 0x4;
+		const showModStampFunc = this.gameAssembly!.modBaseAddr + this.offsets.showModStampFunc;
+		const relativeShowModStamp = showModStampFunc + 0x6 - (shellCodeAddr_1 + 0x12) - 0x4;
+
+
+		const _compareAddr = shellCodeAddr + 0x44;
+
+		const _compareAddr1 = (_compareAddr & 0xff000000) >> 24;
+		const _compareAddr2 = (_compareAddr & 0x00ff0000) >> 16;
+		const _compareAddr3 = (_compareAddr & 0x0000ff00) >> 8;
+		const _compareAddr4 = _compareAddr & 0x000000ff;
+
+		const shellcode_modIcon = [
+			0x80, // cmp byte ptr [ShellcodeAddr + 0x30], 0x0,
+			0x3d,
+			_compareAddr4, // 0x0
+			_compareAddr3, // 0x0
+			_compareAddr2, // 0xA3
+			_compareAddr1, // 0x0
+			0x00,
+			0x74, // je 0x13
+			0x0C,
+			0xc6, // mov byte ptr [ShellcodeAddr + 0x30], 0x00
+			0x05,
+			_compareAddr4, // 0x0
+			_compareAddr3, // 0x0
+			_compareAddr2, // 0xA3
+			_compareAddr1, // 0x0
+			0x00, // write 0x0
+			0xE9,
+			relativeShowModStamp & 0x000000ff,
+			(relativeShowModStamp & 0x0000ff00) >> 8,
+			(relativeShowModStamp & 0x00ff0000) >> 16,
+			(relativeShowModStamp & 0xff000000) >> 24,
+			0x53,
+			0x8B,
+			0xDC,
+			0x83,
+			0xEC,
+			0x08,
+			0xe9, // jmp innerNet.InnerNetClient.FixedUpdate + 0x5
+			relativefixedJMP_1 & 0x000000ff,
+			(relativefixedJMP_1 & 0x0000ff00) >> 8,
+			(relativefixedJMP_1 & 0x00ff0000) >> 16,
+			(relativefixedJMP_1 & 0xff000000) >> 24,
+		];
+
+		const shellcodeJMP_1 = [
+			// jmp ShellcodeRelativeAddress
+			0xe9,
+			relativeShellJMP_1 & 0x000000ff,
+			(relativeShellJMP_1 & 0x0000ff00) >> 8,
+			(relativeShellJMP_1 & 0x00ff0000) >> 16,
+			(relativeShellJMP_1 & 0xff000000) >> 24,
+			0x90
+		];
+
 		//MMOnline
 		this.writeString(shellCodeAddr + 0x70, 'OnlineGame');
 		this.writeString(shellCodeAddr + 0x95, 'MMOnline');
@@ -588,6 +664,10 @@ export default class GameReader {
 
 		writeBuffer(this.amongUs!.handle, shellCodeAddr, Buffer.from(shellcode));
 		writeBuffer(this.amongUs!.handle, fixedUpdateFunc, Buffer.from(shellcodeJMP));
+
+		writeBuffer(this.amongUs!.handle, shellCodeAddr_1, Buffer.from(shellcode_modIcon));
+		writeBuffer(this.amongUs!.handle, modManagerLateUpdate, Buffer.from(shellcodeJMP_1));
+
 		this.shellcodeAddr = shellCodeAddr;
 		this.writtenPingMessage = false;
 		this.initializedWrite = true;
@@ -632,6 +712,8 @@ export default class GameReader {
 		) {
 			return;
 		}
+		writeMemory(this.amongUs!.handle, this.shellcodeAddr + 0x44, 1, 'int32'); // enable ModIcon
+
 		this.skipPingMessage = 25;
 		this.writtenPingMessage = true;
 		for (let index = 0; index < 3; index++) {
@@ -711,6 +793,7 @@ export default class GameReader {
 		if (!colorLength || colorLength <= 0 || colorLength > 30) {
 			return;
 		}
+
 		this.rainbowColor = -9999;
 		this.colorsInitialized = colorLength > 0;
 		const playercolors = [];
