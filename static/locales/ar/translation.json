@@ -128,12 +128,18 @@
 	},
 	"game": {
 		"menu": "قائمة",
-		"open": "فتح اللعبة",
+		"open": "فتح عبر",
 		"open_error": "ابدأ اللعبة يدويًا.\n(هذا الزر مخصص للبخار فقط)",
 		"waiting": "انتظار among us",
 		"error": "خطأ",
 		"error_admin": "تعذر الاتصال بـ Among Us.\nالرجاء إعادة فتح BetterCrewLink كمسؤول.",
+		"error_platform": "لم يتم اكتشاف أي منصة",
 		"error_unsupport": "الإصدار الخاص بك من Among Us غير مدعوم من قبل BetterCrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft"
 	},
 	"translator_name": "Hani Rouatbi, XRevan86 and Achs gaming"
 }
