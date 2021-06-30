@@ -22,7 +22,16 @@
 			"meetings_only": "仅限会议内/大厅内语音",
 			"meetings_only_warning": "这将禁用所有会议外幸存玩家的语音功能。",
 			"meetings_only_warning2": "启用了仅限会议内语音",
-			"impostor_radio": "内鬼私密通话"
+			"impostor_radio": "内鬼私密通话",
+			"public_lobby": {
+				"change_settings": "Change Lobby Info",
+				"title": "Title",
+				"enabled": "The Lobby is Public",
+				"mods": "Mods",
+				"language": "Language",
+				"enable_warning": "Enabling this will make your lobby public to other BetterCrewLink users!",
+				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
+			}
 		},
 		"audio": {
 			"title": "音频设置",
@@ -48,7 +57,7 @@
 		},
 		"overlay": {
 			"title": "游戏内覆盖",
-			"always_on_top": "BetterCrewLink 在最上层",
+			"always_on_top": "BetterCrewLink On Top",
 			"enabled": "启用覆盖",
 			"compact": "简洁覆盖",
 			"meeting": "会议覆盖",
@@ -77,6 +86,7 @@
 			"title": "BETA/DEBUG",
 			"mobilehost": "移动端主机",
 			"vad_enabled": "启用VAD",
+			"hardware_acceleration": "Hardware Acceleration",
 			"vad_enabled_warning": "如果停用这个选项，你看不到当前谁在说话。",
 			"echocancellation": "回音消除",
 			"noiseSuppression": "降噪",
@@ -86,7 +96,7 @@
 			"title": "直播设置",
 			"hidecode": "显示大厅代码",
 			"obs_overlay": "OBS 浏览器覆盖源",
-			"obs_url": "OBS 浏览器源 URL",
+			"obs_url": "OBS Browser Source URL",
 			"voice_server_comp": "VS 兼容模式",
 			"voice_server_comp_warning": "建议将语音服务器更改为BetterCrewLink Voice Server ，例如：https://bettercrewl.ink 。"
 		},
@@ -97,20 +107,39 @@
 			"warning": "游戏中没有可用房主！"
 		}
 	},
+	"lobbybrowser": {
+		"header": "Public Lobbies",
+		"code": "Lobby Code",
+		"list": {
+			"title": "Title",
+			"host": "Host",
+			"players": "Players",
+			"mods": "Mods",
+			"language": "Language"
+		}
+	},
 	"buttons": {
 		"default": "默认",
 		"confirm": "确认",
 		"cancel": "取消",
-		"exit": "退出设置以应用更改"
+		"close": "Close",
+		"exit": "Exit Settings to Apply Changes",
+		"public_lobby": "Public Lobbies"
 	},
 	"game": {
 		"menu": "菜单",
-		"open": "开始游戏",
+		"open": "Open Via",
 		"open_error": "手动启动游戏。 \n(此按钮仅适用于Steam平台)",
 		"waiting": "等待Among Us启动中",
 		"error": "错误",
 		"error_admin": "无法连接到Among Us。\n请以管理员权限重新打开 BetterCrewLink。",
+		"error_platform": "No Platform Detected",
 		"error_unsupport": "BetterCrewLink不支持当前版本的Among Us。"
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft"
 	},
 	"translator_name": "Zheng Syameimaru"
 }

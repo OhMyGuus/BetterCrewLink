@@ -1,14 +1,17 @@
 import translationEN from '../../../static/locales/en/translation.json';
 import translationAR from '../../../static/locales/ar/translation.json';
 import translationAREG from '../../../static/locales/ar-EG/translation.json';
+import translationAZ from '../../../static/locales/az/translation.json';
 import translationCA from '../../../static/locales/ca/translation.json';
 import translationZHCN from '../../../static/locales/zh-CN/translation.json';
+import translationZHTW from '../../../static/locales/zh-TW/translation.json';
 import translationCS from '../../../static/locales/cs/translation.json';
 import translationNL from '../../../static/locales/nl/translation.json';
 import translationEO from '../../../static/locales/eo/translation.json';
 import translationFR from '../../../static/locales/fr/translation.json';
 import translationDE from '../../../static/locales/de/translation.json';
 import translationID from '../../../static/locales/id/translation.json';
+import translationIT from '../../../static/locales/it/translation.json';
 import translationJA from '../../../static/locales/ja/translation.json';
 import translationPL from '../../../static/locales/pl/translation.json';
 import translationPTPT from '../../../static/locales/pt-PT/translation.json';
@@ -37,6 +40,10 @@ const languages = {
 		translation: translationAREG,
 		name: 'مصر العربية',
 	},
+	'az': {
+		translation: translationAZ,
+		name: 'Azərbaycan',
+	},
 	ca: {
 		translation: translationCA,
 		name: 'Català',
@@ -44,6 +51,10 @@ const languages = {
 	'zh-CN': {
 		translation: translationZHCN,
 		name: '汉语',
+	},
+	'zh-TW': {
+		translation: translationZHTW,
+		name: '漢語',
 	},
 	cs: {
 		translation: translationCS,
@@ -68,6 +79,10 @@ const languages = {
 	id: {
 		translation: translationID,
 		name: 'Bahasa Indonesia',
+	},
+	it: {
+		translation: translationIT,
+		name: 'Italiano',
 	},
 	ja: {
 		translation: translationJA,
