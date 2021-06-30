@@ -1,0 +1,145 @@
+{
+	"settings": {
+		"title": "Tənzimləmələr",
+		"language": "Dil",
+		"warning": "Əminsiniz?",
+		"lobbysettings": {
+			"title": "Lobbi Tənzimləmələri",
+			"gamehostonly": "Yalnız oyun host-u bunu dəyişdirə bilər!",
+			"inlobbyonly": "Bunu yalnız lobbidə dəyişdirə bilərsiniz!",
+			"voicedistance": "Səs Məsafəsi",
+			"voicedistance_impostor": "Impostor Səs Məsafəsi",
+			"wallsblockaudio": "Divarlar Səsi Əngəlləyir",
+			"visiononly": "Yalnız Vizyonda İnsanları Dinlə",
+			"impostorshearsghost": "Impostor-lar Ölüləri Eşidir",
+			"hear_imposters_invents": "Impostor-ları Havalandırmada Dinlə",
+			"private_talk_invents": "Havalandırmada Özəl Danışıq",
+			"comms_sabotage_audio": "Comms Təxribatı Səsi Bağlayır",
+			"hear_through_cameras": "Kameralar Üzərindən Dinlə",
+			"ghost_only": "Yalnız Ruhlar Danışa/Dinləyə Bilər",
+			"ghost_only_warning": "Yaşayan oyunçular üçün səsi bağlayır.",
+			"ghost_only_warning2": "Ruhlar sadəcə fəal danışa bilər.",
+			"meetings_only": "Yalnız Görüş/Lobbi",
+			"meetings_only_warning": "Görüş xaricində yaşayan oyunçular üçün səsi bağlayır.",
+			"meetings_only_warning2": "Yalnız görüşdə danışıq fəaldır.",
+			"impostor_radio": "Impostor Radio",
+			"public_lobby": {
+				"change_settings": "Lobbi Məlumatını Dəyişdir",
+				"title": "Başlıq",
+				"enabled": "Lobbi İctimaidir",
+				"mods": "Modlar",
+				"language": "Dil",
+				"enable_warning": "Bunu fəallaşdırmaq, lobbini digər BetterCrewLink istifadəçiləri üçün ictimai edəcək!",
+				"ban_warning": "Uyğunsuz mətn, BetterCrewLink-də qadağa qoyulmasına səbəb olacaqdır."
+			}
+		},
+		"audio": {
+			"title": "Səs",
+			"microphone": "Mikrofon",
+			"speaker": "Dinamik",
+			"voice_activity": "Səs Fəaliyyəti",
+			"push_to_talk": "Danışmaq üçün Basın",
+			"push_to_mute": "Səsi kəsmək üçün basın",
+			"microphone_volume": "Mikrofon Səsi",
+			"microphone_sens": "Mikrofon Həssaslığı",
+			"microphone_sens_warning": "Həssaslığı bir az da azaltsanız işləməyə bilər.",
+			"mastervolume": "Əsas Səs Həcmi",
+			"crewvolume": "Ruh kimi İşçi Səs Səviyyəsi",
+			"test_speaker_start": "Dinamiki test edin",
+			"test_speaker_stop": "Testi dayandırın"
+		},
+		"keyboard": {
+			"title": "Klaviatura Qısayolları",
+			"push_to_talk": "Danışmaq üçün Basın",
+			"mute": "Səsi kəs",
+			"deafen": "Karlaşdır",
+			"impostor_radio": "Impostor Radio"
+		},
+		"overlay": {
+			"title": "Overlay",
+			"always_on_top": "BetterCrewLink Üstdə",
+			"enabled": "Overlay-ı fəallaşdır",
+			"compact": "Yığcam Overlay",
+			"meeting": "Görüş Ovrelay-ı",
+			"pos": "Overlay Mövqeyi",
+			"locations": {
+				"hidden": "Gizli",
+				"top": "Üst Mərkəz",
+				"bottom": "Alt Sol",
+				"right": "Sağ",
+				"right1": "Arxaplan ilə sağda",
+				"left": "Sol",
+				"left1": "Arxaplan ilə solda"
+			}
+		},
+		"advanced": {
+			"title": "Qabaqcıl",
+			"nat_fix": "NAT Fix",
+			"nat_fix_warning": "NAT problemlərini düzəldəcək, ancaq Peer to Peer (P2P) əvəzinə bir server istifadə etdiyi üçün gecikmə əlavə edəcək.",
+			"change_server": "Səs Serverini Dəyişdir",
+			"voice_server": "Səs Server",
+			"invalid_url": "Etibarsız URL",
+			"voice_server_warning": "Bu seçim yalnız qabaqcıl istifadəçilər üçündür. Digər serverlər məlumatlarınızı oğurlaya bilər və ya BetterCrewLink çökə bilər.",
+			"reset_default": "İlkin vəziyyətinə qaytar"
+		},
+		"beta": {
+			"title": "BETA/SAZLAMA",
+			"mobilehost": "Mobil Host",
+			"vad_enabled": "VAD Fəaldır",
+			"hardware_acceleration": "Aparat Təminatı Sürətləndirmə",
+			"vad_enabled_warning": "Bağlı olsa kimin danışdığını görə bilməyəcəksiniz.",
+			"echocancellation": "Əks-səda ləğv etmə",
+			"noiseSuppression": "Səs-küy azaltma",
+			"spatial_audio": "Məkan səsi"
+		},
+		"streaming": {
+			"title": "Axın tənzimləmələri",
+			"hidecode": "Lobbi Kodunu Göstər",
+			"obs_overlay": "OBS Səyyah Overlay-ı",
+			"obs_url": "OBS Səyyah Mənbə URL-si",
+			"voice_server_comp": "Səs Server Uyğunluq Rejimi",
+			"voice_server_comp_warning": "Məsələn, səs serverini BetterCrewLink Voice Server (https://bettercrewl.ink) olaraq dəyişdirməyiniz tövsiyə edilir."
+		},
+		"troubleshooting": {
+			"title": "Problemlərin aradan qaldırılması",
+			"restore": "İlkin vəziyyəti bərpa edin",
+			"restore_warning": "BÜTÜN tənzimləmələr ilkin dəyərlərinə qaytarılacaq.",
+			"warning": "Oyunda host kimi əlçatan deyil!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "İctimai Lobbilər",
+		"code": "Lobbi Kodu",
+		"list": {
+			"title": "Başlıq",
+			"host": "Host",
+			"players": "Oyunçular",
+			"mods": "Modlar",
+			"language": "Dil"
+		}
+	},
+	"buttons": {
+		"default": "İlkin",
+		"confirm": "Təsdiqlə",
+		"cancel": "İmtina",
+		"close": "Bağla",
+		"exit": "Dəyişikliklərin tətbiq olunması üçün tənzimləmələrdən çıxın",
+		"public_lobby": "İctimai Lobbilər"
+	},
+	"game": {
+		"menu": "MENYU",
+		"open": "Aç",
+		"open_error": "Əllə oyunu başladın. \n(bu düymə ancaq steam üçündür)",
+		"waiting": "Among Us gözlənilir",
+		"error": "XƏTA",
+		"error_admin": "Among Us ilə bağlantı qurula bilmir.\nZəhmət olmasa BetterCrewLink-i Administrator kimi yenidən açın.",
+		"error_platform": "Platforma Aşkarlanmadı",
+		"error_unsupport": "Among Us versiyanız BetterCrewLink tərəfindən dəstəklənmir."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft"
+	},
+	"translator_name": "Şahin Fərzəliyev"
+}
