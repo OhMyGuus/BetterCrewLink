@@ -16,10 +16,8 @@ type publicLobbySettingProps = {
 
 const useStyles = makeStyles(() => ({
 	specialButton: {
-		width: '100%',
-		marginLeft: '-11px',
-		borderTop: '1px solid #313135',
-		backgroundColor: 'rgba(0,0,0,0.03)',
+		width: '90%',
+		marginBottom: '10px',
 	},
 }));
 const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
@@ -39,7 +37,7 @@ const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 
 	return (
 		<>
-			<Button variant="text" className={classes.specialButton} onClick={() => setOpen(true)}>
+			<Button variant="contained" color="secondary" className={classes.specialButton} onClick={() => setOpen(true)}>
 				{t('settings.lobbysettings.public_lobby.change_settings')}
 			</Button>
 			<Dialog fullScreen open={open} onClose={() => setOpen(false)}>
