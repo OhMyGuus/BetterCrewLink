@@ -48,7 +48,13 @@ const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 
 	return (
 		<>
-			<Button variant="contained" color="secondary" className={classes.specialButton} onClick={() => setOpen(true)}>
+			<Button 
+				variant="contained" 
+				color="secondary" 
+				className={classes.specialButton} 
+				onClick={() => setOpen(true)}
+				disabled={!canChange}
+			>
 				{t('settings.lobbysettings.public_lobby.change_settings')}
 			</Button>
 			<Dialog fullScreen open={open} onClose={() => setOpen(false)}>

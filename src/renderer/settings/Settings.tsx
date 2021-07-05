@@ -799,20 +799,26 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
-					<PublicLobbySettings
-						t={t}
-						updateSetting={(setting: string, newValue: any) => {
-							// @ts-ignore
-							setLocalLobbySettings({ ...localLobbySettings, setting: newValue });
-							setSettings({
-								type: 'setLobbySetting',
-								action: [setting, newValue],
-							});
-						}}
-						lobbySettings={canChangeLobbySettings ? localLobbySettings : lobbySettings}
-						canChange={canChangeLobbySettings}
-						className={classes.dialog}
-					/>
+
+					<DisabledTooltip
+						disabled={!canChangeLobbySettings}
+						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
+					>
+						<PublicLobbySettings
+							t={t}
+							updateSetting={(setting: string, newValue: any) => {
+								// @ts-ignore
+								setLocalLobbySettings({ ...localLobbySettings, setting: newValue });
+								setSettings({
+									type: 'setLobbySetting',
+									action: [setting, newValue],
+								});
+							}}
+							lobbySettings={canChangeLobbySettings ? localLobbySettings : lobbySettings}
+							canChange={canChangeLobbySettings}
+							className={classes.dialog}
+						/>
+					</DisabledTooltip>
 
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
