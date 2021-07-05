@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { DialogContent, DialogTitle, DialogActions, Dialog, Button, TextField } from '@material-ui/core';
+import { DialogContent, DialogTitle, DialogActions, Dialog, Button, TextField, IconButton } from '@material-ui/core';
 import languages from '../language/languages';
 import { ILobbySettings } from '../../common/ISettings';
 import Alert from '@material-ui/lab/Alert';
 import { modList } from '../../common/PublicLobby';
+import ChevronLeft from '@material-ui/icons/ArrowBack';
 
 type publicLobbySettingProps = {
 	t: (key: string) => string;
@@ -14,10 +15,20 @@ type publicLobbySettingProps = {
 	className: string;
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
 	specialButton: {
 		width: '90%',
 		marginBottom: '10px',
+	},
+	header: {
+		display: 'flex',
+		alignItems: 'center',
+	},
+	back: {
+		cursor: 'pointer',
+		position: 'absolute',
+		right: theme.spacing(1),
+		WebkitAppRegion: 'no-drag',
 	},
 }));
 const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
@@ -41,7 +52,18 @@ const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 				{t('settings.lobbysettings.public_lobby.change_settings')}
 			</Button>
 			<Dialog fullScreen open={open} onClose={() => setOpen(false)}>
+				<div className={classes.header}>
 				<DialogTitle>{t('settings.lobbysettings.public_lobby.change_settings')}</DialogTitle>
+					<IconButton
+						className={classes.back}
+						size="small"
+						onClick={() => {
+							setOpen(false);
+						}}
+					>
+						<ChevronLeft htmlColor="#777" />
+					</IconButton>
+				</div>
 				<DialogContent className={className}>
 					<TextField
 						fullWidth
