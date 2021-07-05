@@ -59,7 +59,7 @@ const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 			</Button>
 			<Dialog fullScreen open={open} onClose={() => setOpen(false)}>
 				<div className={classes.header}>
-				<DialogTitle>{t('settings.lobbysettings.public_lobby.change_settings')}</DialogTitle>
+					<DialogTitle>{t('settings.lobbysettings.public_lobby.change_settings')}</DialogTitle>
 					<IconButton
 						className={classes.back}
 						size="small"
