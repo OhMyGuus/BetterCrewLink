@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { DialogContent, DialogTitle, DialogActions, Dialog, Button, TextField } from '@material-ui/core';
+import { DialogContent, DialogTitle, DialogActions, Dialog, Button, TextField, IconButton } from '@material-ui/core';
 import languages from '../language/languages';
 import { ILobbySettings } from '../../common/ISettings';
 import Alert from '@material-ui/lab/Alert';
 import { modList } from '../../common/PublicLobby';
+import ChevronLeft from '@material-ui/icons/ArrowBack';
 
 type publicLobbySettingProps = {
 	t: (key: string) => string;
@@ -14,12 +15,20 @@ type publicLobbySettingProps = {
 	className: string;
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
 	specialButton: {
-		width: '100%',
-		marginLeft: '-11px',
-		borderTop: '1px solid #313135',
-		backgroundColor: 'rgba(0,0,0,0.03)',
+		width: '90%',
+		marginBottom: '10px',
+	},
+	header: {
+		display: 'flex',
+		alignItems: 'center',
+	},
+	back: {
+		cursor: 'pointer',
+		position: 'absolute',
+		right: theme.spacing(1),
+		WebkitAppRegion: 'no-drag',
 	},
 }));
 const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
@@ -39,11 +48,28 @@ const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 
 	return (
 		<>
-			<Button variant="text" className={classes.specialButton} onClick={() => setOpen(true)}>
+			<Button 
+				variant="contained" 
+				color="secondary" 
+				className={classes.specialButton} 
+				onClick={() => setOpen(true)}
+				disabled={!canChange}
+			>
 				{t('settings.lobbysettings.public_lobby.change_settings')}
 			</Button>
 			<Dialog fullScreen open={open} onClose={() => setOpen(false)}>
-				<DialogTitle>{t('settings.lobbysettings.public_lobby.change_settings')}</DialogTitle>
+				<div className={classes.header}>
+					<DialogTitle>{t('settings.lobbysettings.public_lobby.change_settings')}</DialogTitle>
+					<IconButton
+						className={classes.back}
+						size="small"
+						onClick={() => {
+							setOpen(false);
+						}}
+					>
+						<ChevronLeft htmlColor="#777" />
+					</IconButton>
+				</div>
 				<DialogContent className={className}>
 					<TextField
 						fullWidth
