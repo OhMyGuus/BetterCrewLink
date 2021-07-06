@@ -200,6 +200,15 @@ chmod +x BetterCrewlink-Linux.AppImage
 echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 ./BetterCrewlink-Linux.AppImage
 ```
+or (better option to avoid the global value for ptrace_scope)
+
+```
+wget "https://mirror.bettercrewl.ink/pc/latest/BetterCrewlink-Linux.AppImage"
+chmod +x BetterCrewlink-Linux.AppImage
+sudo apt-get install libcap2-bin 
+sudo setcap cap_sys_ptrace=eip /usr/bin/wineserver
+./BetterCrewlink-Linux.AppImage
+```
 
 [![GitHub Latest Release][latest_release-shield]][latest_release-url]
 
