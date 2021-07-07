@@ -151,7 +151,7 @@ export default {
 			gameId: 0x88,
 			hostId: 0x8c,
 			clientId: 0x90,
-			gameState: 0xc4,
+			gameState: 0xcc,
 		},
 		player: {
 			struct: [
@@ -273,7 +273,7 @@ export default {
 			gameId: 0x4c,
 			hostId: 0x50,
 			clientId: 0x54,
-			gameState: 0x70,
+			gameState: 0x74,
 		},
 		player: {
 			struct: [
@@ -366,7 +366,7 @@ export default {
 			},
 			serverManager: {
 				sig:
-					'A1 ? ? ? ? F6 80 ? ? ? ? ? 74 14 83 78 74 00 75 0E 50 E8 ? ? ? ? A1 ? ? ? ? 83 C4 04 8B 40 5C 8B 00 85 C0 0F 84 ? ? ? ? 83 78 0C 00 0F 86 ? ? ? ? 8B 40 10 85 C0 0F 84 ? ? ? ? 50',
+					'A1 ? ? ? ? 89 55 E0 F6 80 ? ? ? ? ? 74 14 83 78 74 00 75 0E 50 E8 ? ? ? ? A1 ? ? ? ? ',
 				patternOffset: 1,
 				addressOffset: 0,
 			},

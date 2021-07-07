@@ -216,6 +216,7 @@ export default class GameReader {
 					(this.oldGameState === GameState.MENU || this.oldGameState === GameState.UNKNOWN))
 			) {
 				this.readCurrentServer();
+				console.log("SERVER: ", this.currentServer)
 			}
 
 			if (this.gameCode && playerCount) {
