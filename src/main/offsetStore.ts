@@ -435,5 +435,8 @@ export function TempFixOffsets3(offsetsOld: IOffsets): IOffsets {
 export function TempFixOffsets4(offsetsOld: IOffsets): IOffsets {
 	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
 	offsets.innerNetClient.gameState = 0x70;
+	offsets.innerNetClient.onlineScene = 0x7c;
+	offsets.innerNetClient.mainMenuScene = 0x80;
+
 	return offsets;
 }
