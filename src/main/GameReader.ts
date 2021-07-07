@@ -21,7 +21,7 @@ import Errors from '../common/Errors';
 import { CameraLocation, MapType } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
 import { RainbowColorId } from '../renderer/cosmetics';
-import { TempFixOffsets, TempFixOffsets2, TempFixOffsets3 } from './offsetStore';
+import { TempFixOffsets, TempFixOffsets2, TempFixOffsets3,TempFixOffsets4 } from './offsetStore';
 import { platform } from 'os';
 import fs from 'fs';
 import path from 'path';
@@ -490,6 +490,9 @@ export default class GameReader {
 			this.disableWriting = true;
 			this.oldMeetingHud = true;
 			// temp fix for older game until I added more sigs.. // 12/9
+			this.offsets = TempFixOffsets2(this.offsets);
+		}
+		if (innerNetClient === 0x1D17F2C ) {//6/15 
 			this.offsets = TempFixOffsets2(this.offsets);
 		}
 
