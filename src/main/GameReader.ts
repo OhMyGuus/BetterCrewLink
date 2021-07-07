@@ -216,7 +216,6 @@ export default class GameReader {
 					(this.oldGameState === GameState.MENU || this.oldGameState === GameState.UNKNOWN))
 			) {
 				this.readCurrentServer();
-				console.log("SERVER: ", this.currentServer)
 			}
 
 			if (this.gameCode && playerCount) {
@@ -752,7 +751,6 @@ export default class GameReader {
 			this.gameAssembly!.modBaseAddr,
 			this.offsets!.innerNetClient.base
 		);
-
 		this.writeString(this.shellcodeAddr + 0x40, server);
 		writeMemory(
 			this.amongUs.handle,
