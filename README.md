@@ -69,7 +69,7 @@
 <!-- TABLE OF CONTENTS -->
 ## Table Of Contents
 
-* [About This Project](#about-this-project)
+* [About The Project](#about-the-project)
 * [BetterCrewLink Extra Features/Bug Fixes](#bettercrewlink-extra-featuresbug-fixes)
 * [App Availability](#app-availability)
 * [Supported Versions Of Among Us](#supported-versions-of-among-us)
@@ -96,10 +96,10 @@
 * [Questions](#questions)
 * [License](#license)
 
-<!-- ABOUT THIS PROJECT -->
-## About This Project
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-This project implements Proximity Voice Chat In Among Us. Everyone in an Among Us lobby with this program running will be able to communicate over Voice In-Game, with no Third-Party programs required. Spatial audio ensures that You can only hear people close to you.
+This project is a fork of the popular Proximity Voice Chat, [CrewLink](https://github.com/ottomated/CrewLink), with extra features and better support. It implements Proximity Voice Chat in Among Us. Everyone in an Among Us lobby with this program running will be able to communicate over Voice In-Game, with no Third-Party programs required. Spatial audio ensures that you can only hear people close to you.
 
 <!-- BETTERCREWLINK EXTRA FEATURES/BUG FIXES-->
 ## BetterCrewLink Extra Features/Bug Fixes
