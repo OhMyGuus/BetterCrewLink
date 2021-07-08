@@ -130,7 +130,7 @@ This project implements Proximity Voice Chat In Among Us. Everyone in an Among U
 - Microphone Eoise Suppression.
 - More Overlay Positions and you can set the Overlay to the Top/Bottom and you can set It so It shows Everyone Even When Dead.
 - You can set the Lobby Up so Only Death people can talk. (Normal Lobbies but then with Death Talk)
-- Support For New/Older Versions of Among Us. (v2021.6.15)
+- Support For New/Older Versions of Among Us. (v2021.6.30)
 - Support For Other Platforms. (itch.io, Play Store, App Store, Nintendo Switch, Beta, PlayStation 4 and PlayStation 5 & XBOX Series X/S (Coming Soon)
 - Support For Custom Colors/Hats/Skins. (Mods that Add More Colors/Hats/Skins)
 - Support For Linux.
@@ -164,13 +164,13 @@ This project implements Proximity Voice Chat In Among Us. Everyone in an Among U
 
 | Game Version | Supported? |
 | :-----------------: | :------------: |
-|  [Steam](#installation)  (v2021.6.15s)     |      ✔️     |
-|  [Epic Games](#installation) (v2021.6.15e) |      ✔️     |
-|  [itch.io](#installation) (Unknown)        |      ✔️     |
-|  [Microsoft Store](#windows-) (v2021.6.15m) |      ✔️     |
-|  [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) (v2021.6.16a) |      ✔️     |
-|  [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) (v2021.6.15i) |      ✔️     | 
-|  [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web)  (v2021.6.15n) |      ✔️     |
+|  [Steam](#installation) (v2021.6.30s)      |      ✔️     |
+|  [Epic Games](#installation) (v2021.6.30e) |      ✔️     |
+|  [itch.io](#installation) (v2021.6.30i)    |      ✔️     |
+|  [Microsoft Store](#windows-) (v2021.6.30m) |      ✔️     |
+|  [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) (v2021.6.30a) |      ✔️     |
+|  [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) (v2021.6.30o) |      ✔️     | 
+|  [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web)  (v2021.6.30n) |      ✔️     |
 |  Beta  |      ✔️     |
 |  Cracked  |      [❓](https://youtu.be/dQw4w9WgXcQ "Click here to install a version of BetterCrewLink that supports cracked Among Us")     |
 
@@ -373,16 +373,18 @@ There are two methods.
 * [Tiquis](https://crowdin.com/profile/tiquis) & [fajnyCreeper](https://github.com/fajnyCreeper) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Czech
 * [ElBusAlv](https://github.com/ElBusAlv) & [nyanya4444](https://github.com/nyanya4444) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Catalan
 * [Achs gaming](https://crowdin.com/profile/Achsan4) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Arabic and Arabic (Egpyt)
-* [Fixuuu](https://github.com/Fixuuu) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Polish
+* [Fixuuu](https://github.com/Fixuuu) & [KumpelStachu](https://github.com/KumpelStachu) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Polish
 * [canicjusz](https://github.com/canicjusz) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Esperanto and Polish
 * [Hani Rouatbi](https://crowdin.com/profile/lamjed001) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Arabic
 * [NoikzGaming](https://crowdin.com/profile/NoikzGaming) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Swedish
-* [Zheng Syameimaru](https://github.com/0999312) For Translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) To Chinese Simplified
+* [Zheng Syameimaru](https://github.com/0999312) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Chinese (Simplified)
 * [Aorin](https://crowdin.com/profile/aorin) & [Sakurai00](https://crowdin.com/profile/sakurai00) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Japanese
 * [MrAngelos6](https://crowdin.com/profile/mrangelos6) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to French and Spanish
 * [Amirhan-Taipovjan-Greatest-I](https://github.com/Amirhan-Taipovjan-Greatest-I) & [morewaves](https://crowdin.com/profile/morewaves) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Tatar
 * [Bubbycolditz](https://github.com/Bubbycolditz) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish (United States)
 * [Kajachuan](https://github.com/Kajachuan) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish (Argentina)
+* [narihira2000](https://github.com/narihira2000) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Chinese (Traditional)
+* [gdar463](https://github.com/gdar463) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Italian
 
 A big thanks to all those who translated and are still translating to keep this project alive, thank you all so much for being part of the BetterCrewLink Community!
 
