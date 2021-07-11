@@ -19,9 +19,9 @@
     <a href="#installation">Installation Instructions</a>
   </p>
   <p align="center">
-    <b><a href="#donate">Donate To BetterCrewLink</a></b></br>
+    <b><a href="#donate">Donate to BetterCrewLink</a></b></br>
   (All Donations will be used for the Apple Developer License and Extra Servers)</br>
-   <b><a href="https://paypal.me/ottomated">Donate To Ottomated (Official CrewLink)</a></b>
+   <b><a href="https://paypal.me/ottomated">Donate to Ottomated (Official CrewLink)</a></b>
   </p>
 </p>
 <hr />
@@ -47,12 +47,12 @@
 <!-- NOTES -->
 ## Notes
 
-- This is an unofficial fork of CrewLink, for Any problem, question, issue or suggestion you have with **Better**CrewLink talk to us on our [Discord](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or message the developer on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) Do not report any problems to The official Discord or GitHub of normal and official CrewLink as they will not help you.
+- This is an unofficial fork of CrewLink, for any problem, question, issue or suggestion you have with **Better**CrewLink talk to us on our [Discord](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or message the developer on Discord ([ThaGuus#2140](https://discord.com/users/508426414387757057)), do not report any problems to The official Discord or GitHub of normal and official CrewLink as they will not help you.
 
 - We are not affiliated with CrewLink, we are just a modified/better version of the original CrewLink, so if you need help with CrewLink, we will not offer any help for you about CrewLink here, we will only help you if you are using **Better**CrewLink, if you want to download BetterCrewLink look at the [GitHub](https://github.com/OhMyGuus/BetterCrewLink/releases/latest).
 
 <details>
-<summary> CrewLink is now No Longer Supported </summary>
+<summary> The original/normal CrewLink is now No Longer Supported </summary>
 
 ![CrewLink End Of Support](https://user-images.githubusercontent.com/71022656/120219995-713daf80-c212-11eb-8305-330aab91ccef.png)
 
@@ -62,7 +62,7 @@
 
 <div>
   <a target="_blank" href="https://discord.gg/qDqTzvj4SH" title="Join our Discord!">
-    <img height="75px" draggable="false" src="https://discordapp.com/api/guilds/791516611143270410/widget.png?style=banner2" alt="Join our Discord!">
+    <img height="75px" draggable="false" src="https://discord.com/api/guilds/791516611143270410/widget.png?style=banner2" alt="Join our Discord!">
   </a>
 </div>
 
@@ -137,7 +137,7 @@ This project is a fork of the popular Proximity Voice Chat, [CrewLink](https://g
 - Support For Mobile. (iOS App Coming Soon)
 ```
 
-**If we missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discordapp.com/users/508426414387757057)) so we can add It to BetterCrewLink.**
+**If we missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discord.com/users/508426414387757057)) so we can add It to BetterCrewLink.**
 
 [![Discord Server][discord-shield]][discord-url]
 
@@ -192,7 +192,7 @@ Download the latest version from [releases](https://github.com/OhMyGuus/BetterCr
 
 ### Linux [![Linux](https://i.imgur.com/xFFj5PT.png)](https://youtu.be/6n3pFFPSlW4 "Do not click here")
 
-To Install & Run It On Linux Run The Following Commands:
+To Install & Run It on Linux Run the Following Commands:
 
 ```
 wget "https://mirror.bettercrewl.ink/pc/latest/BetterCrewlink-Linux.AppImage"
@@ -200,6 +200,7 @@ chmod +x BetterCrewlink-Linux.AppImage
 echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 ./BetterCrewlink-Linux.AppImage
 ```
+
 or (better option to avoid the global value for ptrace_scope)
 
 ```
@@ -212,7 +213,7 @@ sudo setcap cap_sys_ptrace=eip /usr/bin/wineserver
 
 [![GitHub Latest Release][latest_release-shield]][latest_release-url]
 
-The Linux Version Is Thanks To The Following Contributors:
+The Linux Version is thanks to the Following Contributors:
 
 - [TheGreatMcPain](https://github.com/TheGreatMcPain) -> CrewLink fork, Keyboard Watcher fork, Memoryjs fork
 - [zbanks](https://github.com/zbanks) -> Memoryjs fork
@@ -294,7 +295,7 @@ Server: [![BetterCrewLink Server Contributors](https://img.shields.io/github/con
 
 Any Contributions you make are Greatly Appreciated.
 
-Needed [Git](https://git-scm.com/downloads) For Contributing.
+Needed [Git](https://git-scm.com/downloads) for Contributing.
 
 1. [Fork The Project](https://github.com/OhMyGuus/BetterCrewLink/fork).
 2. Create your Feature Branch. (`git checkout -b feature/AmazingFeature`)
@@ -328,7 +329,7 @@ A big thanks for all those people who contributed and still contributing to keep
 
 BetterCrewLink now officially supports other languages, that is, you can use BetterCrewLink without any problem of not understanding a part in English, but with that we need help with translations because nobody is born knowing everything languages.
 
-Any translations you make are greatly appreciated.
+Any Translations you make are Greatly Appreciated.
 
 There are two methods.
 
@@ -355,7 +356,7 @@ There are two methods.
 
 </details>
 
- <!-- TRANSLATION CREDITS -->
+<!-- TRANSLATION CREDITS -->
 ## Translation Credits
 
 * [OhMyGuus](https://github.com/OhMyGuus) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Dutch
@@ -405,13 +406,14 @@ If you like using BetterCrewLink and want to help it stay alive and with new fea
 
 [![Support BetterCrewLink (PayPal)][paypal-shield]][paypal-url] [![Support BetterCrewLink (Ko-fi)][kofi-shield]][kofi-url]
 
-Any Donations You Make Are Greatly Appreciated.
+Any Donations you make are Greatly Appreciated.
 
 ### Donations Goals
 - Bring BetterCrewLink to iOS & Mobile progression 
 - US NAT FIX/Server location 
 - ASIA NAT FIX/Server location 
 
+<!-- DONATORS -->
 ## Donators
 
 * Johann: Donated $40 for the iOS & Mobile progression and to thank The Developer, Thank You Soo Much!
