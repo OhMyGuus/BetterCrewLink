@@ -87,6 +87,7 @@
 			"mobilehost": "Povolit mobilní uživatele",
 			"vad_enabled": "VAD povoleno",
 			"hardware_acceleration": "Hardwarová Akcelerace",
+			"hardware_acceleration_warning": "Toto může u některých systémů způsobit snížení výkonu.",
 			"vad_enabled_warning": "Neuvidíte, kdo mluví, když je tato funkce deaktivována.",
 			"echocancellation": "Odstranění ozvěny",
 			"noiseSuppression": "Potlačení šumu",

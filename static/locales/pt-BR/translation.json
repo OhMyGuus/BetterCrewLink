@@ -87,6 +87,7 @@
 			"mobilehost": "Permitir jogadores Android/iOS",
 			"vad_enabled": "VAD Habilitado",
 			"hardware_acceleration": "Aceleração de Hardware",
+			"hardware_acceleration_warning": "Isso pode causar perda de desempenho em alguns sistemas.",
 			"vad_enabled_warning": "Você não verá quem está falando se desativar.",
 			"echocancellation": "Cancelamento de Eco",
 			"noiseSuppression": "Supressão de Ruído",

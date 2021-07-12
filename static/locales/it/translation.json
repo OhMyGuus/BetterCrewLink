@@ -18,7 +18,7 @@
 			"hear_through_cameras": "Ascolta attraverso le Telecamere",
 			"ghost_only": "Solo I Fantasmi Possono Parlare/Sentire",
 			"ghost_only_warning": "Questo disabilita il suono per i giocatori vivi.",
-			"ghost_only_warning2": "Ghost can talk only enabled.",
+			"ghost_only_warning2": "I Fantasmi possono parlare solo abilitato.",
 			"meetings_only": "Solo Riunioni/Lobby",
 			"meetings_only_warning": "Questo disabilita il suono per i giocatori vivi fuori riunioni.",
 			"meetings_only_warning2": "Parlare solo nelle riunioni abilitate.",
@@ -59,71 +59,72 @@
 			"title": "Sovrapposizione",
 			"always_on_top": "BetterCrewLink Sopra",
 			"enabled": "Abilita Sovrapposizioni",
-			"compact": "Compact Overlay",
-			"meeting": "Meeting Overlay",
-			"pos": "Overlay Position",
+			"compact": "Sovrapposizione Compatta",
+			"meeting": "Sovrapposizione in Riunione",
+			"pos": "Posizione della Sovrapposzione",
 			"locations": {
-				"hidden": "Hidden",
-				"top": "Top Center",
-				"bottom": "Bottom Left",
-				"right": "Right",
-				"right1": "Right with Background",
-				"left": "Left",
-				"left1": "Left with Background"
+				"hidden": "Nascosto",
+				"top": "In alto al centro",
+				"bottom": "In basso a sinistra",
+				"right": "Destra",
+				"right1": "Destra con sfondo",
+				"left": "Sinistra",
+				"left1": "Sinistra con Sfondo"
 			}
 		},
 		"advanced": {
-			"title": "Advanced",
+			"title": "Avanzate",
 			"nat_fix": "NAT Fix",
-			"nat_fix_warning": "This will FIX the NAT issues but will add a delay since it is using a server instead of Peer to Peer (P2P).",
-			"change_server": "Change Voice Server",
-			"voice_server": "Voice Server",
-			"invalid_url": "Invalid URL",
-			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash BetterCrewLink.",
-			"reset_default": "Reset To Default"
+			"nat_fix_warning": "Questo sistemerà i problemi NAT ma aggiungerà un ritardo in quanto sta usando un server invece di Peer to Peer (P2P).",
+			"change_server": "Cambiare il server vocale",
+			"voice_server": "Server Vocale",
+			"invalid_url": "URL non valido",
+			"voice_server_warning": "Questa opzione è solo per gli utenti avanzati. Altri server possono rubare le informazioni o crash BetterCrewLink.",
+			"reset_default": "Reimposta ai valori predefiniti"
 		},
 		"beta": {
 			"title": "BETA/DEBUG",
-			"mobilehost": "Mobile Host",
-			"vad_enabled": "VAD Enabled",
-			"hardware_acceleration": "Hardware Acceleration",
-			"vad_enabled_warning": "You won't see who's talking if deactivate.",
-			"echocancellation": "Echo Cancellation",
-			"noiseSuppression": "Noise Suppression",
-			"spatial_audio": "Spatial Audio"
+			"mobilehost": "Host Mobile",
+			"vad_enabled": "VAD Abilitato",
+			"hardware_acceleration": "Accelerazione Hardware",
+			"hardware_acceleration_warning": "Questo può causare una perdita di prestazioni su alcuni sistemi.",
+			"vad_enabled_warning": "Non vedrete chi sta parlando se disattivato.",
+			"echocancellation": "Cancellazione eco",
+			"noiseSuppression": "Riduzione del rumore",
+			"spatial_audio": "Audio Spaziale"
 		},
 		"streaming": {
-			"title": "Streaming Settings",
-			"hidecode": "Show Lobby Code",
-			"obs_overlay": "OBS Browser Overlay",
-			"obs_url": "OBS Browser Source URL",
-			"voice_server_comp": "VS Compatibility Mode",
-			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
+			"title": "Impostazioni streaming",
+			"hidecode": "Mostra Codice Lobby",
+			"obs_overlay": "Sovrapposizione Del Browser di Obs",
+			"obs_url": "Url Sorgente Browser di OBS",
+			"voice_server_comp": "Modalità Compatibilità VS",
+			"voice_server_comp_warning": "Si consiglia di cambiare il server vocale in un server vocale BetterCrewLink (https://bettercrewl.ink) per esempio."
 		},
 		"troubleshooting": {
-			"title": "Troubleshooting",
-			"restore": "Restore Defaults",
-			"restore_warning": "This will reset ALL settings to their default values.",
-			"warning": "Not available as host in game!"
+			"title": "Risoluzione dei problemi",
+			"restore": "Ripristina predefinite",
+			"restore_warning": "Verranno ripristinate TUTTE le impostazioni ai valori predefiniti.",
+			"warning": "Non disponibile come host in gioco!"
 		}
 	},
 	"lobbybrowser": {
-		"header": "Public Lobbies",
-		"code": "Lobby Code",
+		"header": "Lobby Pubbliche",
+		"code": "Codice Della Lobby",
 		"list": {
-			"title": "Title",
+			"title": "Titolo",
 			"host": "Host",
-			"players": "Players",
-			"mods": "Mods",
-			"language": "Language"
+			"players": "Giocatori",
+			"mods": "Mod",
+			"language": "Lingua"
 		}
 	},
 	"buttons": {
-		"default": "Default",
-		"confirm": "Confirm",
-		"cancel": "Cancel",
-		"close": "Close",
-		"exit": "Exit Settings to Apply Changes",
+		"default": "Predefinito",
+		"confirm": "Conferma",
+		"cancel": "Cancella",
+		"close": "Chiudi",
+		"exit": "Esci dalle impostazioni per applicare le modifiche",
 		"public_lobby": "Public Lobbies"
 	},
 	"game": {

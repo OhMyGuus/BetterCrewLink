@@ -87,6 +87,7 @@
 			"mobilehost": "Mobil Oyun Kurucu",
 			"vad_enabled": "VAD Aktif",
 			"hardware_acceleration": "Donanım Hızlandırma",
+			"hardware_acceleration_warning": "Bazı sistemlerde performans kaybına sebep olabilir.",
 			"vad_enabled_warning": "Kapatılırsa kimin konuştuğunu görmezsin.",
 			"echocancellation": "Yankı İptali",
 			"noiseSuppression": "Gürültü Azaltma",

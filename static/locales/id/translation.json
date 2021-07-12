@@ -87,6 +87,7 @@
 			"mobilehost": "Host Seluler",
 			"vad_enabled": "VAD Diaktifkan",
 			"hardware_acceleration": "Akselerasi Perangkat Keras",
+			"hardware_acceleration_warning": "Ini dapat menyebabkan hilangnya kinerja pada beberapa sistem.",
 			"vad_enabled_warning": "Anda tidak akan melihat siapa yang berbicara jika dimatikan.",
 			"echocancellation": "Penghilangan Gema",
 			"noiseSuppression": "Peredaman Kebisingan",
