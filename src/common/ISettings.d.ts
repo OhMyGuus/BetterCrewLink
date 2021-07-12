@@ -36,6 +36,7 @@ export interface ISettings {
 	obsSecret: string | undefined;
 
 	launchPlatform: GamePlatform;
+	customPlatforms: GamePlatformMap;
 }
 
 export interface ILobbySettings {
