@@ -6,7 +6,7 @@
 		"lobbysettings": {
 			"title": "大廳設定",
 			"gamehostonly": "只有房主可以更改這個選項!",
-			"inlobbyonly": "只能在大廳內更改這個選項！",
+			"inlobbyonly": "只能在大廳內更改這個選項!",
 			"voicedistance": "語音距離",
 			"voicedistance_impostor": "偽裝者語音距離",
 			"wallsblockaudio": "牆壁隔音",
@@ -87,6 +87,7 @@
 			"mobilehost": "手機端主機",
 			"vad_enabled": "啟用語音活性檢測 (VAD)",
 			"hardware_acceleration": "硬體加速",
+			"hardware_acceleration_warning": "在某些系統上可能會因此降低效能。",
 			"vad_enabled_warning": "如果停用這個選項，你將看不到目前是誰在說話。",
 			"echocancellation": "回音消除",
 			"noiseSuppression": "降噪",
