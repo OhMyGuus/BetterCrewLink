@@ -100,34 +100,45 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 		}
 
 		// Generate an array of <MenuItem>'s from available platforms for dropdown
-		setLaunchItemList(
-			Array.from(Object.keys(launchPlatforms)).reduce((filtered: JSX.Element[], key) => {
-				const platform = launchPlatforms[key];
-				if (platform.available) {
-					filtered.push(
-						<MenuItem
-							key={t(platform.translateKey)}
-							onClick={() => {
-								setSettings({
-									type: 'setOne',
-									action: ['launchPlatform', platform.key],
-								});
-								toggleDropdownOpen();
-							}}
-						>
-							{t(platform.translateKey)}
-						</MenuItem>
-					);
-				}
-				return filtered;
-			}, [])
+		let platformArray = Array.from(Object.keys(launchPlatforms)).reduce((filtered: JSX.Element[], key) => {
+			const platform = launchPlatforms[key];
+			if (platform.available) {
+				filtered.push(
+					<MenuItem
+						key={t(platform.translateKey)}
+						onClick={() => {
+							setSettings({
+								type: 'setOne',
+								action: ['launchPlatform', platform.key],
+							});
+							toggleDropdownOpen();
+						}}
+					>
+						{t(platform.translateKey)}
+					</MenuItem>
+				);
+			}
+			return filtered;
+		}, []);
+
+		platformArray.push(
+			<MenuItem
+				key={t('platform.custom')}
+				onClick={() => {
+					// TODO: Open page for creating new launcher - do fancy shit
+					toggleDropdownOpen();
+				}}
+			>
+				{t('platform.custom')}
+			</MenuItem>
 		);
+		setLaunchItemList(platformArray);
 	}, [launchPlatforms]);
 
 	// Update button message when platform changes or no platforms are available (list empty)
 	useEffect(() => {
 		if (!launchPlatforms) return;
-		if (launchItemList.length != 0) {
+		if (launchItemList.length > 1) {
 			setOpenMessage(<>{t(launchPlatforms[settings.launchPlatform].translateKey)}</>);
 		} else {
 			setOpenMessage(<>{t('game.error_platform')}</>);
@@ -139,7 +150,7 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
             <div className={classes.button_group} ref={anchorRef}>
             <Button
                 className={classes.button_primary}
-                disabled={launchItemList.length === 0}
+                disabled={launchItemList.length === 1}
                 onClick={() => {
                     ipcRenderer.send(IpcMessages.OPEN_AMONG_US_GAME, settings.launchPlatform);
                 }}
@@ -148,7 +159,6 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
             </Button>
             <ToggleButton
                 className={classes.button_dropdown}
-                disabled={launchItemList.length === 0}
                 onClick={toggleDropdownOpen}
                 selected={dropdownOpen}
                 value=""
