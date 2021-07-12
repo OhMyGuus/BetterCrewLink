@@ -156,8 +156,11 @@ const store = new Store<ISettings>({
 				store.get('serverURL') === 'https://mirror.bettercrewl.ink' ||
 				store.get('serverURL') === 'https://mirror.bettercrewl.ink/' ||
 				store.get('serverURL') === 'https://www.curseforge.com/among-us/all-mods/bettercrewlink-proximity-chat' ||
+				store.get('serverURL') === 'https://matadorprobr.itch.io/bettercrewlink' ||
+				store.get('serverURL') === 'https://gamebanana.com/tools/7079' ||
 				store.get('serverURL') === 'https://web.bettercrewl.ink' ||
-				store.get('serverURL') === 'https://obs.bettercrewlink.app'
+				store.get('serverURL') === 'https://obs.bettercrewlink.app' ||
+				store.get('serverURL') === 'https://discord.gg/qDqTzvj4SH'
 			) {
 				store.set('serverURL', 'https://bettercrewl.ink');
 			}
@@ -179,8 +182,11 @@ const store = new Store<ISettings>({
 				store.get('serverURL') === 'https://mirror.bettercrewl.ink' ||
 				store.get('serverURL') === 'https://mirror.bettercrewl.ink/' ||
 				store.get('serverURL') === 'https://www.curseforge.com/among-us/all-mods/bettercrewlink-proximity-chat' ||
+				store.get('serverURL') === 'https://matadorprobr.itch.io/bettercrewlink' ||
+				store.get('serverURL') === 'https://gamebanana.com/tools/7079' ||
 				store.get('serverURL') === 'https://web.bettercrewl.ink' ||
-				store.get('serverURL') === 'https://obs.bettercrewlink.app'
+				store.get('serverURL') === 'https://obs.bettercrewlink.app' ||
+				store.get('serverURL') === 'https://discord.gg/qDqTzvj4SH'
 			) {
 				store.set('serverURL', 'https://bettercrewl.ink');
 			}
