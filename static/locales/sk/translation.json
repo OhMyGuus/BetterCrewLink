@@ -88,6 +88,7 @@
 			"mobilehost": "Mobilný hostiteľ",
 			"vad_enabled": "VAD zapnuté",
 			"hardware_acceleration": "Hardvérová akcelerácia",
+			"hardware_acceleration_warning": "Toto môže spôsobiť stratu výkonu na niektorých systémoch.",
 			"vad_enabled_warning": "Neuvidíš kto hovorí, ak vypneš túto možnosť.",
 			"echocancellation": "Zrušenie ozveny",
 			"noiseSuppression": "Potlačenie šumu",
