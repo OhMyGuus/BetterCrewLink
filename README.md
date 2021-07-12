@@ -54,7 +54,7 @@
 <details>
 <summary> The original/normal CrewLink is now No Longer Supported </summary>
 
-![CrewLink End Of Support](https://user-images.githubusercontent.com/71022656/120219995-713daf80-c212-11eb-8305-330aab91ccef.png)
+![CrewLink End Of Support](https://user-images.githubusercontent.com/71022656/121688157-84197500-ca99-11eb-869e-6af3b720d2eb.png)
 
 </details>
 
