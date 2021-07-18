@@ -175,6 +175,7 @@ export default function App({ t }): JSX.Element {
 			publicLobby_mods: 'NONE',
 		},
 		launchPlatform: GamePlatform.STEAM,
+        customPlatforms: {},
 	});
 	const lobbySettings = useReducer(lobbySettingsReducer, settings[0].localLobbySettings);
 
