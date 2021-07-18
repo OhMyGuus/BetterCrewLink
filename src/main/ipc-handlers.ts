@@ -1,6 +1,6 @@
 import { app, dialog, ipcMain, shell } from 'electron';
 import { platform } from 'os';
-import { enumerateValues, enumerateKeys } from 'registry-js';
+import { enumerateValues, enumerateKeys, HKEY } from 'registry-js';
 import { DefaultGamePlatforms, GamePlatform, PlatformRunType } from '../common/GamePlatform';
 import spawn from 'cross-spawn';
 import path from 'path';
@@ -85,22 +85,28 @@ export const initializeIpcHandlers = (): void => {
 			const game_platform = DefaultGamePlatforms[key];
 
 			if (desktop_platform === 'win32') {
-				if (game_platform.key === GamePlatform.EPIC || game_platform.key === GamePlatform.STEAM) {
+                if (game_platform.key === GamePlatform.STEAM) {
+                    if (enumerateValues(HKEY.HKEY_CLASSES_ROOT, 'steam').find(
+						(value) => value ? value.name === 'URL Protocol' : false
+					)) {
+						game_platform.available = true;
+					}
+                } else if (game_platform.key === GamePlatform.EPIC) {
 					// Search registry for the URL Protocol
-					if (enumerateValues(game_platform.registryKey, game_platform.registrySubKey).find(
-						(value) => value ? value.name === game_platform.registryKeyValue : false
+					if (enumerateValues(HKEY.HKEY_CLASSES_ROOT, 'com.epicgames.launcher').find(
+						(value) => value ? value.name === 'URL Protocol' : false
 					)) {
 						game_platform.available = true;
 					}
 				} else if (game_platform.key === GamePlatform.MICROSOFT) {
 					// Search for 'Innersloth.Among Us....' key and grab it
-					const key_found = enumerateKeys(game_platform.registryKey, game_platform.registrySubKey).find(
-						(reg_key) => reg_key.startsWith(game_platform.registryFindKey as string));
+					const key_found = enumerateKeys(HKEY.HKEY_CURRENT_USER, 'SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\Repository\\Packages').find(
+						(reg_key) => reg_key.startsWith('Innersloth.AmongUs' as string));
 					
 					if (key_found) {
 						// Grab the game path from the above key
-						const value_found = enumerateValues(game_platform.registryKey, game_platform.registrySubKey + '\\' + key_found).find(
-							(value) => (value ? value.name === game_platform.registryKeyValue : false)
+						const value_found = enumerateValues(HKEY.HKEY_CURRENT_USER, 'SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\Repository\\Packages' + '\\' + key_found).find(
+							(value) => (value ? value.name === 'PackageRootFolder' : false)
 						);
 						if (value_found) {
 							game_platform.available = true;
