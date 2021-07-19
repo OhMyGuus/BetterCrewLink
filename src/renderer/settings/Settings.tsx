@@ -440,7 +440,7 @@ const store = new Store<ISettings>({
 			additionalProperties: {
 				type: 'object',
 				properties: {
-					available: {
+					default: {
 						type: 'boolean',
 						default: false,
 					},
@@ -450,21 +450,9 @@ const store = new Store<ISettings>({
 					},
 					launchType: {
 						type: 'string',
-						default: '',
+						default: 'EXE',
 					},
-					registryKey: {
-						type: 'string',
-						default: '',
-					},
-					registrySubKey: {
-						type: 'string',
-						default: '',
-					},
-					registryKeyValue: {
-						type: 'string',
-						default: '',
-					},
-					run: {
+					runPath: {
 						type: 'string',
 						default: '',
 					},
