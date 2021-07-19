@@ -86,38 +86,34 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 	// If launchPlatformSettings changes: select the first available platform and re-compute list of platforms
 	useEffect(() => {
 		if (!launchPlatforms) return;
-		if (!launchPlatforms[settings.launchPlatform].available) {
-			for (const key in launchPlatforms) {
-				const platform = launchPlatforms[key];
-				if (platform.available) {
-					setSettings({
-						type: 'setOne',
-						action: ['launchPlatform', key],
-					});
-					break;
-				}
+		if (!launchPlatforms[settings.launchPlatform]) {
+			for (let key in launchPlatforms) {
+                setSettings({
+                    type: 'setOne',
+                    action: ['launchPlatform', key],
+                });
+                break;
 			}
 		}
 
 		// Generate an array of <MenuItem>'s from available platforms for dropdown
 		let platformArray = Array.from(Object.keys(launchPlatforms)).reduce((filtered: JSX.Element[], key) => {
 			const platform = launchPlatforms[key];
-			if (platform.available) {
-				filtered.push(
-					<MenuItem
-						key={t(platform.translateKey)}
-						onClick={() => {
-							setSettings({
-								type: 'setOne',
-								action: ['launchPlatform', platform.key],
-							});
-							toggleDropdownOpen();
-						}}
-					>
-						{t(platform.translateKey)}
-					</MenuItem>
-				);
-			}
+            const platformName = platform.default ? t(platform.translateKey) : platform.translateKey;
+            filtered.push(
+                <MenuItem
+                    key={platformName}
+                    onClick={() => {
+                        setSettings({
+                            type: 'setOne',
+                            action: ['launchPlatform', platform.key],
+                        });
+                        toggleDropdownOpen();
+                    }}
+                >
+                    {platformName}
+                </MenuItem>
+            );
 			return filtered;
 		}, []);
 

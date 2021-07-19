@@ -14,34 +14,34 @@ export interface GamePlatformMap {
 }
 
 export interface GamePlatformInstance {
-	available: boolean;
-	key: GamePlatform;
+    default: boolean;
+	key: GamePlatform | string;
 	launchType: PlatformRunType;
-	run: string;
+	runPath: string;
 	exeFile?: string;
 	translateKey: string;
 }
 
 export const DefaultGamePlatforms: GamePlatformMap = {
 	[GamePlatform.STEAM]: {
-		available: false,
+        default: true,
 		key: GamePlatform.STEAM,
 		launchType: PlatformRunType.URI,
-		run: 'steam://rungameid/945360',
+		runPath: 'steam://rungameid/945360',
 		translateKey: 'platform.steam',
 	},
 	[GamePlatform.EPIC]: {
-		available: false,
+        default: true,
 		key: GamePlatform.EPIC,
 		launchType: PlatformRunType.URI,
-		run: 'com.epicgames.launcher://apps/963137e4c29d4c79a81323b8fab03a40?action=launch&silent=true',
+		runPath: 'com.epicgames.launcher://apps/963137e4c29d4c79a81323b8fab03a40?action=launch&silent=true',
 		translateKey: 'platform.epicgames',
 	},
 	[GamePlatform.MICROSOFT]: {
-		available: false,
+        default: true,
 		key: GamePlatform.MICROSOFT,
 		launchType: PlatformRunType.EXE,
-		run: 'none',
+		runPath: 'none',
 		exeFile: 'Among Us.exe',
 		translateKey: 'platform.microsoft',
 	},

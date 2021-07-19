@@ -1,9 +1,10 @@
 import { app, dialog, ipcMain, shell } from 'electron';
 import { platform } from 'os';
 import { enumerateValues, enumerateKeys, HKEY } from 'registry-js';
-import { DefaultGamePlatforms, GamePlatform, PlatformRunType } from '../common/GamePlatform';
+import { DefaultGamePlatforms, GamePlatform, GamePlatformMap, PlatformRunType } from '../common/GamePlatform';
 import spawn from 'cross-spawn';
 import path from 'path';
+import fs from 'fs';
 
 import { IpcMessages, IpcOverlayMessages } from '../common/ipc-messages';
 
@@ -23,10 +24,10 @@ export const initializeIpcListeners = (): void => {
 		if (platform.launchType === PlatformRunType.URI) {
 			// Just open the URI if we can to launch the game
 			// TODO: Try to add error checking here
-			shell.openPath(platform.run);
+			shell.openPath(platform.runPath);
 		} else if (platform.launchType === PlatformRunType.EXE) {
 			try {
-				const process = spawn(path.join(platform.run, platform.exeFile!));
+				const process = spawn(path.join(platform.runPath, platform.exeFile!));
 				process.on('error', error);
 			} catch (e) {
 				error();
@@ -77,49 +78,65 @@ export const initializeIpcListeners = (): void => {
 // or the caller should be "await"'ing them.  If neither of these are the case
 // consider making it a "listener" instead for performance and readability
 export const initializeIpcHandlers = (): void => {
-	ipcMain.handle(IpcMessages.REQUEST_PLATFORMS_AVAILABLE, () => {
+	ipcMain.handle(IpcMessages.REQUEST_PLATFORMS_AVAILABLE, (_, customPlatforms: GamePlatformMap) => {
 		const desktop_platform = platform();
 
-		// Assume all platforms are false unless proven otherwise
-		for (const key in DefaultGamePlatforms) {
-			const game_platform = DefaultGamePlatforms[key];
+        // Assume all game platforms are unavailable unless proven otherwise
+        const availableGamePlatforms: GamePlatformMap = {};
 
-			if (desktop_platform === 'win32') {
-                if (game_platform.key === GamePlatform.STEAM) {
-                    if (enumerateValues(HKEY.HKEY_CLASSES_ROOT, 'steam').find(
-						(value) => value ? value.name === 'URL Protocol' : false
-					)) {
-						game_platform.available = true;
-					}
-                } else if (game_platform.key === GamePlatform.EPIC) {
-					// Search registry for the URL Protocol
-					if (enumerateValues(HKEY.HKEY_CLASSES_ROOT, 'com.epicgames.launcher').find(
-						(value) => value ? value.name === 'URL Protocol' : false
-					)) {
-						game_platform.available = true;
-					}
-				} else if (game_platform.key === GamePlatform.MICROSOFT) {
-					// Search for 'Innersloth.Among Us....' key and grab it
-					const key_found = enumerateKeys(HKEY.HKEY_CURRENT_USER, 'SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\Repository\\Packages').find(
-						(reg_key) => reg_key.startsWith('Innersloth.AmongUs' as string));
-					
-					if (key_found) {
-						// Grab the game path from the above key
-						const value_found = enumerateValues(HKEY.HKEY_CURRENT_USER, 'SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\Repository\\Packages' + '\\' + key_found).find(
-							(value) => (value ? value.name === 'PackageRootFolder' : false)
-						);
-						if (value_found) {
-							game_platform.available = true;
-							game_platform.run = value_found.data as string;
-						}
-					}
-				}
-			} else if (desktop_platform === 'linux') {
-				// TODO: Platform checking on Linux
-				// Set 'game_platform.available' true and setup data if platform is available, do nothing otherwise
-				continue;
-			}
+        if (desktop_platform === 'win32') {
+            // Steam
+            if (enumerateValues(HKEY.HKEY_CLASSES_ROOT, 'steam').find(
+                (value) => value ? value.name === 'URL Protocol' : false
+            )) {
+                availableGamePlatforms[GamePlatform.STEAM] = DefaultGamePlatforms[GamePlatform.STEAM];
+            }
+
+            // Epic Games
+            if (enumerateValues(HKEY.HKEY_CLASSES_ROOT, 'com.epicgames.launcher').find(
+                (value) => value ? value.name === 'URL Protocol' : false
+            )) {
+                availableGamePlatforms[GamePlatform.EPIC] = DefaultGamePlatforms[GamePlatform.EPIC];
+            }
+
+            // Microsoft Store
+            // Search for 'Innersloth.Among Us....' key and grab it
+            const microsoft_regkey = enumerateKeys(HKEY.HKEY_CURRENT_USER, 'SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\Repository\\Packages').find(
+                (reg_key) => reg_key.startsWith('Innersloth.AmongUs' as string));
+            
+            if (microsoft_regkey) {
+                // Grab the game path from the above key
+                const value_found = enumerateValues(HKEY.HKEY_CURRENT_USER, 'SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\Repository\\Packages' + '\\' + microsoft_regkey).find(
+                    (value) => (value ? value.name === 'PackageRootFolder' : false)
+                );
+                if (value_found) {
+                    availableGamePlatforms[GamePlatform.MICROSOFT] = DefaultGamePlatforms[GamePlatform.MICROSOFT];
+                    availableGamePlatforms[GamePlatform.MICROSOFT].runPath = value_found.data as string;
+                }
+            }
+        } else if (desktop_platform === 'linux') {
+            // TODO: Platform checking on Linux
+            // Add platform to availableGamePlatforms and setup data if platform is available, do nothing otherwise
+        }
+
+        for (const key in customPlatforms) {
+			const game_platform = customPlatforms[key];
+
+            if (game_platform.launchType === PlatformRunType.URI) {
+                // I really have no clue how to check this, so we're trusting they exist
+                availableGamePlatforms[key] = game_platform;
+            } else if (game_platform.launchType === PlatformRunType.EXE) {
+                if (game_platform.exeFile) {
+                    try {
+                        fs.accessSync(game_platform.exeFile, fs.constants.X_OK);
+                        availableGamePlatforms[key] = game_platform;
+                    } catch {
+                        continue;
+                    }
+                }
+            }
 		}
-		return DefaultGamePlatforms;
+
+        return availableGamePlatforms;
 	});
 };
