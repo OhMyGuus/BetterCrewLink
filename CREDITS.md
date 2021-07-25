@@ -24,7 +24,7 @@ A big thanks for all those people who contributed and still contributing to keep
 <!-- TRANSLATORS -->
 ## Translators
 
-[![Crowdin][crowdin-shield]][crowdin-url]
+[![Crowdin Translations][crowdin-shield]][crowdin-url] [![Translators][translators-shield]][translators-url]
 
 * [OhMyGuus](https://github.com/OhMyGuus) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Dutch
 * [adofou](https://github.com/adofou) & [ClementRoyer](https://github.com/ClementRoyer) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to French
@@ -84,5 +84,7 @@ A big thanks to all those who translated and are still translating to keep this 
 
 [contributors-shield]: https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink?label=Contributors&logo=GitHub
 [contributors-url]: https://github.com/OhMyGuus/BetterCrewLink/graphs/contributors
+[translators-shield]: https://img.shields.io/badge/Translators-35-brightgreen
+[translators-url]: https://crwd.in/bettercrewlink
 [crowdin-shield]: https://badges.crowdin.net/bettercrewlink/localized.svg
 [crowdin-url]: https://crwd.in/bettercrewlink
