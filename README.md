@@ -141,7 +141,7 @@ This project is a fork of the popular Proximity Voice Chat, [CrewLink](https://g
 
 [![Discord Server][discord-shield]][discord-url]
 
-<!-- APP Availability -->
+<!-- APP AVAILABILITY -->
 ## App Availability
 
 | Platform | Availability? |
@@ -165,7 +165,7 @@ This project is a fork of the popular Proximity Voice Chat, [CrewLink](https://g
 | Game Version | Supported? |
 | :-----------------: | :------------: |
 |  [Steam](#installation) (v2021.6.30s)      |      ✔️     |
-|  [Epic Games](#installation) (v2021.6.30e) |      ✔️     |
+|  [Epic Games](#installation) (v2021.7.20e) |      ✔️     |
 |  [itch.io](#installation) (v2021.6.30i)    |      ✔️     |
 |  [Microsoft Store](#windows-) (v2021.6.30m) |      ✔️     |
 |  [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) (v2021.6.30a) |      ✔️     |
