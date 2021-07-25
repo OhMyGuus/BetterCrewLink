@@ -1,5 +1,17 @@
-<!-- DEVELOPMENT -->
-## Development
+<!-- CONTRIBUTING -->
+## Contributing
+
+Any contributions you make are greatly appreciated.
+
+Needed [Git](https://git-scm.com/downloads) for Contributing.
+
+1. [Fork the Project](https://github.com/OhMyGuus/BetterCrewLink/fork).
+2. Create your Feature Branch. (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes. (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch. (`git push origin feature/AmazingFeature`)
+6. Open a Pull Request.
+
+### Development
 
 You only need to follow the below instructions if you are trying to modify this software. Otherwise, please download the latest version from the [GitHub releases](https://github.com/OhMyGuus/BetterCrewLink/releases).
 
@@ -31,25 +43,8 @@ yarn install
 yarn dev
 ```
 
-<!-- CONTRIBUTING -->
-## Contributing
-
-PC: [![Contributors][contributors-shield]][contributors-url]\
-Mobile/Web: [![BetterCrewLink Mobile Contributors](https://img.shields.io/github/contributors/OhMyGuus/BetterCrewlink-mobile?label=Contributors&logo=GitHub)](https://github.com/OhMyGuus/BetterCrewlink-mobile/graphs/contributors)\
-Server: [![BetterCrewLink Server Contributors](https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink-server?label=Contributors&logo=GitHub)](https://github.com/OhMyGuus/BetterCrewLink-server/graphs/contributors)
-
-Any contributions you make are greatly appreciated.
-
-Needed [Git](https://git-scm.com/downloads) for Contributing.
-
-1. [Fork the Project](https://github.com/OhMyGuus/BetterCrewLink/fork).
-2. Create your Feature Branch. (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes. (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch. (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request.
-
-
-### Translating
+<!-- TRANSLATING -->
+## Translating
 
 [![Crowdin][crowdin-shield]][crowdin-url]
 
@@ -80,8 +75,20 @@ There are two methods.
 7. Throw everything to your fork.
 8. Open a Pull Request.
 
+</details>
+
+<!-- DONATE -->
+## Donate
+
+If you like using BetterCrewLink and want to help it stay alive and with new features, bug fixes, support for other platforms, pay for servers, donate money for the project, of course if you want and can, this is an optional choice, we currently support PayPal and Ko-fi, choose the best donation option for you and click on the image below:
+
+[![Support BetterCrewLink (PayPal)][paypal-shield]][paypal-url] [![Support BetterCrewLink (Ko-fi)][kofi-shield]][kofi-url]
 
 [contributors-shield]: https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink?label=Contributors&logo=GitHub
 [contributors-url]: https://github.com/OhMyGuus/BetterCrewLink/graphs/contributors
 [crowdin-shield]: https://badges.crowdin.net/bettercrewlink/localized.svg
 [crowdin-url]: https://crowdin.com/project/bettercrewlink
+[paypal-shield]: https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=PayPal
+[paypal-url]: https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ
+[kofi-shield]: https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=Ko-fi&logoColor=white
+[kofi-url]: https://ko-fi.com/ohmyguus
