@@ -366,6 +366,8 @@ If you have any questions, see the [Wiki](https://github.com/OhMyGuus/BetterCrew
 
 Distributed Under the GNU General Public License v3.0. See <a href="https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE">`LICENSE`</a> for more information.
 
+[![GPL-3.0 License][license-shield]][license-url]
+
 #
 <p align="center">This mod is not affiliated with Among Us or Innersloth LLC, and the content contained therein is not endorsed or otherwise sponsored by Innersloth LLC. Portions of the materials contained herein are property of Innersloth LLC.</p>
 <p align="center">© Innersloth LLC.</p>
