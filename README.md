@@ -148,7 +148,7 @@ This project is a fork of the popular Proximity Voice Chat, [CrewLink](https://g
 |  [Android](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) | [Available](https://play.google.com/store/apps/details?id=io.bettercrewlink.app) |
 |  [iOS/MacOS](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) | Available Via [Web](https://web.bettercrewl.ink/), App Available Soon! |
 |  [Bluestacks](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) | [Available](https://play.google.com/store/apps/details?id=io.bettercrewlink.app) |
-|  [Chromebook](https://play.google.com/store/apps/details?id=io.bettercrewlink.app) | Available Via [Play Store](https://play.google.com/store/apps/details?id=io.bettercrewlink.app) Or [Web](https://web.bettercrewl.ink/) |
+|  [Chrome OS](https://play.google.com/store/apps/details?id=io.bettercrewlink.app) | Available Via [Play Store](https://play.google.com/store/apps/details?id=io.bettercrewlink.app) Or [Web](https://web.bettercrewl.ink/) |
 |  [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web) | Available Via [Web](https://web.bettercrewl.ink/) |              |      ✔️     |
 
  | Future Platforms | Availability Status |
