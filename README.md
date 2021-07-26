@@ -34,8 +34,8 @@
     <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/release-date/OhMyGuus/BetterCrewLink?label=Released&logo=GitHub" alt="GitHub Latest Release Date"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE"><img src="https://img.shields.io/github/license/OhMyGuus/BetterCrewLink?label=License" alt="GPL-3.0 License"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/actions"><img src="https://img.shields.io/github/workflow/status/OhMyGuus/BetterCrewLink/BetterCrewLink%20Build%20(CI)?label=Build%20%28CI%29&logo=GitHub" alt="GitHub Actions Build"></img></a>
-    <a href="https://matadorprobr.github.io/BetterCrewLink-status/history/better-crew-link-voice-server"><img src="https://img.shields.io/website?down_message=Offline&label=Status&up_message=Online&url=https%3A%2F%2Fbettercrewl.ink%2F" alt="BetterCrewLink Voice Server Status"></img></a>
-    <a href="https://matadorprobr.github.io/BetterCrewLink-status/history/better-crew-link-voice-server"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/MatadorProBr/BetterCrewLink-status/master/api/better-crew-link-voice-server/uptime.json&label=Uptime" alt="BetterCrewLink Voice Server Uptime"></img></a>
+    <a href="https://bettercrewlink-status.netlify.app/history/voice-server"><img src="https://img.shields.io/website?down_message=Offline&label=Status&up_message=Online&url=https%3A%2F%2Fbettercrewl.ink%2F" alt="BetterCrewLink Voice Server Status"></img></a>
+    <a href="https://bettercrewlink-status.netlify.app/history/voice-server"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/MatadorProBr/BetterCrewLink-status/master/api/voice-server/uptime.json&label=Uptime" alt="BetterCrewLink Voice Server Uptime"></img></a>
     <a href="https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ"><img src="https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=PayPal" alt="Support BetterCrewLink (PayPal)"></img></a>
     <a href="https://ko-fi.com/ohmyguus"><img src="https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=Ko-fi&logoColor=white" alt="Support BetterCrewLink (Ko-fi)"></img></a>
     <a href="https://discord.gg/qDqTzvj4SH"><img src="https://img.shields.io/discord/791516611143270410?color=cornflowerblue&label=Discord&logo=Discord&logoColor=white" alt="Discord Server"></img></a>
@@ -387,9 +387,9 @@ Distributed Under the GNU General Public License v3.0. See <a href="https://gith
 [github_actions-shield]: https://img.shields.io/github/workflow/status/OhMyGuus/BetterCrewLink/BetterCrewLink%20Build%20(CI)?label=Build%20%28CI%29&logo=GitHub
 [github_actions-url]: https://github.com/OhMyGuus/BetterCrewLink/actions
 [status-shield]: https://img.shields.io/website?down_message=Offline&label=Status&up_message=Online&url=https%3A%2F%2Fbettercrewl.ink%2F
-[status-url]: https://matadorprobr.github.io/BetterCrewLink-status/history/better-crew-link-voice-server
-[uptime-shield]: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/MatadorProBr/BetterCrewLink-status/master/api/better-crew-link-voice-server/uptime.json&label=Uptime
-[uptime-url]: https://matadorprobr.github.io/BetterCrewLink-status/history/better-crew-link-voice-server
+[status-url]: https://bettercrewlink-status.netlify.app/history/voice-server
+[uptime-shield]: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/MatadorProBr/BetterCrewLink-status/master/api/voice-server/uptime.json&label=Uptime
+[uptime-url]: https://bettercrewlink-status.netlify.app/history/voice-server
 [paypal-shield]: https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=PayPal
 [paypal-url]: https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ
 [kofi-shield]: https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=Ko-fi&logoColor=white
