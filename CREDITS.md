@@ -82,6 +82,8 @@ A big thanks to all those who translated and are still translating to keep this 
 * [electron-overlay-window](https://github.com/OhMyGuus/electron-overlay-window) - For making it easy to make Overlays.
 * [simple-peer](https://github.com/vrnagy/simple-peer) - For making it easy to make [WebRTC](https://webrtc.org/) for [Voice Servers](https://github.com/OhMyGuus/BetterCrewLink-server).
 
+and you that are reading this ❤️
+
 [contributors-shield]: https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink?label=Contributors&logo=GitHub
 [contributors-url]: https://github.com/OhMyGuus/BetterCrewLink/graphs/contributors
 [translators-shield]: https://img.shields.io/badge/Translators-35-brightgreen
