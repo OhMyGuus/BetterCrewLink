@@ -347,17 +347,17 @@ Any Donations you make are Greatly Appreciated.
 <!-- BUGS -->
 ## Bugs
 
-If you have found any bugs, join our [Discord Server](https://discord.gg/qDqTzvj4SH) or make a issue in [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues).
+If you have found any bugs, join our [Discord Server](https://discord.gg/qDqTzvj4SH) and create a ticket in [#🎫create-a-ticket](https://discord.com/channels/791516611143270410/820055979231805460) reacting on "🎫" emoji or make a issue in [GitHub Issues](https://github.com/OhMyGuus/BetterCrewLink/issues/new?assignees=&labels=Bug+Report&template=bug_report.yml&title=%5BBUG+REPORT%5D+).
 
 <!-- SUGGESTIONS -->
 ## Suggestions
 
-If you have any suggestions, join our [Discord Server](https://discord.gg/qDqTzvj4SH).
+If you have any suggestions, join our [Discord Server](https://discord.gg/qDqTzvj4SH), go to the channel [#🤖bot-commands](https://discord.com/channels/791516611143270410/796137481425649675) and type <kbd>;suggest [your suggestion]</kbd> or make a issue in [GitHub Issues](https://github.com/OhMyGuus/BetterCrewLink/issues/new?assignees=&labels=Enhancement&template=feature_request.yml&title=%5BFEATURE%5D+).
 
 <!-- QUESTIONS -->
 ## Questions
 
-If you have any questions, see the [Wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki), but if the answer to your question is not on the Wiki, join our [Discord Server](https://discord.gg/qDqTzvj4SH) and ask in [#✋bettercrewlink-help](https://discordapp.com/channels/791516611143270410/791518772770897980), **do not ask your Question in GitHub Issues**, we want to keep GitHub issues a place to report bugs and suggestions, without any question.
+If you have any questions, see the [Wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki), but if the answer to your question is not on the Wiki, join our [Discord Server](https://discord.gg/qDqTzvj4SH) and ask in [#✋bettercrewlink-help](https://discord.com/channels/791516611143270410/791518772770897980), **do not ask your Question in GitHub Issues**, we want to keep GitHub issues a place to report bugs and suggestions, without any question.
 
 [![Discord Server][discord-shield]][discord-url]
 
