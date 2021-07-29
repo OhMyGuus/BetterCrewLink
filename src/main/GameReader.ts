@@ -994,7 +994,7 @@ export default class GameReader {
 		const x_round = parseFloat(x?.toFixed(4));
 		const y_round = parseFloat(y?.toFixed(4));
 
-		const name = this.readString(data.name).split(/(?:<.*?>)/).join('');
+		const name = this.readString(data.name).split(/<.*?>/).join('');
 		const nameHash = this.hashCode(name);
 		const colorId = data.color === this.rainbowColor ? RainbowColorId : data.color;
 		return {
