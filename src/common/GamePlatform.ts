@@ -30,17 +30,17 @@ export interface GamePlatformMap {
 export interface GamePlatformInstance {
 	available: boolean;
 	key: GamePlatform;
-	launchType: PlatformRunType;
-	registryKey: HKEY;
-	registrySubKey: string;
+	launchType?: PlatformRunType;
+	registryKey?: HKEY;
+	registrySubKey?: string;
 	registryFindKey?: string;
-	registryKeyValue: string;
+	registryKeyValue?: string;
 	run: string;
 	exeFile?: string;
 	translateKey: string;
 }
 
-export const DefaultGamePlatforms: GamePlatformMap = {
+export const DefaultWindowsGamePlatforms: GamePlatformMap = {
 	[GamePlatform.STEAM]: {
 		available: false,
 		key: GamePlatform.STEAM,
@@ -74,5 +74,14 @@ export const DefaultGamePlatforms: GamePlatformMap = {
 		exeFile: 'Among Us.exe',
 		translateKey: 'platform.microsoft',
 	},
+}
+
+export const DefaultLinuxGamePlatforms: GamePlatformMap = {
+	[GamePlatform.STEAM]: {
+		available: false,
+		key: GamePlatform.STEAM,
+		run: '/usr/bin/steam steam://rungameid/945360',
+		translateKey: 'platform.steam',
+	}
 };
 

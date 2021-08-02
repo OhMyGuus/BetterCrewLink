@@ -52,6 +52,7 @@
 		"react-i18next": "^9.0.10",
 		"react-tooltip-lite": "^1.12.0",
 		"registry-js": "^1.15.1",
+		"vdf-parser": "^1.2.0",
 		"simple-peer": "^9.11.0",
 		"socket.io-client": "2.4.0",
 		"source-code-pro": "^2.30.2",

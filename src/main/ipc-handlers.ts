@@ -1,9 +1,11 @@
 import { app, dialog, ipcMain, shell } from 'electron';
-import { platform } from 'os';
+import { platform, homedir } from 'os';
 import { enumerateValues, enumerateKeys } from 'registry-js';
-import { DefaultGamePlatforms, GamePlatform, PlatformRunType } from '../common/GamePlatform';
+import { parse } from 'vdf-parser';
+import { DefaultWindowsGamePlatforms, DefaultLinuxGamePlatforms, GamePlatform, PlatformRunType, GamePlatformInstance } from '../common/GamePlatform';
 import spawn from 'cross-spawn';
 import path from 'path';
+import { readFileSync } from 'fs';
 
 import { IpcMessages, IpcOverlayMessages } from '../common/ipc-messages';
 
@@ -16,21 +18,35 @@ export const initializeIpcListeners = (): void => {
 	});
 
 	ipcMain.on(IpcMessages.OPEN_AMONG_US_GAME, (_, platformKey: GamePlatform) => {
-		const platform = DefaultGamePlatforms[platformKey];
-
+		const desktop_platform = platform();
 		const error = () => dialog.showErrorBox('Error', 'Could not start the game.');
-
-		if (platform.launchType === PlatformRunType.URI) {
-			// Just open the URI if we can to launch the game
-			// TODO: Try to add error checking here
-			shell.openPath(platform.run);
-		} else if (platform.launchType === PlatformRunType.EXE) {
+		if (desktop_platform === 'win32') {
+			const game_platform = DefaultWindowsGamePlatforms[platformKey];
+			if (game_platform.launchType === PlatformRunType.URI) {
+				// Just open the URI if we can to launch the game
+				// TODO: Try to add error checking here
+				shell.openPath(game_platform.run);
+			} else if (game_platform.launchType === PlatformRunType.EXE) {
+				try {
+					const process = spawn(path.join(game_platform.run, game_platform.exeFile!));
+					process.on('error', error);
+				} catch (e) {
+					error();
+				}
+			}
+		} else if (desktop_platform === 'linux') {
+			const game_platform = DefaultLinuxGamePlatforms[platformKey];
 			try {
-				const process = spawn(path.join(platform.run, platform.exeFile!));
+				const exec = game_platform.run.split(" ");
+				const command = exec[0];
+				exec.shift();
+				const process = spawn(command,exec);
 				process.on('error', error);
 			} catch (e) {
 				error();
 			}
+		} else {
+			error()
 		}
 	});
 
@@ -81,10 +97,9 @@ export const initializeIpcHandlers = (): void => {
 		const desktop_platform = platform();
 
 		// Assume all platforms are false unless proven otherwise
-		for (const key in DefaultGamePlatforms) {
-			const game_platform = DefaultGamePlatforms[key];
-
-			if (desktop_platform === 'win32') {
+		if (desktop_platform === 'win32') {
+			for (const key in DefaultWindowsGamePlatforms) {
+				const game_platform = DefaultWindowsGamePlatforms[key];
 				if (game_platform.key === GamePlatform.EPIC || game_platform.key === GamePlatform.STEAM) {
 					// Search registry for the URL Protocol
 					if (enumerateValues(game_platform.registryKey, game_platform.registrySubKey).find(
@@ -96,7 +111,6 @@ export const initializeIpcHandlers = (): void => {
 					// Search for 'Innersloth.Among Us....' key and grab it
 					const key_found = enumerateKeys(game_platform.registryKey, game_platform.registrySubKey).find(
 						(reg_key) => reg_key.startsWith(game_platform.registryFindKey as string));
-					
 					if (key_found) {
 						// Grab the game path from the above key
 						const value_found = enumerateValues(game_platform.registryKey, game_platform.registrySubKey + '\\' + key_found).find(
@@ -108,12 +122,25 @@ export const initializeIpcHandlers = (): void => {
 						}
 					}
 				}
-			} else if (desktop_platform === 'linux') {
-				// TODO: Platform checking on Linux
-				// Set 'game_platform.available' true and setup data if platform is available, do nothing otherwise
-				continue;
+			}
+			return DefaultWindowsGamePlatforms;
+		} else if (desktop_platform === 'linux') {
+			for (const key in DefaultLinuxGamePlatforms) {
+				const game_platform = DefaultLinuxGamePlatforms[key];
+				if (game_platform.key === GamePlatform.STEAM) {
+					try {
+						const buff = readFileSync(homedir() + '/.steam/registry.vdf');
+						const steamVdf = parse(buff.toString());
+						//tries to find Among Us's Steam Id in the .vdf-file
+						if ("945360" in steamVdf["Registry"]["HKCU"]["Software"]["Valve"]["Steam"]["Apps"]) {
+							game_platform.available = true;
+						}
+					} catch(e) {
+						/* empty */
+					}
+				}
+				return DefaultLinuxGamePlatforms;
 			}
 		}
-		return DefaultGamePlatforms;
 	});
 };
