@@ -84,6 +84,7 @@ export const initializeIpcHandlers = (): void => {
         // Assume all game platforms are unavailable unless proven otherwise
         const availableGamePlatforms: GamePlatformMap = {};
 
+        // Deal with default platforms first
         if (desktop_platform === 'win32') {
             // Steam
             if (enumerateValues(HKEY.HKEY_CLASSES_ROOT, 'steam').find(
@@ -119,6 +120,7 @@ export const initializeIpcHandlers = (): void => {
             // Add platform to availableGamePlatforms and setup data if platform is available, do nothing otherwise
         }
 
+        // Deal with custom client-added platforms
         for (const key in customPlatforms) {
 			const game_platform = customPlatforms[key];
 
