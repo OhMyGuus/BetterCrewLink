@@ -102,18 +102,18 @@ export const initializeIpcHandlers = (): void => {
 				const game_platform = DefaultWindowsGamePlatforms[key];
 				if (game_platform.key === GamePlatform.EPIC || game_platform.key === GamePlatform.STEAM) {
 					// Search registry for the URL Protocol
-					if (enumerateValues(game_platform.registryKey, game_platform.registrySubKey).find(
+					if (enumerateValues(game_platform.registryKey!!, game_platform.registrySubKey!!).find(
 						(value) => value ? value.name === game_platform.registryKeyValue : false
 					)) {
 						game_platform.available = true;
 					}
 				} else if (game_platform.key === GamePlatform.MICROSOFT) {
 					// Search for 'Innersloth.Among Us....' key and grab it
-					const key_found = enumerateKeys(game_platform.registryKey, game_platform.registrySubKey).find(
+					const key_found = enumerateKeys(game_platform.registryKey!!, game_platform.registrySubKey).find(
 						(reg_key) => reg_key.startsWith(game_platform.registryFindKey as string));
 					if (key_found) {
 						// Grab the game path from the above key
-						const value_found = enumerateValues(game_platform.registryKey, game_platform.registrySubKey + '\\' + key_found).find(
+						const value_found = enumerateValues(game_platform.registryKey!!, game_platform.registrySubKey + '\\' + key_found).find(
 							(value) => (value ? value.name === game_platform.registryKeyValue : false)
 						);
 						if (value_found) {
@@ -128,9 +128,10 @@ export const initializeIpcHandlers = (): void => {
 			for (const key in DefaultLinuxGamePlatforms) {
 				const game_platform = DefaultLinuxGamePlatforms[key];
 				if (game_platform.key === GamePlatform.STEAM) {
+					// TODO: Check and support other types of steam installations; Flatpak
 					try {
 						const buff = readFileSync(homedir() + '/.steam/registry.vdf');
-						const steamVdf = parse(buff.toString());
+						const steamVdf = parse(buff.toString()) as {Registry:{HKCU:{Software:{Valve:{Steam:{Apps:object}}}}}};
 						//tries to find Among Us's Steam Id in the .vdf-file
 						if ("945360" in steamVdf["Registry"]["HKCU"]["Software"]["Valve"]["Steam"]["Apps"]) {
 							game_platform.available = true;
@@ -141,6 +142,8 @@ export const initializeIpcHandlers = (): void => {
 				}
 			}
 			return DefaultLinuxGamePlatforms;
+		} else {
+			return DefaultWindowsGamePlatforms;
 		}
 	});
 };
