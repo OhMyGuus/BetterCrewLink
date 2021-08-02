@@ -2,7 +2,7 @@ import { app, dialog, ipcMain, shell } from 'electron';
 import { platform, homedir } from 'os';
 import { enumerateValues, enumerateKeys } from 'registry-js';
 import { parse } from 'vdf-parser';
-import { DefaultWindowsGamePlatforms, DefaultLinuxGamePlatforms, GamePlatform, PlatformRunType, GamePlatformInstance } from '../common/GamePlatform';
+import { DefaultWindowsGamePlatforms, DefaultLinuxGamePlatforms, GamePlatform, PlatformRunType } from '../common/GamePlatform';
 import spawn from 'cross-spawn';
 import path from 'path';
 import { readFileSync } from 'fs';
@@ -139,8 +139,8 @@ export const initializeIpcHandlers = (): void => {
 						/* empty */
 					}
 				}
-				return DefaultLinuxGamePlatforms;
 			}
+			return DefaultLinuxGamePlatforms;
 		}
 	});
 };
