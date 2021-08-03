@@ -33,6 +33,12 @@
 				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
 			}
 		},
+        "customplatforms": {
+            "title": "Custom Platform",
+            "platform_title": "Title",
+            "path": "EXE Path",
+            "uri": "URI Link"
+        },
 			"audio": {
 				"title": "Audio",
 				"microphone": "Microphone",

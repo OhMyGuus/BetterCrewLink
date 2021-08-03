@@ -7,6 +7,7 @@ import { IpcMessages } from '../common/ipc-messages';
 import { Button, ClickAwayListener, MenuItem, MenuList, Paper, Popper } from '@material-ui/core';
 import { ToggleButton } from '@material-ui/lab';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import { CustomPlatformSettings } from './settings/CustomPlatformSettings';
 
 const useStyles = makeStyles((theme) => ({
 	button_group: {
@@ -69,6 +70,7 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 	const [dropdownOpen, setDropdownOpen] = useState(false);
     const [launchPlatforms, setLaunchPlatforms] = useState<GamePlatformMap>();
 	const [launchItemList, setLaunchItemList] = useState([] as JSX.Element[]);
+    const [customPlatformOpen, setCustomPlatformOpen] = useState(false);
 
 	const anchorRef = useRef(null);
 
@@ -121,7 +123,10 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 			<MenuItem
 				key={t('platform.custom')}
 				onClick={() => {
-					// TODO: Open page for creating new launcher - do fancy shit
+                    setCustomPlatformOpen(true);
+					// TODO: 
+                    // In that page:
+                        // Save -> add platform to settings customPlatforms
 					toggleDropdownOpen();
 				}}
 			>
@@ -143,6 +148,7 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 
     return (
         <>
+            <CustomPlatformSettings t={t} open={customPlatformOpen} toggleOpen={() => {setCustomPlatformOpen((status) => !status)}} />
             <div className={classes.button_group} ref={anchorRef}>
             <Button
                 className={classes.button_primary}
