@@ -48,44 +48,42 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
     const [settings, setSettings] = useContext(SettingsContext);
     const [desktopPlatform, setDesktopPlatform] = useState('win32');
 
-    const makeEmptyCustomPlatform = () => {
-        return {
-            default: false,
-            key: '',
-            launchType: PlatformRunType.EXE,
-            runPath: '',
-            exeFile: '',
-            translateKey: ''
-        }
+    const makeEmptyCustomPlatform = {
+        default: false,
+        key: '',
+        launchType: PlatformRunType.EXE,
+        runPath: '',
+        exeFile: '',
+        translateKey: ''
     };
-    const [customPlatform, setCustomPlatform] = useState(editPlatform ? editPlatform : makeEmptyCustomPlatform())
+    const [customPlatform, setCustomPlatform] = useState(editPlatform ? editPlatform : makeEmptyCustomPlatform)
 
     useEffect(() => {
         setDesktopPlatform(platform);
     }, []);
 
     useEffect(() => {
-        setCustomPlatform(editPlatform ? editPlatform : makeEmptyCustomPlatform());
+        setCustomPlatform(editPlatform ? editPlatform : makeEmptyCustomPlatform);
     }, [open]);
 
     const setPlatformName = (name: string) => {
-        setCustomPlatform((prevState) => {return {...prevState, key: name, translateKey: name}});
+        setCustomPlatform((prevState) => ({...prevState, key: name, translateKey: name}));
     }
 
     const setPlatformRunType = (runType: PlatformRunType) => {
-        setCustomPlatform((prevState) => {return {...prevState, launchType: runType, runPath: '', exeFile: ''}});
+        setCustomPlatform((prevState) => ({...prevState, launchType: runType, runPath: '', exeFile: ''}));
     }
 
     const setPlatformRun = (pathsString: string) => {
         if (customPlatform.launchType === PlatformRunType.EXE) {
             const exe = path.parse(pathsString);
             if (exe) {
-                setCustomPlatform((prevState) => {return {...prevState, runPath: exe.dir, exeFile: exe.base}});
+                setCustomPlatform((prevState) => ({...prevState, runPath: exe.dir, exeFile: exe.base}));
             } else {
-                setCustomPlatform((prevState) => {return {...prevState, runPath: '', exeFile: ''}});
+                setCustomPlatform((prevState) => ({...prevState, runPath: '', exeFile: ''}));
             }
         } else if (customPlatform.launchType === PlatformRunType.URI) {
-            setCustomPlatform((prevState) => {return {...prevState, runPath: pathsString}});
+            setCustomPlatform((prevState) => ({...prevState, runPath: pathsString}));
         }
     }
 
@@ -214,7 +212,7 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 						color='primary'
 						onClick={() => {
                             deleteCustomPlatform();
-                            setCustomPlatform(makeEmptyCustomPlatform());
+                            setCustomPlatform(makeEmptyCustomPlatform);
                             toggleOpen();
 						}}
 					>
@@ -224,7 +222,7 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 						color='primary'
 						onClick={() => {
                             saveCustomPlatform();
-                            setCustomPlatform(makeEmptyCustomPlatform());
+                            setCustomPlatform(makeEmptyCustomPlatform);
                             toggleOpen();
 						}}
 					>
