@@ -26,7 +26,7 @@ export const initializeIpcListeners = (): void => {
 			shell.openPath(platform.runPath);
 		} else if (platform.launchType === PlatformRunType.EXE) {
 			try {
-				const process = spawn(path.join(platform.runPath, platform.exeFile!));
+				const process = spawn(path.join(platform.runPath, platform.execute[0]), platform.execute.slice(1));
 				process.on('error', error);
 			} catch (e) {
 				error();
@@ -127,13 +127,11 @@ export const initializeIpcHandlers = (): void => {
                 // I really have no clue how to check this, so we're trusting they exist
                 availableGamePlatforms[key] = game_platform;
             } else if (game_platform.launchType === PlatformRunType.EXE) {
-                if (game_platform.exeFile) {
-                    try {
-                        fs.accessSync(path.join(game_platform.runPath, game_platform.exeFile), fs.constants.X_OK);
-                        availableGamePlatforms[key] = game_platform;
-                    } catch {
-                        continue;
-                    }
+                try {
+                    fs.accessSync(path.join(game_platform.runPath, game_platform.execute[0]), fs.constants.X_OK);
+                    availableGamePlatforms[key] = game_platform;
+                } catch {
+                    continue;
                 }
             }
 		}

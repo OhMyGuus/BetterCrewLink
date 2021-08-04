@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, IconButton, Radio, RadioGroup, TextField } from '@material-ui/core';
+import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, IconButton, Radio, RadioGroup, TextField } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import React, { useMemo, useState, useEffect, useContext } from 'react';
 import ChevronLeft from '@material-ui/icons/ArrowBack';
@@ -28,9 +28,6 @@ const useStyles = makeStyles((theme) => ({
 			marginBottom: theme.spacing(1),
 		},
 	},
-    fileSelectButton: {
-		marginBottom: '0',
-	},
     radioGroup: {
         flexDirection: 'row',
     },
@@ -44,26 +41,29 @@ export interface CustomPlatformSettingProps {
 }
 
 export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = function ({ t, open, toggleOpen, editPlatform }: CustomPlatformSettingProps) {
+    const desktopPlatform = platform;
+    
     const classes = useStyles();
     const [settings, setSettings] = useContext(SettingsContext);
-    const [desktopPlatform, setDesktopPlatform] = useState('win32');
-
-    const makeEmptyCustomPlatform = {
+    const [advanced, setAdvanced] = useState(false);
+    
+    const emptyCustomPlatform: GamePlatformInstance = {
         default: false,
         key: '',
         launchType: PlatformRunType.EXE,
         runPath: '',
-        exeFile: '',
+        execute: [''],
         translateKey: ''
     };
-    const [customPlatform, setCustomPlatform] = useState(editPlatform ? editPlatform : makeEmptyCustomPlatform)
+    const [customPlatform, setCustomPlatform] = useState(emptyCustomPlatform)
 
     useEffect(() => {
-        setDesktopPlatform(platform);
-    }, []);
-
-    useEffect(() => {
-        setCustomPlatform(editPlatform ? editPlatform : makeEmptyCustomPlatform);
+        setCustomPlatform(editPlatform ? editPlatform : emptyCustomPlatform);
+        if (editPlatform && (editPlatform.execute.length > 1)) {
+            setAdvanced(true);
+        } else {
+            setAdvanced(false);
+        }
     }, [open]);
 
     const setPlatformName = (name: string) => {
@@ -71,19 +71,29 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
     }
 
     const setPlatformRunType = (runType: PlatformRunType) => {
-        setCustomPlatform((prevState) => ({...prevState, launchType: runType, runPath: '', exeFile: ''}));
+        setCustomPlatform((prevState) => ({...prevState, launchType: runType, runPath: '', execute: ['']}));
     }
 
     const setPlatformRun = (pathsString: string) => {
         if (customPlatform.launchType === PlatformRunType.EXE) {
             const exe = path.parse(pathsString);
             if (exe) {
-                setCustomPlatform((prevState) => ({...prevState, runPath: exe.dir, exeFile: exe.base}));
+                setCustomPlatform((prevState) => ({
+                    ...prevState, 
+                    runPath: exe.dir, 
+                    execute: [exe.base].concat(...prevState.execute.slice(1))
+                }));
             } else {
-                setCustomPlatform((prevState) => ({...prevState, runPath: '', exeFile: ''}));
+                setCustomPlatform((prevState) => ({...prevState, runPath: '', execute: ['']}));
             }
         } else if (customPlatform.launchType === PlatformRunType.URI) {
             setCustomPlatform((prevState) => ({...prevState, runPath: pathsString}));
+        }
+    }
+
+    const setPlatformArgs = (args: string) => {
+        if (customPlatform.launchType === PlatformRunType.EXE) {
+            setCustomPlatform((prevState) => ({...prevState, execute: [customPlatform.execute[0]].concat(...args.split(' '))}));
         }
     }
 
@@ -122,13 +132,12 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
                 <TextField
                     fullWidth
                     label={t('settings.customplatforms.path')}
-                    value={customPlatform.runPath + customPlatform.exeFile}
+                    value={customPlatform.execute[0] ? path.join(customPlatform.runPath, customPlatform.execute[0]) : ''}
                     variant='outlined'
                     color='primary'
                     disabled={true}
                 />
                 <Button
-                    className={classes.fileSelectButton}
                     variant='contained'
                     component='label'
                 >
@@ -146,7 +155,31 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
                         }
                     }
                     />
-                </Button></>
+                </Button>
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            checked={advanced}
+                            onChange={(_, checked: boolean) => {
+                                setAdvanced(checked);
+                            }}
+                        />
+                    }
+                    label="Advanced"
+                />
+                {/* FIXME: Change above to translation string */}
+                {/* FIXME: Change to translation string */}
+                { advanced ?
+                    <TextField
+                        fullWidth
+                        label={'Arguments'}
+                        value={customPlatform.execute.slice(1).join(' ')}
+                        onChange={(ev) => setPlatformArgs(ev.target.value)}
+                        variant='outlined'
+                        color='primary'
+                    /> : null 
+                }
+                </>
             );
         } else {
             return (<>
@@ -161,7 +194,7 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
                 />
             </>);
         }
-	}, [customPlatform.launchType, customPlatform.runPath]);
+	}, [customPlatform, advanced]);
 
 	return (
 		<>
@@ -212,7 +245,7 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 						color='primary'
 						onClick={() => {
                             deleteCustomPlatform();
-                            setCustomPlatform(makeEmptyCustomPlatform);
+                            setCustomPlatform(emptyCustomPlatform);
                             toggleOpen();
 						}}
 					>
@@ -222,7 +255,7 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 						color='primary'
 						onClick={() => {
                             saveCustomPlatform();
-                            setCustomPlatform(makeEmptyCustomPlatform);
+                            setCustomPlatform(emptyCustomPlatform);
                             toggleOpen();
 						}}
 					>

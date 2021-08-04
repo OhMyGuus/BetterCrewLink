@@ -130,8 +130,9 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 			<MenuItem
 				key={t('platform.custom')}
 				onClick={() => {
-                    setCustomPlatformOpen(true);
+                    setCustomPlatformEdit((undefined as unknown) as GamePlatformInstance);
 					toggleDropdownOpen();
+                    setCustomPlatformOpen(true);
 				}}
 			>
 				{t('platform.custom')}
