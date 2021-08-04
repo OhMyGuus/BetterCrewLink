@@ -1,6 +1,6 @@
 import { ipcRenderer } from 'electron';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { GamePlatformMap } from '../common/GamePlatform';
+import { GamePlatformInstance, GamePlatformMap } from '../common/GamePlatform';
 import { SettingsContext } from './contexts';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { IpcMessages } from '../common/ipc-messages';
@@ -71,6 +71,7 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
     const [launchPlatforms, setLaunchPlatforms] = useState<GamePlatformMap>();
 	const [launchItemList, setLaunchItemList] = useState([] as JSX.Element[]);
     const [customPlatformOpen, setCustomPlatformOpen] = useState(false);
+    const [customPlatformEdit, setCustomPlatformEdit] = useState((undefined as unknown) as GamePlatformInstance);
 
 	const anchorRef = useRef(null);
 
@@ -80,10 +81,10 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 
     // Grab available platforms from main thread
 	useEffect(() => {
-		ipcRenderer.invoke(IpcMessages.REQUEST_PLATFORMS_AVAILABLE).then((result: GamePlatformMap) => {
+		ipcRenderer.invoke(IpcMessages.REQUEST_PLATFORMS_AVAILABLE, settings.customPlatforms).then((result: GamePlatformMap) => {
 			setLaunchPlatforms(result);
 		});
-	}, []);
+	}, [settings.customPlatforms]);
 
 	// If launchPlatformSettings changes: select the first available platform and re-compute list of platforms
 	useEffect(() => {
@@ -112,6 +113,12 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
                         });
                         toggleDropdownOpen();
                     }}
+                    onContextMenu={() => {
+                        if (platform.default) { return }
+                        setCustomPlatformEdit(platform);
+                        toggleDropdownOpen();
+                        setCustomPlatformOpen(true);
+                    }}
                 >
                     {platformName}
                 </MenuItem>
@@ -124,9 +131,6 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 				key={t('platform.custom')}
 				onClick={() => {
                     setCustomPlatformOpen(true);
-					// TODO: 
-                    // In that page:
-                        // Save -> add platform to settings customPlatforms
 					toggleDropdownOpen();
 				}}
 			>
@@ -148,13 +152,18 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 
     return (
         <>
-            <CustomPlatformSettings t={t} open={customPlatformOpen} toggleOpen={() => {setCustomPlatformOpen((status) => !status)}} />
+            <CustomPlatformSettings 
+                t={t} 
+                open={customPlatformOpen} 
+                toggleOpen={() => {setCustomPlatformOpen((status) => !status)}} 
+                editPlatform = {customPlatformEdit}
+            />
             <div className={classes.button_group} ref={anchorRef}>
             <Button
                 className={classes.button_primary}
                 disabled={launchItemList.length === 1}
                 onClick={() => {
-                    ipcRenderer.send(IpcMessages.OPEN_AMONG_US_GAME, settings.launchPlatform);
+                    ipcRenderer.send(IpcMessages.OPEN_AMONG_US_GAME, launchPlatforms![settings.launchPlatform]);
                 }}
             >
                 {openMessage}

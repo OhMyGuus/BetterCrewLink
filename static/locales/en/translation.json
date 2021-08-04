@@ -130,7 +130,9 @@
 		"cancel": "Cancel",
 		"close": "Close",
 		"exit": "Exit Settings to Apply Changes",
-		"public_lobby": "Public Lobbies"
+		"public_lobby": "Public Lobbies",
+        "delete": "Delete",
+        "file_select": "Select File"
 	},
 	"game": {
 		"menu": "MENU",

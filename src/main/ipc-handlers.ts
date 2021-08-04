@@ -1,7 +1,7 @@
 import { app, dialog, ipcMain, shell } from 'electron';
 import { platform } from 'os';
 import { enumerateValues, enumerateKeys, HKEY } from 'registry-js';
-import { DefaultGamePlatforms, GamePlatform, GamePlatformMap, PlatformRunType } from '../common/GamePlatform';
+import { DefaultGamePlatforms, GamePlatform, GamePlatformInstance, GamePlatformMap, PlatformRunType } from '../common/GamePlatform';
 import spawn from 'cross-spawn';
 import path from 'path';
 import fs from 'fs';
@@ -16,8 +16,7 @@ export const initializeIpcListeners = (): void => {
 		}
 	});
 
-	ipcMain.on(IpcMessages.OPEN_AMONG_US_GAME, (_, platformKey: GamePlatform) => {
-		const platform = DefaultGamePlatforms[platformKey];
+	ipcMain.on(IpcMessages.OPEN_AMONG_US_GAME, (_, platform: GamePlatformInstance) => {
 
 		const error = () => dialog.showErrorBox('Error', 'Could not start the game.');
 
@@ -130,7 +129,7 @@ export const initializeIpcHandlers = (): void => {
             } else if (game_platform.launchType === PlatformRunType.EXE) {
                 if (game_platform.exeFile) {
                     try {
-                        fs.accessSync(game_platform.exeFile, fs.constants.X_OK);
+                        fs.accessSync(path.join(game_platform.runPath, game_platform.exeFile), fs.constants.X_OK);
                         availableGamePlatforms[key] = game_platform;
                     } catch {
                         continue;
