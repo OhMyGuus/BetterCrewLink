@@ -30,11 +30,6 @@ export const modList: AmongusMod[] = [
 		dllStartsWith: 'TheOtherRoles'
 	},
 	{
-		id: 'EXTRA_ROLES',
-		label: 'Extra Roles',
-		dllStartsWith: 'ExtraRoles'
-	},
-	{
 		id: 'OTHER',
 		label: 'Other',
 	},

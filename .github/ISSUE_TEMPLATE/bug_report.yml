@@ -27,7 +27,7 @@ body:
           required: true
         - label: I have checked that the BetterCrewLink/CrewLink server I'm using is up to date
           required: true
-        - label: I have a screenshot of any errors
+        - label: I have a screenshot or videos of any errors
           required: false
         - label: I have checked that someone else has not reported this using the [search bar](https://github.com/OhMyGuus/BetterCrewLink/issues?q=is%3Aissue)
           required: true
@@ -61,9 +61,9 @@ body:
   - type: textarea
     id: screenshots
     attributes:
-      label: Screenshots
-      description: If applicable, add screenshots to help explain your problem.
-      placeholder: If you can, add a screenshot here
+      label: Screenshots/Videos
+      description: If applicable, add screenshots or videos to help explain your problem.
+      placeholder: If you can, add a screenshot or video here
   - type: textarea
     id: desktop
     attributes:
