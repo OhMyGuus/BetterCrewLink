@@ -14,7 +14,7 @@ export interface GamePlatformMap {
 }
 
 export interface GamePlatformInstance {
-    default: boolean;
+	default: boolean;
 	key: GamePlatform | string;
 	launchType: PlatformRunType;
 	runPath: string;
@@ -24,23 +24,23 @@ export interface GamePlatformInstance {
 
 export const DefaultGamePlatforms: GamePlatformMap = {
 	[GamePlatform.STEAM]: {
-        default: true,
+		default: true,
 		key: GamePlatform.STEAM,
 		launchType: PlatformRunType.URI,
 		runPath: 'steam://rungameid/945360',
-        execute: [''],
+		execute: [''],
 		translateKey: 'platform.steam',
 	},
 	[GamePlatform.EPIC]: {
-        default: true,
+		default: true,
 		key: GamePlatform.EPIC,
 		launchType: PlatformRunType.URI,
 		runPath: 'com.epicgames.launcher://apps/963137e4c29d4c79a81323b8fab03a40?action=launch&silent=true',
-        execute: [''],
+		execute: [''],
 		translateKey: 'platform.epicgames',
 	},
 	[GamePlatform.MICROSOFT]: {
-        default: true,
+		default: true,
 		key: GamePlatform.MICROSOFT,
 		launchType: PlatformRunType.EXE,
 		runPath: 'none',

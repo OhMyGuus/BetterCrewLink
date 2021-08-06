@@ -62,20 +62,20 @@ export interface LauncherProps {
 }
 
 const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
-    const classes = useStyles();
+	const classes = useStyles();
 
-    const [settings, setSettings] = useContext(SettingsContext);
-    
-    const [openMessage, setOpenMessage] = useState(<>{t('game.error_platform')}</>);
+	const [settings, setSettings] = useContext(SettingsContext);
+	
+	const [openMessage, setOpenMessage] = useState(<>{t('game.error_platform')}</>);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [launchPlatforms, setLaunchPlatforms] = useState<GamePlatformMap>();
+	const [launchPlatforms, setLaunchPlatforms] = useState<GamePlatformMap>();
 	const [launchItemList, setLaunchItemList] = useState([] as JSX.Element[]);
-    const [customPlatformOpen, setCustomPlatformOpen] = useState(false);
-    const [customPlatformEdit, setCustomPlatformEdit] = useState((undefined as unknown) as GamePlatformInstance);
+	const [customPlatformOpen, setCustomPlatformOpen] = useState(false);
+	const [customPlatformEdit, setCustomPlatformEdit] = useState((undefined as unknown) as GamePlatformInstance);
 
 	const anchorRef = useRef(null);
 
-    // Grab available platforms from main thread
+	// Grab available platforms from main thread
 	useEffect(() => {
 		ipcRenderer.invoke(IpcMessages.REQUEST_PLATFORMS_AVAILABLE, settings.customPlatforms).then((result: GamePlatformMap) => {
 			setLaunchPlatforms(result);
@@ -87,38 +87,38 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 		if (!launchPlatforms) return;
 		if (!launchPlatforms[settings.launchPlatform]) {
 			for (let key in launchPlatforms) {
-                setSettings({
-                    type: 'setOne',
-                    action: ['launchPlatform', key],
-                });
-                break;
+				setSettings({
+					type: 'setOne',
+					action: ['launchPlatform', key],
+				});
+				break;
 			}
 		}
 
 		// Generate an array of <MenuItem>'s from available platforms for dropdown
 		let platformArray = Array.from(Object.keys(launchPlatforms)).reduce((filtered: JSX.Element[], key) => {
 			const platform = launchPlatforms[key];
-            const platformName = platform.default ? t(platform.translateKey) : platform.translateKey;
-            filtered.push(
-                <MenuItem
-                    key={platformName}
-                    onClick={() => {
-                        setSettings({
-                            type: 'setOne',
-                            action: ['launchPlatform', platform.key],
-                        });
-                        setDropdownOpen(false);
-                    }}
-                    onContextMenu={() => {
-                        if (platform.default) { return }
-                        setCustomPlatformEdit(platform);
-                        setDropdownOpen(false);
-                        setCustomPlatformOpen(true);
-                    }}
-                >
-                    {platformName}
-                </MenuItem>
-            );
+			const platformName = platform.default ? t(platform.translateKey) : platform.translateKey;
+			filtered.push(
+				<MenuItem
+					key={platformName}
+					onClick={() => {
+						setSettings({
+							type: 'setOne',
+							action: ['launchPlatform', platform.key],
+						});
+						setDropdownOpen(false);
+					}}
+					onContextMenu={() => {
+						if (platform.default) { return }
+						setCustomPlatformEdit(platform);
+						setDropdownOpen(false);
+						setCustomPlatformOpen(true);
+					}}
+				>
+					{platformName}
+				</MenuItem>
+			);
 			return filtered;
 		}, []);
 
@@ -126,9 +126,9 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 			<MenuItem
 				key={t('platform.custom')}
 				onClick={() => {
-                    setCustomPlatformEdit((undefined as unknown) as GamePlatformInstance);
+					setCustomPlatformEdit((undefined as unknown) as GamePlatformInstance);
 					setDropdownOpen(false);
-                    setCustomPlatformOpen(true);
+					setCustomPlatformOpen(true);
 				}}
 			>
 				{t('platform.custom')}
@@ -147,58 +147,58 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 		}
 	}, [launchItemList, settings.launchPlatform]);
 
-    return (
-        <>
-            <CustomPlatformSettings 
-                t={t} 
-                open={customPlatformOpen} 
-                setOpenState={setCustomPlatformOpen} 
-                editPlatform = {customPlatformEdit}
-            />
-            <div className={classes.button_group} ref={anchorRef}>
-            <Button
-                className={classes.button_primary}
-                disabled={launchItemList.length === 1}
-                onClick={() => {
-                    ipcRenderer.send(IpcMessages.OPEN_AMONG_US_GAME, launchPlatforms![settings.launchPlatform]);
-                }}
-            >
-                {openMessage}
-            </Button>
-            <ToggleButton
-                className={classes.button_dropdown}
-                onClick={() => setDropdownOpen((status) => !status)}
-                selected={dropdownOpen}
-                value=""
-            >
-                <ArrowDropDownIcon />
-            </ToggleButton>
-            </div>
-            <Popper
-                open={dropdownOpen}
-                anchorEl={anchorRef.current}
-                placement="bottom-end"
-                disablePortal={false}
-                className={classes.dropdown}
-            
-                modifiers={{
-                    flip: {
-                        enabled: false,
-                    },
-                    preventOverflow: {
-                        enabled: true,
-                        boundariesElement: 'viewport',
-                    },
-                }}
-            >
-                <Paper>
-                    <ClickAwayListener onClickAway={() => setDropdownOpen(false)}>
-                        <MenuList>{launchItemList}</MenuList>
-                    </ClickAwayListener>
-                </Paper>
-            </Popper>
-        </>
-    )
+	return (
+		<>
+			<CustomPlatformSettings 
+				t={t} 
+				open={customPlatformOpen} 
+				setOpenState={setCustomPlatformOpen} 
+				editPlatform = {customPlatformEdit}
+			/>
+			<div className={classes.button_group} ref={anchorRef}>
+			<Button
+				className={classes.button_primary}
+				disabled={launchItemList.length === 1}
+				onClick={() => {
+					ipcRenderer.send(IpcMessages.OPEN_AMONG_US_GAME, launchPlatforms![settings.launchPlatform]);
+				}}
+			>
+				{openMessage}
+			</Button>
+			<ToggleButton
+				className={classes.button_dropdown}
+				onClick={() => setDropdownOpen((status) => !status)}
+				selected={dropdownOpen}
+				value=""
+			>
+				<ArrowDropDownIcon />
+			</ToggleButton>
+			</div>
+			<Popper
+				open={dropdownOpen}
+				anchorEl={anchorRef.current}
+				placement="bottom-end"
+				disablePortal={false}
+				className={classes.dropdown}
+			
+				modifiers={{
+					flip: {
+						enabled: false,
+					},
+					preventOverflow: {
+						enabled: true,
+						boundariesElement: 'viewport',
+					},
+				}}
+			>
+				<Paper>
+					<ClickAwayListener onClickAway={() => setDropdownOpen(false)}>
+						<MenuList>{launchItemList}</MenuList>
+					</ClickAwayListener>
+				</Paper>
+			</Popper>
+		</>
+	)
 }
 
 export default LaunchButton;

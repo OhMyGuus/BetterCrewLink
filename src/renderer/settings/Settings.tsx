@@ -456,14 +456,14 @@ const store = new Store<ISettings>({
 						type: 'string',
 						default: '',
 					},
-                    execute: {
-                        type: 'array',
-                        default: [''],
-                        items: {
-                            type: 'string',
-                            default: '',
-                        }
-                    },
+					execute: {
+						type: 'array',
+						default: [''],
+						items: {
+							type: 'string',
+							default: '',
+						}
+					},
 					translateKey: {
 						type: 'string',
 						default: '',
