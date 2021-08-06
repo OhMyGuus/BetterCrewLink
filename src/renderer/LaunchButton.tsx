@@ -75,10 +75,6 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 
 	const anchorRef = useRef(null);
 
-    const toggleDropdownOpen = () => {
-		setDropdownOpen((status) => !status);
-	};
-
     // Grab available platforms from main thread
 	useEffect(() => {
 		ipcRenderer.invoke(IpcMessages.REQUEST_PLATFORMS_AVAILABLE, settings.customPlatforms).then((result: GamePlatformMap) => {
@@ -111,12 +107,12 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
                             type: 'setOne',
                             action: ['launchPlatform', platform.key],
                         });
-                        toggleDropdownOpen();
+                        setDropdownOpen(false);
                     }}
                     onContextMenu={() => {
                         if (platform.default) { return }
                         setCustomPlatformEdit(platform);
-                        toggleDropdownOpen();
+                        setDropdownOpen(false);
                         setCustomPlatformOpen(true);
                     }}
                 >
@@ -131,7 +127,7 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 				key={t('platform.custom')}
 				onClick={() => {
                     setCustomPlatformEdit((undefined as unknown) as GamePlatformInstance);
-					toggleDropdownOpen();
+					setDropdownOpen(false);
                     setCustomPlatformOpen(true);
 				}}
 			>
@@ -171,7 +167,7 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
             </Button>
             <ToggleButton
                 className={classes.button_dropdown}
-                onClick={toggleDropdownOpen}
+                onClick={() => setDropdownOpen((status) => !status)}
                 selected={dropdownOpen}
                 value=""
             >
@@ -196,7 +192,7 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
                 }}
             >
                 <Paper>
-                    <ClickAwayListener onClickAway={toggleDropdownOpen}>
+                    <ClickAwayListener onClickAway={() => setDropdownOpen(false)}>
                         <MenuList>{launchItemList}</MenuList>
                     </ClickAwayListener>
                 </Paper>
