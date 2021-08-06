@@ -37,7 +37,9 @@
             "title": "Custom Platform",
             "platform_title": "Title",
             "path": "EXE Path",
-            "uri": "URI Link"
+            "uri": "URI Link",
+            "advanced": "Advanced",
+            "arguments": "Arguments"
         },
 			"audio": {
 				"title": "Audio",

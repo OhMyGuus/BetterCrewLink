@@ -97,6 +97,7 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
         }
     }
 
+    // Delete and re-add platform if we're editing
     const saveCustomPlatform = () => {
         if (editPlatform && (settings.customPlatforms[editPlatform.key])) {
             const {[editPlatform.key]: remove, ...rest} = settings.customPlatforms;
@@ -165,14 +166,12 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
                             }}
                         />
                     }
-                    label="Advanced"
+                    label={t('settings.customplatforms.advanced')}
                 />
-                {/* FIXME: Change above to translation string */}
-                {/* FIXME: Change to translation string */}
                 { advanced ?
                     <TextField
                         fullWidth
-                        label={'Arguments'}
+                        label={t('settings.customplatforms.arguments')}
                         value={customPlatform.execute.slice(1).join(' ')}
                         onChange={(ev) => setPlatformArgs(ev.target.value)}
                         variant='outlined'
