@@ -152,7 +152,7 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
             <CustomPlatformSettings 
                 t={t} 
                 open={customPlatformOpen} 
-                toggleOpen={() => {setCustomPlatformOpen((status) => !status)}} 
+                setOpenState={setCustomPlatformOpen} 
                 editPlatform = {customPlatformEdit}
             />
             <div className={classes.button_group} ref={anchorRef}>

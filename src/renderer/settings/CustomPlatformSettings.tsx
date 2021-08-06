@@ -36,11 +36,11 @@ const useStyles = makeStyles((theme) => ({
 export interface CustomPlatformSettingProps {
 	t: (key: string) => string;
     open: boolean;
-    toggleOpen: () => void;
+    setOpenState: (state: boolean) => void;
     editPlatform?: GamePlatformInstance;
 }
 
-export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = function ({ t, open, toggleOpen, editPlatform }: CustomPlatformSettingProps) {
+export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = function ({ t, open, setOpenState, editPlatform }: CustomPlatformSettingProps) {
     const desktopPlatform = platform;
     
     const classes = useStyles();
@@ -204,7 +204,7 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 					<IconButton
 						className={classes.back}
 						size='small'
-						onClick={toggleOpen}
+						onClick={() => setOpenState(false)}
 					>
 						<ChevronLeft htmlColor='#777' />
 					</IconButton>
@@ -246,7 +246,7 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 						onClick={() => {
                             deleteCustomPlatform();
                             setCustomPlatform(emptyCustomPlatform);
-                            toggleOpen();
+                            setOpenState(false);
 						}}
 					>
 						{t('buttons.delete')}
@@ -256,7 +256,7 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 						onClick={() => {
                             saveCustomPlatform();
                             setCustomPlatform(emptyCustomPlatform);
-                            toggleOpen();
+                            setOpenState(false);
 						}}
 					>
 						{t('buttons.confirm')}
