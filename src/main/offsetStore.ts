@@ -10,6 +10,7 @@ interface ISignature {
 }
 
 export interface IOffsets {
+	hudManager: number[]
 	meetingHud: number[];
 	objectCachePtr: number[];
 	meetingHudState: number[];
@@ -104,6 +105,7 @@ export interface IOffsets {
 
 export default {
 	x64: {
+		hudManager: [0x1B72D6C, 0x5c, 0],
 		meetingHud: [0x21d03e0, 0xb8, 0],
 		objectCachePtr: [0x10],
 		meetingHudState: [0xc0],
@@ -234,6 +236,7 @@ export default {
 		},
 	},
 	x86: {
+		hudManager: [0x1B72D6C, 0x5c, 0],
 		meetingHud: [0x1c573a4, 0x5c, 0],
 		objectCachePtr: [0x8],
 		meetingHudState: [0x84],
