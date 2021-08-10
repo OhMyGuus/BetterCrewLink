@@ -92,7 +92,9 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 	}
 
 	const setPlatformArgs = (args: string) => {
-		if (customPlatform.launchType === PlatformRunType.EXE) {
+		if (args === '') {
+			setCustomPlatform((prevState) => ({...prevState, execute: [customPlatform.execute[0]]}));
+		} else if (customPlatform.launchType === PlatformRunType.EXE) {
 			setCustomPlatform((prevState) => ({...prevState, execute: [customPlatform.execute[0]].concat(...args.split(' '))}));
 		}
 	}
@@ -163,6 +165,9 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 							checked={advanced}
 							onChange={(_, checked: boolean) => {
 								setAdvanced(checked);
+								if (!checked) {
+									setPlatformArgs('');
+								}
 							}}
 						/>
 					}
