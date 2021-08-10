@@ -8,12 +8,10 @@
 # We have attempted to detect the languages in your repository. Please check
 # the `language` matrix defined below to confirm you have the correct set of
 # supported CodeQL languages.
-#
+
 name: "CodeQL"
 
 on: [push, pull_request]
-  schedule:
-    - cron: '21 4 * * 6'
 
 jobs:
   analyze:
