@@ -87,7 +87,7 @@ and you that are reading this ❤️
 
 [contributors-shield]: https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink?label=Contributors&logo=GitHub
 [contributors-url]: https://github.com/OhMyGuus/BetterCrewLink/graphs/contributors
-[translators-shield]: https://img.shields.io/badge/Translators-35-brightgreen
+[translators-shield]: https://img.shields.io/badge/Translators-36-brightgreen
 [translators-url]: https://crwd.in/bettercrewlink
 [crowdin-shield]: https://badges.crowdin.net/bettercrewlink/localized.svg
 [crowdin-url]: https://crwd.in/bettercrewlink
