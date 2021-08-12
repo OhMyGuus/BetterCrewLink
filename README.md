@@ -127,11 +127,11 @@ This project is a fork of the popular Proximity Voice Chat, [CrewLink](https://g
 - Microphone Eoise Suppression.
 - More Overlay Positions and you can set the Overlay to the Top/Bottom and you can set It so It shows Everyone Even When Dead.
 - You can set the Lobby Up so Only Death people can talk. (Normal Lobbies but then with Death Talk)
-- Support For New/Older Versions of Among Us. (v2021.6.30 and v2021.7.20e)
-- Support For Other Platforms. (itch.io, Play Store, App Store, Nintendo Switch, Beta, PlayStation 4 and PlayStation 5 & XBOX Series X/S (Coming Soon)
-- Support For Custom Colors/Hats/Skins. (Mods that Add More Colors/Hats/Skins)
-- Support For Linux.
-- Support For Mobile. (iOS App Coming Soon)
+- Support for New/Older versions of Among Us. (v2021.6.30 and v2021.7.20e)
+- Support for Other Platforms. (itch.io, Play Store, App Store, Nintendo Switch, Beta, PlayStation 4 and PlayStation 5 & XBOX Series X/S (Coming Soon)
+- Support for Custom Colors/Hats/Skins. (Mods that add more Colors/Hats/Skins)
+- Support for Linux.
+- Support for Mobile. (iOS App Coming Soon)
 ```
 
 **If we missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discord.com/users/508426414387757057)) so we can add It to BetterCrewLink.**
