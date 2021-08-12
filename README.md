@@ -53,9 +53,9 @@
 - We are not affiliated with CrewLink, we are just a modified/better version of the original CrewLink, so if you need help with CrewLink, we will not offer any help for you about CrewLink here, we will only help you if you are using **Better**CrewLink, if you want to download BetterCrewLink look at the [GitHub](https://github.com/OhMyGuus/BetterCrewLink/releases/latest).
 
 <details>
-<summary> The original/normal CrewLink is now No Longer Supported and that means the original/normal CrewLink will never be updated and will never work again, so BetterCrewLink is the only way to make your CrewLink works </summary>
+<summary> The original/normal CrewLink is now discontinued and that means the original/normal CrewLink will never be updated and will never work again, so BetterCrewLink is the only way to make your CrewLink works </summary>
 
-![CrewLink End Of Support](https://user-images.githubusercontent.com/71022656/121688157-84197500-ca99-11eb-869e-6af3b720d2eb.png)
+![CrewLink has been discontinued](https://user-images.githubusercontent.com/71022656/121688157-84197500-ca99-11eb-869e-6af3b720d2eb.png)
 
 </details>
 
