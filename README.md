@@ -29,6 +29,7 @@
 <p>
 <p align="center">
     <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/"><img src="https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/total?logo=GitHub&label=Downloads" alt="GitHub Downloads"></img></a>
+    <a href="https://www.curseforge.com/among-us/all-mods/bettercrewlink-proximity-chat/files"><img src="http://cf.way2muchnoise.eu/full_463977_downloads.svg" alt="CurseForge Downloads"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/latest/total?label=Downloads%20%28latest%20release%29&logo=GitHub" alt="GitHub Downloads Latest Release"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/v/release/OhMyGuus/BetterCrewLink?logo=GitHub&color=success&label=Latest%20Release" alt="GitHub Latest Release"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/release-date/OhMyGuus/BetterCrewLink?label=Released&logo=GitHub" alt="GitHub Latest Release Date"></img></a>
@@ -372,8 +373,10 @@ Distributed Under the GNU General Public License v3.0. See <a href="https://gith
 <p align="center">This mod is not affiliated with Among Us or Innersloth LLC, and the content contained therein is not endorsed or otherwise sponsored by Innersloth LLC. Portions of the materials contained herein are property of Innersloth LLC.</p>
 <p align="center">© Innersloth LLC.</p>
 
-[downloads-shield]: https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/total?logo=GitHub&label=Downloads
-[downloads-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/
+[github-downloads-shield]: https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/total?logo=GitHub&label=Downloads
+[github-downloads-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/
+[curseforge-downloads-shield]: http://cf.way2muchnoise.eu/full_463977_downloads.svg
+[curseforge-downloads-url]: https://www.curseforge.com/among-us/all-mods/bettercrewlink-proximity-chat/files
 [downloads_latest_release-shield]: https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/latest/total?label=Downloads%20%28latest%20release%29&logo=GitHub
 [downloads_latest_release-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/latest/
 [latest_release-shield]: https://img.shields.io/github/v/release/OhMyGuus/BetterCrewLink?logo=GitHub&color=success&label=Latest%20Release
