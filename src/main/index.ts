@@ -45,7 +45,7 @@ function createMainWindow() {
 	const mainWindowState = windowStateKeeper({});
 
 	const window = new BrowserWindow({
-		title: 'BetterCrewLink GUI',
+		title: 'BetterCrewLink',
 		width: 250,
 		height: 350,
 		maxWidth: 250,
