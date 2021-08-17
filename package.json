@@ -2,7 +2,8 @@
 	"name": "bettercrewlink",
 	"version": "2.7.5",
 	"license": "GPL-3.0-or-later",
-	"description": "Free, open, Among Us proximity voice chat",
+	"description": "Free, open, Among Us Proximity Voice Chat",
+	"homepage": "https://github.com/OhMyGuus/BetterCrewLink"
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/OhMyGuus/BetterCrewLink.git"
@@ -10,6 +11,12 @@
 	"funding": {
 		"type": "individual",
 		"url": "https://www.paypal.com/donate?hosted_button_id=KS43BDTGN76JQ"
+	},
+		"type": "individual",
+		"url": "https://ko-fi.com/ohmyguus"
+	},
+	"bugs": {
+		"url" : "https://github.com/OhMyGuus/BetterCrewLink/issues",
 	},
 	"author": {
 		"name": "OhMyGuus",
