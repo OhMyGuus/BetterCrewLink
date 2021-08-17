@@ -3,7 +3,7 @@
 	"version": "2.7.5",
 	"license": "GPL-3.0-or-later",
 	"description": "Free, open, Among Us Proximity Voice Chat",
-	"homepage": "https://github.com/OhMyGuus/BetterCrewLink"
+	"homepage": "https://github.com/OhMyGuus/BetterCrewLink",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/OhMyGuus/BetterCrewLink.git"
