@@ -19,6 +19,10 @@ Server: [![BetterCrewLink Server Contributors](https://img.shields.io/github/con
 * [cybershard](https://github.com/cybershard) & [edqx](https://github.com/edqx) for make only hear people in vision, walls block voice, hear through cameras and comms sabotage
 * [MatadorProBr](https://github.com/MatadorProBr) for make this list of contribuators, better README.md, Wiki
 
+<a href="https://github.com/OhMyGuus/BetterCrewLink/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=OhMyGuus/BetterCrewLink" />
+</a>
+
 A big thanks for all those people who contributed and still contributing to keep this project stay alive, thank you so much for being part of this BetterCrewLink Community!
 
 <!-- TRANSLATORS -->
