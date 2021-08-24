@@ -33,6 +33,14 @@
 				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
 			}
 		},
+		"customplatforms": {
+			"title": "Custom Platform",
+			"platform_title": "Title",
+			"path": "EXE Path",
+			"uri": "URI Link",
+			"advanced": "Advanced",
+			"arguments": "Arguments"
+		},
 			"audio": {
 				"title": "Audio",
 				"microphone": "Microphone",
@@ -125,7 +133,9 @@
 		"cancel": "Cancel",
 		"close": "Close",
 		"exit": "Exit Settings to Apply Changes",
-		"public_lobby": "Public Lobbies"
+		"public_lobby": "Public Lobbies",
+		"delete": "Delete",
+		"file_select": "Select File"
 	},
 	"game": {
 		"menu": "MENU",
@@ -140,7 +150,8 @@
 	"platform": {
 		"steam": "Steam",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft"
+		"microsoft": "Microsoft",
+		"custom": "Custom"
 	},
 	"translator_name": "None"
 }
