@@ -29,7 +29,7 @@ import reverbOgx from 'arraybuffer-loader!../../static/sounds/reverb.ogx'; // @t
 import radioOnSound from '../../static/sounds/radio_on.wav'; // @ts-ignore
 // import radioBeep2 from '../../static/sounds/radio_beep2.wav';
 
-import { CameraLocation, AmongUsMaps } from '../common/AmongusMap';
+import { CameraLocation, AmongUsMaps, MapType } from '../common/AmongusMap';
 import Store from 'electron-store';
 import { ObsVoiceState } from '../common/ObsOverlay';
 // import { poseCollide } from '../common/ColliderMap';
@@ -229,6 +229,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	const maxDistanceRef = useRef(2);
 	const gameState = useContext(GameStateContext);
 	const hostRef = useRef({
+		map: MapType.UNKNOWN,
 		mobileRunning: false,
 		gamestate: gameState.gameState,
 		code: gameState.lobbyCode,
@@ -1046,7 +1047,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 							console.log('Recieved impostor radio request', parsedData);
 						}
 						if (parsedData.hasOwnProperty('maxDistance')) {
-							if (!hostRef.current || hostRef.current.hostId !== socketClientsRef.current[peer]?.clientId) return;
+							if (!hostRef.current || ((hostRef.current.map !== MapType.SUBMERGED && hostRef.current.hostId !== 0) || hostRef.current.hostId !== socketClientsRef.current[peer]?.clientId)) return;
 
 							Object.keys(lobbySettings).forEach((field: string) => {
 								if (field in parsedData) {
@@ -1164,6 +1165,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			maxDistanceRef.current = 1;
 		}
 		hostRef.current = {
+			map: gameState.map,
 			mobileRunning: hostRef.current.mobileRunning,
 			gamestate: gameState.gameState,
 			code: gameState.lobbyCode,
