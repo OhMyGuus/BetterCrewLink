@@ -1047,7 +1047,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 							console.log('Recieved impostor radio request', parsedData);
 						}
 						if (parsedData.hasOwnProperty('maxDistance')) {
-							if (!hostRef.current || ((hostRef.current.map !== MapType.SUBMERGED && hostRef.current.hostId !== 0) || hostRef.current.hostId !== socketClientsRef.current[peer]?.clientId)) return;
+							if (!hostRef.current || (hostRef.current.hostId !== 0 && hostRef.current.hostId !== socketClientsRef.current[peer]?.clientId)) return;
 
 							Object.keys(lobbySettings).forEach((field: string) => {
 								if (field in parsedData) {
