@@ -268,7 +268,8 @@ export default class GameReader {
 								switch (map) {
 									case MapType.AIRSHIP:
 									case MapType.POLUS:
-									case MapType.THE_SKELD: {
+									case MapType.THE_SKELD: 
+									case MapType.SUBMERGED: {
 										comsSabotaged =
 											this.readMemory<number>('uint32', value, this.offsets!.HudOverrideSystemType_isActive) === 1;
 										break;
