@@ -1,7 +1,8 @@
 import { app, dialog, ipcMain, shell } from 'electron';
-import { platform } from 'os';
+import { platform, homedir } from 'os';
 import { enumerateValues, enumerateKeys, HKEY } from 'registry-js';
 import { DefaultGamePlatforms, GamePlatform, GamePlatformInstance, GamePlatformMap, PlatformRunType } from '../common/GamePlatform';
+import { parse } from 'vdf-parser';
 import spawn from 'cross-spawn';
 import path from 'path';
 import fs from 'fs';
@@ -23,7 +24,7 @@ export const initializeIpcListeners = (): void => {
 		if (platform.launchType === PlatformRunType.URI) {
 			// Just open the URI if we can to launch the game
 			// TODO: Try to add error checking here
-			shell.openPath(platform.runPath);
+			shell.openExternal(platform.runPath);
 		} else if (platform.launchType === PlatformRunType.EXE) {
 			try {
 				const process = spawn(path.join(platform.runPath, platform.execute[0]), platform.execute.slice(1));
@@ -115,8 +116,18 @@ export const initializeIpcHandlers = (): void => {
 				}
 			}
 		} else if (desktop_platform === 'linux') {
-			// TODO: Platform checking on Linux
 			// Add platform to availableGamePlatforms and setup data if platform is available, do nothing otherwise
+			try {
+				const vdfString = fs.readFileSync(homedir() + '/.steam/registry.vdf').toString()
+				const vdfObject = parse(vdfString) as {Registry:{HKCU:{Software:{Valve:{Steam:{Apps:object}}}}}};
+				//tries to find Among Us's Steam Id in the .vdf-file
+				if ("945360" in vdfObject["Registry"]["HKCU"]["Software"]["Valve"]["Steam"]["Apps"]) {
+					availableGamePlatforms[GamePlatform.STEAM] = DefaultGamePlatforms[GamePlatform.STEAM];
+				}
+			} catch(e) {
+				/* empty */
+			}
+			
 		}
 
 		// Deal with custom client-added platforms
