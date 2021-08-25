@@ -33,6 +33,14 @@
 				"ban_warning": "Texto inapropriado resultará em banimento do BrewCrewLink."
 			}
 		},
+		"customplatforms": {
+			"title": "Plataforma Personalizada",
+			"platform_title": "Título",
+			"path": "Local do EXE",
+			"uri": "URI Link",
+			"advanced": "Avançado",
+			"arguments": "Argumentos"
+		},
 		"audio": {
 			"title": "Áudio",
 			"microphone": "Microfone",
@@ -87,7 +95,6 @@
 			"mobilehost": "Permitir jogadores Android/iOS",
 			"vad_enabled": "VAD Habilitado",
 			"hardware_acceleration": "Aceleração de Hardware",
-			"hardware_acceleration_warning": "Isso pode causar perda de desempenho em alguns sistemas.",
 			"vad_enabled_warning": "Você não verá quem está falando se desativar.",
 			"echocancellation": "Cancelamento de Eco",
 			"noiseSuppression": "Supressão de Ruído",
@@ -125,7 +132,9 @@
 		"cancel": "Cancelar",
 		"close": "Fechar",
 		"exit": "Saia das Configurações para Aplicar as Alterações",
-		"public_lobby": "Salas Públicas"
+		"public_lobby": "Salas Públicas",
+		"delete": "Deletar",
+		"file_select": "Selecione o Arquivo"
 	},
 	"game": {
 		"menu": "MENU",
@@ -140,7 +149,8 @@
 	"platform": {
 		"steam": "Steam",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft"
+		"microsoft": "Microsoft",
+		"custom": "Customizado"
 	},
 	"translator_name": "Matador"
 }

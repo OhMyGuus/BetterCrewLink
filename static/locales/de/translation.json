@@ -33,6 +33,14 @@
 				"ban_warning": "Unangebrachter Text führt zu einer Sperre auf BetterCrewLink."
 			}
 		},
+		"customplatforms": {
+			"title": "Benutzerdefinierte Plattform",
+			"platform_title": "Titel",
+			"path": "EXE-Pfad",
+			"uri": "URI Link",
+			"advanced": "Erweitert",
+			"arguments": "Parameter"
+		},
 		"audio": {
 			"title": "Audio",
 			"microphone": "Mikrofon",
@@ -124,12 +132,14 @@
 		"cancel": "Abbrechen",
 		"close": "Schließen",
 		"exit": "Einstellungen verlassen, um Änderungen anzuwenden",
-		"public_lobby": "Öffentliche Lobbys"
+		"public_lobby": "Öffentliche Lobbys",
+		"delete": "Löschen",
+		"file_select": "Datei auswählen"
 	},
 	"game": {
 		"menu": "MENÜ",
 		"open": "Öffnen mit",
-		"open_error": "Spiel manuell starten \r\n(Diese Taste ist nur für Steam)",
+		"open_error": "Starte Among Us manuell.",
 		"waiting": "Warten auf Among Us",
 		"error": "FEHLER",
 		"error_admin": "Konnte keine Verbindung zu \"Among Us\" herstellen.\nBitte BetterCrewLink mit Administratorrechten neu starten.",
@@ -139,7 +149,8 @@
 	"platform": {
 		"steam": "Steam",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft"
+		"microsoft": "Microsoft",
+		"custom": "Benutzerdefiniert"
 	},
 	"translator_name": "KadenBiel, SirBuvex, Jeddunk und Fauli1221"
 }

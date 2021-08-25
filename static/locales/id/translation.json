@@ -33,6 +33,14 @@
 				"ban_warning": "Teks yang tidak pantas akan mengakibatkan pemblokiran (ban) dari BetterCrewLink."
 			}
 		},
+		"customplatforms": {
+			"title": "Platform Kustom",
+			"platform_title": "Judul",
+			"path": "Jalur EXE",
+			"uri": "Tautan URI",
+			"advanced": "Lanjutan",
+			"arguments": "Argumen"
+		},
 		"audio": {
 			"title": "Audio",
 			"microphone": "Mikrofon",
@@ -87,7 +95,6 @@
 			"mobilehost": "Host Seluler",
 			"vad_enabled": "VAD Diaktifkan",
 			"hardware_acceleration": "Akselerasi Perangkat Keras",
-			"hardware_acceleration_warning": "Ini dapat menyebabkan hilangnya kinerja pada beberapa sistem.",
 			"vad_enabled_warning": "Anda tidak akan melihat siapa yang berbicara jika dimatikan.",
 			"echocancellation": "Penghilangan Gema",
 			"noiseSuppression": "Peredaman Kebisingan",
@@ -125,12 +132,14 @@
 		"cancel": "Batalkan",
 		"close": "Tutup",
 		"exit": "Keluar dari Penyetelan untuk Menerapkan Perubahan",
-		"public_lobby": "Lobi-lobi Publik"
+		"public_lobby": "Lobi-lobi Publik",
+		"delete": "Hapus",
+		"file_select": "Pilih Berkas"
 	},
 	"game": {
 		"menu": "MENU",
 		"open": "Buka Melalui",
-		"open_error": "Mulai permainan secara manual.\n(tombol ini hanya untuk steam)",
+		"open_error": "Mulai Among Us secara manual.",
 		"waiting": "Menunggu Among Us",
 		"error": "KESALAHAN",
 		"error_admin": "Tidak bisa terhubung ke Among Us.\nHarap buka kembali BetterCrewLink sebagai Administrator.",
@@ -140,7 +149,8 @@
 	"platform": {
 		"steam": "Steam",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft"
+		"microsoft": "Microsoft",
+		"custom": "Kustom"
 	},
 	"translator_name": "LaneGL"
 }

@@ -33,6 +33,14 @@
 				"ban_warning": "Uygunsuz dil kullanmak BetterCrewLink'ten banlanmana sebep olabilir."
 			}
 		},
+		"customplatforms": {
+			"title": "Özel Platform",
+			"platform_title": "İsim",
+			"path": "EXE yolu",
+			"uri": "URI Linki",
+			"advanced": "Gelişmiş",
+			"arguments": "Argümanlar"
+		},
 		"audio": {
 			"title": "Ses",
 			"microphone": "Mikrofon",
@@ -87,7 +95,6 @@
 			"mobilehost": "Mobil Oyun Kurucu",
 			"vad_enabled": "VAD Aktif",
 			"hardware_acceleration": "Donanım Hızlandırma",
-			"hardware_acceleration_warning": "Bazı sistemlerde performans kaybına sebep olabilir.",
 			"vad_enabled_warning": "Kapatılırsa kimin konuştuğunu görmezsin.",
 			"echocancellation": "Yankı İptali",
 			"noiseSuppression": "Gürültü Azaltma",
@@ -125,12 +132,14 @@
 		"cancel": "İptal",
 		"close": "Kapat",
 		"exit": "Ayarları Kaydetmek İçin Ayarlardan Çıkın",
-		"public_lobby": "Herkese Açık Lobiler"
+		"public_lobby": "Herkese Açık Lobiler",
+		"delete": "Sil",
+		"file_select": "Dosya Seç"
 	},
 	"game": {
 		"menu": "MENÜ",
 		"open": "Birlikte Aç",
-		"open_error": "Oyunu Elle Aç.\n(Bu buton sadece Steam için)",
+		"open_error": "Among Us'ı elle başlat.",
 		"waiting": "Among Us Bekleniyor",
 		"error": "HATA",
 		"error_admin": "Among Us'a bağlanılamadı.\nLütfen BetterCrewLink'i Yönetici olarak başlatın.",
@@ -140,7 +149,8 @@
 	"platform": {
 		"steam": "Steam",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft"
+		"microsoft": "Microsoft",
+		"custom": "Özel"
 	},
 	"translator_name": "Archerist"
 }
