@@ -7,6 +7,7 @@ A changelog for BetterCrewLink in case people want to see changes from the new/o
 ### Added
 
 - Added the version of BCL that you are using in ping tracker.
+- Added custom launches.
 
 ### Changed
 
