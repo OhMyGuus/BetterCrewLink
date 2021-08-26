@@ -119,9 +119,9 @@ export const initializeIpcHandlers = (): void => {
 			// Add platform to availableGamePlatforms and setup data if platform is available, do nothing otherwise
 			try {
 				const vdfString = fs.readFileSync(homedir() + '/.steam/registry.vdf').toString()
-				const vdfObject = parse(vdfString) as {Registry:{HKCU:{Software:{Valve:{Steam:{Apps:object}}}}}};
-				//tries to find Among Us's Steam Id in the .vdf-file
-				if ("945360" in vdfObject["Registry"]["HKCU"]["Software"]["Valve"]["Steam"]["Apps"]) {
+				const vdfObject = parse(vdfString) as {Registry:{HKCU:{Software:{Valve:{Steam:{Apps:{945360:{installed:number}}}}}}}};
+				//checks if Among Us's listed as installed in the .vdf-file
+				if (vdfObject["Registry"]["HKCU"]["Software"]["Valve"]["Steam"]["Apps"]["945360"]["installed"] == 1) {
 					availableGamePlatforms[GamePlatform.STEAM] = DefaultGamePlatforms[GamePlatform.STEAM];
 				}
 			} catch(e) {
