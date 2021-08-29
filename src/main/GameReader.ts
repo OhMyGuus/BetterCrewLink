@@ -292,6 +292,7 @@ export default class GameReader {
 							}
 						});
 					}
+
 					const minigamePtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets!.miniGame);
 					const minigameCachePtr = this.readMemory<number>('ptr', minigamePtr, this.offsets!.objectCachePtr);
 					if (minigameCachePtr && minigameCachePtr !== 0 && localPlayer) {

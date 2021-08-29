@@ -244,7 +244,7 @@ export default {
 		shipStatus: [0x1c57cac, 0x5c, 0x0],
 		shipStatus_systems: [0x8c],
 		shipStatus_map: [0xe4],
-		shipstatus_allDoors: [0x7c],
+		shipstatus_allDoors: [0x84],
 		door_doorId: 0x10,
 		door_isOpen: 0x14,
 		deconDoorUpperOpen: [0xc, 0xc],
