@@ -942,8 +942,23 @@ export default class GameReader {
 	}
 
 	IntToGameCode(input: number): string {
-		if (!input || input === 0 || input > -1000) return '';
+		if (!input || input === 0)
+			return '';
+		else if (input <= -1000)
+			return this.IntToGameCodeV2Impl(input);
+		else if (input > 0 && this.loadedMod.id == "POLUS_GG")
+			return this.IntToGameCodeV1Impl(input);
+		else
+			return '';
+	}
 
+	IntToGameCodeV1Impl(input: number): string {
+		const buf = Buffer.alloc(4);
+		buf.writeInt32LE(input, 0);
+		return buf.toString();
+	}
+
+	IntToGameCodeV2Impl(input: number): string {
 		const V2 = 'QWXRTYLPESDFGHUJKZOCVBINMA';
 		const a = input & 0x3ff;
 		const b = (input >> 10) & 0xfffff;
