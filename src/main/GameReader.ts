@@ -959,8 +959,6 @@ export default class GameReader {
 	}
 
 	IntToGameCodeV2Impl(input: number): string {
-		if (!input || input === 0 || input > -1000) return '';
-
 		const V2 = 'QWXRTYLPESDFGHUJKZOCVBINMA';
 		const a = input & 0x3ff;
 		const b = (input >> 10) & 0xfffff;
