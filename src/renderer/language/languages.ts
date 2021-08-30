@@ -15,6 +15,7 @@ import translationID from '../../../static/locales/id/translation.json';
 import translationIT from '../../../static/locales/it/translation.json';
 import translationJA from '../../../static/locales/ja/translation.json';
 import translationKO from '../../../static/locales/ko/translation.json';
+import translationNO from '../../../static/locales/no/translation.json';
 import translationPL from '../../../static/locales/pl/translation.json';
 import translationPTPT from '../../../static/locales/pt-PT/translation.json';
 import translationPTBR from '../../../static/locales/pt-BR/translation.json';
@@ -97,6 +98,10 @@ const languages = {
 	ko: {
 		translation: translationKO,
 		name: '한국인',
+	},
+	no: {
+		translation: translationNO,
+		name: 'Norsk',
 	},
 	pl: {
 		translation: translationPL,
