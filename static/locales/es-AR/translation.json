@@ -33,6 +33,14 @@
 				"ban_warning": "Un texto inapropiado resultará en un bloqueo de BetterCrewLink."
 			}
 		},
+		"customplatforms": {
+			"title": "Plataforma Personalizada",
+			"platform_title": "Título",
+			"path": "Ruta EXE",
+			"uri": "Link URI",
+			"advanced": "Avanzado",
+			"arguments": "Parámetros"
+		},
 		"audio": {
 			"title": "Audio",
 			"microphone": "Micrófono",
@@ -124,16 +132,25 @@
 		"cancel": "Cancelar",
 		"close": "Cerrar",
 		"exit": "Salí de los ajustes para aplicar los cambios",
-		"public_lobby": "Salas públicas"
+		"public_lobby": "Salas públicas",
+		"delete": "Eliminar",
+		"file_select": "Seleccionar Archivo"
 	},
 	"game": {
 		"menu": "MENÚ",
-		"open": "Abrir juego",
-		"open_error": "Empezar el juego manualmente. \n(este botón es sólo para Steam)",
+		"open": "Abrir vía",
+		"open_error": "Abrir Among Us manualmente.",
 		"waiting": "Esperando a Among Us",
 		"error": "ERROR",
 		"error_admin": "No se pudo conectar a Among Us.\nPor favor volvé a abrir BetterCrewLink como administrador.",
+		"error_platform": "La plataforma no pudo ser detectada",
 		"error_unsupport": "Tu versión de Among Us no está soportada por BetterCrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "Personalizada"
 	},
 	"translator_name": "Kajachuan"
 }

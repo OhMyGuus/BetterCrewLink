@@ -1,0 +1,156 @@
+{
+	"settings": {
+		"title": "Innstillinger",
+		"language": "Språk",
+		"warning": "Er du sikker?",
+		"lobbysettings": {
+			"title": "Lobby-innstillinger",
+			"gamehostonly": "Bare spill-verten kan endre dette!",
+			"inlobbyonly": "Du kan bare endre dette i lobbyen!",
+			"voicedistance": "Stemmeavstand",
+			"voicedistance_impostor": "Impostor-stemmeavstand",
+			"wallsblockaudio": "Vegger blokkerer lyd",
+			"visiononly": "Hør bare synlige folk",
+			"impostorshearsghost": "Impostors kan høre døde",
+			"hear_imposters_invents": "Hør impostors i ventiler",
+			"private_talk_invents": "Privat samtale i ventiler",
+			"comms_sabotage_audio": "Comms-sabotasje deaktiverer stemme",
+			"hear_through_cameras": "Hør gjennom kameraer",
+			"ghost_only": "Bare spøkelser kan snakke/høre",
+			"ghost_only_warning": "Dette deaktiverer lyden for levende spillere.",
+			"ghost_only_warning2": "Bare spøkelser kan prate er aktivert.",
+			"meetings_only": "Kun i møter/lobby",
+			"meetings_only_warning": "Dette deaktiverer lyden for levende spillere utenom i møter.",
+			"meetings_only_warning2": "Snakking kun i møter er aktivert.",
+			"impostor_radio": "Impostor-radio",
+			"public_lobby": {
+				"change_settings": "Endre lobby-info",
+				"title": "Tittel",
+				"enabled": "Lobbyen er offentlig",
+				"mods": "Mods",
+				"language": "Språk",
+				"enable_warning": "Aktivering av dette vil gjøre din lobby offentlig for andre BetterCrewLink-brukere!",
+				"ban_warning": "Upassende tekst vil resultere i utestengelse fra BetterCrewLink."
+			}
+		},
+		"customplatforms": {
+			"title": "Egendefinert plattform",
+			"platform_title": "Tittel",
+			"path": "EXE-sti",
+			"uri": "URI-link",
+			"advanced": "Avansert",
+			"arguments": "Argumenter"
+		},
+		"audio": {
+			"title": "Lyd",
+			"microphone": "Mikrofon",
+			"speaker": "Høyttaler",
+			"voice_activity": "Stemmeaktivitet",
+			"push_to_talk": "Trykk for å snakke",
+			"push_to_mute": "Trykk for å dempe",
+			"microphone_volume": "Mikrofonvolum",
+			"microphone_sens": "Mikrofonfølsomhet",
+			"microphone_sens_warning": "Hvis du angir følsomheten enda lavere, virker den kanskje ikke.",
+			"mastervolume": "Hovedvolum",
+			"crewvolume": "Crew-volum som spøkelse",
+			"test_speaker_start": "Test høyttaler",
+			"test_speaker_stop": "Stop testing av høyttaler"
+		},
+		"keyboard": {
+			"title": "Tastatursnarveier",
+			"push_to_talk": "Trykk for å snakke",
+			"mute": "Slå av mikrofon",
+			"deafen": "Slå av lyd",
+			"impostor_radio": "Impostor-radio"
+		},
+		"overlay": {
+			"title": "Overlegg",
+			"always_on_top": "BetterCrewLink på toppen",
+			"enabled": "Aktiver overlegg",
+			"compact": "Kompakt overlegg",
+			"meeting": "Møte-overlegg",
+			"pos": "Overleggsplassering",
+			"locations": {
+				"hidden": "Skjult",
+				"top": "Øverst i midten",
+				"bottom": "Nederst til venstre",
+				"right": "Høyre",
+				"right1": "Høyre med bakgrunn",
+				"left": "Venstre",
+				"left1": "Venstre med bakgrunn"
+			}
+		},
+		"advanced": {
+			"title": "Avansert",
+			"nat_fix": "NAT-fiks",
+			"nat_fix_warning": "Dette vil fikse NAT-problemene, men vil legge til en forsinkelse siden den bruker en server i stedet for Peer til Peer (P2P).",
+			"change_server": "Bytt stemmeserver",
+			"voice_server": "Stemmeserver",
+			"invalid_url": "Ugyldig URL",
+			"voice_server_warning": "Dette alternativet er bare for avanserte brukere. Andre servere kan stjele informasjonen din eller krasje BetterCrewLink.",
+			"reset_default": "Tilbakestill til standard"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "Mobil vert",
+			"vad_enabled": "VAD aktivert",
+			"hardware_acceleration": "Maskinvareakselerasjon",
+			"vad_enabled_warning": "Du vil ikke se hvem som snakker hvis deaktivert.",
+			"echocancellation": "Ekkodemping",
+			"noiseSuppression": "Støyreduksjon",
+			"spatial_audio": "Romslig lyd"
+		},
+		"streaming": {
+			"title": "Strømningsinnstillinger",
+			"hidecode": "Vis lobbykode",
+			"obs_overlay": "OBS-nettleser overlegg",
+			"obs_url": "OBS-nettleser kildelenke",
+			"voice_server_comp": "VS kompatibilitetsmodus",
+			"voice_server_comp_warning": "Det anbefales å kun endre stemmeserver til en BetterCrewLink-stemmeserver (https://bettercrewl.ink) for eksempel."
+		},
+		"troubleshooting": {
+			"title": "Feilsøking",
+			"restore": "Gjenopprett standardinnstillinger",
+			"restore_warning": "Dette vil tilbakestille ALLE innstillingene til sine standardverdier.",
+			"warning": "Ikke tilgjengelig som vert i spillet!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "Offentlige lobbyer",
+		"code": "Lobbykode",
+		"list": {
+			"title": "Tittel",
+			"host": "Vert",
+			"players": "Spillere",
+			"mods": "Mods",
+			"language": "Språk"
+		}
+	},
+	"buttons": {
+		"default": "Standard",
+		"confirm": "Bekreft",
+		"cancel": "Avbryt",
+		"close": "Lukk",
+		"exit": "Lukk innstillinger for å bruke endringer",
+		"public_lobby": "Offentlige lobbyer",
+		"delete": "Slett",
+		"file_select": "Velg fil"
+	},
+	"game": {
+		"menu": "MENY",
+		"open": "Åpne via",
+		"open_error": "Start Among Us manuelt.",
+		"waiting": "Venter på Among Us",
+		"error": "FEIL",
+		"error_admin": "Kunne ikke koble til Among Us.\nVennligst start BetterCrewLink på nytt som administrator.",
+		"error_platform": "Ingen plattform oppdaget",
+		"error_unsupport": "Din versjon av Among Us støttes ikke av BetterCrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "Egendefinert"
+	},
+	"translator_name": "Syver S. Stensholt (7r.st1)"
+}
