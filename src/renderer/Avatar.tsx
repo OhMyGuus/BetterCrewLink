@@ -220,6 +220,7 @@ const useCanvasStyles = makeStyles(() => ({
 		zIndex: 2,
 	},
 	hat: {
+		pointerEvents: 'none',
 		width: ({ hatDementions }: UseCanvasStylesParams) => hatDementions.width,
 		position: 'absolute',
 		top: ({ hatDementions }: UseCanvasStylesParams) => `calc(22% + ${hatDementions.top})`,
@@ -229,6 +230,7 @@ const useCanvasStyles = makeStyles(() => ({
 		display: ({ isAlive }: UseCanvasStylesParams) => (isAlive ? 'block' : 'none'),
 	},
 	skin: {
+		pointerEvents: 'none',
 		position: 'absolute',
 		top: 'calc(33% + 22%)',
 		left: ({ paddingLeft }: UseCanvasStylesParams) => paddingLeft,
