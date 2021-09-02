@@ -720,7 +720,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			!myPlayer ||
 			!myPlayer.isImpostor ||
 			myPlayer.isDead ||
-			!(impostorRadioClientId.current === myPlayer.clientId || impostorRadioClientId.current === -1)
+			!(impostorRadioClientId.current === myPlayer.clientId || impostorRadioClientId.current === -1) ||
+			!lobbySettingsRef.current.impostorRadioEnabled
 		) {
 			return;
 		}
