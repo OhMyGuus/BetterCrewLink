@@ -8,7 +8,7 @@ A changelog for BetterCrewLink in case people want to see changes from the new/o
 
 - Added the version of BCL that you are using in ping tracker.
 - Added custom launches.
-- Added Hungarian (not complete) and Korean translations.
+- Added Hungarian (not complete), Korean and Norwegian translations.
 
 ### Changed
 
