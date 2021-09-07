@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, CSSProperties } from 'react';
 import { ipcRenderer } from 'electron';
 import { AmongUsState, GameState, VoiceState } from '../common/AmongUsState';
 import { IpcOverlayMessages, IpcMessages } from '../common/ipc-messages';
@@ -13,6 +13,10 @@ interface UseStylesProps {
 	height: number;
 	width: number;
 	oldHud: boolean;
+}
+
+export interface playerContainerCss extends CSSProperties {
+	'--size': string;
 }
 
 const useStyles = makeStyles(() => ({
@@ -226,9 +230,10 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 		);
 	});
 	if (avatars.length === 0) return null;
+	const playerContainerStyle = { '--size': 7.5 * (10 / avatars.length) + 'vh' } as playerContainerCss;
 	return (
 		<div>
-			<div className={classnames.join(' ')}>
+			<div className={classnames.join(' ')} style={playerContainerStyle}>
 				<div className="otherplayers">
 					<div className="players_container playerContainerBack">{avatars}</div>
 				</div>
@@ -266,9 +271,9 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 		let ratio_diff = Math.abs(windowWidth / windowheight - 1.7);
 
 		if (ratio_diff < 0.25) {
-			resultW = windowWidth / 1.192
+			resultW = windowWidth / 1.192;
 		} else if (ratio_diff < 0.5) {
-			resultW = windowWidth / 1.146
+			resultW = windowWidth / 1.146;
 		} else {
 			resultW = windowWidth / 1.591;
 		}
