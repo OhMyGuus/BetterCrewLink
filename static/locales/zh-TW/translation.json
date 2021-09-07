@@ -33,6 +33,14 @@
 				"ban_warning": "不當言論將會被 BetterCrewLink ban 掉。"
 			}
 		},
+		"customplatforms": {
+			"title": "自訂平台",
+			"platform_title": "標題名稱",
+			"path": "EXE 路徑",
+			"uri": "URI 連結",
+			"advanced": "進階",
+			"arguments": "參數"
+		},
 		"audio": {
 			"title": "音訊",
 			"microphone": "麥克風",
@@ -87,7 +95,6 @@
 			"mobilehost": "手機端主機",
 			"vad_enabled": "啟用語音活性檢測 (VAD)",
 			"hardware_acceleration": "硬體加速",
-			"hardware_acceleration_warning": "在某些系統上可能會因此降低效能。",
 			"vad_enabled_warning": "如果停用這個選項，你將看不到目前是誰在說話。",
 			"echocancellation": "回音消除",
 			"noiseSuppression": "降噪",
@@ -125,12 +132,14 @@
 		"cancel": "取消",
 		"close": "關閉",
 		"exit": "關閉設定以套用變更",
-		"public_lobby": "公開大廳"
+		"public_lobby": "公開大廳",
+		"delete": "刪除",
+		"file_select": "選擇檔案"
 	},
 	"game": {
 		"menu": "選單",
 		"open": "由...開啟",
-		"open_error": "手動開啟遊戲。 \r\n(此選項僅供 Steam 版使用)",
+		"open_error": "手動啟動 Among Us",
 		"waiting": "正在等待 Among Us",
 		"error": "錯誤",
 		"error_admin": "無法連接至 Among Us。\n請重新以管理員身分開啟 BetterCrewLink。",
@@ -140,7 +149,8 @@
 	"platform": {
 		"steam": "Steam",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft"
+		"microsoft": "Microsoft",
+		"custom": "自訂"
 	},
 	"translator_name": "narihira2000"
 }
