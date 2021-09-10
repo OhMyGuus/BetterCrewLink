@@ -127,19 +127,20 @@ body,
 	float: unset;
 }
 
-.overlay-wrapper.overlay_postion_right .player_wrapper > div:first-of-type {
+.overlay-wrapper.overlay_postion_right .player_wrapper > div:first-of-type,
+.overlay-wrapper.overlay_postion_left .player_wrapper > div:first-of-type {
+	width: var(--size) !important;
+	max-width: 7.5vh;
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 1px;
-	width: 7.5vh !important;
+}
+
+.overlay-wrapper.overlay_postion_right .player_wrapper > div:first-of-type {
 	float: right;
 }
 
 .overlay-wrapper.overlay_postion_left .player_wrapper > div:first-of-type {
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 1px;
-	width: 7.5vh !important;
 	float: left;
 }
 
