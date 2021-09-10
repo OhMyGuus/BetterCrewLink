@@ -54,7 +54,6 @@ export interface ILobbySettings {
 	publicLobby_on: boolean;
 	publicLobby_title: string;
 	publicLobby_language: string;
-	publicLobby_mods: MODS;
 }
 
 export interface SocketConfig {

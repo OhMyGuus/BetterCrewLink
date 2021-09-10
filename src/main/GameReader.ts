@@ -131,6 +131,7 @@ export default class GameReader {
 				return modList[0];
 			}
 			for (const file of fs.readdirSync(path.join(dir, 'BepInEx\\plugins'))) {
+				console.log(`MOD! ${file}`)
 				let mod = modList.find((o) => o.dllStartsWith && file.includes(o.dllStartsWith));
 				if (mod) return mod;
 			}
@@ -486,7 +487,9 @@ export default class GameReader {
 			this.offsets.signatures.serverManager.patternOffset,
 			this.offsets.signatures.serverManager.addressOffset
 		);
-
+		if (this.loadedMod.id === 'POLUS_GG') {
+			this.offsets.serverManager_currentServer[4] = 0x0C
+		}
 		this.colorsInitialized = false;
 		console.log('serverManager_currentServer', this.offsets.serverManager_currentServer[0].toString(16));
 		if (innerNetClient === 0x2c6c278) {
@@ -753,7 +756,7 @@ export default class GameReader {
 	}
 
 	joinGame(code: string, server: string): boolean {
-		if (!this.amongUs || !this.initializedWrite || server.length > 15 || !this.offsets || this.is_64bit) {
+		if (!this.amongUs || !this.initializedWrite || server.length > 15 || !this.offsets || this.is_64bit || this.loadedMod.id === "POLUS_GG") {
 			return false;
 		}
 		const innerNetClient = this.readMemory<number>(

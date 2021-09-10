@@ -172,7 +172,6 @@ export default function App({ t }): JSX.Element {
 			publicLobby_on: false,
 			publicLobby_title: '',
 			publicLobby_language: 'en',
-			publicLobby_mods: 'NONE',
 		},
 		launchPlatform: GamePlatform.STEAM,
 		customPlatforms: {},

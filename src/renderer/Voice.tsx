@@ -207,8 +207,7 @@ const defaultlocalLobbySettings: ILobbySettings = {
 	visionHearing: false,
 	publicLobby_on: false,
 	publicLobby_title: '',
-	publicLobby_language: 'en',
-	publicLobby_mods: 'NONE',
+	publicLobby_language: 'en'
 };
 const radioOnAudio = new Audio();
 radioOnAudio.src = radioOnSound;
@@ -655,7 +654,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			max_players: gameState.maxPlayers,
 			server: gameState.currentServer,
 			language: lobbySettings.publicLobby_language,
-			mods: gameState.mod !== 'NONE' ? gameState.mod : lobbySettings.publicLobby_mods,
+			mods:  gameState.mod,
 			isPublic: lobbySettings.publicLobby_on,
 			gameState: gameState.gameState,
 		});
@@ -668,7 +667,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		gameState?.players?.length,
 		lobbySettings.publicLobby_title,
 		lobbySettings.publicLobby_language,
-		lobbySettings.publicLobby_mods,
 		lobbySettings.publicLobby_on,
 	]);
 
