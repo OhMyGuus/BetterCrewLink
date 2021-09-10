@@ -268,7 +268,8 @@ export default class GameReader {
 								switch (map) {
 									case MapType.AIRSHIP:
 									case MapType.POLUS:
-									case MapType.THE_SKELD: {
+									case MapType.THE_SKELD: 
+									case MapType.SUBMERGED: {
 										comsSabotaged =
 											this.readMemory<number>('uint32', value, this.offsets!.HudOverrideSystemType_isActive) === 1;
 										break;
@@ -942,8 +943,23 @@ export default class GameReader {
 	}
 
 	IntToGameCode(input: number): string {
-		if (!input || input === 0 || input > -1000) return '';
+		if (!input || input === 0)
+			return '';
+		else if (input <= -1000)
+			return this.IntToGameCodeV2Impl(input);
+		else if (input > 0 && this.loadedMod.id == "POLUS_GG")
+			return this.IntToGameCodeV1Impl(input);
+		else
+			return '';
+	}
 
+	IntToGameCodeV1Impl(input: number): string {
+		const buf = Buffer.alloc(4);
+		buf.writeInt32LE(input, 0);
+		return buf.toString();
+	}
+
+	IntToGameCodeV2Impl(input: number): string {
 		const V2 = 'QWXRTYLPESDFGHUJKZOCVBINMA';
 		const a = input & 0x3ff;
 		const b = (input >> 10) & 0xfffff;
@@ -958,6 +974,16 @@ export default class GameReader {
 	}
 
 	gameCodeToInt(code: string): number {
+		return (code.length === 4 && this.loadedMod.id === "POLUS_GG") ? this.gameCodeToIntV1Impl(code) : this.gameCodeToIntV2Impl(code);
+	}
+
+	gameCodeToIntV1Impl(code: string): number {
+		const buf = Buffer.alloc(4);
+    	buf.write(code);
+    	return buf.readInt32LE(0);
+	}
+
+	gameCodeToIntV2Impl(code: string): number {
 		const V2Map = [25, 21, 19, 10, 8, 11, 12, 13, 22, 15, 16, 6, 24, 23, 18, 7, 0, 3, 9, 4, 14, 20, 1, 2, 5, 17];
 		const a = V2Map[code.charCodeAt(0) - 65];
 		const b = V2Map[code.charCodeAt(1) - 65];
@@ -969,6 +995,7 @@ export default class GameReader {
 		const two = c + 26 * (d + 26 * (e + 26 * f));
 		return one | ((two << 10) & 0x3ffffc00) | 0x80000000;
 	}
+
 	hashCode(s: string): number {
 		let h = 0;
 		for (let i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;

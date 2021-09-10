@@ -1,5 +1,5 @@
 import { GameState } from './AmongUsState';
-export type MODS = "NONE" | "TOWN_OF_IMPOSTORS" | "TOWN_OF_US" | "THE_OTHER_ROLES" | "EXTRA_ROLES" | "OTHER";
+export type MODS = "NONE" | "TOWN_OF_IMPOSTORS" | "TOWN_OF_US" | "THE_OTHER_ROLES" | "EXTRA_ROLES" | "POLUS_GG" | "OTHER";
 export interface AmongusMod {
 	id: MODS;
 	label: string;
@@ -28,6 +28,11 @@ export const modList: AmongusMod[] = [
 		id: 'THE_OTHER_ROLES',
 		label: 'The Other Roles',
 		dllStartsWith: 'TheOtherRoles'
+	},
+	{
+		id: 'POLUS_GG',
+		label: 'Polus.gg',
+		dllStartsWith: 'Polus'
 	},
 	{
 		id: 'OTHER',
