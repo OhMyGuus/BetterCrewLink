@@ -9,12 +9,12 @@ A changelog for BetterCrewLink in case people want to see changes from the new/o
 - Added the version of BCL that you are using in the ping tracker.
 - Added Custom Launches.
 - Added Hungarian (not complete), Korean and Norwegian translations.
-- Added support to Polus.gg and Submerged.
-- Added platform detection for Linux.
+- Added Support to Polus.gg and Submerged.
+- Added Platform Detection for Linux.
 
 ### Changed
 
-- Decreased the ping tracker size.
+- Decreased the Ping Tracker Size.
 - Removed the Extra Roles in Public Lobby Settings.
 
 ### Fixed
