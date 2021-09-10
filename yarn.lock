@@ -9826,6 +9826,11 @@ vary@~1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
+vdf-parser@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/vdf-parser/-/vdf-parser-1.2.0.tgz#bd9170e0a6262c8f6b6f91cd0405483a714dba3e"
+  integrity sha512-aPDNRtkNGo5gOcO7SrEkb01IOcvITIndJ5f9mFWs6j4VYaJ+SQMw37R3Wf0eyU0JjBsNYsjrn5LBGxE8r4oeBQ==
+
 verror@^1.10.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/verror/-/verror-1.10.0.tgz#3a105ca17053af55d6e270c1f8288682e18da400"
