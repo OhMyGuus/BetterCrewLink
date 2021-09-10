@@ -601,7 +601,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				localTalking: talking,
 				localIsAlive: !myPlayer?.isDead,
 				mod: gameState.mod,
-				oldMeetingHud: gameState.oldMeetingHud
+				oldMeetingHud: gameState.oldMeetingHud,
 			};
 			connectionStuff.current.overlaySocket?.emit('signal', {
 				to: settings.obsSecret,
@@ -1079,6 +1079,10 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				}
 
 				socket.on('join', async (peer: string, client: Client) => {
+					let oldSocketId = playerSocketIdsRef.current[client.clientId];
+					if (oldSocketId && audioElements.current[oldSocketId]) {
+						disconnectAudioElement(oldSocketId);
+					}
 					createPeerConnection(peer, true);
 					setSocketClients((old) => ({ ...old, [peer]: client }));
 				});
@@ -1099,18 +1103,22 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					}
 					console.log('ONSIGNAL', data);
 					let connection: Peer.Instance;
+					if (!socketClientsRef.current[from]) {
+						console.warn("SIGNAL FROM UNKOWN SOCKET..")
+						return;
+					}
 					if (data.hasOwnProperty('type')) {
 						// if (data.type === 'offer' && peerConnections[from]) {
 						// 	console.log("Got offer with already a connection")
 						// }
 						if (peerConnections[from] && data.type !== 'offer') {
 							console.log('Send to existing peer 1');
-						connection = peerConnections[from];
-					} else {
+							connection = peerConnections[from];
+						} else {
 							console.log('Send to new peer 1');
-						connection = createPeerConnection(from, false);
-					}
-					connection.signal(data);
+							connection = createPeerConnection(from, false);
+						}
+						connection.signal(data);
 					}
 				});
 			},
