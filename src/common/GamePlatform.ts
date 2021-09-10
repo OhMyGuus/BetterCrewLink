@@ -1,17 +1,3 @@
-
-export enum HKEY {
-    HKEY_CLASSES_ROOT = "HKEY_CLASSES_ROOT",
-    HKEY_CURRENT_CONFIG = "HKEY_CURRENT_CONFIG",
-    HKEY_DYN_DATA = "HKEY_DYN_DATA",
-    HKEY_CURRENT_USER_LOCAL_SETTINGS = "HKEY_CURRENT_USER_LOCAL_SETTINGS",
-    HKEY_CURRENT_USER = "HKEY_CURRENT_USER",
-    HKEY_LOCAL_MACHINE = "HKEY_LOCAL_MACHINE",
-    HKEY_PERFORMANCE_DATA = "HKEY_PERFORMANCE_DATA",
-    HKEY_PERFORMANCE_TEXT = "HKEY_PERFORMANCE_TEXT",
-    HKEY_PERFORMANCE_NLSTEXT = "HKEY_PERFORMANCE_NLSTEXT",
-    HKEY_USERS = "HKEY_USERS"
-}
-
 export enum GamePlatform {
 	EPIC = 'EPIC',
 	STEAM = 'STEAM',
@@ -28,51 +14,37 @@ export interface GamePlatformMap {
 }
 
 export interface GamePlatformInstance {
-	available: boolean;
-	key: GamePlatform;
+	default: boolean;
+	key: GamePlatform | string;
 	launchType: PlatformRunType;
-	registryKey: HKEY;
-	registrySubKey: string;
-	registryFindKey?: string;
-	registryKeyValue: string;
-	run: string;
-	exeFile?: string;
+	runPath: string;
+	execute: string[];
 	translateKey: string;
 }
 
 export const DefaultGamePlatforms: GamePlatformMap = {
 	[GamePlatform.STEAM]: {
-		available: false,
+		default: true,
 		key: GamePlatform.STEAM,
 		launchType: PlatformRunType.URI,
-		registryKey: HKEY.HKEY_CLASSES_ROOT,
-		registrySubKey: 'steam',
-		registryKeyValue: 'URL Protocol',
-		run: 'steam://rungameid/945360',
+		runPath: 'steam://rungameid/945360',
+		execute: [''],
 		translateKey: 'platform.steam',
 	},
 	[GamePlatform.EPIC]: {
-		available: false,
+		default: true,
 		key: GamePlatform.EPIC,
 		launchType: PlatformRunType.URI,
-		registryKey: HKEY.HKEY_CLASSES_ROOT,
-		registrySubKey: 'com.epicgames.launcher',
-		registryKeyValue: 'URL Protocol',
-		run: 'com.epicgames.launcher://apps/963137e4c29d4c79a81323b8fab03a40?action=launch&silent=true',
+		runPath: 'com.epicgames.launcher://apps/963137e4c29d4c79a81323b8fab03a40?action=launch&silent=true',
+		execute: [''],
 		translateKey: 'platform.epicgames',
 	},
 	[GamePlatform.MICROSOFT]: {
-		available: false,
+		default: true,
 		key: GamePlatform.MICROSOFT,
 		launchType: PlatformRunType.EXE,
-		registryKey: HKEY.HKEY_CURRENT_USER,
-		registrySubKey:
-			'SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\Repository\\Packages',
-		registryFindKey: 'Innersloth.AmongUs',
-		registryKeyValue: 'PackageRootFolder',
-		run: 'none',
-		exeFile: 'Among Us.exe',
+		runPath: 'none',
+		execute: ['Among Us.exe'],
 		translateKey: 'platform.microsoft',
 	},
 };
-

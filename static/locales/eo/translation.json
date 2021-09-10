@@ -33,6 +33,14 @@
 				"ban_warning": "Maldecaj mesaĝoj kaŭzos forbaron el BetterCrewLink."
 			}
 		},
+		"customplatforms": {
+			"title": "Agordita platformo",
+			"platform_title": "Titolo",
+			"path": "Vojo al la EXE-dosiero",
+			"uri": "Ligilo",
+			"advanced": "Alio",
+			"arguments": "Argumentoj"
+		},
 		"audio": {
 			"title": "Sonoj",
 			"microphone": "Mikrofono",
@@ -124,12 +132,14 @@
 		"cancel": "Nuligi",
 		"close": "Fermi",
 		"exit": "Eliru la agordejon por efektivigi la ŝanĝojn",
-		"public_lobby": "Publikaj ludejoj"
+		"public_lobby": "Publikaj ludejoj",
+		"delete": "Forigi",
+		"file_select": "Elekti dosieron"
 	},
 	"game": {
 		"menu": "MENUE",
 		"open": "Malfermi per",
-		"open_error": "Komenci la ludon mane. \n(ĉi-butono estas nur por dissendado)",
+		"open_error": "Startigu Trompiston permane.",
 		"waiting": "Atendado de la ludo",
 		"error": "ERARO",
 		"error_admin": "Ne eblis konekti al Among Us.\nBonvolu remalfermi BetterCrewLink kiel administranto.",
@@ -139,7 +149,8 @@
 	"platform": {
 		"steam": "Steam",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft"
+		"microsoft": "Microsoft",
+		"custom": "Agordita"
 	},
 	"translator_name": "Ajno and Jano Miĥalako"
 }

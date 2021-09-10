@@ -1,0 +1,156 @@
+{
+	"settings": {
+		"title": "설정",
+		"language": "언어",
+		"warning": "정말로요?",
+		"lobbysettings": {
+			"title": "로비 설정",
+			"gamehostonly": "게임의 호스트만 이 설정을 바꿀 수 있습니다!",
+			"inlobbyonly": "이 설정은 로비에서만 바꿀 수 있습니다!",
+			"voicedistance": "음성 거리",
+			"voicedistance_impostor": "임포스터 음성 거리",
+			"wallsblockaudio": "벽이 음성을 차단함",
+			"visiononly": "시야에 있는 사람의 음성만 들음",
+			"impostorshearsghost": "임포스터가 유령의 목소리를 들음",
+			"hear_imposters_invents": "임포스터가 환풍구에서도 목소리를 들음",
+			"private_talk_invents": "환풍구에서 비밀 대화를 할 수 있음",
+			"comms_sabotage_audio": "통신실에 사보타지를 걸면 음성 대화가 꺼짐",
+			"hear_through_cameras": "카메라 너머에서 음성을 들을 수 있음",
+			"ghost_only": "유령만 대화할 수 있음",
+			"ghost_only_warning": "살아있는 플레이어 간 음성 채팅을 못하도록 합니다.",
+			"ghost_only_warning2": "유령만 대화할 수 있도록 설정했습니다.",
+			"meetings_only": "회의/로비에서만 대화할 수 있음",
+			"meetings_only_warning": "회의 중이 아닌 생존자의 대화가 제한됩니다.",
+			"meetings_only_warning2": "회의 중에만 말할 수 있도록 설정했습니다.",
+			"impostor_radio": "임포스터용 라디오",
+			"public_lobby": {
+				"change_settings": "로비 정보 변경",
+				"title": "이름",
+				"enabled": "로비가 공개 상태입니다",
+				"mods": "모드",
+				"language": "언어",
+				"enable_warning": "다른 BetterCrewLink 사용자들에게 해당 로비를 공개하게 됩니다!",
+				"ban_warning": "부적절한 메시지를 보낼 경우 BetterCrewLink에서 차단당하실 수 있습니다."
+			}
+		},
+		"customplatforms": {
+			"title": "커스텀 플랫폼",
+			"platform_title": "이름",
+			"path": "EXE 경로",
+			"uri": "URI 링크",
+			"advanced": "고급",
+			"arguments": "인자"
+		},
+		"audio": {
+			"title": "오디오",
+			"microphone": "마이크",
+			"speaker": "스피커",
+			"voice_activity": "음성 감지",
+			"push_to_talk": "눌러서 말하기",
+			"push_to_mute": "눌러서 음소거하기",
+			"microphone_volume": "마이크 음량",
+			"microphone_sens": "마이크 감도",
+			"microphone_sens_warning": "감도를 지나치게 낮게 설정하면 동작하지 않을 수 있습니다.",
+			"mastervolume": "마스터 음량",
+			"crewvolume": "유령 크루원의 음량",
+			"test_speaker_start": "스피커 테스트",
+			"test_speaker_stop": "스피커 테스트 중지"
+		},
+		"keyboard": {
+			"title": "키보드 단축키",
+			"push_to_talk": "눌러서 말하기",
+			"mute": "음소거",
+			"deafen": "소리 끄기",
+			"impostor_radio": "임포스터용 라디오"
+		},
+		"overlay": {
+			"title": "오버레이",
+			"always_on_top": "BetterCrewLink를 항상 위에 표시",
+			"enabled": "오버레이 활성화",
+			"compact": "간략한 오버레이",
+			"meeting": "회의 오버레이",
+			"pos": "오버레이 위치",
+			"locations": {
+				"hidden": "숨김",
+				"top": "상단 중앙",
+				"bottom": "왼쪽 하단",
+				"right": "우측",
+				"right1": "우측 및 배경",
+				"left": "좌측",
+				"left1": "좌측 및 배경"
+			}
+		},
+		"advanced": {
+			"title": "고급",
+			"nat_fix": "NAT 수정",
+			"nat_fix_warning": "이 경우 NAT 문제가 해결되나 P2P에서 서버를 이용하는 방식으로 바뀌게 되므로 지연 현상이 심화될 수 있습니다.",
+			"change_server": "음성 서버 변경",
+			"voice_server": "음성 서버",
+			"invalid_url": "유효하지 않은 URL",
+			"voice_server_warning": "이 설정은 고급 사용자용입니다. 다른 서버에서는 정보를 탈취하거나 BetterCrewLink에 오류를 발생시킬 수도 있습니다.",
+			"reset_default": "기본값으로 초기화"
+		},
+		"beta": {
+			"title": "베타/디버그",
+			"mobilehost": "모바일 호스트",
+			"vad_enabled": "VAD 켜짐",
+			"hardware_acceleration": "하드웨어 가속",
+			"vad_enabled_warning": "비활성화하는 경우 말하는 이가 누구인지 알 수 없습니다.",
+			"echocancellation": "반향 제거",
+			"noiseSuppression": "잡음 제거",
+			"spatial_audio": "공간음향"
+		},
+		"streaming": {
+			"title": "스트리밍 설정",
+			"hidecode": "로비 코드 표시",
+			"obs_overlay": "OBS 브라우저 오버레이",
+			"obs_url": "OBS 브라우저 소스 URL",
+			"voice_server_comp": "음성 서버 호환 모드",
+			"voice_server_comp_warning": "예를 들어서 음성 서버를 BetterCrewLink 음성 서버(https://bettercrewl.ink)로 변경하는 것을 권장드립니다."
+		},
+		"troubleshooting": {
+			"title": "문제 해결",
+			"restore": "기본값 복원",
+			"restore_warning": "모든 설정이 기본값으로 초기화됩니다.",
+			"warning": "게임 도중 호스트가 이용할 수 없습니다!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "공개 로비",
+		"code": "로비 코드",
+		"list": {
+			"title": "이름",
+			"host": "호스트",
+			"players": "플레이어",
+			"mods": "모드",
+			"language": "언어"
+		}
+	},
+	"buttons": {
+		"default": "기본값",
+		"confirm": "확인",
+		"cancel": "취소",
+		"close": "닫기",
+		"exit": "설정을 나가고 변경 사항 적용",
+		"public_lobby": "공개 로비",
+		"delete": "삭제",
+		"file_select": "파일 선택"
+	},
+	"game": {
+		"menu": "메뉴",
+		"open": "열기",
+		"open_error": "Among Us를 수동으로 실행하세요.",
+		"waiting": "Among Us 대기 중",
+		"error": "오류",
+		"error_admin": "Among Us에 연결할 수 없습니다.\n관리자 권한으로 BetterCrewLink를 다시 열어 주세요.",
+		"error_platform": "플랫폼을 찾을 수 없음",
+		"error_unsupport": "BetterCrewLink에서 아직 이 버전의 Amoug Us를 지원하지 않습니다."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "사용자 지정"
+	},
+	"translator_name": "DNSE"
+}

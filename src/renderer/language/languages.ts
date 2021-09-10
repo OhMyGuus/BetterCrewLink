@@ -10,9 +10,12 @@ import translationNL from '../../../static/locales/nl/translation.json';
 import translationEO from '../../../static/locales/eo/translation.json';
 import translationFR from '../../../static/locales/fr/translation.json';
 import translationDE from '../../../static/locales/de/translation.json';
+import translationHU from '../../../static/locales/hu/translation.json';
 import translationID from '../../../static/locales/id/translation.json';
 import translationIT from '../../../static/locales/it/translation.json';
 import translationJA from '../../../static/locales/ja/translation.json';
+import translationKO from '../../../static/locales/ko/translation.json';
+import translationNO from '../../../static/locales/no/translation.json';
 import translationPL from '../../../static/locales/pl/translation.json';
 import translationPTPT from '../../../static/locales/pt-PT/translation.json';
 import translationPTBR from '../../../static/locales/pt-BR/translation.json';
@@ -76,6 +79,10 @@ const languages = {
 		translation: translationDE,
 		name: 'Deutsch',
 	},
+	hu: {
+		translation: translationHU,
+		name: 'Magyar',
+	},
 	id: {
 		translation: translationID,
 		name: 'Bahasa Indonesia',
@@ -87,6 +94,14 @@ const languages = {
 	ja: {
 		translation: translationJA,
 		name: '日本語',
+	},
+	ko: {
+		translation: translationKO,
+		name: '한국인',
+	},
+	no: {
+		translation: translationNO,
+		name: 'Norsk',
 	},
 	pl: {
 		translation: translationPL,

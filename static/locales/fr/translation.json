@@ -33,6 +33,14 @@
 				"ban_warning": "Un texte inapproprié entraînera un bannissement de BetterCrewLink."
 			}
 		},
+		"customplatforms": {
+			"title": "Plateforme Personnalisée",
+			"platform_title": "Titre",
+			"path": "Chemin EXE",
+			"uri": "Lien URI",
+			"advanced": "Avancé",
+			"arguments": "Arguments"
+		},
 		"audio": {
 			"title": "Audio",
 			"microphone": "Microphone",
@@ -57,7 +65,7 @@
 		},
 		"overlay": {
 			"title": "Overlay",
-			"always_on_top": "BetterCrewLink Au Dessus",
+			"always_on_top": "BetterCrewLink toujours visible",
 			"enabled": "Activer l'overlay",
 			"compact": "Overlay compact",
 			"meeting": "Meeting overlay",
@@ -124,12 +132,14 @@
 		"cancel": "Annuler",
 		"close": "Fermer",
 		"exit": "Quittez les Paramètres pour Appliquer les Changements",
-		"public_lobby": "Lobbies Publiques"
+		"public_lobby": "Lobbies Publiques",
+		"delete": "Supprimer",
+		"file_select": "Choisir le Fichier"
 	},
 	"game": {
 		"menu": "MENU",
 		"open": "Ouvrir via",
-		"open_error": "Démarrez le jeu manuellement. \r\n(ce bouton est uniquement pour Steam)",
+		"open_error": "Lancez Among Us manuellement.",
 		"waiting": "En attente d'Among Us",
 		"error": "ERREUR",
 		"error_admin": "Impossible de se connecter à Among Us.\nVeuillez rouvrir BetterCrewLink en tant qu'administrateur.",
@@ -139,7 +149,8 @@
 	"platform": {
 		"steam": "Steam",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft"
+		"microsoft": "Microsoft",
+		"custom": "Personnalisé"
 	},
 	"translator_name": "Adofou"
 }

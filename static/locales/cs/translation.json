@@ -33,6 +33,14 @@
 				"ban_warning": "Nevhodný text povede k zabanování z BetterCrewLink."
 			}
 		},
+		"customplatforms": {
+			"title": "Vlastní platforma",
+			"platform_title": "Název",
+			"path": "Cesta k EXE",
+			"uri": "URI Odkaz",
+			"advanced": "Pokročilé",
+			"arguments": "Parametry"
+		},
 		"audio": {
 			"title": "Zvuk",
 			"microphone": "Mikrofon",
@@ -87,7 +95,6 @@
 			"mobilehost": "Povolit mobilní uživatele",
 			"vad_enabled": "VAD povoleno",
 			"hardware_acceleration": "Hardwarová Akcelerace",
-			"hardware_acceleration_warning": "Toto může u některých systémů způsobit snížení výkonu.",
 			"vad_enabled_warning": "Neuvidíte, kdo mluví, když je tato funkce deaktivována.",
 			"echocancellation": "Odstranění ozvěny",
 			"noiseSuppression": "Potlačení šumu",
@@ -125,12 +132,14 @@
 		"cancel": "Zrušit",
 		"close": "Zavřít",
 		"exit": "Opusťte nastavení pro použití změn",
-		"public_lobby": "Veřejná Lobby"
+		"public_lobby": "Veřejná Lobby",
+		"delete": "Odstranit",
+		"file_select": "Vybrat soubor"
 	},
 	"game": {
 		"menu": "MENU",
 		"open": "Otevřít pomocí",
-		"open_error": "Spusťte hru ručně. \n(toto tlačítko je pouze pro stream)",
+		"open_error": "Spusťte Among Us ručně.",
 		"waiting": "Čekání na Among Us",
 		"error": "CHYBA",
 		"error_admin": "Nelze se připojit k Among Us.\nProsím znovu otevřete BetterCrewLink jako správce.",
@@ -140,7 +149,8 @@
 	"platform": {
 		"steam": "Steam",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft"
+		"microsoft": "Microsoft",
+		"custom": "Vlastní"
 	},
 	"translator_name": "Tiquis & fajnyCreeper"
 }

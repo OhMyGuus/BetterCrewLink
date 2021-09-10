@@ -1,0 +1,156 @@
+{
+	"settings": {
+		"title": "Beállítások",
+		"language": "Nyelv",
+		"warning": "Biztos vagy benne?",
+		"lobbysettings": {
+			"title": "A lobby beállításai",
+			"gamehostonly": "Csak a szoba készítője módosíthatja ezt!",
+			"inlobbyonly": "Csak a váróban lehet ezt megváltoztatni!",
+			"voicedistance": "Hallási távolság",
+			"voicedistance_impostor": "Az impostor hallási távolsága",
+			"wallsblockaudio": "A falak blokkolják a hangot",
+			"visiononly": "Csak a látószögedben hallasz",
+			"impostorshearsghost": "Impostors Hear Dead",
+			"hear_imposters_invents": "Hear Impostors in Vents",
+			"private_talk_invents": "Private Talk in Vents",
+			"comms_sabotage_audio": "Comms Sabotage Disables Voice",
+			"hear_through_cameras": "Hear Through Cameras",
+			"ghost_only": "Only Ghosts Can Talk/Hear",
+			"ghost_only_warning": "This disables the sound for alive players.",
+			"ghost_only_warning2": "Ghost can talk only enabled.",
+			"meetings_only": "Meetings/Lobby Only",
+			"meetings_only_warning": "This disables the sound for alive players outside meetings.",
+			"meetings_only_warning2": "Talking in meetings only enabled.",
+			"impostor_radio": "Impostor Radio",
+			"public_lobby": {
+				"change_settings": "Csoport info megváltoztatása",
+				"title": "Cím",
+				"enabled": "A lobby publikus",
+				"mods": "Modok",
+				"language": "Nyelv",
+				"enable_warning": "Enabling this will make your lobby public to other BetterCrewLink users!",
+				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
+			}
+		},
+		"customplatforms": {
+			"title": "Custom Platform",
+			"platform_title": "Title",
+			"path": "EXE Path",
+			"uri": "Saját platform linkje",
+			"advanced": "Haladó",
+			"arguments": "Paraméterek"
+		},
+		"audio": {
+			"title": "Hang",
+			"microphone": "Mikrofon",
+			"speaker": "Hangszóró",
+			"voice_activity": "Voice Activity",
+			"push_to_talk": "Nyomd hogy beszélj",
+			"push_to_mute": "Nyomd hogy néma legyél",
+			"microphone_volume": "Mikrofon hangerő",
+			"microphone_sens": "Mikrofon érzékenység",
+			"microphone_sens_warning": "Ha az érzékenységet lejjebb veszed akkor lehet hogy nem fog működni a mikrofon.",
+			"mastervolume": "Fő Hangerő",
+			"crewvolume": "Az emberek hangereje a szellemeknek",
+			"test_speaker_start": "Hangszóró tesztelése",
+			"test_speaker_stop": "Hangszóró tesztelésének leállítása"
+		},
+		"keyboard": {
+			"title": "Gyorsbillentyűk",
+			"push_to_talk": "Nyomd hogy beszélj",
+			"mute": "Némít",
+			"deafen": "Süketít",
+			"impostor_radio": "Impostor Rádió"
+		},
+		"overlay": {
+			"title": "Overlay",
+			"always_on_top": "BetterCrewLink On Top",
+			"enabled": "Enable Overlay",
+			"compact": "Compact Overlay",
+			"meeting": "Meeting Overlay",
+			"pos": "Overlay Pozíció",
+			"locations": {
+				"hidden": "Rejtett",
+				"top": "Középen Fent",
+				"bottom": "Bal Alul",
+				"right": "Jobbra",
+				"right1": "Right with Background",
+				"left": "Balra",
+				"left1": "Left with Background"
+			}
+		},
+		"advanced": {
+			"title": "Haladó",
+			"nat_fix": "NAT Fix",
+			"nat_fix_warning": "This will FIX the NAT issues but will add a delay since it is using a server instead of Peer to Peer (P2P).",
+			"change_server": "Change Voice Server",
+			"voice_server": "Hangátviteli szerverek",
+			"invalid_url": "Érvénytelen URL",
+			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash BetterCrewLink.",
+			"reset_default": "Alapértékek visszaállítása"
+		},
+		"beta": {
+			"title": "Béta/Hibakeresés",
+			"mobilehost": "Mobile Host",
+			"vad_enabled": "VAD Enabled",
+			"hardware_acceleration": "Hardveres gyorsítás",
+			"vad_enabled_warning": "You won't see who's talking if deactivate.",
+			"echocancellation": "Visszhang csökkentés",
+			"noiseSuppression": "Zajcsökkentés",
+			"spatial_audio": "Spatial Audio"
+		},
+		"streaming": {
+			"title": "Streaming Settings",
+			"hidecode": "Mutasd a lobby kódját",
+			"obs_overlay": "OBS Böngésző Overlay",
+			"obs_url": "OBS Böngésző Overlay Link",
+			"voice_server_comp": "VS Kompatibilitási mód használata",
+			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
+		},
+		"troubleshooting": {
+			"title": "Hibaelhárítás",
+			"restore": "Alapértékek visszaállítása",
+			"restore_warning": "Ez vissza fogja állítani az ÖSSZES beállítást az alap értékeikre.",
+			"warning": "Not available as host in game!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "Publikus Lobbik",
+		"code": "Lobby Kód",
+		"list": {
+			"title": "Cím",
+			"host": "Hoszt",
+			"players": "Játékosok",
+			"mods": "Modok",
+			"language": "Nyelv"
+		}
+	},
+	"buttons": {
+		"default": "Alapértelmezett",
+		"confirm": "Megerősít",
+		"cancel": "Mégse",
+		"close": "Bezárás",
+		"exit": "Exit Settings to Apply Changes",
+		"public_lobby": "Publikus Lobbik",
+		"delete": "Törlés",
+		"file_select": "Fájl kiválasztása"
+	},
+	"game": {
+		"menu": "MENÜ",
+		"open": "Megnyitás ez által:",
+		"open_error": "Manuális mentés",
+		"waiting": "Waiting for Among Us",
+		"error": "HIBA",
+		"error_admin": "Couldn't connect to Among Us.\nPlease re-open BetterCrewLink as Administrator.",
+		"error_platform": "No Platform Detected",
+		"error_unsupport": "Your version of Among Us is unsupported by BetterCrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "Egyedi"
+	},
+	"translator_name": "Discord: BOTOND#8357"
+}

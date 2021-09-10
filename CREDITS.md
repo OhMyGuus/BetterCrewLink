@@ -58,6 +58,11 @@ A big thanks for all those people who contributed and still contributing to keep
 * [narihira2000](https://crowdin.com/profile/narihira2000) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Chinese (Traditional)
 * [gdar463](https://crowdin.com/profile/gdar463) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Italian
 * [Khan27](https://crowdin.com/profile/Khan27) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Azerbaijani
+* [dnse](https://crowdin.com/profile/dnse) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Korean
+* [rinsuki](https://crowdin.com/profile/rinsuki) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Japanese
+* [7rst1](https://crowdin.com/profile/7rst1) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Norwegian
+* [boboooka1](https://crowdin.com/profile/boboooka1) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Hungarian
+* [vexot](https://crowdin.com/profile/vexot) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish
 
 A big thanks to all those who translated and are still translating to keep this project alive, thank you all so much for being part of the BetterCrewLink Community!
 

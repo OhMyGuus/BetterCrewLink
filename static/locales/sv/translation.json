@@ -33,6 +33,14 @@
 				"ban_warning": "Olämplig text kommer att resultera i en banlysning från BetterCrewLink."
 			}
 		},
+		"customplatforms": {
+			"title": "Anpassad Plattform",
+			"platform_title": "Titel",
+			"path": "EXE Sökväg",
+			"uri": "URI Link",
+			"advanced": "Avancerat",
+			"arguments": "Parametrar"
+		},
 		"audio": {
 			"title": "Ljud",
 			"microphone": "Mikrofon",
@@ -124,12 +132,14 @@
 		"cancel": "Avbryt",
 		"close": "Stäng",
 		"exit": "Stäng inställningar för att tillämpa ändringar",
-		"public_lobby": "Offentliga Lobbys"
+		"public_lobby": "Offentliga Lobbys",
+		"delete": "Ta bort",
+		"file_select": "Välj Fil"
 	},
 	"game": {
 		"menu": "MENY",
 		"open": "Öppna via",
-		"open_error": "Starta spelet manuellt. \n(denna knapp är endast för steam)",
+		"open_error": "Starta Among Us manuellt.",
 		"waiting": "Väntar på Among Us",
 		"error": "ERROR",
 		"error_admin": "Det gick inte att ansluta till Among Us.\nVänligen öppna BetterCrewLink på nytt som administratör.",
@@ -139,7 +149,8 @@
 	"platform": {
 		"steam": "Steam",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft"
+		"microsoft": "Microsoft",
+		"custom": "Anpassad"
 	},
 	"translator_name": "NoikzGaming"
 }
