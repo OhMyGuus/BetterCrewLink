@@ -123,7 +123,7 @@ export default class GameReader {
 
 	getInstalledMods(filePath: string): AmongusMod {
 		const pathLower = filePath.toLowerCase();
-		if (pathLower.includes('epic') || pathLower.includes('?\\volume') || this.is_linux) {
+		if (pathLower.includes('?\\volume') || this.is_linux) {
 			return modList[0];
 		} else {
 			let dir = path.dirname(filePath);
