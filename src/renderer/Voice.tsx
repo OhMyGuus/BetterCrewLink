@@ -207,7 +207,7 @@ const defaultlocalLobbySettings: ILobbySettings = {
 	visionHearing: false,
 	publicLobby_on: false,
 	publicLobby_title: '',
-	publicLobby_language: 'en'
+	publicLobby_language: 'en',
 };
 const radioOnAudio = new Audio();
 radioOnAudio.src = radioOnSound;
@@ -233,7 +233,9 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		gamestate: gameState.gameState,
 		code: gameState.lobbyCode,
 		hostId: gameState.hostId,
+		parsedHostId: gameState.hostId,
 		isHost: gameState.isHost,
+		serverHostId: 0,
 	});
 	let { lobbyCode: displayedLobbyCode } = gameState;
 	if (displayedLobbyCode !== 'MENU' && settings.hideCode) displayedLobbyCode = 'LOBBY';
@@ -525,7 +527,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 	// Emit lobby settings to connected peers
 	useEffect(() => {
-		if (gameState.isHost !== true) return;
+		if (hostRef.current.isHost !== true) return;
 		Object.values(peerConnections).forEach((peer) => {
 			try {
 				console.log('sendxx > ', JSON.stringify(settings.localLobbySettings));
@@ -539,7 +541,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			type: 'set',
 			action: settings.localLobbySettings,
 		});
-	}, [settings.localLobbySettings, gameState.isHost]);
+	}, [settings.localLobbySettings, hostRef.current.isHost]);
 
 	useEffect(() => {
 		for (const peer in audioElements.current) {
@@ -637,9 +639,10 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	}, [settings.microphoneGain, settings.micSensitivity]);
 
 	const updateLobby = () => {
+		console.log(gameState);
 		if (
 			!gameState ||
-			!gameState.isHost ||
+			!hostRef.current.isHost ||
 			!gameState.lobbyCode ||
 			gameState.gameState === GameState.MENU ||
 			!gameState.players
@@ -654,11 +657,18 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			max_players: gameState.maxPlayers,
 			server: gameState.currentServer,
 			language: lobbySettings.publicLobby_language,
-			mods:  gameState.mod,
+			mods: gameState.mod,
 			isPublic: lobbySettings.publicLobby_on,
 			gameState: gameState.gameState,
 		});
 	};
+
+	useEffect(() => {
+		if (gameState.isHost && gameState.hostId > 0) {
+			connectionStuff.current.socket?.emit('setHost', gameState.lobbyCode, gameState.clientId);
+			hostRef.current.serverHostId = gameState.hostId;
+		}
+	}, [gameState.isHost]);
 
 	useEffect(() => {
 		updateLobby();
@@ -753,6 +763,10 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		socket.on('connect', () => {
 			setConnected(true);
 			console.log('CONNECTED??');
+		});
+
+		socket.on('setHost', (hostId: number) => {
+			hostRef.current.serverHostId = hostId;
 		});
 
 		socket.on('disconnect', () => {
@@ -933,7 +947,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						console.log('Currentlobby', currentLobby, lobbyCode);
 						socket.emit('leave');
 						socket.emit('id', playerId, clientId);
-						socket.emit('join', lobbyCode, playerId, clientId);
+						socket.emit('join', lobbyCode, playerId, clientId, isHost);
 						currentLobby = lobbyCode;
 					}
 				};
@@ -1046,7 +1060,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 							console.log('Recieved impostor radio request', parsedData);
 						}
 						if (parsedData.hasOwnProperty('maxDistance')) {
-							if (!hostRef.current || (hostRef.current.hostId !== 0 && hostRef.current.hostId !== socketClientsRef.current[peer]?.clientId)) return;
+							if (!hostRef.current || hostRef.current.parsedHostId !== socketClientsRef.current[peer]?.clientId) return;
 
 							Object.keys(lobbySettings).forEach((field: string) => {
 								if (field in parsedData) {
@@ -1102,7 +1116,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					console.log('ONSIGNAL', data);
 					let connection: Peer.Instance;
 					if (!socketClientsRef.current[from]) {
-						console.warn("SIGNAL FROM UNKOWN SOCKET..")
+						console.warn('SIGNAL FROM UNKOWN SOCKET..');
 						return;
 					}
 					if (data.hasOwnProperty('type')) {
@@ -1177,7 +1191,9 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			gamestate: gameState.gameState,
 			code: gameState.lobbyCode,
 			hostId: gameState.hostId,
-			isHost: gameState.isHost,
+			isHost: gameState.hostId > 0 ? gameState.isHost : hostRef.current.serverHostId === gameState.clientId,
+			parsedHostId: gameState.hostId > 0 ? gameState.hostId : hostRef.current.serverHostId,
+			serverHostId: hostRef.current.serverHostId,
 		};
 		const playerSocketIds: numberStringMap = {};
 		for (const k of Object.keys(socketClients)) {
