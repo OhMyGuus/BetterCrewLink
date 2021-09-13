@@ -4,7 +4,7 @@
     <img src="src/renderer/logos/sizes/256-BCL-Logo-shadow.png" alt="BetterCrewLink Logo">
   </a>
   <br/>
-  <sub>Logo Made By <a href="https://github.com/SirBuvex">SirBuvex</a></sub>
+  <sub>Logo made by <a href="https://github.com/SirBuvex">SirBuvex</a></sub>
 </p>
 <h3 align="center"><a href="https://github.com/OhMyGuus/BetterCrewLink">BetterCrewLink</a> a <a href="https://github.com/ottomated/CrewLink">CrewLink</a> fork with extra features & better support</h3>
 
