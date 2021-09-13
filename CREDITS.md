@@ -5,19 +5,20 @@ PC: [![GitHub Contributors][contributors-shield]][contributors-url]\
 Mobile/Web: [![BetterCrewLink Mobile Contributors](https://img.shields.io/github/contributors/OhMyGuus/BetterCrewlink-mobile?label=Contributors&logo=GitHub)](https://github.com/OhMyGuus/BetterCrewlink-mobile/graphs/contributors)\
 Server: [![BetterCrewLink Server Contributors](https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink-server?label=Contributors&logo=GitHub)](https://github.com/OhMyGuus/BetterCrewLink-server/graphs/contributors)
 
-* [OhMyGuus](https://github.com/OhMyGuus) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), Example: NAT Fix, more overlays, support for mobile and owner of project
-* [ottomated](https://github.com/ottomated) for make [CrewLink](https://github.com/ottomated/CrewLink)
-* [SirBuvex](https://github.com/SirBuvex) for make new logo for BetterCrewLink ([PC](https://github.com/OhMyGuus/BetterCrewLink), [Mobile](https://github.com/OhMyGuus/BetterCrewlink-mobile) and [Server](https://github.com/OhMyGuus/BetterCrewLink-server))
-* [vrnagy](https://github.com/vrnagy) For Make WebRTC reconnects automatically for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink)
-* [TheGreatMcPain](https://github.com/TheGreatMcPain) & [Donokami](https://github.com/Donokami) for make support for Linux
-* [squarebracket](https://github.com/squarebracket) for make support overlay for Linux
-* [JKohlman](https://github.com/JKohlman) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), Example: Push To Mute, Visual Changes, Mute Button and making multi stage builds for [BetterCrewLink Server](https://github.com/OhMyGuus/BetterCrewLink-server)
-* [Diemo-zz](https://github.com/Diemo-zz) for make the Default Voice Server for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink): <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>
-* [KadenBiel](https://github.com/KadenBiel) for make various things for [BetterCrewLink Mobile](https://github.com/OhMyGuus/BetterCrewlink-mobile), Example: Better UI, Settings Page
-* [adofou](https://github.com/adofou) for make new parameters for Node-Turn Server for [BetterCrewLink-Server](https://github.com/OhMyGuus/BetterCrewLink-server)
-* [Kore-Development](https://github.com/Kore-Development) for make support for Repl.it and Gitignore changes for [BetterCrewLink-Server](https://github.com/OhMyGuus/BetterCrewLink-server)
-* [cybershard](https://github.com/cybershard) & [edqx](https://github.com/edqx) for make only hear people in vision, walls block voice, hear through cameras and comms sabotage
-* [MatadorProBr](https://github.com/MatadorProBr) for make this list of contribuators, better README.md, Wiki
+* [OhMyGuus](https://github.com/OhMyGuus) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), Example: NAT Fix, more overlays, support for mobile and owner of project.
+* [ottomated](https://github.com/ottomated) for make [CrewLink](https://github.com/ottomated/CrewLink).
+* [SirBuvex](https://github.com/SirBuvex) for make new logo for BetterCrewLink ([PC](https://github.com/OhMyGuus/BetterCrewLink), [Mobile](https://github.com/OhMyGuus/BetterCrewlink-mobile) and [Server](https://github.com/OhMyGuus/BetterCrewLink-server)).
+* [vrnagy](https://github.com/vrnagy) for make WebRTC reconnects automatically for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink).
+* [TheGreatMcPain](https://github.com/TheGreatMcPain) & [Donokami](https://github.com/Donokami) for make support for Linux.
+* [squarebracket](https://github.com/squarebracket) for make support overlay for Linux.
+* [JKohlman](https://github.com/JKohlman) for make various things for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink), Example: Push To Mute, Visual Changes, Mute Button and making multi stage builds for [BetterCrewLink Server](https://github.com/OhMyGuus/BetterCrewLink-server).
+* [Diemo-zz](https://github.com/Diemo-zz) for make the Default Voice Server for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink): <a href="https://bettercrewl.ink">`https://bettercrewl.ink`</a>.
+* [KadenBiel](https://github.com/KadenBiel) for make various things for [BetterCrewLink Mobile](https://github.com/OhMyGuus/BetterCrewlink-mobile), Example: Better UI, Settings Page.
+* [adofou](https://github.com/adofou) for make new parameters for Node-Turn Server for [BetterCrewLink-Server](https://github.com/OhMyGuus/BetterCrewLink-server).
+* [Kore-Development](https://github.com/Kore-Development) for make support for Repl.it and Gitignore changes for [BetterCrewLink-Server](https://github.com/OhMyGuus/BetterCrewLink-server).
+* [cybershard](https://github.com/cybershard) & [edqx](https://github.com/edqx) for make only hear people in vision, walls block voice, hear through cameras and comms sabotage for [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink).
+* [7RST1](https://github.com/7RST1) for make Platform Detection for Linux on [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink).
+* [MatadorProBr](https://github.com/MatadorProBr) for make this credits, better README.md, Wiki.
 
 <a href="https://github.com/OhMyGuus/BetterCrewLink/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=OhMyGuus/BetterCrewLink" />
@@ -30,39 +31,39 @@ A big thanks for all those people who contributed and still contributing to keep
 
 [![Crowdin Translations][crowdin-shield]][crowdin-url] [![Translators][translators-shield]][translators-url]
 
-* [OhMyGuus](https://crowdin.com/profile/ohmyguus) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Dutch
-* [adofou](https://github.com/adofou) & [ClementRoyer](https://github.com/ClementRoyer) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to French
-* [KadenBiel](https://github.com/KadenBiel), [SirBuvex](https://github.com/SirBuvex) and [Jeddunk](https://github.com/jeddunk) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to German
-* [LukehTM](https://crowdin.com/profile/lukehtm) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish
-* [KaldonM](https://github.com/KaldonM) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Slovak
-* [MatadorProBr](https://crowdin.com/profile/matadorprobr) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Portuguese (Brazil)
-* [vb-03](https://crowdin.com/profile/vb-03) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Portuguese (Portugal)
-* [laneGL](https://crowdin.com/profile/teddysulaiman2543) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Indonesian
-* [Steby5](https://crowdin.com/profile/steby5) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Slovenian And Slovak
-* [XRevan86](https://crowdin.com/profile/xrevan86) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Russian and Ukrainian
-* [Xoyn](https://crowdin.com/profile/xoyn) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Russian
-* [Ajno](https://crowdin.com/profile/Ajno) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Esperanto
-* [Tiquis](https://crowdin.com/profile/tiquis) & [fajnyCreeper](https://github.com/fajnyCreeper) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Czech
-* [ElBusAlv](https://crowdin.com/profile/elbusalv) & [nyanya4444](https://github.com/nyanya4444) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Catalan
-* [Achsan4](https://crowdin.com/profile/Achsan4) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Arabic and Arabic (Egpyt)
-* [xFixuuu](https://crowdin.com/profile/xfixuuu) & [KumpelStachu](https://crowdin.com/profile/kumpelstachu) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Polish
-* [canicjusz](https://crowdin.com/profile/canicjusz) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Esperanto and Polish
-* [lamjed001](https://crowdin.com/profile/lamjed001) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Arabic
-* [NoikzGaming](https://crowdin.com/profile/NoikzGaming) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Swedish
-* [SyameimaruZheng](https://crowdin.com/profile/syameimaruzheng) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Chinese (Simplified)
-* [Aorin](https://crowdin.com/profile/aorin) & [Sakurai00](https://crowdin.com/profile/sakurai00) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Japanese
-* [MrAngelos6](https://crowdin.com/profile/mrangelos6) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to French and Spanish
-* [19082004amir](https://crowdin.com/profile/19082004amir) & [morewaves](https://crowdin.com/profile/morewaves) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Tatar
-* [Bubbycolditz](https://crowdin.com/profile/bubbycolditz) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish (United States)
-* [Kajachuan](https://crowdin.com/profile/kajachuan) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish (Argentina)
-* [narihira2000](https://crowdin.com/profile/narihira2000) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Chinese (Traditional)
-* [gdar463](https://crowdin.com/profile/gdar463) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Italian
-* [Khan27](https://crowdin.com/profile/Khan27) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Azerbaijani
-* [dnse](https://crowdin.com/profile/dnse) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Korean
-* [rinsuki](https://crowdin.com/profile/rinsuki) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Japanese
-* [7rst1](https://crowdin.com/profile/7rst1) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Norwegian
-* [boboooka1](https://crowdin.com/profile/boboooka1) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Hungarian
-* [vexot](https://crowdin.com/profile/vexot) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish
+* [OhMyGuus](https://crowdin.com/profile/ohmyguus) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Dutch.
+* [adofou](https://github.com/adofou) & [ClementRoyer](https://github.com/ClementRoyer) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to French.
+* [KadenBiel](https://github.com/KadenBiel), [SirBuvex](https://github.com/SirBuvex) and [Jeddunk](https://github.com/jeddunk) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to German.
+* [LukehTM](https://crowdin.com/profile/lukehtm) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish.
+* [KaldonM](https://github.com/KaldonM) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Slovak.
+* [MatadorProBr](https://crowdin.com/profile/matadorprobr) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Portuguese (Brazil).
+* [vb-03](https://crowdin.com/profile/vb-03) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Portuguese (Portugal).
+* [laneGL](https://crowdin.com/profile/teddysulaiman2543) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Indonesian.
+* [Steby5](https://crowdin.com/profile/steby5) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Slovenian And Slovak.
+* [XRevan86](https://crowdin.com/profile/xrevan86) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Russian and Ukrainian.
+* [Xoyn](https://crowdin.com/profile/xoyn) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Russian.
+* [Ajno](https://crowdin.com/profile/Ajno) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Esperanto.
+* [Tiquis](https://crowdin.com/profile/tiquis) & [fajnyCreeper](https://github.com/fajnyCreeper) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Czech.
+* [ElBusAlv](https://crowdin.com/profile/elbusalv) & [nyanya4444](https://github.com/nyanya4444) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Catalan.
+* [Achsan4](https://crowdin.com/profile/Achsan4) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Arabic and Arabic (Egpyt).
+* [xFixuuu](https://crowdin.com/profile/xfixuuu) & [KumpelStachu](https://crowdin.com/profile/kumpelstachu) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Polish.
+* [canicjusz](https://crowdin.com/profile/canicjusz) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Esperanto and Polish.
+* [lamjed001](https://crowdin.com/profile/lamjed001) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Arabic.
+* [NoikzGaming](https://crowdin.com/profile/NoikzGaming) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Swedish.
+* [SyameimaruZheng](https://crowdin.com/profile/syameimaruzheng) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Chinese (Simplified).
+* [Aorin](https://crowdin.com/profile/aorin) & [Sakurai00](https://crowdin.com/profile/sakurai00) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Japanese.
+* [MrAngelos6](https://crowdin.com/profile/mrangelos6) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to French and Spanish.
+* [19082004amir](https://crowdin.com/profile/19082004amir) & [morewaves](https://crowdin.com/profile/morewaves) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Tatar.
+* [Bubbycolditz](https://crowdin.com/profile/bubbycolditz) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish (United States).
+* [Kajachuan](https://crowdin.com/profile/kajachuan) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish (Argentina).
+* [narihira2000](https://crowdin.com/profile/narihira2000) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Chinese (Traditional).
+* [gdar463](https://crowdin.com/profile/gdar463) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Italian.
+* [Khan27](https://crowdin.com/profile/Khan27) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Azerbaijani.
+* [dnse](https://crowdin.com/profile/dnse) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Korean.
+* [rinsuki](https://crowdin.com/profile/rinsuki) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Japanese.
+* [7rst1](https://crowdin.com/profile/7rst1) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Norwegian.
+* [boboooka1](https://crowdin.com/profile/boboooka1) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Hungarian.
+* [vexot](https://crowdin.com/profile/vexot) for translating [BetterCrewLink](https://github.com/OhMyGuus/BetterCrewLink) to Spanish.
 
 A big thanks to all those who translated and are still translating to keep this project alive, thank you all so much for being part of the BetterCrewLink Community!
 
