@@ -1,4 +1,5 @@
 import { CameraLocation, MapType } from './AmongusMap';
+import { ModsType } from './Mods';
 
 export interface AmongUsState {
 	gameState: GameState;
@@ -17,7 +18,7 @@ export interface AmongUsState {
 	closedDoors: number[];
 	currentServer: string;
 	maxPlayers: number;
-	mod: string;
+	mod: ModsType;
 	oldMeetingHud: boolean;
 }
 
@@ -82,5 +83,5 @@ export interface VoiceState {
 	localIsAlive: boolean;
 	muted: boolean;
 	deafened: boolean;
-	mod: string;
+	mod: ModsType;
 }

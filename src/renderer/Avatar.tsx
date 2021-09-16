@@ -15,6 +15,7 @@ import Slider from '@material-ui/core/Slider';
 import VolumeUp from '@material-ui/icons/VolumeUp';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
+import { ModsType } from '../common/Mods';
 
 const useStyles = makeStyles(() => ({
 	canvas: {
@@ -64,7 +65,7 @@ export interface CanvasProps {
 	overflow: boolean;
 	usingRadio: boolean | undefined;
 	onClick?: () => void;
-	mod: string;
+	mod: ModsType;
 }
 
 export interface AvatarProps {
@@ -83,7 +84,7 @@ export interface AvatarProps {
 	overflow?: boolean;
 	isUsingRadio?: boolean;
 	onConfigChange?: () => void;
-	mod: string;
+	mod: ModsType;
 }
 
 const Avatar: React.FC<AvatarProps> = function ({

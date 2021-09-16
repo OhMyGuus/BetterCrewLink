@@ -25,7 +25,7 @@ import { TempFixOffsets, TempFixOffsets2, TempFixOffsets3,TempFixOffsets4 } from
 import { platform } from 'os';
 import fs from 'fs';
 import path from 'path';
-import { AmongusMod, modList } from '../common/PublicLobby';
+import { AmongusMod, modList } from '../common/Mods';
 import { app } from 'electron';
 
 let appVersion = '';
