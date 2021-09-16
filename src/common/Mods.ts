@@ -1,9 +1,16 @@
-export type ModsType = "NONE" | "TOWN_OF_IMPOSTORS" | "TOWN_OF_US" | "THE_OTHER_ROLES" | "EXTRA_ROLES" | "POLUS_GG" | "OTHER";
+export type ModsType =
+	| 'NONE'
+	| 'TOWN_OF_IMPOSTORS'
+	| 'TOWN_OF_US'
+	| 'THE_OTHER_ROLES'
+	| 'EXTRA_ROLES'
+	| 'POLUS_GG'
+	| 'OTHER';
 
 export interface AmongusMod {
 	id: ModsType;
 	label: string;
-	dllStartsWith?: string
+	dllStartsWith?: string;
 }
 
 export const modList: AmongusMod[] = [
@@ -15,22 +22,22 @@ export const modList: AmongusMod[] = [
 	{
 		id: 'TOWN_OF_US',
 		label: 'Town of Us',
-		dllStartsWith: 'TownOfUs'
+		dllStartsWith: 'TownOfUs',
 	},
 	{
 		id: 'TOWN_OF_IMPOSTORS',
 		label: 'Town of Impostors',
-		dllStartsWith: 'TownOfImpostors'
+		dllStartsWith: 'TownOfImpostors',
 	},
 	{
 		id: 'THE_OTHER_ROLES',
 		label: 'The Other Roles',
-		dllStartsWith: 'TheOtherRoles'
+		dllStartsWith: 'TheOtherRoles',
 	},
 	{
 		id: 'POLUS_GG',
 		label: 'Polus.gg',
-		dllStartsWith: 'Polus'
+		dllStartsWith: 'Polus',
 	},
 	{
 		id: 'OTHER',
