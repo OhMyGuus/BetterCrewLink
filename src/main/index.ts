@@ -14,6 +14,7 @@ import { ProgressInfo, UpdateInfo } from 'builder-util-runtime';
 import { protocol } from 'electron';
 import Store from 'electron-store';
 import { ISettings } from '../common/ISettings';
+import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 
 const args = require('minimist')(process.argv); // eslint-disable-line
 
@@ -311,6 +312,11 @@ if (!gotTheLock) {
 		initializeIpcListeners();
 		initializeIpcHandlers();
 		global.mainWindow = createMainWindow();
+
+		if (isDevelopment) 
+			installExtension(REACT_DEVELOPER_TOOLS)
+				.then((name) => console.log(`Added Extension:  ${name}`))
+				.catch((err) => console.log('An error occurred: ', err));
 	});
 
 	app.on('second-instance', () => {
