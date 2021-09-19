@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 		WebkitAppRegion: 'no-drag',
 	},
 }));
-const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
+const RawPublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 	t,
 	lobbySettings,
 	updateSetting,
@@ -117,5 +117,7 @@ const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 		</>
 	);
 };
+
+const PublicLobbySettings = React.memo(RawPublicLobbySettings);
 
 export default PublicLobbySettings;

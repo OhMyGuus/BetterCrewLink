@@ -1,5 +1,5 @@
 import Store from 'electron-store';
-import React, { ReactChild, useContext, useEffect, useReducer, useState } from 'react';
+import React, { ReactChild, useCallback, useContext, useEffect, useReducer, useState } from 'react';
 import { SettingsContext, LobbySettingsContext, GameStateContext } from '../contexts';
 import MicrophoneSoundBar from './MicrophoneSoundBar';
 import TestSpeakersButton from './TestSpeakersButton';
@@ -737,6 +737,22 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 		}
 	};
 
+	const URLInputCallback = useCallback((url: string) => {
+		setSettings({
+			type: 'setOne',
+			action: ['serverURL', url],
+		});
+	}, []);
+
+	const SavePublicLobbyCallback = useCallback((setting: string, newValue: any) => {
+		// @ts-ignore
+		setLocalLobbySettings({ ...localLobbySettings, setting: newValue });
+		setSettings({
+			type: 'setLobbySetting',
+			action: [setting, newValue],
+		});
+	}, []);
+
 	return (
 		<Box className={classes.root}>
 			<div className={classes.header}>
@@ -849,14 +865,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					>
 						<PublicLobbySettings
 							t={t}
-							updateSetting={(setting: string, newValue: any) => {
-								// @ts-ignore
-								setLocalLobbySettings({ ...localLobbySettings, setting: newValue });
-								setSettings({
-									type: 'setLobbySetting',
-									action: [setting, newValue],
-								});
-							}}
+							updateSetting={SavePublicLobbyCallback}
 							lobbySettings={canChangeLobbySettings ? localLobbySettings : lobbySettings}
 							canChange={canChangeLobbySettings}
 							className={classes.dialog}
@@ -1521,12 +1530,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				<ServerURLInput
 					t={t}
 					initialURL={settings.serverURL}
-					onValidURL={(url: string) => {
-						setSettings({
-							type: 'setOne',
-							action: ['serverURL', url],
-						});
-					}}
+					onValidURL={URLInputCallback}
 					className={classes.dialog}
 				/>
 				<Divider />
