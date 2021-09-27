@@ -7,10 +7,10 @@
 			"title": "Paramètres du lobby",
 			"gamehostonly": "Seul l'hôte de la partie peut modifier cela!",
 			"inlobbyonly": "Vous ne pouvez changer cela que dans le lobby!",
-			"voicedistance": "Distance vocal",
-			"voicedistance_impostor": "Distance vocal imposteurs",
+			"voicedistance": "Distance vocale",
+			"voicedistance_impostor": "Distance vocale imposteurs",
 			"wallsblockaudio": "Les murs bloquent l'audio",
-			"visiononly": "Entendre uniquement les gens que l'on voit",
+			"visiononly": "Entendre uniquement les gens que visibles",
 			"impostorshearsghost": "Les imposteurs entendent les fantômes",
 			"hear_imposters_invents": "Entendre les imposteurs dans les vents",
 			"private_talk_invents": "Discussion privée dans les vents",
@@ -18,15 +18,15 @@
 			"hear_through_cameras": "Entendre à travers les caméras",
 			"ghost_only": "Seuls les fantômes peuvent parler/entendre",
 			"ghost_only_warning": "Cette option désactive le vocal pour les joueurs vivants.",
-			"ghost_only_warning2": "Seuls les fantômes peuvent parler activé.",
+			"ghost_only_warning2": "Seuls les fantômes peuvent parler.",
 			"meetings_only": "Meetings/Lobby uniquement",
 			"meetings_only_warning": "Cela désactive le son pour les joueurs vivants en dehors des meetings.",
-			"meetings_only_warning2": "Meetings/Lobby uniquement activé.",
+			"meetings_only_warning2": "Vous ne pouvez que parler dans les Meetings/le Lobby.",
 			"impostor_radio": "Vocal imposteur",
 			"public_lobby": {
 				"change_settings": "Changer les Infos du Lobby",
 				"title": "Titre",
-				"enabled": "Le Lobby est Publique",
+				"enabled": "Le Lobby est public",
 				"mods": "Mods",
 				"language": "Langue",
 				"enable_warning": "Activer cette option rendra votre lobby public aux autres utilisateurs de BetterCrewLink !",
@@ -103,7 +103,7 @@
 		"streaming": {
 			"title": "Paramètres streaming",
 			"hidecode": "Afficher le code de la partie",
-			"obs_overlay": "Navigateur Overlay Obs",
+			"obs_overlay": "Overlay pour le navigateur OBS",
 			"obs_url": "URL de la source du navigateur OBS",
 			"voice_server_comp": "Mode compatibilité VS",
 			"voice_server_comp_warning": "Il est recommandé de simplement changer le serveur vocal pour un serveur vocal BetterCrewLink, par exemple https://bettercrewl.ink."
@@ -112,12 +112,12 @@
 			"title": "Dépannage",
 			"restore": "Restaurer les paramètres par défaut",
 			"restore_warning": "Cela réinitialisera TOUS les paramètres avec leurs valeurs par défaut.",
-			"warning": "Non disponible comme hôte dans le jeu!"
+			"warning": "Non disponible en tant qu'hôte dans le jeu!"
 		}
 	},
 	"lobbybrowser": {
-		"header": "Lobbies Publiques",
-		"code": "Code du Lobby",
+		"header": "Parties publiques",
+		"code": "Code de la partie",
 		"list": {
 			"title": "Titre",
 			"host": "Hôte",
@@ -131,15 +131,15 @@
 		"confirm": "Valider",
 		"cancel": "Annuler",
 		"close": "Fermer",
-		"exit": "Quittez les Paramètres pour Appliquer les Changements",
-		"public_lobby": "Lobbies Publiques",
+		"exit": "Quittez les pParamètres pour appliquer les changements",
+		"public_lobby": "Parties publiques",
 		"delete": "Supprimer",
 		"file_select": "Choisir le Fichier"
 	},
 	"game": {
 		"menu": "MENU",
 		"open": "Ouvrir via",
-		"open_error": "Lancez Among Us manuellement.",
+		"open_error": "Lancer Among Us manuellement.",
 		"waiting": "En attente d'Among Us",
 		"error": "ERREUR",
 		"error_admin": "Impossible de se connecter à Among Us.\nVeuillez rouvrir BetterCrewLink en tant qu'administrateur.",
@@ -152,5 +152,5 @@
 		"microsoft": "Microsoft",
 		"custom": "Personnalisé"
 	},
-	"translator_name": "Adofou"
+	"translator_name": "GeekCorner"
 }
