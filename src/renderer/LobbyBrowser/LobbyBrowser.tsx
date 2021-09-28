@@ -60,6 +60,9 @@ const servers: {
 	'50.116.1.42': 'North America',
 	'172.105.251.170': 'Europe',
 	'139.162.111.196': 'Asia',
+	'161.35.248.138' : 'Polus.gg NA (East)', 
+	'164.90.246.64' : 'Polus.gg NA (West)', 
+	'138.68.119.239' : 'Polus.gg Europe', 
 	'192.241.154.115': 'skeld.net',
 };
 

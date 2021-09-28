@@ -4,7 +4,6 @@ import { DialogContent, DialogTitle, DialogActions, Dialog, Button, TextField, I
 import languages from '../language/languages';
 import { ILobbySettings } from '../../common/ISettings';
 import Alert from '@material-ui/lab/Alert';
-import { modList } from '../../common/PublicLobby';
 import ChevronLeft from '@material-ui/icons/ArrowBack';
 
 type publicLobbySettingProps = {
@@ -101,25 +100,7 @@ const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 							</option>
 						))}
 					</TextField>
-					<TextField
-						fullWidth
-						select
-						label={t('settings.lobbysettings.public_lobby.mods')}
-						variant="outlined"
-						color="secondary"
-						SelectProps={{ native: true }}
-						InputLabelProps={{ shrink: true }}
-						value={lobbySettingState.publicLobby_mods}
-						onChange={(ev) => setLobbySettingState({ ...lobbySettingState, publicLobby_mods: ev.target.value })}
-						onBlur={(ev) => updateSetting('publicLobby_mods', ev.target.value)}
-						disabled={!canChange}
-					>
-						{modList.map((d) => (
-							<option key={d.id} value={d.id}>
-								{d.label}
-							</option>
-						))}
-					</TextField>
+			
 					<Alert severity="error">{t('settings.lobbysettings.public_lobby.ban_warning')}</Alert>
 				</DialogContent>
 				<DialogActions>

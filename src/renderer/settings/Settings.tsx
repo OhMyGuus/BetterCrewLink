@@ -440,6 +440,43 @@ const store = new Store<ISettings>({
 			type: 'string',
 			default: GamePlatform.STEAM,
 		},
+		customPlatforms: {
+			type: 'object',
+			default: {},
+			additionalProperties: {
+				type: 'object',
+				properties: {
+					default: {
+						type: 'boolean',
+						default: false,
+					},
+					key: {
+						type: 'string',
+						default: '',
+					},
+					launchType: {
+						type: 'string',
+						default: 'EXE',
+					},
+					runPath: {
+						type: 'string',
+						default: '',
+					},
+					execute: {
+						type: 'array',
+						default: [''],
+						items: {
+							type: 'string',
+							default: '',
+						}
+					},
+					translateKey: {
+						type: 'string',
+						default: '',
+					}
+				}
+			}
+		}
 	},
 });
 

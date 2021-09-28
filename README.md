@@ -4,7 +4,7 @@
     <img src="src/renderer/logos/sizes/256-BCL-Logo-shadow.png" alt="BetterCrewLink Logo">
   </a>
   <br/>
-  <sub>Logo Made By <a href="https://github.com/SirBuvex">SirBuvex</a></sub>
+  <sub>Logo made by <a href="https://github.com/SirBuvex">SirBuvex</a></sub>
 </p>
 <h3 align="center"><a href="https://github.com/OhMyGuus/BetterCrewLink">BetterCrewLink</a> a <a href="https://github.com/ottomated/CrewLink">CrewLink</a> fork with extra features & better support</h3>
 
@@ -29,6 +29,7 @@
 <p>
 <p align="center">
     <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/"><img src="https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/total?logo=GitHub&label=Downloads" alt="GitHub Downloads"></img></a>
+    <a href="https://www.curseforge.com/among-us/all-mods/bettercrewlink/files"><img src="http://cf.way2muchnoise.eu/full_463977_downloads.svg" alt="CurseForge Downloads"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/latest/total?label=Downloads%20%28latest%20release%29&logo=GitHub" alt="GitHub Downloads Latest Release"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/v/release/OhMyGuus/BetterCrewLink?logo=GitHub&color=success&label=Latest%20Release" alt="GitHub Latest Release"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/release-date/OhMyGuus/BetterCrewLink?label=Released&logo=GitHub" alt="GitHub Latest Release Date"></img></a>
@@ -40,7 +41,7 @@
     <a href="https://ko-fi.com/ohmyguus"><img src="https://img.shields.io/badge/Support-BetterCrewLink-purple?logo=Ko-fi&logoColor=white" alt="Support BetterCrewLink (Ko-fi)"></img></a>
     <a href="https://discord.gg/qDqTzvj4SH"><img src="https://img.shields.io/discord/791516611143270410?color=cornflowerblue&label=Discord&logo=Discord&logoColor=white" alt="Discord Server"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/graphs/contributors"><img src="https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink?label=Contributors&logo=GitHub" alt="GitHub Contributors"></img></a>
-    <a href="https://crwd.in/bettercrewlink"><img src="https://img.shields.io/badge/Translators-35-brightgreen" alt="Translators"></img></a>
+    <a href="https://crwd.in/bettercrewlink"><img src="https://img.shields.io/badge/Translators-41-brightgreen" alt="Translators"></img></a>
     <a href="https://crwd.in/bettercrewlink"><img src="https://badges.crowdin.net/bettercrewlink/localized.svg" alt="Translations"></img></a>
 </p>
 <hr />
@@ -53,9 +54,9 @@
 - We are not affiliated with CrewLink, we are just a modified/better version of the original CrewLink, so if you need help with CrewLink, we will not offer any help for you about CrewLink here, we will only help you if you are using **Better**CrewLink, if you want to download BetterCrewLink look at the [GitHub](https://github.com/OhMyGuus/BetterCrewLink/releases/latest).
 
 <details>
-<summary> The original/normal CrewLink is now No Longer Supported and that means the original/normal CrewLink will never be updated and will never work again, so BetterCrewLink is the only way to make your CrewLink works </summary>
+<summary> The original/normal CrewLink is now discontinued and that means the original/normal CrewLink will never be updated and will never work again, so BetterCrewLink is the only way to make your CrewLink works </summary>
 
-![CrewLink End Of Support](https://user-images.githubusercontent.com/71022656/121688157-84197500-ca99-11eb-869e-6af3b720d2eb.png)
+![CrewLink has been discontinued](https://user-images.githubusercontent.com/71022656/121688157-84197500-ca99-11eb-869e-6af3b720d2eb.png)
 
 </details>
 
@@ -127,11 +128,11 @@ This project is a fork of the popular Proximity Voice Chat, [CrewLink](https://g
 - Microphone Eoise Suppression.
 - More Overlay Positions and you can set the Overlay to the Top/Bottom and you can set It so It shows Everyone Even When Dead.
 - You can set the Lobby Up so Only Death people can talk. (Normal Lobbies but then with Death Talk)
-- Support For New/Older Versions of Among Us. (v2021.6.30)
-- Support For Other Platforms. (itch.io, Play Store, App Store, Nintendo Switch, Beta, PlayStation 4 and PlayStation 5 & XBOX Series X/S (Coming Soon)
-- Support For Custom Colors/Hats/Skins. (Mods that Add More Colors/Hats/Skins)
-- Support For Linux.
-- Support For Mobile. (iOS App Coming Soon)
+- Support for New/Older versions of Among Us. (v2021.6.30 and v2021.7.20e)
+- Support for Other Platforms. (itch.io, Play Store, App Store, Nintendo Switch, Beta, PlayStation 4 and PlayStation 5 & XBOX Series X/S (Coming Soon)
+- Support for Custom Colors/Hats/Skins. (Mods that add more Colors/Hats/Skins)
+- Support for Linux.
+- Support for Mobile. (iOS App Coming Soon)
 ```
 
 **If we missed something you can join in [Discord server](https://discord.gg/qDqTzvj4SH), [GitHub](https://github.com/OhMyGuus/BetterCrewLink/issues) or DM me on Discord ([ThaGuus#2140](https://discord.com/users/508426414387757057)) so we can add It to BetterCrewLink.**
@@ -167,8 +168,8 @@ This project is a fork of the popular Proximity Voice Chat, [CrewLink](https://g
 |  [Microsoft Store](#windows-) (v2021.6.30m) |      ✔️     |
 |  [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) (v2021.6.30a) |      ✔️     |
 |  [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) (v2021.6.30o) |      ✔️     | 
-|  [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web)  (v2021.6.30n) |      ✔️     |
-|  Beta  |      ✔️     |
+|  [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web) (v2021.6.30n)  |      ✔️     |
+|  Beta (v2021.6.30) |      ✔️     |
 |  Cracked  |      [❓](https://youtu.be/dQw4w9WgXcQ "Click here to install a version of BetterCrewLink that supports cracked Among Us")     |
 
 | Future Versions | Status |
@@ -372,8 +373,10 @@ Distributed Under the GNU General Public License v3.0. See <a href="https://gith
 <p align="center">This mod is not affiliated with Among Us or Innersloth LLC, and the content contained therein is not endorsed or otherwise sponsored by Innersloth LLC. Portions of the materials contained herein are property of Innersloth LLC.</p>
 <p align="center">© Innersloth LLC.</p>
 
-[downloads-shield]: https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/total?logo=GitHub&label=Downloads
-[downloads-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/
+[github-downloads-shield]: https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/total?logo=GitHub&label=Downloads
+[github-downloads-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/
+[curseforge-downloads-shield]: http://cf.way2muchnoise.eu/full_463977_downloads.svg
+[curseforge-downloads-url]: https://www.curseforge.com/among-us/all-mods/bettercrewlink/files
 [downloads_latest_release-shield]: https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/latest/total?label=Downloads%20%28latest%20release%29&logo=GitHub
 [downloads_latest_release-url]: https://github.com/OhMyGuus/BetterCrewLink/releases/latest/
 [latest_release-shield]: https://img.shields.io/github/v/release/OhMyGuus/BetterCrewLink?logo=GitHub&color=success&label=Latest%20Release
@@ -400,7 +403,7 @@ Distributed Under the GNU General Public License v3.0. See <a href="https://gith
 [discord-url]: https://discord.gg/qDqTzvj4SH
 [contributors-shield]: https://img.shields.io/github/contributors/OhMyGuus/BetterCrewLink?label=Contributors&logo=GitHub
 [contributors-url]: https://github.com/OhMyGuus/BetterCrewLink/graphs/contributors
-[translators-shield]: https://img.shields.io/badge/Translators-35-brightgreen
+[translators-shield]: https://img.shields.io/badge/Translators-41-brightgreen
 [translators-url]: https://crwd.in/bettercrewlink
 [crowdin-shield]: https://badges.crowdin.net/bettercrewlink/localized.svg
 [crowdin-url]: https://crwd.in/bettercrewlink

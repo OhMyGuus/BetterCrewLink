@@ -123,7 +123,7 @@ export default class GameReader {
 
 	getInstalledMods(filePath: string): AmongusMod {
 		const pathLower = filePath.toLowerCase();
-		if (pathLower.includes('epic') || pathLower.includes('?\\volume') || this.is_linux) {
+		if (pathLower.includes('?\\volume') || this.is_linux) {
 			return modList[0];
 		} else {
 			let dir = path.dirname(filePath);
@@ -131,6 +131,7 @@ export default class GameReader {
 				return modList[0];
 			}
 			for (const file of fs.readdirSync(path.join(dir, 'BepInEx\\plugins'))) {
+				console.log(`MOD! ${file}`)
 				let mod = modList.find((o) => o.dllStartsWith && file.includes(o.dllStartsWith));
 				if (mod) return mod;
 			}
@@ -268,7 +269,8 @@ export default class GameReader {
 								switch (map) {
 									case MapType.AIRSHIP:
 									case MapType.POLUS:
-									case MapType.THE_SKELD: {
+									case MapType.THE_SKELD: 
+									case MapType.SUBMERGED: {
 										comsSabotaged =
 											this.readMemory<number>('uint32', value, this.offsets!.HudOverrideSystemType_isActive) === 1;
 										break;
@@ -292,6 +294,7 @@ export default class GameReader {
 							}
 						});
 					}
+
 					const minigamePtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets!.miniGame);
 					const minigameCachePtr = this.readMemory<number>('ptr', minigamePtr, this.offsets!.objectCachePtr);
 					if (minigameCachePtr && minigameCachePtr !== 0 && localPlayer) {
@@ -484,7 +487,9 @@ export default class GameReader {
 			this.offsets.signatures.serverManager.patternOffset,
 			this.offsets.signatures.serverManager.addressOffset
 		);
-
+		if (this.loadedMod.id === 'POLUS_GG') {
+			this.offsets.serverManager_currentServer[4] = 0x0C
+		}
 		this.colorsInitialized = false;
 		console.log('serverManager_currentServer', this.offsets.serverManager_currentServer[0].toString(16));
 		if (innerNetClient === 0x2c6c278) {
@@ -751,7 +756,7 @@ export default class GameReader {
 	}
 
 	joinGame(code: string, server: string): boolean {
-		if (!this.amongUs || !this.initializedWrite || server.length > 15 || !this.offsets || this.is_64bit) {
+		if (!this.amongUs || !this.initializedWrite || server.length > 15 || !this.offsets || this.is_64bit || this.loadedMod.id === "POLUS_GG") {
 			return false;
 		}
 		const innerNetClient = this.readMemory<number>(
@@ -941,8 +946,23 @@ export default class GameReader {
 	}
 
 	IntToGameCode(input: number): string {
-		if (!input || input === 0 || input > -1000) return '';
+		if (!input || input === 0)
+			return '';
+		else if (input <= -1000)
+			return this.IntToGameCodeV2Impl(input);
+		else if (input > 0 && this.loadedMod.id == "POLUS_GG")
+			return this.IntToGameCodeV1Impl(input);
+		else
+			return '';
+	}
 
+	IntToGameCodeV1Impl(input: number): string {
+		const buf = Buffer.alloc(4);
+		buf.writeInt32LE(input, 0);
+		return buf.toString();
+	}
+
+	IntToGameCodeV2Impl(input: number): string {
 		const V2 = 'QWXRTYLPESDFGHUJKZOCVBINMA';
 		const a = input & 0x3ff;
 		const b = (input >> 10) & 0xfffff;
@@ -957,6 +977,16 @@ export default class GameReader {
 	}
 
 	gameCodeToInt(code: string): number {
+		return (code.length === 4 && this.loadedMod.id === "POLUS_GG") ? this.gameCodeToIntV1Impl(code) : this.gameCodeToIntV2Impl(code);
+	}
+
+	gameCodeToIntV1Impl(code: string): number {
+		const buf = Buffer.alloc(4);
+    	buf.write(code);
+    	return buf.readInt32LE(0);
+	}
+
+	gameCodeToIntV2Impl(code: string): number {
 		const V2Map = [25, 21, 19, 10, 8, 11, 12, 13, 22, 15, 16, 6, 24, 23, 18, 7, 0, 3, 9, 4, 14, 20, 1, 2, 5, 17];
 		const a = V2Map[code.charCodeAt(0) - 65];
 		const b = V2Map[code.charCodeAt(1) - 65];
@@ -968,6 +998,7 @@ export default class GameReader {
 		const two = c + 26 * (d + 26 * (e + 26 * f));
 		return one | ((two << 10) & 0x3ffffc00) | 0x80000000;
 	}
+
 	hashCode(s: string): number {
 		let h = 0;
 		for (let i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;

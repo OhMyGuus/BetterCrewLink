@@ -4,6 +4,7 @@ export enum MapType {
 	POLUS,
 	THE_SKELD_APRIL,
 	AIRSHIP,
+	SUBMERGED,
 	UNKNOWN,
 }
 
@@ -65,6 +66,10 @@ export const AmongUsMaps: { [key in MapType]: AmongUsMap } = {
 			[CameraLocation.SouthWest]: { x: 30.3702, y: -0.874 }, // CARGO BAY
 			[CameraLocation.NorthWest]: { x: 3.3018, y: 16.2631 }, // MEETING ROOM
 		},
+	},
+	[MapType.SUBMERGED]: {
+		cameras: {
+		}
 	},
 	[MapType.UNKNOWN]: defaultMap,
 };

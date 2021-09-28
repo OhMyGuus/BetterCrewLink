@@ -33,6 +33,14 @@
 				"ban_warning": "Testo inappropriato comporterà un divieto da parte di BetterCrewLink."
 			}
 		},
+		"customplatforms": {
+			"title": "Piattaforma Personalizzata",
+			"platform_title": "Titolo",
+			"path": "Percorso EXE",
+			"uri": "Link URI",
+			"advanced": "Avanzate",
+			"arguments": "Parametri"
+		},
 		"audio": {
 			"title": "Audio",
 			"microphone": "Microfono",
@@ -74,7 +82,7 @@
 		},
 		"advanced": {
 			"title": "Avanzate",
-			"nat_fix": "NAT Fix",
+			"nat_fix": "Correzione NAT",
 			"nat_fix_warning": "Questo sistemerà i problemi NAT ma aggiungerà un ritardo in quanto sta usando un server invece di Peer to Peer (P2P).",
 			"change_server": "Cambiare il server vocale",
 			"voice_server": "Server Vocale",
@@ -87,7 +95,6 @@
 			"mobilehost": "Host Mobile",
 			"vad_enabled": "VAD Abilitato",
 			"hardware_acceleration": "Accelerazione Hardware",
-			"hardware_acceleration_warning": "Questo può causare una perdita di prestazioni su alcuni sistemi.",
 			"vad_enabled_warning": "Non vedrete chi sta parlando se disattivato.",
 			"echocancellation": "Cancellazione eco",
 			"noiseSuppression": "Riduzione del rumore",
@@ -125,12 +132,14 @@
 		"cancel": "Cancella",
 		"close": "Chiudi",
 		"exit": "Esci dalle impostazioni per applicare le modifiche",
-		"public_lobby": "Public Lobbies"
+		"public_lobby": "Lobby Pubbliche",
+		"delete": "Cancella",
+		"file_select": "Seleziona File"
 	},
 	"game": {
 		"menu": "MENU",
 		"open": "Apri Via",
-		"open_error": "Avvia il gioco manualmente. \n(questo pulsante è solo per Steam)",
+		"open_error": "Avvia Among Us manualmente.",
 		"waiting": "In attesa Di Among Us",
 		"error": "ERRORE",
 		"error_admin": "Impossibile connettersi a Among Us.\nRiaprire BetterCrewLink come amministratore.",
@@ -140,7 +149,8 @@
 	"platform": {
 		"steam": "Steam",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft"
+		"microsoft": "Microsoft",
+		"custom": "Personalizzato"
 	},
 	"translator_name": "gdar463 - Github\ngdar463#5786 - Discord"
 }

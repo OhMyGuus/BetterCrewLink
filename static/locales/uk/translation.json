@@ -33,6 +33,14 @@
 				"ban_warning": "Недоречні висловлювання приведуть до заборони використання BetterCrewLink."
 			}
 		},
+		"customplatforms": {
+			"title": "Власна платформа",
+			"platform_title": "Назва",
+			"path": "Шлях до EXE",
+			"uri": "URI-посилання",
+			"advanced": "Розширені",
+			"arguments": "Аргументи"
+		},
 		"audio": {
 			"title": "Звук",
 			"microphone": "Мікрофон",
@@ -87,7 +95,6 @@
 			"mobilehost": "Хост для мобільних",
 			"vad_enabled": "Включення VAD",
 			"hardware_acceleration": "Апаратне прискорення",
-			"hardware_acceleration_warning": "Це може спричинити зниження швидкодії на деяких системах.",
 			"vad_enabled_warning": "Якщо відключити, то не буде видно, хто говорить.",
 			"echocancellation": "Усунення відлуння",
 			"noiseSuppression": "Зниження шуму",
@@ -125,12 +132,14 @@
 		"cancel": "Скасувати",
 		"close": "Закрити",
 		"exit": "Закрийте налаштування для застосування змін",
-		"public_lobby": "Відкриті кімнати"
+		"public_lobby": "Відкриті кімнати",
+		"delete": "Видалити",
+		"file_select": "Вибрати файл"
 	},
 	"game": {
 		"menu": "МЕНЮ",
 		"open": "Відкрити через",
-		"open_error": "Запустити гру вручну. \r\n(ця кнопка тільки для steam)",
+		"open_error": "Запустіть Among Us вручну.",
 		"waiting": "Очікування Among Us",
 		"error": "ПОМИЛКА",
 		"error_admin": "Неможливо під'єднатися до Among Us.\nБудь ласка, відкрийте BetterCrewLink знову як адміністратор.",
@@ -140,7 +149,8 @@
 	"platform": {
 		"steam": "Steam",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft"
+		"microsoft": "Microsoft",
+		"custom": "Власна"
 	},
 	"translator_name": "XRevan86"
 }

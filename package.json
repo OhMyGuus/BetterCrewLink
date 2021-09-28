@@ -1,8 +1,8 @@
 {
 	"name": "bettercrewlink",
-	"version": "2.7.5",
+	"version": "2.8.0",
 	"license": "GPL-3.0-or-later",
-	"description": "Free, open, Among Us proximity voice chat",
+	"description": "Free, open, Among Us Proximity Voice Chat",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/OhMyGuus/BetterCrewLink.git"
@@ -59,6 +59,7 @@
 		"structron": "^0.2.4",
 		"typeface-varela": "^1.1.13",
 		"valid-url": "^1.0.9",
+		"vdf-parser": "^1.2.0",
 		"webrtc-adapter": "^7.7.0"
 	},
 	"devDependencies": {
