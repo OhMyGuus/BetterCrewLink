@@ -10,7 +10,7 @@
 			"voicedistance": "Distance vocale",
 			"voicedistance_impostor": "Distance vocale imposteurs",
 			"wallsblockaudio": "Les murs bloquent l'audio",
-			"visiononly": "Entendre uniquement les gens visibles",
+			"visiononly": "Entendre uniquement les gens visibles activé",
 			"impostorshearsghost": "Les imposteurs entendent les fantômes",
 			"hear_imposters_invents": "Entendre les imposteurs dans les vents",
 			"private_talk_invents": "Discussion privée dans les vents",
@@ -18,10 +18,10 @@
 			"hear_through_cameras": "Entendre à travers les caméras",
 			"ghost_only": "Seuls les fantômes peuvent parler/entendre",
 			"ghost_only_warning": "Cette option désactive le vocal pour les joueurs vivants.",
-			"ghost_only_warning2": "Seuls les fantômes peuvent parler.",
+			"ghost_only_warning2": "Seuls les fantômes peuvent parler activé",
 			"meetings_only": "Meetings/Lobby uniquement",
 			"meetings_only_warning": "Cela désactive le son pour les joueurs vivants en dehors des meetings.",
-			"meetings_only_warning2": "Vous ne pouvez que parler dans les Meetings/le Lobby.",
+			"meetings_only_warning2": "Activé uniquement dans les meetings/le lobby.",
 			"impostor_radio": "Vocal imposteur",
 			"public_lobby": {
 				"change_settings": "Changer les Infos du Lobby",
@@ -131,7 +131,7 @@
 		"confirm": "Valider",
 		"cancel": "Annuler",
 		"close": "Fermer",
-		"exit": "Quittez les pParamètres pour appliquer les changements",
+		"exit": "Quittez les Paramètres pour appliquer les changements",
 		"public_lobby": "Parties publiques",
 		"delete": "Supprimer",
 		"file_select": "Choisir le Fichier"
@@ -152,5 +152,5 @@
 		"microsoft": "Microsoft",
 		"custom": "Personnalisé"
 	},
-	"translator_name": "GeekCorner"
+	"translator_name": "AdoFu & GeekCorner"
 }
