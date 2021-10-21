@@ -154,8 +154,8 @@ This project is a fork of the popular Proximity Voice Chat, [CrewLink](https://g
 
  | Future Platforms | Availability Status |
  | :-----------------: | :------------: |
- | [PS4/PS5](https://twitter.com/PlayStation/status/1387883940778627073?s=20)  | Coming Soon |
- | [XBOX Series X/S](https://twitter.com/Xbox/status/1339647203724312578?s=20) | Coming Soon |
+ | [PS4/PS5](https://twitter.com/PlayStation/status/1387883940778627073?s=20)  | Coming Soon (12/14/21) |
+ | [XBOX Series X/S](https://twitter.com/Xbox/status/1339647203724312578?s=20) | Coming Soon (12/14/21) |
 
 <!-- SUPPORTED VERSIONS OF AMONG US -->
 ## Supported Versions Of Among Us
