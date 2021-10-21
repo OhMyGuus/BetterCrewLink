@@ -150,32 +150,32 @@ This project is a fork of the popular Proximity Voice Chat, [CrewLink](https://g
 |  [iOS/MacOS](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) | Available Via [Web](https://web.bettercrewl.ink/), App Available Soon! |
 |  [Bluestacks](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) | [Available](https://play.google.com/store/apps/details?id=io.bettercrewlink.app) |
 |  [Chrome OS](https://play.google.com/store/apps/details?id=io.bettercrewlink.app) | Available Via [Play Store](https://play.google.com/store/apps/details?id=io.bettercrewlink.app) Or [Web](https://web.bettercrewl.ink/) |
-|  [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web) | Available Via [Web](https://web.bettercrewl.ink/) |              |      ✔️     |
+|  [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web) | Available Via [Web](https://web.bettercrewl.ink/) |
 
  | Future Platforms | Availability Status |
  | :-----------------: | :------------: |
- | [PS4/PS5](https://twitter.com/PlayStation/status/1387883940778627073?s=20)  | Coming Soon (12/14/21) |
- | [XBOX Series X/S](https://twitter.com/Xbox/status/1339647203724312578?s=20) | Coming Soon (12/14/21) |
+ | [PS4/PS5](https://twitter.com/PlayStation/status/1451217017764253703)  | Coming Soon (12/14/21) |
+ | [XBOX Series X/S](https://twitter.com/Xbox/status/1451222103701688321) | Coming Soon (12/14/21) |
 
 <!-- SUPPORTED VERSIONS OF AMONG US -->
 ## Supported Versions Of Among Us
 
 | Game Version | Supported? |
 | :-----------------: | :------------: |
-|  [Steam](#installation) (v2021.6.30s)      |      ✔️     |
-|  [Epic Games](#installation) (v2021.7.20e) |      ✔️     |
-|  [itch.io](#installation) (v2021.6.30i)    |      ✔️     |
+|  [Steam](#installation) (v2021.6.30s)       |      ✔️     |
+|  [Epic Games](#installation) (v2021.7.20e)  |      ✔️     |
+|  [itch.io](#installation) (v2021.6.30i)     |      ✔️     |
 |  [Microsoft Store](#windows-) (v2021.6.30m) |      ✔️     |
 |  [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) (v2021.6.30a) |      ✔️     |
 |  [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) (v2021.6.30o) |      ✔️     | 
-|  [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web) (v2021.6.30n)  |      ✔️     |
+|  [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web) (v2021.6.30n) |      ✔️     |
 |  Beta (v2021.6.30) |      ✔️     |
 |  Cracked  |      [❓](https://youtu.be/dQw4w9WgXcQ "Click here to install a version of BetterCrewLink that supports cracked Among Us")     |
 
 | Future Versions | Status |
 | :-----------------: | :------------: |
-| [PS4/PS5](https://twitter.com/PlayStation/status/1387883940778627073?s=20) (Unknown) | Coming Soon |
-| [XBOX Series X/S](https://twitter.com/Xbox/status/1339647203724312578?s=20) (Unknown) | Coming Soon |
+| [PS4/PS5](https://twitter.com/PlayStation/status/1451217017764253703) (Unknown)  | Coming Soon (12/14/21) |
+| [XBOX Series X/S](https://twitter.com/Xbox/status/1451222103701688321) (Unknown) | Coming Soon (12/14/21) |
 
 <!-- INSTALLATION -->
 ## Installation
