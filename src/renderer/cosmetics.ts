@@ -165,6 +165,9 @@ import rainbowDead from '../../static/players/rainbow-dead.png'; // @ts-ignore
 import redAliveimg from '../../static/players/red-alive.png'; // @ts-ignore
 import rainbowBalloon from '../../static/hats/77-rb.png'; // @ts-ignore
 import rainbowKid from '../../static/hats/90-rb.png';
+
+import { ModsType } from '../common/Mods';
+
 export const redAlive = redAliveimg;
 
 export const skins = [
@@ -346,7 +349,7 @@ var modHats: {
 
 var requestingModHats = false;
 const MODHATS_BASE = 'https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-ModHats/master';
-function getModHat(color: number, id = -1, mod: string, back: boolean = false) {
+function getModHat(color: number, id = -1, mod: ModsType, back: boolean = false) {
 	if (!requestingModHats) {
 		requestingModHats = true;
 		fetch(`${MODHATS_BASE}/hats.json`)
@@ -365,7 +368,7 @@ export interface HatDementions {
 	width: string;
 }
 
-export function getHatDementions(id: number, mod: string): HatDementions {
+export function getHatDementions(id: number, mod: ModsType): HatDementions {
 	if (!hats[id] && modHats[mod]) {
 		const modHatList = modHats[mod];
 		let hat = modHats[mod]?.hats[id];
@@ -389,7 +392,7 @@ export function getCosmetic(
 	isAlive: boolean,
 	type: cosmeticType,
 	id = -1,
-	mod: string = 'NONE'
+	mod: ModsType = 'NONE'
 ): string {
 	if (type === cosmeticType.base || (type === cosmeticType.hat && coloredHatsIds.has(id))) {
 		if (color === RainbowColorId) {
