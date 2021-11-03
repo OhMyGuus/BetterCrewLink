@@ -16,7 +16,8 @@ import { ISettings } from '../../common/ISettings';
 import i18next from 'i18next';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import languages from '../language/languages';
-import { PublicLobbyMap, PublicLobby, modList } from '../../common/PublicLobby';
+import { PublicLobbyMap, PublicLobby } from '../../common/PublicLobby';
+import { modList } from '../../common/Mods';
 import { GameState } from '../../common/AmongUsState';
 
 const store = new Store<ISettings>();
