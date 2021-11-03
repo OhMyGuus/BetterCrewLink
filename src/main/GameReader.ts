@@ -675,7 +675,7 @@ export default class GameReader {
 
 		this.writeString(
 			shellCodeAddr + 0xd5,
-			`Ping: {0}ms\n<size=85%><color=#BA68C8>BetterCrewLink v${appVersion}</color></size>\n<size=60%><color=#BA68C8>https://bettercrewlink.app</color></size>`
+			`<size=85%><color=#BA68C8>BetterCrewLink v${appVersion}</color></size>\n<size=60%><color=#BA68C8>https://bettercrewlink.app</color></size><size=85%>\nPing: {0}ms</size>`
 		);
 
 		writeBuffer(this.amongUs!.handle, shellCodeAddr, Buffer.from(shellcode));
