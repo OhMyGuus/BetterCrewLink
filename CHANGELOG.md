@@ -14,7 +14,7 @@ A changelog for BetterCrewLink in case people want to see changes from the new/o
 - Small performance fixes.
 - Fixed issue with reading some states which could of be the cause of loss of audio.
 
-## Changed
+### Changed
 
 - The position and size of the ping have been decreased.
 
