@@ -49,6 +49,7 @@ interface PlayerReport {
 	hat: number;
 	pet: number;
 	skin: number;
+	rolePtr: number;
 	disconnected: number;
 	impostor: number;
 	dead: number;
@@ -227,7 +228,6 @@ export default class GameReader {
 			) {
 				this.readCurrentServer();
 			}
-
 			if (this.gameCode && playerCount) {
 				for (let i = 0; i < Math.min(playerCount, 40); i++) {
 					const { address, last } = this.offsetAddress(playerAddrPtr, this.offsets.player.offsets);
@@ -255,12 +255,13 @@ export default class GameReader {
 					this.offsets.playerControl_GameOptions
 				);
 				maxPlayers = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MaxPLayers);
+				map = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MapId);
+
 				if (state === GameState.TASKS) {
 					const shipPtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets.shipStatus);
 
 					const systemsPtr = this.readMemory<number>('ptr', shipPtr, this.offsets.shipStatus_systems);
 
-					map = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MapId);
 
 					if (systemsPtr !== 0 && state === GameState.TASKS) {
 						this.readDictionary(systemsPtr, 47, (k, v) => {
@@ -1010,9 +1011,25 @@ export default class GameReader {
 		if (!this.PlayerStruct || !this.offsets) return undefined;
 
 		const { data } = this.PlayerStruct.report<PlayerReport>(buffer, 0, {});
+		// console.log({
+		// 	id: this.PlayerStruct.getOffsetByName('id'),
+		// 	outfitsPtr:  this.PlayerStruct.getOffsetByName('outfitsPtr'),
+		// 	playerLevel:  this.PlayerStruct.getOffsetByName('playerLevel'),
+		// 	disconnected:  this.PlayerStruct.getOffsetByName('disconnected'),
+		// 	rolePtr:  this.PlayerStruct.getOffsetByName('rolePtr'),
+		// 	taskPtr:  this.PlayerStruct.getOffsetByName('taskPtr'),
+		// 	dead:  this.PlayerStruct.getOffsetByName('dead'),
+		// 	objectPtr:  this.PlayerStruct.getOffsetByName('objectPtr'),
+
+		// });
+
 		if (this.is_64bit) {
 			data.objectPtr = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('objectPtr')]);
-			data.name = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('name')]);
+			data.outfitsPtr = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('outfitsPtr')]);
+			data.taskPtr =  this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('taskPtr')]);
+			// data.name = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('name')]);
+
+
 		}
 		const clientId = this.readMemory<number>('uint32', data.objectPtr, this.offsets.player.clientId);
 		const isLocal = clientId === LocalclientId && data.disconnected === 0;
@@ -1034,17 +1051,20 @@ export default class GameReader {
 		const x_round = parseFloat(x?.toFixed(4));
 		const y_round = parseFloat(y?.toFixed(4));
 		let name = 'error';
-
 		this.readDictionary(data.outfitsPtr, 2, (k, v, i) => {
 			const key = this.readMemory<number>('int32', k);
 			const val = this.readMemory<number>('ptr', v);
 			if (key === 0 && i == 0) {
-				const namePtr = this.readMemory<number>('pointer', val + 0x24)
-				data.color = this.readMemory<number>('uint32', val + 0x0C)
+				// const namePtr = this.readMemory<number>('pointer', val + 0x24)
+				// data.color = this.readMemory<number>('uint32', val + 0x0C)
+				const namePtr = this.readMemory<number>('pointer', val + 0x40)
+				data.color = this.readMemory<number>('uint32', val + 0x14)
 				name = this.readString(namePtr).split(/<.*?>/).join('');
 			}
 		//	console.log('KEY:', key, 'val:', val);
 		});
+		const roleTeam = this.readMemory<number>('uint32', data.rolePtr + 0x3C)
+		data.impostor = roleTeam;
 		//const name = this.readString(data.name).split(/<.*?>/).join('');
 		const nameHash = this.hashCode(name);
 		const colorId = data.color === this.rainbowColor ? RainbowColorId : data.color;
@@ -1055,9 +1075,9 @@ export default class GameReader {
 			name,
 			nameHash,
 			colorId,
-			hatId: data.hat,
-			petId: data.pet,
-			skinId: data.skin,
+			hatId: 0,//data.hat,
+			petId: 0,//data.pet,
+			skinId: 0,//data.skin,
 			disconnected: data.disconnected != 0,
 			isImpostor: data.impostor == 1,
 			isDead: data.dead == 1,
