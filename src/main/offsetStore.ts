@@ -1,5 +1,3 @@
-import { off } from "process";
-
 export interface IOffsetsStore {
 	x64: IOffsets;
 	x86: IOffsets;
@@ -479,6 +477,10 @@ export function TempFixOffsets5(offsetsOld: IOffsets): IOffsets {
 		offsets: [0, 0],
 		inVent: [0x31],
 		clientId: [0x1c],
+		outfit: {
+			colorId: [0xff],
+			playerName: [0xff]
+		}
 	};
 	offsets.palette[0] = 0x1BA85A4;
 	offsets.palette_shadowColor = [0xf8];
