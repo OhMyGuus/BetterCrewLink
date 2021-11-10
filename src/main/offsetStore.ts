@@ -1,3 +1,5 @@
+import { off } from "process";
+
 export interface IOffsetsStore {
 	x64: IOffsets;
 	x86: IOffsets;
@@ -62,6 +64,10 @@ export interface IOffsets {
 		localY: number[];
 		remoteX: number[];
 		remoteY: number[];
+		outfit: {
+			colorId: number[]
+			playerName: number[];
+		}
 		bufferLength: number;
 		offsets: number[];
 		inVent: number[];
@@ -69,18 +75,18 @@ export interface IOffsets {
 		isDummy: number[]; // used for muting
 		struct: {
 			type:
-				| 'INT'
-				| 'INT_BE'
-				| 'UINT'
-				| 'UINT_BE'
-				| 'SHORT'
-				| 'SHORT_BE'
-				| 'USHORT'
-				| 'USHORT_BE'
-				| 'FLOAT'
-				| 'CHAR'
-				| 'BYTE'
-				| 'SKIP';
+			| 'INT'
+			| 'INT_BE'
+			| 'UINT'
+			| 'UINT_BE'
+			| 'SHORT'
+			| 'SHORT_BE'
+			| 'USHORT'
+			| 'USHORT_BE'
+			| 'FLOAT'
+			| 'CHAR'
+			| 'BYTE'
+			| 'SKIP';
 			skip?: number;
 			name: string;
 		}[];
@@ -112,9 +118,9 @@ export default {
 		playerCount: [0x18],
 		playerAddrPtr: 0x20,
 		shipStatus: [0x21d0ce0, 0xb8, 0x0],
-		shipStatus_systems: [0xd0],
-		shipStatus_map: [0x174],
-		shipstatus_allDoors: [0xC0],
+		shipStatus_systems: [0xD8],
+		shipStatus_map: [0x17C],
+		shipstatus_allDoors: [0xC8],
 		door_doorId: 0x1c,
 		door_isOpen: 0x20,
 		deconDoorUpperOpen: [0x18, 0x18],
@@ -180,6 +186,10 @@ export default {
 			offsets: [0, 0],
 			inVent: [0x44],
 			clientId: [0x28],
+			outfit: {
+				colorId: [0x14],
+				playerName: [0x40]
+			}
 		},
 		signatures: {
 			innerNetClient: {
@@ -240,9 +250,9 @@ export default {
 		playerCount: [0xc],
 		playerAddrPtr: 0x10,
 		shipStatus: [0x1c57cac, 0x5c, 0x0],
-		shipStatus_systems: [0xD8],
-		shipStatus_map: [0x17C],
-		shipstatus_allDoors: [0xC8],
+		shipStatus_systems: [0X90],
+		shipStatus_map: [0xE8],
+		shipstatus_allDoors: [0x88],
 		door_doorId: 0x10,
 		door_isOpen: 0x14,
 		deconDoorUpperOpen: [0xc, 0xc],
@@ -296,6 +306,10 @@ export default {
 			offsets: [0, 0],
 			inVent: [0x38],
 			clientId: [0x1c],
+			outfit: {
+				colorId: [0x0C],
+				playerName: [0x24]
+			}
 		},
 		connectFunc: 0xfff,
 		showModStampFunc: 0xfff,
@@ -431,6 +445,53 @@ export function TempFixOffsets4(offsetsOld: IOffsets): IOffsets {
 	offsets.innerNetClient.gameState = 0x70;
 	offsets.innerNetClient.onlineScene = 0x7c;
 	offsets.innerNetClient.mainMenuScene = 0x80;
+
+	return offsets;
+}
+
+
+export function TempFixOffsets5(offsetsOld: IOffsets): IOffsets {
+	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
+	offsets.player = {
+		struct: [
+			{ type: 'SKIP', skip: 8, name: 'unused' },
+			{ type: 'UINT', name: 'id' },
+			{ type: 'UINT', name: 'name' },
+			{ type: 'SKIP', skip: 4, name: 'COLORBEFORE' },
+			{ type: 'UINT', name: 'color' },
+			{ type: 'UINT', name: 'hat' },
+			{ type: 'UINT', name: 'pet' },
+			{ type: 'UINT', name: 'skin' },
+			{ type: 'UINT', name: 'disconnected' },
+			{ type: 'UINT', name: 'taskPtr' },
+			{ type: 'BYTE', name: 'impostor' },
+			{ type: 'BYTE', name: 'dead' },
+			{ type: 'SKIP', skip: 2, name: 'unused' },
+			{ type: 'UINT', name: 'objectPtr' },
+		],
+		isDummy: [0x89],
+		isLocal: [0x54],
+		localX: [0x60, 80],
+		localY: [0x60, 84],
+		remoteX: [0x60, 60],
+		remoteY: [0x60, 64],
+		bufferLength: 56,
+		offsets: [0, 0],
+		inVent: [0x31],
+		clientId: [0x1c],
+	};
+	offsets.palette[0] = 0x1BA85A4;
+	offsets.palette_shadowColor = [0xf8];
+	offsets.palette_playercolor = [0xf4];
+	offsets.innerNetClient.gameState = 0x74;
+	offsets.innerNetClient.onlineScene = 0x80;
+	offsets.innerNetClient.mainMenuScene = 0x84;
+	offsets.shipStatus_systems = [0x8c];
+	offsets.shipstatus_allDoors = [0x84];
+	offsets.shipStatus_map = [0xe4]
+	offsets.lightRadius = [0x54, 0x1c];
+
+
 
 	return offsets;
 }
