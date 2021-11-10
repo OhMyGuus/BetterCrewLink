@@ -315,8 +315,8 @@ if (!gotTheLock) {
 
 		if (isDevelopment) 
 			installExtension(REACT_DEVELOPER_TOOLS)
-				.then((name) => console.log(`Added Extension:  ${name}`))
-				.catch((err) => console.log('An error occurred: ', err));
+				.then((name : string) => console.log(`Added Extension:  ${name}`))
+				.catch((err: string) => console.log('An error occurred: ', err));
 	});
 
 	app.on('second-instance', () => {
