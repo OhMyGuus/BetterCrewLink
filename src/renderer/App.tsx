@@ -73,7 +73,7 @@ interface TitleBarProps {
 	setSettingsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const TitleBar: React.FC<TitleBarProps> = function ({ settingsOpen, setSettingsOpen }: TitleBarProps) {
+const RawTitleBar: React.FC<TitleBarProps> = function ({ settingsOpen, setSettingsOpen }: TitleBarProps) {
 	const classes = useStyles();
 	return (
 		<div className={classes.root}>
@@ -107,6 +107,8 @@ const TitleBar: React.FC<TitleBarProps> = function ({ settingsOpen, setSettingsO
 		</div>
 	);
 };
+
+const TitleBar = React.memo(RawTitleBar);
 
 enum AppState {
 	MENU,
