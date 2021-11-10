@@ -144,7 +144,7 @@
 		"error": "ERREUR",
 		"error_admin": "Impossible de se connecter à Among Us.\nVeuillez rouvrir BetterCrewLink en tant qu'administrateur.",
 		"error_platform": "Aucune plateforme détectée",
-		"error_unsupport": "Votre version de Among Us n'est pas supporté par BetterCrewLink."
+		"error_unsupport": "Votre version de Among Us n'est pas supportée par BetterCrewLink."
 	},
 	"platform": {
 		"steam": "Steam",
