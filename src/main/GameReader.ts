@@ -42,6 +42,7 @@ interface ValueType<T> {
 
 interface PlayerReport {
 	objectPtr: number;
+	outfitsPtr: number;
 	id: number;
 	name: number;
 	color: number;
@@ -1024,7 +1025,7 @@ export default class GameReader {
 		let y = this.readMemory<number>('float', data.objectPtr, positionOffsets[1]);
 		const isDummy = this.readMemory<boolean>('boolean', data.objectPtr, this.offsets.player.isDummy);
 		let bugged = false;
-		if (x === undefined || y === undefined || data.disconnected != 0 || data.color > 40) {
+		if (x === undefined || y === undefined || data.disconnected != 0 ) {
 			x = 9999;
 			y = 9999;
 			bugged = true;
@@ -1032,8 +1033,19 @@ export default class GameReader {
 
 		const x_round = parseFloat(x?.toFixed(4));
 		const y_round = parseFloat(y?.toFixed(4));
+		let name = 'error';
 
-		const name = this.readString(data.name).split(/<.*?>/).join('');
+		this.readDictionary(data.outfitsPtr, 2, (k, v, i) => {
+			const key = this.readMemory<number>('int32', k);
+			const val = this.readMemory<number>('ptr', v);
+			if (key === 0 && i == 0) {
+				const namePtr = this.readMemory<number>('pointer', val + 0x24)
+				data.color = this.readMemory<number>('uint32', val + 0x0C)
+				name = this.readString(namePtr).split(/<.*?>/).join('');
+			}
+		//	console.log('KEY:', key, 'val:', val);
+		});
+		//const name = this.readString(data.name).split(/<.*?>/).join('');
 		const nameHash = this.hashCode(name);
 		const colorId = data.color === this.rainbowColor ? RainbowColorId : data.color;
 		return {
