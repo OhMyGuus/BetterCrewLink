@@ -16,7 +16,8 @@ A changelog for BetterCrewLink in case people want to see changes from the new/o
 
 ### Changed
 
-- The position and size of the ping have been decreased.
+- The position of the ping have been changed.
+- The size of the ping have been decreased.
 
 ## v2.8.0 - [2021-09-10]
 
