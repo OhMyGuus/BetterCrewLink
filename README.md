@@ -128,7 +128,7 @@ This project is a fork of the popular Proximity Voice Chat, [CrewLink](https://g
 - Microphone Eoise Suppression.
 - More Overlay Positions and you can set the Overlay to the Top/Bottom and you can set It so It shows Everyone Even When Dead.
 - You can set the Lobby Up so Only Death people can talk. (Normal Lobbies but then with Death Talk)
-- Support for New/Older versions of Among Us. (v2021.6.30 and v2021.7.20e)
+- Support for New/Older versions of Among Us. (v2021.11.9.2)
 - Support for Other Platforms. (itch.io, Play Store, App Store, Nintendo Switch, Beta, PlayStation 4 and PlayStation 5 & XBOX Series X/S (Coming Soon)
 - Support for Custom Colors/Hats/Skins. (Mods that add more Colors/Hats/Skins)
 - Support for Linux.
@@ -162,14 +162,13 @@ This project is a fork of the popular Proximity Voice Chat, [CrewLink](https://g
 
 | Game Version | Supported? |
 | :-----------------: | :------------: |
-|  [Steam](#installation) (v2021.6.30s)       |      ✔️     |
-|  [Epic Games](#installation) (v2021.7.20e)  |      ✔️     |
-|  [itch.io](#installation) (v2021.6.30i)     |      ✔️     |
-|  [Microsoft Store](#windows-) (v2021.6.30m) |      ✔️     |
-|  [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) (v2021.6.30a) |      ✔️     |
-|  [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) (v2021.6.30o) |      ✔️     | 
-|  [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web) (v2021.6.30n) |      ✔️     |
-|  Beta (v2021.6.30) |      ✔️     |
+|  [Steam](#installation) (v2021.11.9.2s)       |      ✔️     |
+|  [itch.io](#installation) (v2021.11.9.2i)     |      ✔️     |
+|  [Microsoft Store](#windows-) (v2021.11.9.2m) |      ✔️     |
+|  [Play Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#androidchromebookbluestacks) (v2021.11.9.2a) |      ✔️     |
+|  [App Store](https://github.com/OhMyGuus/BetterCrewlink-mobile#ios--macos) (v2021.11.9.2o) |      ✔️     | 
+|  [Nintendo Switch](https://github.com/OhMyGuus/BetterCrewlink-mobile#web) (v2021.11.9.2n)  |      ✔️     |
+|  Beta (v2021.11.9.2) |      ✔️     |
 |  Cracked  |      [❓](https://youtu.be/dQw4w9WgXcQ "Click here to install a version of BetterCrewLink that supports cracked Among Us")     |
 
 | Future Versions | Status |
