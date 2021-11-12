@@ -560,7 +560,7 @@ export default class GameReader {
 		const relativeConnectJMP = connectFunc - (shellCodeAddr + 0x18) - 0x4;
 
 		const fixedUpdateFunc = this.gameAssembly!.modBaseAddr + this.offsets.fixedUpdateFunc;
-		const relativefixedJMP = fixedUpdateFunc + 0x5 - (shellCodeAddr + 0x22) - 0x4;
+		const relativefixedJMP = fixedUpdateFunc + 0x5 - (shellCodeAddr + 0x24) - 0x4;
 
 		const relativeShellJMP = shellCodeAddr - (fixedUpdateFunc + 0x1) - 0x4;
 
@@ -594,10 +594,12 @@ export default class GameReader {
 			(relativeConnectJMP & 0x00ff0000) >> 16,
 			(relativeConnectJMP & 0xff000000) >> 24,
 			0x55, // original 5 bytes && (je 0x13 endpoint)
-			0x8b,
-			0xec,
-			0x6a,
-			0xff,
+			0x8B,
+			0xEC,
+			0x56,
+			0x8B,
+			0x75,
+			0x08,
 			0xe9, // jmp innerNet.InnerNetClient.FixedUpdate + 0x5
 			relativefixedJMP & 0x000000ff,
 			(relativefixedJMP & 0x0000ff00) >> 8,
