@@ -587,6 +587,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						hatId: o.hatId,
 						petId: o.petId,
 						skinId: o.skinId,
+						visorId: o.visorId,
 						disconnected: o.disconnected,
 						isLocal: o.isLocal,
 						bugged: o.bugged,

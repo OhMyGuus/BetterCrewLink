@@ -15,6 +15,8 @@ import { protocol } from 'electron';
 import Store from 'electron-store';
 import { ISettings } from '../common/ISettings';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
+import { gameReader } from './hook';
+import { GenerateHat } from './avatarGenerator';
 
 const args = require('minimist')(process.argv); // eslint-disable-line
 
@@ -306,16 +308,24 @@ if (!gotTheLock) {
 	app.whenReady().then(() => {
 		protocol.registerFileProtocol('static', (request, callback) => {
 			const pathname = app.getPath('userData') + '/static/' + request.url.replace('static:///', '');
+			console.log("ResultPath1", pathname)
 			callback(pathname);
+		});
+
+		protocol.registerFileProtocol('generate', async (request, callback) => {
+			let url = new URL(request.url.replace('generate:///', ''));
+			var path = await GenerateHat(url, gameReader.playercolors, Number(url.searchParams.get('color')), '');
+			console.log("GOT PATH", path)
+			callback(path);
 		});
 
 		initializeIpcListeners();
 		initializeIpcHandlers();
 		global.mainWindow = createMainWindow();
 
-		if (isDevelopment) 
+		if (isDevelopment)
 			installExtension(REACT_DEVELOPER_TOOLS)
-				.then((name : string) => console.log(`Added Extension:  ${name}`))
+				.then((name: string) => console.log(`Added Extension:  ${name}`))
 				.catch((err: string) => console.log('An error occurred: ', err));
 	});
 

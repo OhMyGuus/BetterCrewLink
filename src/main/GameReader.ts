@@ -82,6 +82,8 @@ export default class GameReader {
 	loadedMod = modList[0];
 	gamePath = '';
 	oldMeetingHud = false;
+	playercolors : string[][] = [];
+
 	constructor(sendIPC: Electron.WebContents['send']) {
 		this.is_linux = platform() === 'linux';
 		this.sendIPC = sendIPC;
@@ -830,6 +832,7 @@ export default class GameReader {
 			//4278190080
 			playercolors[i] = [numberToColorHex(playerColor), numberToColorHex(shadowColor)];
 		}
+		this.playercolors = playercolors;
 		try {
 			this.sendIPC(IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, playercolors);
 			GenerateAvatars(playercolors)
