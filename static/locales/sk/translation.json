@@ -8,7 +8,7 @@
 			"gamehostonly": "Toto môže zmeniť iba hostiteľ hry!",
 			"inlobbyonly": "Toto môžeš zmeniť iba v lobby!",
 			"voicedistance": "Hlasová vzdialenosť",
-			"voicedistance_impostor": "Hlasová vzdialenenosť impostra",
+			"voicedistance_impostor": "Hlasová vzdialenenosť impostora",
 			"wallsblockaudio": "Steny blokujú zvuk",
 			"visiononly": "Počuť iba viditeľných ľudí",
 			"impostorshearsghost": "Impostori počujú mŕtvych",
@@ -18,19 +18,19 @@
 			"hear_through_cameras": "Počuť cez kamery",
 			"ghost_only": "Iba duchovia môžu rozprávať/počuť",
 			"ghost_only_warning": "Toto zakáže zvuk pre živých ľudí.",
-			"ghost_only_warning2": "Iba duch môže hovoriť je zapnuté.",
+			"ghost_only_warning2": "Možnosť iba duchovia môžu hovoriť je zapnutá.",
 			"meetings_only": "Iba mítingy/lobby",
-			"meetings_only_warning": "Toto zakáže zvuk pre živých ľudí mimo mítingov",
+			"meetings_only_warning": "Toto zakáže zvuk pre živých ľudí mimo mítingov.",
 			"meetings_only_warning2": "Rozprávanie iba v mítingoch je zapnuté.",
-			"impostor_radio": "Impostor Rádio",
+			"impostor_radio": "Impostor rádio",
 			"public_lobby": {
-				"change_settings": "Zmeniť lobby info",
+				"change_settings": "Zmeniť lobby nastavenia",
 				"title": "Názov",
 				"enabled": "Lobby je verejné",
 				"mods": "Módy",
 				"language": "Jazyk",
-				"enable_warning": "Toto povolenie urobí tvoje lobby verejné pre ostatných BCL používateľov!",
-				"ban_warning": "Nevhodný text bude mať za následok ban z BCL"
+				"enable_warning": "Toto urobí tvoje lobby verejné pre ostatných BCL používateľov!",
+				"ban_warning": "Nevhodný text bude mať za následok ban z BCL."
 			}
 		},
 		"customplatforms": {
@@ -46,11 +46,11 @@
 			"microphone": "Mikrofón",
 			"speaker": "Reproduktor",
 			"voice_activity": "Hlasová aktivita",
-			"push_to_talk": "Tlač pre rozprávanie",
-			"push_to_mute": "Tlač pre stlmenie",
+			"push_to_talk": "Stlačiť pre rozprávanie",
+			"push_to_mute": "Stlačiť pre stlmenie",
 			"microphone_volume": "Hlasitosť mikrofónu",
 			"microphone_sens": "Citlivosť mikrofónu",
-			"microphone_sens_warning": "Ak nastavíš nižšiu citlivosť, nemusí to fungovať",
+			"microphone_sens_warning": "Ak nastavíš nižšiu citlivosť, nemusí to fungovať.",
 			"mastervolume": "Celková hlasitosť",
 			"crewvolume": "Hlasitosť posádky keď si duch",
 			"test_speaker_start": "Test reproduktora",
@@ -58,14 +58,14 @@
 		},
 		"keyboard": {
 			"title": "Klávesové skratky",
-			"push_to_talk": "Tlač pre rozprávanie",
+			"push_to_talk": "Stlačiť pre rozprávanie",
 			"mute": "Stlmiť mikrofón",
 			"deafen": "Stlmiť zvuk",
-			"impostor_radio": "Impostor Rádio"
+			"impostor_radio": "Impostor rádio"
 		},
 		"overlay": {
 			"title": "Prekrytie",
-			"always_on_top": "Crewlink na vrchu",
+			"always_on_top": "BetterCrewLink na vrchu",
 			"enabled": "Povoliť prekrytie",
 			"compact": "Kompaktné prekrytie",
 			"meeting": "Mítingové prekrytie",
@@ -75,15 +75,15 @@
 				"top": "Hore v strede",
 				"bottom": "Dole vľavo",
 				"right": "Vpravo",
-				"right1": "Pravé pozadie",
+				"right1": "Vpravo s pozadím",
 				"left": "Vľavo",
-				"left1": "Ľavé pozadie"
+				"left1": "Vľavo s pozadím"
 			}
 		},
 		"advanced": {
 			"title": "Pokročilé",
 			"nat_fix": "NAT opravenie",
-			"nat_fix_warning": "Toto opraví NAT problémy, ale dôjde k oneskoreniu, pretože sa použije server namiesto P2P",
+			"nat_fix_warning": "Toto opraví NAT problémy, ale dôjde k oneskoreniu, pretože sa použije server namiesto P2P.",
 			"change_server": "Zmeniť hlasový server",
 			"voice_server": "Hlasový server",
 			"invalid_url": "Neplatná URL",
@@ -131,8 +131,8 @@
 		"confirm": "Potvrdiť",
 		"cancel": "Zrušiť",
 		"close": "Zatvoriť",
-		"exit": "Ak chceš zmeny použiť, ukonči nastavenia",
-		"public_lobby": "Verejné Lobby",
+		"exit": "Ukonči nastavenia pre použitie zmien",
+		"public_lobby": "Verejné lobby",
 		"delete": "Vymazať",
 		"file_select": "Vybrať súbor"
 	},
