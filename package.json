@@ -67,6 +67,7 @@
 	"devDependencies": {
 		"@types/color": "^3.0.1",
 		"@types/cross-spawn": "^6.0.2",
+		"@types/crypto-js": "^4.0.2",
 		"@types/deep-equal": "^1.0.1",
 		"@types/i18next": "^13.0.0",
 		"@types/js-yaml": "^3.12.5",

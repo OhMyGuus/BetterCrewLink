@@ -1,7 +1,14 @@
 import Color from 'color';
 import jimp from 'jimp';
-import sha256 from 'crypto-js';
+import sha256 from 'crypto-js/sha256';
 import fs from 'fs';
+
+// @ts-ignore
+import playerBase from '../../static/generate/player.png'; // @ts-ignore
+import balloonBase from '../../static/generate/balloon.png'; // @ts-ignore
+import kidBase from '../../static/generate/kid.png'; // @ts-ignore
+import ghostBase from '../../static/generate/ghost.png'; // @ts-ignore
+import { app } from 'electron';
 
 export const DEFAULT_PLAYERCOLORS = [
 	['#C51111', '#7A0838'],
@@ -17,14 +24,6 @@ export const DEFAULT_PLAYERCOLORS = [
 	['#38FEDC', '#24A8BE'],
 	['#50EF39', '#15A742'],
 ];
-
-// @ts-ignore
-import playerBase from '../../static/generate/player.png'; // @ts-ignore
-import balloonBase from '../../static/generate/balloon.png'; // @ts-ignore
-import kidBase from '../../static/generate/kid.png'; // @ts-ignore
-import ghostBase from '../../static/generate/ghost.png'; // @ts-ignore
-import { app } from 'electron';
-import { Url } from 'url';
 
 export function numberToColorHex(colour: number): string {
 	return (
