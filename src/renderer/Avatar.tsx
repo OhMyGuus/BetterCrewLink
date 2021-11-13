@@ -54,8 +54,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 export interface CanvasProps {
-	hat: number;
-	skin: number;
+	hat: number | string;
+	skin: number | string;
+	visor: number | string;
 	isAlive: boolean;
 	className: string;
 	lookLeft: boolean;
@@ -126,12 +127,16 @@ const Avatar: React.FC<AvatarProps> = function ({
 	if (player.bugged) {
 		icon = <ErrorOutline className={classes.icon} style={{ background: 'red', borderColor: '' }} />;
 	}
+	if (player.isImpostor) {
+		icon = <ErrorOutline className={classes.icon} style={{ background: 'pink', borderColor: '' }} />;
+	}
 	const canvas = (
 		<Canvas
 			className={classes.canvas}
 			color={player.colorId}
 			hat={showHat === false ? -1 : player.hatId}
-			skin={player.skinId - 1}
+			visor={showHat === false ? -1 : player.visorId}
+			skin={player.skinId}
 			isAlive={isAlive}
 			lookLeft={lookLeft === true}
 			borderColor={talking ? borderColor : showborder === true ? '#ccbdcc86' : 'transparent'}
@@ -267,6 +272,7 @@ const useCanvasStyles = makeStyles(() => ({
 function Canvas({
 	hat,
 	skin,
+	visor,
 	isAlive,
 	lookLeft,
 	size,
@@ -310,6 +316,14 @@ function Canvas({
 				onLoad={onload}
 			/>
 			<img
+				src={getCosmetic(color, isAlive, cosmeticType.hat, visor, mod)}
+				ref={hatImg}
+				className={classes.hat}
+				onError={onerror}
+				onLoad={onload}
+			/>
+		
+			<img
 				src={getCosmetic(color, isAlive, cosmeticType.hat_back, hat, mod)}
 				ref={hatImg}
 				className={classes.hat}
@@ -344,15 +358,21 @@ function Canvas({
 						}}
 					/>
 
-					<img
+					{/* <img
 						src={getCosmetic(color, isAlive, cosmeticType.skin, skin, mod)}
 						style={{ top: skin === 17 ? '0%' : undefined }}
 						ref={skinImg}
 						className={classes.skin}
 						onError={onerror}
 						onLoad={onload}
-					/>
-
+					/> */}
+				<img
+				src={getCosmetic(color, isAlive, cosmeticType.hat, skin, mod)}
+				ref={hatImg}
+				className={classes.hat}
+				onError={onerror}
+				onLoad={onload}
+			/>
 					{overflow && hatElement}
 				</div>
 				{!overflow && hatElement}

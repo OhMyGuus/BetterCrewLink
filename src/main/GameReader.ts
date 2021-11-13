@@ -46,9 +46,10 @@ interface PlayerReport {
 	id: number;
 	name: number;
 	color: number;
-	hat: number;
+	hat: number | string;
+	skin: number | string;
+	visor: number | string;
 	pet: number;
-	skin: number;
 	rolePtr: number;
 	disconnected: number;
 	impostor: number;
@@ -383,7 +384,7 @@ export default class GameReader {
 				lightRadius,
 				lightRadiusChanged: lightRadius != this.lastState?.lightRadius,
 				map,
-				mod: this.loadedMod.id,
+				mod: "OFFICAL",//this.loadedMod.id,
 				closedDoors,
 				currentServer: this.currentServer,
 				maxPlayers,
@@ -889,16 +890,16 @@ export default class GameReader {
 		return { address, last };
 	}
 
-	readString(address: number): string {
+	readString(address: number, maxLength: number = 50): string {
 		try {
 			if (address === 0 || !this.amongUs) {
 				return '';
 			}
 			const length = Math.max(
 				0,
-				// Math.min(readMemoryRaw<number>(this.amongUs.handle, address + (this.is_64bit ? 0x10 : 0x8), 'int'), 15)
-				readMemoryRaw<number>(this.amongUs.handle, address + (this.is_64bit ? 0x10 : 0x8), 'int')
+				 Math.min(readMemoryRaw<number>(this.amongUs.handle, address + (this.is_64bit ? 0x10 : 0x8), 'int'), maxLength)
 			);
+			//				//readMemoryRaw<number>(this.amongUs.handle, address + (this.is_64bit ? 0x10 : 0x8), 'int')
 			const buffer = readBuffer(this.amongUs.handle, address + (this.is_64bit ? 0x14 : 0xc), length << 1);
 			if (buffer) {
 				return buffer.toString('utf16le').replace(/\0/g, '');
@@ -1056,9 +1057,13 @@ export default class GameReader {
 					const namePtr = this.readMemory<number>('pointer', val, this.offsets!.player.outfit.playerName) // 0x40
 					data.color = this.readMemory<number>('uint32', val, this.offsets!.player.outfit.colorId) // 0x14
 					name = this.readString(namePtr).split(/<.*?>/).join('');
+					data.hat = this.readString(this.readMemory<number>('uint32', val, this.offsets!.player.outfit.hatId));
+					data.skin = this.readString(this.readMemory<number>('uint32', val, this.offsets!.player.outfit.skinId));
+					data.visor = this.readString(this.readMemory<number>('uint32', val, this.offsets!.player.outfit.visorId));
 					return;
 				}
 			});
+		
 			const roleTeam = this.readMemory<number>('uint32', data.rolePtr + 0x3C)
 			data.impostor = roleTeam;
 		}
@@ -1075,6 +1080,7 @@ export default class GameReader {
 			hatId: data.hat ?? 0,
 			petId: data.pet ?? 0,
 			skinId: data.skin ?? 0,
+			visorId: data.visor ?? "",
 			disconnected: data.disconnected != 0,
 			isImpostor: data.impostor == 1,
 			isDead: data.dead == 1,

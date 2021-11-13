@@ -63,8 +63,12 @@ export interface IOffsets {
 		remoteX: number[];
 		remoteY: number[];
 		outfit: {
-			colorId: number[]
+			colorId: number[];
 			playerName: number[];
+			hatId: number[];
+			skinId: number[];
+			visorId: number[];
+
 		}
 		bufferLength: number;
 		offsets: number[];
@@ -186,7 +190,11 @@ export default {
 			clientId: [0x28],
 			outfit: {
 				colorId: [0x14],
-				playerName: [0x40]
+				hatId: [0x18],
+				skinId: [0x28],
+				visorId: [0x30],
+				playerName: [0x40],
+
 			}
 		},
 		signatures: {
@@ -306,6 +314,9 @@ export default {
 			clientId: [0x1c],
 			outfit: {
 				colorId: [0x0C],
+				hatId: [0x10],
+				skinId: [0x18],
+				visorId: [0x1C],
 				playerName: [0x24]
 			}
 		},
@@ -478,6 +489,9 @@ export function TempFixOffsets5(offsetsOld: IOffsets): IOffsets {
 		clientId: [0x1c],
 		outfit: {
 			colorId: [0xff],
+			hatId: [0xff],
+			skinId: [0xff],
+			visorId: [0xff],
 			playerName: [0xff]
 		}
 	};

@@ -335,7 +335,7 @@ var modHats: {
 		defaultTop: string;
 		defaultLeft: string;
 		hats: {
-			[id: number]: {
+			[id: number | string]: {
 				image: string;
 				back_image: string;
 				top: string | undefined;
@@ -348,8 +348,8 @@ var modHats: {
 } = {};
 
 var requestingModHats = false;
-const MODHATS_BASE = 'https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-ModHats/master';
-function getModHat(color: number, id = -1, mod: ModsType, back: boolean = false) {
+const MODHATS_BASE = 'http://127.0.0.1:8080'; //https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-ModHats/master';
+function getModHat(color: number, id : number | string = -1, mod: ModsType, back: boolean = false) {
 	if (!requestingModHats) {
 		requestingModHats = true;
 		fetch(`${MODHATS_BASE}/hats.json`)
@@ -368,7 +368,7 @@ export interface HatDementions {
 	width: string;
 }
 
-export function getHatDementions(id: number, mod: ModsType): HatDementions {
+export function getHatDementions(id: number | string, mod: ModsType): HatDementions {
 	if (!hats[id] && modHats[mod]) {
 		const modHatList = modHats[mod];
 		let hat = modHats[mod]?.hats[id];
@@ -391,9 +391,10 @@ export function getCosmetic(
 	color: number,
 	isAlive: boolean,
 	type: cosmeticType,
-	id = -1,
+	id : number | string = -1,
 	mod: ModsType = 'NONE'
 ): string {
+	console.log("GETCOSMETIC: ", id)
 	if (type === cosmeticType.base || (type === cosmeticType.hat && coloredHatsIds.has(id))) {
 		if (color === RainbowColorId) {
 			if (type === cosmeticType.base) {

@@ -29,9 +29,10 @@ export interface Player {
 	name: string;
 	nameHash: number;
 	colorId: number;
-	hatId: number;
+	hatId: string | number;
 	petId: number;
-	skinId: number;
+	skinId: string | number;
+	visorId: string | number;
 	disconnected: boolean;
 	isImpostor: boolean;
 	isDead: boolean;
