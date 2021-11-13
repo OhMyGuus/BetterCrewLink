@@ -16,12 +16,12 @@ import {
 import Struct from 'structron';
 import { IpcOverlayMessages, IpcRendererMessages } from '../common/ipc-messages';
 import { GameState, AmongUsState, Player } from '../common/AmongUsState';
-import offsetStore, { IOffsets } from './offsetStore';
+import offsetStore, { IOffsets, TempFixOffsets5 } from './offsetStore';
 import Errors from '../common/Errors';
 import { CameraLocation, MapType } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
 import { RainbowColorId } from '../renderer/cosmetics';
-import { TempFixOffsets, TempFixOffsets2, TempFixOffsets3,TempFixOffsets4 } from './offsetStore';
+import { TempFixOffsets, TempFixOffsets2, TempFixOffsets3, TempFixOffsets4 } from './offsetStore';
 import { platform } from 'os';
 import fs from 'fs';
 import path from 'path';
@@ -30,9 +30,9 @@ import { app } from 'electron';
 
 let appVersion = '';
 if (process.env.NODE_ENV !== 'production') {
-    appVersion = 'DEV';
+	appVersion = 'DEV';
 } else {
-    appVersion = app.getVersion();
+	appVersion = app.getVersion();
 }
 
 interface ValueType<T> {
@@ -42,12 +42,14 @@ interface ValueType<T> {
 
 interface PlayerReport {
 	objectPtr: number;
+	outfitsPtr: number;
 	id: number;
 	name: number;
 	color: number;
 	hat: number;
 	pet: number;
 	skin: number;
+	rolePtr: number;
 	disconnected: number;
 	impostor: number;
 	dead: number;
@@ -195,8 +197,8 @@ export default class GameReader {
 				state === GameState.MENU
 					? ''
 					: lobbyCodeInt === this.lastState.lobbyCodeInt
-					? this.gameCode
-					: this.IntToGameCode(lobbyCodeInt);
+						? this.gameCode
+						: this.IntToGameCode(lobbyCodeInt);
 
 			// if (DEBUG) {
 			// 	this.gameCode = 'oof';
@@ -226,7 +228,6 @@ export default class GameReader {
 			) {
 				this.readCurrentServer();
 			}
-
 			if (this.gameCode && playerCount) {
 				for (let i = 0; i < Math.min(playerCount, 40); i++) {
 					const { address, last } = this.offsetAddress(playerAddrPtr, this.offsets.player.offsets);
@@ -254,12 +255,13 @@ export default class GameReader {
 					this.offsets.playerControl_GameOptions
 				);
 				maxPlayers = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MaxPLayers);
+				map = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MapId);
+
 				if (state === GameState.TASKS) {
 					const shipPtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets.shipStatus);
 
 					const systemsPtr = this.readMemory<number>('ptr', shipPtr, this.offsets.shipStatus_systems);
 
-					map = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MapId);
 
 					if (systemsPtr !== 0 && state === GameState.TASKS) {
 						this.readDictionary(systemsPtr, 47, (k, v) => {
@@ -269,7 +271,7 @@ export default class GameReader {
 								switch (map) {
 									case MapType.AIRSHIP:
 									case MapType.POLUS:
-									case MapType.THE_SKELD: 
+									case MapType.THE_SKELD:
 									case MapType.SUBMERGED: {
 										comsSabotaged =
 											this.readMemory<number>('uint32', value, this.offsets!.HudOverrideSystemType_isActive) === 1;
@@ -498,14 +500,18 @@ export default class GameReader {
 			this.oldMeetingHud = true;
 			this.offsets = TempFixOffsets(this.offsets);
 		}
-		if (innerNetClient === 0x1c57f54 ) {
+		if (innerNetClient === 0x1c57f54) {
 			this.disableWriting = true;
 			this.oldMeetingHud = true;
 			// temp fix for older game until I added more sigs.. // 12/9
 			this.offsets = TempFixOffsets2(this.offsets);
 		}
-		if (innerNetClient === 0x1D17F2C ) {//6/15 
+		if (innerNetClient === 0x1D17F2C) {//6/15 
 			this.offsets = TempFixOffsets4(this.offsets);
+		}
+
+		if (innerNetClient === 0x1BAA960) {
+			this.offsets = TempFixOffsets5(this.offsets);
 		}
 
 		if (innerNetClient === 0x1D9DBB4 || innerNetClient === 0x1E247C4) {
@@ -539,7 +545,7 @@ export default class GameReader {
 			//not supported atm
 			return;
 		}
-	
+
 		// Shellcode to join games when u press join..
 		const shellCodeAddr = virtualAllocEx(this.amongUs.handle, null, 0x60, 0x00001000 | 0x00002000, 0x40);
 		const compareAddr = shellCodeAddr + 0x30;
@@ -554,7 +560,7 @@ export default class GameReader {
 		const relativeConnectJMP = connectFunc - (shellCodeAddr + 0x18) - 0x4;
 
 		const fixedUpdateFunc = this.gameAssembly!.modBaseAddr + this.offsets.fixedUpdateFunc;
-		const relativefixedJMP = fixedUpdateFunc + 0x5 - (shellCodeAddr + 0x22) - 0x4;
+		const relativefixedJMP = fixedUpdateFunc + 0x5 - (shellCodeAddr + 0x24) - 0x4;
 
 		const relativeShellJMP = shellCodeAddr - (fixedUpdateFunc + 0x1) - 0x4;
 
@@ -588,10 +594,12 @@ export default class GameReader {
 			(relativeConnectJMP & 0x00ff0000) >> 16,
 			(relativeConnectJMP & 0xff000000) >> 24,
 			0x55, // original 5 bytes && (je 0x13 endpoint)
-			0x8b,
-			0xec,
-			0x6a,
-			0xff,
+			0x8B,
+			0xEC,
+			0x56,
+			0x8B,
+			0x75,
+			0x08,
 			0xe9, // jmp innerNet.InnerNetClient.FixedUpdate + 0x5
 			relativefixedJMP & 0x000000ff,
 			(relativefixedJMP & 0x0000ff00) >> 8,
@@ -675,7 +683,7 @@ export default class GameReader {
 
 		this.writeString(
 			shellCodeAddr + 0xd5,
-			`Ping: {0}ms\n<size=85%><color=#BA68C8>BetterCrewLink v${appVersion}</color></size>\n<size=60%><color=#BA68C8>https://bettercrewlink.app</color></size>`
+			`<size=85%><color=#BA68C8>BetterCrewLink v${appVersion}</color></size>\n<size=60%><color=#BA68C8>https://bettercrewlink.app</color></size><size=85%>\nPing: {0}ms</size>`
 		);
 
 		writeBuffer(this.amongUs!.handle, shellCodeAddr, Buffer.from(shellcode));
@@ -889,7 +897,7 @@ export default class GameReader {
 			const length = Math.max(
 				0,
 				// Math.min(readMemoryRaw<number>(this.amongUs.handle, address + (this.is_64bit ? 0x10 : 0x8), 'int'), 15)
-                readMemoryRaw<number>(this.amongUs.handle, address + (this.is_64bit ? 0x10 : 0x8), 'int')
+				readMemoryRaw<number>(this.amongUs.handle, address + (this.is_64bit ? 0x10 : 0x8), 'int')
 			);
 			const buffer = readBuffer(this.amongUs.handle, address + (this.is_64bit ? 0x14 : 0xc), length << 1);
 			if (buffer) {
@@ -905,11 +913,13 @@ export default class GameReader {
 	readDictionary(
 		address: number,
 		maxLen: number,
-		callback: (keyPtr: number, valPtr: number, index: number) => void
+		callback: (keyPtr: number, valPtr: number, index: number) => void,
 	): void {
 		const entries = this.readMemory<number>('ptr', address + (this.is_64bit ? 0x18 : 0xc));
-		let len = this.readMemory<number>('uint32', entries + (this.is_64bit ? 0x18 : 0xc));
+		let len = this.readMemory<number>('uint32', address + (this.is_64bit ? 0x20 : 0x10));
+
 		len = len > maxLen ? maxLen : len;
+
 		for (let i = 0; i < len; i++) {
 			const offset = entries + ((this.is_64bit ? 0x20 : 0x10) + i * (this.is_64bit ? 0x18 : 0x10));
 			callback(offset, offset + (this.is_64bit ? 0x10 : 0xc), i);
@@ -982,8 +992,8 @@ export default class GameReader {
 
 	gameCodeToIntV1Impl(code: string): number {
 		const buf = Buffer.alloc(4);
-    	buf.write(code);
-    	return buf.readInt32LE(0);
+		buf.write(code);
+		return buf.readInt32LE(0);
 	}
 
 	gameCodeToIntV2Impl(code: string): number {
@@ -1009,9 +1019,12 @@ export default class GameReader {
 		if (!this.PlayerStruct || !this.offsets) return undefined;
 
 		const { data } = this.PlayerStruct.report<PlayerReport>(buffer, 0, {});
+
 		if (this.is_64bit) {
 			data.objectPtr = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('objectPtr')]);
-			data.name = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('name')]);
+			data.outfitsPtr = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('outfitsPtr')]);
+			data.taskPtr = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('taskPtr')]);
+			// data.name = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('name')]);
 		}
 		const clientId = this.readMemory<number>('uint32', data.objectPtr, this.offsets.player.clientId);
 		const isLocal = clientId === LocalclientId && data.disconnected === 0;
@@ -1024,7 +1037,7 @@ export default class GameReader {
 		let y = this.readMemory<number>('float', data.objectPtr, positionOffsets[1]);
 		const isDummy = this.readMemory<boolean>('boolean', data.objectPtr, this.offsets.player.isDummy);
 		let bugged = false;
-		if (x === undefined || y === undefined || data.disconnected != 0 || data.color > 40) {
+		if (x === undefined || y === undefined || data.disconnected != 0) {
 			x = 9999;
 			y = 9999;
 			bugged = true;
@@ -1032,8 +1045,24 @@ export default class GameReader {
 
 		const x_round = parseFloat(x?.toFixed(4));
 		const y_round = parseFloat(y?.toFixed(4));
-
-		const name = this.readString(data.name).split(/<.*?>/).join('');
+		let name = 'error';
+		if (data.hasOwnProperty('name')) {
+			name = this.readString(data.name).split(/<.*?>/).join('');
+		} else {
+			this.readDictionary(data.outfitsPtr, 2, (k, v, i) => {
+				const key = this.readMemory<number>('int32', k);
+				const val = this.readMemory<number>('ptr', v);
+				if (key === 0 && i == 0) {
+					const namePtr = this.readMemory<number>('pointer', val, this.offsets!.player.outfit.playerName) // 0x40
+					data.color = this.readMemory<number>('uint32', val, this.offsets!.player.outfit.colorId) // 0x14
+					name = this.readString(namePtr).split(/<.*?>/).join('');
+					return;
+				}
+			});
+			const roleTeam = this.readMemory<number>('uint32', data.rolePtr + 0x3C)
+			data.impostor = roleTeam;
+		}
+		name = name.split(/<.*?>/).join('');
 		const nameHash = this.hashCode(name);
 		const colorId = data.color === this.rainbowColor ? RainbowColorId : data.color;
 		return {
@@ -1043,9 +1072,9 @@ export default class GameReader {
 			name,
 			nameHash,
 			colorId,
-			hatId: data.hat,
-			petId: data.pet,
-			skinId: data.skin,
+			hatId: data.hat ?? 0,
+			petId: data.pet ?? 0,
+			skinId: data.skin ?? 0,
 			disconnected: data.disconnected != 0,
 			isImpostor: data.impostor == 1,
 			isDead: data.dead == 1,

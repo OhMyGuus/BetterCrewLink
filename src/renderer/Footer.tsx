@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const Footer: React.FC = function () {
+const RawFooter: React.FC = function () {
 	const classes = useStyles();
 	return (
 		<div className={classes.footer}>
@@ -77,5 +77,7 @@ const Footer: React.FC = function () {
 		</div>
 	);
 };
+
+const Footer = React.memo(RawFooter);
 
 export default Footer;
