@@ -1,7 +1,13 @@
 import { app, dialog, ipcMain, shell } from 'electron';
 import { platform, homedir } from 'os';
 import { enumerateValues, enumerateKeys, HKEY } from 'registry-js';
-import { DefaultGamePlatforms, GamePlatform, GamePlatformInstance, GamePlatformMap, PlatformRunType } from '../common/GamePlatform';
+import {
+	DefaultGamePlatforms,
+	GamePlatform,
+	GamePlatformInstance,
+	GamePlatformMap,
+	PlatformRunType,
+} from '../common/GamePlatform';
 import { parse } from 'vdf-parser';
 import spawn from 'cross-spawn';
 import path from 'path';
@@ -18,7 +24,6 @@ export const initializeIpcListeners = (): void => {
 	});
 
 	ipcMain.on(IpcMessages.OPEN_AMONG_US_GAME, (_, platform: GamePlatformInstance) => {
-
 		const error = () => dialog.showErrorBox('Error', 'Could not start the game.');
 
 		if (platform.launchType === PlatformRunType.URI) {
@@ -87,29 +92,38 @@ export const initializeIpcHandlers = (): void => {
 		// Deal with default platforms first
 		if (desktop_platform === 'win32') {
 			// Steam
-			if (enumerateValues(HKEY.HKEY_CLASSES_ROOT, 'steam').find(
-				(value) => value ? value.name === 'URL Protocol' : false
-			)) {
+			if (
+				enumerateValues(HKEY.HKEY_CLASSES_ROOT, 'steam').find((value) =>
+					value ? value.name === 'URL Protocol' : false
+				)
+			) {
 				availableGamePlatforms[GamePlatform.STEAM] = DefaultGamePlatforms[GamePlatform.STEAM];
 			}
 
 			// Epic Games
-			if (enumerateValues(HKEY.HKEY_CLASSES_ROOT, 'com.epicgames.launcher').find(
-				(value) => value ? value.name === 'URL Protocol' : false
-			)) {
+			if (
+				enumerateValues(HKEY.HKEY_CLASSES_ROOT, 'com.epicgames.launcher').find((value) =>
+					value ? value.name === 'URL Protocol' : false
+				)
+			) {
 				availableGamePlatforms[GamePlatform.EPIC] = DefaultGamePlatforms[GamePlatform.EPIC];
 			}
 
 			// Microsoft Store
 			// Search for 'Innersloth.Among Us....' key and grab it
-			const microsoft_regkey = enumerateKeys(HKEY.HKEY_CURRENT_USER, 'SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\Repository\\Packages').find(
-				(reg_key) => reg_key.startsWith('Innersloth.AmongUs' as string));
-			
+			const microsoft_regkey = enumerateKeys(
+				HKEY.HKEY_CURRENT_USER,
+				'SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\Repository\\Packages'
+			).find((reg_key) => reg_key.startsWith('Innersloth.AmongUs' as string));
+
 			if (microsoft_regkey) {
 				// Grab the game path from the above key
-				const value_found = enumerateValues(HKEY.HKEY_CURRENT_USER, 'SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\Repository\\Packages' + '\\' + microsoft_regkey).find(
-					(value) => (value ? value.name === 'PackageRootFolder' : false)
-				);
+				const value_found = enumerateValues(
+					HKEY.HKEY_CURRENT_USER,
+					'SOFTWARE\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppModel\\Repository\\Packages' +
+						'\\' +
+						microsoft_regkey
+				).find((value) => (value ? value.name === 'PackageRootFolder' : false));
 				if (value_found) {
 					availableGamePlatforms[GamePlatform.MICROSOFT] = DefaultGamePlatforms[GamePlatform.MICROSOFT];
 					availableGamePlatforms[GamePlatform.MICROSOFT].runPath = value_found.data as string;
@@ -118,16 +132,17 @@ export const initializeIpcHandlers = (): void => {
 		} else if (desktop_platform === 'linux') {
 			// Add platform to availableGamePlatforms and setup data if platform is available, do nothing otherwise
 			try {
-				const vdfString = fs.readFileSync(homedir() + '/.steam/registry.vdf').toString()
-				const vdfObject = parse(vdfString) as {Registry:{HKCU:{Software:{Valve:{Steam:{Apps:{945360:{installed:number}}}}}}}};
+				const vdfString = fs.readFileSync(homedir() + '/.steam/registry.vdf').toString();
+				const vdfObject = parse(vdfString) as {
+					Registry: { HKCU: { Software: { Valve: { Steam: { Apps: { 945360: { installed: number } } } } } } };
+				};
 				//checks if Among Us's listed as installed in the .vdf-file
-				if (vdfObject["Registry"]["HKCU"]["Software"]["Valve"]["Steam"]["Apps"]["945360"]["installed"] == 1) {
+				if (vdfObject['Registry']['HKCU']['Software']['Valve']['Steam']['Apps']['945360']['installed'] == 1) {
 					availableGamePlatforms[GamePlatform.STEAM] = DefaultGamePlatforms[GamePlatform.STEAM];
 				}
-			} catch(e) {
+			} catch (e) {
 				/* empty */
 			}
-			
 		}
 
 		// Deal with custom client-added platforms

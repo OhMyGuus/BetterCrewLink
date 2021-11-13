@@ -59,7 +59,7 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 						<span className={classes.waiting}>{t('game.waiting')}</span>
 						<CircularProgress color="primary" size={40} />
 						<span className={classes.open_message}>{t('game.open')}</span>
-						<LaunchButton t={t}/>
+						<LaunchButton t={t} />
 					</>
 				)}
 				<Footer />

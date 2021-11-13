@@ -15,8 +15,8 @@ interface hatData {
 	width: string | undefined;
 	left: string | undefined;
 	multi_color: boolean | undefined;
-};
-var hatCollection: {
+}
+let hatCollection: {
 	[mod: string]: {
 		defaultWidth: string;
 		defaultTop: string;
@@ -27,7 +27,7 @@ var hatCollection: {
 	};
 } = {};
 
-var requestingHats = false;
+let requestingHats = false;
 export var initializedHats = false;
 
 export function initializeHats() {
@@ -37,25 +37,26 @@ export function initializeHats() {
 	requestingHats = true;
 	fetch(`${HAT_COLLECTION_URL}/hats.json`)
 		.then((response) => response.json())
-		.then((data) => { hatCollection = data; initializedHats = true; });
+		.then((data) => {
+			hatCollection = data;
+			initializedHats = true;
+		});
 	return undefined;
 }
 
 const HAT_COLLECTION_URL = 'https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Hats/master';
-function getModHat(color: number, id: number | string = -1, mod: ModsType, back: boolean = false) {
+function getModHat(color: number, id: number | string = -1, mod: ModsType, back = false) {
 	if (!initializedHats) {
-		return "";
+		return '';
 	}
 	const hatBase = getHat(id, mod);
 	const hat = back ? hatBase?.back_image : hatBase?.image;
 	const multiColor = hatBase?.multi_color;
 	if (hat) {
-		if (!multiColor)
-			return `${HAT_COLLECTION_URL}/${mod}/${hat}`
-		else
-			return `generate:///${HAT_COLLECTION_URL}/${mod}/${hat}?color=${color}`
+		if (!multiColor) return `${HAT_COLLECTION_URL}/${mod}/${hat}`;
+		else return `generate:///${HAT_COLLECTION_URL}/${mod}/${hat}?color=${color}`;
 	}
-	return undefined
+	return undefined;
 }
 
 export interface HatDementions {
@@ -65,28 +66,28 @@ export interface HatDementions {
 }
 
 function getHat(id: number | string, modType: ModsType): hatData | undefined {
-	if(!initializedHats){
+	if (!initializedHats) {
 		return undefined;
 	}
-	for (var mod of ["NONE", modType]) {
+	for (const mod of ['NONE', modType]) {
 		const modHatList = hatCollection[mod];
-		let hat = modHatList?.hats[id];
+		const hat = modHatList?.hats[id];
 		if (hat) {
-			hat.top = hat?.top ?? modHatList?.defaultTop
-			hat.width = hat?.width ?? modHatList?.defaultWidth
-			hat.left = hat?.left ?? modHatList?.defaultLeft
+			hat.top = hat?.top ?? modHatList?.defaultTop;
+			hat.width = hat?.width ?? modHatList?.defaultWidth;
+			hat.left = hat?.left ?? modHatList?.defaultLeft;
 			return hat;
-		};
+		}
 	}
 	return undefined;
 }
 
 export function getHatDementions(id: number | string, mod: ModsType): HatDementions {
-	const hat = getHat(id, mod)
+	const hat = getHat(id, mod);
 	return {
-		top: hat?.top ?? "0",
-		width: hat?.width ?? "0",
-		left: hat?.left ?? "0",
+		top: hat?.top ?? '0',
+		width: hat?.width ?? '0',
+		left: hat?.left ?? '0',
 	};
 }
 
@@ -99,10 +100,10 @@ export function getCosmetic(
 	mod: ModsType = 'NONE'
 ): string {
 	if (type === cosmeticType.base) {
-		return `static:///generated/${(isAlive ? `player` : `ghost`)}/${color}.png`;
+		return `static:///generated/${isAlive ? `player` : `ghost`}/${color}.png`;
 	} else {
-		let modHat = getModHat(color, id, mod, type === cosmeticType.hat_back);
+		const modHat = getModHat(color, id, mod, type === cosmeticType.hat_back);
 		if (modHat) return modHat;
 	}
-	return "";
+	return '';
 }

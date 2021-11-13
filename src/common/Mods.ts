@@ -6,7 +6,7 @@ export type ModsType =
 	| 'EXTRA_ROLES'
 	| 'POLUS_GG'
 	| 'OTHER'
-	| "OFFICAL";
+	| 'OFFICAL';
 
 export interface AmongusMod {
 	id: ModsType;

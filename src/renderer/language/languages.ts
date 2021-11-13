@@ -43,7 +43,7 @@ const languages = {
 		translation: translationAREG,
 		name: 'مصر العربية',
 	},
-	'az': {
+	az: {
 		translation: translationAZ,
 		name: 'Azərbaycan',
 	},

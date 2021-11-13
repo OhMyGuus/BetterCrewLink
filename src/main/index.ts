@@ -312,8 +312,8 @@ if (!gotTheLock) {
 		});
 
 		protocol.registerFileProtocol('generate', async (request, callback) => {
-			let url = new URL(request.url.replace('generate:///', ''));
-			var path = await GenerateHat(url, gameReader.playercolors, Number(url.searchParams.get('color')), '');
+			const url = new URL(request.url.replace('generate:///', ''));
+			const path = await GenerateHat(url, gameReader.playercolors, Number(url.searchParams.get('color')), '');
 			callback(path);
 		});
 

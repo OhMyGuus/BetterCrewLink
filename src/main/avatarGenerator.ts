@@ -24,14 +24,14 @@ export const DEFAULT_PLAYERCOLORS = [
 	['#50EF39', '#15A742'],
 ];
 
-function pathToHash(input: string) : number {
-    var hash = 0;
-    for (var i = 0; i < input.length; i++) {
-        var char = input.charCodeAt(i);
-        hash = ((hash<<5)-hash)+char;
-        hash = hash & hash; // Convert to 32bit integer
-    }
-    return hash;
+function pathToHash(input: string): number {
+	let hash = 0;
+	for (let i = 0; i < input.length; i++) {
+		const char = input.charCodeAt(i);
+		hash = (hash << 5) - hash + char;
+		hash = hash & hash; // Convert to 32bit integer
+	}
+	return hash;
 }
 
 export function numberToColorHex(colour: number): string {
@@ -52,7 +52,13 @@ async function colorImages(playerColors: string[][], image: string, imagename: s
 	for (let colorId = 0; colorId < playerColors.length; colorId++) {
 		const color = playerColors[colorId][0];
 		const shadow = playerColors[colorId][1];
-		await colorImage(img, originalData, color, shadow, `${app.getPath('userData')}/static/generated/${imagename}/${colorId}.png`);
+		await colorImage(
+			img,
+			originalData,
+			color,
+			shadow,
+			`${app.getPath('userData')}/static/generated/${imagename}/${colorId}.png`
+		);
 	}
 }
 
@@ -89,23 +95,22 @@ export async function GenerateAvatars(colors: string[][]): Promise<void> {
 	}
 }
 
-export async function GenerateHat(imagePath: URL, colors: string[][], colorId: number, path: string) : Promise<string>{
+export async function GenerateHat(imagePath: URL, colors: string[][], colorId: number, path: string): Promise<string> {
 	try {
-		const img = await jimp.read(imagePath.href)
+		const img = await jimp.read(imagePath.href);
 		const originalData = new Uint8Array(img.bitmap.data);
 		const color = colors[colorId][0];
 		const shadow = colors[colorId][1];
-		
-		const temp =  `${app.getPath('userData')}/static/generated/hats/${pathToHash(imagePath + "/" + color + "/" + shadow)}.png`; 
-		if(!fs.existsSync(temp) || (Date.now() - fs.statSync(temp).mtimeMs) > 300000){
+
+		const temp = `${app.getPath('userData')}/static/generated/hats/${pathToHash(
+			imagePath + '/' + color + '/' + shadow
+		)}.png`;
+		if (!fs.existsSync(temp) || Date.now() - fs.statSync(temp).mtimeMs > 300000) {
 			await colorImage(img, originalData, color, shadow, temp);
 		}
 		return temp;
-
 	} catch (exception) {
 		console.log('error while generating the avatars..', exception);
 		return '';
 	}
 }
-
-

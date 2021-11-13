@@ -1,6 +1,13 @@
 import React, { useMemo } from 'react';
 import { Player } from '../common/AmongUsState';
-import { getCosmetic, redAlive, cosmeticType, getHatDementions, HatDementions, initializedHats as initializedHats, initializeHats, HatDementions } from './cosmetics';
+import {
+	getCosmetic,
+	redAlive,
+	cosmeticType,
+	getHatDementions,
+	initializedHats as initializedHats,
+	initializeHats,
+} from './cosmetics';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import MicOff from '@material-ui/icons/MicOff';
 import VolumeOff from '@material-ui/icons/VolumeOff';
@@ -212,9 +219,9 @@ const Avatar: React.FC<AvatarProps> = function ({
 interface UseCanvasStylesParams {
 	isAlive: boolean;
 	dementions: {
-		hat: HatDementions,
-		visor: HatDementions,
-		skin: HatDementions,
+		hat: HatDementions;
+		visor: HatDementions;
+		skin: HatDementions;
 	};
 	lookLeft: boolean;
 	size: number;
@@ -298,25 +305,23 @@ function Canvas({
 	onClick,
 	mod,
 }: CanvasProps) {
-
-
 	const hatImg = useMemo(() => {
 		if (!initializedHats) {
 			initializeHats();
 		}
 		return {
 			base: getCosmetic(color, isAlive, cosmeticType.base),
-			hat_front: !initializedHats ? "" : getCosmetic(color, isAlive, cosmeticType.hat, hat, mod),
-			hat_back: !initializedHats ? "" : getCosmetic(color, isAlive, cosmeticType.hat_back, hat, mod),
-			skin: !initializedHats ? "" : getCosmetic(color, isAlive, cosmeticType.hat, skin, mod),
-			visor: !initializedHats ? "" : getCosmetic(color, isAlive, cosmeticType.hat, visor, mod),
+			hat_front: !initializedHats ? '' : getCosmetic(color, isAlive, cosmeticType.hat, hat, mod),
+			hat_back: !initializedHats ? '' : getCosmetic(color, isAlive, cosmeticType.hat_back, hat, mod),
+			skin: !initializedHats ? '' : getCosmetic(color, isAlive, cosmeticType.hat, skin, mod),
+			visor: !initializedHats ? '' : getCosmetic(color, isAlive, cosmeticType.hat, visor, mod),
 			dementions: {
 				hat: getHatDementions(hat, mod),
 				visor: getHatDementions(visor, mod),
 				skin: getHatDementions(skin, mod),
-			}
-		}
-	}, [color, hat, skin, visor, initializedHats, isAlive])
+			},
+		};
+	}, [color, hat, skin, visor, initializedHats, isAlive]);
 
 	const classes = useCanvasStyles({
 		isAlive,
@@ -338,26 +343,10 @@ function Canvas({
 
 	const hatElement = (
 		<>
-			<img
-				src={hatImg.hat_front}
-				className={classes.hat}
-				onError={onerror}
-				onLoad={onload}
-			/>
-			<img
-				src={hatImg.visor}
-				className={classes.visor}
-				onError={onerror}
-				onLoad={onload}
-			/>
+			<img src={hatImg.hat_front} className={classes.hat} onError={onerror} onLoad={onload} />
+			<img src={hatImg.visor} className={classes.visor} onError={onerror} onLoad={onload} />
 
-			<img
-				src={hatImg.hat_back}
-				className={classes.hat}
-				style={{ zIndex: 1 }}
-				onError={onerror}
-				onLoad={onload}
-			/>
+			<img src={hatImg.hat_back} className={classes.hat} style={{ zIndex: 1 }} onError={onerror} onLoad={onload} />
 		</>
 	);
 
@@ -384,12 +373,7 @@ function Canvas({
 						}}
 					/>
 
-					<img
-						src={hatImg.skin}
-						className={classes.skin}
-						onError={onerror}
-						onLoad={onload}
-					/>
+					<img src={hatImg.skin} className={classes.skin} onError={onerror} onLoad={onload} />
 					{overflow && hatElement}
 				</div>
 				{!overflow && hatElement}

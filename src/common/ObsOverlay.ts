@@ -13,8 +13,8 @@ export interface overlayPlayer {
 	name: string;
 	colorId: number;
 	hatId: number | string;
-	skinId: number| string;
-	visorId: number| string;
+	skinId: number | string;
+	visorId: number | string;
 	petId: number;
 	disconnected: boolean;
 	isLocal: boolean;
