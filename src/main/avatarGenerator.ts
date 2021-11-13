@@ -1,13 +1,12 @@
 import Color from 'color';
 import jimp from 'jimp';
-import sha256 from 'crypto-js/sha256';
 import fs from 'fs';
 
 // @ts-ignore
-import playerBase from '../../static/generate/player.png'; // @ts-ignore
-import balloonBase from '../../static/generate/balloon.png'; // @ts-ignore
-import kidBase from '../../static/generate/kid.png'; // @ts-ignore
-import ghostBase from '../../static/generate/ghost.png'; // @ts-ignore
+import playerBase from '../../static/images/generate/player.png'; // @ts-ignore
+// import balloonBase from '../../static/images/generate/balloon.png'; // @ts-ignore
+// import kidBase from '../../static/images/generate/kid.png'; // @ts-ignore
+import ghostBase from '../../static/images/generate/ghost.png'; // @ts-ignore
 import { app } from 'electron';
 
 export const DEFAULT_PLAYERCOLORS = [
@@ -24,6 +23,16 @@ export const DEFAULT_PLAYERCOLORS = [
 	['#38FEDC', '#24A8BE'],
 	['#50EF39', '#15A742'],
 ];
+
+function pathToHash(input: string) : number {
+    var hash = 0;
+    for (var i = 0; i < input.length; i++) {
+        var char = input.charCodeAt(i);
+        hash = ((hash<<5)-hash)+char;
+        hash = hash & hash; // Convert to 32bit integer
+    }
+    return hash;
+}
 
 export function numberToColorHex(colour: number): string {
 	return (
@@ -73,8 +82,8 @@ export async function GenerateAvatars(colors: string[][]): Promise<void> {
 	try {
 		await colorImages(colors, ghostBase, 'ghost');
 		await colorImages(colors, playerBase, 'player');
-		await colorImages(colors, kidBase, '90');
-		await colorImages(colors, balloonBase, '77');
+		// await colorImages(colors, kidBase, '90');
+		// await colorImages(colors, balloonBase, '77');
 	} catch (exception) {
 		console.log('error while generating the avatars..', exception);
 	}
@@ -87,7 +96,7 @@ export async function GenerateHat(imagePath: URL, colors: string[][], colorId: n
 		const color = colors[colorId][0];
 		const shadow = colors[colorId][1];
 		
-		const temp =  `${app.getPath('userData')}/static/generated/hats/${sha256(imagePath + "/" + color + "/" + shadow)}.png`; 
+		const temp =  `${app.getPath('userData')}/static/generated/hats/${pathToHash(imagePath + "/" + color + "/" + shadow)}.png`; 
 		if(!fs.existsSync(temp) || (Date.now() - fs.statSync(temp).mtimeMs) > 300000){
 			await colorImage(img, originalData, color, shadow, temp);
 		}
@@ -98,3 +107,5 @@ export async function GenerateHat(imagePath: URL, colors: string[][], colorId: n
 		return '';
 	}
 }
+
+

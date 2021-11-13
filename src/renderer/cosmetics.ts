@@ -1,26 +1,28 @@
-import { ModsType } from "../common/Mods";
+// @ts-ignore
+import redAliveimg from '../../static/images/avatar/placeholder.png'; // @ts-ignore
+import { ModsType } from '../common/Mods';
+export const redAlive = redAliveimg;
 
 export enum cosmeticType {
 	base,
 	hat,
 	hat_back,
-	skin,
 }
-
+interface hatData {
+	image: string;
+	back_image: string;
+	top: string | undefined;
+	width: string | undefined;
+	left: string | undefined;
+	multi_color: boolean | undefined;
+};
 var modHats: {
 	[mod: string]: {
 		defaultWidth: string;
 		defaultTop: string;
 		defaultLeft: string;
 		hats: {
-			[id: number | string]: {
-				image: string;
-				back_image: string;
-				top: string | undefined;
-				width: string | undefined;
-				left: string | undefined;
-				multi_color: boolean | undefined;
-			};
+			[id: string]: hatData;
 		};
 	};
 } = {};
@@ -35,15 +37,16 @@ function getModHat(color: number, id: number | string = -1, mod: ModsType, back:
 			.then((data) => (modHats = data));
 		return undefined;
 	}
-	const hat = back ? modHats[mod]?.hats[id]?.back_image : modHats[mod]?.hats[id]?.image;
-	const multiColor = modHats[mod]?.hats[id]?.multi_color;
-	if(hat){
-		if(!multiColor)
-		return  `${MODHATS_BASE}/${mod}/${hat}`
+	const hatBase = getHat(id, mod);
+	const hat = back ? hatBase?.back_image : hatBase?.image;
+	const multiColor = hatBase?.multi_color;
+	if (hat) {
+		if (!multiColor)
+			return `${MODHATS_BASE}/${mod}/${hat}`
 		else
-		return `generate:///${MODHATS_BASE}/${mod}/${hat}?color=${color}`
+			return `generate:///${MODHATS_BASE}/${mod}/${hat}?color=${color}`
 	}
-	return	undefined
+	return undefined
 }
 
 export interface HatDementions {
@@ -52,15 +55,27 @@ export interface HatDementions {
 	width: string;
 }
 
-export function getHatDementions(id: number | string, mod: ModsType): HatDementions {
+function getHat(id: number | string, modType: ModsType) : hatData | undefined{
+	for (var mod in ["OFFICAL", modType]) {
 		const modHatList = modHats[mod];
-		let hat = modHats[mod]?.hats[id];
-		return {
-			top: hat?.top || modHatList?.defaultTop || "0",
-			width: hat?.width || modHatList?.defaultWidth || "0",
-			left: hat?.left || modHatList?.defaultLeft || "0",
+		let hat = modHatList?.hats[id];
+		if (hat) {
+			hat.top = hat?.top || modHatList?.defaultTop
+			hat.width = hat?.left || modHatList?.defaultWidth
+			hat.left = hat?.left || modHatList?.defaultLeft
+			return hat;
 		};
+	}
+	return undefined;
+}
 
+export function getHatDementions(id: number | string, mod: ModsType): HatDementions {
+	const hat = getHat(id, mod)
+	return {
+		top: hat?.top || "0",
+		width: hat?.width || "0",
+		left: hat?.left || "0",
+	};
 }
 
 export const RainbowColorId = -99234;
@@ -70,13 +85,12 @@ export function getCosmetic(
 	type: cosmeticType,
 	id: number | string = -1,
 	mod: ModsType = 'NONE'
-): string 
-{
+): string {
 	if (type === cosmeticType.base) {
 		return `static:///generated/${(isAlive ? `player` : `ghost`)}/${color}.png`;
 	} else {
-			let modHat = getModHat(color, id, mod, type === cosmeticType.hat_back);
-			if (modHat) return modHat;
+		let modHat = getModHat(color, id, mod, type === cosmeticType.hat_back);
+		if (modHat) return modHat;
 	}
 	return "";
 }

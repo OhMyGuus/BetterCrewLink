@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Player } from '../common/AmongUsState';
 import { getCosmetic, redAlive, cosmeticType, getHatDementions, HatDementions } from './cosmetics';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -212,6 +212,8 @@ const Avatar: React.FC<AvatarProps> = function ({
 interface UseCanvasStylesParams {
 	isAlive: boolean;
 	hatDementions: HatDementions;
+	visorDementions: HatDementions;
+	skinDementions: HatDementions;
 	lookLeft: boolean;
 	size: number;
 	borderColor: string;
@@ -231,16 +233,27 @@ const useCanvasStyles = makeStyles(() => ({
 		position: 'absolute',
 		top: ({ hatDementions }: UseCanvasStylesParams) => `calc(22% + ${hatDementions.top})`,
 		left: ({ size, paddingLeft, hatDementions }: UseCanvasStylesParams) =>
-			`calc(${hatDementions.left} + ${Math.max(2, size / 40) / 2 + paddingLeft}px)`, //`calc(${hatDementions.left} + ${Math.max(2, size / 40) / 2 + paddingLeft})` ,
+			`calc(${hatDementions.left} + ${Math.max(2, size / 40) / 2 + paddingLeft}px)`, 
 		zIndex: 4,
 		display: ({ isAlive }: UseCanvasStylesParams) => (isAlive ? 'block' : 'none'),
 	},
 	skin: {
 		pointerEvents: 'none',
+		width: ({ skinDementions }: UseCanvasStylesParams) => skinDementions.width,
 		position: 'absolute',
-		top: 'calc(33% + 22%)',
-		left: ({ paddingLeft }: UseCanvasStylesParams) => paddingLeft,
-		width: '105%',
+		top: ({ skinDementions }: UseCanvasStylesParams) => `calc(22% + ${skinDementions.top})`,
+		left: ({ size, paddingLeft, skinDementions }: UseCanvasStylesParams) =>
+			`calc(${skinDementions.left} + ${Math.max(2, size / 40) / 2 + paddingLeft}px)`, 
+		zIndex: 3,
+		display: ({ isAlive }: UseCanvasStylesParams) => (isAlive ? 'block' : 'none'),
+	},
+	visor: {
+		pointerEvents: 'none',
+		width: ({ visorDementions }: UseCanvasStylesParams) => visorDementions.width,
+		position: 'absolute',
+		top: ({ visorDementions }: UseCanvasStylesParams) => `calc(22% + ${visorDementions.top})`,
+		left: ({ size, paddingLeft, visorDementions }: UseCanvasStylesParams) =>
+			`calc(${visorDementions.left} + ${Math.max(2, size / 40) / 2 + paddingLeft}px)`,
 		zIndex: 3,
 		display: ({ isAlive }: UseCanvasStylesParams) => (isAlive ? 'block' : 'none'),
 	},
@@ -283,13 +296,15 @@ function Canvas({
 	onClick,
 	mod,
 }: CanvasProps) {
-	const hatImg = useRef<HTMLImageElement>(null);
-	const skinImg = useRef<HTMLImageElement>(null);
-	const image = useRef<HTMLImageElement>(null);
 	const hatDementions = getHatDementions(hat, mod);
+	const visorDementions = getHatDementions(hat, mod);
+	const skinDementions = getHatDementions(hat, mod);
+
 	const classes = useCanvasStyles({
 		isAlive,
 		hatDementions: hatDementions,
+		visorDementions: visorDementions,
+		skinDementions: skinDementions,
 		lookLeft,
 		size,
 		borderColor,
@@ -310,22 +325,19 @@ function Canvas({
 		<>
 			<img
 				src={getCosmetic(color, isAlive, cosmeticType.hat, hat, mod)}
-				ref={hatImg}
 				className={classes.hat}
 				onError={onerror}
 				onLoad={onload}
 			/>
 			<img
 				src={getCosmetic(color, isAlive, cosmeticType.hat, visor, mod)}
-				ref={hatImg}
-				className={classes.hat}
+				className={classes.visor}
 				onError={onerror}
 				onLoad={onload}
 			/>
-		
+
 			<img
 				src={getCosmetic(color, isAlive, cosmeticType.hat_back, hat, mod)}
-				ref={hatImg}
 				className={classes.hat}
 				style={{ zIndex: 1 }}
 				onError={onerror}
@@ -333,7 +345,7 @@ function Canvas({
 			/>
 		</>
 	);
-	
+
 	return (
 		<>
 			<div className={classes.avatar} onClick={onClick}>
@@ -349,7 +361,6 @@ function Canvas({
 				>
 					<img
 						src={getCosmetic(color, isAlive, cosmeticType.base)}
-						ref={image}
 						className={classes.base}
 						//@ts-ignore
 						onError={(e: any) => {
@@ -358,21 +369,12 @@ function Canvas({
 						}}
 					/>
 
-					{/* <img
-						src={getCosmetic(color, isAlive, cosmeticType.skin, skin, mod)}
-						style={{ top: skin === 17 ? '0%' : undefined }}
-						ref={skinImg}
+					<img
+						src={getCosmetic(color, isAlive, cosmeticType.hat, skin, mod)}
 						className={classes.skin}
 						onError={onerror}
 						onLoad={onload}
-					/> */}
-				<img
-				src={getCosmetic(color, isAlive, cosmeticType.hat, skin, mod)}
-				ref={hatImg}
-				className={classes.hat}
-				onError={onerror}
-				onLoad={onload}
-			/>
+					/>
 					{overflow && hatElement}
 				</div>
 				{!overflow && hatElement}
