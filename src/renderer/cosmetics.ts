@@ -16,7 +16,7 @@ interface hatData {
 	left: string | undefined;
 	multi_color: boolean | undefined;
 };
-var modHats: {
+var hatCollection: {
 	[mod: string]: {
 		defaultWidth: string;
 		defaultTop: string;
@@ -27,24 +27,33 @@ var modHats: {
 	};
 } = {};
 
-var requestingModHats = false;
-const MODHATS_BASE = 'https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-ModHats/master';
+var requestingHats = false;
+export var initializedHats = false;
+
+export function initializeHats() {
+	if (initializedHats || requestingHats) {
+		return;
+	}
+	requestingHats = true;
+	fetch(`${HAT_COLLECTION_URL}/hats.json`)
+		.then((response) => response.json())
+		.then((data) => { hatCollection = data; initializedHats = true; });
+	return undefined;
+}
+
+const HAT_COLLECTION_URL = 'https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Hats/master';
 function getModHat(color: number, id: number | string = -1, mod: ModsType, back: boolean = false) {
-	if (!requestingModHats) {
-		requestingModHats = true;
-		fetch(`${MODHATS_BASE}/hats.json`)
-			.then((response) => response.json())
-			.then((data) => (modHats = data));
-		return undefined;
+	if (!initializedHats) {
+		return "";
 	}
 	const hatBase = getHat(id, mod);
 	const hat = back ? hatBase?.back_image : hatBase?.image;
 	const multiColor = hatBase?.multi_color;
 	if (hat) {
 		if (!multiColor)
-			return `${MODHATS_BASE}/${mod}/${hat}`
+			return `${HAT_COLLECTION_URL}/${mod}/${hat}`
 		else
-			return `generate:///${MODHATS_BASE}/${mod}/${hat}?color=${color}`
+			return `generate:///${HAT_COLLECTION_URL}/${mod}/${hat}?color=${color}`
 	}
 	return undefined
 }
@@ -55,14 +64,17 @@ export interface HatDementions {
 	width: string;
 }
 
-function getHat(id: number | string, modType: ModsType) : hatData | undefined{
-	for (var mod in ["OFFICAL", modType]) {
-		const modHatList = modHats[mod];
+function getHat(id: number | string, modType: ModsType): hatData | undefined {
+	if(!initializedHats){
+		return undefined;
+	}
+	for (var mod of ["NONE", modType]) {
+		const modHatList = hatCollection[mod];
 		let hat = modHatList?.hats[id];
 		if (hat) {
-			hat.top = hat?.top || modHatList?.defaultTop
-			hat.width = hat?.left || modHatList?.defaultWidth
-			hat.left = hat?.left || modHatList?.defaultLeft
+			hat.top = hat?.top ?? modHatList?.defaultTop
+			hat.width = hat?.width ?? modHatList?.defaultWidth
+			hat.left = hat?.left ?? modHatList?.defaultLeft
 			return hat;
 		};
 	}
@@ -72,9 +84,9 @@ function getHat(id: number | string, modType: ModsType) : hatData | undefined{
 export function getHatDementions(id: number | string, mod: ModsType): HatDementions {
 	const hat = getHat(id, mod)
 	return {
-		top: hat?.top || "0",
-		width: hat?.width || "0",
-		left: hat?.left || "0",
+		top: hat?.top ?? "0",
+		width: hat?.width ?? "0",
+		left: hat?.left ?? "0",
 	};
 }
 

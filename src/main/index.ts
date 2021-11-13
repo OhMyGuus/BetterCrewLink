@@ -308,14 +308,12 @@ if (!gotTheLock) {
 	app.whenReady().then(() => {
 		protocol.registerFileProtocol('static', (request, callback) => {
 			const pathname = app.getPath('userData') + '/static/' + request.url.replace('static:///', '');
-			console.log("ResultPath1", pathname)
 			callback(pathname);
 		});
 
 		protocol.registerFileProtocol('generate', async (request, callback) => {
 			let url = new URL(request.url.replace('generate:///', ''));
 			var path = await GenerateHat(url, gameReader.playercolors, Number(url.searchParams.get('color')), '');
-			console.log("GOT PATH", path)
 			callback(path);
 		});
 

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Player } from '../common/AmongUsState';
-import { getCosmetic, redAlive, cosmeticType, getHatDementions, HatDementions } from './cosmetics';
+import { getCosmetic, redAlive, cosmeticType, getHatDementions, HatDementions, initializedHats as initializedHats, initializeHats, HatDementions } from './cosmetics';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import MicOff from '@material-ui/icons/MicOff';
 import VolumeOff from '@material-ui/icons/VolumeOff';
@@ -211,9 +211,11 @@ const Avatar: React.FC<AvatarProps> = function ({
 
 interface UseCanvasStylesParams {
 	isAlive: boolean;
-	hatDementions: HatDementions;
-	visorDementions: HatDementions;
-	skinDementions: HatDementions;
+	dementions: {
+		hat: HatDementions,
+		visor: HatDementions,
+		skin: HatDementions,
+	};
 	lookLeft: boolean;
 	size: number;
 	borderColor: string;
@@ -229,31 +231,31 @@ const useCanvasStyles = makeStyles(() => ({
 	},
 	hat: {
 		pointerEvents: 'none',
-		width: ({ hatDementions }: UseCanvasStylesParams) => hatDementions.width,
+		width: ({ dementions }: UseCanvasStylesParams) => dementions.hat.width,
 		position: 'absolute',
-		top: ({ hatDementions }: UseCanvasStylesParams) => `calc(22% + ${hatDementions.top})`,
-		left: ({ size, paddingLeft, hatDementions }: UseCanvasStylesParams) =>
-			`calc(${hatDementions.left} + ${Math.max(2, size / 40) / 2 + paddingLeft}px)`, 
+		top: ({ dementions }: UseCanvasStylesParams) => `calc(22% + ${dementions.hat.top})`,
+		left: ({ size, paddingLeft, dementions }: UseCanvasStylesParams) =>
+			`calc(${dementions.hat.left} + ${Math.max(2, size / 40) / 2 + paddingLeft}px)`,
 		zIndex: 4,
 		display: ({ isAlive }: UseCanvasStylesParams) => (isAlive ? 'block' : 'none'),
 	},
 	skin: {
 		pointerEvents: 'none',
-		width: ({ skinDementions }: UseCanvasStylesParams) => skinDementions.width,
+		width: ({ dementions }: UseCanvasStylesParams) => dementions.skin.width,
 		position: 'absolute',
-		top: ({ skinDementions }: UseCanvasStylesParams) => `calc(22% + ${skinDementions.top})`,
-		left: ({ size, paddingLeft, skinDementions }: UseCanvasStylesParams) =>
-			`calc(${skinDementions.left} + ${Math.max(2, size / 40) / 2 + paddingLeft}px)`, 
+		top: ({ dementions }: UseCanvasStylesParams) => `calc(22% + ${dementions.skin.top})`,
+		left: ({ size, paddingLeft, dementions }: UseCanvasStylesParams) =>
+			`calc(${dementions.skin.left} + ${Math.max(2, size / 40) / 2 + paddingLeft}px)`,
 		zIndex: 3,
 		display: ({ isAlive }: UseCanvasStylesParams) => (isAlive ? 'block' : 'none'),
 	},
 	visor: {
 		pointerEvents: 'none',
-		width: ({ visorDementions }: UseCanvasStylesParams) => visorDementions.width,
+		width: ({ dementions }: UseCanvasStylesParams) => dementions.visor.width,
 		position: 'absolute',
-		top: ({ visorDementions }: UseCanvasStylesParams) => `calc(22% + ${visorDementions.top})`,
-		left: ({ size, paddingLeft, visorDementions }: UseCanvasStylesParams) =>
-			`calc(${visorDementions.left} + ${Math.max(2, size / 40) / 2 + paddingLeft}px)`,
+		top: ({ dementions }: UseCanvasStylesParams) => `calc(22% + ${dementions.visor.top})`,
+		left: ({ size, paddingLeft, dementions }: UseCanvasStylesParams) =>
+			`calc(${dementions.visor.left} + ${Math.max(2, size / 40) / 2 + paddingLeft}px)`,
 		zIndex: 3,
 		display: ({ isAlive }: UseCanvasStylesParams) => (isAlive ? 'block' : 'none'),
 	},
@@ -296,21 +298,34 @@ function Canvas({
 	onClick,
 	mod,
 }: CanvasProps) {
-	const hatDementions = getHatDementions(hat, mod);
-	const visorDementions = getHatDementions(hat, mod);
-	const skinDementions = getHatDementions(hat, mod);
+
+
+	const hatImg = useMemo(() => {
+		if (!initializedHats) {
+			initializeHats();
+		}
+		return {
+			base: getCosmetic(color, isAlive, cosmeticType.base),
+			hat_front: !initializedHats ? "" : getCosmetic(color, isAlive, cosmeticType.hat, hat, mod),
+			hat_back: !initializedHats ? "" : getCosmetic(color, isAlive, cosmeticType.hat_back, hat, mod),
+			skin: !initializedHats ? "" : getCosmetic(color, isAlive, cosmeticType.hat, skin, mod),
+			visor: !initializedHats ? "" : getCosmetic(color, isAlive, cosmeticType.hat, visor, mod),
+			dementions: {
+				hat: getHatDementions(hat, mod),
+				visor: getHatDementions(visor, mod),
+				skin: getHatDementions(skin, mod),
+			}
+		}
+	}, [color, hat, skin, visor, initializedHats, isAlive])
 
 	const classes = useCanvasStyles({
 		isAlive,
-		hatDementions: hatDementions,
-		visorDementions: visorDementions,
-		skinDementions: skinDementions,
+		dementions: hatImg.dementions,
 		lookLeft,
 		size,
 		borderColor,
 		paddingLeft: -7,
 	});
-
 	//@ts-ignore
 	const onerror = (e: any) => {
 		e.target.style.display = 'none';
@@ -324,20 +339,20 @@ function Canvas({
 	const hatElement = (
 		<>
 			<img
-				src={getCosmetic(color, isAlive, cosmeticType.hat, hat, mod)}
+				src={hatImg.hat_front}
 				className={classes.hat}
 				onError={onerror}
 				onLoad={onload}
 			/>
 			<img
-				src={getCosmetic(color, isAlive, cosmeticType.hat, visor, mod)}
+				src={hatImg.visor}
 				className={classes.visor}
 				onError={onerror}
 				onLoad={onload}
 			/>
 
 			<img
-				src={getCosmetic(color, isAlive, cosmeticType.hat_back, hat, mod)}
+				src={hatImg.hat_back}
 				className={classes.hat}
 				style={{ zIndex: 1 }}
 				onError={onerror}
@@ -360,7 +375,7 @@ function Canvas({
 					}}
 				>
 					<img
-						src={getCosmetic(color, isAlive, cosmeticType.base)}
+						src={hatImg.base}
 						className={classes.base}
 						//@ts-ignore
 						onError={(e: any) => {
@@ -370,7 +385,7 @@ function Canvas({
 					/>
 
 					<img
-						src={getCosmetic(color, isAlive, cosmeticType.hat, skin, mod)}
+						src={hatImg.skin}
 						className={classes.skin}
 						onError={onerror}
 						onLoad={onload}
