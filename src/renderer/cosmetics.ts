@@ -45,7 +45,7 @@ export function initializeHats() {
 }
 
 const HAT_COLLECTION_URL = 'https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Hats/master';
-function getModHat(color: number, id: number | string = -1, mod: ModsType, back = false) {
+function getModHat(color: number, id = '', mod: ModsType, back = false) {
 	if (!initializedHats) {
 		return '';
 	}
@@ -65,7 +65,7 @@ export interface HatDementions {
 	width: string;
 }
 
-function getHat(id: number | string, modType: ModsType): hatData | undefined {
+function getHat(id: string, modType: ModsType): hatData | undefined {
 	if (!initializedHats) {
 		return undefined;
 	}
@@ -82,7 +82,7 @@ function getHat(id: number | string, modType: ModsType): hatData | undefined {
 	return undefined;
 }
 
-export function getHatDementions(id: number | string, mod: ModsType): HatDementions {
+export function getHatDementions(id: string, mod: ModsType): HatDementions {
 	const hat = getHat(id, mod);
 	return {
 		top: hat?.top ?? '0',
@@ -96,7 +96,7 @@ export function getCosmetic(
 	color: number,
 	isAlive: boolean,
 	type: cosmeticType,
-	id: number | string = -1,
+	id = '',
 	mod: ModsType = 'NONE'
 ): string {
 	if (type === cosmeticType.base) {

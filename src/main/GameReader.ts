@@ -46,9 +46,9 @@ interface PlayerReport {
 	id: number;
 	name: number;
 	color: number;
-	hat: number | string;
-	skin: number | string;
-	visor: number | string;
+	hat: string;
+	skin: string;
+	visor: string;
 	pet: number;
 	rolePtr: number;
 	disconnected: number;
@@ -1083,9 +1083,9 @@ export default class GameReader {
 			name,
 			nameHash,
 			colorId,
-			hatId: data.hat ?? 0,
-			petId: data.pet ?? 0,
-			skinId: data.skin ?? 0,
+			hatId: data.hat ?? '',
+			petId: data.pet ?? '',
+			skinId: data.skin ?? '',
 			visorId: data.visor ?? '',
 			disconnected: data.disconnected != 0,
 			isImpostor: data.impostor == 1,

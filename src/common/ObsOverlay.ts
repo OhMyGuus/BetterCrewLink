@@ -12,9 +12,9 @@ export interface overlayPlayer {
 	isDead: boolean;
 	name: string;
 	colorId: number;
-	hatId: number | string;
-	skinId: number | string;
-	visorId: number | string;
+	hatId: string;
+	skinId: string;
+	visorId: string;
 	petId: number;
 	disconnected: boolean;
 	isLocal: boolean;

@@ -61,9 +61,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 export interface CanvasProps {
-	hat: number | string;
-	skin: number | string;
-	visor: number | string;
+	hat: string;
+	skin: string;
+	visor: string;
 	isAlive: boolean;
 	className: string;
 	lookLeft: boolean;
