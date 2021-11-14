@@ -1,5 +1,8 @@
 // @ts-ignore
 import redAliveimg from '../../static/images/avatar/placeholder.png'; // @ts-ignore
+import rainbowAliveimg from '../../static/images/avatar/rainbow-alive.png'; // @ts-ignore
+import rainbowDeadeimg from '../../static/images/avatar/rainbow-dead.png'; 
+
 import { ModsType } from '../common/Mods';
 export const redAlive = redAliveimg;
 
@@ -102,6 +105,9 @@ export function getCosmetic(
 	mod: ModsType = 'NONE'
 ): string {
 	if (type === cosmeticType.base) {
+		if(color == RainbowColorId){
+			return isAlive? rainbowAliveimg : rainbowDeadeimg;
+		}
 		return `static:///generated/${isAlive ? `player` : `ghost`}/${color}.png`;
 	} else {
 		const modHat = getModHat(color, id, mod, type === cosmeticType.hat_back);
