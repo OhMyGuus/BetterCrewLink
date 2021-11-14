@@ -65,7 +65,7 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 	const classes = useStyles();
 
 	const [settings, setSettings] = useContext(SettingsContext);
-	
+
 	const [openMessage, setOpenMessage] = useState(<>{t('game.error_platform')}</>);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const [launchPlatforms, setLaunchPlatforms] = useState<GamePlatformMap>();
@@ -77,16 +77,18 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 
 	// Grab available platforms from main thread
 	useEffect(() => {
-		ipcRenderer.invoke(IpcMessages.REQUEST_PLATFORMS_AVAILABLE, settings.customPlatforms).then((result: GamePlatformMap) => {
-			setLaunchPlatforms(result);
-		});
+		ipcRenderer
+			.invoke(IpcMessages.REQUEST_PLATFORMS_AVAILABLE, settings.customPlatforms)
+			.then((result: GamePlatformMap) => {
+				setLaunchPlatforms(result);
+			});
 	}, [settings.customPlatforms]);
 
 	// If launchPlatformSettings changes: select the first available platform and re-compute list of platforms
 	useEffect(() => {
 		if (!launchPlatforms) return;
 		if (!launchPlatforms[settings.launchPlatform]) {
-			for (let key in launchPlatforms) {
+			for (const key in launchPlatforms) {
 				setSettings({
 					type: 'setOne',
 					action: ['launchPlatform', key],
@@ -96,7 +98,7 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 		}
 
 		// Generate an array of <MenuItem>'s from available platforms for dropdown
-		let platformArray = Array.from(Object.keys(launchPlatforms)).reduce((filtered: JSX.Element[], key) => {
+		const platformArray = Array.from(Object.keys(launchPlatforms)).reduce((filtered: JSX.Element[], key) => {
 			const platform = launchPlatforms[key];
 			const platformName = platform.default ? t(platform.translateKey) : platform.translateKey;
 			filtered.push(
@@ -110,7 +112,9 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 						setDropdownOpen(false);
 					}}
 					onContextMenu={() => {
-						if (platform.default) { return }
+						if (platform.default) {
+							return;
+						}
 						setCustomPlatformEdit(platform);
 						setDropdownOpen(false);
 						setCustomPlatformOpen(true);
@@ -149,30 +153,30 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 
 	return (
 		<>
-			<CustomPlatformSettings 
-				t={t} 
-				open={customPlatformOpen} 
-				setOpenState={setCustomPlatformOpen} 
-				editPlatform = {customPlatformEdit}
+			<CustomPlatformSettings
+				t={t}
+				open={customPlatformOpen}
+				setOpenState={setCustomPlatformOpen}
+				editPlatform={customPlatformEdit}
 			/>
 			<div className={classes.button_group} ref={anchorRef}>
-			<Button
-				className={classes.button_primary}
-				disabled={launchItemList.length === 1}
-				onClick={() => {
-					ipcRenderer.send(IpcMessages.OPEN_AMONG_US_GAME, launchPlatforms![settings.launchPlatform]);
-				}}
-			>
-				{openMessage}
-			</Button>
-			<ToggleButton
-				className={classes.button_dropdown}
-				onClick={() => setDropdownOpen((status) => !status)}
-				selected={dropdownOpen}
-				value=""
-			>
-				<ArrowDropDownIcon />
-			</ToggleButton>
+				<Button
+					className={classes.button_primary}
+					disabled={launchItemList.length === 1}
+					onClick={() => {
+						ipcRenderer.send(IpcMessages.OPEN_AMONG_US_GAME, launchPlatforms![settings.launchPlatform]);
+					}}
+				>
+					{openMessage}
+				</Button>
+				<ToggleButton
+					className={classes.button_dropdown}
+					onClick={() => setDropdownOpen((status) => !status)}
+					selected={dropdownOpen}
+					value=""
+				>
+					<ArrowDropDownIcon />
+				</ToggleButton>
 			</div>
 			<Popper
 				open={dropdownOpen}
@@ -180,7 +184,6 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 				placement="bottom-end"
 				disablePortal={false}
 				className={classes.dropdown}
-			
 				modifiers={{
 					flip: {
 						enabled: false,
@@ -198,7 +201,7 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 				</Paper>
 			</Popper>
 		</>
-	)
-}
+	);
+};
 
 export default LaunchButton;

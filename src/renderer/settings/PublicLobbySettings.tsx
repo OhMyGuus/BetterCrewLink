@@ -47,10 +47,10 @@ const RawPublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 
 	return (
 		<>
-			<Button 
-				variant="contained" 
-				color="secondary" 
-				className={classes.specialButton} 
+			<Button
+				variant="contained"
+				color="secondary"
+				className={classes.specialButton}
 				onClick={() => setOpen(true)}
 				disabled={!canChange}
 			>
@@ -100,7 +100,7 @@ const RawPublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 							</option>
 						))}
 					</TextField>
-			
+
 					<Alert severity="error">{t('settings.lobbysettings.public_lobby.ban_warning')}</Alert>
 				</DialogContent>
 				<DialogActions>

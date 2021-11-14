@@ -68,8 +68,7 @@ export const AmongUsMaps: { [key in MapType]: AmongUsMap } = {
 		},
 	},
 	[MapType.SUBMERGED]: {
-		cameras: {
-		}
+		cameras: {},
 	},
 	[MapType.UNKNOWN]: defaultMap,
 };

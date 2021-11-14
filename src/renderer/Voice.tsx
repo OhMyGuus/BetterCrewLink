@@ -587,6 +587,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						hatId: o.hatId,
 						petId: o.petId,
 						skinId: o.skinId,
+						visorId: o.visorId,
 						disconnected: o.disconnected,
 						isLocal: o.isLocal,
 						bugged: o.bugged,
@@ -1091,7 +1092,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				}
 
 				socket.on('join', async (peer: string, client: Client) => {
-					let oldSocketId = playerSocketIdsRef.current[client.clientId];
+					const oldSocketId = playerSocketIdsRef.current[client.clientId];
 					if (oldSocketId && audioElements.current[oldSocketId]) {
 						disconnectAudioElement(oldSocketId);
 					}
@@ -1202,7 +1203,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		playerSocketIdsRef.current = playerSocketIds;
 		const handledPeerIds: string[] = [];
 		let foundRadioUser = false;
-		let tempTalking = { ...otherTalking };
+		const tempTalking = { ...otherTalking };
 		let talkingUpdate = false;
 		for (const player of otherPlayers) {
 			const peerId = playerSocketIds[player.clientId];
