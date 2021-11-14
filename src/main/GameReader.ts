@@ -385,7 +385,7 @@ export default class GameReader {
 				lightRadius,
 				lightRadiusChanged: lightRadius != this.lastState?.lightRadius,
 				map,
-				mod: 'OFFICAL', //this.loadedMod.id,
+				mod: this.loadedMod.id,
 				closedDoors,
 				currentServer: this.currentServer,
 				maxPlayers,
