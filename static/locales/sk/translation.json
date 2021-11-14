@@ -52,7 +52,7 @@
 			"microphone_sens": "Citlivosť mikrofónu",
 			"microphone_sens_warning": "Ak nastavíš nižšiu citlivosť, nemusí to fungovať.",
 			"mastervolume": "Celková hlasitosť",
-			"crewvolume": "Hlasitosť posádky keď si duch",
+			"crewvolume": "Hlasitosť živých keď si duch",
 			"test_speaker_start": "Test reproduktora",
 			"test_speaker_stop": "Zastaviť test reproduktora"
 		},
@@ -103,7 +103,7 @@
 		"streaming": {
 			"title": "Nastavenie streamovania",
 			"hidecode": "Zobraziť lobby kód",
-			"obs_overlay": "OBS prekrytie prehliadača",
+			"obs_overlay": "OBS prekrytie",
 			"obs_url": "OBS URL zdroj",
 			"voice_server_comp": "Režim kompatibility HS",
 			"voice_server_comp_warning": "Odporúča sa hlasový server BetterCrewLink (https://bettercrewl.ink)."
