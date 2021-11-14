@@ -494,7 +494,7 @@ export function TempFixOffsets5(offsetsOld: IOffsets): IOffsets {
 			playerName: [0xff],
 		},
 	};
-	offsets.palette[0] = 0x1ba85a4;
+//	offsets.palette[0] = 0x1ba85a4;
 	offsets.palette_shadowColor = [0xf8];
 	offsets.palette_playercolor = [0xf4];
 	offsets.innerNetClient.gameState = 0x74;

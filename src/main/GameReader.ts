@@ -513,7 +513,7 @@ export default class GameReader {
 			this.offsets = TempFixOffsets4(this.offsets);
 		}
 
-		if (innerNetClient === 0x1baa960) {
+		if (innerNetClient === 0x1baa960 || innerNetClient == 0x1D17F2C) {
 			this.offsets = TempFixOffsets5(this.offsets);
 		}
 
