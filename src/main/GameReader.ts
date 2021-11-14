@@ -1031,6 +1031,8 @@ export default class GameReader {
 			data.objectPtr = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('objectPtr')]);
 			data.outfitsPtr = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('outfitsPtr')]);
 			data.taskPtr = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('taskPtr')]);
+			data.rolePtr = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('rolePtr')]);
+
 			// data.name = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('name')]);
 		}
 		const clientId = this.readMemory<number>('uint32', data.objectPtr, this.offsets.player.clientId);
@@ -1063,14 +1065,13 @@ export default class GameReader {
 					const namePtr = this.readMemory<number>('pointer', val, this.offsets!.player.outfit.playerName); // 0x40
 					data.color = this.readMemory<number>('uint32', val, this.offsets!.player.outfit.colorId); // 0x14
 					name = this.readString(namePtr).split(/<.*?>/).join('');
-					data.hat = this.readString(this.readMemory<number>('uint32', val, this.offsets!.player.outfit.hatId));
-					data.skin = this.readString(this.readMemory<number>('uint32', val, this.offsets!.player.outfit.skinId));
-					data.visor = this.readString(this.readMemory<number>('uint32', val, this.offsets!.player.outfit.visorId));
+					data.hat = this.readString(this.readMemory<number>('ptr', val, this.offsets!.player.outfit.hatId));
+					data.skin = this.readString(this.readMemory<number>('ptr', val, this.offsets!.player.outfit.skinId));
+					data.visor = this.readString(this.readMemory<number>('ptr', val, this.offsets!.player.outfit.visorId));
 					return;
 				}
 			});
-
-			const roleTeam = this.readMemory<number>('uint32', data.rolePtr + 0x3c);
+			const roleTeam = this.readMemory<number>('uint32', data.rolePtr, this.offsets!.player.roleTeam)
 			data.impostor = roleTeam;
 		}
 		name = name.split(/<.*?>/).join('');

@@ -62,6 +62,7 @@ export interface IOffsets {
 		localY: number[];
 		remoteX: number[];
 		remoteY: number[];
+		roleTeam: number[];
 		outfit: {
 			colorId: number[];
 			playerName: number[];
@@ -187,6 +188,7 @@ export default {
 			offsets: [0, 0],
 			inVent: [0x44],
 			clientId: [0x28],
+			roleTeam: [0x48],
 			outfit: {
 				colorId: [0x14],
 				hatId: [0x18],
@@ -309,6 +311,7 @@ export default {
 			offsets: [0, 0],
 			inVent: [0x38],
 			clientId: [0x1c],
+			roleTeam: [0x3C],
 			outfit: {
 				colorId: [0x0c],
 				hatId: [0x10],
