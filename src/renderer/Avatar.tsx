@@ -135,9 +135,6 @@ const Avatar: React.FC<AvatarProps> = function ({
 	if (player.bugged) {
 		icon = <ErrorOutline className={classes.icon} style={{ background: 'red', borderColor: '' }} />;
 	}
-	if (player.isImpostor) {
-		icon = <ErrorOutline className={classes.icon} style={{ background: 'pink', borderColor: '' }} />;
-	}
 	const canvas = (
 		<Canvas
 			className={classes.canvas}
