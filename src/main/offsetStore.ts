@@ -485,6 +485,7 @@ export function TempFixOffsets5(offsetsOld: IOffsets): IOffsets {
 		offsets: [0, 0],
 		inVent: [0x31],
 		clientId: [0x1c],
+		roleTeam: [0xff],
 		outfit: {
 			colorId: [0xff],
 			hatId: [0xff],
