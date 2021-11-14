@@ -815,28 +815,32 @@ export default class GameReader {
 		if (this.colorsInitialized) {
 			return;
 		}
-		console.log('Initializecolors');
 		const palletePtr = this.readMemory<number>('ptr', this.gameAssembly!.modBaseAddr, this.offsets!.palette);
 		const PlayerColorsPtr = this.readMemory<number>('ptr', palletePtr, this.offsets!.palette_playercolor);
 		const ShadowColorsPtr = this.readMemory<number>('ptr', palletePtr, this.offsets!.palette_shadowColor);
 
 		const colorLength = this.readMemory<number>('int', ShadowColorsPtr, this.offsets!.playerCount);
-		if (!colorLength || colorLength <= 0 || colorLength > 30) {
+		console.log('Initializecolors', colorLength);
+
+		if (!colorLength || colorLength <= 0 || colorLength > 300) {
 			return;
 		}
 
 		this.rainbowColor = -9999;
-		this.colorsInitialized = colorLength > 0;
 		const playercolors = [];
 		for (let i = 0; i < colorLength; i++) {
 			const playerColor = this.readMemory<number>('uint32', PlayerColorsPtr, [this.offsets!.playerAddrPtr + i * 0x4]);
 			const shadowColor = this.readMemory<number>('uint32', ShadowColorsPtr, [this.offsets!.playerAddrPtr + i * 0x4]);
+			if(i == 0 && playerColor != 4279308742){
+				return;
+			}
 			if (playerColor === 4278190080) {
 				this.rainbowColor = i;
 			}
 			//4278190080
 			playercolors[i] = [numberToColorHex(playerColor), numberToColorHex(shadowColor)];
 		}
+		this.colorsInitialized = colorLength > 0;
 		this.playercolors = playercolors;
 		try {
 			this.sendIPC(IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, playercolors);
@@ -1045,15 +1049,6 @@ export default class GameReader {
 		let x = this.readMemory<number>('float', data.objectPtr, positionOffsets[0]);
 		let y = this.readMemory<number>('float', data.objectPtr, positionOffsets[1]);
 		const isDummy = this.readMemory<boolean>('boolean', data.objectPtr, this.offsets.player.isDummy);
-		let bugged = false;
-		if (x === undefined || y === undefined || data.disconnected != 0) {
-			x = 9999;
-			y = 9999;
-			bugged = true;
-		}
-
-		const x_round = parseFloat(x?.toFixed(4));
-		const y_round = parseFloat(y?.toFixed(4));
 		let name = 'error';
 		if (data.hasOwnProperty('name')) {
 			name = this.readString(data.name).split(/<.*?>/).join('');
@@ -1075,6 +1070,16 @@ export default class GameReader {
 			data.impostor = roleTeam;
 		}
 		name = name.split(/<.*?>/).join('');
+		let bugged = false;
+		if (x === undefined || y === undefined || data.disconnected != 0 || data.color < 0 || data.color > this.playercolors.length ) {
+			x = 9999;
+			y = 9999;
+			bugged = true;
+		}
+
+		const x_round = parseFloat(x?.toFixed(4));
+		const y_round = parseFloat(y?.toFixed(4));
+	
 		const nameHash = this.hashCode(name);
 		const colorId = data.color === this.rainbowColor ? RainbowColorId : data.color;
 		return {
