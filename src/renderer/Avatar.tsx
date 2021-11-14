@@ -7,6 +7,7 @@ import {
 	getHatDementions,
 	initializedHats as initializedHats,
 	initializeHats,
+	HatDementions,
 } from './cosmetics';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import MicOff from '@material-ui/icons/MicOff';
@@ -141,8 +142,8 @@ const Avatar: React.FC<AvatarProps> = function ({
 		<Canvas
 			className={classes.canvas}
 			color={player.colorId}
-			hat={showHat === false ? -1 : player.hatId}
-			visor={showHat === false ? -1 : player.visorId}
+			hat={showHat === false ? '' : player.hatId}
+			visor={showHat === false ? '' : player.visorId}
 			skin={player.skinId}
 			isAlive={isAlive}
 			lookLeft={lookLeft === true}

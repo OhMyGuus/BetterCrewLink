@@ -27,6 +27,12 @@ let hatCollection: {
 	};
 } = {};
 
+export interface HatDementions {
+	top: string;
+	left: string;
+	width: string;
+}
+
 let requestingHats = false;
 export var initializedHats = false;
 
@@ -59,11 +65,7 @@ function getModHat(color: number, id = '', mod: ModsType, back = false) {
 	return undefined;
 }
 
-export interface HatDementions {
-	top: string;
-	left: string;
-	width: string;
-}
+
 
 function getHat(id: string, modType: ModsType): hatData | undefined {
 	if (!initializedHats) {
