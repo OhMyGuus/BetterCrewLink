@@ -513,8 +513,9 @@ export default class GameReader {
 			this.offsets = TempFixOffsets4(this.offsets);
 		}
 
-		if (innerNetClient === 0x1baa960 || innerNetClient == 0x1D17F2C) {
+		if (innerNetClient === 0x1baa960 || innerNetClient == 0x1D17F2C || innerNetClient == 29777072) {
 			this.offsets = TempFixOffsets5(this.offsets);
+			this.disableWriting = true;
 		}
 
 		if (innerNetClient === 0x1d9dbb4 || innerNetClient === 0x1e247c4) {
