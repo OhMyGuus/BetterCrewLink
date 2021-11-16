@@ -1,7 +1,7 @@
 // @ts-ignore
 import redAliveimg from '../../static/images/avatar/placeholder.png'; // @ts-ignore
 import rainbowAliveimg from '../../static/images/avatar/rainbow-alive.png'; // @ts-ignore
-import rainbowDeadeimg from '../../static/images/avatar/rainbow-dead.png'; 
+import rainbowDeadeimg from '../../static/images/avatar/rainbow-dead.png';
 
 import { ModsType } from '../common/Mods';
 export const redAlive = redAliveimg;
@@ -18,6 +18,7 @@ interface hatData {
 	width: string | undefined;
 	left: string | undefined;
 	multi_color: boolean | undefined;
+	mod: ModsType | undefined;
 }
 let hatCollection: {
 	[mod: string]: {
@@ -61,9 +62,9 @@ function getModHat(color: number, id = '', mod: ModsType, back = false) {
 	const hatBase = getHat(id, mod);
 	const hat = back ? hatBase?.back_image : hatBase?.image;
 	const multiColor = hatBase?.multi_color;
-	if (hat) {
-		if (!multiColor) return `${HAT_COLLECTION_URL}/${mod}/${hat}`;
-		else return `generate:///${HAT_COLLECTION_URL}/${mod}/${hat}?color=${color}`;
+	if (hat && hatBase) {
+		if (!multiColor) return `${HAT_COLLECTION_URL}/${hatBase.mod}/${hat}`;
+		else return `generate:///${HAT_COLLECTION_URL}/${hatBase.mod}/${hat}?color=${color}`;
 	}
 	return undefined;
 }
@@ -74,13 +75,14 @@ function getHat(id: string, modType: ModsType): hatData | undefined {
 	if (!initializedHats) {
 		return undefined;
 	}
-	for (const mod of ['NONE', modType]) {
+	for (const mod of ['NONE' as ModsType, modType]) {
 		const modHatList = hatCollection[mod];
 		const hat = modHatList?.hats[id];
 		if (hat) {
 			hat.top = hat?.top ?? modHatList?.defaultTop;
 			hat.width = hat?.width ?? modHatList?.defaultWidth;
 			hat.left = hat?.left ?? modHatList?.defaultLeft;
+			hat.mod = mod;
 			return hat;
 		}
 	}
@@ -105,8 +107,8 @@ export function getCosmetic(
 	mod: ModsType = 'NONE'
 ): string {
 	if (type === cosmeticType.base) {
-		if(color == RainbowColorId){
-			return isAlive? rainbowAliveimg : rainbowDeadeimg;
+		if (color == RainbowColorId) {
+			return isAlive ? rainbowAliveimg : rainbowDeadeimg;
 		}
 		return `static:///generated/${isAlive ? `player` : `ghost`}/${color}.png`;
 	} else {

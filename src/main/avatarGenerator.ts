@@ -46,6 +46,7 @@ export function numberToColorHex(colour: number): string {
 	);
 }
 
+
 async function colorImages(playerColors: string[][], image: string, imagename: string): Promise<void> {
 	const img = await jimp.read(Buffer.from(image.replace(/^data:image\/png;base64,/, ''), 'base64')); //`${app.getAppPath()}/../test/${imagename}.png`
 	const originalData = new Uint8Array(img.bitmap.data);
@@ -62,6 +63,16 @@ async function colorImages(playerColors: string[][], image: string, imagename: s
 	}
 }
 
+function rgb2hsv(r: number, g: number, b: number) {
+	let v = Math.max(r, g, b), c = v - Math.min(r, g, b);
+	let h = c && ((v == r) ? (g - b) / c : ((v == g) ? 2 + (b - r) / c : 4 + (r - g) / c));
+	return [60 * (h < 0 ? h + 6 : h), v && c / v, v];
+}
+
+function isBetween(h: number, h1: number, maxdiffrence: number) {
+	return 180 - Math.abs(Math.abs(h - h1) - 180) < maxdiffrence;
+}
+
 async function colorImage(img: jimp, originalData: Uint8Array, color: string, shadow: string, savepath: string) {
 	img.bitmap.data = new Uint8Array(originalData) as Buffer;
 	for (let i = 0, l = img.bitmap.data.length; i < l; i += 4) {
@@ -70,7 +81,10 @@ async function colorImage(img: jimp, originalData: Uint8Array, color: string, sh
 		const g = data[i + 1];
 		const b = data[i + 2];
 		//   let alpha = data[i + 3];
-		if ((r !== 0 || g !== 0 || b !== 0) && (r !== 255 || g !== 255 || b !== 255)) {
+		const h = rgb2hsv(r, g, b);
+
+		if ((h[1] > 0.4) && (isBetween(h[0], 240, 30) || isBetween(h[0], 0, 100) || isBetween(h[0], 120, 20))) { //  )
+
 			const pixelColor = Color('#000000')
 				.mix(Color(shadow), b / 255)
 				.mix(Color(color), r / 255)
