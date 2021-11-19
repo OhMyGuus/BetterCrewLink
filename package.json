@@ -81,7 +81,7 @@
 		"@typescript-eslint/parser": "^4.9.1",
 		"arraybuffer-loader": "^1.0.8",
 		"electron": "11.1.1",
-		"electron-builder": "^22.9.1",
+		"electron-builder": "^22.13.1",
 		"electron-webpack": "^2.8.2",
 		"electron-webpack-ts": "^4.0.1",
 		"eslint": "^7.15.0",

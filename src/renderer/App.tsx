@@ -4,7 +4,7 @@ import Menu from './Menu';
 import { ipcRenderer } from 'electron';
 import { AmongUsState } from '../common/AmongUsState';
 import Settings, { settingsReducer, lobbySettingsReducer, pushToTalkOptions } from './settings/Settings';
-import { GameStateContext, SettingsContext, LobbySettingsContext } from './contexts';
+import { GameStateContext, SettingsContext, LobbySettingsContext, PlayerColorContext } from './contexts';
 import { ThemeProvider } from '@material-ui/core/styles';
 import {
 	AutoUpdaterState,
@@ -263,65 +263,67 @@ export default function App({ t }): JSX.Element {
 	}
 
 	return (
-		<GameStateContext.Provider value={gameState}>
-			<LobbySettingsContext.Provider value={lobbySettings}>
-				<SettingsContext.Provider value={settings}>
-					<ThemeProvider theme={theme}>
-						<TitleBar settingsOpen={settingsOpen} setSettingsOpen={setSettingsOpen} />
-						<Settings t={t} open={settingsOpen} onClose={() => setSettingsOpen(false)} />
-						<Dialog fullWidth open={updaterState.state !== 'unavailable' && diaOpen}>
-							{updaterState.state === 'downloaded' && updaterState.info && (
-								<DialogTitle>Update v{updaterState.info.version}</DialogTitle>
-							)}
-							{updaterState.state === 'downloading' && <DialogTitle>Updating...</DialogTitle>}
-							<DialogContent>
-								{updaterState.state === 'downloading' && updaterState.progress && (
-									<>
-										<LinearProgress variant={'determinate'} value={updaterState.progress.percent} />
-										<DialogContentText>
-											{prettyBytes(updaterState.progress.transferred)} / {prettyBytes(updaterState.progress.total)}
-										</DialogContentText>
-									</>
+		<PlayerColorContext.Provider value={playerColors.current}>
+			<GameStateContext.Provider value={gameState}>
+				<LobbySettingsContext.Provider value={lobbySettings}>
+					<SettingsContext.Provider value={settings}>
+						<ThemeProvider theme={theme}>
+							<TitleBar settingsOpen={settingsOpen} setSettingsOpen={setSettingsOpen} />
+							<Settings t={t} open={settingsOpen} onClose={() => setSettingsOpen(false)} />
+							<Dialog fullWidth open={updaterState.state !== 'unavailable' && diaOpen}>
+								{updaterState.state === 'downloaded' && updaterState.info && (
+									<DialogTitle>Update v{updaterState.info.version}</DialogTitle>
+								)}
+								{updaterState.state === 'downloading' && <DialogTitle>Updating...</DialogTitle>}
+								<DialogContent>
+									{updaterState.state === 'downloading' && updaterState.progress && (
+										<>
+											<LinearProgress variant={'determinate'} value={updaterState.progress.percent} />
+											<DialogContentText>
+												{prettyBytes(updaterState.progress.transferred)} / {prettyBytes(updaterState.progress.total)}
+											</DialogContentText>
+										</>
+									)}
+									{updaterState.state === 'downloaded' && (
+										<>
+											<LinearProgress variant={'indeterminate'} />
+											<DialogContentText>Restart now or later?</DialogContentText>
+										</>
+									)}
+									{updaterState.state === 'error' && (
+										<DialogContentText color="error">{updaterState.error}</DialogContentText>
+									)}
+								</DialogContent>
+								{updaterState.state === 'error' && (
+									<DialogActions>
+										<Button href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest">Download Manually</Button>
+									</DialogActions>
 								)}
 								{updaterState.state === 'downloaded' && (
-									<>
-										<LinearProgress variant={'indeterminate'} />
-										<DialogContentText>Restart now or later?</DialogContentText>
-									</>
+									<DialogActions>
+										<Button
+											onClick={() => {
+												ipcRenderer.send('update-app');
+											}}
+										>
+											Now
+										</Button>
+										<Button
+											onClick={() => {
+												setDiaOpen(false);
+											}}
+										>
+											Later
+										</Button>
+									</DialogActions>
 								)}
-								{updaterState.state === 'error' && (
-									<DialogContentText color="error">{updaterState.error}</DialogContentText>
-								)}
-							</DialogContent>
-							{updaterState.state === 'error' && (
-								<DialogActions>
-									<Button href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest">Download Manually</Button>
-								</DialogActions>
-							)}
-							{updaterState.state === 'downloaded' && (
-								<DialogActions>
-									<Button
-										onClick={() => {
-											ipcRenderer.send('update-app');
-										}}
-									>
-										Now
-									</Button>
-									<Button
-										onClick={() => {
-											setDiaOpen(false);
-										}}
-									>
-										Later
-									</Button>
-								</DialogActions>
-							)}
-						</Dialog>
-						{page}
-					</ThemeProvider>
-				</SettingsContext.Provider>
-			</LobbySettingsContext.Provider>
-		</GameStateContext.Provider>
+							</Dialog>
+							{page}
+						</ThemeProvider>
+					</SettingsContext.Provider>
+				</LobbySettingsContext.Provider>
+			</GameStateContext.Provider>
+		</PlayerColorContext.Provider>
 	);
 }
 // @ts-ignore

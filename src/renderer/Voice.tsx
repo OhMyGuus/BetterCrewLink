@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import io, { Socket } from 'socket.io-client';
 import Avatar from './Avatar';
-import { GameStateContext, LobbySettingsContext, SettingsContext } from './contexts';
+import { GameStateContext, LobbySettingsContext, PlayerColorContext, SettingsContext } from './contexts';
 import {
 	AmongUsState,
 	GameState,
@@ -227,6 +227,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	const lobbySettingsRef = useRef(lobbySettings);
 	const maxDistanceRef = useRef(2);
 	const gameState = useContext(GameStateContext);
+	const playerColors = useContext(PlayerColorContext);
+
 	const hostRef = useRef({
 		map: MapType.UNKNOWN,
 		mobileRunning: false,
@@ -591,6 +593,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						disconnected: o.disconnected,
 						isLocal: o.isLocal,
 						bugged: o.bugged,
+						realColor: playerColors[o.colorId],
 						usingRadio: o.clientId === impostorRadioClientId.current && myPlayer?.isImpostor,
 						connected:
 							(playerSocketIdsRef.current[o.clientId] &&
