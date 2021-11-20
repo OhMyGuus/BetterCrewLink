@@ -1,9 +1,9 @@
 export type ModsType =
 	| 'NONE'
-	| 'TOWN_OF_IMPOSTORS'
 	| 'TOWN_OF_US'
 	| 'THE_OTHER_ROLES'
 	| 'THE_OTHER_ROLES_GM'
+	| 'TOWN_OF_IMPOSTORS'
 	| 'POLUS_GG'
 	| 'OTHER';
 
