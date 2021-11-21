@@ -1057,12 +1057,14 @@ export default class GameReader {
 
 		let x = this.readMemory<number>('float', data.objectPtr, positionOffsets[0]);
 		let y = this.readMemory<number>('float', data.objectPtr, positionOffsets[1]);
+		let currentOutfit = this.readMemory<number>('uint32', data.objectPtr, this.offsets.player.currentOutfit);
 		const isDummy = this.readMemory<boolean>('boolean', data.objectPtr, this.offsets.player.isDummy);
 		let name = 'error';
+		let shiftedColor = -1;
 		if (data.hasOwnProperty('name')) {
 			name = this.readString(data.name).split(/<.*?>/).join('');
 		} else {
-			this.readDictionary(data.outfitsPtr, 2, (k, v, i) => {
+			this.readDictionary(data.outfitsPtr, 6, (k, v, i) => {
 				const key = this.readMemory<number>('int32', k);
 				const val = this.readMemory<number>('ptr', v);
 				if (key === 0 && i == 0) {
@@ -1072,11 +1074,19 @@ export default class GameReader {
 					data.hat = this.readString(this.readMemory<number>('ptr', val, this.offsets!.player.outfit.hatId));
 					data.skin = this.readString(this.readMemory<number>('ptr', val, this.offsets!.player.outfit.skinId));
 					data.visor = this.readString(this.readMemory<number>('ptr', val, this.offsets!.player.outfit.visorId));
-					return;
+					if (currentOutfit == 0 || currentOutfit > 10 )
+						return;
+				} else if (key === currentOutfit) {
+					shiftedColor = this.readMemory<number>('uint32', val, this.offsets!.player.outfit.colorId); // 0x14
 				}
 			});
 			const roleTeam = this.readMemory<number>('uint32', data.rolePtr, this.offsets!.player.roleTeam)
 			data.impostor = roleTeam;
+		}
+
+
+		if(shiftedColor != -1){
+			console.log(`PLAYER ${name} -> shifted -> ${shiftedColor}`)
 		}
 		name = name.split(/<.*?>/).join('');
 		let bugged = false;
@@ -1107,6 +1117,7 @@ export default class GameReader {
 			isDead: data.dead == 1,
 			taskPtr: data.taskPtr,
 			objectPtr: data.objectPtr,
+			shiftedColor,
 			bugged,
 			inVent: this.readMemory<number>('byte', data.objectPtr, this.offsets.player.inVent) > 0,
 			isLocal,

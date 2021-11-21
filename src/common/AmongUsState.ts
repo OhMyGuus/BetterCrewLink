@@ -39,6 +39,7 @@ export interface Player {
 	taskPtr: number;
 	objectPtr: number;
 	isLocal: boolean;
+	shiftedColor : number;
 	bugged: boolean;
 	x: number;
 	y: number;

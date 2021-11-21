@@ -689,6 +689,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		lobbySettingsRef.current = lobbySettings;
 	}, [lobbySettings]);
 
+
+
 	// Set dead player data
 	useEffect(() => {
 		if (gameState.gameState === GameState.LOBBY) {
@@ -869,14 +871,15 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 									? settingsRef.current.microphoneGain / 100
 									: 1;
 							}
-							connectionStuff.current.socket?.emit('VAD', true);
-							setTalking(true);
+							console.log(myPlayer?.shiftedColor);
+							if (myPlayer?.shiftedColor == -1) {
+								setTalking(true);
+							}
 						},
 						onVoiceStop: () => {
 							if (microphoneGain && settingsRef.current.micSensitivityEnabled) {
 								microphoneGain.gain.value = 0;
 							}
-							connectionStuff.current.socket?.emit('VAD', false);
 							setTalking(false);
 						},
 						noiseCaptureDuration: 0,
@@ -1271,6 +1274,18 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			updateLobby();
 		}
 	}, [connect?.connect, gameState?.lobbyCode, connected]);
+
+	useEffect(() => {
+		if (myPlayer?.shiftedColor != -1) {
+			connectionStuff.current.socket?.emit('VAD', false);
+			setTalking(false)
+		}
+	}, [myPlayer?.shiftedColor])
+
+	useEffect(() => {
+		if (myPlayer?.shiftedColor == -1 || !talking)
+			connectionStuff.current.socket?.emit('VAD', talking);
+	}, [talking])
 
 	// Connect to P2P negotiator, when game mode change
 	useEffect(() => {
