@@ -1084,10 +1084,6 @@ export default class GameReader {
 			data.impostor = roleTeam;
 		}
 
-
-		if(shiftedColor != -1){
-			console.log(`PLAYER ${name} -> shifted -> ${shiftedColor}`)
-		}
 		name = name.split(/<.*?>/).join('');
 		let bugged = false;
 		if (x === undefined || y === undefined || data.disconnected != 0 || data.color < 0 || data.color > this.playercolors.length) {
