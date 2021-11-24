@@ -206,7 +206,7 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 						deafened={voiceState.deafened && player.isLocal}
 						connectionState={'connected'}
 						talking={talking}
-						borderColor="#2ecc71"
+						borderColor={!player.isLocal || player.shiftedColor == -1 ? '#2ecc71' : 'gray'}
 						isUsingRadio={voiceState.impostorRadioClientId == player.clientId}
 						isAlive={!voiceState.otherDead[player.clientId] || (player.isLocal && !player.isDead)}
 						size={100}

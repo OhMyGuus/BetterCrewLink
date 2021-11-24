@@ -73,7 +73,7 @@ function isBetween(h: number, h1: number, maxdiffrence: number) {
 	return 180 - Math.abs(Math.abs(h - h1) - 180) < maxdiffrence;
 }
 
-async function colorImage(img: jimp, originalData: Uint8Array, color: string, shadow: string, savepath: string) {
+async function colorImage(img: jimp, originalData: Uint8Array, color: string, shadow: string, savepath: string, returnImg = false) {
 	img.bitmap.data = new Uint8Array(originalData) as Buffer;
 	for (let i = 0, l = img.bitmap.data.length; i < l; i += 4) {
 		const data = img.bitmap.data;
@@ -83,7 +83,7 @@ async function colorImage(img: jimp, originalData: Uint8Array, color: string, sh
 		//   let alpha = data[i + 3];
 		const h = rgb2hsv(r, g, b);
 
-		if ((h[1] > 0.4) && (isBetween(h[0], 240, 30) || isBetween(h[0], 0, 100) || isBetween(h[0], 120, 20))) { //  )
+		if ((h[1] > 0.4) && (isBetween(h[0], 240, 30) || isBetween(h[0], 0, 100) || isBetween(h[0], 120, 40))) { //  )
 
 			const pixelColor = Color('#000000')
 				.mix(Color(shadow), b / 255)
@@ -94,7 +94,14 @@ async function colorImage(img: jimp, originalData: Uint8Array, color: string, sh
 			data[i + 2] = pixelColor.blue();
 		}
 	}
-	await img.writeAsync(savepath);
+	var savepathTemp = `${savepath}.${Math.floor(Math.random() * 101)}`;
+	await img.writeAsync(savepathTemp);
+	try{
+	await fs.promises.rename(savepathTemp, savepath);
+	}
+	catch(ex){
+		await fs.promises.unlink(savepathTemp);
+	}
 }
 
 export async function GenerateAvatars(colors: string[][]): Promise<void> {
@@ -102,14 +109,12 @@ export async function GenerateAvatars(colors: string[][]): Promise<void> {
 	try {
 		await colorImages(colors, ghostBase, 'ghost');
 		await colorImages(colors, playerBase, 'player');
-		// await colorImages(colors, kidBase, '90');
-		// await colorImages(colors, balloonBase, '77');
 	} catch (exception) {
 		console.log('error while generating the avatars..', exception);
 	}
 }
 
-export async function GenerateHat(imagePath: URL, colors: string[][], colorId: number, path: string): Promise<string> {
+export async function GenerateHat(imagePath: URL, colors: string[][], colorId: number, path: string) {
 	try {
 		const img = await jimp.read(imagePath.href);
 		const originalData = new Uint8Array(img.bitmap.data);
@@ -119,10 +124,11 @@ export async function GenerateHat(imagePath: URL, colors: string[][], colorId: n
 		const temp = `${app.getPath('userData')}/static/generated/hats/${pathToHash(
 			imagePath + '/' + color + '/' + shadow
 		)}.png`;
-		if (!fs.existsSync(temp) || Date.now() - fs.statSync(temp).mtimeMs > 300000) {
+		if (!fs.existsSync(temp) || Date.now() - (await fs.promises.stat(temp)).mtimeMs > 300000) {
 			await colorImage(img, originalData, color, shadow, temp);
 		}
 		return temp;
+
 	} catch (exception) {
 		console.log('error while generating the avatars..', exception);
 		return '';

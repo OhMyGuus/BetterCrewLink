@@ -21,6 +21,7 @@ export interface overlayPlayer {
 	bugged: boolean;
 	connected: boolean;
 	realColor: string[]
+	shiftedColor: number;
 }
 
 export interface ObsVoiceState {

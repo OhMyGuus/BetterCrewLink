@@ -592,6 +592,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						visorId: o.visorId,
 						disconnected: o.disconnected,
 						isLocal: o.isLocal,
+						shiftedColor : o.shiftedColor,
 						bugged: o.bugged,
 						realColor: playerColors[o.colorId],
 						usingRadio: o.clientId === impostorRadioClientId.current && myPlayer?.isImpostor,
@@ -871,10 +872,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 									? settingsRef.current.microphoneGain / 100
 									: 1;
 							}
-							console.log(myPlayer?.shiftedColor);
-							if (myPlayer?.shiftedColor == -1) {
-								setTalking(true);
-							}
+							setTalking(true);
 						},
 						onVoiceStop: () => {
 							if (microphoneGain && settingsRef.current.micSensitivityEnabled) {
@@ -1371,7 +1369,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 								deafened={deafenedState}
 								muted={mutedState}
 								player={myPlayer}
-								borderColor="#2ecc71"
+								borderColor={myPlayer?.shiftedColor == -1 ? '#2ecc71' : 'gray'}
 								connectionState={connected ? 'connected' : 'disconnected'}
 								isUsingRadio={myPlayer?.isImpostor && impostorRadioClientId.current === myPlayer.clientId}
 								talking={talking}

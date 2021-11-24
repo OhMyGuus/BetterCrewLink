@@ -1074,7 +1074,7 @@ export default class GameReader {
 					data.hat = this.readString(this.readMemory<number>('ptr', val, this.offsets!.player.outfit.hatId));
 					data.skin = this.readString(this.readMemory<number>('ptr', val, this.offsets!.player.outfit.skinId));
 					data.visor = this.readString(this.readMemory<number>('ptr', val, this.offsets!.player.outfit.visorId));
-					if (currentOutfit == 0 || currentOutfit > 10 )
+					if (currentOutfit == 0 || currentOutfit > 10)
 						return;
 				} else if (key === currentOutfit) {
 					shiftedColor = this.readMemory<number>('uint32', val, this.offsets!.player.outfit.colorId); // 0x14
@@ -1082,8 +1082,15 @@ export default class GameReader {
 			});
 			const roleTeam = this.readMemory<number>('uint32', data.rolePtr, this.offsets!.player.roleTeam)
 			data.impostor = roleTeam;
-		}
 
+			if (this.offsets!.player.nameText && shiftedColor == -1 && (this.loadedMod.id == "THE_OTHER_ROLES" || this.loadedMod.id == "THE_OTHER_ROLES_GM")) {
+				let nameText = this.readMemory<number>('ptr', data.objectPtr, this.offsets!.player.nameText);
+				var nameText_name = this.readString(nameText);
+				if (nameText_name != name) {
+					shiftedColor = data.color;
+				}
+			}
+		}
 		name = name.split(/<.*?>/).join('');
 		let bugged = false;
 		if (x === undefined || y === undefined || data.disconnected != 0 || data.color < 0 || data.color > this.playercolors.length) {
