@@ -526,7 +526,7 @@ export default class GameReader {
 			this.disableWriting = true;
 		}
 
-		if (innerNetClient === 30001968) {
+		if (innerNetClient === 0x1C9CAC8) {
 			this.offsets = TempFixOffsets6(this.offsets);
 		}
 
