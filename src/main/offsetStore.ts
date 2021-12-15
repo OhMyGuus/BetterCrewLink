@@ -79,18 +79,18 @@ export interface IOffsets {
 		isDummy: number[]; // used for muting
 		struct: {
 			type:
-				| 'INT'
-				| 'INT_BE'
-				| 'UINT'
-				| 'UINT_BE'
-				| 'SHORT'
-				| 'SHORT_BE'
-				| 'USHORT'
-				| 'USHORT_BE'
-				| 'FLOAT'
-				| 'CHAR'
-				| 'BYTE'
-				| 'SKIP';
+			| 'INT'
+			| 'INT_BE'
+			| 'UINT'
+			| 'UINT_BE'
+			| 'SHORT'
+			| 'SHORT_BE'
+			| 'USHORT'
+			| 'USHORT_BE'
+			| 'FLOAT'
+			| 'CHAR'
+			| 'BYTE'
+			| 'SKIP';
 			skip?: number;
 			name: string;
 		}[];
@@ -155,13 +155,13 @@ export default {
 			base: [0x1c57f54, 0xb8, 0x0],
 			networkAddress: 0x68,
 			networkPort: 0x70,
-			onlineScene: 0xf0,
-			mainMenuScene: 0xf8,
-			gameMode: 0x84,
-			gameId: 0x88,
-			hostId: 0x8c,
-			clientId: 0x90,
-			gameState: 0xd4,
+			gameMode: 0x88,
+			gameId: 0x8C,
+			hostId: 0x90,
+			clientId: 0x94,
+			gameState: 0xD8,
+			onlineScene: 0xF4,
+			mainMenuScene: 0xFC,
 		},
 		player: {
 			struct: [
@@ -283,14 +283,14 @@ export default {
 		innerNetClient: {
 			base: [0x1c57f54, 0x5c, 0x0],
 			networkAddress: 0x38,
-			networkPort: 0x3c,
-			onlineScene: 0x88,
-			mainMenuScene: 0x8c,
-			gameMode: 0x48,
-			gameId: 0x4c,
-			hostId: 0x50,
-			clientId: 0x54,
-			gameState: 0x78,
+			networkPort: 0x3C,
+			gameMode: 0x4C,
+			gameId: 0x50,
+			hostId: 0x54,
+			clientId: 0x58,
+			gameState: 0x7C,
+			onlineScene: 0x8c,
+			mainMenuScene: 0x90,
 		},
 		player: {
 			struct: [
@@ -360,7 +360,7 @@ export default {
 				addressOffset: 0,
 			},
 			palette: {
-				sig: 'A1 ? ? ? ? 7C 26 F6 80 BB 00 00 00 02',
+				sig: 'A1 ? ? ? ? 7C 26 F6 80 BB 00 00 ? ?',
 				patternOffset: 1,
 				addressOffset: 0,
 			},
@@ -382,8 +382,8 @@ export default {
 			},
 			pingMessageString: {
 				sig:
-					'75 32 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 83 C4 10 C6 05 ? ? ? ? ? A1 ? ? ? ? 56 8B 40 5C 8B 30 A1 ? ? ? ? F6 80 ? ? ? ? ? 74 0F 83 78 74 00 75 09 50 E8 ? ? ? ? 83 C4 04 6A 00 56 E8 ? ? ? ? 83 C4 08 84 C0 0F 84 ? ? ? ? 8B 0D ? ? ? ? 8B 41 5C 8B 00 85 C0 0F 84 ? ? ? ? 83 78 48 02 8B 75 08 75 22 6A 00 56 E8 ? ? ? ? 83 C4 08 85 C0 74 6A 6A 00 6A 00 50 E8 ? ? ? ? 8B 0D ? ? ? ? 83 C4 0C 8B 41 5C 8B 76 0C 8B 00 85 C0 74 4B 6A 00 50 E8 ? ? ? ? 89 45 FC 8D 45 FC 50 FF 35 ? ? ? ? E8 ? ? ? ? 6A 00 50 FF 35 ? ? ? ? E8 ? ? ? ? 83 C4 1C 8B C8 85 F6 74 1A 8B 06 FF B0 ? ? ? ? 8B',
-				patternOffset: 0xd8,
+					'E8 ? ? ? ? 6A 00 50 FF 35 ? ? ? ? E8 ? ? ? ? 83 C4 1C 8B C8 85 F6 74 1A 8B 06 FF B0 ? ? ? ? 8B',
+				patternOffset: 0xA,
 				addressOffset: 0,
 			},
 			serverManager: {
@@ -502,7 +502,7 @@ export function TempFixOffsets5(offsetsOld: IOffsets): IOffsets {
 			playerName: [0xff],
 		},
 	};
-//	offsets.palette[0] = 0x1ba85a4;
+	//	offsets.palette[0] = 0x1ba85a4;
 	offsets.palette_shadowColor = [0xf8];
 	offsets.palette_playercolor = [0xf4];
 	offsets.innerNetClient.gameState = 0x74;
@@ -512,6 +512,20 @@ export function TempFixOffsets5(offsetsOld: IOffsets): IOffsets {
 	offsets.shipstatus_allDoors = [0x84];
 	offsets.shipStatus_map = [0xe4];
 	offsets.lightRadius = [0x54, 0x1c];
+
+	return offsets;
+}
+
+
+export function TempFixOffsets6(offsetsOld: IOffsets): IOffsets {
+	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
+	offsets.innerNetClient.gameMode = 0x48;
+	offsets.innerNetClient.gameId = 0x4C;
+	offsets.innerNetClient.hostId = 0x50;
+	offsets.innerNetClient.clientId = 0x54;
+	offsets.innerNetClient.gameState = 0x78;
+	offsets.innerNetClient.onlineScene = 0x88;
+	offsets.innerNetClient.mainMenuScene = 0x90;
 
 	return offsets;
 }
