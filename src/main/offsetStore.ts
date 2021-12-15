@@ -154,14 +154,13 @@ export default {
 		innerNetClient: {
 			base: [0x1c57f54, 0xb8, 0x0],
 			networkAddress: 0x68,
-			networkPort: 0x70,
-			gameMode: 0x88,
-			gameId: 0x8C,
-			hostId: 0x90,
-			clientId: 0x94,
-			gameState: 0xD8,
-			onlineScene: 0xF4,
-			mainMenuScene: 0xFC,
+			gameMode: 0x84,
+			gameId: 0x88,
+			hostId: 0x8c,
+			clientId: 0x90,
+			gameState: 0xd4,
+			onlineScene: 0xf0,
+			mainMenuScene: 0xf8,
 		},
 		player: {
 			struct: [
