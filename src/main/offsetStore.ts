@@ -511,8 +511,9 @@ export function TempFixOffsets5(offsetsOld: IOffsets): IOffsets {
 	offsets.shipstatus_allDoors = [0x84];
 	offsets.shipStatus_map = [0xe4];
 	offsets.lightRadius = [0x54, 0x1c];
+	
 
-	return offsets;
+	return TempFixOffsets6(offsets);
 }
 
 
