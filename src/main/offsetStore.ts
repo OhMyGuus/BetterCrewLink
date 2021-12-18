@@ -523,9 +523,9 @@ export function TempFixOffsets6(offsetsOld: IOffsets): IOffsets {
 	offsets.innerNetClient.gameId = 0x4C;
 	offsets.innerNetClient.hostId = 0x50;
 	offsets.innerNetClient.clientId = 0x54;
-	offsets.innerNetClient.gameState = 0x78;
-	offsets.innerNetClient.onlineScene = 0x88;
-	offsets.innerNetClient.mainMenuScene = 0x90;
+	offsets.innerNetClient.gameState = 0x74;
+	offsets.innerNetClient.onlineScene = 0x80;
+	offsets.innerNetClient.mainMenuScene = 0x84;
 
 	return offsets;
 }
