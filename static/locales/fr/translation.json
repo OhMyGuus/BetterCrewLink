@@ -21,7 +21,7 @@
 			"ghost_only_warning2": "Seuls les fantômes peuvent parler",
 			"meetings_only": "Meetings/Lobby uniquement",
 			"meetings_only_warning": "Cela désactive le son pour les joueurs vivants en dehors des meetings.",
-			"meetings_only_warning2": "Activé uniquement dans les meetings/le lobby.",
+			"meetings_only_warning2": "Les joueurs vivants ne peuvent parler que pendant les meetings et dans le lobby.",
 			"impostor_radio": "Vocal imposteur",
 			"public_lobby": {
 				"change_settings": "Changer les Infos du Lobby",
