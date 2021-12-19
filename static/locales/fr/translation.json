@@ -105,7 +105,7 @@
 			"hidecode": "Afficher le code de la partie",
 			"obs_overlay": "Overlay pour le navigateur OBS",
 			"obs_url": "URL de la source du navigateur OBS",
-			"voice_server_comp": "Mode compatibilité VS",
+			"voice_server_comp": "Mode de compatibilité du serveur",
 			"voice_server_comp_warning": "Il est recommandé de simplement changer le serveur vocal pour un serveur vocal BetterCrewLink, par exemple https://bettercrewl.ink."
 		},
 		"troubleshooting": {
