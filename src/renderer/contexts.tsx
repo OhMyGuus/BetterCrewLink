@@ -17,6 +17,7 @@ type LobbySettingsContextValue = [
 	}>
 ];
 
+export const PlayerColorContext = createContext<string[][]>([] as string[][]);
 export const GameStateContext = createContext<AmongUsState>({} as AmongUsState);
 export const SettingsContext = createContext<SettingsContextValue>((null as unknown) as SettingsContextValue);
 export const LobbySettingsContext = createContext<LobbySettingsContextValue>(

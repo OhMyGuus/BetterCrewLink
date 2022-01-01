@@ -206,7 +206,7 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 						deafened={voiceState.deafened && player.isLocal}
 						connectionState={'connected'}
 						talking={talking}
-						borderColor="#2ecc71"
+						borderColor={!player.isLocal || player.shiftedColor == -1 ? '#2ecc71' : 'gray'}
 						isUsingRadio={voiceState.impostorRadioClientId == player.clientId}
 						isAlive={!voiceState.otherDead[player.clientId] || (player.isLocal && !player.isDead)}
 						size={100}
@@ -268,7 +268,7 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 		}
 
 		let resultW;
-		let ratio_diff = Math.abs(windowWidth / windowheight - 1.7);
+		const ratio_diff = Math.abs(windowWidth / windowheight - 1.7);
 
 		if (ratio_diff < 0.25) {
 			resultW = windowWidth / 1.192;
@@ -278,7 +278,7 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 			resultW = windowWidth / 1.591;
 		}
 
-		let resultH = resultW / 1.72;
+		const resultH = resultW / 1.72;
 		// console.log("Ratio: ", windowWidth, windowheight, ratio.toFixed(1), ratio, Math.round(ratio * 10) / 10, Math.abs(ratio - 1.7))
 		return [resultW, resultH];
 	}, [windowWidth, windowheight, gameState.oldMeetingHud]);

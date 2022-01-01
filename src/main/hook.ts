@@ -17,7 +17,7 @@ if (playerConfigMapLength > 50) {
 }
 
 let readingGame = false;
-let gameReader: GameReader;
+export let gameReader: GameReader;
 
 let pushToTalkShortcut: K | undefined;
 let deafenShortcut: K | undefined;

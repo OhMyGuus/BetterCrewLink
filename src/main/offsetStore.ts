@@ -62,10 +62,16 @@ export interface IOffsets {
 		localY: number[];
 		remoteX: number[];
 		remoteY: number[];
+		roleTeam: number[];
+		nameText?: number[];
+		currentOutfit: number[];
 		outfit: {
-			colorId: number[]
+			colorId: number[];
 			playerName: number[];
-		}
+			hatId: number[];
+			skinId: number[];
+			visorId: number[];
+		};
 		bufferLength: number;
 		offsets: number[];
 		inVent: number[];
@@ -116,9 +122,9 @@ export default {
 		playerCount: [0x18],
 		playerAddrPtr: 0x20,
 		shipStatus: [0x21d0ce0, 0xb8, 0x0],
-		shipStatus_systems: [0xD8],
-		shipStatus_map: [0x17C],
-		shipstatus_allDoors: [0xC8],
+		shipStatus_systems: [0xd8],
+		shipStatus_map: [0x17c],
+		shipstatus_allDoors: [0xc8],
 		door_doorId: 0x1c,
 		door_isOpen: 0x20,
 		deconDoorUpperOpen: [0x18, 0x18],
@@ -133,7 +139,7 @@ export default {
 		lightRadius: [0x88, 0x34],
 		palette: [0xffff, 0xb8],
 		palette_playercolor: [0x198],
-		palette_shadowColor: [0x1A0],
+		palette_shadowColor: [0x1a0],
 		playerControl_GameOptions: [0xffff, 0xb8, 0x8],
 		gameOptions_MapId: [0x18],
 		gameOptions_MaxPLayers: [0x10],
@@ -148,14 +154,13 @@ export default {
 		innerNetClient: {
 			base: [0x1c57f54, 0xb8, 0x0],
 			networkAddress: 0x68,
-			networkPort: 0x70,
-			onlineScene: 0xF0,
-			mainMenuScene: 0xF8,
 			gameMode: 0x84,
 			gameId: 0x88,
 			hostId: 0x8c,
 			clientId: 0x90,
-			gameState: 0xD4,
+			gameState: 0xd4,
+			onlineScene: 0xf0,
+			mainMenuScene: 0xf8,
 		},
 		player: {
 			struct: [
@@ -163,31 +168,37 @@ export default {
 				{ type: 'UINT', name: 'id' }, // 0x10
 				{ type: 'SKIP', skip: 4, name: 'unused1' }, // 0x14
 				{ type: 'UINT', name: 'outfitsPtr' }, // 0x18
-				{ type: 'SKIP', skip: 4, name: 'unused2' }, // 
+				{ type: 'SKIP', skip: 4, name: 'unused2' }, //
 				{ type: 'UINT', name: 'playerLevel' }, // 0x20
 				{ type: 'UINT', name: 'disconnected' }, // 0x24
 				{ type: 'UINT', name: 'rolePtr' }, // 0x28
-				{ type: 'SKIP', skip: 4, name: 'unused' }, // 
+				{ type: 'SKIP', skip: 4, name: 'unused' }, //
 				{ type: 'UINT', name: 'taskPtr' }, //0x30
-				{ type: 'SKIP', skip: 4, name: 'unused' }, // 
+				{ type: 'SKIP', skip: 4, name: 'unused' }, //
 				{ type: 'UINT', name: 'dead' }, // 0x38
 				{ type: 'SKIP', skip: 4, name: 'unused' },
 				{ type: 'UINT', name: 'objectPtr' }, //0x40
 			],
 			isDummy: [0x111],
 			isLocal: [0x88],
-			localX: [0xA0, 0x6c],
-			localY: [0xA0, 0x70],
-			remoteX: [0xA0, 0x58],
-			remoteY: [0xA0, 0x5c],
+			localX: [0xa0, 0x6c],
+			localY: [0xa0, 0x70],
+			remoteX: [0xa0, 0x58],
+			remoteY: [0xa0, 0x5c],
 			bufferLength: 80,
 			offsets: [0, 0],
 			inVent: [0x44],
 			clientId: [0x28],
+			currentOutfit: [0x40],
+			roleTeam: [0x48],
+			nameText: [0x78, 0xD8],
 			outfit: {
 				colorId: [0x14],
-				playerName: [0x40]
-			}
+				hatId: [0x18],
+				skinId: [0x28],
+				visorId: [0x30],
+				playerName: [0x40],
+			},
 		},
 		signatures: {
 			innerNetClient: {
@@ -216,8 +227,7 @@ export default {
 				addressOffset: 4,
 			},
 			palette: {
-				sig:
-					'48 8B 05 ? ? ? ? 48 8B 80 ? ? ? ? 0F 10 40 30 EB 2C',
+				sig: '48 8B 05 ? ? ? ? 48 8B 80 ? ? ? ? 0F 10 40 30 EB 2C',
 				patternOffset: 3,
 				addressOffset: 4,
 			},
@@ -248,8 +258,8 @@ export default {
 		playerCount: [0xc],
 		playerAddrPtr: 0x10,
 		shipStatus: [0x1c57cac, 0x5c, 0x0],
-		shipStatus_systems: [0X90],
-		shipStatus_map: [0xE8],
+		shipStatus_systems: [0x90],
+		shipStatus_map: [0xe8],
 		shipstatus_allDoors: [0x88],
 		door_doorId: 0x10,
 		door_isOpen: 0x14,
@@ -272,14 +282,14 @@ export default {
 		innerNetClient: {
 			base: [0x1c57f54, 0x5c, 0x0],
 			networkAddress: 0x38,
-			networkPort: 0x3c,
-			onlineScene: 0x88,
-			mainMenuScene: 0x8C,
-			gameMode: 0x48,
-			gameId: 0x4c,
-			hostId: 0x50,
-			clientId: 0x54,
-			gameState: 0x78,
+			networkPort: 0x3C,
+			gameMode: 0x4C,
+			gameId: 0x50,
+			hostId: 0x54,
+			clientId: 0x58,
+			gameState: 0x7C,
+			onlineScene: 0x8c,
+			mainMenuScene: 0x90,
 		},
 		player: {
 			struct: [
@@ -294,20 +304,26 @@ export default {
 				{ type: 'SKIP', skip: 3, name: 'unused2' },
 				{ type: 'UINT', name: 'objectPtr' },
 			],
-			isDummy: [0xA9],
+			isDummy: [0xa9],
 			isLocal: [0x60],
-			localX: [0x6C, 80],
-			localY: [0x6C, 84],
-			remoteX: [0x6C, 60],
-			remoteY: [0x6C, 64],
+			localX: [0x6c, 80],
+			localY: [0x6c, 84],
+			remoteX: [0x6c, 60],
+			remoteY: [0x6c, 64],
 			bufferLength: 56,
 			offsets: [0, 0],
 			inVent: [0x38],
 			clientId: [0x1c],
+			currentOutfit: [0x34],
+			roleTeam: [0x3C],
+			nameText: [0x58, 0x80],
 			outfit: {
-				colorId: [0x0C],
-				playerName: [0x24]
-			}
+				colorId: [0x0c],
+				hatId: [0x10],
+				skinId: [0x18],
+				visorId: [0x1c],
+				playerName: [0x24],
+			},
 		},
 		connectFunc: 0xfff,
 		showModStampFunc: 0xfff,
@@ -343,7 +359,7 @@ export default {
 				addressOffset: 0,
 			},
 			palette: {
-				sig: 'A1 ? ? ? ? 7C 26 F6 80 BB 00 00 00 02',
+				sig: 'A1 ? ? ? ? 7C 26 F6 80 BB 00 00 ? ?',
 				patternOffset: 1,
 				addressOffset: 0,
 			},
@@ -365,13 +381,12 @@ export default {
 			},
 			pingMessageString: {
 				sig:
-					'75 32 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? 83 C4 10 C6 05 ? ? ? ? ? A1 ? ? ? ? 56 8B 40 5C 8B 30 A1 ? ? ? ? F6 80 ? ? ? ? ? 74 0F 83 78 74 00 75 09 50 E8 ? ? ? ? 83 C4 04 6A 00 56 E8 ? ? ? ? 83 C4 08 84 C0 0F 84 ? ? ? ? 8B 0D ? ? ? ? 8B 41 5C 8B 00 85 C0 0F 84 ? ? ? ? 83 78 48 02 8B 75 08 75 22 6A 00 56 E8 ? ? ? ? 83 C4 08 85 C0 74 6A 6A 00 6A 00 50 E8 ? ? ? ? 8B 0D ? ? ? ? 83 C4 0C 8B 41 5C 8B 76 0C 8B 00 85 C0 74 4B 6A 00 50 E8 ? ? ? ? 89 45 FC 8D 45 FC 50 FF 35 ? ? ? ? E8 ? ? ? ? 6A 00 50 FF 35 ? ? ? ? E8 ? ? ? ? 83 C4 1C 8B C8 85 F6 74 1A 8B 06 FF B0 ? ? ? ? 8B',
-				patternOffset: 0xd8,
+					'E8 ? ? ? ? 6A 00 50 FF 35 ? ? ? ? E8 ? ? ? ? 83 C4 1C 8B C8 85 F6 74 1A 8B 06 FF B0 ? ? ? ? 8B',
+				patternOffset: 0xA,
 				addressOffset: 0,
 			},
 			serverManager: {
-				sig:
-					'A1 ? ? ? ? 89 55 E0 F6 80 ? ? ? ? ? 74 14 83 78 74 00 75 0E 50 E8 ? ? ? ? A1 ? ? ? ? ',
+				sig: 'A1 ? ? ? ? 89 55 E0 F6 80 ? ? ? ? ? 74 14 83 78 74 00 75 0E 50 E8 ? ? ? ? A1 ? ? ? ? ',
 				patternOffset: 1,
 				addressOffset: 0,
 			},
@@ -446,7 +461,6 @@ export function TempFixOffsets4(offsetsOld: IOffsets): IOffsets {
 	return offsets;
 }
 
-
 export function TempFixOffsets5(offsetsOld: IOffsets): IOffsets {
 	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
 	offsets.player = {
@@ -476,12 +490,18 @@ export function TempFixOffsets5(offsetsOld: IOffsets): IOffsets {
 		offsets: [0, 0],
 		inVent: [0x31],
 		clientId: [0x1c],
+		roleTeam: [0xff],
+		currentOutfit: [0xff],
+
 		outfit: {
 			colorId: [0xff],
-			playerName: [0xff]
-		}
+			hatId: [0xff],
+			skinId: [0xff],
+			visorId: [0xff],
+			playerName: [0xff],
+		},
 	};
-	offsets.palette[0] = 0x1BA85A4;
+	//	offsets.palette[0] = 0x1ba85a4;
 	offsets.palette_shadowColor = [0xf8];
 	offsets.palette_playercolor = [0xf4];
 	offsets.innerNetClient.gameState = 0x74;
@@ -489,10 +509,23 @@ export function TempFixOffsets5(offsetsOld: IOffsets): IOffsets {
 	offsets.innerNetClient.mainMenuScene = 0x84;
 	offsets.shipStatus_systems = [0x8c];
 	offsets.shipstatus_allDoors = [0x84];
-	offsets.shipStatus_map = [0xe4]
+	offsets.shipStatus_map = [0xe4];
 	offsets.lightRadius = [0x54, 0x1c];
+	
+
+	return TempFixOffsets6(offsets);
+}
 
 
+export function TempFixOffsets6(offsetsOld: IOffsets): IOffsets {
+	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
+	offsets.innerNetClient.gameMode = 0x48;
+	offsets.innerNetClient.gameId = 0x4C;
+	offsets.innerNetClient.hostId = 0x50;
+	offsets.innerNetClient.clientId = 0x54;
+	offsets.innerNetClient.gameState = 0x74;
+	offsets.innerNetClient.onlineScene = 0x80;
+	offsets.innerNetClient.mainMenuScene = 0x84;
 
 	return offsets;
 }

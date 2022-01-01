@@ -468,15 +468,15 @@ const store = new Store<ISettings>({
 						items: {
 							type: 'string',
 							default: '',
-						}
+						},
 					},
 					translateKey: {
 						type: 'string',
 						default: '',
-					}
-				}
-			}
-		}
+					},
+				},
+			},
+		},
 	},
 });
 
