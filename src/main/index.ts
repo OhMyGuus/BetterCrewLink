@@ -63,8 +63,8 @@ function createMainWindow() {
 		maximizable: false,
 		webPreferences: {
 			enableRemoteModule: true,
-			nodeIntegration: true,
-			webSecurity: false,
+			nodeIntegration: false,
+			webSecurity: true,
 		},
 	});
 
@@ -135,8 +135,8 @@ function createLobbyBrowser() {
 		maximizable: false,
 		webPreferences: {
 			enableRemoteModule: true,
-			nodeIntegration: true,
-			webSecurity: false,
+			nodeIntegration: false,
+			webSecurity: true,
 		},
 	});
 	window.on('closed', () => {
@@ -177,9 +177,9 @@ function createOverlay() {
 		width: 400,
 		height: 300,
 		webPreferences: {
-			nodeIntegration: true,
+			nodeIntegration: false,
 			enableRemoteModule: true,
-			webSecurity: false,
+			webSecurity: true,
 		},
 		fullscreenable: true,
 		skipTaskbar: true,
