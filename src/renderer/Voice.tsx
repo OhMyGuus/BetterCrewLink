@@ -961,9 +961,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 				function createPeerConnection(peer: string, initiator: boolean) {
 					console.log('CreatePeerConnection: ', peer, initiator);
-					if (audioElements.current[peer]) {
-						disconnectAudioElement(peer);
-					}
+				
 					const connection = new Peer({
 						stream,
 						initiator, // @ts-ignore-line
@@ -1033,6 +1031,9 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 							audio.setSinkId(settingsRef.current.speaker);
 						}
 
+						if (audioElements.current[peer]) {
+							disconnectAudioElement(peer);
+						}
 						audioElements.current[peer] = {
 							dummyAudioElement: dummyAudio,
 							audioElement: audio,
