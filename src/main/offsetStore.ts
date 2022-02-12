@@ -504,6 +504,10 @@ export function TempFixOffsets5(offsetsOld: IOffsets): IOffsets {
 	//	offsets.palette[0] = 0x1ba85a4;
 	offsets.palette_shadowColor = [0xf8];
 	offsets.palette_playercolor = [0xf4];
+	offsets.innerNetClient.gameMode = 0x48;
+	offsets.innerNetClient.gameId = 0x4C;
+	offsets.innerNetClient.hostId = 0x50;
+	offsets.innerNetClient.clientId = 0x54;
 	offsets.innerNetClient.gameState = 0x74;
 	offsets.innerNetClient.onlineScene = 0x80;
 	offsets.innerNetClient.mainMenuScene = 0x84;
@@ -512,8 +516,7 @@ export function TempFixOffsets5(offsetsOld: IOffsets): IOffsets {
 	offsets.shipStatus_map = [0xe4];
 	offsets.lightRadius = [0x54, 0x1c];
 	
-
-	return TempFixOffsets6(offsets);
+	return offsets;
 }
 
 
@@ -523,9 +526,9 @@ export function TempFixOffsets6(offsetsOld: IOffsets): IOffsets {
 	offsets.innerNetClient.gameId = 0x4C;
 	offsets.innerNetClient.hostId = 0x50;
 	offsets.innerNetClient.clientId = 0x54;
-	offsets.innerNetClient.gameState = 0x74;
-	offsets.innerNetClient.onlineScene = 0x80;
-	offsets.innerNetClient.mainMenuScene = 0x84;
+	offsets.innerNetClient.gameState = 0x78;
+	offsets.innerNetClient.onlineScene = 0x88;
+	offsets.innerNetClient.mainMenuScene = 0x8C;
 
 	return offsets;
 }

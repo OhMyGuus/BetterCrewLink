@@ -206,7 +206,6 @@ export default class GameReader {
 						? this.gameCode
 						: this.IntToGameCode(lobbyCodeInt);
 
-
 			// if (DEBUG) {
 			// 	this.gameCode = 'oof';
 			// }
@@ -499,9 +498,9 @@ export default class GameReader {
 			this.offsets.signatures.serverManager.patternOffset,
 			this.offsets.signatures.serverManager.addressOffset
 		);
-		if (this.loadedMod.id === 'POLUS_GG') {
-			this.offsets.serverManager_currentServer[4] = 0x0c;
-		}
+		// if (this.loadedMod.id === 'POLUS_GG') {
+		// 	this.offsets.serverManager_currentServer[4] = 0x0c;
+		// }
 		this.colorsInitialized = false;
 		console.log('serverManager_currentServer', this.offsets.serverManager_currentServer[0].toString(16));
 		if (innerNetClient === 0x2c6c278) {
@@ -526,7 +525,7 @@ export default class GameReader {
 			this.disableWriting = true;
 		}
 
-		if (innerNetClient === 0x1C9CAC8) {
+		if (innerNetClient === 0x1C9CAC8 ) {
 			this.offsets = TempFixOffsets6(this.offsets);
 		}
 
@@ -783,8 +782,8 @@ export default class GameReader {
 			!this.initializedWrite ||
 			server.length > 15 ||
 			!this.offsets ||
-			this.is_64bit ||
-			this.loadedMod.id === 'POLUS_GG'
+			this.is_64bit
+			// || this.loadedMod.id === 'POLUS_GG'
 		) {
 			return false;
 		}
@@ -984,7 +983,7 @@ export default class GameReader {
 	IntToGameCode(input: number): string {
 		if (!input || input === 0) return '';
 		else if (input <= -1000) return this.IntToGameCodeV2Impl(input);
-		else if (input > 0 && this.loadedMod.id == 'POLUS_GG') return this.IntToGameCodeV1Impl(input);
+		//	else if (input > 0) return this.IntToGameCodeV1Impl(input); // && this.loadedMod.id == 'POLUS_GG')
 		else return '';
 	}
 
@@ -1009,7 +1008,7 @@ export default class GameReader {
 	}
 
 	gameCodeToInt(code: string): number {
-		return code.length === 4 && this.loadedMod.id === 'POLUS_GG'
+		code.length === 4 //&& this.loadedMod.id === 'POLUS_GG'
 			? this.gameCodeToIntV1Impl(code)
 			: this.gameCodeToIntV2Impl(code);
 	}
