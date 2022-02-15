@@ -525,7 +525,7 @@ export default class GameReader {
 			this.disableWriting = true;
 		}
 
-		if (innerNetClient === 0x1C9CAC8 ) {
+		if (innerNetClient === 0x1C9CAC8) {
 			this.offsets = TempFixOffsets6(this.offsets);
 		}
 
@@ -1008,7 +1008,7 @@ export default class GameReader {
 	}
 
 	gameCodeToInt(code: string): number {
-		code.length === 4 //&& this.loadedMod.id === 'POLUS_GG'
+		return code.length === 4 //&& this.loadedMod.id === 'POLUS_GG'
 			? this.gameCodeToIntV1Impl(code)
 			: this.gameCodeToIntV2Impl(code);
 	}
