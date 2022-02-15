@@ -116,7 +116,7 @@ const DEFAULT_ICE_CONFIG_TURN: RTCConfiguration = {
 	iceTransportPolicy: 'relay',
 	iceServers: [
 		{
-			urls: 'turn:turn.bettercrewl.ink:3478',
+			urls: 'turn:turn2.bettercrewl.ink:3478',
 			username: 'M9DRVaByiujoXeuYAAAG',
 			credential: 'TpHR9HQNZ8taxjb3',
 		},
