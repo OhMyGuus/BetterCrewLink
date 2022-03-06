@@ -33,6 +33,14 @@
 				"ban_warning": "Nieodpowiednia nazwa spowoduje otrzymanie blokady od BetterCrewLink."
 			}
 		},
+		"customplatforms": {
+			"title": "Niestandardowa platforma",
+			"platform_title": "Tytuł",
+			"path": "Ścieżka EXE",
+			"uri": "URI Link",
+			"advanced": "Zaawansowane",
+			"arguments": "Parametry"
+		},
 		"audio": {
 			"title": "Dźwięk",
 			"microphone": "Mikrofon",
@@ -124,12 +132,14 @@
 		"cancel": "Anuluj",
 		"close": "Zamknij",
 		"exit": "Wyjdź z ustawień by zastosować zmiany",
-		"public_lobby": "Publiczne poczekalnie"
+		"public_lobby": "Publiczne poczekalnie",
+		"delete": "Usuń",
+		"file_select": "Wybierz Plik"
 	},
 	"game": {
 		"menu": "MENU",
 		"open": "Otwórz przez",
-		"open_error": "Uruchom grę ręcznie.\n(ten przycisk jest tylko dla użytkowników steam)",
+		"open_error": "Uruchom Among Us ręcznie.",
 		"waiting": "Oczekiwanie na uruchomienie Among Us",
 		"error": "BŁĄD",
 		"error_admin": "Nie można połączyć się z Among Us.\nProszę otworzyć BetterCrewLink jako administrator.",
@@ -139,7 +149,8 @@
 	"platform": {
 		"steam": "Steam",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft Store"
+		"microsoft": "Microsoft",
+		"custom": "Niestandardowe"
 	},
 	"translator_name": "Fixuuu and canicjusz"
 }

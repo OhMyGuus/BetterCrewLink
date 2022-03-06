@@ -30,16 +30,16 @@
 				"mods": "モッド",
 				"language": "言語",
 				"enable_warning": "これを有効にすると、あなたのロビーは他のBetterCrewLinkユーザーに公開されます！",
-				"ban_warning": "不適切なテキストはBetterCrewLinkから禁止されます。"
+				"ban_warning": "不適切な表現を使った場合、BetterCrewLinkからBANされます。"
 			}
 		},
 		"customplatforms": {
-			"title": "Custom Platform",
-			"platform_title": "Title",
-			"path": "EXE Path",
+			"title": "その他",
+			"platform_title": "名前",
+			"path": "実行ファイルのパス",
 			"uri": "URI Link",
-			"advanced": "Advanced",
-			"arguments": "Arguments"
+			"advanced": "詳細設定",
+			"arguments": "引数"
 		},
 		"audio": {
 			"title": "オーディオ",
@@ -133,24 +133,24 @@
 		"close": "閉じる",
 		"exit": "変更を適用し設定を終了",
 		"public_lobby": "公開ロビー",
-		"delete": "Delete",
-		"file_select": "Select File"
+		"delete": "削除",
+		"file_select": "選択"
 	},
 	"game": {
 		"menu": "メニュー",
-		"open": "Open Via",
-		"open_error": "手動でゲームを開始します。\n(このボタンはSteam専用です)",
+		"open": "プリセット",
+		"open_error": "Among Usを手動で開始してください",
 		"waiting": "Among Usの待機中",
 		"error": "エラー",
 		"error_admin": "Among Usに接続できませんでした。\n管理者としてBetterCrewLinkを再度開いてください。",
-		"error_platform": "No Platform Detected",
+		"error_platform": "プラットフォームが見つかりません",
 		"error_unsupport": "お使いのバージョンの「Among Us」は、BetterCrewLinkに対応していません。"
 	},
 	"platform": {
 		"steam": "Steam",
 		"epicgames": "Epic Games",
 		"microsoft": "Microsoft",
-		"custom": "Custom"
+		"custom": "その他"
 	},
 	"translator_name": "Aorin and Sakurai"
 }
