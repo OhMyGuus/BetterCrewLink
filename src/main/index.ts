@@ -14,6 +14,9 @@ import { ProgressInfo, UpdateInfo } from 'builder-util-runtime';
 import { protocol } from 'electron';
 import Store from 'electron-store';
 import { ISettings } from '../common/ISettings';
+import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
+import { gameReader } from './hook';
+import { GenerateHat } from './avatarGenerator';
 
 const args = require('minimist')(process.argv); // eslint-disable-line
 
@@ -308,9 +311,20 @@ if (!gotTheLock) {
 			callback(pathname);
 		});
 
+		protocol.registerFileProtocol('generate', async (request, callback) => {
+			const url = new URL(request.url.replace('generate:///', ''));
+			const path = await GenerateHat(url, gameReader.playercolors, Number(url.searchParams.get('color')), '');
+			callback(path);
+		});
+
 		initializeIpcListeners();
 		initializeIpcHandlers();
 		global.mainWindow = createMainWindow();
+
+		if (isDevelopment)
+			installExtension(REACT_DEVELOPER_TOOLS)
+				.then((name: string) => console.log(`Added Extension:  ${name}`))
+				.catch((err: string) => console.log('An error occurred: ', err));
 	});
 
 	app.on('second-instance', () => {

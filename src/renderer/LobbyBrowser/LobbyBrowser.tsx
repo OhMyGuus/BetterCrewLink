@@ -16,7 +16,8 @@ import { ISettings } from '../../common/ISettings';
 import i18next from 'i18next';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import languages from '../language/languages';
-import { PublicLobbyMap, PublicLobby, modList } from '../../common/PublicLobby';
+import { PublicLobbyMap, PublicLobby } from '../../common/PublicLobby';
+import { modList } from '../../common/Mods';
 import { GameState } from '../../common/AmongUsState';
 
 const store = new Store<ISettings>();
@@ -60,9 +61,6 @@ const servers: {
 	'50.116.1.42': 'North America',
 	'172.105.251.170': 'Europe',
 	'139.162.111.196': 'Asia',
-	'161.35.248.138' : 'Polus.gg NA (East)', 
-	'164.90.246.64' : 'Polus.gg NA (West)', 
-	'138.68.119.239' : 'Polus.gg Europe', 
 	'192.241.154.115': 'skeld.net',
 };
 
@@ -125,7 +123,7 @@ export default function lobbyBrowser({ t }) {
 			console.log('ERROR: ', code);
 			setCode(`${code}  ${servers[server] ? `on region ${servers[server]}` : `\n Custom Server: ${server}`}`);
 		});
-		var secondPassed = setInterval(() => {
+		const secondPassed = setInterval(() => {
 			forceRender({});
 		}, 1000);
 		return () => {
@@ -203,13 +201,17 @@ export default function lobbyBrowser({ t }) {
 													variant="contained"
 													color="secondary"
 													onClick={() => {
-														socket?.emit('join_lobby', row.id, (state: number, codeOrError: string, server: string, publicLobby: PublicLobby) => {
-															if (state === 0) {
-																ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);
-															} else {
-																setCode(`Error: ${codeOrError}`);
+														socket?.emit(
+															'join_lobby',
+															row.id,
+															(state: number, codeOrError: string, server: string, publicLobby: PublicLobby) => {
+																if (state === 0) {
+																	ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);
+																} else {
+																	setCode(`Error: ${codeOrError}`);
+																}
 															}
-														});
+														);
 													}}
 												>
 													Join

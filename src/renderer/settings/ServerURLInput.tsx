@@ -22,7 +22,7 @@ function validateServerUrl(uri: string): boolean {
 	}
 }
 
-const ServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, onValidURL, className }: URLInputProps) {
+const RawServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, onValidURL, className }: URLInputProps) {
 	const [isValidURL, setURLValid] = useState(true);
 	const [currentURL, setCurrentURL] = useState(initialURL);
 	const [open, setOpen] = useState(false);
@@ -101,5 +101,7 @@ const ServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, onVal
 		</>
 	);
 };
+
+const ServerURLInput = React.memo(RawServerURLInput);
 
 export default ServerURLInput;

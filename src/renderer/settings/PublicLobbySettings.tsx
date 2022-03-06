@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 		WebkitAppRegion: 'no-drag',
 	},
 }));
-const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
+const RawPublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 	t,
 	lobbySettings,
 	updateSetting,
@@ -47,10 +47,10 @@ const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 
 	return (
 		<>
-			<Button 
-				variant="contained" 
-				color="secondary" 
-				className={classes.specialButton} 
+			<Button
+				variant="contained"
+				color="secondary"
+				className={classes.specialButton}
 				onClick={() => setOpen(true)}
 				disabled={!canChange}
 			>
@@ -100,7 +100,7 @@ const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 							</option>
 						))}
 					</TextField>
-			
+
 					<Alert severity="error">{t('settings.lobbysettings.public_lobby.ban_warning')}</Alert>
 				</DialogContent>
 				<DialogActions>
@@ -117,5 +117,7 @@ const PublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 		</>
 	);
 };
+
+const PublicLobbySettings = React.memo(RawPublicLobbySettings);
 
 export default PublicLobbySettings;

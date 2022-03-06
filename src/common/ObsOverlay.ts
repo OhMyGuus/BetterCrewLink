@@ -12,13 +12,16 @@ export interface overlayPlayer {
 	isDead: boolean;
 	name: string;
 	colorId: number;
-	hatId: number;
+	hatId: string;
+	skinId: string;
+	visorId: string;
 	petId: number;
-	skinId: number;
 	disconnected: boolean;
 	isLocal: boolean;
 	bugged: boolean;
 	connected: boolean;
+	realColor: string[]
+	shiftedColor: number;
 }
 
 export interface ObsVoiceState {

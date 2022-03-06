@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import io, { Socket } from 'socket.io-client';
 import Avatar from './Avatar';
-import { GameStateContext, LobbySettingsContext, SettingsContext } from './contexts';
+import { GameStateContext, LobbySettingsContext, PlayerColorContext, SettingsContext } from './contexts';
 import {
 	AmongUsState,
 	GameState,
@@ -227,6 +227,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	const lobbySettingsRef = useRef(lobbySettings);
 	const maxDistanceRef = useRef(2);
 	const gameState = useContext(GameStateContext);
+	const playerColors = useContext(PlayerColorContext);
+
 	const hostRef = useRef({
 		map: MapType.UNKNOWN,
 		mobileRunning: false,
@@ -587,9 +589,12 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						hatId: o.hatId,
 						petId: o.petId,
 						skinId: o.skinId,
+						visorId: o.visorId,
 						disconnected: o.disconnected,
 						isLocal: o.isLocal,
+						shiftedColor : o.shiftedColor,
 						bugged: o.bugged,
+						realColor: playerColors[o.colorId],
 						usingRadio: o.clientId === impostorRadioClientId.current && myPlayer?.isImpostor,
 						connected:
 							(playerSocketIdsRef.current[o.clientId] &&
@@ -684,6 +689,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	useEffect(() => {
 		lobbySettingsRef.current = lobbySettings;
 	}, [lobbySettings]);
+
+
 
 	// Set dead player data
 	useEffect(() => {
@@ -865,14 +872,12 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 									? settingsRef.current.microphoneGain / 100
 									: 1;
 							}
-							connectionStuff.current.socket?.emit('VAD', true);
 							setTalking(true);
 						},
 						onVoiceStop: () => {
 							if (microphoneGain && settingsRef.current.micSensitivityEnabled) {
 								microphoneGain.gain.value = 0;
 							}
-							connectionStuff.current.socket?.emit('VAD', false);
 							setTalking(false);
 						},
 						noiseCaptureDuration: 0,
@@ -956,9 +961,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 				function createPeerConnection(peer: string, initiator: boolean) {
 					console.log('CreatePeerConnection: ', peer, initiator);
-					if (audioElements.current[peer]) {
-						disconnectAudioElement(peer);
-					}
+				
 					const connection = new Peer({
 						stream,
 						initiator, // @ts-ignore-line
@@ -1028,6 +1031,9 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 							audio.setSinkId(settingsRef.current.speaker);
 						}
 
+						if (audioElements.current[peer]) {
+							disconnectAudioElement(peer);
+						}
 						audioElements.current[peer] = {
 							dummyAudioElement: dummyAudio,
 							audioElement: audio,
@@ -1091,7 +1097,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				}
 
 				socket.on('join', async (peer: string, client: Client) => {
-					let oldSocketId = playerSocketIdsRef.current[client.clientId];
+					const oldSocketId = playerSocketIdsRef.current[client.clientId];
 					if (oldSocketId && audioElements.current[oldSocketId]) {
 						disconnectAudioElement(oldSocketId);
 					}
@@ -1202,7 +1208,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		playerSocketIdsRef.current = playerSocketIds;
 		const handledPeerIds: string[] = [];
 		let foundRadioUser = false;
-		let tempTalking = { ...otherTalking };
+		const tempTalking = { ...otherTalking };
 		let talkingUpdate = false;
 		for (const player of otherPlayers) {
 			const peerId = playerSocketIds[player.clientId];
@@ -1267,6 +1273,18 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			updateLobby();
 		}
 	}, [connect?.connect, gameState?.lobbyCode, connected]);
+
+	useEffect(() => {
+		if (myPlayer?.shiftedColor != -1) {
+			connectionStuff.current.socket?.emit('VAD', false);
+			setTalking(false)
+		}
+	}, [myPlayer?.shiftedColor])
+
+	useEffect(() => {
+		if (myPlayer?.shiftedColor == -1 || !talking)
+			connectionStuff.current.socket?.emit('VAD', talking);
+	}, [talking])
 
 	// Connect to P2P negotiator, when game mode change
 	useEffect(() => {
@@ -1352,7 +1370,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 								deafened={deafenedState}
 								muted={mutedState}
 								player={myPlayer}
-								borderColor="#2ecc71"
+								borderColor={myPlayer?.shiftedColor == -1 ? '#2ecc71' : 'gray'}
 								connectionState={connected ? 'connected' : 'disconnected'}
 								isUsingRadio={myPlayer?.isImpostor && impostorRadioClientId.current === myPlayer.clientId}
 								talking={talking}
