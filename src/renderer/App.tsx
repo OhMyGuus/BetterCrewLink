@@ -50,6 +50,7 @@ const useStyles = makeStyles(() => ({
 		backgroundColor: '#1d1a23',
 		top: 0,
 		WebkitAppRegion: 'drag',
+		zIndex: 100,
 	},
 	title: {
 		width: '100%',
