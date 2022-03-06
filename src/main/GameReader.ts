@@ -983,7 +983,7 @@ export default class GameReader {
 	IntToGameCode(input: number): string {
 		if (!input || input === 0) return '';
 		else if (input <= -1000) return this.IntToGameCodeV2Impl(input);
-		//	else if (input > 0) return this.IntToGameCodeV1Impl(input); // && this.loadedMod.id == 'POLUS_GG')
+		else if (input > 0) return this.IntToGameCodeV1Impl(input); // && this.loadedMod.id == 'POLUS_GG')
 		else return '';
 	}
 
