@@ -53,12 +53,12 @@
 			"microphone_sens_warning": "Si vous diminuez encore la sensibilité, cela pourrait ne pas fonctionner.",
 			"mastervolume": "Volume général",
 			"crewvolume": "Volume des survivants (en tant que fantôme)",
-			"test_speaker_start": "Tester la sortie",
+			"test_speaker_start": "Tester la sortie audio",
 			"test_speaker_stop": "Arrêter le test"
 		},
 		"keyboard": {
 			"title": "Raccourcis Clavier",
-			"push_to_talk": "Presser pour parler",
+			"push_to_talk": "Appuyer pour parler",
 			"mute": "Muet",
 			"deafen": "Sourdine",
 			"impostor_radio": "Vocal imposteur"
@@ -83,7 +83,7 @@
 		"advanced": {
 			"title": "Paramètres avancés",
 			"nat_fix": "Compatiblité NAT",
-			"nat_fix_warning": "Cela permettra de résoudre les problèmes lié au NAT, mais ajoutera un délai puisque cela utilisera un serveur au lieu du mode Peer to Peer (P2P).",
+			"nat_fix_warning": "Cela permettra de résoudre les problèmes liés au NAT, mais ajoutera un délai puisque cela utilisera un serveur au lieu du mode Peer to Peer (P2P).",
 			"change_server": "Changer de serveur vocal",
 			"voice_server": "Serveur vocal",
 			"invalid_url": "URL invalide",
@@ -144,7 +144,7 @@
 		"error": "ERREUR",
 		"error_admin": "Impossible de se connecter à Among Us.\nVeuillez rouvrir BetterCrewLink en tant qu'administrateur.",
 		"error_platform": "Aucune plateforme détectée",
-		"error_unsupport": "Votre version de Among Us n'est pas supportée par BetterCrewLink."
+		"error_unsupport": "Votre version de Among Us n'est pas supporté par BetterCrewLink."
 	},
 	"platform": {
 		"steam": "Steam",
