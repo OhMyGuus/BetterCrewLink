@@ -753,6 +753,8 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 		});
 	}, []);
 
+	if (!open) { return <></> }
+	
 	return (
 		<Box className={classes.root}>
 			<div className={classes.header}>
