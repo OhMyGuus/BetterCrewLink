@@ -26,7 +26,7 @@
 			"public_lobby": {
 				"change_settings": "Changer les Infos du Lobby",
 				"title": "Titre",
-				"enabled": "Le Lobby est public",
+				"enabled": "Le lobby est public",
 				"mods": "Mods",
 				"language": "Langue",
 				"enable_warning": "Activer cette option rendra votre lobby public aux autres utilisateurs de BetterCrewLink !",
