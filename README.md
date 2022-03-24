@@ -1,3 +1,8 @@
+> ## ⚠️ WARNING:
+> The README is outdated meaning some information contained here is not updated, the same thing goes for the [Wiki](https://github.com/OhMyGuus/BetterCrewLink/wiki).
+> 
+> This is happening because we are planning making some huge rework on the README, so be careful with some informations when reading, maybe they are outdated.
+
 <br />
 <p align="center">
   <a href="https://github.com/OhMyGuus/BetterCrewLink">
