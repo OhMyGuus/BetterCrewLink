@@ -777,50 +777,51 @@ export default class GameReader {
 	}
 
 	joinGame(code: string, server: string): boolean {
-		if (
-			!this.amongUs ||
-			!this.initializedWrite ||
-			server.length > 15 ||
-			!this.offsets ||
-			this.is_64bit
-			// || this.loadedMod.id === 'POLUS_GG'
-		) {
-			return false;
-		}
-		const innerNetClient = this.readMemory<number>(
-			'ptr',
-			this.gameAssembly!.modBaseAddr,
-			this.offsets!.innerNetClient.base
-		);
-		this.writeString(this.shellcodeAddr + 0x40, server);
-		writeMemory(
-			this.amongUs.handle,
-			innerNetClient + this.offsets.innerNetClient.networkAddress,
-			this.shellcodeAddr + 0x40,
-			'int32'
-		);
-		writeMemory(
-			this.amongUs.handle,
-			innerNetClient + this.offsets.innerNetClient.onlineScene,
-			this.shellcodeAddr + 0x70,
-			'int32'
-		);
-		writeMemory(
-			this.amongUs.handle,
-			innerNetClient + this.offsets.innerNetClient.mainMenuScene,
-			this.shellcodeAddr + 0x95,
-			'int32'
-		);
-		writeMemory(this.amongUs.handle, innerNetClient + this.offsets.innerNetClient.networkPort, 22023, 'int32');
-		writeMemory(this.amongUs.handle, innerNetClient + this.offsets.innerNetClient.gameMode, 1, 'int32');
-		writeMemory(
-			this.amongUs.handle,
-			innerNetClient + this.offsets.innerNetClient.gameId,
-			this.gameCodeToInt(code),
-			'int32'
-		);
-		writeMemory(this.amongUs.handle, this.shellcodeAddr + 0x30, 1, 'int32'); // call connect function
-		return true;
+		return false;
+		// if (
+		// 	!this.amongUs ||
+		// 	!this.initializedWrite ||
+		// 	server.length > 15 ||
+		// 	!this.offsets ||
+		// 	this.is_64bit
+		// 	// || this.loadedMod.id === 'POLUS_GG'
+		// ) {
+		// 	return false;
+		// }
+		// const innerNetClient = this.readMemory<number>(
+		// 	'ptr',
+		// 	this.gameAssembly!.modBaseAddr,
+		// 	this.offsets!.innerNetClient.base
+		// );
+		// this.writeString(this.shellcodeAddr + 0x40, server);
+		// writeMemory(
+		// 	this.amongUs.handle,
+		// 	innerNetClient + this.offsets.innerNetClient.networkAddress,
+		// 	this.shellcodeAddr + 0x40,
+		// 	'int32'
+		// );
+		// writeMemory(
+		// 	this.amongUs.handle,
+		// 	innerNetClient + this.offsets.innerNetClient.onlineScene,
+		// 	this.shellcodeAddr + 0x70,
+		// 	'int32'
+		// );
+		// writeMemory(
+		// 	this.amongUs.handle,
+		// 	innerNetClient + this.offsets.innerNetClient.mainMenuScene,
+		// 	this.shellcodeAddr + 0x95,
+		// 	'int32'
+		// );
+		// writeMemory(this.amongUs.handle, innerNetClient + this.offsets.innerNetClient.networkPort, 22023, 'int32');
+		// writeMemory(this.amongUs.handle, innerNetClient + this.offsets.innerNetClient.gameMode, 1, 'int32');
+		// writeMemory(
+		// 	this.amongUs.handle,
+		// 	innerNetClient + this.offsets.innerNetClient.gameId,
+		// 	this.gameCodeToInt(code),
+		// 	'int32'
+		// );
+		// writeMemory(this.amongUs.handle, this.shellcodeAddr + 0x30, 1, 'int32'); // call connect function
+		// return true;
 	}
 
 	loadColors(): void {
