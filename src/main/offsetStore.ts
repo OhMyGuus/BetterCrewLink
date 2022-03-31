@@ -166,7 +166,7 @@ export default {
 			struct: [
 				{ type: 'SKIP', skip: 0x10, name: 'unused' },
 				{ type: 'UINT', name: 'id' }, // 0x10
-				{ type: 'SKIP', skip: 4, name: 'unused1' }, // 0x14
+				{ type: 'SKIP', skip: 0x14, name: 'unused1' }, // 0x14
 				{ type: 'UINT', name: 'outfitsPtr' }, // 0x18
 				{ type: 'SKIP', skip: 4, name: 'unused2' }, //
 				{ type: 'UINT', name: 'playerLevel' }, // 0x20
@@ -179,19 +179,19 @@ export default {
 				{ type: 'SKIP', skip: 4, name: 'unused' },
 				{ type: 'UINT', name: 'objectPtr' }, //0x40
 			],
-			isDummy: [0x111],
-			isLocal: [0x88],
-			localX: [0xa0, 0x6c],
-			localY: [0xa0, 0x70],
-			remoteX: [0xa0, 0x58],
-			remoteY: [0xa0, 0x5c],
-			bufferLength: 80,
+			isDummy: [0x139],
+			isLocal: [0xB0],
+			localX: [0xC8, 0x6c],
+			localY: [0xC8, 0x70],
+			remoteX: [0xC8, 0x58],
+			remoteY: [0xC8, 0x5c],
+			bufferLength: 96,
 			offsets: [0, 0],
-			inVent: [0x44],
+			inVent: [0x6C],
 			clientId: [0x28],
-			currentOutfit: [0x40],
+			currentOutfit: [0x68],
 			roleTeam: [0x48],
-			nameText: [0x78, 0xD8],
+			nameText: [0xA0, 0xD8],
 			outfit: {
 				colorId: [0x14],
 				hatId: [0x18],
@@ -217,7 +217,7 @@ export default {
 				addressOffset: 4,
 			},
 			shipStatus: {
-				sig: '48 8B 05 ? ? ? ? 48 8B 5C 24 ? 48 8B 6C 24 ? 48 8B 74 24 ? 48 8B 88 ? ? ? ? 48 89 39 48 83 C4 20 5F',
+				sig: '48 8B 05 ? ? ? ? 48 8B 90 ? ? ? ? 48 8B 0A 48 85 C9 74 ?',
 				patternOffset: 3,
 				addressOffset: 4,
 			},
