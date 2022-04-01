@@ -16,7 +16,7 @@ import {
 import Struct from 'structron';
 import { IpcOverlayMessages, IpcRendererMessages } from '../common/ipc-messages';
 import { GameState, AmongUsState, Player } from '../common/AmongUsState';
-import offsetStore, { IOffsets, TempFixOffsets5, TempFixOffsets6 } from './offsetStore';
+import offsetStore, { IOffsets, TempFixOffsets5, TempFixOffsets6, TempFixOffsets7 } from './offsetStore';
 import Errors from '../common/Errors';
 import { CameraLocation, MapType } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
@@ -503,6 +503,13 @@ export default class GameReader {
 		// }
 		this.colorsInitialized = false;
 		console.log('serverManager_currentServer', this.offsets.serverManager_currentServer[0].toString(16));
+
+		if (innerNetClient === 30104372 ||
+			innerNetClient == 30001864 ||
+			innerNetClient == 30155956 ||
+			innerNetClient == 29580672) {
+			this.offsets = TempFixOffsets7(this.offsets);
+		}
 		if (innerNetClient === 0x2c6c278) {
 			// temp fix for older game until I added more sigs.. //
 			this.disableWriting = true;

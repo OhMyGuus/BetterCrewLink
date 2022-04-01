@@ -516,7 +516,6 @@ export function TempFixOffsets5(offsetsOld: IOffsets): IOffsets {
 	offsets.shipstatus_allDoors = [0x84];
 	offsets.shipStatus_map = [0xe4];
 	offsets.lightRadius = [0x54, 0x1c];
-	
 	return offsets;
 }
 
@@ -530,6 +529,32 @@ export function TempFixOffsets6(offsetsOld: IOffsets): IOffsets {
 	offsets.innerNetClient.gameState = 0x78;
 	offsets.innerNetClient.onlineScene = 0x88;
 	offsets.innerNetClient.mainMenuScene = 0x8C;
+	return offsets;
+}
 
+
+export function TempFixOffsets7(offsetsOld: IOffsets): IOffsets {
+	console.log("TempFixed7")
+	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
+	offsets.player.struct = [
+		{ type: 'SKIP', skip: 8, name: 'unused' },
+		{ type: 'UINT', name: 'id' },
+		{ type: 'UINT', name: 'outfitsPtr' },
+		{ type: 'UINT', name: 'playerLevel' },
+		{ type: 'UINT', name: 'disconnected' },
+		{ type: 'UINT', name: 'rolePtr' },
+		{ type: 'UINT', name: 'taskPtr' },
+		{ type: 'BYTE', name: 'dead' },
+		{ type: 'SKIP', skip: 3, name: 'unused2' },
+		{ type: 'UINT', name: 'objectPtr' },
+	],
+	offsets.player.isDummy = [0xa9];
+	offsets.player.isLocal =  [0x60];
+	offsets.player.localX =  [0x6c, 80];
+	offsets.player.localY = [0x6c, 84];
+	offsets.player.remoteX =  [0x6c, 60];
+	offsets.player.remoteY =  [0x6c, 64];
+	offsets.player.currentOutfit =  [0x34];
+	offsets.player.nameText =  [0x58, 0x80];
 	return offsets;
 }
