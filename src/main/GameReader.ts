@@ -507,9 +507,21 @@ export default class GameReader {
 		if (innerNetClient === 30104372 ||
 			innerNetClient == 30001864 ||
 			innerNetClient == 30155956 ||
-			innerNetClient == 29580672) {
+			innerNetClient == 29580672 || 
+			innerNetClient == 30160488 ||
+			innerNetClient == 0x2c6c278 ||
+			innerNetClient == 0x1c57f54 ||
+			innerNetClient == 0x1d17f2c ||
+			innerNetClient == 0x1baa960 ||
+			innerNetClient == 0x1D17F2C ||
+			innerNetClient == 29777072 ||
+			innerNetClient == 0x1C9CAC8 ||
+			innerNetClient == 0x1d9dbb4 ||
+			innerNetClient == 0x1e247c4 // Moving this soon to a new repo
+			) {
 			this.offsets = TempFixOffsets7(this.offsets);
 		}
+		
 		if (innerNetClient === 0x2c6c278) {
 			// temp fix for older game until I added more sigs.. //
 			this.disableWriting = true;
