@@ -557,6 +557,6 @@ export function TempFixOffsets7(offsetsOld: IOffsets): IOffsets {
 	offsets.player.currentOutfit = [0x34];
 	offsets.player.nameText = [0x58, 0x80];
 	offsets.gameOptions_MapId = [0x10];
-	offsets.gameOptions_MaxPLayers = [0x28];
+	offsets.gameOptions_MaxPLayers = [0x8];
 	return offsets;
 }
