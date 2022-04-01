@@ -143,7 +143,7 @@ export default {
 		playerControl_GameOptions: [0xffff, 0xb8, 0x8],
 		gameOptions_MapId: [0x18],
 		gameOptions_MaxPLayers: [0x10],
-		serverManager_currentServer: [0xffff, 0xb8, 0x10, 0x20, 0x28],
+		serverManager_currentServer: [0xffff, 0xb8, 0x10, 0x20, 0x10],
 		connectFunc: 0xfff,
 		showModStampFunc: 0xfff,
 		modLateUpdateFunc: 0xff,
@@ -242,8 +242,7 @@ export default {
 			pingMessageString: {},
 			modLateUpdate: {},
 			serverManager: {
-				sig:
-					'48 8B 05 ? ? ? ? F6 80 ? ? ? ? ? 74 18 44 39 A8 ? ? ? ? 75 0F 48 8B C8 E8 ? ? ? ? 48 8B 05 ? ? ? ? 48 85 DB 0F 84 ? ? ? ? ',
+				sig: '48 8B 05 ? ? ? ? 48 89 74 24 ? F6 80 ? ? ? ? 04',
 				patternOffset: 3,
 				addressOffset: 4,
 			},
@@ -548,13 +547,13 @@ export function TempFixOffsets7(offsetsOld: IOffsets): IOffsets {
 		{ type: 'SKIP', skip: 3, name: 'unused2' },
 		{ type: 'UINT', name: 'objectPtr' },
 	],
-	offsets.player.isDummy = [0xa9];
-	offsets.player.isLocal =  [0x60];
-	offsets.player.localX =  [0x6c, 80];
+		offsets.player.isDummy = [0xa9];
+	offsets.player.isLocal = [0x60];
+	offsets.player.localX = [0x6c, 80];
 	offsets.player.localY = [0x6c, 84];
-	offsets.player.remoteX =  [0x6c, 60];
-	offsets.player.remoteY =  [0x6c, 64];
-	offsets.player.currentOutfit =  [0x34];
-	offsets.player.nameText =  [0x58, 0x80];
+	offsets.player.remoteX = [0x6c, 60];
+	offsets.player.remoteY = [0x6c, 64];
+	offsets.player.currentOutfit = [0x34];
+	offsets.player.nameText = [0x58, 0x80];
 	return offsets;
 }

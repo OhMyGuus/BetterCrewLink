@@ -896,7 +896,6 @@ export default class GameReader {
 			this.offsets!.serverManager_currentServer
 		);
 		this.currentServer = this.readString(currentServer);
-		console.log("CURRENTSERVER: ", this.currentServer)
 	}
 
 	readMemory<T>(dataType: DataType, address: number, offsets?: number[] | number, defaultParam?: T): T {
