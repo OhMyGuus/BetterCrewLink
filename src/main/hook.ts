@@ -91,8 +91,8 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 		// Read game memory
 		gameReader = new GameReader(event.sender.send.bind(event.sender));
 		let gotError = false;
-		const frame = () => {
-			const err = gameReader.loop();
+		const frame = async () => {
+			const err = await gameReader.loop();
 			if (err) {
 				// readingGame = false;
 				gotError = true;
@@ -107,7 +107,7 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 				setTimeout(frame, 1000 / 5);
 			}
 		};
-		frame();
+		await frame();
 	} else if (gameReader) {
 		gameReader.amongUs = null;
 		gameReader.checkProcessDelay = 0;

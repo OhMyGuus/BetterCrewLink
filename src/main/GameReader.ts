@@ -16,7 +16,7 @@ import {
 import Struct from 'structron';
 import { IpcOverlayMessages, IpcRendererMessages } from '../common/ipc-messages';
 import { GameState, AmongUsState, Player } from '../common/AmongUsState';
-import offsetStore, { IOffsets, TempFixOffsets5, TempFixOffsets6, TempFixOffsets7 } from './offsetStore';
+import { fetchOffsetLookup, fetchOffsetsJson, IOffsets, IOffsetsLookup, IOffsetsStore, TempFixOffsets5, TempFixOffsets6, TempFixOffsets7 } from './offsetStore';
 import Errors from '../common/Errors';
 import { CameraLocation, MapType } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
@@ -146,7 +146,7 @@ export default class GameReader {
 
 	checkProcessDelay = 0;
 	isLocalGame = false;
-	loop(): string | null {
+	async loop(): Promise<string | null> {
 		if (this.checkProcessDelay-- <= 0) {
 			this.checkProcessDelay = 30;
 			try {
@@ -413,18 +413,37 @@ export default class GameReader {
 		return null;
 	}
 
-	initializeoffsets(): void {
+	async initializeoffsets(): Promise<void> {
 		console.log('INITIALIZEOFFSETS???');
 		this.is_64bit = this.isX64Version();
 		this.shellcodeAddr = -1;
-		this.offsets = this.is_64bit ? offsetStore.x64 : offsetStore.x86;
 		this.initializedWrite = false;
 		this.disableWriting = false;
-		const innerNetClient = this.findPattern(
-			this.offsets.signatures.innerNetClient.sig,
-			this.offsets.signatures.innerNetClient.patternOffset,
-			this.offsets.signatures.innerNetClient.addressOffset
-		);
+
+		var offsetLookups = await fetchOffsetLookup() as IOffsetsLookup;
+		var innerNetClient;
+		if (this.is_64bit) {
+			innerNetClient = this.findPattern(
+				offsetLookups.patterns.x64.innerNetClient.sig,
+				offsetLookups.patterns.x64.innerNetClient.patternOffset,
+				offsetLookups.patterns.x64.innerNetClient.addressOffset
+			); 
+		} else {
+			innerNetClient = this.findPattern(
+				offsetLookups.patterns.x86.innerNetClient.sig,
+				offsetLookups.patterns.x86.innerNetClient.patternOffset,
+				offsetLookups.patterns.x86.innerNetClient.addressOffset
+			); 
+		}
+
+		var localOffsets: IOffsetsStore;
+		if (offsetLookups.versions[innerNetClient]) {
+			localOffsets = await fetchOffsetsJson(offsetLookups.versions[innerNetClient].file);
+		} else {
+			localOffsets = await fetchOffsetsJson(offsetLookups.versions["default"].file); // can't find file for this client, return default
+		}
+		
+		this.offsets = this.is_64bit ? localOffsets.x64 : localOffsets.x86;
 		const meetingHud = this.findPattern(
 			this.offsets.signatures.meetingHud.sig,
 			this.offsets.signatures.meetingHud.patternOffset,
