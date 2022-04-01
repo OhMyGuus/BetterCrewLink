@@ -146,11 +146,11 @@ export default function lobbyBrowser({ t }) {
 					aria-labelledby="alert-dialog-slide-title"
 					aria-describedby="alert-dialog-slide-description"
 				>
-					<DialogTitle id="alert-dialog-slide-title">{t('lobbybrowser.code')}</DialogTitle>
+					<DialogTitle id="alert-dialog-slide-title">Lobby information</DialogTitle>
 					<DialogContent>
 						<DialogContentText id="alert-dialog-slide-description">
 							{code.split('\n').map((i, key) => {
-								return <span key={key}>{i}</span>;
+								return <div key={key}>{i}</div>;
 							})}
 						</DialogContentText>
 					</DialogContent>
@@ -208,7 +208,8 @@ export default function lobbyBrowser({ t }) {
 															row.id,
 															(state: number, codeOrError: string, server: string, publicLobby: PublicLobby) => {
 																if (state === 0) {
-																	ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);
+																	setCode(`${t('lobbybrowser.code')}: ${codeOrError} \n Region: ${server}`);
+																	// ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);
 																} else {
 																	setCode(`Error: ${codeOrError}`);
 																}
@@ -216,7 +217,7 @@ export default function lobbyBrowser({ t }) {
 														);
 													}}
 												>
-													Join
+													Show code
 												</Button>
 												{/* <Button variant="contained" color="secondary" style={{ marginLeft: '5px' }}>
 												report

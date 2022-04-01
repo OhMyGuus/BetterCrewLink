@@ -136,14 +136,14 @@ export default {
 		planetSurveillanceMinigame_currentCamera: [0xd0],
 		planetSurveillanceMinigame_camarasCount: [0xa8, 0x18],
 		surveillanceMinigame_FilteredRoomsCount: [0x78, 0x18],
-		lightRadius: [0x88, 0x34],
+		lightRadius: [0xB0, 0x34],
 		palette: [0xffff, 0xb8],
 		palette_playercolor: [0x198],
 		palette_shadowColor: [0x1a0],
 		playerControl_GameOptions: [0xffff, 0xb8, 0x8],
 		gameOptions_MapId: [0x18],
 		gameOptions_MaxPLayers: [0x10],
-		serverManager_currentServer: [0xffff, 0xb8, 0x10, 0x20, 0x28],
+		serverManager_currentServer: [0xffff, 0xb8, 0x10, 0x20, 0x10],
 		connectFunc: 0xfff,
 		showModStampFunc: 0xfff,
 		modLateUpdateFunc: 0xff,
@@ -166,7 +166,7 @@ export default {
 			struct: [
 				{ type: 'SKIP', skip: 0x10, name: 'unused' },
 				{ type: 'UINT', name: 'id' }, // 0x10
-				{ type: 'SKIP', skip: 4, name: 'unused1' }, // 0x14
+				{ type: 'SKIP', skip: 0x14, name: 'unused1' }, // 0x14
 				{ type: 'UINT', name: 'outfitsPtr' }, // 0x18
 				{ type: 'SKIP', skip: 4, name: 'unused2' }, //
 				{ type: 'UINT', name: 'playerLevel' }, // 0x20
@@ -179,19 +179,19 @@ export default {
 				{ type: 'SKIP', skip: 4, name: 'unused' },
 				{ type: 'UINT', name: 'objectPtr' }, //0x40
 			],
-			isDummy: [0x111],
-			isLocal: [0x88],
-			localX: [0xa0, 0x6c],
-			localY: [0xa0, 0x70],
-			remoteX: [0xa0, 0x58],
-			remoteY: [0xa0, 0x5c],
-			bufferLength: 80,
+			isDummy: [0x139],
+			isLocal: [0xB0],
+			localX: [0xC8, 0x6c],
+			localY: [0xC8, 0x70],
+			remoteX: [0xC8, 0x58],
+			remoteY: [0xC8, 0x5c],
+			bufferLength: 96,
 			offsets: [0, 0],
-			inVent: [0x44],
+			inVent: [0x6C],
 			clientId: [0x28],
-			currentOutfit: [0x40],
+			currentOutfit: [0x68],
 			roleTeam: [0x48],
-			nameText: [0x78, 0xD8],
+			nameText: [0xA0, 0xD8],
 			outfit: {
 				colorId: [0x14],
 				hatId: [0x18],
@@ -217,7 +217,7 @@ export default {
 				addressOffset: 4,
 			},
 			shipStatus: {
-				sig: '48 8B 05 ? ? ? ? 48 8B 5C 24 ? 48 8B 6C 24 ? 48 8B 74 24 ? 48 8B 88 ? ? ? ? 48 89 39 48 83 C4 20 5F',
+				sig: '48 8B 05 ? ? ? ? 48 8B 90 ? ? ? ? 48 8B 0A 48 85 C9 74 ?',
 				patternOffset: 3,
 				addressOffset: 4,
 			},
@@ -242,8 +242,7 @@ export default {
 			pingMessageString: {},
 			modLateUpdate: {},
 			serverManager: {
-				sig:
-					'48 8B 05 ? ? ? ? F6 80 ? ? ? ? ? 74 18 44 39 A8 ? ? ? ? 75 0F 48 8B C8 E8 ? ? ? ? 48 8B 05 ? ? ? ? 48 85 DB 0F 84 ? ? ? ? ',
+				sig: '48 8B 05 ? ? ? ? 48 89 74 24 ? F6 80 ? ? ? ? 04',
 				patternOffset: 3,
 				addressOffset: 4,
 			},
@@ -274,11 +273,11 @@ export default {
 		palette: [0xffff, 0x5c],
 		palette_playercolor: [0x194],
 		palette_shadowColor: [0x198],
-		lightRadius: [0x60, 0x1c],
+		lightRadius: [0x78, 0x1c],
 		playerControl_GameOptions: [0xffff, 0x5c, 0x4],
-		gameOptions_MapId: [0x10],
-		gameOptions_MaxPLayers: [0x8],
-		serverManager_currentServer: [0xffff, 0x5c, 0x8, 0x10, 0x14],
+		gameOptions_MapId: [0x30],
+		gameOptions_MaxPLayers: [0x28],
+		serverManager_currentServer: [0xffff, 0x5c, 0x8, 0x10, 0x8],
 		innerNetClient: {
 			base: [0x1c57f54, 0x5c, 0x0],
 			networkAddress: 0x38,
@@ -295,6 +294,7 @@ export default {
 			struct: [
 				{ type: 'SKIP', skip: 8, name: 'unused' },
 				{ type: 'UINT', name: 'id' },
+				{ type: 'SKIP', skip: 8, name: 'unused' },
 				{ type: 'UINT', name: 'outfitsPtr' },
 				{ type: 'UINT', name: 'playerLevel' },
 				{ type: 'UINT', name: 'disconnected' },
@@ -304,19 +304,19 @@ export default {
 				{ type: 'SKIP', skip: 3, name: 'unused2' },
 				{ type: 'UINT', name: 'objectPtr' },
 			],
-			isDummy: [0xa9],
-			isLocal: [0x60],
-			localX: [0x6c, 80],
-			localY: [0x6c, 84],
-			remoteX: [0x6c, 60],
-			remoteY: [0x6c, 64],
+			isDummy: [0xC1],
+			isLocal: [0x78],
+			localX: [0x84, 80],
+			localY: [0x84, 84],
+			remoteX: [0x84, 60],
+			remoteY: [0x84, 64],
 			bufferLength: 56,
 			offsets: [0, 0],
-			inVent: [0x38],
+			inVent: [0x4C],
 			clientId: [0x1c],
-			currentOutfit: [0x34],
+			currentOutfit: [0x48],
 			roleTeam: [0x3C],
-			nameText: [0x58, 0x80],
+			nameText: [0x70, 0x80],
 			outfit: {
 				colorId: [0x0c],
 				hatId: [0x10],
@@ -343,7 +343,7 @@ export default {
 				addressOffset: 0,
 			},
 			gameData: {
-				sig: 'A1 ? ? ? ? 83 C4 04 8B 40 5C 8B 00 85 C0 0F 84 ? ? ? ? 6A 00 FF', //'8B 0D ? ? ? ? 8B F0 83 C4 10 8B 49 5C 8B 01',
+				sig: 'A1 ? ? ? ? 83 C4 04 8B 40 5C 8B 00 85 C0 0F 84 ? ? ? ? 6A 00 FF 75 ? 50', //'8B 0D ? ? ? ? 8B F0 83 C4 10 8B 49 5C 8B 01',
 				patternOffset: 1,
 				addressOffset: 0,
 			},
@@ -386,7 +386,7 @@ export default {
 				addressOffset: 0,
 			},
 			serverManager: {
-				sig: 'A1 ? ? ? ? 89 55 E0 F6 80 ? ? ? ? ? 74 14 83 78 74 00 75 0E 50 E8 ? ? ? ? A1 ? ? ? ? ',
+				sig: 'A1 ? ? ? ? 89 55 E0 F6 80 ? ? ? ? ? 74 14 83 78 74 00 75 0E 50 E8 ? ? ? ? A1 ? ? ? ? 83 C4 ? 8B 40 ? 6A',
 				patternOffset: 1,
 				addressOffset: 0,
 			},
@@ -515,7 +515,6 @@ export function TempFixOffsets5(offsetsOld: IOffsets): IOffsets {
 	offsets.shipstatus_allDoors = [0x84];
 	offsets.shipStatus_map = [0xe4];
 	offsets.lightRadius = [0x54, 0x1c];
-	
 	return offsets;
 }
 
@@ -529,6 +528,33 @@ export function TempFixOffsets6(offsetsOld: IOffsets): IOffsets {
 	offsets.innerNetClient.gameState = 0x78;
 	offsets.innerNetClient.onlineScene = 0x88;
 	offsets.innerNetClient.mainMenuScene = 0x8C;
+	return offsets;
+}
 
+
+export function TempFixOffsets7(offsetsOld: IOffsets): IOffsets {
+	console.log("TempFixed7")
+	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
+	offsets.player.struct = [
+		{ type: 'SKIP', skip: 8, name: 'unused' },
+		{ type: 'UINT', name: 'id' },
+		{ type: 'UINT', name: 'outfitsPtr' },
+		{ type: 'UINT', name: 'playerLevel' },
+		{ type: 'UINT', name: 'disconnected' },
+		{ type: 'UINT', name: 'rolePtr' },
+		{ type: 'UINT', name: 'taskPtr' },
+		{ type: 'BYTE', name: 'dead' },
+		{ type: 'SKIP', skip: 3, name: 'unused2' },
+		{ type: 'UINT', name: 'objectPtr' },
+	];
+	offsets.player.inVent = [0x38];
+	offsets.player.isDummy = [0xa9];
+	offsets.player.isLocal = [0x60];
+	offsets.player.localX = [0x6c, 80];
+	offsets.player.localY = [0x6c, 84];
+	offsets.player.remoteX = [0x6c, 60];
+	offsets.player.remoteY = [0x6c, 64];
+	offsets.player.currentOutfit = [0x34];
+	offsets.player.nameText = [0x58, 0x80];
 	return offsets;
 }

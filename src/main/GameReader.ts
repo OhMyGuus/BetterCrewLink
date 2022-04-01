@@ -16,7 +16,7 @@ import {
 import Struct from 'structron';
 import { IpcOverlayMessages, IpcRendererMessages } from '../common/ipc-messages';
 import { GameState, AmongUsState, Player } from '../common/AmongUsState';
-import offsetStore, { IOffsets, TempFixOffsets5, TempFixOffsets6 } from './offsetStore';
+import offsetStore, { IOffsets, TempFixOffsets5, TempFixOffsets6, TempFixOffsets7 } from './offsetStore';
 import Errors from '../common/Errors';
 import { CameraLocation, MapType } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
@@ -503,6 +503,13 @@ export default class GameReader {
 		// }
 		this.colorsInitialized = false;
 		console.log('serverManager_currentServer', this.offsets.serverManager_currentServer[0].toString(16));
+
+		if (innerNetClient === 30104372 ||
+			innerNetClient == 30001864 ||
+			innerNetClient == 30155956 ||
+			innerNetClient == 29580672) {
+			this.offsets = TempFixOffsets7(this.offsets);
+		}
 		if (innerNetClient === 0x2c6c278) {
 			// temp fix for older game until I added more sigs.. //
 			this.disableWriting = true;
@@ -777,50 +784,51 @@ export default class GameReader {
 	}
 
 	joinGame(code: string, server: string): boolean {
-		if (
-			!this.amongUs ||
-			!this.initializedWrite ||
-			server.length > 15 ||
-			!this.offsets ||
-			this.is_64bit
-			// || this.loadedMod.id === 'POLUS_GG'
-		) {
-			return false;
-		}
-		const innerNetClient = this.readMemory<number>(
-			'ptr',
-			this.gameAssembly!.modBaseAddr,
-			this.offsets!.innerNetClient.base
-		);
-		this.writeString(this.shellcodeAddr + 0x40, server);
-		writeMemory(
-			this.amongUs.handle,
-			innerNetClient + this.offsets.innerNetClient.networkAddress,
-			this.shellcodeAddr + 0x40,
-			'int32'
-		);
-		writeMemory(
-			this.amongUs.handle,
-			innerNetClient + this.offsets.innerNetClient.onlineScene,
-			this.shellcodeAddr + 0x70,
-			'int32'
-		);
-		writeMemory(
-			this.amongUs.handle,
-			innerNetClient + this.offsets.innerNetClient.mainMenuScene,
-			this.shellcodeAddr + 0x95,
-			'int32'
-		);
-		writeMemory(this.amongUs.handle, innerNetClient + this.offsets.innerNetClient.networkPort, 22023, 'int32');
-		writeMemory(this.amongUs.handle, innerNetClient + this.offsets.innerNetClient.gameMode, 1, 'int32');
-		writeMemory(
-			this.amongUs.handle,
-			innerNetClient + this.offsets.innerNetClient.gameId,
-			this.gameCodeToInt(code),
-			'int32'
-		);
-		writeMemory(this.amongUs.handle, this.shellcodeAddr + 0x30, 1, 'int32'); // call connect function
-		return true;
+		return false;
+		// if (
+		// 	!this.amongUs ||
+		// 	!this.initializedWrite ||
+		// 	server.length > 15 ||
+		// 	!this.offsets ||
+		// 	this.is_64bit
+		// 	// || this.loadedMod.id === 'POLUS_GG'
+		// ) {
+		// 	return false;
+		// }
+		// const innerNetClient = this.readMemory<number>(
+		// 	'ptr',
+		// 	this.gameAssembly!.modBaseAddr,
+		// 	this.offsets!.innerNetClient.base
+		// );
+		// this.writeString(this.shellcodeAddr + 0x40, server);
+		// writeMemory(
+		// 	this.amongUs.handle,
+		// 	innerNetClient + this.offsets.innerNetClient.networkAddress,
+		// 	this.shellcodeAddr + 0x40,
+		// 	'int32'
+		// );
+		// writeMemory(
+		// 	this.amongUs.handle,
+		// 	innerNetClient + this.offsets.innerNetClient.onlineScene,
+		// 	this.shellcodeAddr + 0x70,
+		// 	'int32'
+		// );
+		// writeMemory(
+		// 	this.amongUs.handle,
+		// 	innerNetClient + this.offsets.innerNetClient.mainMenuScene,
+		// 	this.shellcodeAddr + 0x95,
+		// 	'int32'
+		// );
+		// writeMemory(this.amongUs.handle, innerNetClient + this.offsets.innerNetClient.networkPort, 22023, 'int32');
+		// writeMemory(this.amongUs.handle, innerNetClient + this.offsets.innerNetClient.gameMode, 1, 'int32');
+		// writeMemory(
+		// 	this.amongUs.handle,
+		// 	innerNetClient + this.offsets.innerNetClient.gameId,
+		// 	this.gameCodeToInt(code),
+		// 	'int32'
+		// );
+		// writeMemory(this.amongUs.handle, this.shellcodeAddr + 0x30, 1, 'int32'); // call connect function
+		// return true;
 	}
 
 	loadColors(): void {
