@@ -16,12 +16,11 @@ import {
 import Struct from 'structron';
 import { IpcOverlayMessages, IpcRendererMessages } from '../common/ipc-messages';
 import { GameState, AmongUsState, Player } from '../common/AmongUsState';
-import { fetchOffsetLookup, fetchOffsetsJson, IOffsets, IOffsetsLookup, IOffsetsStore, TempFixOffsets5, TempFixOffsets6, TempFixOffsets7 } from './offsetStore';
+import { fetchOffsetLookup, fetchOffsetsJson, IOffsets, IOffsetsLookup, IOffsetsStore } from './offsetStore';
 import Errors from '../common/Errors';
 import { CameraLocation, MapType } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
 import { RainbowColorId } from '../renderer/cosmetics';
-import { TempFixOffsets, TempFixOffsets2, TempFixOffsets3, TempFixOffsets4 } from './offsetStore';
 import { platform } from 'os';
 import fs from 'fs';
 import path from 'path';
@@ -523,61 +522,61 @@ export default class GameReader {
 		this.colorsInitialized = false;
 		console.log('serverManager_currentServer', this.offsets.serverManager_currentServer[0].toString(16));
 
-		if (innerNetClient === 30104372 ||
-			innerNetClient == 30001864 ||
-			innerNetClient == 30155956 ||
-			innerNetClient == 29580672 || 
-			innerNetClient == 30160488 ||
-			innerNetClient == 0x2c6c278 ||
-			innerNetClient == 0x1c57f54 ||
-			innerNetClient == 0x1d17f2c ||
-			innerNetClient == 0x1baa960 ||
-			innerNetClient == 0x1D17F2C ||
-			innerNetClient == 29777072 ||
-			innerNetClient == 0x1C9CAC8 ||
-			innerNetClient == 0x1d9dbb4 ||
-			innerNetClient == 0x1e247c4 // Moving this soon to a new repo
-			) {
-			this.offsets = TempFixOffsets7(this.offsets);
-		}
-		
-		if (innerNetClient === 0x2c6c278) {
-			// temp fix for older game until I added more sigs.. //
-			this.disableWriting = true;
-			this.oldMeetingHud = true;
-			this.offsets = TempFixOffsets(this.offsets);
-		}
-		if (innerNetClient === 0x1c57f54) {
-			this.disableWriting = true;
-			this.oldMeetingHud = true;
-			// temp fix for older game until I added more sigs.. // 12/9
-			this.offsets = TempFixOffsets2(this.offsets);
-		}
-		if (innerNetClient === 0x1d17f2c) {
-			//6/15
-			this.offsets = TempFixOffsets4(this.offsets);
-		}
+		// if (innerNetClient === 30104372 ||
+		// 	innerNetClient == 30001864 ||
+		// 	innerNetClient == 30155956 ||
+		// 	innerNetClient == 29580672 || 
+		// 	innerNetClient == 30160488 ||
+		// 	innerNetClient == 0x2c6c278 ||
+		// 	innerNetClient == 0x1c57f54 ||
+		// 	innerNetClient == 0x1d17f2c ||
+		// 	innerNetClient == 0x1baa960 ||
+		// 	innerNetClient == 0x1D17F2C ||
+		// 	innerNetClient == 29777072 ||
+		// 	innerNetClient == 0x1C9CAC8 ||
+		// 	innerNetClient == 0x1d9dbb4 ||
+		// 	innerNetClient == 0x1e247c4 // Moving this soon to a new repo
+		// 	) {
+		// 	this.offsets = TempFixOffsets7(this.offsets);
+		// }
 
-		if (innerNetClient === 0x1baa960 || innerNetClient == 0x1D17F2C || innerNetClient == 29777072) {
-			this.offsets = TempFixOffsets5(this.offsets);
-			this.disableWriting = true;
-		}
+		// if (innerNetClient === 0x2c6c278) {
+		// 	// temp fix for older game until I added more sigs.. //
+		// 	this.disableWriting = true;
+		// 	this.oldMeetingHud = true;
+		// 	this.offsets = TempFixOffsets(this.offsets);
+		// }
+		// if (innerNetClient === 0x1c57f54) {
+		// 	this.disableWriting = true;
+		// 	this.oldMeetingHud = true;
+		// 	// temp fix for older game until I added more sigs.. // 12/9
+		// 	this.offsets = TempFixOffsets2(this.offsets);
+		// }
+		// if (innerNetClient === 0x1d17f2c) {
+		// 	//6/15
+		// 	this.offsets = TempFixOffsets4(this.offsets);
+		// }
 
-		if (innerNetClient === 0x1C9CAC8) {
-			this.offsets = TempFixOffsets6(this.offsets);
-		}
+		// if (innerNetClient === 0x1baa960 || innerNetClient == 0x1D17F2C || innerNetClient == 29777072) {
+		// 	this.offsets = TempFixOffsets5(this.offsets);
+		// 	this.disableWriting = true;
+		// }
 
-		if (innerNetClient === 0x1d9dbb4 || innerNetClient === 0x1e247c4) {
-			// temp fix for older game until I added more sigs.. // 25/5
-			this.oldMeetingHud = true;
-			this.offsets = TempFixOffsets3(this.offsets);
-			const gameData = this.findPattern(
-				this.offsets.signatures.gameData.sig,
-				this.offsets.signatures.gameData.patternOffset,
-				this.offsets.signatures.gameData.addressOffset
-			);
-			this.offsets.allPlayersPtr[0] = gameData;
-		}
+		// if (innerNetClient === 0x1C9CAC8) {
+		// 	this.offsets = TempFixOffsets6(this.offsets);
+		// }
+
+		// if (innerNetClient === 0x1d9dbb4 || innerNetClient === 0x1e247c4) {
+		// 	// temp fix for older game until I added more sigs.. // 25/5
+		// 	this.oldMeetingHud = true;
+		// 	this.offsets = TempFixOffsets3(this.offsets);
+		// 	const gameData = this.findPattern(
+		// 		this.offsets.signatures.gameData.sig,
+		// 		this.offsets.signatures.gameData.patternOffset,
+		// 		this.offsets.signatures.gameData.addressOffset
+		// 	);
+		// 	this.offsets.allPlayersPtr[0] = gameData;
+		// }
 		this.PlayerStruct = new Struct();
 		for (const member of this.offsets.player.struct) {
 			if (member.type === 'SKIP' && member.skip) {
