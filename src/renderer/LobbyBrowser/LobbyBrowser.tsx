@@ -217,7 +217,7 @@ export default function lobbyBrowser({ t }) {
 														);
 													}}
 												>
-													Join
+													Show code
 												</Button>
 												{/* <Button variant="contained" color="secondary" style={{ marginLeft: '5px' }}>
 												report
