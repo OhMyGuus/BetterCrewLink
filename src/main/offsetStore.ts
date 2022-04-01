@@ -278,7 +278,7 @@ export default {
 		playerControl_GameOptions: [0xffff, 0x5c, 0x4],
 		gameOptions_MapId: [0x10],
 		gameOptions_MaxPLayers: [0x8],
-		serverManager_currentServer: [0xffff, 0x5c, 0x8, 0x10, 0x14],
+		serverManager_currentServer: [0xffff, 0x5c, 0x8, 0x10, 0x8],
 		innerNetClient: {
 			base: [0x1c57f54, 0x5c, 0x0],
 			networkAddress: 0x38,
@@ -387,7 +387,7 @@ export default {
 				addressOffset: 0,
 			},
 			serverManager: {
-				sig: 'A1 ? ? ? ? 89 55 E0 F6 80 ? ? ? ? ? 74 14 83 78 74 00 75 0E 50 E8 ? ? ? ? A1 ? ? ? ? ',
+				sig: 'A1 ? ? ? ? 89 55 E0 F6 80 ? ? ? ? ? 74 14 83 78 74 00 75 0E 50 E8 ? ? ? ? A1 ? ? ? ? 83 C4 ? 8B 40 ? 6A',
 				patternOffset: 1,
 				addressOffset: 0,
 			},
