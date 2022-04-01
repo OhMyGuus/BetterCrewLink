@@ -312,7 +312,7 @@ export default {
 			remoteY: [0x84, 64],
 			bufferLength: 56,
 			offsets: [0, 0],
-			inVent: [0x38],
+			inVent: [0x4C],
 			clientId: [0x1c],
 			currentOutfit: [0x48],
 			roleTeam: [0x3C],
@@ -546,8 +546,9 @@ export function TempFixOffsets7(offsetsOld: IOffsets): IOffsets {
 		{ type: 'BYTE', name: 'dead' },
 		{ type: 'SKIP', skip: 3, name: 'unused2' },
 		{ type: 'UINT', name: 'objectPtr' },
-	],
-		offsets.player.isDummy = [0xa9];
+	];
+	offsets.player.inVent = [0x38];
+	offsets.player.isDummy = [0xa9];
 	offsets.player.isLocal = [0x60];
 	offsets.player.localX = [0x6c, 80];
 	offsets.player.localY = [0x6c, 84];
