@@ -3984,9 +3984,9 @@ electron-osx-sign@^0.5.0:
     minimist "^1.2.0"
     plist "^3.0.1"
 
-"electron-overlay-window@git://github.com/OhMyGuus/electron-overlay-window":
+"electron-overlay-window@https://github.com/OhMyGuus/electron-overlay-window":
   version "1.0.4"
-  resolved "git://github.com/OhMyGuus/electron-overlay-window#fb4953eb4f96179f306f92756bb239222c80c83c"
+  resolved "https://github.com/OhMyGuus/electron-overlay-window#fb4953eb4f96179f306f92756bb239222c80c83c"
   dependencies:
     "@types/throttle-debounce" "2.x.x"
     node-gyp-build "4.x.x"
@@ -6721,9 +6721,9 @@ memory-fs@^0.5.0:
     errno "^0.1.3"
     readable-stream "^2.0.1"
 
-"memoryjs@git://github.com/OhMyGuus/memoryjs":
+"memoryjs@https://github.com/OhMyGuus/memoryjs":
   version "0.0.6"
-  resolved "git://github.com/OhMyGuus/memoryjs#8dc07d284202f5e64107a4c2eb44f97cd881434b"
+  resolved "https://github.com/OhMyGuus/memoryjs#8dc07d284202f5e64107a4c2eb44f97cd881434b"
   dependencies:
     bindings "^1.5.0"
     concentrate "^0.2.3"
@@ -7085,9 +7085,9 @@ node-gyp-build@4.x.x:
   resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.2.3.tgz#ce6277f853835f718829efb47db20f3e4d9c4739"
   integrity sha512-MN6ZpzmfNCRM+3t57PTJHgHyw/h4OWnZ6mR8P5j/uZtqQr46RRuDE/P+g3n0YR/AiYXeWixZZzaip77gdICfRg==
 
-"node-keyboard-watcher@git://github.com/OhMyGuus/node-keyboard-watcher":
+"node-keyboard-watcher@https://github.com/OhMyGuus/node-keyboard-watcher":
   version "1.0.3"
-  resolved "git://github.com/OhMyGuus/node-keyboard-watcher#ff96a92bfd5aa76836858ec34ea8dc4aefdbeee5"
+  resolved "https://github.com/OhMyGuus/node-keyboard-watcher#ff96a92bfd5aa76836858ec34ea8dc4aefdbeee5"
   dependencies:
     "@types/throttle-debounce" "2.x.x"
     bindings "*"
