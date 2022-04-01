@@ -141,8 +141,8 @@ export default {
 		palette_playercolor: [0x198],
 		palette_shadowColor: [0x1a0],
 		playerControl_GameOptions: [0xffff, 0xb8, 0x8],
-		gameOptions_MapId: [0x18],
-		gameOptions_MaxPLayers: [0x10],
+		gameOptions_MapId: [0x38],
+		gameOptions_MaxPLayers: [0x30],
 		serverManager_currentServer: [0xffff, 0xb8, 0x10, 0x20, 0x10],
 		connectFunc: 0xfff,
 		showModStampFunc: 0xfff,
@@ -556,5 +556,7 @@ export function TempFixOffsets7(offsetsOld: IOffsets): IOffsets {
 	offsets.player.remoteY = [0x6c, 64];
 	offsets.player.currentOutfit = [0x34];
 	offsets.player.nameText = [0x58, 0x80];
+	offsets.gameOptions_MapId = [0x10];
+	offsets.gameOptions_MaxPLayers = [0x8];
 	return offsets;
 }
