@@ -535,9 +535,27 @@ export default class GameReader {
 		// 	innerNetClient == 29777072 ||
 		// 	innerNetClient == 0x1C9CAC8 ||
 		// 	innerNetClient == 0x1d9dbb4 ||
-		// 	innerNetClient == 0x1e247c4 // Moving this soon to a new repo
+		// 	innerNetClient == 0x1e247c4 || // Moving this soon to a new repo
+		// 	innerNetClient == 29537396 // 2022.2.24e
 		// 	) {
 		// 	this.offsets = TempFixOffsets7(this.offsets);
+		// }
+		
+		// if (innerNetClient === 0x2c6c278) {
+			// temp fix for older game until I added more sigs.. //
+		// 	this.disableWriting = true;
+		// 	this.oldMeetingHud = true;
+		// 	this.offsets = TempFixOffsets(this.offsets);
+		// }
+		// if (innerNetClient === 0x1c57f54) {
+		// 	this.disableWriting = true;
+		// 	this.oldMeetingHud = true;
+		// 	// temp fix for older game until I added more sigs.. // 12/9
+		// 	this.offsets = TempFixOffsets2(this.offsets);
+		// }
+		// if (innerNetClient === 0x1d17f2c) {
+		// 	//6/15
+		// 	this.offsets = TempFixOffsets4(this.offsets);
 		// }
 
 		// if (innerNetClient === 0x2c6c278) {

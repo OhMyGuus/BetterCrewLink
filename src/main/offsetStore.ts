@@ -269,7 +269,6 @@ export async function fetchOffsetsJson(filename: string): Promise<IOffsetsStore>
 // 	return offsets;
 // }
 
-
 // export function TempFixOffsets7(offsetsOld: IOffsets): IOffsets {
 // 	console.log("TempFixed7")
 // 	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
@@ -294,5 +293,7 @@ export async function fetchOffsetsJson(filename: string): Promise<IOffsetsStore>
 // 	offsets.player.remoteY = [0x6c, 64];
 // 	offsets.player.currentOutfit = [0x34];
 // 	offsets.player.nameText = [0x58, 0x80];
+// 	offsets.gameOptions_MapId = [0x10];
+// 	offsets.gameOptions_MaxPLayers = [0x8];
 // 	return offsets;
 // }
