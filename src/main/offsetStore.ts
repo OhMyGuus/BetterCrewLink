@@ -1,10 +1,5 @@
 import fetch from 'node-fetch'
 
-export interface IOffsetsStore {
-	x64: IOffsets;
-	x86: IOffsets;
-}
-
 export interface IOffsetsLookup {
 	patterns: {
 		x64: { innerNetClient: ISignature };
@@ -137,11 +132,11 @@ export async function fetchOffsetLookup(): Promise<IOffsetsLookup> {
 		.then((data) => { return data as IOffsetsLookup })
 }
 
-export async function fetchOffsetsJson(filename: string): Promise<IOffsetsStore> {
+export async function fetchOffsetsJson(filename: string): Promise<IOffsets> {
 	console.log(`Fetching file: ${filename}`);
 	return fetch(`${BASE_URL}/${filename}`)
 		.then((response) => response.json())
-		.then((data) => { return data as IOffsetsStore })
+		.then((data) => { return data as IOffsets })
 }
 
 // export function TempFixOffsets(offsetsOld: IOffsets): IOffsets {

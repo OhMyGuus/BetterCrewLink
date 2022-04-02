@@ -16,7 +16,7 @@ import {
 import Struct from 'structron';
 import { IpcOverlayMessages, IpcRendererMessages } from '../common/ipc-messages';
 import { GameState, AmongUsState, Player } from '../common/AmongUsState';
-import { fetchOffsetLookup, fetchOffsetsJson, IOffsets, IOffsetsLookup, IOffsetsStore } from './offsetStore';
+import { fetchOffsetLookup, fetchOffsetsJson, IOffsets, IOffsetsLookup } from './offsetStore';
 import Errors from '../common/Errors';
 import { CameraLocation, MapType } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
@@ -435,14 +435,11 @@ export default class GameReader {
 			); 
 		}
 
-		var localOffsets: IOffsetsStore;
 		if (offsetLookups.versions[innerNetClient]) {
-			localOffsets = await fetchOffsetsJson(offsetLookups.versions[innerNetClient].file);
+			this.offsets = await fetchOffsetsJson(offsetLookups.versions[innerNetClient].file);
 		} else {
-			localOffsets = await fetchOffsetsJson(offsetLookups.versions["default"].file); // can't find file for this client, return default
+			this.offsets = await fetchOffsetsJson(offsetLookups.versions["default"].file); // can't find file for this client, return default
 		}
-		
-		this.offsets = this.is_64bit ? localOffsets.x64 : localOffsets.x86;
 
 		this.disableWriting = this.offsets.disableWriting;
 		this.oldMeetingHud = this.offsets.oldMeetingHud;
