@@ -443,6 +443,10 @@ export default class GameReader {
 		}
 		
 		this.offsets = this.is_64bit ? localOffsets.x64 : localOffsets.x86;
+
+		this.disableWriting = this.offsets.disableWriting;
+		this.oldMeetingHud = this.offsets.oldMeetingHud;
+
 		const meetingHud = this.findPattern(
 			this.offsets.signatures.meetingHud.sig,
 			this.offsets.signatures.meetingHud.patternOffset,
@@ -547,29 +551,26 @@ export default class GameReader {
 		// 	this.oldMeetingHud = true;
 		// 	this.offsets = TempFixOffsets(this.offsets);
 		// }
+
 		// if (innerNetClient === 0x1c57f54) {
 		// 	this.disableWriting = true;
 		// 	this.oldMeetingHud = true;
 		// 	// temp fix for older game until I added more sigs.. // 12/9
 		// 	this.offsets = TempFixOffsets2(this.offsets);
-		// }
-		// if (innerNetClient === 0x1d17f2c) {
-		// 	//6/15
-		// 	this.offsets = TempFixOffsets4(this.offsets);
 		// }
 
-		// if (innerNetClient === 0x2c6c278) {
-		// 	// temp fix for older game until I added more sigs.. //
-		// 	this.disableWriting = true;
+		// if (innerNetClient === 0x1d9dbb4 || innerNetClient === 0x1e247c4) {
+		// 	// temp fix for older game until I added more sigs.. // 25/5
 		// 	this.oldMeetingHud = true;
-		// 	this.offsets = TempFixOffsets(this.offsets);
+		// 	this.offsets = TempFixOffsets3(this.offsets);
+		// 	const gameData = this.findPattern(
+		// 		this.offsets.signatures.gameData.sig,
+		// 		this.offsets.signatures.gameData.patternOffset,
+		// 		this.offsets.signatures.gameData.addressOffset
+		// 	);
+		// 	this.offsets.allPlayersPtr[0] = gameData;
 		// }
-		// if (innerNetClient === 0x1c57f54) {
-		// 	this.disableWriting = true;
-		// 	this.oldMeetingHud = true;
-		// 	// temp fix for older game until I added more sigs.. // 12/9
-		// 	this.offsets = TempFixOffsets2(this.offsets);
-		// }
+
 		// if (innerNetClient === 0x1d17f2c) {
 		// 	//6/15
 		// 	this.offsets = TempFixOffsets4(this.offsets);
@@ -584,17 +585,7 @@ export default class GameReader {
 		// 	this.offsets = TempFixOffsets6(this.offsets);
 		// }
 
-		// if (innerNetClient === 0x1d9dbb4 || innerNetClient === 0x1e247c4) {
-		// 	// temp fix for older game until I added more sigs.. // 25/5
-		// 	this.oldMeetingHud = true;
-		// 	this.offsets = TempFixOffsets3(this.offsets);
-		// 	const gameData = this.findPattern(
-		// 		this.offsets.signatures.gameData.sig,
-		// 		this.offsets.signatures.gameData.patternOffset,
-		// 		this.offsets.signatures.gameData.addressOffset
-		// 	);
-		// 	this.offsets.allPlayersPtr[0] = gameData;
-		// }
+		
 		this.PlayerStruct = new Struct();
 		for (const member of this.offsets.player.struct) {
 			if (member.type === 'SKIP' && member.skip) {

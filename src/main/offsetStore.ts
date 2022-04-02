@@ -125,6 +125,8 @@ export interface IOffsets {
 		showModStamp: ISignature;
 		modLateUpdate: ISignature;
 	};
+	oldMeetingHud: boolean;
+	disableWriting: boolean;
 }
 
 const BASE_URL = "https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Offsets/main"
