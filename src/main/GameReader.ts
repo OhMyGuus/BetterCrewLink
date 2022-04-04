@@ -595,7 +595,15 @@ export default class GameReader {
 				);
 			}
 		}
-		console.log(this.offsets);
+		console.log(JSON.stringify(this.offsets,function(k,v){
+			if(v instanceof Array && k != "struct")
+			   return JSON.stringify(v);
+			return v;
+		 },2).replace(/\\/g, '')
+		 .replace(/\"\[/g, '[')
+		 .replace(/\]\"/g,']')
+		 .replace(/\"\{/g, '{')
+		 .replace(/\}\"/g,'}'));
 		this.initializeWrites();
 	}
 
