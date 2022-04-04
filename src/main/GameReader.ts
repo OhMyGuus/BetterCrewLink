@@ -419,30 +419,47 @@ export default class GameReader {
 		this.initializedWrite = false;
 		this.disableWriting = false;
 
-		var offsetLookups = await fetchOffsetLookup() as IOffsetsLookup;
-		var innerNetClient;
+		const offsetLookups = await fetchOffsetLookup() as IOffsetsLookup;
+		let broadcastVersionAddr = undefined;
 		if (this.is_64bit) {
-			innerNetClient = this.findPattern(
-				offsetLookups.patterns.x64.innerNetClient.sig,
-				offsetLookups.patterns.x64.innerNetClient.patternOffset,
-				offsetLookups.patterns.x64.innerNetClient.addressOffset
+			broadcastVersionAddr = this.findPattern(
+				offsetLookups.patterns.x64.broadcastVersion.sig,
+				offsetLookups.patterns.x64.broadcastVersion.patternOffset,
+				offsetLookups.patterns.x64.broadcastVersion.addressOffset,
+				false,
+				true
 			); 
 		} else {
-			innerNetClient = this.findPattern(
-				offsetLookups.patterns.x86.innerNetClient.sig,
-				offsetLookups.patterns.x86.innerNetClient.patternOffset,
-				offsetLookups.patterns.x86.innerNetClient.addressOffset
+			broadcastVersionAddr = this.findPattern(
+				offsetLookups.patterns.x86.broadcastVersion.sig,
+				offsetLookups.patterns.x86.broadcastVersion.patternOffset,
+				offsetLookups.patterns.x86.broadcastVersion.addressOffset,
+				false,
+				true
 			); 
 		}
 
-		if (offsetLookups.versions[innerNetClient]) {
-			this.offsets = await fetchOffsetsJson(offsetLookups.versions[innerNetClient].file);
+		var broadcastVersion = this.readMemory<number>(
+			'int',
+			this.gameAssembly!.modBaseAddr,
+			broadcastVersionAddr
+		);
+		console.log("broadcastVersion: ", broadcastVersion)
+
+		if (offsetLookups.versions[broadcastVersion]) {
+			this.offsets = await fetchOffsetsJson(offsetLookups.versions[broadcastVersion].file);
 		} else {
 			this.offsets = await fetchOffsetsJson(offsetLookups.versions["default"].file); // can't find file for this client, return default
 		}
 
 		this.disableWriting = this.offsets.disableWriting;
 		this.oldMeetingHud = this.offsets.oldMeetingHud;
+
+		const innerNetClient = this.findPattern(
+			this.offsets.signatures.innerNetClient.sig,
+			this.offsets.signatures.innerNetClient.patternOffset,
+			this.offsets.signatures.innerNetClient.addressOffset
+		);
 
 		const meetingHud = this.findPattern(
 			this.offsets.signatures.meetingHud.sig,

@@ -2,8 +2,8 @@ import fetch from 'node-fetch'
 
 export interface IOffsetsLookup {
 	patterns: {
-		x64: { innerNetClient: ISignature };
-		x86: { innerNetClient: ISignature };
+		x64: { broadcastVersion: ISignature };
+		x86: { broadcastVersion: ISignature };
 	};
 	versions: {
 		[innerNetClientId: string]: {
