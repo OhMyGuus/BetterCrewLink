@@ -32,8 +32,13 @@ export const initializeIpcListeners = (): void => {
 			shell.openExternal(platform.runPath);
 		} else if (platform.launchType === PlatformRunType.EXE) {
 			try {
-				const process = spawn(path.join(platform.runPath, platform.execute[0]), platform.execute.slice(1));
+				const process = spawn(
+					path.join(platform.runPath, platform.execute[0]),
+					platform.execute.slice(1),
+					{ detached: true, stdio: 'ignore' }
+				);
 				process.on('error', error);
+				process.unref();
 			} catch (e) {
 				error();
 			}
