@@ -24,14 +24,22 @@
 			"meetings_only_warning2": "启用了仅限会议内语音",
 			"impostor_radio": "内鬼私密通话",
 			"public_lobby": {
-				"change_settings": "Change Lobby Info",
-				"title": "Title",
-				"enabled": "The Lobby is Public",
-				"mods": "Mods",
-				"language": "Language",
-				"enable_warning": "Enabling this will make your lobby public to other BetterCrewLink users!",
-				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
+				"change_settings": "更改大厅信息",
+				"title": "标题",
+				"enabled": "该大厅是公开的",
+				"mods": "模组",
+				"language": "语言",
+				"enable_warning": "启用此选项将使你的大厅对其他BetterCrewLink用户公开！",
+				"ban_warning": "不当言论将导致你被BetterCrewLink封禁。"
 			}
+		},
+		"customplatforms": {
+			"title": "自定义平台",
+			"platform_title": "标题",
+			"path": "EXE路径",
+			"uri": "URI链接",
+			"advanced": "高级",
+			"arguments": "参数"
 		},
 		"audio": {
 			"title": "音频设置",
@@ -57,7 +65,7 @@
 		},
 		"overlay": {
 			"title": "游戏内覆盖",
-			"always_on_top": "BetterCrewLink On Top",
+			"always_on_top": "BetterCrewLink置顶",
 			"enabled": "启用覆盖",
 			"compact": "简洁覆盖",
 			"meeting": "会议覆盖",
@@ -75,7 +83,7 @@
 		"advanced": {
 			"title": "高级设置",
 			"nat_fix": "NAT 修复",
-			"nat_fix_warning": "这会将默认的点对点（P2P) 连接改为通过中转服务器连接进行语音。",
+			"nat_fix_warning": "这会将默认的点对点（P2P) 连接改为通过中转服务器连接进行语音，这可能会增加延迟。",
 			"change_server": "更改语音服务器",
 			"voice_server": "语音服务器",
 			"invalid_url": "无效的URL",
@@ -86,7 +94,7 @@
 			"title": "BETA/DEBUG",
 			"mobilehost": "移动端主机",
 			"vad_enabled": "启用VAD",
-			"hardware_acceleration": "Hardware Acceleration",
+			"hardware_acceleration": "硬件加速",
 			"vad_enabled_warning": "如果停用这个选项，你看不到当前谁在说话。",
 			"echocancellation": "回音消除",
 			"noiseSuppression": "降噪",
@@ -95,10 +103,10 @@
 		"streaming": {
 			"title": "直播设置",
 			"hidecode": "显示大厅代码",
-			"obs_overlay": "OBS 浏览器覆盖源",
-			"obs_url": "OBS Browser Source URL",
-			"voice_server_comp": "VS 兼容模式",
-			"voice_server_comp_warning": "建议将语音服务器更改为BetterCrewLink Voice Server ，例如：https://bettercrewl.ink 。"
+			"obs_overlay": "OBS浏览器覆盖源",
+			"obs_url": "OBS浏览器源地址",
+			"voice_server_comp": "VS兼容模式",
+			"voice_server_comp_warning": "建议将语音服务器更改为BetterCrewLink Voice Server，例如：https://bettercrewl.ink 。"
 		},
 		"troubleshooting": {
 			"title": "故障处理",
@@ -108,38 +116,41 @@
 		}
 	},
 	"lobbybrowser": {
-		"header": "Public Lobbies",
-		"code": "Lobby Code",
+		"header": "公共大厅",
+		"code": "大厅代码",
 		"list": {
-			"title": "Title",
-			"host": "Host",
-			"players": "Players",
-			"mods": "Mods",
-			"language": "Language"
+			"title": "标题",
+			"host": "房主",
+			"players": "玩家",
+			"mods": "模组",
+			"language": "语言"
 		}
 	},
 	"buttons": {
 		"default": "默认",
 		"confirm": "确认",
 		"cancel": "取消",
-		"close": "Close",
-		"exit": "Exit Settings to Apply Changes",
-		"public_lobby": "Public Lobbies"
+		"close": "关闭",
+		"exit": "退出设置以应用更改",
+		"public_lobby": "公共大厅",
+		"delete": "删除",
+		"file_select": "选择文件"
 	},
 	"game": {
 		"menu": "菜单",
-		"open": "Open Via",
-		"open_error": "手动启动游戏。 \n(此按钮仅适用于Steam平台)",
+		"open": "打开方式",
+		"open_error": "手动启动游戏。\n（此按钮仅适用于Steam平台）",
 		"waiting": "等待Among Us启动中",
 		"error": "错误",
-		"error_admin": "无法连接到Among Us。\n请以管理员权限重新打开 BetterCrewLink。",
-		"error_platform": "No Platform Detected",
+		"error_admin": "无法连接到Among Us。\n请以管理员权限重新打开BetterCrewLink。",
+		"error_platform": "未检测到平台",
 		"error_unsupport": "BetterCrewLink不支持当前版本的Among Us。"
 	},
 	"platform": {
 		"steam": "Steam",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft"
+		"microsoft": "Microsoft",
+		"custom": "自定义"
 	},
-	"translator_name": "Zheng Syameimaru"
+	"translator_name": "Zheng Syameimaru, CJYKK"
 }
