@@ -1,4 +1,5 @@
 import fetch from 'node-fetch'
+import Errors from '../common/Errors';
 
 export interface IOffsetsLookup {
 	patterns: {
@@ -130,6 +131,7 @@ export async function fetchOffsetLookup(): Promise<IOffsetsLookup> {
 	return fetch(`${BASE_URL}/lookup.json`)
 		.then((response) => response.json())
 		.then((data) => { return data as IOffsetsLookup })
+		.catch((_) => { throw Errors.LOOKUP_FETCH_ERROR })
 }
 
 const OFFSETS_URL = `${BASE_URL}/offsets`
@@ -138,6 +140,7 @@ export async function fetchOffsetsJson(is_64bit: boolean, filename: string): Pro
 	return fetch(`${OFFSETS_URL}/${is_64bit ? 'x64' : 'x86'}/${filename}`)
 		.then((response) => response.json())
 		.then((data) => { return data as IOffsets })
+		.catch((_) => { throw Errors.LOOKUP_FETCH_ERROR })
 }
 
 // export function TempFixOffsets(offsetsOld: IOffsets): IOffsets {

@@ -88,7 +88,7 @@ export default class GameReader {
 		this.sendIPC = sendIPC;
 	}
 
-	checkProcessOpen(): void {
+	async checkProcessOpen(): Promise<void> {
 		const processesOpen = getProcesses().filter((p) => p.szExeFile === 'Among Us.exe');
 		let error = '';
 		const reset = this.amongUs && processesOpen.filter((o) => o.th32ProcessID === this.pid).length === 0;
@@ -100,13 +100,15 @@ export default class GameReader {
 					this.gameAssembly = findModule('GameAssembly.dll', this.amongUs.th32ProcessID);
 					this.gamePath = getProcessPath(this.amongUs.handle);
 					this.loadedMod = this.getInstalledMods(this.gamePath);
-					this.initializeoffsets();
+					await this.initializeoffsets();
 					this.sendIPC(IpcRendererMessages.NOTIFY_GAME_OPENED, true);
 					break;
 				} catch (e) {
 					console.log('ERROR:', e);
 					if (processOpen && e.toString() === 'Error: unable to find process') {
 						error = Errors.OPEN_AS_ADMINISTRATOR;
+					} else {
+						error = e.toString();
 					}
 					this.amongUs = null;
 				}
@@ -149,9 +151,9 @@ export default class GameReader {
 		if (this.checkProcessDelay-- <= 0) {
 			this.checkProcessDelay = 30;
 			try {
-				this.checkProcessOpen();
+				await this.checkProcessOpen();
 			} catch (e) {
-				return `Error with chcecking the process, ${e.toString()}`;
+				return e.toString();
 			}
 		}
 		if (
