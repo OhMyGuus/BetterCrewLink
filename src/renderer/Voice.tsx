@@ -219,7 +219,7 @@ radioOnAudio.volume = 0.02;
 
 const store = new Store<ISettings>();
 const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceProps) {
-	const [error, setError] = useState(initialError);
+	const [error, setError] = useState('');
 	const [settings] = useContext(SettingsContext);
 
 	const settingsRef = useRef<ISettings>(settings);
@@ -592,7 +592,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						visorId: o.visorId,
 						disconnected: o.disconnected,
 						isLocal: o.isLocal,
-						shiftedColor : o.shiftedColor,
+						shiftedColor: o.shiftedColor,
 						bugged: o.bugged,
 						realColor: playerColors[o.colorId],
 						usingRadio: o.clientId === impostorRadioClientId.current && myPlayer?.isImpostor,
@@ -961,7 +961,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 				function createPeerConnection(peer: string, initiator: boolean) {
 					console.log('CreatePeerConnection: ', peer, initiator);
-				
+
 					const connection = new Peer({
 						stream,
 						initiator, // @ts-ignore-line
@@ -1351,133 +1351,137 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 	return (
 		<div className={classes.root}>
-			{error && (
+			{(error || initialError) && (
 				<div className={classes.error}>
 					<Typography align="center" variant="h6" color="error">
 						ERROR
 					</Typography>
 					<Typography align="center" style={{ whiteSpace: 'pre-wrap' }}>
 						{error}
+						{initialError}
 					</Typography>
 					<SupportLink />
 				</div>
 			)}
-			<div className={classes.top}>
-				{myPlayer && gameState.lobbyCode !== 'MENU' && (
-					<>
-						<div className={classes.avatarWrapper}>
-							<Avatar
-								deafened={deafenedState}
-								muted={mutedState}
-								player={myPlayer}
-								borderColor={myPlayer?.shiftedColor == -1 ? '#2ecc71' : 'gray'}
-								connectionState={connected ? 'connected' : 'disconnected'}
-								isUsingRadio={myPlayer?.isImpostor && impostorRadioClientId.current === myPlayer.clientId}
-								talking={talking}
-								isAlive={!myPlayer.isDead}
-								size={100}
-								mod={gameState.mod}
-							/>
-						</div>
-					</>
-				)}
-				<div className={classes.right}>
-					<div>
-						<div className={classes.left}>
-							{myPlayer && gameState?.gameState !== GameState.MENU && (
-								<span className={classes.username}>{myPlayer.name}</span>
-							)}
-							<span
-								className={classes.code}
-								style={{
-									background: gameState.lobbyCode === 'MENU' ? 'transparent' : '#3e4346',
-								}}
-							>
-								{displayedLobbyCode === 'MENU' ? t('game.menu') : displayedLobbyCode}
-							</span>
-						</div>
-						{gameState.lobbyCode !== 'MENU' && (
-							<div className={classes.muteButtons}>
-								<IconButton onClick={connectionStuff.current.toggleMute} size="small">
-									{mutedState || deafenedState ? <MicOff /> : <Mic />}
-								</IconButton>
-								<IconButton onClick={connectionStuff.current.toggleDeafen} size="small">
-									{deafenedState ? <VolumeOff /> : <VolumeUp />}
-								</IconButton>
-							</div>
-						)}
-					</div>
-				</div>
-			</div>
-			{lobbySettings.deadOnly && (
-				<div className={classes.top}>
-					<small style={{ padding: 0 }}>{t('settings.lobbysettings.ghost_only_warning2')}</small>
-				</div>
-			)}
-			{lobbySettings.meetingGhostOnly && (
-				<div className={classes.top}>
-					<small style={{ padding: 0 }}>{t('settings.lobbysettings.meetings_only_warning2')}</small>
-				</div>
-			)}
-			{gameState.lobbyCode && <Divider />}
-			{displayedLobbyCode === 'MENU' && (
-				<div className={classes.top}>
-					<Button
-						style={{ margin: '10px' }}
-						onClick={() => {
-							ipcRenderer.send(IpcHandlerMessages.OPEN_LOBBYBROWSER);
-						}}
-						color="primary"
-						variant="outlined"
-					>
-						{t('buttons.public_lobby')}
-					</Button>
-				</div>
-			)}
-			{myPlayer && gameState.lobbyCode !== 'MENU' && (
-				<Grid
-					container
-					spacing={1}
-					className={classes.otherplayers}
-					alignItems="flex-start"
-					alignContent="flex-start"
-					justify="flex-start"
-				>
-					{otherPlayers.map((player) => {
-						const peer = playerSocketIdsRef.current[player.clientId];
-						const connected = socketClients[peer]?.clientId === player.clientId || false;
-						const audio = audioConnected[peer];
+			{(!error && !initialError) && (<>
 
-						if (!playerConfigs[player.nameHash]) {
-							playerConfigs[player.nameHash] = { volume: 1, isMuted: false };
-						}
-						const socketConfig = playerConfigs[player.nameHash];
-
-						return (
-							<Grid item key={player.id} xs={getPlayersPerRow(otherPlayers.length)}>
+				<div className={classes.top}>
+					{myPlayer && gameState.lobbyCode !== 'MENU' && (
+						<>
+							<div className={classes.avatarWrapper}>
 								<Avatar
-									connectionState={!connected ? 'disconnected' : audio ? 'connected' : 'novoice'}
-									player={player}
-									talking={!player.inVent && otherTalking[player.clientId]}
-									borderColor="#2ecc71"
-									isAlive={!otherDead[player.clientId]}
-									isUsingRadio={
-										myPlayer?.isImpostor &&
-										!(player.disconnected || player.bugged) &&
-										impostorRadioClientId.current === player.clientId
-									}
-									size={50}
-									socketConfig={socketConfig}
-									onConfigChange={() => {
-										store.set(`playerConfigMap.${player.nameHash}`, playerConfigs[player.nameHash]);
-									}}
+									deafened={deafenedState}
+									muted={mutedState}
+									player={myPlayer}
+									borderColor={myPlayer?.shiftedColor == -1 ? '#2ecc71' : 'gray'}
+									connectionState={connected ? 'connected' : 'disconnected'}
+									isUsingRadio={myPlayer?.isImpostor && impostorRadioClientId.current === myPlayer.clientId}
+									talking={talking}
+									isAlive={!myPlayer.isDead}
+									size={100}
 									mod={gameState.mod}
 								/>
-							</Grid>
-						);
-					})}
-				</Grid>
-			)}
+							</div>
+						</>
+					)}
+					<div className={classes.right}>
+						<div>
+							<div className={classes.left}>
+								{myPlayer && gameState?.gameState !== GameState.MENU && (
+									<span className={classes.username}>{myPlayer.name}</span>
+								)}
+								<span
+									className={classes.code}
+									style={{
+										background: gameState.lobbyCode === 'MENU' ? 'transparent' : '#3e4346',
+									}}
+								>
+									{displayedLobbyCode === 'MENU' ? t('game.menu') : displayedLobbyCode}
+								</span>
+							</div>
+							{gameState.lobbyCode !== 'MENU' && (
+								<div className={classes.muteButtons}>
+									<IconButton onClick={connectionStuff.current.toggleMute} size="small">
+										{mutedState || deafenedState ? <MicOff /> : <Mic />}
+									</IconButton>
+									<IconButton onClick={connectionStuff.current.toggleDeafen} size="small">
+										{deafenedState ? <VolumeOff /> : <VolumeUp />}
+									</IconButton>
+								</div>
+							)}
+						</div>
+					</div>
+				</div>
+				{lobbySettings.deadOnly && (
+					<div className={classes.top}>
+						<small style={{ padding: 0 }}>{t('settings.lobbysettings.ghost_only_warning2')}</small>
+					</div>
+				)}
+				{lobbySettings.meetingGhostOnly && (
+					<div className={classes.top}>
+						<small style={{ padding: 0 }}>{t('settings.lobbysettings.meetings_only_warning2')}</small>
+					</div>
+				)}
+				{gameState.lobbyCode && <Divider />}
+				{displayedLobbyCode === 'MENU' && (
+					<div className={classes.top}>
+						<Button
+							style={{ margin: '10px' }}
+							onClick={() => {
+								ipcRenderer.send(IpcHandlerMessages.OPEN_LOBBYBROWSER);
+							}}
+							color="primary"
+							variant="outlined"
+						>
+							{t('buttons.public_lobby')}
+						</Button>
+					</div>
+				)}
+				{myPlayer && gameState.lobbyCode !== 'MENU' && (
+					<Grid
+						container
+						spacing={1}
+						className={classes.otherplayers}
+						alignItems="flex-start"
+						alignContent="flex-start"
+						justify="flex-start"
+					>
+						{otherPlayers.map((player) => {
+							const peer = playerSocketIdsRef.current[player.clientId];
+							const connected = socketClients[peer]?.clientId === player.clientId || false;
+							const audio = audioConnected[peer];
+
+							if (!playerConfigs[player.nameHash]) {
+								playerConfigs[player.nameHash] = { volume: 1, isMuted: false };
+							}
+							const socketConfig = playerConfigs[player.nameHash];
+
+							return (
+								<Grid item key={player.id} xs={getPlayersPerRow(otherPlayers.length)}>
+									<Avatar
+										connectionState={!connected ? 'disconnected' : audio ? 'connected' : 'novoice'}
+										player={player}
+										talking={!player.inVent && otherTalking[player.clientId]}
+										borderColor="#2ecc71"
+										isAlive={!otherDead[player.clientId]}
+										isUsingRadio={
+											myPlayer?.isImpostor &&
+											!(player.disconnected || player.bugged) &&
+											impostorRadioClientId.current === player.clientId
+										}
+										size={50}
+										socketConfig={socketConfig}
+										onConfigChange={() => {
+											store.set(`playerConfigMap.${player.nameHash}`, playerConfigs[player.nameHash]);
+										}}
+										mod={gameState.mod}
+									/>
+								</Grid>
+							);
+						})}
+					</Grid>
+				)}
+			</>)}
 			{otherPlayers.length <= 6 && <Footer />}
 		</div>
 	);
