@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { remote } from 'electron';
 import { ThemeProvider } from '@material-ui/core/styles';
 import RefreshSharpIcon from '@material-ui/icons/RefreshSharp';
 import CloseIcon from '@material-ui/icons/Close';
@@ -14,6 +13,7 @@ import '../language/i18n';
 import theme from '../theme';
 import LobbyBrowser from './LobbyBrowser';
 import { withNamespaces } from 'react-i18next';
+import remote from '@electron/remote'
 
 const useStyles = makeStyles(() => ({
 	root: {

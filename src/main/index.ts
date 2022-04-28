@@ -17,9 +17,8 @@ import { ISettings } from '../common/ISettings';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { gameReader } from './hook';
 import { GenerateHat } from './avatarGenerator';
-
 const args = require('minimist')(process.argv); // eslint-disable-line
-
+import * as remoteInitializer from '@electron/remote/main'
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const devTools = (isDevelopment || args.dev === 1) && true;
 
@@ -37,8 +36,8 @@ declare global {
 global.mainWindow = null;
 global.overlay = null;
 const store = new Store<ISettings>();
-
 app.commandLine.appendSwitch('disable-pinch');
+remoteInitializer.initialize();
 // app.disableHardwareAcceleration();
 if (platform() === 'linux' || !store.get('hardware_acceleration', true)) {
 	app.disableHardwareAcceleration();
@@ -58,28 +57,33 @@ function createMainWindow() {
 		x: mainWindowState.x,
 		y: mainWindowState.y,
 		resizable: false,
-		frame: false,
+		 frame: false,
 		fullscreenable: false,
 		maximizable: false,
 		webPreferences: {
-			enableRemoteModule: true,
 			nodeIntegration: true,
 			webSecurity: false,
+			contextIsolation: false
+
 		},
 	});
-
+	remoteInitializer.enable(window.webContents);
 	mainWindowState.manage(window);
 
 	if (devTools) {
-		// Force devtools into detached mode otherwise they are unusable
-		window.webContents.openDevTools({
-			mode: 'detach',
-		});
+		//Force devtools into detached mode otherwise they are unusable
+		window.on('ready-to-show', () => {
+			window.webContents.openDevTools({
+				mode: 'detach',
+			});
+		})
 	}
 
 	let crewlinkVersion: string;
 	if (isDevelopment) {
 		crewlinkVersion = '0.0.0';
+		//window.loadURL("http://google.nl")
+
 		window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}?version=DEV&view=app`);
 	} else {
 		crewlinkVersion = autoUpdater.currentVersion.version;
@@ -97,6 +101,7 @@ function createMainWindow() {
 	}
 	//window.webContents.userAgent = `CrewLink/${crewlinkVersion} (${process.platform})`;
 	window.webContents.userAgent = `CrewLink/2.0.1 (win32)`;
+
 	window.on('closed', () => {
 		try {
 			const mainWindow = global.mainWindow;
@@ -134,11 +139,13 @@ function createLobbyBrowser() {
 		closable: true,
 		maximizable: false,
 		webPreferences: {
-			enableRemoteModule: true,
 			nodeIntegration: true,
+			contextIsolation: false,
 			webSecurity: false,
 		},
 	});
+	remoteInitializer.enable(window.webContents);
+
 	window.on('closed', () => {
 		global.lobbyBrowser = null;
 	});
@@ -178,8 +185,8 @@ function createOverlay() {
 		height: 300,
 		webPreferences: {
 			nodeIntegration: true,
-			enableRemoteModule: true,
 			webSecurity: false,
+			contextIsolation: false,
 		},
 		fullscreenable: true,
 		skipTaskbar: true,
@@ -191,6 +198,7 @@ function createOverlay() {
 
 		//	...overlayWindow.WINDOW_OPTS,
 	});
+	remoteInitializer.enable(overlay.webContents);
 
 	if (devTools) {
 		overlay.webContents.openDevTools({
@@ -325,7 +333,7 @@ if (!gotTheLock) {
 			installExtension(REACT_DEVELOPER_TOOLS)
 				.then((name: string) => console.log(`Added Extension:  ${name}`))
 				.catch((err: string) => console.log('An error occurred: ', err));
-	});
+	 });
 
 	app.on('second-instance', () => {
 		// Someone tried to run a second instance, we should focus our window.

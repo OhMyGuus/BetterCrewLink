@@ -22,7 +22,8 @@ import { Dialog, TextField } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ArrowBack';
 import Alert from '@material-ui/lab/Alert';
 import { GameState } from '../../common/AmongUsState';
-import { ipcRenderer, remote } from 'electron';
+import { app, ipcRenderer } from 'electron';
+import  * as remote from '@electron/remote'
 import { IpcHandlerMessages } from '../../common/ipc-messages';
 import i18next, { TFunction } from 'i18next';
 import languages from '../language/languages';
@@ -689,7 +690,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	useEffect(() => {
 		console.log(settings.language);
 		if (settings.language === 'unkown') {
-			const locale: string = remote.app.getLocale();
+			const locale: string = app.getLocale();
 			const lang = Object.keys(languages).includes(locale)
 				? locale
 				: Object.keys(languages).includes(locale.split('-')[0])
