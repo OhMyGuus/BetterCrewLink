@@ -592,8 +592,6 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 
 	useEffect(() => {
 		ipcRenderer.send('setAlwaysOnTop', settings.alwaysOnTop);
-
-		remote.getCurrentWindow().setAlwaysOnTop(settings.alwaysOnTop, 'screen-saver');
 	}, [settings.alwaysOnTop]);
 
 	useEffect(() => {

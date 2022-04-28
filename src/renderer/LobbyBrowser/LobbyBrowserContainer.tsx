@@ -13,6 +13,7 @@ import '../language/i18n';
 import theme from '../theme';
 import LobbyBrowser from './LobbyBrowser';
 import { withNamespaces } from 'react-i18next';
+import { ipcRenderer } from 'electron';
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -53,14 +54,14 @@ const TitleBar = function () {
 			<span className={classes.title} style={{ marginLeft: 10 }}>
 				LobbyBrowser
 			</span>
-			<IconButton className={classes.button} size="small" onClick={() => window.reload()}>
+			<IconButton className={classes.button} size="small" onClick={() => ipcRenderer.send('reload', true)}>
 				<RefreshSharpIcon htmlColor="#777" />
 			</IconButton>
 			<IconButton
 				className={[classes.button, classes.minimalizeIcon].join(' ')}
 				style={{ right: 20 }}
 				size="small"
-				onClick={() =>window.minimize()}
+				onClick={() => ipcRenderer.send('minimize', true)}
 			>
 				<MinimizeIcon htmlColor="#777" y="100" />
 			</IconButton>
@@ -70,7 +71,6 @@ const TitleBar = function () {
 				style={{ right: 0 }}
 				size="small"
 				onClick={() => {
-					window.hide();
 					window.close();
 				}}
 			>
