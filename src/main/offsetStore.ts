@@ -132,9 +132,10 @@ export async function fetchOffsetLookup(): Promise<IOffsetsLookup> {
 		.then((data) => { return data as IOffsetsLookup })
 }
 
-export async function fetchOffsetsJson(filename: string): Promise<IOffsets> {
+const OFFSETS_URL = `${BASE_URL}/offsets`
+export async function fetchOffsetsJson(is_64bit: boolean, filename: string): Promise<IOffsets> {
 	console.log(`Fetching file: ${filename}`);
-	return fetch(`${BASE_URL}/${filename}`)
+	return fetch(`${OFFSETS_URL}/${is_64bit ? 'x64' : 'x86'}/${filename}`)
 		.then((response) => response.json())
 		.then((data) => { return data as IOffsets })
 }

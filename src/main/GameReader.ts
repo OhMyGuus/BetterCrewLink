@@ -447,9 +447,9 @@ export default class GameReader {
 		console.log("broadcastVersion: ", broadcastVersion)
 
 		if (offsetLookups.versions[broadcastVersion]) {
-			this.offsets = await fetchOffsetsJson(offsetLookups.versions[broadcastVersion].file);
+			this.offsets = await fetchOffsetsJson(this.is_64bit, offsetLookups.versions[broadcastVersion].file);
 		} else {
-			this.offsets = await fetchOffsetsJson(offsetLookups.versions["default"].file); // can't find file for this client, return default
+			this.offsets = await fetchOffsetsJson(this.is_64bit, offsetLookups.versions["default"].file); // can't find file for this client, return default
 		}
 
 		this.disableWriting = this.offsets.disableWriting;
