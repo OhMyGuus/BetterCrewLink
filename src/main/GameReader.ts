@@ -153,6 +153,7 @@ export default class GameReader {
 			try {
 				await this.checkProcessOpen();
 			} catch (e) {
+				this.checkProcessDelay = 5
 				return e.toString();
 			}
 		}

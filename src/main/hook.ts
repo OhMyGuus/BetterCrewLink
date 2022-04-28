@@ -97,7 +97,7 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 				// readingGame = false;
 				gotError = true;
 				event.sender.send(IpcRendererMessages.ERROR, err);
-				setTimeout(frame, 5000);
+				setTimeout(frame, 7500);
 			} else {
 				if (gotError) {
 					event.sender.send(IpcRendererMessages.ERROR, '');
