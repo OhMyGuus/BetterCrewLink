@@ -18,7 +18,6 @@ import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-insta
 import { gameReader } from './hook';
 import { GenerateHat } from './avatarGenerator';
 const args = require('minimist')(process.argv); // eslint-disable-line
-import * as remoteInitializer from '@electron/remote/main'
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const devTools = (isDevelopment || args.dev === 1) && true;
 
@@ -37,7 +36,6 @@ global.mainWindow = null;
 global.overlay = null;
 const store = new Store<ISettings>();
 app.commandLine.appendSwitch('disable-pinch');
-remoteInitializer.initialize();
 // app.disableHardwareAcceleration();
 if (platform() === 'linux' || !store.get('hardware_acceleration', true)) {
 	app.disableHardwareAcceleration();
@@ -57,17 +55,14 @@ function createMainWindow() {
 		x: mainWindowState.x,
 		y: mainWindowState.y,
 		resizable: false,
-		 frame: false,
+		frame: false,
 		fullscreenable: false,
 		maximizable: false,
 		webPreferences: {
 			nodeIntegration: true,
-			webSecurity: false,
 			contextIsolation: false
-
 		},
 	});
-	remoteInitializer.enable(window.webContents);
 	mainWindowState.manage(window);
 
 	if (devTools) {
@@ -141,10 +136,8 @@ function createLobbyBrowser() {
 		webPreferences: {
 			nodeIntegration: true,
 			contextIsolation: false,
-			webSecurity: false,
 		},
 	});
-	remoteInitializer.enable(window.webContents);
 
 	window.on('closed', () => {
 		global.lobbyBrowser = null;
@@ -185,7 +178,6 @@ function createOverlay() {
 		height: 300,
 		webPreferences: {
 			nodeIntegration: true,
-			webSecurity: false,
 			contextIsolation: false,
 		},
 		fullscreenable: true,
@@ -198,7 +190,6 @@ function createOverlay() {
 
 		//	...overlayWindow.WINDOW_OPTS,
 	});
-	remoteInitializer.enable(overlay.webContents);
 
 	if (devTools) {
 		overlay.webContents.openDevTools({
@@ -333,7 +324,7 @@ if (!gotTheLock) {
 			installExtension(REACT_DEVELOPER_TOOLS)
 				.then((name: string) => console.log(`Added Extension:  ${name}`))
 				.catch((err: string) => console.log('An error occurred: ', err));
-	 });
+	});
 
 	app.on('second-instance', () => {
 		// Someone tried to run a second instance, we should focus our window.
@@ -376,4 +367,12 @@ if (!gotTheLock) {
 			global.overlay?.close();
 		}
 	});
+
+	ipcMain.on('enableOverlay', async (_event, enable) => {
+		if (global.mainWindow) {
+			global.mainWindow.setAlwaysOnTop(enable, 'screen-saver');
+		}
+	});
+
+
 }

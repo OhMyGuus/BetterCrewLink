@@ -13,7 +13,6 @@ import '../language/i18n';
 import theme from '../theme';
 import LobbyBrowser from './LobbyBrowser';
 import { withNamespaces } from 'react-i18next';
-import remote from '@electron/remote'
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -54,14 +53,14 @@ const TitleBar = function () {
 			<span className={classes.title} style={{ marginLeft: 10 }}>
 				LobbyBrowser
 			</span>
-			<IconButton className={classes.button} size="small" onClick={() => remote.getCurrentWindow().reload()}>
+			<IconButton className={classes.button} size="small" onClick={() => window.reload()}>
 				<RefreshSharpIcon htmlColor="#777" />
 			</IconButton>
 			<IconButton
 				className={[classes.button, classes.minimalizeIcon].join(' ')}
 				style={{ right: 20 }}
 				size="small"
-				onClick={() => remote.getCurrentWindow().minimize()}
+				onClick={() =>window.minimize()}
 			>
 				<MinimizeIcon htmlColor="#777" y="100" />
 			</IconButton>
@@ -71,7 +70,7 @@ const TitleBar = function () {
 				style={{ right: 0 }}
 				size="small"
 				onClick={() => {
-					remote.getCurrentWindow().hide();
+					window.hide();
 					window.close();
 				}}
 			>

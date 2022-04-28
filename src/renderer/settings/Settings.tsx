@@ -23,7 +23,6 @@ import ChevronLeft from '@material-ui/icons/ArrowBack';
 import Alert from '@material-ui/lab/Alert';
 import { GameState } from '../../common/AmongUsState';
 import { app, ipcRenderer } from 'electron';
-import  * as remote from '@electron/remote'
 import { IpcHandlerMessages } from '../../common/ipc-messages';
 import i18next, { TFunction } from 'i18next';
 import languages from '../language/languages';
@@ -592,6 +591,8 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	]);
 
 	useEffect(() => {
+		ipcRenderer.send('setAlwaysOnTop', settings.alwaysOnTop);
+
 		remote.getCurrentWindow().setAlwaysOnTop(settings.alwaysOnTop, 'screen-saver');
 	}, [settings.alwaysOnTop]);
 
@@ -1583,8 +1584,8 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 										type: 'setOne',
 										action: ['hardware_acceleration', checked],
 									});
-									remote.app.relaunch();
-									remote.app.exit();
+									app.relaunch();
+									app.exit();
 								},
 								!checked
 							);
