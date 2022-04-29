@@ -1,6 +1,17 @@
-export interface IOffsetsStore {
-	x64: IOffsets;
-	x86: IOffsets;
+import fetch from 'node-fetch'
+import Errors from '../common/Errors';
+
+export interface IOffsetsLookup {
+	patterns: {
+		x64: { broadcastVersion: ISignature };
+		x86: { broadcastVersion: ISignature };
+	};
+	versions: {
+		[innerNetClientId: string]: {
+			version: string;
+			file: string;
+		};
+	};
 }
 
 interface ISignature {
@@ -110,453 +121,180 @@ export interface IOffsets {
 		showModStamp: ISignature;
 		modLateUpdate: ISignature;
 	};
+	oldMeetingHud: boolean;
+	disableWriting: boolean;
 }
 
-export default {
-	x64: {
-		meetingHud: [0x21d03e0, 0xb8, 0],
-		objectCachePtr: [0x10],
-		meetingHudState: [0xc0],
-		allPlayersPtr: [0x21d0e60, 0xb8, 0, 0x30],
-		allPlayers: [0x10],
-		playerCount: [0x18],
-		playerAddrPtr: 0x20,
-		shipStatus: [0x21d0ce0, 0xb8, 0x0],
-		shipStatus_systems: [0xd8],
-		shipStatus_map: [0x17c],
-		shipstatus_allDoors: [0xc8],
-		door_doorId: 0x1c,
-		door_isOpen: 0x20,
-		deconDoorUpperOpen: [0x18, 0x18],
-		deconDoorLowerOpen: [0x20, 0x18],
-
-		hqHudSystemType_CompletedConsoles: [0x18, 0x20], // OAMJKPNKGBM
-		HudOverrideSystemType_isActive: [0x10],
-		miniGame: [0x1c57cac, 0xb8, 0x0],
-		planetSurveillanceMinigame_currentCamera: [0xd0],
-		planetSurveillanceMinigame_camarasCount: [0xa8, 0x18],
-		surveillanceMinigame_FilteredRoomsCount: [0x78, 0x18],
-		lightRadius: [0xB0, 0x34],
-		palette: [0xffff, 0xb8],
-		palette_playercolor: [0x198],
-		palette_shadowColor: [0x1a0],
-		playerControl_GameOptions: [0xffff, 0xb8, 0x8],
-		gameOptions_MapId: [0x38],
-		gameOptions_MaxPLayers: [0x30],
-		serverManager_currentServer: [0xffff, 0xb8, 0x10, 0x20, 0x10],
-		connectFunc: 0xfff,
-		showModStampFunc: 0xfff,
-		modLateUpdateFunc: 0xff,
-
-		fixedUpdateFunc: 0xfff,
-		pingMessageString: 0xfff,
-
-		innerNetClient: {
-			base: [0x1c57f54, 0xb8, 0x0],
-			networkAddress: 0x68,
-			gameMode: 0x84,
-			gameId: 0x88,
-			hostId: 0x8c,
-			clientId: 0x90,
-			gameState: 0xd4,
-			onlineScene: 0xf0,
-			mainMenuScene: 0xf8,
-		},
-		player: {
-			struct: [
-				{ type: 'SKIP', skip: 0x10, name: 'unused' },
-				{ type: 'UINT', name: 'id' }, // 0x10
-				{ type: 'SKIP', skip: 0x14, name: 'unused1' }, // 0x14
-				{ type: 'UINT', name: 'outfitsPtr' }, // 0x18
-				{ type: 'SKIP', skip: 4, name: 'unused2' }, //
-				{ type: 'UINT', name: 'playerLevel' }, // 0x20
-				{ type: 'UINT', name: 'disconnected' }, // 0x24
-				{ type: 'UINT', name: 'rolePtr' }, // 0x28
-				{ type: 'SKIP', skip: 4, name: 'unused' }, //
-				{ type: 'UINT', name: 'taskPtr' }, //0x30
-				{ type: 'SKIP', skip: 4, name: 'unused' }, //
-				{ type: 'UINT', name: 'dead' }, // 0x38
-				{ type: 'SKIP', skip: 4, name: 'unused' },
-				{ type: 'UINT', name: 'objectPtr' }, //0x40
-			],
-			isDummy: [0x139],
-			isLocal: [0xB0],
-			localX: [0xC8, 0x6c],
-			localY: [0xC8, 0x70],
-			remoteX: [0xC8, 0x58],
-			remoteY: [0xC8, 0x5c],
-			bufferLength: 96,
-			offsets: [0, 0],
-			inVent: [0x6C],
-			clientId: [0x28],
-			currentOutfit: [0x68],
-			roleTeam: [0x48],
-			nameText: [0xA0, 0xD8],
-			outfit: {
-				colorId: [0x14],
-				hatId: [0x18],
-				skinId: [0x28],
-				visorId: [0x30],
-				playerName: [0x40],
-			},
-		},
-		signatures: {
-			innerNetClient: {
-				sig: '48 8B 05 ? ? ? ? 48 8B 88 ? ? ? ? 48 8B 09 48 85 C9 0F 84 ? ? ? ? 8B 81 ? ? ? ? ',
-				patternOffset: 3,
-				addressOffset: 4,
-			},
-			meetingHud: {
-				sig: '48 8B 05 ? ? ? ? 48 8B 88 ? ? ? ? 74 72 48 8B 39 48 8B 0D ? ? ? ? F6 81 ? ? ? ? ?',
-				patternOffset: 3,
-				addressOffset: 4,
-			},
-			gameData: {
-				sig: '48 8B 0D ? ? ? ? B2 01 88 15 ? ? ? ? 4C 8B 43 30 4D 85 C0',
-				patternOffset: 3,
-				addressOffset: 4,
-			},
-			shipStatus: {
-				sig: '48 8B 05 ? ? ? ? 48 8B 90 ? ? ? ? 48 8B 0A 48 85 C9 74 ?',
-				patternOffset: 3,
-				addressOffset: 4,
-			},
-			miniGame: {
-				sig: '48 8B 05 ? ? ? ? 48 89 7C 24 ? 48 8B 90 ? ? ? ? 48 C7 02 ? ? ? ? 48 8B 4B 60',
-				patternOffset: 3,
-				addressOffset: 4,
-			},
-			palette: {
-				sig: '48 8B 05 ? ? ? ? 48 8B 80 ? ? ? ? 0F 10 40 30 EB 2C',
-				patternOffset: 3,
-				addressOffset: 4,
-			},
-			playerControl: {
-				sig: '48 8B 05 ? ? ? ? 48 8B 88 ? ? ? ? 48 8B 01 48 8B CF 48 89 47 20 48 8B 07 48 8B 90 ? ? ? ? FF 90 ? ? ? ?',
-				patternOffset: 3,
-				addressOffset: 4,
-			},
-			showModStamp: {},
-			connectFunc: {},
-			fixedUpdateFunc: {},
-			pingMessageString: {},
-			modLateUpdate: {},
-			serverManager: {
-				sig: '48 8B 05 ? ? ? ? 48 89 74 24 ? F6 80 ? ? ? ? 04',
-				patternOffset: 3,
-				addressOffset: 4,
-			},
-		},
-	},
-	x86: {
-		meetingHud: [0x1c573a4, 0x5c, 0],
-		objectCachePtr: [0x8],
-		meetingHudState: [0x84],
-		allPlayersPtr: [0x1c57be8, 0x5c, 0, 0x24],
-		allPlayers: [0x08],
-		playerCount: [0xc],
-		playerAddrPtr: 0x10,
-		shipStatus: [0x1c57cac, 0x5c, 0x0],
-		shipStatus_systems: [0x90],
-		shipStatus_map: [0xe8],
-		shipstatus_allDoors: [0x88],
-		door_doorId: 0x10,
-		door_isOpen: 0x14,
-		deconDoorUpperOpen: [0xc, 0xc],
-		deconDoorLowerOpen: [0x10, 0xc],
-		hqHudSystemType_CompletedConsoles: [0xc, 0x10],
-		HudOverrideSystemType_isActive: [0x8],
-		miniGame: [0x1c57cac, 0x5c, 0x0],
-		planetSurveillanceMinigame_currentCamera: [0x6c],
-		planetSurveillanceMinigame_camarasCount: [0x58, 0x0c],
-		surveillanceMinigame_FilteredRoomsCount: [0x40, 0x0c],
-		palette: [0xffff, 0x5c],
-		palette_playercolor: [0x194],
-		palette_shadowColor: [0x198],
-		lightRadius: [0x78, 0x1c],
-		playerControl_GameOptions: [0xffff, 0x5c, 0x4],
-		gameOptions_MapId: [0x30],
-		gameOptions_MaxPLayers: [0x28],
-		serverManager_currentServer: [0xffff, 0x5c, 0x8, 0x10, 0x8],
-		innerNetClient: {
-			base: [0x1c57f54, 0x5c, 0x0],
-			networkAddress: 0x38,
-			networkPort: 0x3C,
-			gameMode: 0x4C,
-			gameId: 0x50,
-			hostId: 0x54,
-			clientId: 0x58,
-			gameState: 0x7C,
-			onlineScene: 0x8c,
-			mainMenuScene: 0x90,
-		},
-		player: {
-			struct: [
-				{ type: 'SKIP', skip: 8, name: 'unused' },
-				{ type: 'UINT', name: 'id' },
-				{ type: 'SKIP', skip: 8, name: 'unused' },
-				{ type: 'UINT', name: 'outfitsPtr' },
-				{ type: 'UINT', name: 'playerLevel' },
-				{ type: 'UINT', name: 'disconnected' },
-				{ type: 'UINT', name: 'rolePtr' },
-				{ type: 'UINT', name: 'taskPtr' },
-				{ type: 'BYTE', name: 'dead' },
-				{ type: 'SKIP', skip: 3, name: 'unused2' },
-				{ type: 'UINT', name: 'objectPtr' },
-			],
-			isDummy: [0xC1],
-			isLocal: [0x78],
-			localX: [0x84, 80],
-			localY: [0x84, 84],
-			remoteX: [0x84, 60],
-			remoteY: [0x84, 64],
-			bufferLength: 56,
-			offsets: [0, 0],
-			inVent: [0x4C],
-			clientId: [0x1c],
-			currentOutfit: [0x48],
-			roleTeam: [0x3C],
-			nameText: [0x70, 0x80],
-			outfit: {
-				colorId: [0x0c],
-				hatId: [0x10],
-				skinId: [0x18],
-				visorId: [0x1c],
-				playerName: [0x24],
-			},
-		},
-		connectFunc: 0xfff,
-		showModStampFunc: 0xfff,
-		modLateUpdateFunc: 0xff,
-		fixedUpdateFunc: 0xfff,
-		pingMessageString: 0xfff,
-		signatures: {
-			innerNetClient: {
-				sig: '8B 0D ? ? ? ? 83 C4 08 8B F0 8B 49 5C 8B 11 85 D2 74 15 8B 4D 0C 8B 49 18 8B 01 50 56 52 8B 00 FF D0',
-				patternOffset: 2,
-				addressOffset: 0,
-			},
-			meetingHud: {
-				sig:
-					'A1 ? ? ? ? 56 8B 40 5C 8B 30 A1 ? ? ? ? F6 80 ? ? ? ? ? 74 0F 83 78 74 00 75 09 50 E8 ? ? ? ? 83 C4 04 6A 00 56 E8 ? ? ? ? 83 C4 08 84 C0 0F 85 ? ? ? ? 57',
-				patternOffset: 1,
-				addressOffset: 0,
-			},
-			gameData: {
-				sig: 'A1 ? ? ? ? 83 C4 04 8B 40 5C 8B 00 85 C0 0F 84 ? ? ? ? 6A 00 FF 75 ? 50', //'8B 0D ? ? ? ? 8B F0 83 C4 10 8B 49 5C 8B 01',
-				patternOffset: 1,
-				addressOffset: 0,
-			},
-			shipStatus: {
-				sig: 'A1 ? ? ? ? FF 35 ? ? ? ? 8B 40 5C FF 30 E8 ? ? ? ? 8B F0 83 C4 08 A1 ? ? ? ? F6 80 ? ? ? ? ?',
-				patternOffset: 1,
-				addressOffset: 0,
-			},
-			miniGame: {
-				sig:
-					'A1 ? ? ? ? 8B 40 5C 8B 08 85 C9 0F 84 ? ? ? ? 8B 01 FF B0 ? ? ? ? 8B 80 ? ? ? ? 51 FF D0 83 C4 08 A1 ? ? ? ? 8B 40 5C',
-				patternOffset: 1,
-				addressOffset: 0,
-			},
-			palette: {
-				sig: 'A1 ? ? ? ? 7C 26 F6 80 BB 00 00 ? ?',
-				patternOffset: 1,
-				addressOffset: 0,
-			},
-			playerControl: {
-				sig: '8B 0D ? ? ? ? 83 C4 04 8B 41 5C 8B 00 85 C0 74 2B',
-				patternOffset: 2,
-				addressOffset: 0,
-			},
-			connectFunc: {
-				//0x1c2d390
-				sig: 'E8 ? ? ? ? A1 ? ? ? ? 83 C4 0C 8B 40 5C 8B 00 85 C0 0F 84 ? ? ? ? 6A 00 50 E8 ? ? ? ? 89',
-				patternOffset: 1,
-				addressOffset: 4,
-			},
-			fixedUpdateFunc: {
-				sig: '75 ? 8B 46 ? 85 C0 74 0B 6A 00 50 E8 ? ? ? ? 83 C4 08 83 7E ? 00',
-				patternOffset: 0,
-				addressOffset: -5,
-			},
-			pingMessageString: {
-				sig:
-					'E8 ? ? ? ? 6A 00 50 FF 35 ? ? ? ? E8 ? ? ? ? 83 C4 1C 8B C8 85 F6 74 1A 8B 06 FF B0 ? ? ? ? 8B',
-				patternOffset: 0xA,
-				addressOffset: 0,
-			},
-			serverManager: {
-				sig: 'A1 ? ? ? ? 89 55 E0 F6 80 ? ? ? ? ? 74 14 83 78 74 00 75 0E 50 E8 ? ? ? ? A1 ? ? ? ? 83 C4 ? 8B 40 ? 6A',
-				patternOffset: 1,
-				addressOffset: 0,
-			},
-			showModStamp: {
-				sig: '55 8B EC 8B 45 08 8B 40 10 85 C0 74 0F 6A 00 6A 01 50 E8 ? ? ? ? 83 C4 0C 5D C3 E9 ? ? ? ?',
-				patternOffset: 0,
-				addressOffset: -5,
-			},
-			modLateUpdate: {
-				sig: '53 8B DC 83 EC 08 83 E4 F0 83 C4 04 55 8B 6B 04 89 6C 24 04 8B EC 83 EC 28 80 3D',
-				patternOffset: 0,
-				addressOffset: 0,
-			},
-		},
-	},
-} as IOffsetsStore;
-
-export function TempFixOffsets(offsetsOld: IOffsets): IOffsets {
-	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
-	offsets.innerNetClient.gameState = 0x6c;
-	offsets.innerNetClient.gameId = 0x48;
-	offsets.innerNetClient.hostId = 0x4c;
-	offsets.innerNetClient.clientId = 0x50;
-	offsets.player.struct[3].skip = 1;
-	offsets.player.struct[4].type = 'USHORT';
-	offsets.player.struct.splice(5, 0, { type: 'SKIP', skip: 1, name: 'unused' });
-	return offsets;
+const BASE_URL = "https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Offsets/main"
+export async function fetchOffsetLookup(): Promise<IOffsetsLookup> {
+	console.log(`Fetching lookup file`);
+	return fetch(`${BASE_URL}/lookup.json`)
+		.then((response) => response.json())
+		.then((data) => { return data as IOffsetsLookup })
+		.catch((_) => { throw Errors.LOOKUP_FETCH_ERROR })
 }
 
-export function TempFixOffsets2(offsetsOld: IOffsets): IOffsets {
-	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
-	offsets.player.localX[0] = 0x60;
-	offsets.player.localY[0] = 0x60;
-	offsets.player.remoteX[0] = 0x60;
-	offsets.player.remoteY[0] = 0x60;
-	offsets.shipStatus_map[0] = 0xd4;
-	offsets.innerNetClient.gameState = 0x64;
-	offsets.innerNetClient.gameId = 0x40;
-	offsets.innerNetClient.hostId = 0x44;
-	offsets.innerNetClient.clientId = 0x48;
-	offsets.player.struct = offsets.player.struct.filter((o) => o.name !== 'COLORBEFORE');
-	offsets.player.struct[4].skip = 2;
-	offsets.palette[0] = 0x1c57fc4;
-	offsets.palette_playercolor[0] = 0xe4;
-	offsets.palette_shadowColor[0] = 0xe8;
-	offsets.shipStatus_systems[0] = 0x84;
-
-	return offsets;
+const OFFSETS_URL = `${BASE_URL}/offsets`
+export async function fetchOffsetsJson(is_64bit: boolean, filename: string): Promise<IOffsets> {
+	console.log(`Fetching file: ${filename}`);
+	return fetch(`${OFFSETS_URL}/${is_64bit ? 'x64' : 'x86'}/${filename}`)
+		.then((response) => response.json())
+		.then((data) => { return data as IOffsets })
+		.catch((_) => { throw Errors.LOOKUP_FETCH_ERROR })
 }
 
-export function TempFixOffsets3(offsetsOld: IOffsets): IOffsets {
-	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
-	offsets.player.localX[0] = 0x64;
-	offsets.player.localY[0] = 0x64;
-	offsets.player.remoteX[0] = 0x64;
-	offsets.player.remoteY[0] = 0x64;
-	offsets.palette_playercolor[0] = 0xe8;
-	offsets.palette_shadowColor[0] = 0xec;
+// export function TempFixOffsets(offsetsOld: IOffsets): IOffsets {
+// 	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
+// 	offsets.innerNetClient.gameState = 0x6c;
+// 	offsets.innerNetClient.gameId = 0x48;
+// 	offsets.innerNetClient.hostId = 0x4c;
+// 	offsets.innerNetClient.clientId = 0x50;
+// 	offsets.player.struct[3].skip = 1;
+// 	offsets.player.struct[4].type = 'USHORT';
+// 	offsets.player.struct.splice(5, 0, { type: 'SKIP', skip: 1, name: 'unused' });
+// 	return offsets;
+// }
 
-	offsets.signatures.gameData.patternOffset = 2;
-	offsets.signatures.gameData.sig = '8B 0D ? ? ? ? 8B F0 83 C4 10 8B 49 5C 8B 01';
+// export function TempFixOffsets2(offsetsOld: IOffsets): IOffsets {
+// 	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
+// 	offsets.player.localX[0] = 0x60;
+// 	offsets.player.localY[0] = 0x60;
+// 	offsets.player.remoteX[0] = 0x60;
+// 	offsets.player.remoteY[0] = 0x60;
+// 	offsets.shipStatus_map[0] = 0xd4;
+// 	offsets.innerNetClient.gameState = 0x64;
+// 	offsets.innerNetClient.gameId = 0x40;
+// 	offsets.innerNetClient.hostId = 0x44;
+// 	offsets.innerNetClient.clientId = 0x48;
+// 	offsets.player.struct = offsets.player.struct.filter((o) => o.name !== 'COLORBEFORE');
+// 	offsets.player.struct[4].skip = 2;
+// 	offsets.palette[0] = 0x1c57fc4;
+// 	offsets.palette_playercolor[0] = 0xe4;
+// 	offsets.palette_shadowColor[0] = 0xe8;
+// 	offsets.shipStatus_systems[0] = 0x84;
 
-	return offsets;
-}
+// 	return offsets;
+// }
 
-export function TempFixOffsets4(offsetsOld: IOffsets): IOffsets {
-	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
-	offsets.innerNetClient.gameState = 0x70;
-	offsets.innerNetClient.onlineScene = 0x7c;
-	offsets.innerNetClient.mainMenuScene = 0x80;
+// export function TempFixOffsets3(offsetsOld: IOffsets): IOffsets {
+// 	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
+// 	offsets.player.localX[0] = 0x64;
+// 	offsets.player.localY[0] = 0x64;
+// 	offsets.player.remoteX[0] = 0x64;
+// 	offsets.player.remoteY[0] = 0x64;
+// 	offsets.palette_playercolor[0] = 0xe8;
+// 	offsets.palette_shadowColor[0] = 0xec;
 
-	return offsets;
-}
+// 	offsets.signatures.gameData.patternOffset = 2;
+// 	offsets.signatures.gameData.sig = '8B 0D ? ? ? ? 8B F0 83 C4 10 8B 49 5C 8B 01';
 
-export function TempFixOffsets5(offsetsOld: IOffsets): IOffsets {
-	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
-	offsets.player = {
-		struct: [
-			{ type: 'SKIP', skip: 8, name: 'unused' },
-			{ type: 'UINT', name: 'id' },
-			{ type: 'UINT', name: 'name' },
-			{ type: 'SKIP', skip: 4, name: 'COLORBEFORE' },
-			{ type: 'UINT', name: 'color' },
-			{ type: 'UINT', name: 'hat' },
-			{ type: 'UINT', name: 'pet' },
-			{ type: 'UINT', name: 'skin' },
-			{ type: 'UINT', name: 'disconnected' },
-			{ type: 'UINT', name: 'taskPtr' },
-			{ type: 'BYTE', name: 'impostor' },
-			{ type: 'BYTE', name: 'dead' },
-			{ type: 'SKIP', skip: 2, name: 'unused' },
-			{ type: 'UINT', name: 'objectPtr' },
-		],
-		isDummy: [0x89],
-		isLocal: [0x54],
-		localX: [0x60, 80],
-		localY: [0x60, 84],
-		remoteX: [0x60, 60],
-		remoteY: [0x60, 64],
-		bufferLength: 56,
-		offsets: [0, 0],
-		inVent: [0x31],
-		clientId: [0x1c],
-		roleTeam: [0xff],
-		currentOutfit: [0xff],
+// 	return offsets;
+// }
 
-		outfit: {
-			colorId: [0xff],
-			hatId: [0xff],
-			skinId: [0xff],
-			visorId: [0xff],
-			playerName: [0xff],
-		},
-	};
-	//	offsets.palette[0] = 0x1ba85a4;
-	offsets.palette_shadowColor = [0xf8];
-	offsets.palette_playercolor = [0xf4];
-	offsets.innerNetClient.gameMode = 0x48;
-	offsets.innerNetClient.gameId = 0x4C;
-	offsets.innerNetClient.hostId = 0x50;
-	offsets.innerNetClient.clientId = 0x54;
-	offsets.innerNetClient.gameState = 0x74;
-	offsets.innerNetClient.onlineScene = 0x80;
-	offsets.innerNetClient.mainMenuScene = 0x84;
-	offsets.shipStatus_systems = [0x8c];
-	offsets.shipstatus_allDoors = [0x84];
-	offsets.shipStatus_map = [0xe4];
-	offsets.lightRadius = [0x54, 0x1c];
-	return offsets;
-}
+// export function TempFixOffsets4(offsetsOld: IOffsets): IOffsets {
+// 	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
+// 	offsets.innerNetClient.gameState = 0x70;
+// 	offsets.innerNetClient.onlineScene = 0x7c;
+// 	offsets.innerNetClient.mainMenuScene = 0x80;
+
+// 	return offsets;
+// }
+
+// export function TempFixOffsets5(offsetsOld: IOffsets): IOffsets {
+// 	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
+// 	offsets.player = {
+// 		struct: [
+// 			{ type: 'SKIP', skip: 8, name: 'unused' },
+// 			{ type: 'UINT', name: 'id' },
+// 			{ type: 'UINT', name: 'name' },
+// 			{ type: 'SKIP', skip: 4, name: 'COLORBEFORE' },
+// 			{ type: 'UINT', name: 'color' },
+// 			{ type: 'UINT', name: 'hat' },
+// 			{ type: 'UINT', name: 'pet' },
+// 			{ type: 'UINT', name: 'skin' },
+// 			{ type: 'UINT', name: 'disconnected' },
+// 			{ type: 'UINT', name: 'taskPtr' },
+// 			{ type: 'BYTE', name: 'impostor' },
+// 			{ type: 'BYTE', name: 'dead' },
+// 			{ type: 'SKIP', skip: 2, name: 'unused' },
+// 			{ type: 'UINT', name: 'objectPtr' },
+// 		],
+// 		isDummy: [0x89],
+// 		isLocal: [0x54],
+// 		localX: [0x60, 80],
+// 		localY: [0x60, 84],
+// 		remoteX: [0x60, 60],
+// 		remoteY: [0x60, 64],
+// 		bufferLength: 56,
+// 		offsets: [0, 0],
+// 		inVent: [0x31],
+// 		clientId: [0x1c],
+// 		roleTeam: [0xff],
+// 		currentOutfit: [0xff],
+
+// 		outfit: {
+// 			colorId: [0xff],
+// 			hatId: [0xff],
+// 			skinId: [0xff],
+// 			visorId: [0xff],
+// 			playerName: [0xff],
+// 		},
+// 	};
+// 	//	offsets.palette[0] = 0x1ba85a4;
+// 	offsets.palette_shadowColor = [0xf8];
+// 	offsets.palette_playercolor = [0xf4];
+// 	offsets.innerNetClient.gameMode = 0x48;
+// 	offsets.innerNetClient.gameId = 0x4C;
+// 	offsets.innerNetClient.hostId = 0x50;
+// 	offsets.innerNetClient.clientId = 0x54;
+// 	offsets.innerNetClient.gameState = 0x74;
+// 	offsets.innerNetClient.onlineScene = 0x80;
+// 	offsets.innerNetClient.mainMenuScene = 0x84;
+// 	offsets.shipStatus_systems = [0x8c];
+// 	offsets.shipstatus_allDoors = [0x84];
+// 	offsets.shipStatus_map = [0xe4];
+// 	offsets.lightRadius = [0x54, 0x1c];
+// 	return offsets;
+// }
 
 
-export function TempFixOffsets6(offsetsOld: IOffsets): IOffsets {
-	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
-	offsets.innerNetClient.gameMode = 0x48;
-	offsets.innerNetClient.gameId = 0x4C;
-	offsets.innerNetClient.hostId = 0x50;
-	offsets.innerNetClient.clientId = 0x54;
-	offsets.innerNetClient.gameState = 0x78;
-	offsets.innerNetClient.onlineScene = 0x88;
-	offsets.innerNetClient.mainMenuScene = 0x8C;
-	return offsets;
-}
+// export function TempFixOffsets6(offsetsOld: IOffsets): IOffsets {
+// 	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
+// 	offsets.innerNetClient.gameMode = 0x48;
+// 	offsets.innerNetClient.gameId = 0x4C;
+// 	offsets.innerNetClient.hostId = 0x50;
+// 	offsets.innerNetClient.clientId = 0x54;
+// 	offsets.innerNetClient.gameState = 0x78;
+// 	offsets.innerNetClient.onlineScene = 0x88;
+// 	offsets.innerNetClient.mainMenuScene = 0x8C;
+// 	return offsets;
+// }
 
-
-export function TempFixOffsets7(offsetsOld: IOffsets): IOffsets {
-	console.log("TempFixed7")
-	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
-	offsets.player.struct = [
-		{ type: 'SKIP', skip: 8, name: 'unused' },
-		{ type: 'UINT', name: 'id' },
-		{ type: 'UINT', name: 'outfitsPtr' },
-		{ type: 'UINT', name: 'playerLevel' },
-		{ type: 'UINT', name: 'disconnected' },
-		{ type: 'UINT', name: 'rolePtr' },
-		{ type: 'UINT', name: 'taskPtr' },
-		{ type: 'BYTE', name: 'dead' },
-		{ type: 'SKIP', skip: 3, name: 'unused2' },
-		{ type: 'UINT', name: 'objectPtr' },
-	];
-	offsets.player.inVent = [0x38];
-	offsets.player.isDummy = [0xa9];
-	offsets.player.isLocal = [0x60];
-	offsets.player.localX = [0x6c, 80];
-	offsets.player.localY = [0x6c, 84];
-	offsets.player.remoteX = [0x6c, 60];
-	offsets.player.remoteY = [0x6c, 64];
-	offsets.player.currentOutfit = [0x34];
-	offsets.player.nameText = [0x58, 0x80];
-	offsets.gameOptions_MapId = [0x10];
-	offsets.gameOptions_MaxPLayers = [0x8];
-	return offsets;
-}
+// export function TempFixOffsets7(offsetsOld: IOffsets): IOffsets {
+// 	console.log("TempFixed7")
+// 	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy
+// 	offsets.player.struct = [
+// 		{ type: 'SKIP', skip: 8, name: 'unused' },
+// 		{ type: 'UINT', name: 'id' },
+// 		{ type: 'UINT', name: 'outfitsPtr' },
+// 		{ type: 'UINT', name: 'playerLevel' },
+// 		{ type: 'UINT', name: 'disconnected' },
+// 		{ type: 'UINT', name: 'rolePtr' },
+// 		{ type: 'UINT', name: 'taskPtr' },
+// 		{ type: 'BYTE', name: 'dead' },
+// 		{ type: 'SKIP', skip: 3, name: 'unused2' },
+// 		{ type: 'UINT', name: 'objectPtr' },
+// 	];
+// 	offsets.player.inVent = [0x38];
+// 	offsets.player.isDummy = [0xa9];
+// 	offsets.player.isLocal = [0x60];
+// 	offsets.player.localX = [0x6c, 80];
+// 	offsets.player.localY = [0x6c, 84];
+// 	offsets.player.remoteX = [0x6c, 60];
+// 	offsets.player.remoteY = [0x6c, 64];
+// 	offsets.player.currentOutfit = [0x34];
+// 	offsets.player.nameText = [0x58, 0x80];
+// 	offsets.gameOptions_MapId = [0x10];
+// 	offsets.gameOptions_MaxPLayers = [0x8];
+// 	return offsets;
+// }
