@@ -17,9 +17,7 @@ import { ISettings } from '../common/ISettings';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { gameReader } from './hook';
 import { GenerateHat } from './avatarGenerator';
-
 const args = require('minimist')(process.argv); // eslint-disable-line
-
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const devTools = (isDevelopment || args.dev === 1) && true;
 
@@ -37,7 +35,6 @@ declare global {
 global.mainWindow = null;
 global.overlay = null;
 const store = new Store<ISettings>();
-
 app.commandLine.appendSwitch('disable-pinch');
 // app.disableHardwareAcceleration();
 if (platform() === 'linux' || !store.get('hardware_acceleration', true)) {
@@ -62,24 +59,26 @@ function createMainWindow() {
 		fullscreenable: false,
 		maximizable: false,
 		webPreferences: {
-			enableRemoteModule: true,
 			nodeIntegration: true,
-			webSecurity: false,
+			contextIsolation: false
 		},
 	});
-
 	mainWindowState.manage(window);
 
 	if (devTools) {
-		// Force devtools into detached mode otherwise they are unusable
-		window.webContents.openDevTools({
-			mode: 'detach',
-		});
+		//Force devtools into detached mode otherwise they are unusable
+		window.on('ready-to-show', () => {
+			window.webContents.openDevTools({
+				mode: 'detach',
+			});
+		})
 	}
 
 	let crewlinkVersion: string;
 	if (isDevelopment) {
 		crewlinkVersion = '0.0.0';
+		//window.loadURL("http://google.nl")
+
 		window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}?version=DEV&view=app`);
 	} else {
 		crewlinkVersion = autoUpdater.currentVersion.version;
@@ -97,6 +96,7 @@ function createMainWindow() {
 	}
 	//window.webContents.userAgent = `CrewLink/${crewlinkVersion} (${process.platform})`;
 	window.webContents.userAgent = `CrewLink/2.0.1 (win32)`;
+
 	window.on('closed', () => {
 		try {
 			const mainWindow = global.mainWindow;
@@ -134,11 +134,11 @@ function createLobbyBrowser() {
 		closable: true,
 		maximizable: false,
 		webPreferences: {
-			enableRemoteModule: true,
 			nodeIntegration: true,
-			webSecurity: false,
+			contextIsolation: false,
 		},
 	});
+
 	window.on('closed', () => {
 		global.lobbyBrowser = null;
 	});
@@ -178,8 +178,7 @@ function createOverlay() {
 		height: 300,
 		webPreferences: {
 			nodeIntegration: true,
-			enableRemoteModule: true,
-			webSecurity: false,
+			contextIsolation: false,
 		},
 		fullscreenable: true,
 		skipTaskbar: true,
@@ -368,4 +367,12 @@ if (!gotTheLock) {
 			global.overlay?.close();
 		}
 	});
+
+	ipcMain.on('enableOverlay', async (_event, enable) => {
+		if (global.mainWindow) {
+			global.mainWindow.setAlwaysOnTop(enable, 'screen-saver');
+		}
+	});
+
+
 }

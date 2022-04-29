@@ -114,10 +114,19 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 	}
 });
 
-ipcMain.on('reload', async () => {
-	global.mainWindow?.reload();
+ipcMain.on('reload', async (lobbybrowser) => {
+	if (!lobbybrowser) {
+		global.mainWindow?.reload();
+	}
 	global.lobbyBrowser?.reload();
+	//	global.overlay?.reload();
+});
 
+ipcMain.on('minimize', async (lobbybrowser) => {
+	if (!lobbybrowser) {
+		global.mainWindow?.minimize();
+	}
+	global.lobbyBrowser?.minimize();
 	//	global.overlay?.reload();
 });
 
