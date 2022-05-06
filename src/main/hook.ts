@@ -1,4 +1,4 @@
-import { ipcMain } from 'electron';
+import { app, ipcMain } from 'electron';
 import GameReader from './GameReader';
 // import iohook from 'iohook';
 import { keyboardWatcher } from 'node-keyboard-watcher';
@@ -128,6 +128,10 @@ ipcMain.on('minimize', async (lobbybrowser) => {
 	}
 	global.lobbyBrowser?.minimize();
 	//	global.overlay?.reload();
+});
+
+ipcMain.handle("getlocale", () => {
+	return app.getLocale();
 });
 
 // GenerateAvatars().then(() => console.log("done generate")).catch((e) => console.error(e));

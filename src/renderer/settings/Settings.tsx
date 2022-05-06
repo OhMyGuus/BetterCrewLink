@@ -687,23 +687,25 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	}, [settings.localLobbySettings]);
 
 	useEffect(() => {
-		console.log(settings.language);
-		if (settings.language === 'unkown') {
-			const locale: string = app.getLocale();
-			const lang = Object.keys(languages).includes(locale)
-				? locale
-				: Object.keys(languages).includes(locale.split('-')[0])
-				? locale.split('-')[0]
-				: undefined;
-			if (lang) {
-				settings.language = lang;
-				setSettings({
-					type: 'setOne',
-					action: ['language', settings.language],
-				});
+		(async () => {
+			console.log(settings.language);
+			if (settings.language === 'unkown') {
+				const locale: string = await ipcRenderer.invoke("getlocale");
+				const lang = Object.keys(languages).includes(locale)
+					? locale
+					: Object.keys(languages).includes(locale.split('-')[0])
+						? locale.split('-')[0]
+						: undefined;
+				if (lang) {
+					settings.language = lang;
+					setSettings({
+						type: 'setOne',
+						action: ['language', settings.language],
+					});
+				}
 			}
-		}
-		i18next.changeLanguage(settings.language);
+			i18next.changeLanguage(settings.language);
+		})();
 	}, [settings.language]);
 
 	const isInMenuOrLobby = gameState?.gameState === GameState.LOBBY || gameState?.gameState === GameState.MENU;
@@ -754,7 +756,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	}, []);
 
 	if (!open) { return <></> }
-	
+
 	return (
 		<Box className={classes.root}>
 			<div className={classes.header}>
@@ -1689,11 +1691,9 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								fullWidth
 								spellCheck={false}
 								label={t('settings.streaming.obs_url')}
-								value={`${settings.serverURL.includes('https') ? 'https' : 'http'}://obs.bettercrewlink.app/?compact=${
-									settings.compactOverlay ? '1' : '0'
-								}&position=${settings.overlayPosition}&meeting=${settings.meetingOverlay ? '1' : '0'}&secret=${
-									settings.obsSecret
-								}&server=${settings.serverURL}`}
+								value={`${settings.serverURL.includes('https') ? 'https' : 'http'}://obs.bettercrewlink.app/?compact=${settings.compactOverlay ? '1' : '0'
+									}&position=${settings.overlayPosition}&meeting=${settings.meetingOverlay ? '1' : '0'}&secret=${settings.obsSecret
+									}&server=${settings.serverURL}`}
 								variant="outlined"
 								color="primary"
 								InputProps={{
