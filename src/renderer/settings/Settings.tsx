@@ -563,16 +563,6 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	const [lobbySettings, setLobbySettings] = useContext(LobbySettingsContext);
 	const [unsavedCount, setUnsavedCount] = useState(0);
 	const unsaved = unsavedCount > 2;
-	useEffect(() => {
-		setSettings({
-			type: 'set',
-			action: store.store,
-		});
-		setLobbySettings({
-			type: 'set',
-			action: store.get('localLobbySettings'),
-		});
-	}, []);
 
 	useEffect(() => {
 		setUnsavedCount((s) => s + 1);
