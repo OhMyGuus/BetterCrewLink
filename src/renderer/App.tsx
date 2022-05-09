@@ -3,7 +3,7 @@ import Voice from './Voice';
 import Menu from './Menu';
 import { ipcRenderer } from 'electron';
 import { AmongUsState } from '../common/AmongUsState';
-import Settings, { settingsReducer, lobbySettingsReducer, pushToTalkOptions } from './settings/Settings';
+import Settings, { settingsReducer, lobbySettingsReducer } from './settings/Settings';
 import { GameStateContext, SettingsContext, LobbySettingsContext, PlayerColorContext } from './contexts';
 import { ThemeProvider } from '@material-ui/core/styles';
 import {
@@ -35,7 +35,8 @@ import 'typeface-varela/index.css';
 import { DEFAULT_PLAYERCOLORS } from '../main/avatarGenerator';
 import './language/i18n';
 import { withNamespaces } from 'react-i18next';
-import { GamePlatform } from '../common/GamePlatform';
+import { ISettings } from '../common/ISettings';
+import Store from 'electron-store';
 let appVersion = '';
 if (typeof window !== 'undefined' && window.location) {
 	const query = new URLSearchParams(window.location.search.substring(1));
@@ -115,6 +116,9 @@ enum AppState {
 	MENU,
 	VOICE,
 }
+
+const store = new Store<ISettings>();
+
 // @ts-ignore
 export default function App({ t }): JSX.Element {
 	const [state, setState] = useState<AppState>(AppState.MENU);
@@ -128,57 +132,7 @@ export default function App({ t }): JSX.Element {
 	const playerColors = useRef<string[][]>(DEFAULT_PLAYERCOLORS);
 	const overlayInitCount = useRef<number>(0);
 
-	const settings = useReducer(settingsReducer, {
-		language: 'default',
-		alwaysOnTop: true,
-		microphone: 'Default',
-		speaker: 'Default',
-		pushToTalkMode: pushToTalkOptions.VOICE,
-		serverURL: 'https://bettercrewl.ink/',
-		pushToTalkShortcut: 'V',
-		deafenShortcut: 'RControl',
-		muteShortcut: 'RAlt',
-		impostorRadioShortcut: 'F',
-		hideCode: false,
-		natFix: false,
-		mobileHost: true,
-		overlayPosition: 'right',
-		compactOverlay: false,
-		enableOverlay: false,
-		meetingOverlay: false,
-		ghostVolume: 100,
-		masterVolume: 100,
-		microphoneGain: 100,
-		micSensitivity: 0.15,
-		microphoneGainEnabled: false,
-		micSensitivityEnabled: false,
-		vadEnabled: true,
-		hardware_acceleration: true,
-		echoCancellation: true,
-		enableSpatialAudio: true,
-		obsSecret: undefined,
-		obsOverlay: false,
-		noiseSuppression: true,
-		playerConfigMap: {},
-		localLobbySettings: {
-			maxDistance: 5.32,
-			haunting: false,
-			hearImpostorsInVents: false,
-			impostersHearImpostersInvent: false,
-			impostorRadioEnabled: false,
-			commsSabotage: false,
-			deadOnly: false,
-			meetingGhostOnly: false,
-			hearThroughCameras: false,
-			wallsBlockAudio: false,
-			visionHearing: false,
-			publicLobby_on: false,
-			publicLobby_title: '',
-			publicLobby_language: 'en',
-		},
-		launchPlatform: GamePlatform.STEAM,
-		customPlatforms: {},
-	});
+	const settings = useReducer(settingsReducer, store.store);
 	const lobbySettings = useReducer(lobbySettingsReducer, settings[0].localLobbySettings);
 
 	useEffect(() => {
