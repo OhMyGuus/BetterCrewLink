@@ -20,6 +20,8 @@ import { PublicLobbyMap, PublicLobby } from '../../common/PublicLobby';
 import { modList } from '../../common/Mods';
 import { GameState } from '../../common/AmongUsState';
 
+
+// TODO: Check: does this really need it's own reference?
 const store = new Store<ISettings>();
 const serverUrl = store.get('serverURL', 'https://bettercrewl.ink/');
 const language = store.get('language', 'en');

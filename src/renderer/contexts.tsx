@@ -2,6 +2,8 @@ import React, { createContext } from 'react';
 import { AmongUsState } from '../common/AmongUsState';
 import { ISettings, ILobbySettings } from '../common/ISettings';
 
+
+// TODO: Redo this entire file
 type SettingsContextValue = [
 	ISettings,
 	React.Dispatch<{
