@@ -114,7 +114,7 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 	}
 });
 
-ipcMain.on('reload', async (lobbybrowser) => {
+ipcMain.on('reload', async (_, lobbybrowser) => {
 	if (!lobbybrowser) {
 		global.mainWindow?.reload();
 	}
@@ -122,7 +122,7 @@ ipcMain.on('reload', async (lobbybrowser) => {
 	//	global.overlay?.reload();
 });
 
-ipcMain.on('minimize', async (lobbybrowser) => {
+ipcMain.on('minimize', async (_, lobbybrowser) => {
 	if (!lobbybrowser) {
 		global.mainWindow?.minimize();
 	}
