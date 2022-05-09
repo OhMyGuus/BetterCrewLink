@@ -42,7 +42,7 @@ import Mic from '@material-ui/icons/Mic';
 import MicOff from '@material-ui/icons/MicOff';
 import adapter from 'webrtc-adapter';
 import { VADOptions } from './vad';
-import { pushToTalkOptions } from './settings/Settings';
+import { pushToTalkOptions } from './settings/SettingsStore';
 import { poseCollide } from '../common/ColliderMap';
 
 console.log(adapter.browserDetails.browser);
@@ -217,6 +217,8 @@ radioOnAudio.volume = 0.02;
 // radiobeepAudio2.src = radioBeep2;
 // radiobeepAudio2.volume = 0.2;
 
+
+// TODO: Check: does this really need it's own reference?
 const store = new Store<ISettings>();
 const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceProps) {
 	const [error, setError] = useState('');
