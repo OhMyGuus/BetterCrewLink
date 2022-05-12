@@ -311,7 +311,6 @@ export default class GameReader {
 					const minigamePtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets!.miniGame);
 					const minigameCachePtr = this.readMemory<number>('ptr', minigamePtr, this.offsets!.objectCachePtr);
 					if (minigameCachePtr && minigameCachePtr !== 0 && localPlayer) {
-						console.log("In cams minigame?");
 						if (map === MapType.POLUS || map === MapType.AIRSHIP) {
 							const currentCameraId = this.readMemory<number>(
 								'uint32',
