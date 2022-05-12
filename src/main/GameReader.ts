@@ -340,8 +340,12 @@ export default class GameReader {
 								}
 							}
 						} else if (map === MapType.SUBMERGED) {
-							const currentCameraId = SubmergedCamLocation.NONE; // TODO: Read from memory
-							const currentCamEnabled = false; // TODO: Read from memory
+							const currentCameraId = SubmergedCamLocation.NONE;
+							// TODO: Read from memory
+							// Probably from SubmarineSurvillanceMinigame.SelectedCam int
+							const currentCamEnabled = false;
+							// TODO: Read from memory based off of currentCameraId
+							// Probably from SubmarineSecuritySabotageSystem.FixedCams List<byte>
 							if (currentCamEnabled) {
 								currentCamera = (currentCameraId + SubmergedCamLocation.START) as SubmergedCamLocation;
 							}
