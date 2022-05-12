@@ -26,6 +26,7 @@ export enum CameraLocation {
 
 export enum SubmergedCamLocation  {
 	NONE = -1,
+	START = 10,
 	LowerHall = 10,
 	Electrical,
 	LowerLobby,

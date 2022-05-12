@@ -343,7 +343,7 @@ export default class GameReader {
 							const currentCameraId = SubmergedCamLocation.NONE; // TODO: Read from memory
 							const currentCamEnabled = false; // TODO: Read from memory
 							if (currentCamEnabled) {
-								currentCamera = currentCameraId as SubmergedCamLocation;
+								currentCamera = (currentCameraId + SubmergedCamLocation.START) as SubmergedCamLocation;
 							}
 						}
 					}
