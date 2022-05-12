@@ -21,17 +21,18 @@ export enum CameraLocation {
 	SouthWest, // CARGO BAY
 	NorthWest, // MEETING ROOM
 	Skeld,
-	NONE,
+	NONE = -1,
 }
 
-export enum SubmergedCamLocation {
-	LowerHall,
+export enum SubmergedCamLocation  {
+	NONE = -1,
+	LowerHall = 10,
 	Electrical,
 	LowerLobby,
 	UpperHall,
 	Central,
 	Comms,
-	UpperLobby
+	UpperLobby,
 }
 
 export interface CamerasMap {

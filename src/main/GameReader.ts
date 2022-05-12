@@ -18,7 +18,7 @@ import { IpcOverlayMessages, IpcRendererMessages } from '../common/ipc-messages'
 import { GameState, AmongUsState, Player } from '../common/AmongUsState';
 import { fetchOffsetLookup, fetchOffsetsJson, IOffsets, IOffsetsLookup } from './offsetStore';
 import Errors from '../common/Errors';
-import { CameraLocation, MapType } from '../common/AmongusMap';
+import { CameraLocation, MapType, SubmergedCamLocation } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
 import { RainbowColorId } from '../renderer/cosmetics';
 import { platform } from 'os';
@@ -224,7 +224,7 @@ export default class GameReader {
 			this.isLocalGame = lobbyCodeInt === 32; // is local game
 			let lightRadius = 1;
 			let comsSabotaged = false;
-			let currentCamera = CameraLocation.NONE;
+			let currentCamera: number = CameraLocation.NONE;
 			let map = MapType.UNKNOWN;
 			let maxPlayers = 10;
 			const closedDoors: number[] = [];
@@ -311,6 +311,7 @@ export default class GameReader {
 					const minigamePtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets!.miniGame);
 					const minigameCachePtr = this.readMemory<number>('ptr', minigamePtr, this.offsets!.objectCachePtr);
 					if (minigameCachePtr && minigameCachePtr !== 0 && localPlayer) {
+						console.log("In cams minigame?");
 						if (map === MapType.POLUS || map === MapType.AIRSHIP) {
 							const currentCameraId = this.readMemory<number>(
 								'uint32',
@@ -337,6 +338,12 @@ export default class GameReader {
 								if (dist < 0.6) {
 									currentCamera = CameraLocation.Skeld;
 								}
+							}
+						} else if (map === MapType.SUBMERGED) {
+							const currentCameraId = SubmergedCamLocation.NONE; // TODO: Read from memory
+							const currentCamDisabled = true; // TODO: Read from memory
+							if (!currentCamDisabled) {
+								currentCamera = currentCameraId as SubmergedCamLocation;
 							}
 						}
 					}
