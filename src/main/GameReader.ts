@@ -341,8 +341,8 @@ export default class GameReader {
 							}
 						} else if (map === MapType.SUBMERGED) {
 							const currentCameraId = SubmergedCamLocation.NONE; // TODO: Read from memory
-							const currentCamDisabled = true; // TODO: Read from memory
-							if (!currentCamDisabled) {
+							const currentCamEnabled = false; // TODO: Read from memory
+							if (currentCamEnabled) {
 								currentCamera = currentCameraId as SubmergedCamLocation;
 							}
 						}
