@@ -1,6 +1,6 @@
 import Store from 'electron-store';
 import { GamePlatform } from '../../common/GamePlatform';
-import { ISettings } from '../../common/ISettings';
+import { ILobbySettings, ISettings } from '../../common/ISettings';
 
 export enum pushToTalkOptions {
 	VOICE,
@@ -350,5 +350,15 @@ export const SettingsStore = new Store<ISettings>({
 		},
 	},
 });
+
+// Set a setting
+
+export const setSetting = <K extends keyof ISettings>(setting: K, value: ISettings[K]) => {
+	SettingsStore.set(setting, value)
+};
+
+export const setLobbySetting = <K extends keyof ILobbySettings>(setting: K, value: ILobbySettings[K]) => {
+	SettingsStore.set(`localLobbySettings.${setting}`, value);
+};
 
 export default SettingsStore;

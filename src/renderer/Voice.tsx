@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import io, { Socket } from 'socket.io-client';
 import Avatar from './Avatar';
-import { GameStateContext, LobbySettingsContext, PlayerColorContext, SettingsContext } from './contexts';
+import { GameStateContext, /*LobbySettingsContext,*/ PlayerColorContext, SettingsContext } from './contexts';
 import {
 	AmongUsState,
 	GameState,
@@ -222,10 +222,11 @@ radioOnAudio.volume = 0.02;
 const store = new Store<ISettings>();
 const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceProps) {
 	const [error, setError] = useState('');
-	const [settings] = useContext(SettingsContext);
+	const [settings, _setSettings, setLobbySettings] = useContext(SettingsContext);
 
 	const settingsRef = useRef<ISettings>(settings);
-	const [lobbySettings, setLobbySettings] = useContext(LobbySettingsContext);
+	// const [lobbySettings, setLobbySettings] = useContext(LobbySettingsContext);
+	const lobbySettings = settings.localLobbySettings;
 	const lobbySettingsRef = useRef(lobbySettings);
 	const maxDistanceRef = useRef(2);
 	const gameState = useContext(GameStateContext);
@@ -552,10 +553,11 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			}
 		});
 
-		setLobbySettings({
-			type: 'set',
-			action: settings.localLobbySettings,
-		});
+		_setSettings('localLobbySettings', settings.localLobbySettings);
+		// setLobbySettings({
+		// 	type: 'set',
+		// 	action: settings.localLobbySettings,
+		// });
 	}, [settings.localLobbySettings, hostRef.current.isHost]);
 
 	useEffect(() => {
@@ -1082,18 +1084,12 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						if (parsedData.hasOwnProperty('maxDistance')) {
 							if (!hostRef.current || hostRef.current.parsedHostId !== socketClientsRef.current[peer]?.clientId) return;
 
-							Object.keys(lobbySettings).forEach((field: string) => {
+							(Object.keys(lobbySettings) as (keyof ILobbySettings)[]).forEach((field: keyof ILobbySettings) => {
 								if (field in parsedData) {
-									setLobbySettings({
-										type: 'setOne',
-										action: [field, parsedData[field]],
-									});
+									setLobbySettings(field, parsedData[field]);
 								} else {
 									if (field in defaultlocalLobbySettings) {
-										setLobbySettings({
-											type: 'setOne',
-											action: [field, defaultlocalLobbySettings[field as keyof ILobbySettings]],
-										});
+										setLobbySettings(field, defaultlocalLobbySettings[field]);
 									}
 								}
 							});

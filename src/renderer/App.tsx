@@ -1,11 +1,11 @@
-import React, { Dispatch, SetStateAction, useEffect, useReducer, useState, useRef } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState, useRef } from 'react';
 import Voice from './Voice';
 import Menu from './Menu';
 import { ipcRenderer } from 'electron';
 import { AmongUsState } from '../common/AmongUsState';
-import Settings, { settingsReducer, lobbySettingsReducer } from './settings/Settings';
-import SettingsStore from './settings/SettingsStore';
-import { GameStateContext, SettingsContext, LobbySettingsContext, PlayerColorContext } from './contexts';
+import Settings, { /*settingsReducer, lobbySettingsReducer*/ } from './settings/Settings';
+import SettingsStore, { setSetting, setLobbySetting} from './settings/SettingsStore';
+import { GameStateContext, SettingsContext, /*LobbySettingsContext,*/ PlayerColorContext } from './contexts';
 import { ThemeProvider } from '@material-ui/core/styles';
 import {
 	AutoUpdaterState,
@@ -36,6 +36,7 @@ import 'typeface-varela/index.css';
 import { DEFAULT_PLAYERCOLORS } from '../main/avatarGenerator';
 import './language/i18n';
 import { withNamespaces } from 'react-i18next';
+import { ISettings } from '../common/ISettings';
 let appVersion = '';
 if (typeof window !== 'undefined' && window.location) {
 	const query = new URLSearchParams(window.location.search.substring(1));
@@ -128,13 +129,12 @@ export default function App({ t }): JSX.Element {
 	const playerColors = useRef<string[][]>(DEFAULT_PLAYERCOLORS);
 	const overlayInitCount = useRef<number>(0);
 
-	// TODO: Move away from a reducer
-	const settings = useReducer(settingsReducer, SettingsStore.store);
-	const lobbySettings = useReducer(lobbySettingsReducer, SettingsStore.store.localLobbySettings);
+	const [settings, setSettings] = useState(SettingsStore.store);
+	SettingsStore.onDidAnyChange((newValue, _) => {setSettings(newValue as ISettings)})
 
 	useEffect(() => {
 		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, playerColors.current);
-		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_SETTINGS_CHANGED, settings[0]);
+		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_SETTINGS_CHANGED, SettingsStore.store);
 		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_GAME_STATE_CHANGED, gameState);
 	}, [overlayInitCount.current]);
 
@@ -201,8 +201,9 @@ export default function App({ t }): JSX.Element {
 	useEffect(() => {
 		console.log(playerColors.current);
 		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, playerColors.current);
-		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_SETTINGS_CHANGED, settings[0]);
-	}, [settings[0]]);
+		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_SETTINGS_CHANGED, SettingsStore.store);
+		console.log("Didn't work");
+	}, [settings]);
 
 	let page;
 	switch (state) {
@@ -217,8 +218,8 @@ export default function App({ t }): JSX.Element {
 	return (
 		<PlayerColorContext.Provider value={playerColors.current}>
 			<GameStateContext.Provider value={gameState}>
-				<LobbySettingsContext.Provider value={lobbySettings}>
-					<SettingsContext.Provider value={settings}>
+				{/* <LobbySettingsContext.Provider value={lobbySettings}> */}
+					<SettingsContext.Provider value={[settings, setSetting, setLobbySetting]}>
 						<ThemeProvider theme={theme}>
 							<TitleBar settingsOpen={settingsOpen} setSettingsOpen={setSettingsOpen} />
 							<Settings t={t} open={settingsOpen} onClose={() => setSettingsOpen(false)} />
@@ -273,7 +274,7 @@ export default function App({ t }): JSX.Element {
 							{page}
 						</ThemeProvider>
 					</SettingsContext.Provider>
-				</LobbySettingsContext.Provider>
+				{/* </LobbySettingsContext.Provider> */}
 			</GameStateContext.Provider>
 		</PlayerColorContext.Provider>
 	);

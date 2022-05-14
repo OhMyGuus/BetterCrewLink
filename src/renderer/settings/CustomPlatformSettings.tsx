@@ -122,36 +122,21 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 	const saveCustomPlatform = () => {
 		if (editPlatform && settings.customPlatforms[editPlatform.key]) {
 			const { [editPlatform.key]: remove, ...rest } = settings.customPlatforms;
-			setSettings({
-				type: 'setOne',
-				action: [
-					'customPlatforms',
-					{
-						...rest,
-						[customPlatform.key]: customPlatform,
-					},
-				],
+			setSettings('customPlatforms', {
+				...rest, 
+				[customPlatform.key]: customPlatform,
 			});
 		} else {
-			setSettings({
-				type: 'setOne',
-				action: [
-					'customPlatforms',
-					{
-						...settings.customPlatforms,
-						[customPlatform.key]: customPlatform,
-					},
-				],
+			setSettings('customPlatforms', {
+				...settings.customPlatforms,
+				[customPlatform.key]: customPlatform,
 			});
 		}
 	};
 
 	const deleteCustomPlatform = () => {
 		const { [customPlatform.key]: remove, ...rest } = settings.customPlatforms;
-		setSettings({
-			type: 'setOne',
-			action: ['customPlatforms', rest],
-		});
+		setSettings('customPlatforms', rest);
 	};
 
 	const runInputs = useMemo(() => {
