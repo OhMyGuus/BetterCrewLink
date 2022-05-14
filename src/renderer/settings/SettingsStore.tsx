@@ -1,6 +1,6 @@
 import Store from 'electron-store';
 import { GamePlatform } from '../../common/GamePlatform';
-import { ILobbySettings, ISettings } from '../../common/ISettings';
+import { ILobbySettings, ISettings, SocketConfig } from '../../common/ISettings';
 
 export enum pushToTalkOptions {
 	VOICE,
@@ -351,9 +351,11 @@ export const SettingsStore = new Store<ISettings>({
 	},
 });
 
-// Set a setting
+// This is fricken weird but also great
+type ISettingOrSocketConfig<K extends keyof ISettings | `playerConfigMap.${number}`> = K extends keyof ISettings ? ISettings[K] : SocketConfig;
 
-export const setSetting = <K extends keyof ISettings>(setting: K, value: ISettings[K]) => {
+// If our setting is a keyof ISettings, value is the appropriate type. If setting is `playerConfigMap.1234` then value is a socket config
+export const setSetting = <K extends keyof ISettings | `playerConfigMap.${number}`>(setting: K, value: ISettingOrSocketConfig<K>) => {
 	SettingsStore.set(setting, value)
 };
 

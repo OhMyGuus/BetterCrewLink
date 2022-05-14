@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import io, { Socket } from 'socket.io-client';
 import Avatar from './Avatar';
-import { GameStateContext, /*LobbySettingsContext,*/ PlayerColorContext, SettingsContext } from './contexts';
+import { GameStateContext, PlayerColorContext, SettingsContext } from './contexts';
 import {
 	AmongUsState,
 	GameState,
@@ -30,7 +30,7 @@ import radioOnSound from '../../static/sounds/radio_on.wav'; // @ts-ignore
 // import radioBeep2 from '../../static/sounds/radio_beep2.wav';
 
 import { CameraLocation, AmongUsMaps, MapType } from '../common/AmongusMap';
-import Store from 'electron-store';
+// import Store from 'electron-store';
 import { ObsVoiceState } from '../common/ObsOverlay';
 // import { poseCollide } from '../common/ColliderMap';
 import Footer from './Footer';
@@ -42,7 +42,7 @@ import Mic from '@material-ui/icons/Mic';
 import MicOff from '@material-ui/icons/MicOff';
 import adapter from 'webrtc-adapter';
 import { VADOptions } from './vad';
-import { pushToTalkOptions } from './settings/SettingsStore';
+import { pushToTalkOptions, setSetting } from './settings/SettingsStore';
 import { poseCollide } from '../common/ColliderMap';
 
 console.log(adapter.browserDetails.browser);
@@ -219,7 +219,7 @@ radioOnAudio.volume = 0.02;
 
 
 // TODO: Check: does this really need it's own reference?
-const store = new Store<ISettings>();
+// const store = new Store<ISettings>();
 const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceProps) {
 	const [error, setError] = useState('');
 	const [settings, _setSettings, setLobbySettings] = useContext(SettingsContext);
@@ -1479,7 +1479,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 										size={50}
 										socketConfig={socketConfig}
 										onConfigChange={() => {
-											store.set(`playerConfigMap.${player.nameHash}`, playerConfigs[player.nameHash]);
+											setSetting(`playerConfigMap.${player.nameHash}`, playerConfigs[player.nameHash]);
+											// store.set(`playerConfigMap.${player.nameHash}`, playerConfigs[player.nameHash]);
 										}}
 										mod={gameState.mod}
 									/>
