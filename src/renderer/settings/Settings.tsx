@@ -173,7 +173,9 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	const [unsavedCount, setUnsavedCount] = useState(0);
 	const unsaved = unsavedCount > 2;
 
-	const [myLocalLobbySettings, setMyLocalLobbySettings] = useState(settings.localLobbySettings);
+	// Used to buffer changes that are only sent out on settings close
+	const [localLobbySettingsBuffer, setLocalLobbySettingsBuffer] = useState(settings.localLobbySettings);
+	const updateLocalLobbySettingsBuffer = (newValues: Partial<ILobbySettings>) => setLocalLobbySettingsBuffer((oldState) => {return {...oldState, ...newValues}});
 
 	useEffect(() => {
 		setUnsavedCount((s) => s + 1);
@@ -333,9 +335,11 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	}, []);
 
 	const SavePublicLobbyCallback = useCallback(<K extends keyof ILobbySettings>(setting: K, newValue: ILobbySettings[K]) => {
-		// @ts-ignore
-		setMyLocalLobbySettings({ ...myLocalLobbySettings, setting: newValue });
+		// We want lobby browser related settings to save on Submit button click
 		setLobbySettings(setting, newValue);
+		const newSetting: Partial<ILobbySettings> = {};
+		newSetting[setting] = newValue;
+		updateLocalLobbySettingsBuffer(newSetting);
 	}, []);
 
 	if (!open) { return <></> }
@@ -347,10 +351,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					className={classes.back}
 					size="small"
 					onClick={() => {
-						// setSettings({
-						// 	type: 'setOne',
-						// 	action: ['localLobbySettings', lobbySettings],
-						// });
+						setSettings('localLobbySettings', localLobbySettingsBuffer);
 						if (unsaved) {
 							onClose();
 							location.reload();
@@ -388,10 +389,10 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				<Typography variant="h6">{t('settings.lobbysettings.title')}</Typography>
 				<div>
 					<Typography id="input-slider" gutterBottom>
-						{(canChangeLobbySettings ? myLocalLobbySettings.visionHearing : hostLobbySettings.visionHearing)
+						{(canChangeLobbySettings ? localLobbySettingsBuffer.visionHearing : hostLobbySettings.visionHearing)
 							? t('settings.lobbysettings.voicedistance_impostor')
 							: t('settings.lobbysettings.voicedistance')}
-						: {canChangeLobbySettings ? myLocalLobbySettings.maxDistance : hostLobbySettings.maxDistance}
+						: {canChangeLobbySettings ? localLobbySettingsBuffer.maxDistance.toFixed(1) : hostLobbySettings.maxDistance.toFixed(1)}
 					</Typography>
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
@@ -399,17 +400,11 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					>
 						<Slider
 							disabled={!canChangeLobbySettings}
-							value={canChangeLobbySettings ? myLocalLobbySettings.maxDistance : hostLobbySettings.maxDistance}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.maxDistance : hostLobbySettings.maxDistance}
 							min={1}
 							max={10}
 							step={0.1}
-							onChange={(_, newValue: number | number[]) => {
-								myLocalLobbySettings.maxDistance = newValue as number;
-								setMyLocalLobbySettings(myLocalLobbySettings);
-							}}
-							onChangeCommitted={(_, newValue: number | number[]) => {
-								setLobbySettings('maxDistance', newValue as number);
-							}}
+							onChange={(_, newValue: number | number[]) => updateLocalLobbySettingsBuffer({maxDistance: newValue as number})}
 						/>
 					</DisabledTooltip>
 				</div>
@@ -426,16 +421,12 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								openWarningDialog(
 									t('settings.warning'),
 									t('settings.lobbysettings.public_lobby.enable_warning'),
-									() => {
-										myLocalLobbySettings.publicLobby_on = newValue;
-										setMyLocalLobbySettings(myLocalLobbySettings);
-										setLobbySettings('publicLobby_on', newValue);
-									},
-									!myLocalLobbySettings.publicLobby_on
+									() => {updateLocalLobbySettingsBuffer({publicLobby_on: newValue})},
+									!localLobbySettingsBuffer.publicLobby_on
 								);
 							}}
-							value={canChangeLobbySettings ? myLocalLobbySettings.publicLobby_on : hostLobbySettings.publicLobby_on}
-							checked={canChangeLobbySettings ? myLocalLobbySettings.publicLobby_on : hostLobbySettings.publicLobby_on}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.publicLobby_on : hostLobbySettings.publicLobby_on}
+							checked={canChangeLobbySettings ? localLobbySettingsBuffer.publicLobby_on : hostLobbySettings.publicLobby_on}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
@@ -447,7 +438,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						<PublicLobbySettings
 							t={t}
 							updateSetting={SavePublicLobbyCallback}
-							lobbySettings={canChangeLobbySettings ? myLocalLobbySettings : hostLobbySettings}
+							lobbySettings={canChangeLobbySettings ? localLobbySettingsBuffer : hostLobbySettings}
 							canChange={canChangeLobbySettings}
 							className={classes.dialog}
 						/>
@@ -461,14 +452,9 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.wallsblockaudio')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => {
-								myLocalLobbySettings.wallsBlockAudio = newValue;
-								setMyLocalLobbySettings(myLocalLobbySettings);
-
-								setLobbySettings('wallsBlockAudio', newValue);
-							}}
-							value={canChangeLobbySettings ? myLocalLobbySettings.wallsBlockAudio : hostLobbySettings.wallsBlockAudio}
-							checked={canChangeLobbySettings ? myLocalLobbySettings.wallsBlockAudio : hostLobbySettings.wallsBlockAudio}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({wallsBlockAudio: newValue})}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.wallsBlockAudio : hostLobbySettings.wallsBlockAudio}
+							checked={canChangeLobbySettings ? localLobbySettingsBuffer.wallsBlockAudio : hostLobbySettings.wallsBlockAudio}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
@@ -480,21 +466,9 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.visiononly')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => {
-								// openWarningDialog(
-								// 	'Be aware!',
-								// 	'Imposters and original crewlink users still use the voice distance setting',
-								// 	() => {
-								myLocalLobbySettings.visionHearing = newValue;
-								setLobbySettings('visionHearing', newValue);
-
-								setMyLocalLobbySettings(myLocalLobbySettings);
-								// 	},
-								// 	newValue
-								// );
-							}}
-							value={canChangeLobbySettings ? myLocalLobbySettings.visionHearing : hostLobbySettings.visionHearing}
-							checked={canChangeLobbySettings ? myLocalLobbySettings.visionHearing : hostLobbySettings.visionHearing}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({visionHearing: newValue})}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.visionHearing : hostLobbySettings.visionHearing}
+							checked={canChangeLobbySettings ? localLobbySettingsBuffer.visionHearing : hostLobbySettings.visionHearing}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
@@ -506,14 +480,9 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.impostorshearsghost')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => {
-								myLocalLobbySettings.haunting = newValue;
-								setMyLocalLobbySettings(myLocalLobbySettings);
-
-								setLobbySettings('haunting', newValue);
-							}}
-							value={canChangeLobbySettings ? myLocalLobbySettings.haunting : hostLobbySettings.haunting}
-							checked={canChangeLobbySettings ? myLocalLobbySettings.haunting : hostLobbySettings.haunting}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({haunting: newValue})}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.haunting : hostLobbySettings.haunting}
+							checked={canChangeLobbySettings ? localLobbySettingsBuffer.haunting : hostLobbySettings.haunting}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
@@ -526,17 +495,12 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.hear_imposters_invents')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => {
-								myLocalLobbySettings.hearImpostorsInVents = newValue;
-								setMyLocalLobbySettings(myLocalLobbySettings);
-
-								setLobbySettings('hearImpostorsInVents', newValue);
-							}}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({hearImpostorsInVents: newValue})}
 							value={
-								canChangeLobbySettings ? myLocalLobbySettings.hearImpostorsInVents : hostLobbySettings.hearImpostorsInVents
+								canChangeLobbySettings ? localLobbySettingsBuffer.hearImpostorsInVents : hostLobbySettings.hearImpostorsInVents
 							}
 							checked={
-								canChangeLobbySettings ? myLocalLobbySettings.hearImpostorsInVents : hostLobbySettings.hearImpostorsInVents
+								canChangeLobbySettings ? localLobbySettingsBuffer.hearImpostorsInVents : hostLobbySettings.hearImpostorsInVents
 							}
 							control={<Checkbox />}
 						/>
@@ -549,20 +513,15 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.private_talk_invents')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => {
-								myLocalLobbySettings.impostersHearImpostersInvent = newValue;
-								setMyLocalLobbySettings(myLocalLobbySettings);
-
-								setLobbySettings('impostersHearImpostersInvent', newValue);
-							}}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({impostersHearImpostersInvent: newValue})}
 							value={
 								canChangeLobbySettings
-									? myLocalLobbySettings.impostersHearImpostersInvent
+									? localLobbySettingsBuffer.impostersHearImpostersInvent
 									: hostLobbySettings.impostersHearImpostersInvent
 							}
 							checked={
 								canChangeLobbySettings
-									? myLocalLobbySettings.impostersHearImpostersInvent
+									? localLobbySettingsBuffer.impostersHearImpostersInvent
 									: hostLobbySettings.impostersHearImpostersInvent
 							}
 							control={<Checkbox />}
@@ -577,14 +536,9 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.comms_sabotage_audio')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => {
-								myLocalLobbySettings.commsSabotage = newValue;
-								setMyLocalLobbySettings(myLocalLobbySettings);
-
-								setLobbySettings('commsSabotage', newValue);
-							}}
-							value={canChangeLobbySettings ? myLocalLobbySettings.commsSabotage : hostLobbySettings.commsSabotage}
-							checked={canChangeLobbySettings ? myLocalLobbySettings.commsSabotage : hostLobbySettings.commsSabotage}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({commsSabotage: newValue})}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.commsSabotage : hostLobbySettings.commsSabotage}
+							checked={canChangeLobbySettings ? localLobbySettingsBuffer.commsSabotage : hostLobbySettings.commsSabotage}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
@@ -596,15 +550,10 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.hear_through_cameras')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => {
-								myLocalLobbySettings.hearThroughCameras = newValue;
-								setMyLocalLobbySettings(myLocalLobbySettings);
-
-								setLobbySettings('hearThroughCameras', newValue);
-							}}
-							value={canChangeLobbySettings ? myLocalLobbySettings.hearThroughCameras : hostLobbySettings.hearThroughCameras}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({hearThroughCameras: newValue})}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.hearThroughCameras : hostLobbySettings.hearThroughCameras}
 							checked={
-								canChangeLobbySettings ? myLocalLobbySettings.hearThroughCameras : hostLobbySettings.hearThroughCameras
+								canChangeLobbySettings ? localLobbySettingsBuffer.hearThroughCameras : hostLobbySettings.hearThroughCameras
 							}
 							control={<Checkbox />}
 						/>
@@ -617,17 +566,12 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.impostor_radio')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => {
-								myLocalLobbySettings.impostorRadioEnabled = newValue;
-								setMyLocalLobbySettings(myLocalLobbySettings);
-
-								setLobbySettings('impostorRadioEnabled', newValue);
-							}}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({impostorRadioEnabled: newValue})}
 							value={
-								canChangeLobbySettings ? myLocalLobbySettings.impostorRadioEnabled : hostLobbySettings.impostorRadioEnabled
+								canChangeLobbySettings ? localLobbySettingsBuffer.impostorRadioEnabled : hostLobbySettings.impostorRadioEnabled
 							}
 							checked={
-								canChangeLobbySettings ? myLocalLobbySettings.impostorRadioEnabled : hostLobbySettings.impostorRadioEnabled
+								canChangeLobbySettings ? localLobbySettingsBuffer.impostorRadioEnabled : hostLobbySettings.impostorRadioEnabled
 							}
 							control={<Checkbox />}
 						/>
@@ -645,18 +589,12 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								openWarningDialog(
 									t('settings.warning'),
 									t('settings.lobbysettings.ghost_only_warning'),
-									() => {
-										myLocalLobbySettings.meetingGhostOnly = false;
-										myLocalLobbySettings.deadOnly = newValue;
-										setLobbySettings('meetingGhostOnly', false);
-										setLobbySettings('deadOnly', newValue);
-										setMyLocalLobbySettings(myLocalLobbySettings);
-									},
+									() => updateLocalLobbySettingsBuffer({meetingGhostOnly: false, deadOnly: newValue}),
 									newValue
 								);
 							}}
-							value={canChangeLobbySettings ? myLocalLobbySettings.deadOnly : hostLobbySettings.deadOnly}
-							checked={canChangeLobbySettings ? myLocalLobbySettings.deadOnly : hostLobbySettings.deadOnly}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.deadOnly : hostLobbySettings.deadOnly}
+							checked={canChangeLobbySettings ? localLobbySettingsBuffer.deadOnly : hostLobbySettings.deadOnly}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
@@ -673,18 +611,12 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								openWarningDialog(
 									t('settings.warning'),
 									t('settings.lobbysettings.meetings_only_warning'),
-									() => {
-										myLocalLobbySettings.meetingGhostOnly = newValue;
-										myLocalLobbySettings.deadOnly = false;
-										setLobbySettings('meetingGhostOnly', newValue);
-										setLobbySettings('deadOnly', false);
-										setMyLocalLobbySettings(myLocalLobbySettings);
-									},
+									() => updateLocalLobbySettingsBuffer({meetingGhostOnly: newValue, deadOnly: false}),
 									newValue
 								);
 							}}
-							value={canChangeLobbySettings ? myLocalLobbySettings.meetingGhostOnly : hostLobbySettings.meetingGhostOnly}
-							checked={canChangeLobbySettings ? myLocalLobbySettings.meetingGhostOnly : hostLobbySettings.meetingGhostOnly}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.meetingGhostOnly : hostLobbySettings.meetingGhostOnly}
+							checked={canChangeLobbySettings ? localLobbySettingsBuffer.meetingGhostOnly : hostLobbySettings.meetingGhostOnly}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
