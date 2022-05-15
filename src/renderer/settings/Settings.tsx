@@ -784,7 +784,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								valueLabelDisplay="auto"
 								min={0}
 								max={300}
-								step={1}
+								step={2}
 								onChange={(_, newValue: number | number[]) => setSettings('microphoneGain', newValue as number)}
 								aria-labelledby="input-slider"
 							/>

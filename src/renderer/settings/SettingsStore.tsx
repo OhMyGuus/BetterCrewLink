@@ -356,7 +356,7 @@ type ISettingOrSocketConfig<K extends keyof ISettings | `playerConfigMap.${numbe
 
 // If our setting is a keyof ISettings, value is the appropriate type. If setting is `playerConfigMap.1234` then value is a socket config
 export const setSetting = <K extends (keyof ISettings | `playerConfigMap.${number}`)>(setting: K, value: ISettingOrSocketConfig<K>) => {
-	SettingsStore.set(setting, value)
+	SettingsStore.set(setting, value);
 };
 
 export const setLobbySetting = <K extends keyof ILobbySettings>(setting: K, value: ILobbySettings[K]) => {

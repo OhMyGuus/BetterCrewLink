@@ -202,10 +202,9 @@ export default function App({ t }): JSX.Element {
 	}, [gameState]);
 
 	useEffect(() => {
-		console.log(playerColors.current);
+		// console.log(playerColors.current);
 		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, playerColors.current);
 		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_SETTINGS_CHANGED, SettingsStore.store);
-		console.log("Didn't work");
 	}, [settings]);
 
 	let page;
