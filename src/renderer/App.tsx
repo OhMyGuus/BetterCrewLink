@@ -130,8 +130,10 @@ export default function App({ t }): JSX.Element {
 	const overlayInitCount = useRef<number>(0);
 
 	const [settings, setSettings] = useState(SettingsStore.store);
-	SettingsStore.onDidAnyChange((newValue, _) => {setSettings(newValue as ISettings)})
 	const [hostLobbySettings, setHostLobbySettings] = useState(settings.localLobbySettings);
+	useEffect(() =>{
+		SettingsStore.onDidAnyChange((newValue, _) => {setSettings(newValue as ISettings)});
+	}, []);
 
 	useEffect(() => {
 		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, playerColors.current);
