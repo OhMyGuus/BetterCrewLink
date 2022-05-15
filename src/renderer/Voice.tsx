@@ -42,7 +42,7 @@ import Mic from '@material-ui/icons/Mic';
 import MicOff from '@material-ui/icons/MicOff';
 import adapter from 'webrtc-adapter';
 import { VADOptions } from './vad';
-import { pushToTalkOptions, setSetting } from './settings/SettingsStore';
+import { pushToTalkOptions } from './settings/SettingsStore';
 import { poseCollide } from '../common/ColliderMap';
 
 console.log(adapter.browserDetails.browser);
@@ -222,7 +222,7 @@ radioOnAudio.volume = 0.02;
 // const store = new Store<ISettings>();
 const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceProps) {
 	const [error, setError] = useState('');
-	const [settings, _setSettings] = useContext(SettingsContext);
+	const [settings, setSetting] = useContext(SettingsContext);
 
 	const settingsRef = useRef<ISettings>(settings);
 	const [lobbySettings, setHostLobbySettings] = useContext(HostSettingsContext);
