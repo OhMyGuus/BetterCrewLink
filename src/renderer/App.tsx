@@ -3,9 +3,9 @@ import Voice from './Voice';
 import Menu from './Menu';
 import { ipcRenderer } from 'electron';
 import { AmongUsState } from '../common/AmongUsState';
-import Settings, { /*settingsReducer, lobbySettingsReducer*/ } from './settings/Settings';
+import Settings from './settings/Settings';
 import SettingsStore, { setSetting, setLobbySetting} from './settings/SettingsStore';
-import { GameStateContext, SettingsContext, /*LobbySettingsContext,*/ PlayerColorContext } from './contexts';
+import { GameStateContext, SettingsContext, PlayerColorContext, HostSettingsContext } from './contexts';
 import { ThemeProvider } from '@material-ui/core/styles';
 import {
 	AutoUpdaterState,
@@ -131,6 +131,7 @@ export default function App({ t }): JSX.Element {
 
 	const [settings, setSettings] = useState(SettingsStore.store);
 	SettingsStore.onDidAnyChange((newValue, _) => {setSettings(newValue as ISettings)})
+	const [hostLobbySettings] = useState(settings.localLobbySettings);
 
 	useEffect(() => {
 		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, playerColors.current);
@@ -218,7 +219,7 @@ export default function App({ t }): JSX.Element {
 	return (
 		<PlayerColorContext.Provider value={playerColors.current}>
 			<GameStateContext.Provider value={gameState}>
-				{/* <LobbySettingsContext.Provider value={lobbySettings}> */}
+				<HostSettingsContext.Provider value={hostLobbySettings}>
 					<SettingsContext.Provider value={[settings, setSetting, setLobbySetting]}>
 						<ThemeProvider theme={theme}>
 							<TitleBar settingsOpen={settingsOpen} setSettingsOpen={setSettingsOpen} />
@@ -274,7 +275,7 @@ export default function App({ t }): JSX.Element {
 							{page}
 						</ThemeProvider>
 					</SettingsContext.Provider>
-				{/* </LobbySettingsContext.Provider> */}
+				</HostSettingsContext.Provider>
 			</GameStateContext.Provider>
 		</PlayerColorContext.Provider>
 	);

@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import { AmongUsState } from '../common/AmongUsState';
-import { ISettings } from '../common/ISettings';
+import { ILobbySettings, ISettings } from '../common/ISettings';
 import { setSetting, setLobbySetting } from './settings/SettingsStore';
 
 
@@ -10,16 +10,10 @@ type SettingsContextValue = [
 	typeof setSetting,
 	typeof setLobbySetting
 ];
-// type LobbySettingsContextValue = [
-// 	ILobbySettings,
-// 	React.Dispatch<{
-// 		type: 'set' | 'setOne';
-// 		action: ILobbySettings | [string, unknown];
-// 	}>
-// ];
 
 export const PlayerColorContext = createContext<string[][]>([] as string[][]);
 export const GameStateContext = createContext<AmongUsState>({} as AmongUsState);
+export const HostSettingsContext = createContext<ILobbySettings>({} as ILobbySettings);
 export const SettingsContext = createContext<SettingsContextValue>((null as unknown) as SettingsContextValue);
 // export const LobbySettingsContext = createContext<LobbySettingsContextValue>(
 // 	(null as unknown) as LobbySettingsContextValue
