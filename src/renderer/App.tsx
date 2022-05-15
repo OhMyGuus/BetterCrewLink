@@ -131,7 +131,7 @@ export default function App({ t }): JSX.Element {
 
 	const [settings, setSettings] = useState(SettingsStore.store);
 	SettingsStore.onDidAnyChange((newValue, _) => {setSettings(newValue as ISettings)})
-	const [hostLobbySettings] = useState(settings.localLobbySettings);
+	const [hostLobbySettings, setHostLobbySettings] = useState(settings.localLobbySettings);
 
 	useEffect(() => {
 		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, playerColors.current);
@@ -219,7 +219,7 @@ export default function App({ t }): JSX.Element {
 	return (
 		<PlayerColorContext.Provider value={playerColors.current}>
 			<GameStateContext.Provider value={gameState}>
-				<HostSettingsContext.Provider value={hostLobbySettings}>
+				<HostSettingsContext.Provider value={[hostLobbySettings, setHostLobbySettings]}>
 					<SettingsContext.Provider value={[settings, setSetting, setLobbySetting]}>
 						<ThemeProvider theme={theme}>
 							<TitleBar settingsOpen={settingsOpen} setSettingsOpen={setSettingsOpen} />

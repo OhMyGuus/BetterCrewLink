@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import io, { Socket } from 'socket.io-client';
 import Avatar from './Avatar';
-import { GameStateContext, PlayerColorContext, SettingsContext } from './contexts';
+import { GameStateContext, HostSettingsContext, PlayerColorContext, SettingsContext } from './contexts';
 import {
 	AmongUsState,
 	GameState,
@@ -222,11 +222,10 @@ radioOnAudio.volume = 0.02;
 // const store = new Store<ISettings>();
 const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceProps) {
 	const [error, setError] = useState('');
-	const [settings, _setSettings, setLobbySettings] = useContext(SettingsContext);
+	const [settings, _setSettings] = useContext(SettingsContext);
 
 	const settingsRef = useRef<ISettings>(settings);
-	// const [lobbySettings, setLobbySettings] = useContext(LobbySettingsContext);
-	const lobbySettings = settings.localLobbySettings;
+	const [lobbySettings, setHostLobbySettings] = useContext(HostSettingsContext);
 	const lobbySettingsRef = useRef(lobbySettings);
 	const maxDistanceRef = useRef(2);
 	const gameState = useContext(GameStateContext);
@@ -553,7 +552,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			}
 		});
 
-		_setSettings('localLobbySettings', settings.localLobbySettings);
+		setHostLobbySettings(settings.localLobbySettings);
+		// _setSettings('localLobbySettings', settings.localLobbySettings);
 		// setLobbySettings({
 		// 	type: 'set',
 		// 	action: settings.localLobbySettings,
@@ -1082,16 +1082,18 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					}
 					if (parsedData.hasOwnProperty('maxDistance')) {
 						if (!hostRef.current || hostRef.current.parsedHostId !== socketClientsRef.current[peer]?.clientId) return;
-
-						(Object.keys(lobbySettings) as (keyof ILobbySettings)[]).forEach((field: keyof ILobbySettings) => {
-							if (field in parsedData) {
-								setLobbySettings(field, parsedData[field]);
-							} else {
-								if (field in defaultlocalLobbySettings) {
-									setLobbySettings(field, defaultlocalLobbySettings[field]);
-								}
-							}
-						});
+						// (Object.keys(newSettings) as (keyof ILobbySettings)[]).forEach((field: keyof ILobbySettings) => {
+						// 	if (field in parsedData) {
+						// 		newSettings[field] = parsedData[field]
+						// 		setHostLobbySettings(field, parsedData[field]);
+						// 	} else {
+						// 		if (field in defaultlocalLobbySettings) {
+						// 			setHostLobbySettings(field, defaultlocalLobbySettings[field]);
+						// 		}
+						// 	}
+						// });
+						var newSettings = {...defaultlocalLobbySettings, ...parsedData};
+						setHostLobbySettings(newSettings);
 					}
 				});
 				connection.on('close', () => {

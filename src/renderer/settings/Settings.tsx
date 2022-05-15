@@ -1,5 +1,5 @@
 import React, { ReactChild, useCallback, useContext, useEffect, useReducer, useState } from 'react';
-import { SettingsContext, /*LobbySettingsContext,*/ GameStateContext } from '../contexts';
+import { SettingsContext, /*LobbySettingsContext,*/ GameStateContext, HostSettingsContext } from '../contexts';
 import MicrophoneSoundBar from './MicrophoneSoundBar';
 import TestSpeakersButton from './TestSpeakersButton';
 import { ISettings, ILobbySettings } from '../../common/ISettings';
@@ -169,8 +169,8 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	const classes = useStyles({ open });
 	const [settings, setSettings, setLobbySettings] = useContext(SettingsContext);
 	const gameState = useContext(GameStateContext);
-	// const [lobbySettings] = useContext(LobbySettingsContext);
-	const hostLobbySettings = settings.localLobbySettings;
+	const [hostLobbySettings] = useContext(HostSettingsContext);
+	// const hostLobbySettings = settings.localLobbySettings;
 	const [unsavedCount, setUnsavedCount] = useState(0);
 	const unsaved = unsavedCount > 2;
 
