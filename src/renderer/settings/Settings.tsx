@@ -28,7 +28,7 @@ import languages from '../language/languages';
 import ServerURLInput from './ServerURLInput';
 import MuiDivider from '@material-ui/core/Divider';
 import PublicLobbySettings from './PublicLobbySettings';
-import { pushToTalkOptions } from './SettingsStore';
+import SettingsStore, { pushToTalkOptions } from './SettingsStore';
 
 interface StyleInput {
 	open: boolean;
@@ -261,19 +261,11 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 		}
 	};
 
-	// TODO: FIX THIS
 	const resetDefaults = () => {
-		// SettingsStore.clear();
-		// setSettings({
-		// 	type: 'set',
-		// 	action: SettingsStore.store,
-		// });
-
-		// I'm like 90% sure this isn't necessary but whenever you click the mic/speaker dropdown it is called, so it may be necessary
-		// updateDevices();
-
+		SettingsStore.clear();
 		// This is necessary for resetting hotkeys properly, the main thread needs to be notified to reset the hooks
 		ipcRenderer.send(IpcHandlerMessages.RESET_KEYHOOKS);
+		// TODO: Don't believe this is actually necessary?
 		location.reload();
 	};
 
@@ -1092,9 +1084,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								openWarningDialog(
 									t('settings.warning'),
 									t('settings.troubleshooting.restore_warning'),
-									() => {
-										resetDefaults();
-									},
+									() => resetDefaults(),
 									true
 								)
 							}
