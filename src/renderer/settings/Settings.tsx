@@ -341,7 +341,7 @@ const store = new Store<ISettings>({
 		},
 		oldSampleDebug: {
 			type: 'boolean', 
-			default: true,
+			default: false,
 		},
 		playerConfigMap: {
 			type: 'object',
