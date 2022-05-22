@@ -265,7 +265,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 		SettingsStore.clear();
 		// This is necessary for resetting hotkeys properly, the main thread needs to be notified to reset the hooks
 		ipcRenderer.send(IpcHandlerMessages.RESET_KEYHOOKS);
-		// TODO: Don't believe this is actually necessary?
+
 		location.reload();
 	};
 
