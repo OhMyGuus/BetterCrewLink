@@ -506,6 +506,17 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		}
 	}
 
+	function disconnectClient(client: Client) {
+		if (!client || !client.clientId)
+			return;
+		const oldSocketId = playerSocketIdsRef.current[client.clientId];
+		console.log("Checking for  old connection ....", client.clientId, oldSocketId)
+		if (oldSocketId && audioElements.current[oldSocketId]) {
+			console.log("found old connection disconnecting....", client.clientId)
+			disconnectAudioElement(oldSocketId);
+		}
+	}
+
 	function disconnectPeer(peer: string) {
 		console.log('Disconnect peer: ', peer);
 		const connection = peerConnections[peer];
@@ -838,8 +849,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			echoCancellation: settings.echoCancellation,
 			latency: 0,
 			noiseSuppression: settings.noiseSuppression,
-			sampleRate: 48000,
-			sampleSize: 16,
+			//	sampleRate: 48000,
+			//sampleSize: 16,
 		};
 
 		// Get microphone settings
@@ -959,9 +970,9 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 				setConnect({ connect });
 
-				function createPeerConnection(peer: string, initiator: boolean) {
+				function createPeerConnection(peer: string, initiator: boolean, client: Client) {
 					console.log('CreatePeerConnection: ', peer, initiator);
-
+					disconnectClient(client);
 					const connection = new Peer({
 						stream,
 						initiator, // @ts-ignore-line
@@ -1031,9 +1042,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 							audio.setSinkId(settingsRef.current.speaker);
 						}
 
-						if (audioElements.current[peer]) {
-							disconnectAudioElement(peer);
-						}
+
 						audioElements.current[peer] = {
 							dummyAudioElement: dummyAudio,
 							audioElement: audio,
@@ -1097,15 +1106,11 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				}
 
 				socket.on('join', async (peer: string, client: Client) => {
-					const oldSocketId = playerSocketIdsRef.current[client.clientId];
-					if (oldSocketId && audioElements.current[oldSocketId]) {
-						disconnectAudioElement(oldSocketId);
-					}
-					createPeerConnection(peer, true);
+					createPeerConnection(peer, true, client);
 					setSocketClients((old) => ({ ...old, [peer]: client }));
 				});
 
-				socket.on('signal', ({ data, from }: { data: Peer.SignalData; from: string }) => {
+				socket.on('signal', ({ data, from, client }: { data: Peer.SignalData; from: string, client: Client }) => {
 					//console.log('onsignal', JSON.stringify(data));
 					if (data.hasOwnProperty('mobilePlayerInfo')) {
 						// eslint-disable-line
@@ -1119,7 +1124,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						}
 						return;
 					}
-					console.log('ONSIGNAL', data);
+					//console.log('ONSIGNAL', data, client);
 					let connection: Peer.Instance;
 					if (!socketClientsRef.current[from]) {
 						console.warn('SIGNAL FROM UNKOWN SOCKET..');
@@ -1130,11 +1135,12 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						// 	console.log("Got offer with already a connection")
 						// }
 						if (peerConnections[from] && data.type !== 'offer') {
-							console.log('Send to existing peer 1');
+							//	console.log('Send to existing peer 1');
 							connection = peerConnections[from];
 						} else {
-							console.log('Send to new peer 1');
-							connection = createPeerConnection(from, false);
+							//	console.log('Send to new peer 1');
+
+							connection = createPeerConnection(from, false, client);
 						}
 						connection.signal(data);
 					}
