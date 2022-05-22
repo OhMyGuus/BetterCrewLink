@@ -159,6 +159,7 @@ export default function App({ t }): JSX.Element {
 		obsSecret: undefined,
 		obsOverlay: false,
 		noiseSuppression: true,
+		oldSampleDebug: false,
 		playerConfigMap: {},
 		localLobbySettings: {
 			maxDistance: 5.32,

@@ -30,6 +30,8 @@ export interface ISettings {
 	hardware_acceleration: boolean;
 	echoCancellation: boolean;
 	noiseSuppression: boolean;
+	oldSampleDebug: boolean;
+
 	enableSpatialAudio: boolean;
 	playerConfigMap: playerConfigMap;
 	obsOverlay: boolean;

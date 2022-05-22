@@ -849,8 +849,11 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			echoCancellation: settings.echoCancellation,
 			latency: 0,
 			noiseSuppression: settings.noiseSuppression,
-			//	sampleRate: 48000,
-			//sampleSize: 16,
+			googNoiseSuppression: settings.noiseSuppression,
+			googEchoCancellation: settings.echoCancellation,
+			googTypingNoiseDetection: settings.noiseSuppression,
+			sampleRate: settings.oldSampleDebug? 48000 : undefined,
+			sampleSize: settings.oldSampleDebug? 16 : undefined,
 		};
 
 		// Get microphone settings

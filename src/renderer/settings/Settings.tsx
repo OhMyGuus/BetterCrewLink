@@ -339,6 +339,10 @@ const store = new Store<ISettings>({
 			type: 'boolean',
 			default: true,
 		},
+		oldSampleDebug: {
+			type: 'boolean', 
+			default: true,
+		},
 		playerConfigMap: {
 			type: 'object',
 			default: {},
@@ -584,6 +588,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 		settings.hardware_acceleration,
 		settings.natFix,
 		settings.noiseSuppression,
+		settings.oldSampleDebug,
 		settings.echoCancellation,
 		settings.mobileHost,
 		settings.microphoneGainEnabled,
@@ -1625,6 +1630,27 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								type: 'setOne',
 								action: ['noiseSuppression', checked],
 							});
+						}}
+						control={<Checkbox />}
+					/>
+						<FormControlLabel
+						className={classes.formLabel}
+						label={t('settings.beta.oldsampledebug')}
+						checked={settings.oldSampleDebug}
+						onChange={(_, checked: boolean) => {
+							openWarningDialog(
+								t('settings.warning'),
+								t('settings.beta.oldsampledebug_warning'),
+								() => {
+									setSettings({
+										type: 'setOne',
+										action: ['oldSampleDebug', checked],
+									});
+								},
+								checked
+							);
+
+							
 						}}
 						control={<Checkbox />}
 					/>
