@@ -368,7 +368,7 @@ if (!gotTheLock) {
 		}
 	});
 
-	ipcMain.on('enableOverlay', async (_event, enable) => {
+	ipcMain.on('setAlwaysOnTop', async (_event, enable) => {
 		if (global.mainWindow) {
 			global.mainWindow.setAlwaysOnTop(enable, 'screen-saver');
 		}
