@@ -848,10 +848,10 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			channelCount: 2,
 			echoCancellation: settings.echoCancellation,
 			latency: 0,
-			noiseSuppression: settings.noiseSuppression,
-			googNoiseSuppression: settings.noiseSuppression,
-			googEchoCancellation: settings.echoCancellation,
-			googTypingNoiseDetection: settings.noiseSuppression,
+			noiseSuppression: settings.noiseSuppression,// @ts-ignore-line
+			googNoiseSuppression: settings.noiseSuppression, // @ts-ignore-line
+			googEchoCancellation: settings.echoCancellation, // @ts-ignore-line
+			googTypingNoiseDetection: settings.noiseSuppression, // @ts-ignore-line
 			sampleRate: settings.oldSampleDebug? 48000 : undefined,
 			sampleSize: settings.oldSampleDebug? 16 : undefined,
 		};
