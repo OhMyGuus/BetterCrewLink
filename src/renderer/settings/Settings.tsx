@@ -1001,10 +1001,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								t('settings.warning'),
 								t('settings.beta.oldsampledebug_warning'),
 								() => {
-									setSettings({
-										type: 'setOne',
-										action: ['oldSampleDebug', checked],
-									});
+									setSettings('oldSampleDebug', checked);
 								},
 								checked
 							);
