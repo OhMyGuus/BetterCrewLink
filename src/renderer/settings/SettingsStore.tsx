@@ -210,6 +210,10 @@ export const SettingsStore = new Store<ISettings>({
 			type: 'boolean',
 			default: true,
 		},
+		oldSampleDebug: {
+			type: 'boolean',
+			default: false,
+		},
 		playerConfigMap: {
 			type: 'object',
 			default: {},
