@@ -4034,14 +4034,12 @@ electron-osx-sign@^0.5.0:
     plist "^3.0.1"
 
 "electron-overlay-window@https://github.com/OhMyGuus/electron-overlay-window":
-  version "1.0.4"
-  resolved "https://github.com/OhMyGuus/electron-overlay-window#fb4953eb4f96179f306f92756bb239222c80c83c"
+  version "2.0.2"
+  resolved "https://github.com/OhMyGuus/electron-overlay-window#0d44f21a972c5c1fb9063e5010c1e391861d92bf"
   dependencies:
-    "@types/throttle-debounce" "2.x.x"
     node-gyp-build "4.x.x"
-    throttle-debounce "2.x.x"
-    ts-node "9.x.x"
-    typescript "4.x.x"
+    throttle-debounce "3.x.x"
+    typescript "^4.7.3"
 
 electron-publish@22.13.1:
   version "22.13.1"
@@ -7157,9 +7155,9 @@ node-forge@^0.10.0:
   integrity sha512-PPmu8eEeG9saEUvI97fm4OYxXVB6bFvyNTyiUOBichBpFG8A1Ljw3bY62+5oOjDEMHRnd0Y7HQ+x7uzxOzC6JA==
 
 node-gyp-build@4.x.x:
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.2.3.tgz#ce6277f853835f718829efb47db20f3e4d9c4739"
-  integrity sha512-MN6ZpzmfNCRM+3t57PTJHgHyw/h4OWnZ6mR8P5j/uZtqQr46RRuDE/P+g3n0YR/AiYXeWixZZzaip77gdICfRg==
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.4.0.tgz#42e99687ce87ddeaf3a10b99dc06abc11021f3f4"
+  integrity sha512-amJnQCcgtRVw9SvoebO3BKGESClrfXGCUTX9hSn1OuGQTQBOZmVd0Z0OlecpuRksKvbsUqALE8jls/ErClAPuQ==
 
 "node-keyboard-watcher@https://github.com/OhMyGuus/node-keyboard-watcher":
   version "1.0.3"
@@ -9520,6 +9518,11 @@ throttle-debounce@2.x.x:
   resolved "https://registry.yarnpkg.com/throttle-debounce/-/throttle-debounce-2.3.0.tgz#fd31865e66502071e411817e241465b3e9c372e2"
   integrity sha512-H7oLPV0P7+jgvrk+6mwwwBDmxTaxnu9HMXmloNLXwnNO0ZxZ31Orah2n8lU1eMPvsaowP2CX+USCgyovXfdOFQ==
 
+throttle-debounce@3.x.x:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/throttle-debounce/-/throttle-debounce-3.0.1.tgz#32f94d84dfa894f786c9a1f290e7a645b6a19abb"
+  integrity sha512-dTEWWNu6JmeVXY0ZYoPuH5cRIwc0MeGbJwah9KUNYSJwommQpCzTySTpEe8Gs1J23aeWEuAobe4Ag7EHVt/LOg==
+
 through2@^2.0.0:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.5.tgz#01c1e39eb31d07cb7d03a96a70823260b23132cd"
@@ -9790,6 +9793,11 @@ typescript@^3.9.3:
   version "3.9.9"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.9.tgz#e69905c54bc0681d0518bd4d587cc6f2d0b1a674"
   integrity sha512-kdMjTiekY+z/ubJCATUPlRDl39vXYiMV9iyeMuEuXZh2we6zz80uovNN2WlAxmmdE/Z/YQe+EbOEXB5RHEED3w==
+
+typescript@^4.7.3:
+  version "4.7.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.7.3.tgz#8364b502d5257b540f9de4c40be84c98e23a129d"
+  integrity sha512-WOkT3XYvrpXx4vMMqlD+8R8R37fZkjyLGlxavMc4iB8lrl8L0DeTcHbYgw/v0N/z9wAFsgBhcsF0ruoySS22mA==
 
 unbox-primitive@^1.0.0:
   version "1.0.1"
