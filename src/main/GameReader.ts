@@ -905,9 +905,9 @@ export default class GameReader {
 		const ShadowColorsPtr = this.readMemory<number>('ptr', palletePtr, this.offsets!.palette_shadowColor);
 
 		const colorLength = this.readMemory<number>('int', ShadowColorsPtr, this.offsets!.playerCount);
-		console.log('Initializecolors', colorLength);
+		console.log('Initializecolors', colorLength, this.loadedMod.id);
 
-		if (!colorLength || colorLength <= 0 || colorLength > 300) {
+		if (!colorLength || colorLength <= 0 || colorLength > 300 || ((this.loadedMod.id == "THE_OTHER_ROLES" || this.loadedMod.id == "THE_OTHER_ROLES_GM") && colorLength <= 18)) {
 			return;
 		}
 
