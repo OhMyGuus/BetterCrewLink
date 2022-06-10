@@ -216,7 +216,7 @@ function createOverlay() {
 	}
 	overlay.setIgnoreMouseEvents(true);
 	overlayWindow.attachTo(overlay, 'Among Us');
-
+	overlay.setBackgroundColor('#00000000');
 	return overlay;
 }
 
@@ -283,6 +283,7 @@ if (!gotTheLock) {
 	});
 
 	app.on('activate', () => {
+		console.log("ACTIVATE???")
 		// on macOS it is common to re-create a window even after all windows have been closed
 		if (global.mainWindow === null) {
 			global.mainWindow = createMainWindow();
@@ -348,24 +349,30 @@ if (!gotTheLock) {
 	});
 
 	ipcMain.on('enableOverlay', async (_event, enable) => {
-		try {
-			if (enable) {
-				if (!global.overlay) {
-					global.overlay = createOverlay();
-				}
-				overlayWindow.show();
-			} else {
-				overlayWindow.hide();
-				if (global.overlay?.closable) {
-					overlayWindow.stop();
+		setTimeout(
+			() => {
+
+				try {
+					if (enable) {
+						if (!global.overlay) {
+							global.overlay = createOverlay();
+						}
+						overlayWindow.show();
+					} else {
+						overlayWindow.hide();
+						if (global.overlay?.closable) {
+							overlayWindow.stop();
+							global.overlay?.close();
+							global.overlay = null;
+						}
+					}
+				} catch (exception) {
+					global.overlay?.hide();
 					global.overlay?.close();
-					global.overlay = null;
 				}
-			}
-		} catch (exception) {
-			global.overlay?.hide();
-			global.overlay?.close();
-		}
+			},
+			1000
+		)
 	});
 
 	ipcMain.on('setAlwaysOnTop', async (_event, enable) => {
@@ -376,5 +383,5 @@ if (!gotTheLock) {
 		}
 	});
 
- 
+
 }
