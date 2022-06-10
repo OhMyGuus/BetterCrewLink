@@ -95,6 +95,7 @@
 				"mobilehost": "Mobile Host",
 				"vad_enabled": "VAD Enabled",
 				"hardware_acceleration": "Hardware Acceleration",
+				"hardware_acceleration_warning": "This disables hardware acceleration (which can increase cpu usage)",
 				"vad_enabled_warning": "You won't see who's talking if deactivate.",
 				"echocancellation": "Echo Cancellation",
 				"noiseSuppression": "Noise Suppression",
