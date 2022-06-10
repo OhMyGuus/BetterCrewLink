@@ -11,18 +11,16 @@ import Button from '@material-ui/core/Button';
 import { ipcRenderer } from 'electron';
 import { IpcHandlerMessages } from '../../common/ipc-messages';
 import io from 'socket.io-client';
-import Store from 'electron-store';
-import { ISettings } from '../../common/ISettings';
 import i18next from 'i18next';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import languages from '../language/languages';
 import { PublicLobbyMap, PublicLobby } from '../../common/PublicLobby';
 import { modList } from '../../common/Mods';
 import { GameState } from '../../common/AmongUsState';
+import SettingsStore from '../settings/SettingsStore';
 
-const store = new Store<ISettings>();
-const serverUrl = store.get('serverURL', 'https://bettercrewl.ink/');
-const language = store.get('language', 'en');
+const serverUrl = SettingsStore.get('serverURL', 'https://bettercrewl.ink/');
+const language = SettingsStore.get('language', 'en');
 i18next.changeLanguage(language);
 
 const StyledTableCell = withStyles((theme) => ({

@@ -1,6 +1,5 @@
-import Store from 'electron-store';
 import React, { ReactChild, useCallback, useContext, useEffect, useReducer, useState } from 'react';
-import { SettingsContext, LobbySettingsContext, GameStateContext } from '../contexts';
+import { SettingsContext, GameStateContext, HostSettingsContext } from '../contexts';
 import MicrophoneSoundBar from './MicrophoneSoundBar';
 import TestSpeakersButton from './TestSpeakersButton';
 import { ISettings, ILobbySettings } from '../../common/ISettings';
@@ -29,7 +28,7 @@ import languages from '../language/languages';
 import ServerURLInput from './ServerURLInput';
 import MuiDivider from '@material-ui/core/Divider';
 import PublicLobbySettings from './PublicLobbySettings';
-import { GamePlatform } from '../../common/GamePlatform';
+import SettingsStore, { pushToTalkOptions } from './SettingsStore';
 
 interface StyleInput {
 	open: boolean;
@@ -131,405 +130,11 @@ const keys = new Set([
 	'LControl',
 ]);
 
-export enum pushToTalkOptions {
-	VOICE,
-	PUSH_TO_TALK,
-	PUSH_TO_MUTE,
-}
-
-const store = new Store<ISettings>({
-	migrations: {
-		'2.0.6': (store) => {
-			if (
-				store.get('serverURL') === 'http://bettercrewl.ink' ||
-				store.get('serverURL') === 'https://bettercrewlink.app' ||
-				store.get('serverURL') === 'http://bettercrewlink.app' ||
-				store.get('serverURL') === 'https://bettercrewlink.app/' ||
-				store.get('serverURL') === 'http://bettercrewlink.app/' ||
-				store.get('serverURL') === 'https://bettercrewl.ink:6523' ||
-				store.get('serverURL') === 'http://bettercrewl.ink:6523' ||
-				store.get('serverURL') === 'https://crewlink.guus.info' ||
-				store.get('serverURL') === 'http://crewlink.guus.info' ||
-				store.get('serverURL') === 'https://crewlink.guus.ninja' ||
-				store.get('serverURL') === 'http://crewlink.guus.ninja' ||
-				store.get('serverURL') === 'https://github.com/OhMyGuus/BetterCrewLink' ||
-				store.get('serverURL') === 'https://mirror.bettercrewl.ink' ||
-				store.get('serverURL') === 'https://mirror.bettercrewl.ink/' ||
-				store.get('serverURL') === 'https://www.curseforge.com/among-us/all-mods/bettercrewlink-proximity-chat' ||
-				store.get('serverURL') === 'https://matadorprobr.itch.io/bettercrewlink' ||
-				store.get('serverURL') === 'https://gamebanana.com/tools/7079' ||
-				store.get('serverURL') === 'https://web.bettercrewl.ink' ||
-				store.get('serverURL') === 'https://obs.bettercrewlink.app' ||
-				store.get('serverURL') === 'https://discord.gg/qDqTzvj4SH'
-			) {
-				store.set('serverURL', 'https://bettercrewl.ink');
-			}
-		},
-		'2.0.7': (store) => {
-			if (
-				store.get('serverURL') === 'http://bettercrewl.ink' ||
-				store.get('serverURL') === 'https://bettercrewlink.app' ||
-				store.get('serverURL') === 'http://bettercrewlink.app' ||
-				store.get('serverURL') === 'https://bettercrewlink.app/' ||
-				store.get('serverURL') === 'http://bettercrewlink.app/' ||
-				store.get('serverURL') === 'https://bettercrewl.ink:6523' ||
-				store.get('serverURL') === 'http://bettercrewl.ink:6523' ||
-				store.get('serverURL') === 'https://crewlink.guus.info' ||
-				store.get('serverURL') === 'http://crewlink.guus.info' ||
-				store.get('serverURL') === 'https://crewlink.guus.ninja' ||
-				store.get('serverURL') === 'http://crewlink.guus.ninja' ||
-				store.get('serverURL') === 'https://github.com/OhMyGuus/BetterCrewLink' ||
-				store.get('serverURL') === 'https://mirror.bettercrewl.ink' ||
-				store.get('serverURL') === 'https://mirror.bettercrewl.ink/' ||
-				store.get('serverURL') === 'https://www.curseforge.com/among-us/all-mods/bettercrewlink-proximity-chat' ||
-				store.get('serverURL') === 'https://matadorprobr.itch.io/bettercrewlink' ||
-				store.get('serverURL') === 'https://gamebanana.com/tools/7079' ||
-				store.get('serverURL') === 'https://web.bettercrewl.ink' ||
-				store.get('serverURL') === 'https://obs.bettercrewlink.app' ||
-				store.get('serverURL') === 'https://discord.gg/qDqTzvj4SH'
-			) {
-				store.set('serverURL', 'https://bettercrewl.ink');
-			}
-		},
-		'2.1.4': (store) => {
-			store.set('playerConfigMap', {});
-		},
-		'2.2.0': (store) => {
-			store.set('mobileHost', true);
-		},
-		'2.2.5': (store) => {
-			const pushToTalkValue = store.get('pushToTalk');
-			if (typeof pushToTalkValue === 'boolean') {
-				store.set('pushToTalkMode', pushToTalkValue ? pushToTalkOptions.PUSH_TO_TALK : pushToTalkOptions.VOICE);
-			}
-			// @ts-ignore
-			store.delete('pushToTalk');
-		},
-		'2.3.6': (store) => {
-			if ((store.get('serverURL') as string).includes('//crewl.ink')) store.set('serverURL', 'https://bettercrewl.ink');
-		},
-		'2.4.0': (store) => {
-			const currentSensitivity = store.get('micSensitivity') as number;
-			if (currentSensitivity >= 0.3) {
-				store.set('micSensitivity', 0.15);
-				store.set('micSensitivityEnabled', false);
-			}
-		},
-	},
-	schema: {
-		alwaysOnTop: {
-			type: 'boolean',
-			default: false,
-		},
-		language: {
-			type: 'string',
-			default: 'unkown',
-		},
-		microphone: {
-			type: 'string',
-			default: 'Default',
-		},
-		speaker: {
-			type: 'string',
-			default: 'Default',
-		},
-		pushToTalkMode: {
-			type: 'number',
-			default: pushToTalkOptions.VOICE,
-		},
-		serverURL: {
-			type: 'string',
-			default: 'https://bettercrewl.ink',
-			format: 'uri',
-		},
-		pushToTalkShortcut: {
-			type: 'string',
-			default: 'V',
-		},
-		deafenShortcut: {
-			type: 'string',
-			default: 'RControl',
-		},
-		impostorRadioShortcut: {
-			type: 'string',
-			default: 'F',
-		},
-		muteShortcut: {
-			type: 'string',
-			default: 'RAlt',
-		},
-		hideCode: {
-			type: 'boolean',
-			default: false,
-		},
-		compactOverlay: {
-			type: 'boolean',
-			default: false,
-		},
-		overlayPosition: {
-			type: 'string',
-			default: 'right',
-		},
-		meetingOverlay: {
-			type: 'boolean',
-			default: true,
-		},
-		enableOverlay: {
-			type: 'boolean',
-			default: true,
-		},
-		ghostVolume: {
-			type: 'number',
-			default: 100,
-		},
-		masterVolume: {
-			type: 'number',
-			default: 100,
-		},
-		microphoneGain: {
-			type: 'number',
-			default: 100,
-		},
-		microphoneGainEnabled: {
-			type: 'boolean',
-			default: false,
-		},
-		micSensitivity: {
-			type: 'number',
-			default: 0.15,
-		},
-		micSensitivityEnabled: {
-			type: 'boolean',
-			default: false,
-		},
-		natFix: {
-			type: 'boolean',
-			default: false,
-		},
-		mobileHost: {
-			type: 'boolean',
-			default: true,
-		},
-		vadEnabled: {
-			type: 'boolean',
-			default: true,
-		},
-		hardware_acceleration: {
-			type: 'boolean',
-			default: true,
-		},
-		enableSpatialAudio: {
-			type: 'boolean',
-			default: true,
-		},
-		obsSecret: {
-			type: 'string',
-			default: undefined,
-		},
-
-		obsOverlay: {
-			type: 'boolean',
-			default: false,
-		},
-		echoCancellation: {
-			type: 'boolean',
-			default: true,
-		},
-		noiseSuppression: {
-			type: 'boolean',
-			default: true,
-		},
-		oldSampleDebug: {
-			type: 'boolean', 
-			default: false,
-		},
-		playerConfigMap: {
-			type: 'object',
-			default: {},
-			additionalProperties: {
-				type: 'object',
-				properties: {
-					volume: {
-						type: 'number',
-						default: 1,
-					},
-					isMuted: {
-						type: 'boolean',
-						default: false,
-					},
-				},
-			},
-		},
-		localLobbySettings: {
-			type: 'object',
-			properties: {
-				maxDistance: {
-					type: 'number',
-					default: 5.32,
-				},
-				haunting: {
-					type: 'boolean',
-					default: false,
-				},
-				commsSabotage: {
-					type: 'boolean',
-					default: false,
-				},
-				hearImpostorsInVents: {
-					type: 'boolean',
-					default: false,
-				},
-				impostersHearImpostersInvent: {
-					type: 'boolean',
-					default: false,
-				},
-				impostorRadioEnabled: {
-					type: 'boolean',
-					default: false,
-				},
-				deadOnly: {
-					type: 'boolean',
-					default: false,
-				},
-				meetingGhostOnly: {
-					type: 'boolean',
-					default: false,
-				},
-				visionHearing: {
-					type: 'boolean',
-					default: false,
-				},
-				hearThroughCameras: {
-					type: 'boolean',
-					default: false,
-				},
-				wallsBlockAudio: {
-					type: 'boolean',
-					default: false,
-				},
-				publicLobby_on: {
-					type: 'boolean',
-					default: false,
-				},
-				publicLobby_title: {
-					type: 'string',
-					default: '',
-				},
-				publicLobby_language: {
-					type: 'string',
-					default: 'en',
-				},
-				publicLobby_mods: {
-					type: 'string',
-					default: 'NONE',
-				},
-			},
-			default: {
-				maxDistance: 5.32,
-				haunting: false,
-				commsSabotage: false,
-				hearImpostorsInVents: false,
-				hearThroughCameras: false,
-				wallsBlockAudio: false,
-				deadOnly: false,
-				meetingGhostOnly: false,
-				visionHearing: false,
-				publicLobby_on: false,
-				publicLobby_title: '',
-				publicLobby_language: 'en',
-				publicLobby_mods: 'NONE',
-			},
-		},
-		launchPlatform: {
-			type: 'string',
-			default: GamePlatform.STEAM,
-		},
-		customPlatforms: {
-			type: 'object',
-			default: {},
-			additionalProperties: {
-				type: 'object',
-				properties: {
-					default: {
-						type: 'boolean',
-						default: false,
-					},
-					key: {
-						type: 'string',
-						default: '',
-					},
-					launchType: {
-						type: 'string',
-						default: 'EXE',
-					},
-					runPath: {
-						type: 'string',
-						default: '',
-					},
-					execute: {
-						type: 'array',
-						default: [''],
-						items: {
-							type: 'string',
-							default: '',
-						},
-					},
-					translateKey: {
-						type: 'string',
-						default: '',
-					},
-				},
-			},
-		},
-	},
-});
-
 export interface SettingsProps {
 	t: TFunction;
 	open: boolean;
 	onClose: () => void;
 }
-
-export const settingsReducer = (
-	state: ISettings,
-	action: {
-		type: 'set' | 'setOne' | 'setLobbySetting';
-		action: [string, unknown] | ISettings;
-	}
-): ISettings => {
-	if (action.type === 'set') {
-		return action.action as ISettings;
-	}
-	const v = action.action as [string, unknown];
-	if (action.type === 'setLobbySetting') {
-		const lobbySettings = {
-			...state.localLobbySettings,
-			[v[0]]: v[1],
-		};
-		v[0] = 'localLobbySettings';
-		v[1] = lobbySettings;
-	}
-	store.set(v[0], v[1]);
-	return {
-		...state,
-		[v[0]]: v[1],
-	};
-};
-
-export const lobbySettingsReducer = (
-	state: ILobbySettings,
-	action: {
-		type: 'set' | 'setOne';
-		action: [string, unknown] | ILobbySettings;
-	}
-): ILobbySettings => {
-	if (action.type === 'set') return action.action as ILobbySettings;
-	const v = action.action as [string, unknown];
-	return {
-		...state,
-		[v[0]]: v[1],
-	};
-};
 
 interface MediaDevice {
 	id: string;
@@ -562,21 +167,15 @@ const DisabledTooltip: React.FC<DisabledTooltipProps> = function ({ disabled, ch
 
 const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: SettingsProps) {
 	const classes = useStyles({ open });
-	const [settings, setSettings] = useContext(SettingsContext);
+	const [settings, setSettings, setLobbySettings] = useContext(SettingsContext);
 	const gameState = useContext(GameStateContext);
-	const [lobbySettings, setLobbySettings] = useContext(LobbySettingsContext);
+	const [hostLobbySettings] = useContext(HostSettingsContext);
 	const [unsavedCount, setUnsavedCount] = useState(0);
 	const unsaved = unsavedCount > 2;
-	useEffect(() => {
-		setSettings({
-			type: 'set',
-			action: store.store,
-		});
-		setLobbySettings({
-			type: 'set',
-			action: store.get('localLobbySettings'),
-		});
-	}, []);
+
+	// Used to buffer changes that are only sent out on settings close
+	const [localLobbySettingsBuffer, setLocalLobbySettingsBuffer] = useState(settings.localLobbySettings);
+	const updateLocalLobbySettingsBuffer = (newValues: Partial<ILobbySettings>) => setLocalLobbySettingsBuffer((oldState) => {return {...oldState, ...newValues}});
 
 	useEffect(() => {
 		setUnsavedCount((s) => s + 1);
@@ -626,7 +225,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 		);
 	}, [_]);
 
-	const setShortcut = (ev: React.KeyboardEvent, shortcut: string) => {
+	const setShortcut = (ev: React.KeyboardEvent, shortcut: keyof ISettings) => {
 		//	console.log(ev, shortcut);
 		let k = ev.key;
 		if (k.length === 1) k = k.toUpperCase();
@@ -646,50 +245,32 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				console.log('disable??');
 				k = 'Disabled';
 			}
-			setSettings({
-				type: 'setOne',
-				action: [shortcut, k],
-			});
+			setSettings(shortcut, k);
 
 			ipcRenderer.send(IpcHandlerMessages.RESET_KEYHOOKS);
 		}
 	};
 
-	const setMouseShortcut = (ev: React.MouseEvent<HTMLDivElement>, shortcut: string) => {
+	const setMouseShortcut = (ev: React.MouseEvent<HTMLDivElement>, shortcut: keyof ISettings) => {
 		if (ev.button > 2) {
 			// this makes our button start at 1 instead of 0
 			// React Mouse event starts at 0, but IOHooks starts at 1
 			const k = `MouseButton${ev.button + 1}`;
-			setSettings({
-				type: 'setOne',
-				action: [shortcut, k],
-			});
+			setSettings(shortcut, k);
 			ipcRenderer.send(IpcHandlerMessages.RESET_KEYHOOKS);
 		}
 	};
 
 	const resetDefaults = () => {
-		store.clear();
-		setSettings({
-			type: 'set',
-			action: store.store,
-		});
-
-		// I'm like 90% sure this isn't necessary but whenever you click the mic/speaker dropdown it is called, so it may be necessary
-		// updateDevices();
-
+		SettingsStore.clear();
 		// This is necessary for resetting hotkeys properly, the main thread needs to be notified to reset the hooks
 		ipcRenderer.send(IpcHandlerMessages.RESET_KEYHOOKS);
+
 		location.reload();
 	};
 
 	const microphones = devices.filter((d) => d.kind === 'audioinput');
 	const speakers = devices.filter((d) => d.kind === 'audiooutput');
-	const [localLobbySettings, setLocalLobbySettings] = useState(settings.localLobbySettings);
-
-	useEffect(() => {
-		setLocalLobbySettings(settings.localLobbySettings);
-	}, [settings.localLobbySettings]);
 
 	useEffect(() => {
 		(async () => {
@@ -703,10 +284,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						: undefined;
 				if (lang) {
 					settings.language = lang;
-					setSettings({
-						type: 'setOne',
-						action: ['language', settings.language],
-					});
+					setSettings('language', settings.language);
 				}
 			}
 			i18next.changeLanguage(settings.language);
@@ -745,19 +323,15 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	};
 
 	const URLInputCallback = useCallback((url: string) => {
-		setSettings({
-			type: 'setOne',
-			action: ['serverURL', url],
-		});
+		setSettings('serverURL', url);
 	}, []);
 
-	const SavePublicLobbyCallback = useCallback((setting: string, newValue: any) => {
-		// @ts-ignore
-		setLocalLobbySettings({ ...localLobbySettings, setting: newValue });
-		setSettings({
-			type: 'setLobbySetting',
-			action: [setting, newValue],
-		});
+	const SavePublicLobbyCallback = useCallback(<K extends keyof ILobbySettings>(setting: K, newValue: ILobbySettings[K]) => {
+		// We want lobby browser related settings to save on Submit button click
+		setLobbySettings(setting, newValue);
+		const newSetting: Partial<ILobbySettings> = {};
+		newSetting[setting] = newValue;
+		updateLocalLobbySettingsBuffer(newSetting);
 	}, []);
 
 	if (!open) { return <></> }
@@ -769,10 +343,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					className={classes.back}
 					size="small"
 					onClick={() => {
-						// setSettings({
-						// 	type: 'setOne',
-						// 	action: ['localLobbySettings', lobbySettings],
-						// });
+						setSettings('localLobbySettings', localLobbySettingsBuffer);
 						if (unsaved) {
 							onClose();
 							location.reload();
@@ -810,10 +381,10 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				<Typography variant="h6">{t('settings.lobbysettings.title')}</Typography>
 				<div>
 					<Typography id="input-slider" gutterBottom>
-						{(canChangeLobbySettings ? localLobbySettings.visionHearing : lobbySettings.visionHearing)
+						{(canChangeLobbySettings ? localLobbySettingsBuffer.visionHearing : hostLobbySettings.visionHearing)
 							? t('settings.lobbysettings.voicedistance_impostor')
 							: t('settings.lobbysettings.voicedistance')}
-						: {canChangeLobbySettings ? localLobbySettings.maxDistance : lobbySettings.maxDistance}
+						: {canChangeLobbySettings ? localLobbySettingsBuffer.maxDistance.toFixed(1) : hostLobbySettings.maxDistance.toFixed(1)}
 					</Typography>
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
@@ -821,20 +392,11 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					>
 						<Slider
 							disabled={!canChangeLobbySettings}
-							value={canChangeLobbySettings ? localLobbySettings.maxDistance : lobbySettings.maxDistance}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.maxDistance : hostLobbySettings.maxDistance}
 							min={1}
 							max={10}
 							step={0.1}
-							onChange={(_, newValue: number | number[]) => {
-								localLobbySettings.maxDistance = newValue as number;
-								setLocalLobbySettings(localLobbySettings);
-							}}
-							onChangeCommitted={(_, newValue: number | number[]) => {
-								setSettings({
-									type: 'setLobbySetting',
-									action: ['maxDistance', newValue as number],
-								});
-							}}
+							onChange={(_, newValue: number | number[]) => updateLocalLobbySettingsBuffer({maxDistance: newValue as number})}
 						/>
 					</DisabledTooltip>
 				</div>
@@ -851,19 +413,12 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								openWarningDialog(
 									t('settings.warning'),
 									t('settings.lobbysettings.public_lobby.enable_warning'),
-									() => {
-										localLobbySettings.publicLobby_on = newValue;
-										setLocalLobbySettings(localLobbySettings);
-										setSettings({
-											type: 'setLobbySetting',
-											action: ['publicLobby_on', newValue],
-										});
-									},
-									!localLobbySettings.publicLobby_on
+									() => {updateLocalLobbySettingsBuffer({publicLobby_on: newValue})},
+									!localLobbySettingsBuffer.publicLobby_on
 								);
 							}}
-							value={canChangeLobbySettings ? localLobbySettings.publicLobby_on : lobbySettings.publicLobby_on}
-							checked={canChangeLobbySettings ? localLobbySettings.publicLobby_on : lobbySettings.publicLobby_on}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.publicLobby_on : hostLobbySettings.publicLobby_on}
+							checked={canChangeLobbySettings ? localLobbySettingsBuffer.publicLobby_on : hostLobbySettings.publicLobby_on}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
@@ -875,7 +430,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						<PublicLobbySettings
 							t={t}
 							updateSetting={SavePublicLobbyCallback}
-							lobbySettings={canChangeLobbySettings ? localLobbySettings : lobbySettings}
+							lobbySettings={canChangeLobbySettings ? localLobbySettingsBuffer : hostLobbySettings}
 							canChange={canChangeLobbySettings}
 							className={classes.dialog}
 						/>
@@ -889,17 +444,9 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.wallsblockaudio')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => {
-								localLobbySettings.wallsBlockAudio = newValue;
-								setLocalLobbySettings(localLobbySettings);
-
-								setSettings({
-									type: 'setLobbySetting',
-									action: ['wallsBlockAudio', newValue],
-								});
-							}}
-							value={canChangeLobbySettings ? localLobbySettings.wallsBlockAudio : lobbySettings.wallsBlockAudio}
-							checked={canChangeLobbySettings ? localLobbySettings.wallsBlockAudio : lobbySettings.wallsBlockAudio}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({wallsBlockAudio: newValue})}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.wallsBlockAudio : hostLobbySettings.wallsBlockAudio}
+							checked={canChangeLobbySettings ? localLobbySettingsBuffer.wallsBlockAudio : hostLobbySettings.wallsBlockAudio}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
@@ -911,24 +458,9 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.visiononly')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => {
-								// openWarningDialog(
-								// 	'Be aware!',
-								// 	'Imposters and original crewlink users still use the voice distance setting',
-								// 	() => {
-								localLobbySettings.visionHearing = newValue;
-								setSettings({
-									type: 'setLobbySetting',
-									action: ['visionHearing', newValue],
-								});
-
-								setLocalLobbySettings(localLobbySettings);
-								// 	},
-								// 	newValue
-								// );
-							}}
-							value={canChangeLobbySettings ? localLobbySettings.visionHearing : lobbySettings.visionHearing}
-							checked={canChangeLobbySettings ? localLobbySettings.visionHearing : lobbySettings.visionHearing}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({visionHearing: newValue})}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.visionHearing : hostLobbySettings.visionHearing}
+							checked={canChangeLobbySettings ? localLobbySettingsBuffer.visionHearing : hostLobbySettings.visionHearing}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
@@ -940,17 +472,9 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.impostorshearsghost')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => {
-								localLobbySettings.haunting = newValue;
-								setLocalLobbySettings(localLobbySettings);
-
-								setSettings({
-									type: 'setLobbySetting',
-									action: ['haunting', newValue],
-								});
-							}}
-							value={canChangeLobbySettings ? localLobbySettings.haunting : lobbySettings.haunting}
-							checked={canChangeLobbySettings ? localLobbySettings.haunting : lobbySettings.haunting}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({haunting: newValue})}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.haunting : hostLobbySettings.haunting}
+							checked={canChangeLobbySettings ? localLobbySettingsBuffer.haunting : hostLobbySettings.haunting}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
@@ -963,20 +487,12 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.hear_imposters_invents')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => {
-								localLobbySettings.hearImpostorsInVents = newValue;
-								setLocalLobbySettings(localLobbySettings);
-
-								setSettings({
-									type: 'setLobbySetting',
-									action: ['hearImpostorsInVents', newValue],
-								});
-							}}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({hearImpostorsInVents: newValue})}
 							value={
-								canChangeLobbySettings ? localLobbySettings.hearImpostorsInVents : lobbySettings.hearImpostorsInVents
+								canChangeLobbySettings ? localLobbySettingsBuffer.hearImpostorsInVents : hostLobbySettings.hearImpostorsInVents
 							}
 							checked={
-								canChangeLobbySettings ? localLobbySettings.hearImpostorsInVents : lobbySettings.hearImpostorsInVents
+								canChangeLobbySettings ? localLobbySettingsBuffer.hearImpostorsInVents : hostLobbySettings.hearImpostorsInVents
 							}
 							control={<Checkbox />}
 						/>
@@ -989,24 +505,16 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.private_talk_invents')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => {
-								localLobbySettings.impostersHearImpostersInvent = newValue;
-								setLocalLobbySettings(localLobbySettings);
-
-								setSettings({
-									type: 'setLobbySetting',
-									action: ['impostersHearImpostersInvent', newValue],
-								});
-							}}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({impostersHearImpostersInvent: newValue})}
 							value={
 								canChangeLobbySettings
-									? localLobbySettings.impostersHearImpostersInvent
-									: lobbySettings.impostersHearImpostersInvent
+									? localLobbySettingsBuffer.impostersHearImpostersInvent
+									: hostLobbySettings.impostersHearImpostersInvent
 							}
 							checked={
 								canChangeLobbySettings
-									? localLobbySettings.impostersHearImpostersInvent
-									: lobbySettings.impostersHearImpostersInvent
+									? localLobbySettingsBuffer.impostersHearImpostersInvent
+									: hostLobbySettings.impostersHearImpostersInvent
 							}
 							control={<Checkbox />}
 						/>
@@ -1020,17 +528,9 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.comms_sabotage_audio')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => {
-								localLobbySettings.commsSabotage = newValue;
-								setLocalLobbySettings(localLobbySettings);
-
-								setSettings({
-									type: 'setLobbySetting',
-									action: ['commsSabotage', newValue],
-								});
-							}}
-							value={canChangeLobbySettings ? localLobbySettings.commsSabotage : lobbySettings.commsSabotage}
-							checked={canChangeLobbySettings ? localLobbySettings.commsSabotage : lobbySettings.commsSabotage}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({commsSabotage: newValue})}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.commsSabotage : hostLobbySettings.commsSabotage}
+							checked={canChangeLobbySettings ? localLobbySettingsBuffer.commsSabotage : hostLobbySettings.commsSabotage}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
@@ -1042,18 +542,10 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.hear_through_cameras')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => {
-								localLobbySettings.hearThroughCameras = newValue;
-								setLocalLobbySettings(localLobbySettings);
-
-								setSettings({
-									type: 'setLobbySetting',
-									action: ['hearThroughCameras', newValue],
-								});
-							}}
-							value={canChangeLobbySettings ? localLobbySettings.hearThroughCameras : lobbySettings.hearThroughCameras}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({hearThroughCameras: newValue})}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.hearThroughCameras : hostLobbySettings.hearThroughCameras}
 							checked={
-								canChangeLobbySettings ? localLobbySettings.hearThroughCameras : lobbySettings.hearThroughCameras
+								canChangeLobbySettings ? localLobbySettingsBuffer.hearThroughCameras : hostLobbySettings.hearThroughCameras
 							}
 							control={<Checkbox />}
 						/>
@@ -1066,20 +558,12 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.impostor_radio')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => {
-								localLobbySettings.impostorRadioEnabled = newValue;
-								setLocalLobbySettings(localLobbySettings);
-
-								setSettings({
-									type: 'setLobbySetting',
-									action: ['impostorRadioEnabled', newValue],
-								});
-							}}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({impostorRadioEnabled: newValue})}
 							value={
-								canChangeLobbySettings ? localLobbySettings.impostorRadioEnabled : lobbySettings.impostorRadioEnabled
+								canChangeLobbySettings ? localLobbySettingsBuffer.impostorRadioEnabled : hostLobbySettings.impostorRadioEnabled
 							}
 							checked={
-								canChangeLobbySettings ? localLobbySettings.impostorRadioEnabled : lobbySettings.impostorRadioEnabled
+								canChangeLobbySettings ? localLobbySettingsBuffer.impostorRadioEnabled : hostLobbySettings.impostorRadioEnabled
 							}
 							control={<Checkbox />}
 						/>
@@ -1097,24 +581,12 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								openWarningDialog(
 									t('settings.warning'),
 									t('settings.lobbysettings.ghost_only_warning'),
-									() => {
-										localLobbySettings.meetingGhostOnly = false;
-										localLobbySettings.deadOnly = newValue;
-										setSettings({
-											type: 'setLobbySetting',
-											action: ['meetingGhostOnly', false],
-										});
-										setSettings({
-											type: 'setLobbySetting',
-											action: ['deadOnly', newValue],
-										});
-										setLocalLobbySettings(localLobbySettings);
-									},
+									() => updateLocalLobbySettingsBuffer({meetingGhostOnly: false, deadOnly: newValue}),
 									newValue
 								);
 							}}
-							value={canChangeLobbySettings ? localLobbySettings.deadOnly : lobbySettings.deadOnly}
-							checked={canChangeLobbySettings ? localLobbySettings.deadOnly : lobbySettings.deadOnly}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.deadOnly : hostLobbySettings.deadOnly}
+							checked={canChangeLobbySettings ? localLobbySettingsBuffer.deadOnly : hostLobbySettings.deadOnly}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
@@ -1131,24 +603,12 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								openWarningDialog(
 									t('settings.warning'),
 									t('settings.lobbysettings.meetings_only_warning'),
-									() => {
-										localLobbySettings.meetingGhostOnly = newValue;
-										localLobbySettings.deadOnly = false;
-										setSettings({
-											type: 'setLobbySetting',
-											action: ['meetingGhostOnly', newValue],
-										});
-										setSettings({
-											type: 'setLobbySetting',
-											action: ['deadOnly', false],
-										});
-										setLocalLobbySettings(localLobbySettings);
-									},
+									() => updateLocalLobbySettingsBuffer({meetingGhostOnly: newValue, deadOnly: false}),
 									newValue
 								);
 							}}
-							value={canChangeLobbySettings ? localLobbySettings.meetingGhostOnly : lobbySettings.meetingGhostOnly}
-							checked={canChangeLobbySettings ? localLobbySettings.meetingGhostOnly : lobbySettings.meetingGhostOnly}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.meetingGhostOnly : hostLobbySettings.meetingGhostOnly}
+							checked={canChangeLobbySettings ? localLobbySettingsBuffer.meetingGhostOnly : hostLobbySettings.meetingGhostOnly}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
@@ -1165,12 +625,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					className={classes.shortcutField}
 					SelectProps={{ native: true }}
 					InputLabelProps={{ shrink: true }}
-					onChange={(ev) => {
-						setSettings({
-							type: 'setOne',
-							action: ['microphone', ev.target.value],
-						});
-					}}
+					onChange={(ev) => setSettings('microphone', ev.target.value)}
 					onClick={updateDevices}
 				>
 					{microphones.map((d) => (
@@ -1189,12 +644,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					className={classes.shortcutField}
 					SelectProps={{ native: true }}
 					InputLabelProps={{ shrink: true }}
-					onChange={(ev) => {
-						setSettings({
-							type: 'setOne',
-							action: ['speaker', ev.target.value],
-						});
-					}}
+					onChange={(ev) => setSettings('speaker', ev.target.value)}
 					onClick={updateDevices}
 				>
 					{speakers.map((d) => (
@@ -1207,10 +657,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				<RadioGroup
 					value={settings.pushToTalkMode}
 					onChange={(ev) => {
-						setSettings({
-							type: 'setOne',
-							action: ['pushToTalkMode', Number(ev.target.value)],
-						});
+						setSettings('pushToTalkMode', Number(ev.target.value));
 					}}
 				>
 					<FormControlLabel
@@ -1239,12 +686,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						<Grid item xs={3}>
 							<Checkbox
 								checked={settings.microphoneGainEnabled}
-								onChange={(_, checked: boolean) => {
-									setSettings({
-										type: 'setOne',
-										action: ['microphoneGainEnabled', checked],
-									});
-								}}
+								onChange={(_, checked: boolean) => setSettings('microphoneGainEnabled', checked)}
 							/>
 						</Grid>
 						<Grid
@@ -1262,13 +704,8 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								valueLabelDisplay="auto"
 								min={0}
 								max={300}
-								step={1}
-								onChange={(_, newValue: number | number[]) => {
-									setSettings({
-										type: 'setOne',
-										action: ['microphoneGain', newValue],
-									});
-								}}
+								step={2}
+								onChange={(_, newValue: number | number[]) => setSettings('microphoneGain', newValue as number)}
 								aria-labelledby="input-slider"
 							/>
 						</Grid>
@@ -1280,12 +717,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						<Grid item xs={3}>
 							<Checkbox
 								checked={settings.micSensitivityEnabled}
-								onChange={(_, checked: boolean) => {
-									setSettings({
-										type: 'setOne',
-										action: ['micSensitivityEnabled', checked],
-									});
-								}}
+								onChange={(_, checked: boolean) => setSettings('micSensitivityEnabled', checked)}
 							/>
 						</Grid>
 						<Grid
@@ -1309,12 +741,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 									openWarningDialog(
 										t('settings.warning'),
 										t('settings.audio.microphone_sens_warning'),
-										() => {
-											setSettings({
-												type: 'setOne',
-												action: ['micSensitivity', 1 - (newValue as number)],
-											});
-										},
+										() => setSettings('micSensitivity', 1 - (newValue as number)),
 										newValue == 0.7 && settings.micSensitivity < 0.3
 									);
 								}}
@@ -1332,12 +759,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							<Slider
 								value={settings.ghostVolume}
 								valueLabelDisplay="auto"
-								onChange={(_, newValue: number | number[]) => {
-									setSettings({
-										type: 'setOne',
-										action: ['ghostVolume', newValue],
-									});
-								}}
+								onChange={(_, newValue: number | number[]) => setSettings('ghostVolume', newValue as number)}
 								aria-labelledby="input-slider"
 							/>
 						</Grid>
@@ -1351,12 +773,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								value={settings.masterVolume}
 								valueLabelDisplay="auto"
 								max={200}
-								onChange={(_, newValue: number | number[]) => {
-									setSettings({
-										type: 'setOne',
-										action: ['masterVolume', newValue],
-									});
-								}}
+								onChange={(_, newValue: number | number[]) => setSettings('masterVolume', newValue as number)}
 								aria-labelledby="input-slider"
 							/>
 						</Grid>
@@ -1439,24 +856,14 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						className={classes.formLabel}
 						label={t('settings.overlay.always_on_top')}
 						checked={settings.alwaysOnTop}
-						onChange={(_, checked: boolean) => {
-							setSettings({
-								type: 'setOne',
-								action: ['alwaysOnTop', checked],
-							});
-						}}
+						onChange={(_, checked: boolean) => setSettings('alwaysOnTop', checked)}
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
 						className={classes.formLabel}
 						label={t('settings.overlay.enabled')}
 						checked={settings.enableOverlay}
-						onChange={(_, checked: boolean) => {
-							setSettings({
-								type: 'setOne',
-								action: ['enableOverlay', checked],
-							});
-						}}
+						onChange={(_, checked: boolean) => setSettings('enableOverlay', checked)}
 						control={<Checkbox />}
 					/>
 					{settings.enableOverlay && (
@@ -1465,24 +872,14 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								className={classes.formLabel}
 								label={t('settings.overlay.compact')}
 								checked={settings.compactOverlay}
-								onChange={(_, checked: boolean) => {
-									setSettings({
-										type: 'setOne',
-										action: ['compactOverlay', checked],
-									});
-								}}
+								onChange={(_, checked: boolean) => setSettings('compactOverlay', checked)}
 								control={<Checkbox />}
 							/>
 							<FormControlLabel
 								className={classes.formLabel}
 								label={t('settings.overlay.meeting')}
 								checked={settings.meetingOverlay}
-								onChange={(_, checked: boolean) => {
-									setSettings({
-										type: 'setOne',
-										action: ['meetingOverlay', checked],
-									});
-								}}
+								onChange={(_, checked: boolean) => setSettings('meetingOverlay', checked)}
 								control={<Checkbox />}
 							/>
 							<TextField
@@ -1495,12 +892,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								className={classes.shortcutField}
 								SelectProps={{ native: true }}
 								InputLabelProps={{ shrink: true }}
-								onChange={(ev) => {
-									setSettings({
-										type: 'setOne',
-										action: ['overlayPosition', ev.target.value],
-									});
-								}}
+								onChange={(ev) => setSettings('overlayPosition', ev.target.value)}
 								onClick={updateDevices}
 							>
 								<option value="hidden">{t('settings.overlay.locations.hidden')}</option>
@@ -1524,12 +916,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							openWarningDialog(
 								t('settings.warning'),
 								t('settings.advanced.nat_fix_warning'),
-								() => {
-									setSettings({
-										type: 'setOne',
-										action: ['natFix', checked],
-									});
-								},
+								() => setSettings('natFix', checked),
 								checked
 							);
 						}}
@@ -1549,12 +936,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						className={classes.formLabel}
 						label={t('settings.beta.mobilehost')}
 						checked={settings.mobileHost}
-						onChange={(_, checked: boolean) => {
-							setSettings({
-								type: 'setOne',
-								action: ['mobileHost', checked],
-							});
-						}}
+						onChange={(_, checked: boolean) => setSettings('mobileHost', checked)}
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
@@ -1565,12 +947,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							openWarningDialog(
 								t('settings.warning'),
 								t('settings.beta.vad_enabled_warning'),
-								() => {
-									setSettings({
-										type: 'setOne',
-										action: ['vadEnabled', checked],
-									});
-								},
+								() => setSettings('vadEnabled', checked),
 								!checked
 							);
 						}}
@@ -1585,10 +962,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								t('settings.warning'),
 								t('settings.beta.hardware_acceleration_warning'),
 								() => {
-									setSettings({
-										type: 'setOne',
-										action: ['hardware_acceleration', checked],
-									});
+									setSettings('hardware_acceleration', checked);
 									app.relaunch();
 									app.exit();
 								},
@@ -1601,36 +975,21 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						className={classes.formLabel}
 						label={t('settings.beta.echocancellation')}
 						checked={settings.echoCancellation}
-						onChange={(_, checked: boolean) => {
-							setSettings({
-								type: 'setOne',
-								action: ['echoCancellation', checked],
-							});
-						}}
+						onChange={(_, checked: boolean) => setSettings('echoCancellation', checked)}
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
 						className={classes.formLabel}
 						label={t('settings.beta.spatial_audio')}
 						checked={settings.enableSpatialAudio}
-						onChange={(_, checked: boolean) => {
-							setSettings({
-								type: 'setOne',
-								action: ['enableSpatialAudio', checked],
-							});
-						}}
+						onChange={(_, checked: boolean) => setSettings('enableSpatialAudio', checked)}
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
 						className={classes.formLabel}
 						label={t('settings.beta.noiseSuppression')}
 						checked={settings.noiseSuppression}
-						onChange={(_, checked: boolean) => {
-							setSettings({
-								type: 'setOne',
-								action: ['noiseSuppression', checked],
-							});
-						}}
+						onChange={(_, checked: boolean) => setSettings('noiseSuppression', checked)}
 						control={<Checkbox />}
 					/>
 						<FormControlLabel
@@ -1642,10 +1001,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								t('settings.warning'),
 								t('settings.beta.oldsampledebug_warning'),
 								() => {
-									setSettings({
-										type: 'setOne',
-										action: ['oldSampleDebug', checked],
-									});
+									setSettings('oldSampleDebug', checked);
 								},
 								checked
 							);
@@ -1665,12 +1021,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					className={classes.shortcutField}
 					SelectProps={{ native: true }}
 					InputLabelProps={{ shrink: true }}
-					onChange={(ev) => {
-						setSettings({
-							type: 'setOne',
-							action: ['language', ev.target.value],
-						});
-					}}
+					onChange={(ev) => setSettings('language', ev.target.value)}
 				>
 					{Object.entries(languages).map(([key, value]) => (
 						<option key={key} value={key}>
@@ -1685,12 +1036,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						className={classes.formLabel}
 						label={t('settings.streaming.hidecode')}
 						checked={!settings.hideCode}
-						onChange={(_, checked: boolean) => {
-							setSettings({
-								type: 'setOne',
-								action: ['hideCode', !checked],
-							});
-						}}
+						onChange={(_, checked: boolean) => setSettings('hideCode', !checked)}
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
@@ -1698,15 +1044,9 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						label={t('settings.streaming.obs_overlay')}
 						checked={settings.obsOverlay}
 						onChange={(_, checked: boolean) => {
-							setSettings({
-								type: 'setOne',
-								action: ['obsOverlay', checked],
-							});
+							setSettings('obsOverlay', checked);
 							if (!settings.obsSecret) {
-								setSettings({
-									type: 'setOne',
-									action: ['obsSecret', Math.random().toString(36).substr(2, 9).toUpperCase()],
-								});
+								setSettings('obsSecret', Math.random().toString(36).substr(2, 9).toUpperCase());
 							}
 						}}
 						control={<Checkbox />}
@@ -1741,9 +1081,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								openWarningDialog(
 									t('settings.warning'),
 									t('settings.troubleshooting.restore_warning'),
-									() => {
-										resetDefaults();
-									},
+									() => resetDefaults(),
 									true
 								)
 							}

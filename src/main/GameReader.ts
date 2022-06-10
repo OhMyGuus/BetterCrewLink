@@ -105,10 +105,10 @@ export default class GameReader {
 					break;
 				} catch (e) {
 					console.log('ERROR:', e);
-					if (processOpen && e.toString() === 'Error: unable to find process') {
+					if (processOpen && String(e) === 'Error: unable to find process') {
 						error = Errors.OPEN_AS_ADMINISTRATOR;
 					} else {
-						error = e.toString();
+						error = String(e);
 					}
 					this.amongUs = null;
 				}
@@ -154,7 +154,7 @@ export default class GameReader {
 				await this.checkProcessOpen();
 			} catch (e) {
 				this.checkProcessDelay = 0
-				return e.toString();
+				return String(e);
 			}
 		}
 		if (
