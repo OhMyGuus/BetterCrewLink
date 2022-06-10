@@ -134,6 +134,10 @@ ipcMain.handle("getlocale", () => {
 	return app.getLocale();
 });
 
+ipcMain.on('relaunch', async () => {
+	app.relaunch();  
+	app.exit();
+});
 // GenerateAvatars().then(() => console.log("done generate")).catch((e) => console.error(e));
 
 const keycodeMap = {

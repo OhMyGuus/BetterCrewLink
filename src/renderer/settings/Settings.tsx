@@ -21,7 +21,7 @@ import { Dialog, TextField } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ArrowBack';
 import Alert from '@material-ui/lab/Alert';
 import { GameState } from '../../common/AmongUsState';
-import { app, ipcRenderer } from 'electron';
+import { ipcRenderer } from 'electron';
 import { IpcHandlerMessages } from '../../common/ipc-messages';
 import i18next, { TFunction } from 'i18next';
 import languages from '../language/languages';
@@ -963,8 +963,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								t('settings.beta.hardware_acceleration_warning'),
 								() => {
 									setSettings('hardware_acceleration', checked);
-									app.relaunch();
-									app.exit();
+									ipcRenderer.send("relaunch");
 								},
 								!checked
 							);
