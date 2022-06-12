@@ -16,7 +16,7 @@ import {
 import Struct from 'structron';
 import { IpcOverlayMessages, IpcRendererMessages } from '../common/ipc-messages';
 import { GameState, AmongUsState, Player } from '../common/AmongUsState';
-import { fetchOffsetLookup, fetchOffsetsJson, IOffsets, IOffsetsLookup } from './offsetStore';
+import { fetchOffsetLookup, getOffsets, IOffsets, IOffsetsLookup } from './offsetStore';
 import Errors from '../common/Errors';
 import { CameraLocation, MapType } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
@@ -450,9 +450,9 @@ export default class GameReader {
 		console.log("broadcastVersion: ", broadcastVersion)
 
 		if (offsetLookups.versions[broadcastVersion]) {
-			this.offsets = await fetchOffsetsJson(this.is_64bit, offsetLookups.versions[broadcastVersion].file);
+			this.offsets = await getOffsets(this.is_64bit, offsetLookups.versions[broadcastVersion].file, offsetLookups.versions[broadcastVersion].offsetsVersion);
 		} else {
-			this.offsets = await fetchOffsetsJson(this.is_64bit, offsetLookups.versions["default"].file); // can't find file for this client, return default
+			this.offsets = await getOffsets(this.is_64bit, offsetLookups.versions["default"].file, offsetLookups.versions[broadcastVersion].offsetsVersion); // can't find file for this client, return default
 		}
 
 		this.disableWriting = this.offsets.disableWriting;
