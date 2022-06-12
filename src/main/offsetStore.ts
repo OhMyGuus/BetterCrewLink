@@ -153,7 +153,7 @@ async function fetchOffsetsJson(is_64bit: boolean, filename: string): Promise<IO
 		.catch((_) => { throw Errors.OFFSETS_FETCH_ERROR })
 }
 
-export async function getOffsets(is_64bit: boolean, filename: string, offsetsVersion: number): Promise<IOffsets> {
+export async function fetchOffsets(is_64bit: boolean, filename: string, offsetsVersion: number): Promise<IOffsets> {
 	// offsetsVersion in case we need to update people's cached file
 	// >= version to allow testing with local file updates (eg remote vers 2, local vers 3)
 	// no need to host local http server
