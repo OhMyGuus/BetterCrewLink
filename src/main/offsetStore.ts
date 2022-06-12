@@ -163,7 +163,7 @@ export async function fetchOffsets(is_64bit: boolean, filename: string, offsetsV
 	}
 	const offsets = await fetchOffsetsJson(is_64bit, filename);
 	store.set('filename', filename);
-	store.set('offsetsVersion', offsetsVersion);
+	store.set('offsetsVersion', offsetsVersion ? offsetsVersion : 0);
 	store.set('IOffsets', offsets);
 	return offsets;
 }
