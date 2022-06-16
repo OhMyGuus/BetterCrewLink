@@ -224,11 +224,13 @@ const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
 	app.quit();
 } else {
+	autoUpdater.autoDownload = false;
 	autoUpdater.checkForUpdates();
-	autoUpdater.on('update-available', () => {
+	autoUpdater.on('update-available', (info: UpdateInfo) => {
 		try {
 			global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
 				state: 'available',
+				info: info,
 			});
 		} catch (e) {
 			/* Empty block */
@@ -254,15 +256,8 @@ if (!gotTheLock) {
 			/*empty*/
 		}
 	});
-	autoUpdater.on('update-downloaded', (info: UpdateInfo) => {
-		try {
-			global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
-				state: 'downloaded',
-				info,
-			});
-		} catch (e) {
-			/*empty*/
-		}
+	autoUpdater.on('update-downloaded', () => {
+		autoUpdater.quitAndInstall();
 	});
 
 	// quit application when all windows are closed
@@ -335,7 +330,7 @@ if (!gotTheLock) {
 	});
 
 	ipcMain.on('update-app', () => {
-		autoUpdater.quitAndInstall();
+		autoUpdater.downloadUpdate();
 	});
 
 	ipcMain.on(IpcHandlerMessages.OPEN_LOBBYBROWSER, () => {

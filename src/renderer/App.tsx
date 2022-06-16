@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useState, useRef } from 'react';
 import Voice from './Voice';
 import Menu from './Menu';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, shell } from 'electron';
 import { AmongUsState } from '../common/AmongUsState';
 import Settings from './settings/Settings';
 import SettingsStore, { setSetting, setLobbySetting} from './settings/SettingsStore';
@@ -226,8 +226,11 @@ export default function App({ t }): JSX.Element {
 							<TitleBar settingsOpen={settingsOpen} setSettingsOpen={setSettingsOpen} />
 							<Settings t={t} open={settingsOpen} onClose={() => setSettingsOpen(false)} />
 							<Dialog fullWidth open={updaterState.state !== 'unavailable' && diaOpen}>
-								{updaterState.state === 'downloaded' && updaterState.info && (
+								{updaterState.state === 'available' && updaterState.info && (
 									<DialogTitle>Update v{updaterState.info.version}</DialogTitle>
+								)}
+								{updaterState.state === 'error' && (
+									<DialogTitle>Updater Error</DialogTitle>
 								)}
 								{updaterState.state === 'downloading' && <DialogTitle>Updating...</DialogTitle>}
 								<DialogContent>
@@ -239,22 +242,35 @@ export default function App({ t }): JSX.Element {
 											</DialogContentText>
 										</>
 									)}
-									{updaterState.state === 'downloaded' && (
+									{updaterState.state === 'available' && (
 										<>
 											<LinearProgress variant={'indeterminate'} />
-											<DialogContentText>Restart now or later?</DialogContentText>
+											<DialogContentText>Update now or later?</DialogContentText>
 										</>
 									)}
 									{updaterState.state === 'error' && (
-										<DialogContentText color="error">{updaterState.error}</DialogContentText>
+										<DialogContentText color="error">{String(updaterState.error)}</DialogContentText>
 									)}
 								</DialogContent>
 								{updaterState.state === 'error' && (
 									<DialogActions>
-										<Button href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest">Download Manually</Button>
+										<Button 
+											onClick={() => {
+												shell.openExternal("https://github.com/OhMyGuus/BetterCrewLink/releases/latest");
+											}}
+										>
+											Download Manually
+										</Button>
+										<Button
+											onClick={() => {
+												setDiaOpen(false);
+											}}
+											>
+												Skip
+										</Button>
 									</DialogActions>
 								)}
-								{updaterState.state === 'downloaded' && (
+								{updaterState.state === 'available' && (
 									<DialogActions>
 										<Button
 											onClick={() => {
