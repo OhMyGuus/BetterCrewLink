@@ -58,5 +58,5 @@ jobs:
                 "nightly-link", body);
             }
 
-# This snippet is public-domain, taken from
+# This snippet is public-domain, taken from:
 # https://github.com/oprypin/nightly.link/blob/master/.github/workflows/pr-comment.yml
