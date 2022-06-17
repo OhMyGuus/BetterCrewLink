@@ -171,7 +171,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	const gameState = useContext(GameStateContext);
 	const [hostLobbySettings] = useContext(HostSettingsContext);
 	const [unsavedCount, setUnsavedCount] = useState(0);
-	const unsaved = unsavedCount > 2;
+	const unsaved = unsavedCount > 1;
 
 	// Used to buffer changes that are only sent out on settings close
 	const [localLobbySettingsBuffer, setLocalLobbySettingsBuffer] = useState(settings.localLobbySettings);
