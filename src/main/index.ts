@@ -77,7 +77,7 @@ function createMainWindow() {
 	let crewlinkVersion: string;
 	if (isDevelopment) {
 		crewlinkVersion = '0.0.0';
-		//window.loadURL("http://google.nl")
+		//window.loadURL("https://google.com")
 
 		window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}?version=DEV&view=app`);
 	} else {
@@ -95,7 +95,7 @@ function createMainWindow() {
 		);
 	}
 	//window.webContents.userAgent = `CrewLink/${crewlinkVersion} (${process.platform})`;
-	window.webContents.userAgent = `CrewLink/2.0.1 (win32)`;
+	window.webContents.userAgent = `BetterCrewLink/3.0.1 (win32)`;
 
 	window.on('closed', () => {
 		try {
@@ -166,7 +166,7 @@ function createLobbyBrowser() {
 			})
 		);
 	}
-	window.webContents.userAgent = `CrewLink/2.0.1 (win32)`;
+	window.webContents.userAgent = `BetterCrewLink/3.0.1 (win32)`;
 	console.log('Opened app version: ', crewlinkVersion);
 	return window;
 }
