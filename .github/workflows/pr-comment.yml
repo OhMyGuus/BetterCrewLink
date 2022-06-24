@@ -1,23 +1,36 @@
 name: Comment on pull request
+
 on:
+  # Only run when the other workflow is completed since
+  # the build workflow only publishes artifacts after it has completed
   workflow_run:
     workflows: ['Build']
     types: [completed]
+
 jobs:
   pr_comment:
+    name: Add packages to PRs
     if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v5
+      - name: Get the PR number
+        run: |
+          # Query the issue search API to get the PR associated with it
+          PR_RAW=$(curl 'https://api.github.com/search/issues?q=${{ github.event.workflow_run.head_commit.id }}')
+          # Get the event number from the search results, which will
+          # be the PR number
+          PR_NUM=$(echo $PR_RAW | jq '.items[].number')
+          echo "PR_NUM=${PR_NUM}" >> ${GITHUB_ENV}
+
+      - name: Comment on PR
+        uses: actions/github-script@v5
         with:
           script: |
             async function upsertComment(owner, repo, issue_number, purpose, body) {
               const {data: comments} = await github.rest.issues.listComments(
                 {owner, repo, issue_number});
-
               const marker = `<!-- bot: ${purpose} -->`;
               body = marker + "\n" + body;
-
               const existing = comments.filter((c) => c.body.includes(marker));
               if (existing.length > 0) {
                 const last = existing[existing.length - 1];
@@ -28,19 +41,12 @@ jobs:
                   comment_id: last.id,
                 });
               } else {
-                core.info(`Creating a comment in issue / PR #${issue_number}`);
+                core.info(`Creating a comment in issue / PR ${issue_number}`);
                 await github.rest.issues.createComment({issue_number, body, owner, repo});
               }
             }
-
             const {owner, repo} = context.repo;
-            const run_id = ${{github.event.workflow_run.id}};
-
-            const pull_requests = ${{ toJSON(github.event.workflow_run.pull_requests) }};
-            if (!pull_requests.length) {
-              return core.error("This workflow doesn't match any pull requests!");
-            }
-
+            const run_id = '${{github.event.workflow_run.id}}';
             const artifacts = await github.paginate(
               github.rest.actions.listWorkflowRunArtifacts, {owner, repo, run_id});
             if (!artifacts.length) {
@@ -50,13 +56,11 @@ jobs:
             for (const art of artifacts) {
               body += `\n* [${art.name}.zip](https://nightly.link/${owner}/${repo}/actions/artifacts/${art.id}.zip)`;
             }
-
+            body += `<hr />  \n\nThis service is provided by [nightly.link](https://github.com/oprypin/nightly.link). These artifacts will expire in 90 days and will not be available for download after that time.`;
             core.info("Review thread message body:", body);
-
-            for (const pr of pull_requests) {
-              await upsertComment(owner, repo, pr.number,
-                "nightly-link", body);
-            }
+            await upsertComment(owner, repo, ${{ env.PR_NUM }},
+              "nightly-link", body);
 
 # This snippet is public-domain, taken from:
 # https://github.com/oprypin/nightly.link/blob/master/.github/workflows/pr-comment.yml
+# and modified to allow comments on external PRs

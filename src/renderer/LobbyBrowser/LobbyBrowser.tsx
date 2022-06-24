@@ -56,12 +56,12 @@ const useStyles = makeStyles({
 const servers: {
 	[server: string]: string;
 } = {
-	'50.116.1.42': 'North America',
-	'172.105.251.170': 'Europe',
-	'139.162.111.196': 'Asia',
+	// '50.116.1.42': 'North America',
+	// '172.105.251.170': 'Europe',
+	// '139.162.111.196': 'Asia',
 	'192.241.154.115': 'skeld.net',
-	'185.7.80.9': 'TOU Master',
-	'78.47.142.18': 'TOR Server',
+	'154.16.67.100': 'Modded (North America)',
+	'78.47.142.18': 'Modded (Europe)',
 };
 
 function sortLobbies(a: PublicLobby, b: PublicLobby) {
