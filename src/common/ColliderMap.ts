@@ -7,7 +7,6 @@ export const colliderMaps: { [key in MapType]: string[] | undefined } = {
 		'M 46.9386 39.8442 L 48.0681 41.0055 L 48.5997 41.0055 L 48.5997 41.9628 L 47.8567 41.9628 L 47.8567 41.5711 L 45.5398 41.5711 L 45.5398 41.7668 L 43.9661 43.6069 L 43.9661 45.226 L 47.8567 45.226 L 47.8567 44.0948 L 50.9603 44.0948 L 50.9603 45.0084 L 48.5997 45.0084 L 48.5997 49.577 L 48.0282 49.577 L 46.9465 50.8388 L 41.0809 50.8388 L 41.0809 48.2282 L 40.2066 48.2282 L 40.2066 47.8801 L 41.8677 47.8801 L 41.8677 50.4473 L 46.1285 50.4473 L 47.0698 49.5133 L 47.0698 45.7481 L 40.2066 45.7481 L 40.2066 44.6169 L 42.4584 44.6169 L 45.0589 42.0275 L 45.0589 39.7437 L 46.9386 39.7437 Z ',
 		'M 29.9775 40.0047 L 29.9775 40.2223 L 28.7535 40.2223 L 28.7535 44.8499 L 29.6059 45.9657 L 34.9609 45.9657 L 34.9609 44.5314 L 33.2124 42.8206 L 33.2124 40.2223 L 31.7697 40.2223 L 31.7697 39.7873 L 33.6494 39.7873 L 33.6494 42.071 L 36.2062 44.6169 L 38.3706 44.6169 L 38.3706 48.2282 L 36.3817 48.2312 L 34.7861 49.7951 L 34.7861 53.1014 L 31.3326 53.1014 L 31.3326 52.5357 L 32.6071 52.5357 L 33.6932 51.5166 L 33.6932 49.4532 L 34.9609 48.2546 L 34.9609 46.8359 L 29.6277 46.8359 L 29.6277 53.1014 L 28.7972 53.1014 L 28.7972 50.2732 L 25.3 50.2732 L 25.3 48.6633 L 23.9886 48.6633 L 23.9886 46.1833 L 25.3875 46.1833 L 25.3875 47.445 L 28.2289 47.445 L 28.2289 42.7259 L 27.4657 41.9628 L 26.371 41.9655 L 25.3875 42.921 L 25.3875 44.0513 L 23.9886 44.0513 L 23.9886 41.7452 L 25.297 41.7452 L 25.3 39.7873 L 29.9775 39.7873 Z',
 	],
-	[MapType.THE_SKELD_APRIL]: undefined,
 	[MapType.MIRA_HQ]: [
 		'M 39.79 31.723 H 28.373 V 40.223 H 33.731 V 42.698 H 43.717 V 42.213 H 53.633 V 40.463 V 42.213 H 57.119 V 37.556 H 53.594 V 36.64 V 38.64 V 37.556 H 57.119 V 33.806 H 53.584 V 34.733 V 33.757 L 57.805 29.561 L 62 33.802 H 61.098 V 38.437 H 60.118 H 61.118 V 33.802 H 57.868 V 40.74 H 60.783 H 57.868 V 43.907 H 60.366 V 42.74 H 69.283 V 40.574 H 66.783 H 69.283 V 33.74 H 64.449 V 31.49 H 62.949 L 58.989 27.53 V 21.66 V 23.235 H 62.822 V 18.142 H 58.405 H 59.072 V 19.975 V 18.142 H 62.905 V 14.058 H 52.822 V 18.219 H 57.17 H 56.586 V 21.552 V 18.213 H 52.83 H 52.747 V 23.297 H 56.664 V 27.63 L 52.614 31.513 H 51.197 V 34.68 V 33.753 H 48.27 V 37.086 H 47.27 V 26.678 V 30.345 H 52.227 V 24.54 H 44.879 V 28.54 V 23.209 H 39.977 V 30.499 H 44.942 V 37.083 H 43.713 V 39.916 H 51.188 V 36.621 V 39.955 H 43.713 V 40.332 H 37.386 V 40.082 H 39.803 Z M 63.203 40.64 H 64.369',
 	],
@@ -36,22 +35,6 @@ export const colliderMaps: { [key in MapType]: string[] | undefined } = {
 };
 
 export const doorMaps: { [key in MapType]: { [key in number]: string | undefined } | undefined } = {
-	[MapType.THE_SKELD]: {
-		0: 'M 45.059 37.568 V 39.744 ', // cafetaria-> weapons
-		3: 'M 38.371 44.717 H 40.207', // cafetaria -> Admin hallway
-		8: 'M 33.649 37.568 V 39.787', // cafetaria -> medbay hallway
-		10: 'M 29.977 39.787 H 31.77', //medbay
-		2: 'M 25.3 39.787 V 37.568 ', // upperengine <- medbay hallway
-		5: 'M 22.196 41.945 H 23.989', // upperengine <- security hallway
-		6: 'M 25.154 44.051 V 46.183', // security
-		4: 'M 22.196 48.663 H 24.169', // lowerengine <- security hallway
-		11: 'M 25.412 52.405 V 50.274', // lowerengine <- Elecrtical hallway //25.4117 51.3337
-		9: 'M 29.628 53.101 H 31.333', // elecrtrical
-		1: 'M 34.786 55.353 V 53.101', //storage -> Electrical
-		7: 'M 38.371 48.231 H 40.207', // storage -> Admin
-		12: 'M 41.081 52.971 V 50.839', // storage -> shields
-	},
-	[MapType.THE_SKELD_APRIL]: undefined,
 	[MapType.MIRA_HQ]: {
 		0: 'M 44.942 37.086 H 47.27',
 		1: 'M 44.942 30.499 H 47.27',
@@ -73,6 +56,21 @@ export const doorMaps: { [key in MapType]: { [key in number]: string | undefined
 		13: 'M 63.226 63.121 H 64.575', // decom door spec->office
 		14: 'M 77.996 50.401 V 48.711', // decom door med->spec
 		15: 'M 78.363 50.967 H 79.756', // decom door spec->med
+	},
+	[MapType.THE_SKELD]: {
+		0: 'M 45.059 37.568 V 39.744 ', // cafetaria-> weapons
+		3: 'M 38.371 44.717 H 40.207', // cafetaria -> Admin hallway
+		8: 'M 33.649 37.568 V 39.787', // cafetaria -> medbay hallway
+		10: 'M 29.977 39.787 H 31.77', //medbay
+		2: 'M 25.3 39.787 V 37.568 ', // upperengine <- medbay hallway
+		5: 'M 22.196 41.945 H 23.989', // upperengine <- security hallway
+		6: 'M 25.154 44.051 V 46.183', // security
+		4: 'M 22.196 48.663 H 24.169', // lowerengine <- security hallway
+		11: 'M 25.412 52.405 V 50.274', // lowerengine <- Elecrtical hallway //25.4117 51.3337
+		9: 'M 29.628 53.101 H 31.333', // elecrtrical
+		1: 'M 34.786 55.353 V 53.101', //storage -> Electrical
+		7: 'M 38.371 48.231 H 40.207', // storage -> Admin
+		12: 'M 41.081 52.971 V 50.839', // storage -> shields
 	},
 	[MapType.AIRSHIP]: {
 		0: 'M 23.8376 41.7526 V 39.96', // Comms Left
@@ -98,17 +96,13 @@ export const doorMaps: { [key in MapType]: { [key in number]: string | undefined
 		20: 'M 71.708 44.3274 H 73.3457', //Medical Top
 	},
 	[MapType.SUBMERGED]: undefined,
+	[MapType.AIRSHIP]: undefined,
 	[MapType.UNKNOWN]: undefined,
 };
 
 export function poseCollide(p1: Vector2, p2: Vector2, map: MapType, closedDoors: number[]): boolean {
 	//  console.log(p1.x + 40, 40 - p1.y);
 	//console.log(colliderMaps[MapType.MIRA_HQ]?.join(' '));
-	if (map === MapType.THE_SKELD_APRIL) {
-		p1.x = p1.x * -1;
-		p2.x = p2.x * -1;
-		map = MapType.THE_SKELD;
-	}
 	const colliderMap = colliderMaps[map];
 	if (!colliderMap || map === MapType.UNKNOWN) {
 		return false;
