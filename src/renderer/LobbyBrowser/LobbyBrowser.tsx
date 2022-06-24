@@ -11,18 +11,16 @@ import Button from '@material-ui/core/Button';
 import { ipcRenderer } from 'electron';
 import { IpcHandlerMessages } from '../../common/ipc-messages';
 import io from 'socket.io-client';
-import Store from 'electron-store';
-import { ISettings } from '../../common/ISettings';
 import i18next from 'i18next';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import languages from '../language/languages';
 import { PublicLobbyMap, PublicLobby } from '../../common/PublicLobby';
 import { modList } from '../../common/Mods';
 import { GameState } from '../../common/AmongUsState';
+import SettingsStore from '../settings/SettingsStore';
 
-const store = new Store<ISettings>();
-const serverUrl = store.get('serverURL', 'https://bettercrewl.ink/');
-const language = store.get('language', 'en');
+const serverUrl = SettingsStore.get('serverURL', 'https://bettercrewl.ink/');
+const language = SettingsStore.get('language', 'en');
 i18next.changeLanguage(language);
 
 const StyledTableCell = withStyles((theme) => ({
@@ -58,13 +56,12 @@ const useStyles = makeStyles({
 const servers: {
 	[server: string]: string;
 } = {
-	'50.116.1.42': 'North America',
-	'172.105.251.170': 'Europe',
-	'139.162.111.196': 'Asia',
-	'161.35.248.138': 'Polus.gg NA (East)',
-	'164.90.246.64': 'Polus.gg NA (West)',
-	'138.68.119.239': 'Polus.gg Europe',
+	// '50.116.1.42': 'North America',
+	// '172.105.251.170': 'Europe',
+	// '139.162.111.196': 'Asia',
 	'192.241.154.115': 'skeld.net',
+	'154.16.67.100': 'Modded (North America)',
+	'78.47.142.18': 'Modded (Europe)',
 };
 
 function sortLobbies(a: PublicLobby, b: PublicLobby) {
@@ -147,11 +144,11 @@ export default function lobbyBrowser({ t }) {
 					aria-labelledby="alert-dialog-slide-title"
 					aria-describedby="alert-dialog-slide-description"
 				>
-					<DialogTitle id="alert-dialog-slide-title">{t('lobbybrowser.code')}</DialogTitle>
+					<DialogTitle id="alert-dialog-slide-title">Lobby information</DialogTitle>
 					<DialogContent>
 						<DialogContentText id="alert-dialog-slide-description">
 							{code.split('\n').map((i, key) => {
-								return <span key={key}>{i}</span>;
+								return <div key={key}>{i}</div>;
 							})}
 						</DialogContentText>
 					</DialogContent>
@@ -209,7 +206,8 @@ export default function lobbyBrowser({ t }) {
 															row.id,
 															(state: number, codeOrError: string, server: string, publicLobby: PublicLobby) => {
 																if (state === 0) {
-																	ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);
+																	setCode(`${t('lobbybrowser.code')}: ${codeOrError} \n Region: ${server}`);
+																	// ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);
 																} else {
 																	setCode(`Error: ${codeOrError}`);
 																}
@@ -217,7 +215,7 @@ export default function lobbyBrowser({ t }) {
 														);
 													}}
 												>
-													Join
+													Show code
 												</Button>
 												{/* <Button variant="contained" color="secondary" style={{ marginLeft: '5px' }}>
 												report

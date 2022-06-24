@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { remote } from 'electron';
 import { ThemeProvider } from '@material-ui/core/styles';
 import RefreshSharpIcon from '@material-ui/icons/RefreshSharp';
 import CloseIcon from '@material-ui/icons/Close';
@@ -14,6 +13,7 @@ import '../language/i18n';
 import theme from '../theme';
 import LobbyBrowser from './LobbyBrowser';
 import { withNamespaces } from 'react-i18next';
+import { ipcRenderer } from 'electron';
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -54,14 +54,14 @@ const TitleBar = function () {
 			<span className={classes.title} style={{ marginLeft: 10 }}>
 				LobbyBrowser
 			</span>
-			<IconButton className={classes.button} size="small" onClick={() => remote.getCurrentWindow().reload()}>
+			<IconButton className={classes.button} size="small" onClick={() => ipcRenderer.send('reload', true)}>
 				<RefreshSharpIcon htmlColor="#777" />
 			</IconButton>
 			<IconButton
 				className={[classes.button, classes.minimalizeIcon].join(' ')}
 				style={{ right: 20 }}
 				size="small"
-				onClick={() => remote.getCurrentWindow().minimize()}
+				onClick={() => ipcRenderer.send('minimize', true)}
 			>
 				<MinimizeIcon htmlColor="#777" y="100" />
 			</IconButton>
@@ -71,7 +71,6 @@ const TitleBar = function () {
 				style={{ right: 0 }}
 				size="small"
 				onClick={() => {
-					remote.getCurrentWindow().hide();
 					window.close();
 				}}
 			>

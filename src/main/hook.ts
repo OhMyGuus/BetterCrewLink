@@ -1,4 +1,4 @@
-import { ipcMain } from 'electron';
+import { app, ipcMain } from 'electron';
 import GameReader from './GameReader';
 // import iohook from 'iohook';
 import { keyboardWatcher } from 'node-keyboard-watcher';
@@ -91,13 +91,13 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 		// Read game memory
 		gameReader = new GameReader(event.sender.send.bind(event.sender));
 		let gotError = false;
-		const frame = () => {
-			const err = gameReader.loop();
+		const frame = async () => {
+			const err = await gameReader.loop();
 			if (err) {
 				// readingGame = false;
 				gotError = true;
 				event.sender.send(IpcRendererMessages.ERROR, err);
-				setTimeout(frame, 5000);
+				setTimeout(frame, 7500);
 			} else {
 				if (gotError) {
 					event.sender.send(IpcRendererMessages.ERROR, '');
@@ -107,20 +107,37 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 				setTimeout(frame, 1000 / 5);
 			}
 		};
-		frame();
+		await frame();
 	} else if (gameReader) {
 		gameReader.amongUs = null;
 		gameReader.checkProcessDelay = 0;
 	}
 });
 
-ipcMain.on('reload', async () => {
-	global.mainWindow?.reload();
+ipcMain.on('reload', async (_, lobbybrowser) => {
+	if (!lobbybrowser) {
+		global.mainWindow?.reload();
+	}
 	global.lobbyBrowser?.reload();
-
 	//	global.overlay?.reload();
 });
 
+ipcMain.on('minimize', async (_, lobbybrowser) => {
+	if (!lobbybrowser) {
+		global.mainWindow?.minimize();
+	}
+	global.lobbyBrowser?.minimize();
+	//	global.overlay?.reload();
+});
+
+ipcMain.handle("getlocale", () => {
+	return app.getLocale();
+});
+
+ipcMain.on('relaunch', async () => {
+	app.relaunch();  
+	app.exit();
+});
 // GenerateAvatars().then(() => console.log("done generate")).catch((e) => console.error(e));
 
 const keycodeMap = {

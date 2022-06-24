@@ -2,7 +2,6 @@ export enum MapType {
 	THE_SKELD,
 	MIRA_HQ,
 	POLUS,
-	THE_SKELD_APRIL,
 	AIRSHIP,
 	SUBMERGED,
 	UNKNOWN,
@@ -55,7 +54,6 @@ export const AmongUsMaps: { [key in MapType]: AmongUsMap } = {
 			[CameraLocation.NorthWest]: { x: 11.6, y: -8.2 },
 		},
 	},
-	[MapType.THE_SKELD_APRIL]: defaultMap,
 	[MapType.MIRA_HQ]: defaultMap,
 	[MapType.AIRSHIP]: {
 		cameras: {

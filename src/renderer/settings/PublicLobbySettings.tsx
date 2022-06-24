@@ -8,7 +8,7 @@ import ChevronLeft from '@material-ui/icons/ArrowBack';
 
 type publicLobbySettingProps = {
 	t: (key: string) => string;
-	updateSetting: (setting: string, newValue: any) => void;
+	updateSetting: <K extends keyof ILobbySettings>(setting: K, newValue: ILobbySettings[K]) => void;
 	lobbySettings: ILobbySettings;
 	canChange: boolean;
 	className: string;

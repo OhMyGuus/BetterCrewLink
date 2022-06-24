@@ -17,9 +17,7 @@ import { ISettings } from '../common/ISettings';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { gameReader } from './hook';
 import { GenerateHat } from './avatarGenerator';
-
 const args = require('minimist')(process.argv); // eslint-disable-line
-
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const devTools = (isDevelopment || args.dev === 1) && true;
 
@@ -37,7 +35,6 @@ declare global {
 global.mainWindow = null;
 global.overlay = null;
 const store = new Store<ISettings>();
-
 app.commandLine.appendSwitch('disable-pinch');
 // app.disableHardwareAcceleration();
 if (platform() === 'linux' || !store.get('hardware_acceleration', true)) {
@@ -62,24 +59,26 @@ function createMainWindow() {
 		fullscreenable: false,
 		maximizable: false,
 		webPreferences: {
-			enableRemoteModule: true,
-			nodeIntegration: false,
-			webSecurity: true,
+			nodeIntegration: true,
+			contextIsolation: false
 		},
 	});
-
 	mainWindowState.manage(window);
 
 	if (devTools) {
-		// Force devtools into detached mode otherwise they are unusable
-		window.webContents.openDevTools({
-			mode: 'detach',
-		});
+		//Force devtools into detached mode otherwise they are unusable
+		window.on('ready-to-show', () => {
+			window.webContents.openDevTools({
+				mode: 'detach',
+			});
+		})
 	}
 
 	let crewlinkVersion: string;
 	if (isDevelopment) {
 		crewlinkVersion = '0.0.0';
+		//window.loadURL("http://google.nl")
+
 		window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}?version=DEV&view=app`);
 	} else {
 		crewlinkVersion = autoUpdater.currentVersion.version;
@@ -97,6 +96,7 @@ function createMainWindow() {
 	}
 	//window.webContents.userAgent = `CrewLink/${crewlinkVersion} (${process.platform})`;
 	window.webContents.userAgent = `CrewLink/2.0.1 (win32)`;
+
 	window.on('closed', () => {
 		try {
 			const mainWindow = global.mainWindow;
@@ -134,11 +134,11 @@ function createLobbyBrowser() {
 		closable: true,
 		maximizable: false,
 		webPreferences: {
-			enableRemoteModule: true,
-			nodeIntegration: false,
-			webSecurity: true,
+			nodeIntegration: true,
+			contextIsolation: false,
 		},
 	});
+
 	window.on('closed', () => {
 		global.lobbyBrowser = null;
 	});
@@ -177,9 +177,8 @@ function createOverlay() {
 		width: 400,
 		height: 300,
 		webPreferences: {
-			nodeIntegration: false,
-			enableRemoteModule: true,
-			webSecurity: true,
+			nodeIntegration: true,
+			contextIsolation: false,
 		},
 		fullscreenable: true,
 		skipTaskbar: true,
@@ -217,7 +216,7 @@ function createOverlay() {
 	}
 	overlay.setIgnoreMouseEvents(true);
 	overlayWindow.attachTo(overlay, 'Among Us');
-
+	overlay.setBackgroundColor('#00000000');
 	return overlay;
 }
 
@@ -225,11 +224,13 @@ const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
 	app.quit();
 } else {
+	autoUpdater.autoDownload = false;
 	autoUpdater.checkForUpdates();
-	autoUpdater.on('update-available', () => {
+	autoUpdater.on('update-available', (info: UpdateInfo) => {
 		try {
 			global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
 				state: 'available',
+				info: info,
 			});
 		} catch (e) {
 			/* Empty block */
@@ -255,15 +256,8 @@ if (!gotTheLock) {
 			/*empty*/
 		}
 	});
-	autoUpdater.on('update-downloaded', (info: UpdateInfo) => {
-		try {
-			global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
-				state: 'downloaded',
-				info,
-			});
-		} catch (e) {
-			/*empty*/
-		}
+	autoUpdater.on('update-downloaded', () => {
+		autoUpdater.quitAndInstall();
 	});
 
 	// quit application when all windows are closed
@@ -284,6 +278,7 @@ if (!gotTheLock) {
 	});
 
 	app.on('activate', () => {
+		console.log("ACTIVATE???")
 		// on macOS it is common to re-create a window even after all windows have been closed
 		if (global.mainWindow === null) {
 			global.mainWindow = createMainWindow();
@@ -336,7 +331,7 @@ if (!gotTheLock) {
 	});
 
 	ipcMain.on('update-app', () => {
-		autoUpdater.quitAndInstall();
+		autoUpdater.downloadUpdate();
 	});
 
 	ipcMain.on(IpcHandlerMessages.OPEN_LOBBYBROWSER, () => {
@@ -349,23 +344,39 @@ if (!gotTheLock) {
 	});
 
 	ipcMain.on('enableOverlay', async (_event, enable) => {
-		try {
-			if (enable) {
-				if (!global.overlay) {
-					global.overlay = createOverlay();
-				}
-				overlayWindow.show();
-			} else {
-				overlayWindow.hide();
-				if (global.overlay?.closable) {
-					overlayWindow.stop();
+		setTimeout(
+			() => {
+
+				try {
+					if (enable) {
+						if (!global.overlay) {
+							global.overlay = createOverlay();
+						}
+						overlayWindow.show();
+					} else {
+						overlayWindow.hide();
+						if (global.overlay?.closable) {
+							overlayWindow.stop();
+							global.overlay?.close();
+							global.overlay = null;
+						}
+					}
+				} catch (exception) {
+					global.overlay?.hide();
 					global.overlay?.close();
-					global.overlay = null;
 				}
-			}
-		} catch (exception) {
-			global.overlay?.hide();
-			global.overlay?.close();
+			},
+			1000
+		)
+	});
+
+	ipcMain.on('setAlwaysOnTop', async (_event, enable) => {
+		console.log("SETALWAYSONTOP?")
+		if (global.mainWindow) {
+			console.log("SETALWAYSONTOP?1")
+			global.mainWindow.setAlwaysOnTop(enable, 'screen-saver');
 		}
 	});
+
+
 }

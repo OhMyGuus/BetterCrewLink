@@ -31,7 +31,7 @@ const SupportLink: React.FC = function () {
 
 	return (
 		<Typography align="center">
-			Need help?
+			Need help?&nbsp;
 			<Link href="#" color="secondary" onClick={() => shell.openExternal('https://discord.gg/4cpvp3KyhF')}>
 				Get support
 			</Link>

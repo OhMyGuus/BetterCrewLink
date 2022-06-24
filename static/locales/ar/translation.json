@@ -4,19 +4,19 @@
 		"language": "اللغة",
 		"warning": "هل أنت متأكد من ذلك؟",
 		"lobbysettings": {
-			"title": "إعدادات لوبي",
+			"title": "إعدادات الردهة",
 			"gamehostonly": "فقط مضيف اللعبة يمكنه تغيير هذا!",
 			"inlobbyonly": "يمكنك فقط تغيير هذا في ردهة اللعبة!",
 			"voicedistance": "مسافة الصوت",
-			"voicedistance_impostor": "المسافة الصوتية للمستورد",
+			"voicedistance_impostor": "مسافة صوت المحتال",
 			"wallsblockaudio": "حجب جدران الصوت",
 			"visiononly": "اسمع الناس في الرؤية فقط",
-			"impostorshearsghost": "المستورد يسمع ميت",
+			"impostorshearsghost": "المحتال يسمع الميت",
 			"hear_imposters_invents": "سمع المملوكين في الفتحات",
 			"private_talk_invents": "محادثة خاصة في الفتحات",
 			"comms_sabotage_audio": "تعطل تخريب الاتصالات الصوت",
-			"hear_through_cameras": "سمع عبر الكاميرات",
-			"ghost_only": "فقط الشبح يستطيع أن يتحدث/يسمع",
+			"hear_through_cameras": "السماع عبر الكاميرات",
+			"ghost_only": "فقط الأشباح يستطيعون أن يتحدثوا/يسمعوا",
 			"ghost_only_warning": "هذا يعطل الصوت للاعبين الحيين.",
 			"ghost_only_warning2": "الشبح يمكنه التحدث فقط مفعل.",
 			"meetings_only": "الاجتماعات/الردهة فقط",
@@ -33,14 +33,22 @@
 				"ban_warning": "سيؤدي النص الغير مناسب إلى حظر من BetterCrewLink."
 			}
 		},
+		"customplatforms": {
+			"title": "منصة مخصصة",
+			"platform_title": "العنوان",
+			"path": "مسار EXE",
+			"uri": "رابط URI",
+			"advanced": "خيارات متقدمة",
+			"arguments": "الوسائط"
+		},
 		"audio": {
 			"title": "صوت",
 			"microphone": "ميكرفون",
 			"speaker": "مكبر الصوت",
 			"voice_activity": "النشاط الصوتي",
-			"push_to_talk": "اضغط لتحدث",
-			"push_to_mute": "اضغط لتكتم",
-			"microphone_volume": "صوت الميكروفون",
+			"push_to_talk": "اضغط للتحدث",
+			"push_to_mute": "اضغط للكتم",
+			"microphone_volume": "مستوى صوت الميكروفون",
 			"microphone_sens": "حساس الميكروفون",
 			"microphone_sens_warning": "إذا قمت بتعيين حساسية أي أقل من ذلك قد لا تعمل.",
 			"mastervolume": "الصوت الرئيسي",
@@ -94,7 +102,7 @@
 		},
 		"streaming": {
 			"title": "إعدادات البث",
-			"hidecode": "إظهار كود اللوبي",
+			"hidecode": "إظهار كود الردهة",
 			"obs_overlay": "تراكب متصفح OBS",
 			"obs_url": "عنوان URL لمصدر متصفح OBS",
 			"voice_server_comp": "وضع التوافق مع خادم الصوت",
@@ -124,13 +132,15 @@
 		"cancel": "إلغاء",
 		"close": "غلق",
 		"exit": "الخروج من الإعدادات لتطبيق التغييرات",
-		"public_lobby": "الردهات العامة"
+		"public_lobby": "الردهات العامة",
+		"delete": "حذف",
+		"file_select": "حدد ملف"
 	},
 	"game": {
 		"menu": "قائمة",
 		"open": "فتح عبر",
-		"open_error": "ابدأ اللعبة يدويًا.\n(هذا الزر مخصص للبخار فقط)",
-		"waiting": "انتظار among us",
+		"open_error": "ابدأ Among Us يدوياً.",
+		"waiting": "انتظار Among Us",
 		"error": "خطأ",
 		"error_admin": "تعذر الاتصال بـ Among Us.\nالرجاء إعادة فتح BetterCrewLink كمسؤول.",
 		"error_platform": "لم يتم اكتشاف أي منصة",
@@ -139,7 +149,8 @@
 	"platform": {
 		"steam": "Steam",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft"
+		"microsoft": "Microsoft",
+		"custom": "مُخصّص"
 	},
 	"translator_name": "Hani Rouatbi, XRevan86 and Achs gaming"
 }

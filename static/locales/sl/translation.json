@@ -33,6 +33,14 @@
 				"ban_warning": "Neprimerne besede so lahko razlog za ban."
 			}
 		},
+		"customplatforms": {
+			"title": "Drugo",
+			"platform_title": "Ime",
+			"path": "Lokacija datoteke",
+			"uri": "URI povezava",
+			"advanced": "Napredno",
+			"arguments": "Argumenti"
+		},
 		"audio": {
 			"title": "Zvok",
 			"microphone": "Mikrofon",
@@ -124,12 +132,14 @@
 		"cancel": "Prekliči",
 		"close": "Zapri",
 		"exit": "Zapustite nastavitve, da se spremembe upoštevajo",
-		"public_lobby": "Javne čakalnice"
+		"public_lobby": "Javne čakalnice",
+		"delete": "Izbriši",
+		"file_select": "Izberi datoteko"
 	},
 	"game": {
 		"menu": "MENI",
 		"open": "Odpri preko",
-		"open_error": "Igro zaženite ročno. \n(ta gumb je samo v primeru prenašanja v živo)",
+		"open_error": "Ročno zaženi Among Us.",
 		"waiting": "Čakanje na odziv",
 		"error": "NAPAKA",
 		"error_admin": "Odpiranje Among Us neuspešno.\nProsimo zaženite Bettercrewlink kot administrator.",
@@ -139,7 +149,8 @@
 	"platform": {
 		"steam": "Steam-a",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft"
+		"microsoft": "Microsoft",
+		"custom": "Po meri"
 	},
 	"translator_name": "Stročji fižol"
 }

@@ -1,10 +1,11 @@
-import React, { Dispatch, SetStateAction, useEffect, useReducer, useState, useRef } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState, useRef } from 'react';
 import Voice from './Voice';
 import Menu from './Menu';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, shell } from 'electron';
 import { AmongUsState } from '../common/AmongUsState';
-import Settings, { settingsReducer, lobbySettingsReducer, pushToTalkOptions } from './settings/Settings';
-import { GameStateContext, SettingsContext, LobbySettingsContext, PlayerColorContext } from './contexts';
+import Settings from './settings/Settings';
+import SettingsStore, { setSetting, setLobbySetting} from './settings/SettingsStore';
+import { GameStateContext, SettingsContext, PlayerColorContext, HostSettingsContext } from './contexts';
 import { ThemeProvider } from '@material-ui/core/styles';
 import {
 	AutoUpdaterState,
@@ -35,7 +36,7 @@ import 'typeface-varela/index.css';
 import { DEFAULT_PLAYERCOLORS } from '../main/avatarGenerator';
 import './language/i18n';
 import { withNamespaces } from 'react-i18next';
-import { GamePlatform } from '../common/GamePlatform';
+import { ISettings } from '../common/ISettings';
 let appVersion = '';
 if (typeof window !== 'undefined' && window.location) {
 	const query = new URLSearchParams(window.location.search.substring(1));
@@ -50,6 +51,7 @@ const useStyles = makeStyles(() => ({
 		backgroundColor: '#1d1a23',
 		top: 0,
 		WebkitAppRegion: 'drag',
+		zIndex: 100,
 	},
 	title: {
 		width: '100%',
@@ -127,62 +129,15 @@ export default function App({ t }): JSX.Element {
 	const playerColors = useRef<string[][]>(DEFAULT_PLAYERCOLORS);
 	const overlayInitCount = useRef<number>(0);
 
-	const settings = useReducer(settingsReducer, {
-		language: 'default',
-		alwaysOnTop: true,
-		microphone: 'Default',
-		speaker: 'Default',
-		pushToTalkMode: pushToTalkOptions.VOICE,
-		serverURL: 'https://bettercrewl.ink/',
-		pushToTalkShortcut: 'V',
-		deafenShortcut: 'RControl',
-		muteShortcut: 'RAlt',
-		impostorRadioShortcut: 'F',
-		hideCode: false,
-		natFix: false,
-		mobileHost: true,
-		overlayPosition: 'right',
-		compactOverlay: false,
-		enableOverlay: false,
-		meetingOverlay: false,
-		ghostVolume: 100,
-		masterVolume: 100,
-		microphoneGain: 100,
-		micSensitivity: 0.15,
-		microphoneGainEnabled: false,
-		micSensitivityEnabled: false,
-		vadEnabled: true,
-		hardware_acceleration: true,
-		echoCancellation: true,
-		enableSpatialAudio: true,
-		obsSecret: undefined,
-		obsOverlay: false,
-		noiseSuppression: true,
-		playerConfigMap: {},
-		localLobbySettings: {
-			maxDistance: 5.32,
-			haunting: false,
-			hearImpostorsInVents: false,
-			impostersHearImpostersInvent: false,
-			impostorRadioEnabled: false,
-			commsSabotage: false,
-			deadOnly: false,
-			meetingGhostOnly: false,
-			hearThroughCameras: false,
-			wallsBlockAudio: false,
-			visionHearing: false,
-			publicLobby_on: false,
-			publicLobby_title: '',
-			publicLobby_language: 'en',
-		},
-		launchPlatform: GamePlatform.STEAM,
-		customPlatforms: {},
-	});
-	const lobbySettings = useReducer(lobbySettingsReducer, settings[0].localLobbySettings);
+	const [settings, setSettings] = useState(SettingsStore.store);
+	const [hostLobbySettings, setHostLobbySettings] = useState(settings.localLobbySettings);
+	useEffect(() =>{
+		SettingsStore.onDidAnyChange((newValue, _) => {setSettings(newValue as ISettings)});
+	}, []);
 
 	useEffect(() => {
 		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, playerColors.current);
-		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_SETTINGS_CHANGED, settings[0]);
+		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_SETTINGS_CHANGED, SettingsStore.store);
 		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_GAME_STATE_CHANGED, gameState);
 	}, [overlayInitCount.current]);
 
@@ -247,10 +202,10 @@ export default function App({ t }): JSX.Element {
 	}, [gameState]);
 
 	useEffect(() => {
-		console.log(playerColors.current);
+		// console.log(playerColors.current);
 		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, playerColors.current);
-		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_SETTINGS_CHANGED, settings[0]);
-	}, [settings[0]]);
+		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_SETTINGS_CHANGED, SettingsStore.store);
+	}, [settings]);
 
 	let page;
 	switch (state) {
@@ -265,14 +220,17 @@ export default function App({ t }): JSX.Element {
 	return (
 		<PlayerColorContext.Provider value={playerColors.current}>
 			<GameStateContext.Provider value={gameState}>
-				<LobbySettingsContext.Provider value={lobbySettings}>
-					<SettingsContext.Provider value={settings}>
+				<HostSettingsContext.Provider value={[hostLobbySettings, setHostLobbySettings]}>
+					<SettingsContext.Provider value={[settings, setSetting, setLobbySetting]}>
 						<ThemeProvider theme={theme}>
 							<TitleBar settingsOpen={settingsOpen} setSettingsOpen={setSettingsOpen} />
 							<Settings t={t} open={settingsOpen} onClose={() => setSettingsOpen(false)} />
 							<Dialog fullWidth open={updaterState.state !== 'unavailable' && diaOpen}>
-								{updaterState.state === 'downloaded' && updaterState.info && (
+								{updaterState.state === 'available' && updaterState.info && (
 									<DialogTitle>Update v{updaterState.info.version}</DialogTitle>
+								)}
+								{updaterState.state === 'error' && (
+									<DialogTitle>Updater Error</DialogTitle>
 								)}
 								{updaterState.state === 'downloading' && <DialogTitle>Updating...</DialogTitle>}
 								<DialogContent>
@@ -284,22 +242,35 @@ export default function App({ t }): JSX.Element {
 											</DialogContentText>
 										</>
 									)}
-									{updaterState.state === 'downloaded' && (
+									{updaterState.state === 'available' && (
 										<>
 											<LinearProgress variant={'indeterminate'} />
-											<DialogContentText>Restart now or later?</DialogContentText>
+											<DialogContentText>Update now or later?</DialogContentText>
 										</>
 									)}
 									{updaterState.state === 'error' && (
-										<DialogContentText color="error">{updaterState.error}</DialogContentText>
+										<DialogContentText color="error">{String(updaterState.error)}</DialogContentText>
 									)}
 								</DialogContent>
 								{updaterState.state === 'error' && (
 									<DialogActions>
-										<Button href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest">Download Manually</Button>
+										<Button 
+											onClick={() => {
+												shell.openExternal("https://github.com/OhMyGuus/BetterCrewLink/releases/latest");
+											}}
+										>
+											Download Manually
+										</Button>
+										<Button
+											onClick={() => {
+												setDiaOpen(false);
+											}}
+											>
+												Skip
+										</Button>
 									</DialogActions>
 								)}
-								{updaterState.state === 'downloaded' && (
+								{updaterState.state === 'available' && (
 									<DialogActions>
 										<Button
 											onClick={() => {
@@ -321,7 +292,7 @@ export default function App({ t }): JSX.Element {
 							{page}
 						</ThemeProvider>
 					</SettingsContext.Provider>
-				</LobbySettingsContext.Provider>
+				</HostSettingsContext.Provider>
 			</GameStateContext.Provider>
 		</PlayerColorContext.Provider>
 	);

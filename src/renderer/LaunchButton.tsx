@@ -89,10 +89,7 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 		if (!launchPlatforms) return;
 		if (!launchPlatforms[settings.launchPlatform]) {
 			for (const key in launchPlatforms) {
-				setSettings({
-					type: 'setOne',
-					action: ['launchPlatform', key],
-				});
+				setSettings('launchPlatform', key);
 				break;
 			}
 		}
@@ -105,10 +102,7 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 				<MenuItem
 					key={platformName}
 					onClick={() => {
-						setSettings({
-							type: 'setOne',
-							action: ['launchPlatform', platform.key],
-						});
+						setSettings('launchPlatform', platform.key);
 						setDropdownOpen(false);
 					}}
 					onContextMenu={() => {

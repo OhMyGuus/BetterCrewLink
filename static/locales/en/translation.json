@@ -95,10 +95,13 @@
 				"mobilehost": "Mobile Host",
 				"vad_enabled": "VAD Enabled",
 				"hardware_acceleration": "Hardware Acceleration",
+				"hardware_acceleration_warning": "This disables hardware acceleration (which can increase cpu usage)",
 				"vad_enabled_warning": "You won't see who's talking if deactivate.",
 				"echocancellation": "Echo Cancellation",
 				"noiseSuppression": "Noise Suppression",
-				"spatial_audio": "Spatial Audio"
+				"spatial_audio": "Spatial Audio",
+				"oldsampledebug": "Samplerate debug",
+				"oldsampledebug_warning": "This is a test function only enabled when asked. "
 			},
 			"streaming": {
 				"title": "Streaming Settings",

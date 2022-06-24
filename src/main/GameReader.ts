@@ -16,12 +16,11 @@ import {
 import Struct from 'structron';
 import { IpcOverlayMessages, IpcRendererMessages } from '../common/ipc-messages';
 import { GameState, AmongUsState, Player } from '../common/AmongUsState';
-import offsetStore, { IOffsets, TempFixOffsets5, TempFixOffsets6 } from './offsetStore';
+import { fetchOffsetLookup, fetchOffsetsJson, IOffsets, IOffsetsLookup } from './offsetStore';
 import Errors from '../common/Errors';
 import { CameraLocation, MapType } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
 import { RainbowColorId } from '../renderer/cosmetics';
-import { TempFixOffsets, TempFixOffsets2, TempFixOffsets3, TempFixOffsets4 } from './offsetStore';
 import { platform } from 'os';
 import fs from 'fs';
 import path from 'path';
@@ -89,7 +88,7 @@ export default class GameReader {
 		this.sendIPC = sendIPC;
 	}
 
-	checkProcessOpen(): void {
+	async checkProcessOpen(): Promise<void> {
 		const processesOpen = getProcesses().filter((p) => p.szExeFile === 'Among Us.exe');
 		let error = '';
 		const reset = this.amongUs && processesOpen.filter((o) => o.th32ProcessID === this.pid).length === 0;
@@ -101,13 +100,15 @@ export default class GameReader {
 					this.gameAssembly = findModule('GameAssembly.dll', this.amongUs.th32ProcessID);
 					this.gamePath = getProcessPath(this.amongUs.handle);
 					this.loadedMod = this.getInstalledMods(this.gamePath);
-					this.initializeoffsets();
+					await this.initializeoffsets();
 					this.sendIPC(IpcRendererMessages.NOTIFY_GAME_OPENED, true);
 					break;
 				} catch (e) {
 					console.log('ERROR:', e);
-					if (processOpen && e.toString() === 'Error: unable to find process') {
+					if (processOpen && String(e) === 'Error: unable to find process') {
 						error = Errors.OPEN_AS_ADMINISTRATOR;
+					} else {
+						error = String(e);
 					}
 					this.amongUs = null;
 				}
@@ -146,13 +147,14 @@ export default class GameReader {
 
 	checkProcessDelay = 0;
 	isLocalGame = false;
-	loop(): string | null {
+	async loop(): Promise<string | null> {
 		if (this.checkProcessDelay-- <= 0) {
 			this.checkProcessDelay = 30;
 			try {
-				this.checkProcessOpen();
+				await this.checkProcessOpen();
 			} catch (e) {
-				return `Error with chcecking the process, ${e.toString()}`;
+				this.checkProcessDelay = 0
+				return String(e);
 			}
 		}
 		if (
@@ -205,7 +207,6 @@ export default class GameReader {
 					: lobbyCodeInt === this.lastState.lobbyCodeInt
 						? this.gameCode
 						: this.IntToGameCode(lobbyCodeInt);
-
 
 			// if (DEBUG) {
 			// 	this.gameCode = 'oof';
@@ -414,18 +415,55 @@ export default class GameReader {
 		return null;
 	}
 
-	initializeoffsets(): void {
+	async initializeoffsets(): Promise<void> {
 		console.log('INITIALIZEOFFSETS???');
 		this.is_64bit = this.isX64Version();
 		this.shellcodeAddr = -1;
-		this.offsets = this.is_64bit ? offsetStore.x64 : offsetStore.x86;
 		this.initializedWrite = false;
 		this.disableWriting = false;
+
+		const offsetLookups = await fetchOffsetLookup() as IOffsetsLookup;
+		let broadcastVersionAddr = undefined;
+		if (this.is_64bit) {
+			broadcastVersionAddr = this.findPattern(
+				offsetLookups.patterns.x64.broadcastVersion.sig,
+				offsetLookups.patterns.x64.broadcastVersion.patternOffset,
+				offsetLookups.patterns.x64.broadcastVersion.addressOffset,
+				false,
+				true
+			); 
+		} else {
+			broadcastVersionAddr = this.findPattern(
+				offsetLookups.patterns.x86.broadcastVersion.sig,
+				offsetLookups.patterns.x86.broadcastVersion.patternOffset,
+				offsetLookups.patterns.x86.broadcastVersion.addressOffset,
+				false,
+				true
+			); 
+		}
+
+		var broadcastVersion = this.readMemory<number>(
+			'int',
+			this.gameAssembly!.modBaseAddr,
+			broadcastVersionAddr
+		);
+		console.log("broadcastVersion: ", broadcastVersion)
+
+		if (offsetLookups.versions[broadcastVersion]) {
+			this.offsets = await fetchOffsetsJson(this.is_64bit, offsetLookups.versions[broadcastVersion].file);
+		} else {
+			this.offsets = await fetchOffsetsJson(this.is_64bit, offsetLookups.versions["default"].file); // can't find file for this client, return default
+		}
+
+		this.disableWriting = this.offsets.disableWriting;
+		this.oldMeetingHud = this.offsets.oldMeetingHud;
+
 		const innerNetClient = this.findPattern(
 			this.offsets.signatures.innerNetClient.sig,
 			this.offsets.signatures.innerNetClient.patternOffset,
 			this.offsets.signatures.innerNetClient.addressOffset
 		);
+
 		const meetingHud = this.findPattern(
 			this.offsets.signatures.meetingHud.sig,
 			this.offsets.signatures.meetingHud.patternOffset,
@@ -499,48 +537,73 @@ export default class GameReader {
 			this.offsets.signatures.serverManager.patternOffset,
 			this.offsets.signatures.serverManager.addressOffset
 		);
-		if (this.loadedMod.id === 'POLUS_GG') {
-			this.offsets.serverManager_currentServer[4] = 0x0c;
-		}
+		// if (this.loadedMod.id === 'POLUS_GG') {
+		// 	this.offsets.serverManager_currentServer[4] = 0x0c;
+		// }
 		this.colorsInitialized = false;
 		console.log('serverManager_currentServer', this.offsets.serverManager_currentServer[0].toString(16));
-		if (innerNetClient === 0x2c6c278) {
+
+		// if (innerNetClient === 30104372 ||
+		// 	innerNetClient == 30001864 ||
+		// 	innerNetClient == 30155956 ||
+		// 	innerNetClient == 29580672 || 
+		// 	innerNetClient == 30160488 ||
+		// 	innerNetClient == 0x2c6c278 ||
+		// 	innerNetClient == 0x1c57f54 ||
+		// 	innerNetClient == 0x1d17f2c ||
+		// 	innerNetClient == 0x1baa960 ||
+		// 	innerNetClient == 0x1D17F2C ||
+		// 	innerNetClient == 29777072 ||
+		// 	innerNetClient == 0x1C9CAC8 ||
+		// 	innerNetClient == 0x1d9dbb4 ||
+		// 	innerNetClient == 0x1e247c4 || // Moving this soon to a new repo
+		// 	innerNetClient == 30112580 || 
+		// 	innerNetClient == 29537396 // 2022.2.24e
+		// 	) {
+		// 	this.offsets = TempFixOffsets7(this.offsets);
+		// }
+		
+		// if (innerNetClient === 0x2c6c278) {
 			// temp fix for older game until I added more sigs.. //
-			this.disableWriting = true;
-			this.oldMeetingHud = true;
-			this.offsets = TempFixOffsets(this.offsets);
-		}
-		if (innerNetClient === 0x1c57f54) {
-			this.disableWriting = true;
-			this.oldMeetingHud = true;
-			// temp fix for older game until I added more sigs.. // 12/9
-			this.offsets = TempFixOffsets2(this.offsets);
-		}
-		if (innerNetClient === 0x1d17f2c) {
-			//6/15
-			this.offsets = TempFixOffsets4(this.offsets);
-		}
+		// 	this.disableWriting = true;
+		// 	this.oldMeetingHud = true;
+		// 	this.offsets = TempFixOffsets(this.offsets);
+		// }
 
-		if (innerNetClient === 0x1baa960 || innerNetClient == 0x1D17F2C || innerNetClient == 29777072) {
-			this.offsets = TempFixOffsets5(this.offsets);
-			this.disableWriting = true;
-		}
+		// if (innerNetClient === 0x1c57f54) {
+		// 	this.disableWriting = true;
+		// 	this.oldMeetingHud = true;
+		// 	// temp fix for older game until I added more sigs.. // 12/9
+		// 	this.offsets = TempFixOffsets2(this.offsets);
+		// }
 
-		if (innerNetClient === 0x1C9CAC8) {
-			this.offsets = TempFixOffsets6(this.offsets);
-		}
+		// if (innerNetClient === 0x1d9dbb4 || innerNetClient === 0x1e247c4) {
+		// 	// temp fix for older game until I added more sigs.. // 25/5
+		// 	this.oldMeetingHud = true;
+		// 	this.offsets = TempFixOffsets3(this.offsets);
+		// 	const gameData = this.findPattern(
+		// 		this.offsets.signatures.gameData.sig,
+		// 		this.offsets.signatures.gameData.patternOffset,
+		// 		this.offsets.signatures.gameData.addressOffset
+		// 	);
+		// 	this.offsets.allPlayersPtr[0] = gameData;
+		// }
 
-		if (innerNetClient === 0x1d9dbb4 || innerNetClient === 0x1e247c4) {
-			// temp fix for older game until I added more sigs.. // 25/5
-			this.oldMeetingHud = true;
-			this.offsets = TempFixOffsets3(this.offsets);
-			const gameData = this.findPattern(
-				this.offsets.signatures.gameData.sig,
-				this.offsets.signatures.gameData.patternOffset,
-				this.offsets.signatures.gameData.addressOffset
-			);
-			this.offsets.allPlayersPtr[0] = gameData;
-		}
+		// if (innerNetClient === 0x1d17f2c) {
+		// 	//6/15
+		// 	this.offsets = TempFixOffsets4(this.offsets);
+		// }
+
+		// if (innerNetClient === 0x1baa960 || innerNetClient == 0x1D17F2C || innerNetClient == 29777072) {
+		// 	this.offsets = TempFixOffsets5(this.offsets);
+		// 	this.disableWriting = true;
+		// }
+
+		// if (innerNetClient === 0x1C9CAC8) {
+		// 	this.offsets = TempFixOffsets6(this.offsets);
+		// }
+
+		
 		this.PlayerStruct = new Struct();
 		for (const member of this.offsets.player.struct) {
 			if (member.type === 'SKIP' && member.skip) {
@@ -552,7 +615,15 @@ export default class GameReader {
 				);
 			}
 		}
-		console.log(this.offsets);
+		console.log(JSON.stringify(this.offsets,function(k,v){
+			if(v instanceof Array && k != "struct")
+			   return JSON.stringify(v);
+			return v;
+		 },2).replace(/\\/g, '')
+		 .replace(/\"\[/g, '[')
+		 .replace(/\]\"/g,']')
+		 .replace(/\"\{/g, '{')
+		 .replace(/\}\"/g,'}'));
 		this.initializeWrites();
 	}
 
@@ -778,50 +849,51 @@ export default class GameReader {
 	}
 
 	joinGame(code: string, server: string): boolean {
-		if (
-			!this.amongUs ||
-			!this.initializedWrite ||
-			server.length > 15 ||
-			!this.offsets ||
-			this.is_64bit ||
-			this.loadedMod.id === 'POLUS_GG'
-		) {
-			return false;
-		}
-		const innerNetClient = this.readMemory<number>(
-			'ptr',
-			this.gameAssembly!.modBaseAddr,
-			this.offsets!.innerNetClient.base
-		);
-		this.writeString(this.shellcodeAddr + 0x40, server);
-		writeMemory(
-			this.amongUs.handle,
-			innerNetClient + this.offsets.innerNetClient.networkAddress,
-			this.shellcodeAddr + 0x40,
-			'int32'
-		);
-		writeMemory(
-			this.amongUs.handle,
-			innerNetClient + this.offsets.innerNetClient.onlineScene,
-			this.shellcodeAddr + 0x70,
-			'int32'
-		);
-		writeMemory(
-			this.amongUs.handle,
-			innerNetClient + this.offsets.innerNetClient.mainMenuScene,
-			this.shellcodeAddr + 0x95,
-			'int32'
-		);
-		writeMemory(this.amongUs.handle, innerNetClient + this.offsets.innerNetClient.networkPort, 22023, 'int32');
-		writeMemory(this.amongUs.handle, innerNetClient + this.offsets.innerNetClient.gameMode, 1, 'int32');
-		writeMemory(
-			this.amongUs.handle,
-			innerNetClient + this.offsets.innerNetClient.gameId,
-			this.gameCodeToInt(code),
-			'int32'
-		);
-		writeMemory(this.amongUs.handle, this.shellcodeAddr + 0x30, 1, 'int32'); // call connect function
-		return true;
+		return false;
+		// if (
+		// 	!this.amongUs ||
+		// 	!this.initializedWrite ||
+		// 	server.length > 15 ||
+		// 	!this.offsets ||
+		// 	this.is_64bit
+		// 	// || this.loadedMod.id === 'POLUS_GG'
+		// ) {
+		// 	return false;
+		// }
+		// const innerNetClient = this.readMemory<number>(
+		// 	'ptr',
+		// 	this.gameAssembly!.modBaseAddr,
+		// 	this.offsets!.innerNetClient.base
+		// );
+		// this.writeString(this.shellcodeAddr + 0x40, server);
+		// writeMemory(
+		// 	this.amongUs.handle,
+		// 	innerNetClient + this.offsets.innerNetClient.networkAddress,
+		// 	this.shellcodeAddr + 0x40,
+		// 	'int32'
+		// );
+		// writeMemory(
+		// 	this.amongUs.handle,
+		// 	innerNetClient + this.offsets.innerNetClient.onlineScene,
+		// 	this.shellcodeAddr + 0x70,
+		// 	'int32'
+		// );
+		// writeMemory(
+		// 	this.amongUs.handle,
+		// 	innerNetClient + this.offsets.innerNetClient.mainMenuScene,
+		// 	this.shellcodeAddr + 0x95,
+		// 	'int32'
+		// );
+		// writeMemory(this.amongUs.handle, innerNetClient + this.offsets.innerNetClient.networkPort, 22023, 'int32');
+		// writeMemory(this.amongUs.handle, innerNetClient + this.offsets.innerNetClient.gameMode, 1, 'int32');
+		// writeMemory(
+		// 	this.amongUs.handle,
+		// 	innerNetClient + this.offsets.innerNetClient.gameId,
+		// 	this.gameCodeToInt(code),
+		// 	'int32'
+		// );
+		// writeMemory(this.amongUs.handle, this.shellcodeAddr + 0x30, 1, 'int32'); // call connect function
+		// return true;
 	}
 
 	loadColors(): void {
@@ -833,9 +905,9 @@ export default class GameReader {
 		const ShadowColorsPtr = this.readMemory<number>('ptr', palletePtr, this.offsets!.palette_shadowColor);
 
 		const colorLength = this.readMemory<number>('int', ShadowColorsPtr, this.offsets!.playerCount);
-		console.log('Initializecolors', colorLength);
+		console.log('Initializecolors', colorLength, this.loadedMod.id);
 
-		if (!colorLength || colorLength <= 0 || colorLength > 300) {
+		if (!colorLength || colorLength <= 0 || colorLength > 300 || ((this.loadedMod.id == "THE_OTHER_ROLES" || this.loadedMod.id == "THE_OTHER_ROLES_GM") && colorLength <= 18)) {
 			return;
 		}
 
@@ -984,7 +1056,7 @@ export default class GameReader {
 	IntToGameCode(input: number): string {
 		if (!input || input === 0) return '';
 		else if (input <= -1000) return this.IntToGameCodeV2Impl(input);
-		else if (input > 0 && this.loadedMod.id == 'POLUS_GG') return this.IntToGameCodeV1Impl(input);
+		else if (input > 0) return this.IntToGameCodeV1Impl(input); // && this.loadedMod.id == 'POLUS_GG')
 		else return '';
 	}
 
@@ -1009,7 +1081,7 @@ export default class GameReader {
 	}
 
 	gameCodeToInt(code: string): number {
-		return code.length === 4 && this.loadedMod.id === 'POLUS_GG'
+		return code.length === 4 //&& this.loadedMod.id === 'POLUS_GG'
 			? this.gameCodeToIntV1Impl(code)
 			: this.gameCodeToIntV2Impl(code);
 	}

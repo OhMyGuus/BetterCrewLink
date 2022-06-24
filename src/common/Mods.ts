@@ -3,8 +3,6 @@ export type ModsType =
 	| 'TOWN_OF_US'
 	| 'THE_OTHER_ROLES'
 	| 'THE_OTHER_ROLES_GM'
-	| 'TOWN_OF_IMPOSTORS'
-	| 'POLUS_GG'
 	| 'OTHER';
 
 export interface AmongusMod {
@@ -33,16 +31,6 @@ export const modList: AmongusMod[] = [
 		id: 'THE_OTHER_ROLES_GM',
 		label: 'The Other Roles: GM Edition',
 		dllStartsWith: 'TheOtherRolesGM',
-	},
-	{
-		id: 'TOWN_OF_IMPOSTORS',
-		label: 'Town of Impostors',
-		dllStartsWith: 'TownOfImpostors',
-	},
-	{
-		id: 'POLUS_GG',
-		label: 'Polus.gg',
-		dllStartsWith: 'Polus',
 	},
 	{
 		id: 'OTHER',
