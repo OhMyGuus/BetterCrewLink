@@ -1159,13 +1159,13 @@ export default class GameReader {
 			const roleTeam = this.readMemory<number>('uint32', data.rolePtr, this.offsets!.player.roleTeam)
 			data.impostor = roleTeam;
 
-			if (this.offsets!.player.nameText && shiftedColor == -1 && (this.loadedMod.id == "THE_OTHER_ROLES")) {
-				let nameText = this.readMemory<number>('ptr', data.objectPtr, this.offsets!.player.nameText);
-				var nameText_name = this.readString(nameText);
-				if (nameText_name != name) {
-					shiftedColor = data.color;
-				}
-			}
+			// if (this.offsets!.player.nameText && shiftedColor == -1 && (this.loadedMod.id == "THE_OTHER_ROLES")) {
+			// 	let nameText = this.readMemory<number>('ptr', data.objectPtr, this.offsets!.player.nameText);
+			// 	var nameText_name = this.readString(nameText);
+			// 	if (nameText_name != name) {
+			// 		shiftedColor = data.color;
+			// 	}
+			// }
 		}
 		name = name.split(/<.*?>/).join('');
 		let bugged = false;
