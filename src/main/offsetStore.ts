@@ -1,4 +1,5 @@
-import fetch from 'node-fetch'
+import Store from 'electron-store';
+import fetch from 'node-fetch';
 import Errors from '../common/Errors';
 
 export interface IOffsetsLookup {
@@ -10,6 +11,7 @@ export interface IOffsetsLookup {
 		[innerNetClientId: string]: {
 			version: string;
 			file: string;
+			offsetsVersion: number;
 		};
 	};
 }
@@ -125,7 +127,15 @@ export interface IOffsets {
 	disableWriting: boolean;
 }
 
-const BASE_URL = "https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Offsets/main"
+interface IOffsetsStore {
+	filename: string;
+	offsetsVersion: number;
+	offsets: IOffsets;
+}
+
+const store = new Store<IOffsetsStore>({name: "offsets"});
+
+const BASE_URL = "https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Offsets/main";
 export async function fetchOffsetLookup(): Promise<IOffsetsLookup> {
 	console.log(`Fetching lookup file`);
 	return fetch(`${BASE_URL}/lookup.json`)
@@ -134,13 +144,28 @@ export async function fetchOffsetLookup(): Promise<IOffsetsLookup> {
 		.catch((_) => { throw Errors.LOOKUP_FETCH_ERROR })
 }
 
-const OFFSETS_URL = `${BASE_URL}/offsets`
-export async function fetchOffsetsJson(is_64bit: boolean, filename: string): Promise<IOffsets> {
+const OFFSETS_URL = `${BASE_URL}/offsets`;
+async function fetchOffsetsJson(is_64bit: boolean, filename: string): Promise<IOffsets> {
 	console.log(`Fetching file: ${filename}`);
 	return fetch(`${OFFSETS_URL}/${is_64bit ? 'x64' : 'x86'}/${filename}`)
 		.then((response) => response.json())
 		.then((data) => { return data as IOffsets })
-		.catch((_) => { throw Errors.LOOKUP_FETCH_ERROR })
+		.catch((_) => { throw Errors.OFFSETS_FETCH_ERROR })
+}
+
+export async function fetchOffsets(is_64bit: boolean, filename: string, offsetsVersion: number): Promise<IOffsets> {
+	// offsetsVersion in case we need to update people's cached file
+	// >= version to allow testing with local file updates (eg remote vers 2, local vers 3)
+	// no need to host local http server
+	if (store.get('filename')  == filename && store.get('offsetsVersion') >= offsetsVersion) {
+		console.log("Loading cached offsets");
+		return store.get('IOffsets');
+	}
+	const offsets = await fetchOffsetsJson(is_64bit, filename);
+	store.set('filename', filename);
+	store.set('offsetsVersion', offsetsVersion ? offsetsVersion : 0);
+	store.set('IOffsets', offsets);
+	return offsets;
 }
 
 // export function TempFixOffsets(offsetsOld: IOffsets): IOffsets {
