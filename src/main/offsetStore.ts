@@ -129,6 +129,7 @@ export interface IOffsets {
 
 interface IOffsetsStore {
 	filename: string;
+	is_64bit: boolean;
 	offsetsVersion: number;
 	offsets: IOffsets;
 }
@@ -157,12 +158,13 @@ export async function fetchOffsets(is_64bit: boolean, filename: string, offsetsV
 	// offsetsVersion in case we need to update people's cached file
 	// >= version to allow testing with local file updates (eg remote vers 2, local vers 3)
 	// no need to host local http server
-	if (store.get('filename')  == filename && store.get('offsetsVersion') >= offsetsVersion) {
+	if (store.get('filename')  == filename && store.get('is_64bit') == is_64bit && store.get('offsetsVersion') >= offsetsVersion) {
 		console.log("Loading cached offsets");
 		return store.get('IOffsets');
 	}
 	const offsets = await fetchOffsetsJson(is_64bit, filename);
 	store.set('filename', filename);
+	store.set('is_64bit', is_64bit);
 	store.set('offsetsVersion', offsetsVersion ? offsetsVersion : 0);
 	store.set('IOffsets', offsets);
 	return offsets;
