@@ -1166,7 +1166,7 @@ export default class GameReader {
 		//			shiftedColor = data.color;
 		//		}
 		//	}
-		// }
+		}
 		name = name.split(/<.*?>/).join('');
 		let bugged = false;
 		if (x === undefined || y === undefined || data.disconnected != 0 || data.color < 0 || data.color > this.playercolors.length) {
