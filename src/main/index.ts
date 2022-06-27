@@ -36,9 +36,14 @@ global.mainWindow = null;
 global.overlay = null;
 const store = new Store<ISettings>();
 app.commandLine.appendSwitch('disable-pinch');
-// app.disableHardwareAcceleration();
+
 if (platform() === 'linux' || !store.get('hardware_acceleration', true)) {
 	app.disableHardwareAcceleration();
+
+}
+
+if(platform() === 'linux'){
+	app.commandLine.appendSwitch('disable-gpu-sandbox');
 }
 
 function createMainWindow() {
