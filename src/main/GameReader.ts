@@ -133,10 +133,10 @@ export default class GameReader {
 			return modList[0];
 		} else {
 			const dir = path.dirname(filePath);
-			if (!fs.existsSync(path.join(dir, 'winhttp.dll')) || !fs.existsSync(path.join(dir, 'BepInEx\\plugins'))) {
+			if (!fs.existsSync(path.join(dir, 'winhttp.dll')) || !fs.existsSync(path.join(dir, 'BepInEx', 'plugins'))) {
 				return modList[0];
 			}
-			for (const file of fs.readdirSync(path.join(dir, 'BepInEx\\plugins'))) {
+			for (const file of fs.readdirSync(path.join(dir, 'BepInEx', 'plugins'))) {
 				console.log(`MOD! ${file}`);
 				const mod = modList.find((o) => o.dllStartsWith && file.includes(o.dllStartsWith));
 				if (mod) return mod;
