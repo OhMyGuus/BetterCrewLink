@@ -907,7 +907,7 @@ export default class GameReader {
 		const colorLength = this.readMemory<number>('int', ShadowColorsPtr, this.offsets!.playerCount);
 		console.log('Initializecolors', colorLength, this.loadedMod.id);
 
-		if (!colorLength || colorLength <= 0 || colorLength > 300 || ((this.loadedMod.id == "THE_OTHER_ROLES" || this.loadedMod.id == "THE_OTHER_ROLES_GM") && colorLength <= 18)) {
+		if (!colorLength || colorLength <= 0 || colorLength > 300 || ((this.loadedMod.id == "THE_OTHER_ROLES") && colorLength <= 18)) {
 			return;
 		}
 
@@ -1159,7 +1159,7 @@ export default class GameReader {
 			const roleTeam = this.readMemory<number>('uint32', data.rolePtr, this.offsets!.player.roleTeam)
 			data.impostor = roleTeam;
 
-		//	if (this.offsets!.player.nameText && shiftedColor == -1 && (this.loadedMod.id == "THE_OTHER_ROLES" || this.loadedMod.id == "THE_OTHER_ROLES_GM")) {
+		//	if (this.offsets!.player.nameText && shiftedColor == -1 && (this.loadedMod.id == "THE_OTHER_ROLES")) {
 		//		let nameText = this.readMemory<number>('ptr', data.objectPtr, this.offsets!.player.nameText);
 		//		var nameText_name = this.readString(nameText);
 		//		if (nameText_name != name) {
