@@ -133,15 +133,26 @@ interface IOffsetsStore {
 	offsets: IOffsets;
 }
 
-const store = new Store<IOffsetsStore>({name: "offsets"});
-
 const BASE_URL = "https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Offsets/main";
-export async function fetchOffsetLookup(): Promise<IOffsetsLookup> {
+async function fetchOffsetLookupJson(): Promise<IOffsetsLookup> {
 	console.log(`Fetching lookup file`);
 	return fetch(`${BASE_URL}/lookup.json`)
 		.then((response) => response.json())
 		.then((data) => { return data as IOffsetsLookup })
 		.catch((_) => { throw Errors.LOOKUP_FETCH_ERROR })
+}
+
+export async function fetchOffsetLookup(): Promise<IOffsetsLookup> {
+	const lookupStore = new Store<IOffsetsLookup>({name: "lookup"});
+	try {
+		const lookups = await fetchOffsetLookupJson();
+		lookupStore.set(lookups);
+		return lookups;
+	} catch {
+		// Check if cache file has never been generated
+		if (!lookupStore.get('patterns')) throw Errors.LOOKUP_FETCH_ERROR;
+		return lookupStore.store
+	}
 }
 
 const OFFSETS_URL = `${BASE_URL}/offsets`;
@@ -154,6 +165,7 @@ async function fetchOffsetsJson(is_64bit: boolean, filename: string): Promise<IO
 }
 
 export async function fetchOffsets(is_64bit: boolean, filename: string, offsetsVersion: number): Promise<IOffsets> {
+	const store = new Store<IOffsetsStore>({name: "offsets"});
 	// offsetsVersion in case we need to update people's cached file
 	// >= version to allow testing with local file updates (eg remote vers 2, local vers 3)
 	// no need to host local http server
