@@ -160,7 +160,7 @@ const Avatar: React.FC<AvatarProps> = function ({
 			muteButtonIcon = <VolumeUp color="primary" className={classes.iconNoBackground}></VolumeUp>;
 		}
 		return (
-            <Tooltip
+			<Tooltip
 				mouseOutDelay={300}
 				content={
 					<div className={classes.innerTooltip}>
@@ -168,11 +168,11 @@ const Avatar: React.FC<AvatarProps> = function ({
 						<Grid container spacing={0} className={classes.slidecontainer}>
 							<Grid item>
 								<IconButton
-                                    onClick={() => {
+									onClick={() => {
 										socketConfig.isMuted = !socketConfig.isMuted;
 									}}
-                                    style={{ margin: '1px 1px 0px 0px' }}
-                                    size="large">
+									style={{ margin: '1px 1px 0px 0px' }}
+									size="large">
 									{muteButtonIcon}
 								</IconButton>
 							</Grid>
@@ -203,7 +203,7 @@ const Avatar: React.FC<AvatarProps> = function ({
 				{canvas}
 				{icon}
 			</Tooltip>
-        );
+		);
 	} else {
 		return (
 			<div className={classes.relative}>

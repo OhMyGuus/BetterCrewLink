@@ -175,7 +175,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 
 	// Used to buffer changes that are only sent out on settings close
 	const [localLobbySettingsBuffer, setLocalLobbySettingsBuffer] = useState(settings.localLobbySettings);
-	const updateLocalLobbySettingsBuffer = (newValues: Partial<ILobbySettings>) => setLocalLobbySettingsBuffer((oldState) => {return {...oldState, ...newValues}});
+	const updateLocalLobbySettingsBuffer = (newValues: Partial<ILobbySettings>) => setLocalLobbySettingsBuffer((oldState) => { return { ...oldState, ...newValues } });
 
 	useEffect(() => {
 		setUnsavedCount((s) => s + 1);
@@ -337,7 +337,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	if (!open) { return <></> }
 
 	return (
-        <Box className={classes.root}>
+		<Box className={classes.root}>
 			<div className={classes.header}>
 				<IconButton
 					className={classes.back}
@@ -396,7 +396,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							min={1}
 							max={10}
 							step={0.1}
-							onChange={(_, newValue: number | number[]) => updateLocalLobbySettingsBuffer({maxDistance: newValue as number})}
+							onChange={(_, newValue: number | number[]) => updateLocalLobbySettingsBuffer({ maxDistance: newValue as number })}
 						/>
 					</DisabledTooltip>
 				</div>
@@ -413,7 +413,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								openWarningDialog(
 									t('settings.warning'),
 									t('settings.lobbysettings.public_lobby.enable_warning'),
-									() => {updateLocalLobbySettingsBuffer({publicLobby_on: newValue})},
+									() => { updateLocalLobbySettingsBuffer({ publicLobby_on: newValue }) },
 									!localLobbySettingsBuffer.publicLobby_on
 								);
 							}}
@@ -444,7 +444,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.wallsblockaudio')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({wallsBlockAudio: newValue})}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ wallsBlockAudio: newValue })}
 							value={canChangeLobbySettings ? localLobbySettingsBuffer.wallsBlockAudio : hostLobbySettings.wallsBlockAudio}
 							checked={canChangeLobbySettings ? localLobbySettingsBuffer.wallsBlockAudio : hostLobbySettings.wallsBlockAudio}
 							control={<Checkbox />}
@@ -458,7 +458,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.visiononly')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({visionHearing: newValue})}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ visionHearing: newValue })}
 							value={canChangeLobbySettings ? localLobbySettingsBuffer.visionHearing : hostLobbySettings.visionHearing}
 							checked={canChangeLobbySettings ? localLobbySettingsBuffer.visionHearing : hostLobbySettings.visionHearing}
 							control={<Checkbox />}
@@ -472,7 +472,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.impostorshearsghost')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({haunting: newValue})}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ haunting: newValue })}
 							value={canChangeLobbySettings ? localLobbySettingsBuffer.haunting : hostLobbySettings.haunting}
 							checked={canChangeLobbySettings ? localLobbySettingsBuffer.haunting : hostLobbySettings.haunting}
 							control={<Checkbox />}
@@ -487,7 +487,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.hear_imposters_invents')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({hearImpostorsInVents: newValue})}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ hearImpostorsInVents: newValue })}
 							value={
 								canChangeLobbySettings ? localLobbySettingsBuffer.hearImpostorsInVents : hostLobbySettings.hearImpostorsInVents
 							}
@@ -505,7 +505,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.private_talk_invents')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({impostersHearImpostersInvent: newValue})}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ impostersHearImpostersInvent: newValue })}
 							value={
 								canChangeLobbySettings
 									? localLobbySettingsBuffer.impostersHearImpostersInvent
@@ -528,7 +528,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.comms_sabotage_audio')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({commsSabotage: newValue})}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ commsSabotage: newValue })}
 							value={canChangeLobbySettings ? localLobbySettingsBuffer.commsSabotage : hostLobbySettings.commsSabotage}
 							checked={canChangeLobbySettings ? localLobbySettingsBuffer.commsSabotage : hostLobbySettings.commsSabotage}
 							control={<Checkbox />}
@@ -542,7 +542,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.hear_through_cameras')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({hearThroughCameras: newValue})}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ hearThroughCameras: newValue })}
 							value={canChangeLobbySettings ? localLobbySettingsBuffer.hearThroughCameras : hostLobbySettings.hearThroughCameras}
 							checked={
 								canChangeLobbySettings ? localLobbySettingsBuffer.hearThroughCameras : hostLobbySettings.hearThroughCameras
@@ -558,7 +558,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							className={classes.formLabel}
 							label={t('settings.lobbysettings.impostor_radio')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({impostorRadioEnabled: newValue})}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ impostorRadioEnabled: newValue })}
 							value={
 								canChangeLobbySettings ? localLobbySettingsBuffer.impostorRadioEnabled : hostLobbySettings.impostorRadioEnabled
 							}
@@ -581,7 +581,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								openWarningDialog(
 									t('settings.warning'),
 									t('settings.lobbysettings.ghost_only_warning'),
-									() => updateLocalLobbySettingsBuffer({meetingGhostOnly: false, deadOnly: newValue}),
+									() => updateLocalLobbySettingsBuffer({ meetingGhostOnly: false, deadOnly: newValue }),
 									newValue
 								);
 							}}
@@ -603,7 +603,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								openWarningDialog(
 									t('settings.warning'),
 									t('settings.lobbysettings.meetings_only_warning'),
-									() => updateLocalLobbySettingsBuffer({meetingGhostOnly: newValue, deadOnly: false}),
+									() => updateLocalLobbySettingsBuffer({ meetingGhostOnly: newValue, deadOnly: false }),
 									newValue
 								);
 							}}
@@ -991,7 +991,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						onChange={(_, checked: boolean) => setSettings('noiseSuppression', checked)}
 						control={<Checkbox />}
 					/>
-						<FormControlLabel
+					<FormControlLabel
 						className={classes.formLabel}
 						label={t('settings.beta.oldsampledebug')}
 						checked={settings.oldSampleDebug}
@@ -1005,7 +1005,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								checked
 							);
 
-							
+
 						}}
 						control={<Checkbox />}
 					/>
@@ -1094,7 +1094,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				</Alert>
 			</div>
 		</Box>
-    );
+	);
 };
 
 export default Settings;

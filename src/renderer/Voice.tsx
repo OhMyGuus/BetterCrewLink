@@ -1338,7 +1338,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	]);
 
 	return (
-        <div className={classes.root}>
+		<div className={classes.root}>
 			{(error || initialError) && (
 				<div className={classes.error}>
 					<Typography align="center" variant="h6" color="error">
@@ -1470,7 +1470,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			</>)}
 			{otherPlayers.length <= 6 && <Footer />}
 		</div>
-    );
+	);
 };
 
 type ValidPlayersPerRow = 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
