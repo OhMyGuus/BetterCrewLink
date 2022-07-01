@@ -29,10 +29,11 @@
 		"publish:linux": "yarn compile && electron-builder --x64 --linux --publish always"
 	},
 	"dependencies": {
-		"@material-ui/core": "^4.11.4",
-		"@material-ui/data-grid": "^4.0.0-alpha.26",
-		"@material-ui/icons": "^4.11.2",
-		"@material-ui/lab": "^4.0.0-alpha.57",
+		"@emotion/react": "^11.9.3",
+		"@emotion/styled": "^11.9.3",
+		"@mui/icons-material": "^5.8.4",
+		"@mui/material": "^5.8.6",
+		"@mui/styles": "^5.8.6",
 		"color": "^3.1.3",
 		"cross-spawn": "^7.0.3",
 		"electron-devtools-installer": "^3.2.0",

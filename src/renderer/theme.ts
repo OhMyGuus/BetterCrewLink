@@ -1,8 +1,8 @@
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-import { red, purple } from '@material-ui/core/colors';
+import { createTheme } from '@mui/material';
+import { red, purple } from '@mui/material/colors';
 
 // Create a theme instance.
-const theme = createMuiTheme({
+const theme = createTheme({
 	palette: {
 		primary: {
 			main: purple[300],
@@ -12,15 +12,18 @@ const theme = createMuiTheme({
 			default: '#27232a',
 			paper: '#272727',
 		},
-		type: 'dark',
+		mode: 'dark',
 	},
-	overrides: {
+	components: {
 		MuiTooltip: {
-			tooltip: {
-				fontSize: 16,
+			styleOverrides: {
+				tooltip: {
+					fontSize: 15,
+				}
 			},
+
 		},
-	},
+	}
 });
 
 export default theme;

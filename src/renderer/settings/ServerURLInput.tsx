@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Alert from '@material-ui/lab/Alert';
-import { DialogContent, DialogTitle, DialogActions, Dialog, Button, TextField } from '@material-ui/core';
+import Alert from '@mui/material/Alert';
+import { DialogContent, DialogTitle, DialogActions, Dialog, Button, TextField } from '@mui/material';
 import { isHttpUri, isHttpsUri } from 'valid-url';
 
 type URLInputProps = {

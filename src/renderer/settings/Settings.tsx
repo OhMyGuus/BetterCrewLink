@@ -3,8 +3,8 @@ import { SettingsContext, GameStateContext, HostSettingsContext } from '../conte
 import MicrophoneSoundBar from './MicrophoneSoundBar';
 import TestSpeakersButton from './TestSpeakersButton';
 import { ISettings, ILobbySettings } from '../../common/ISettings';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import withStyles from '@material-ui/core/styles/withStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import withStyles from '@mui/styles/withStyles';
 import {
 	Grid,
 	RadioGroup,
@@ -15,18 +15,18 @@ import {
 	IconButton,
 	Button,
 	Radio,
-} from '@material-ui/core';
-import { DialogContent, DialogContentText, DialogActions, DialogTitle, Slider, Tooltip } from '@material-ui/core';
-import { Dialog, TextField } from '@material-ui/core';
-import ChevronLeft from '@material-ui/icons/ArrowBack';
-import Alert from '@material-ui/lab/Alert';
+} from '@mui/material';
+import { DialogContent, DialogContentText, DialogActions, DialogTitle, Slider, Tooltip } from '@mui/material';
+import { Dialog, TextField } from '@mui/material';
+import ChevronLeft from '@mui/icons-material/ArrowBack';
+import Alert from '@mui/material/Alert';
 import { GameState } from '../../common/AmongUsState';
 import { ipcRenderer } from 'electron';
 import { IpcHandlerMessages } from '../../common/ipc-messages';
 import i18next, { TFunction } from 'i18next';
 import languages from '../language/languages';
 import ServerURLInput from './ServerURLInput';
-import MuiDivider from '@material-ui/core/Divider';
+import MuiDivider from '@mui/material/Divider';
 import PublicLobbySettings from './PublicLobbySettings';
 import SettingsStore, { pushToTalkOptions } from './SettingsStore';
 
@@ -45,7 +45,7 @@ const Divider = withStyles((theme) => ({
 const useStyles = makeStyles((theme) => ({
 	root: {
 		width: '100vw',
-		height: `calc(100vh - ${theme.spacing(3)}px)`,
+		height: `calc(100vh - ${theme.spacing(3)})`,
 		background: '#171717ad',
 		backdropFilter: 'blur(4px)',
 		position: 'absolute',
@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: 'start',
 		alignItems: 'center',
 		paddingBottom: theme.spacing(7),
-		height: `calc(100vh - 40px - ${theme.spacing(7 + 3 + 3)}px)`,
+		height: `calc(100vh - 40px - ${theme.spacing(7 + 3 + 3)})`,
 	},
 	shortcutField: {
 		marginTop: theme.spacing(1),
@@ -337,7 +337,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	if (!open) { return <></> }
 
 	return (
-		<Box className={classes.root}>
+        <Box className={classes.root}>
 			<div className={classes.header}>
 				<IconButton
 					className={classes.back}
@@ -754,7 +754,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					<Typography id="input-slider" gutterBottom>
 						{t('settings.audio.crewvolume')}
 					</Typography>
-					<Grid container direction="row" justify="center" alignItems="center">
+					<Grid container direction="row" justifyContent="center" alignItems="center">
 						<Grid item xs={11}>
 							<Slider
 								value={settings.ghostVolume}
@@ -767,7 +767,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					<Typography id="input-slider" gutterBottom>
 						{t('settings.audio.mastervolume')}
 					</Typography>
-					<Grid container direction="row" justify="center" alignItems="center">
+					<Grid container direction="row" justifyContent="center" alignItems="center">
 						<Grid item xs={11}>
 							<Slider
 								value={settings.masterVolume}
@@ -1094,7 +1094,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				</Alert>
 			</div>
 		</Box>
-	);
+    );
 };
 
 export default Settings;

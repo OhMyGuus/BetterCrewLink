@@ -1,8 +1,8 @@
 import { shell } from 'electron';
 import React from 'react';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import Button from '@material-ui/core/Button';
-import { Tooltip } from '@material-ui/core';
+import makeStyles from '@mui/styles/makeStyles';
+import Button from '@mui/material/Button';
+import { Tooltip } from '@mui/material';
 
 const useStyles = makeStyles(() => ({
 	footer: {
