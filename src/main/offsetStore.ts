@@ -134,15 +134,29 @@ interface IOffsetsStore {
 	offsets: IOffsets;
 }
 
-const store = new Store<IOffsetsStore>({name: "offsets"});
-
 const BASE_URL = "https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Offsets/main";
-export async function fetchOffsetLookup(): Promise<IOffsetsLookup> {
+
+const store = new Store<IOffsetsStore>({name: "offsets"});
+const lookupStore = new Store<IOffsetsLookup>({name: "lookup"});
+
+async function fetchOffsetLookupJson(): Promise<IOffsetsLookup> {
 	console.log(`Fetching lookup file`);
 	return fetch(`${BASE_URL}/lookup.json`)
 		.then((response) => response.json())
 		.then((data) => { return data as IOffsetsLookup })
 		.catch((_) => { throw Errors.LOOKUP_FETCH_ERROR })
+}
+
+export async function fetchOffsetLookup(): Promise<IOffsetsLookup> {
+	try {
+		const lookups = await fetchOffsetLookupJson();
+		lookupStore.set(lookups);
+		return lookups;
+	} catch {
+		// Check if cache file has never been generated
+		if (!lookupStore.get('patterns')) throw Errors.LOOKUP_FETCH_ERROR;
+		return lookupStore.store
+	}
 }
 
 const OFFSETS_URL = `${BASE_URL}/offsets`;
