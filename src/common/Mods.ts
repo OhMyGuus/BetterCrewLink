@@ -2,7 +2,6 @@ export type ModsType =
 	| 'NONE'
 	| 'TOWN_OF_US'
 	| 'THE_OTHER_ROLES'
-	| 'TOWN_OF_IMPOSTORS'
 	| 'OTHER';
 
 export interface AmongusMod {
@@ -26,11 +25,6 @@ export const modList: AmongusMod[] = [
 		id: 'THE_OTHER_ROLES',
 		label: 'The Other Roles',
 		dllStartsWith: 'TheOtherRoles',
-	},
-	{
-		id: 'TOWN_OF_IMPOSTORS',
-		label: 'Town of Impostors',
-		dllStartsWith: 'TownOfImpostors',
 	},
 	{
 		id: 'OTHER',
