@@ -18,11 +18,11 @@ import { ipcRenderer } from 'electron';
 import VAD from './vad';
 import { ISettings, playerConfigMap, ILobbySettings } from '../common/ISettings';
 import { IpcRendererMessages, IpcMessages, IpcOverlayMessages, IpcHandlerMessages } from '../common/ipc-messages';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import makeStyles from '@mui/styles/makeStyles';
 import SupportLink from './SupportLink';
-import Divider from '@material-ui/core/Divider';
+import Divider from '@mui/material/Divider';
 import { validateClientPeerConfig } from './validateClientPeerConfig';
 // @ts-ignore
 import reverbOgx from 'arraybuffer-loader!../../static/sounds/reverb.ogx'; // @ts-ignore
@@ -33,12 +33,12 @@ import { CameraLocation, AmongUsMaps, MapType } from '../common/AmongusMap';
 import { ObsVoiceState } from '../common/ObsOverlay';
 // import { poseCollide } from '../common/ColliderMap';
 import Footer from './Footer';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import VolumeOff from '@material-ui/icons/VolumeOff';
-import VolumeUp from '@material-ui/icons/VolumeUp';
-import Mic from '@material-ui/icons/Mic';
-import MicOff from '@material-ui/icons/MicOff';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import VolumeOff from '@mui/icons-material/VolumeOff';
+import VolumeUp from '@mui/icons-material/VolumeUp';
+import Mic from '@mui/icons-material/Mic';
+import MicOff from '@mui/icons-material/MicOff';
 import adapter from 'webrtc-adapter';
 import { VADOptions } from './vad';
 import { pushToTalkOptions } from './settings/SettingsStore';
@@ -1432,7 +1432,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						className={classes.otherplayers}
 						alignItems="flex-start"
 						alignContent="flex-start"
-						justify="flex-start"
+						justifyContent="flex-start"
 					>
 						{otherPlayers.map((player) => {
 							const peer = playerSocketIdsRef.current[player.clientId];

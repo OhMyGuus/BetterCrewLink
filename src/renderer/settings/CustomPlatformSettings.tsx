@@ -10,10 +10,10 @@ import {
 	Radio,
 	RadioGroup,
 	TextField,
-} from '@material-ui/core';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import React, { useMemo, useState, useEffect, useContext } from 'react';
-import ChevronLeft from '@material-ui/icons/ArrowBack';
+import ChevronLeft from '@mui/icons-material/ArrowBack';
 import { GamePlatformInstance, PlatformRunType } from '../../common/GamePlatform';
 import path from 'path';
 import { platform } from 'process';

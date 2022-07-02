@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Alert from '@material-ui/lab/Alert';
-import { DialogContent, DialogTitle, DialogActions, Dialog, Button, TextField } from '@material-ui/core';
+import Alert from '@mui/material/Alert';
+import { DialogContent, DialogTitle, DialogActions, Dialog, Button, TextField } from '@mui/material';
 import { isHttpUri, isHttpsUri } from 'valid-url';
 
 type URLInputProps = {
@@ -47,7 +47,9 @@ const RawServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, on
 				{t('settings.advanced.change_server')}
 			</Button>
 			<Dialog fullScreen open={open} onClose={() => setOpen(false)}>
-				<DialogTitle>{t('settings.advanced.change_server')}</DialogTitle>
+				<div>
+					<DialogTitle>{t('settings.advanced.change_server')}</DialogTitle>
+				</div>
 				<DialogContent className={className}>
 					<TextField
 						fullWidth

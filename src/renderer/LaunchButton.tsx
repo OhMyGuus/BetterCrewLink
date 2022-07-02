@@ -2,11 +2,11 @@ import { ipcRenderer } from 'electron';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { GamePlatformInstance, GamePlatformMap } from '../common/GamePlatform';
 import { SettingsContext } from './contexts';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import { IpcMessages } from '../common/ipc-messages';
-import { Button, ClickAwayListener, MenuItem, MenuList, Paper, Popper } from '@material-ui/core';
-import { ToggleButton } from '@material-ui/lab';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import { Button, ClickAwayListener, MenuItem, MenuList, Paper, Popper } from '@mui/material';
+import { ToggleButton } from '@mui/material';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { CustomPlatformSettings } from './settings/CustomPlatformSettings';
 
 const useStyles = makeStyles((theme) => ({
@@ -178,15 +178,21 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 				placement="bottom-end"
 				disablePortal={false}
 				className={classes.dropdown}
-				modifiers={{
-					flip: {
-						enabled: false,
+				modifiers={[
+					{
+						name: "flip",
+						options: {
+							enabled: false,
+						},
 					},
-					preventOverflow: {
-						enabled: true,
-						boundariesElement: 'viewport',
+					{
+						name: "preventOverflow",
+						options: {
+							enabled: true,
+							boundariesElement: 'viewport'
+						},
 					},
-				}}
+				]}
 			>
 				<Paper>
 					<ClickAwayListener onClickAway={() => setDropdownOpen(false)}>

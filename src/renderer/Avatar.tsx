@@ -9,20 +9,20 @@ import {
 	initializeHats,
 	HatDementions,
 } from './cosmetics';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import MicOff from '@material-ui/icons/MicOff';
-import VolumeOff from '@material-ui/icons/VolumeOff';
-import WifiOff from '@material-ui/icons/WifiOff';
-import LinkOff from '@material-ui/icons/LinkOff';
-import ErrorOutline from '@material-ui/icons/ErrorOutline'; //@ts-ignore
+import makeStyles from '@mui/styles/makeStyles';
+import MicOff from '@mui/icons-material/MicOff';
+import VolumeOff from '@mui/icons-material/VolumeOff';
+import WifiOff from '@mui/icons-material/WifiOff';
+import LinkOff from '@mui/icons-material/LinkOff';
+import ErrorOutline from '@mui/icons-material/ErrorOutline'; //@ts-ignore
 import RadioSVG from '../../static/radio.svg';
-// import Tooltip from '@material-ui/core/Tooltip';
+// import Tooltip from '@mui/material/Tooltip';
 import Tooltip from 'react-tooltip-lite';
 import { SocketConfig } from '../common/ISettings';
-import Slider from '@material-ui/core/Slider';
-import VolumeUp from '@material-ui/icons/VolumeUp';
-import IconButton from '@material-ui/core/IconButton';
-import Grid from '@material-ui/core/Grid';
+import Slider from '@mui/material/Slider';
+import VolumeUp from '@mui/icons-material/VolumeUp';
+import IconButton from '@mui/material/IconButton';
+import Grid from '@mui/material/Grid';
 import { ModsType } from '../common/Mods';
 
 const useStyles = makeStyles(() => ({
@@ -172,12 +172,13 @@ const Avatar: React.FC<AvatarProps> = function ({
 										socketConfig.isMuted = !socketConfig.isMuted;
 									}}
 									style={{ margin: '1px 1px 0px 0px' }}
-								>
+									size="large">
 									{muteButtonIcon}
 								</IconButton>
 							</Grid>
 							<Grid item xs>
 								<Slider
+									size="small"
 									value={socketConfig.volume}
 									min={0}
 									max={2}

@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ThemeProvider } from '@material-ui/core/styles';
-import RefreshSharpIcon from '@material-ui/icons/RefreshSharp';
-import CloseIcon from '@material-ui/icons/Close';
-import MinimizeIcon from '@material-ui/icons/Minimize';
-import IconButton from '@material-ui/core/IconButton';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import RefreshSharpIcon from '@mui/icons-material/RefreshSharp';
+import CloseIcon from '@mui/icons-material/Close';
+import MinimizeIcon from '@mui/icons-material/Minimize';
+import IconButton from '@mui/material/IconButton';
 import '../css/index.css';
 import 'source-code-pro/source-code-pro.css';
 import 'typeface-varela/index.css';
@@ -14,6 +14,13 @@ import theme from '../theme';
 import LobbyBrowser from './LobbyBrowser';
 import { withNamespaces } from 'react-i18next';
 import { ipcRenderer } from 'electron';
+
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
 
 const useStyles = makeStyles(() => ({
 	root: {
@@ -29,7 +36,7 @@ const useStyles = makeStyles(() => ({
 		textAlign: 'center',
 		display: 'block',
 		height: theme.spacing(3),
-		lineHeight: `${theme.spacing(3)}px`,
+		lineHeight: theme.spacing(3),
 		color: theme.palette.primary.main,
 	},
 	button: {
@@ -83,11 +90,13 @@ const TitleBar = function () {
 // @ts-ignore
 export default function App({ t }): JSX.Element {
 	return (
-		<ThemeProvider theme={theme}>
-			<TitleBar />
-			<LobbyBrowser t={t}></LobbyBrowser>
-		</ThemeProvider>
-	);
+        <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={theme}>
+                <TitleBar />
+                <LobbyBrowser t={t}></LobbyBrowser>
+            </ThemeProvider>
+        </StyledEngineProvider>
+    );
 }
 // @ts-ignore
 const App2 = withNamespaces()(App);

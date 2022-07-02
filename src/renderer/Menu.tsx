@@ -1,8 +1,8 @@
 import React from 'react';
 import Footer from './Footer';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
+import makeStyles from '@mui/styles/makeStyles';
+import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
 import SupportLink from './SupportLink';
 import LaunchButton from './LaunchButton';
 
