@@ -15,6 +15,9 @@ const theme = createTheme({
 		mode: 'dark',
 	},
 	components: {
+		MuiPaper: {
+			styleOverrides: { root: { backgroundImage: 'unset' } },
+		},
 		MuiTooltip: {
 			styleOverrides: {
 				tooltip: {

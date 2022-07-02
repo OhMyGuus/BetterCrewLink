@@ -391,6 +391,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<Slider
+							size="small"
 							disabled={!canChangeLobbySettings}
 							value={canChangeLobbySettings ? localLobbySettingsBuffer.maxDistance : hostLobbySettings.maxDistance}
 							min={1}
@@ -699,6 +700,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							}}
 						>
 							<Slider
+								size="small"
 								disabled={!settings.microphoneGainEnabled}
 								value={settings.microphoneGain}
 								valueLabelDisplay="auto"
@@ -730,6 +732,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							}}
 						>
 							<Slider
+								size="small"
 								disabled={!settings.micSensitivityEnabled}
 								value={+(1 - settings.micSensitivity).toFixed(2)}
 								valueLabelDisplay="auto"
@@ -757,6 +760,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					<Grid container direction="row" justifyContent="center" alignItems="center">
 						<Grid item xs={11}>
 							<Slider
+								size="small"
 								value={settings.ghostVolume}
 								valueLabelDisplay="auto"
 								onChange={(_, newValue: number | number[]) => setSettings('ghostVolume', newValue as number)}
@@ -770,6 +774,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					<Grid container direction="row" justifyContent="center" alignItems="center">
 						<Grid item xs={11}>
 							<Slider
+								size="small"
 								value={settings.masterVolume}
 								valueLabelDisplay="auto"
 								max={200}
