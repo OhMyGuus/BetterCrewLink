@@ -178,6 +178,7 @@ const Avatar: React.FC<AvatarProps> = function ({
 							</Grid>
 							<Grid item xs>
 								<Slider
+									size="small"
 									value={socketConfig.volume}
 									min={0}
 									max={2}

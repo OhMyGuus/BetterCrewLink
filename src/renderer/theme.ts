@@ -1,5 +1,19 @@
 import { createTheme } from '@mui/material';
-import { red, purple } from '@mui/material/colors';
+import { red, purple, grey } from '@mui/material/colors';
+
+declare module "@mui/material/Button" {
+	interface ButtonPropsColorOverrides {
+		grey: true;
+	}
+}
+
+declare module "@mui/material" {
+	interface Color {
+		main: string;
+		dark: string;
+	}
+}
+
 
 // Create a theme instance.
 const theme = createTheme({
@@ -11,6 +25,10 @@ const theme = createTheme({
 		background: {
 			default: '#27232a',
 			paper: '#272727',
+		},
+		grey: {
+			main: grey[300],
+			dark: grey[400]
 		},
 		mode: 'dark',
 	},

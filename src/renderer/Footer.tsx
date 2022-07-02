@@ -27,7 +27,8 @@ const RawFooter: React.FC = function () {
 	return (
 		<div className={classes.footer}>
 			<div className={classes.row}>
-				<Button
+				<Button 
+					color="grey"
 					onClick={() => {
 						shell.openExternal('https://github.com/OhMyGuus/BetterCrewLink');
 					}}
@@ -41,7 +42,8 @@ const RawFooter: React.FC = function () {
 						</svg>
 					</Tooltip>
 				</Button>
-				<Button
+				<Button 
+					color="grey"
 					onClick={() => {
 						shell.openExternal('https://discord.gg/qDqTzvj4SH');
 					}}
@@ -59,7 +61,8 @@ const RawFooter: React.FC = function () {
 						</svg>
 					</Tooltip>
 				</Button>
-				<Button
+				<Button 
+					color="grey"
 					onClick={() => {
 						shell.openExternal('https://ko-fi.com/ohmyguus');
 					}}

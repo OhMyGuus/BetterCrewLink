@@ -264,6 +264,7 @@ export default function App({ t }): JSX.Element {
 									{updaterState.state === 'error' && (
 										<DialogActions>
 											<Button
+												color="grey"
 												onClick={() => {
 													shell.openExternal("https://github.com/OhMyGuus/BetterCrewLink/releases/latest");
 												}}
@@ -271,6 +272,7 @@ export default function App({ t }): JSX.Element {
 												Download Manually
 											</Button>
 											<Button
+												color="grey"
 												onClick={() => {
 													setDiaOpen(false);
 												}}
