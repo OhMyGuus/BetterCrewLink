@@ -47,7 +47,9 @@ const RawServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, on
 				{t('settings.advanced.change_server')}
 			</Button>
 			<Dialog fullScreen open={open} onClose={() => setOpen(false)}>
-				<DialogTitle>{t('settings.advanced.change_server')}</DialogTitle>
+				<div>
+					<DialogTitle>{t('settings.advanced.change_server')}</DialogTitle>
+				</div>
 				<DialogContent className={className}>
 					<TextField
 						fullWidth
