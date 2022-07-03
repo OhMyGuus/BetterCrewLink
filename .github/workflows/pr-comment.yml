@@ -56,7 +56,7 @@ jobs:
             for (const art of artifacts) {
               body += `\n* [${art.name}.zip](https://nightly.link/${owner}/${repo}/actions/artifacts/${art.id}.zip)`;
             }
-            body += `  \n <hr /> \nThis service is provided by [nightly.link](https://github.com/oprypin/nightly.link). These artifacts will expire in 90 days and will not be available for download after that time.`;
+            body += `  \n<hr />\nThis service is provided by [nightly.link](https://github.com/oprypin/nightly.link). These artifacts will expire in 90 days and will not be available for download after that time.`;
             core.info("Review thread message body:", body);
             await upsertComment(owner, repo, ${{ env.PR_NUM }},
               "nightly-link", body);
