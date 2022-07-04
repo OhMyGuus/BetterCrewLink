@@ -67,6 +67,7 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, true);
 			}
 			if (keyCodeMatches(impostorRadioShortcut!, keyId)) {
+				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, true);
 				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, true);
 			}
 		});
@@ -82,6 +83,7 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 				event.sender.send(IpcRendererMessages.TOGGLE_MUTE);
 			}
 			if (keyCodeMatches(impostorRadioShortcut!, keyId)) {
+				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, false);
 				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, false);
 			}
 		});
