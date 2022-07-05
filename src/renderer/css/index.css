@@ -1,7 +1,6 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Varela&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap'); */
 
-
 body {
 	background-color: #25232a;
 	color: white;
@@ -54,4 +53,3 @@ body {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-

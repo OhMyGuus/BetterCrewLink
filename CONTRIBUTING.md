@@ -1,4 +1,5 @@
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Any contributions you make are greatly appreciated.
@@ -9,7 +10,7 @@ Needed [Git](https://git-scm.com/downloads) for Contributing.
 2. Create your Feature Branch. (`git checkout -b feature/AmazingFeature`)
 3. Commit your Changes. (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch. (`git push origin feature/AmazingFeature`)
-6. Open a Pull Request.
+5. Open a Pull Request.
 
 ### Development
 
@@ -20,9 +21,11 @@ Server code is located at [OhMyGuus/BetterCrewLink-server](https://github.com/Oh
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* [Python](https://www.python.org/downloads/)
-* [node.js](https://nodejs.org/en/download/)
-* yarn
+
+- [Python](https://www.python.org/downloads/)
+- [node.js](https://nodejs.org/en/download/)
+- yarn
+
 ```sh
 npm install yarn -g
 ```
@@ -30,20 +33,26 @@ npm install yarn -g
 ### Setup
 
 1. Clone the repo
+
 ```sh
 git clone https://github.com/OhMyGuus/BetterCrewLink.git
 cd BetterCrewLink
 ```
+
 2. Install NPM packages
+
 ```sh
 yarn install
 ```
+
 3. Run the project
+
 ```JS
 yarn dev
 ```
 
 <!-- TRANSLATING -->
+
 ## Translating
 
 [![Crowdin][crowdin-shield]][crowdin-url]
@@ -78,6 +87,7 @@ There are two methods.
 </details>
 
 <!-- DONATE -->
+
 ## Donate
 
 If you like using BetterCrewLink and want to help it stay alive and with new features, bug fixes, support for other platforms, pay for servers, donate money for the project, of course if you want and can, this is an optional choice, we currently support PayPal and Ko-fi, choose the best donation option for you and click on the image below:

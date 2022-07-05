@@ -92,18 +92,18 @@ export interface IOffsets {
 		isDummy: number[]; // used for muting
 		struct: {
 			type:
-			| 'INT'
-			| 'INT_BE'
-			| 'UINT'
-			| 'UINT_BE'
-			| 'SHORT'
-			| 'SHORT_BE'
-			| 'USHORT'
-			| 'USHORT_BE'
-			| 'FLOAT'
-			| 'CHAR'
-			| 'BYTE'
-			| 'SKIP';
+				| 'INT'
+				| 'INT_BE'
+				| 'UINT'
+				| 'UINT_BE'
+				| 'SHORT'
+				| 'SHORT_BE'
+				| 'USHORT'
+				| 'USHORT_BE'
+				| 'FLOAT'
+				| 'CHAR'
+				| 'BYTE'
+				| 'SKIP';
 			skip?: number;
 			name: string;
 		}[];
@@ -134,17 +134,21 @@ interface IOffsetsStore {
 	offsets: IOffsets;
 }
 
-const BASE_URL = "https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Offsets/main";
+const BASE_URL = 'https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Offsets/main';
 
-const store = new Store<IOffsetsStore>({name: "offsets"});
-const lookupStore = new Store<IOffsetsLookup>({name: "lookup"});
+const store = new Store<IOffsetsStore>({ name: 'offsets' });
+const lookupStore = new Store<IOffsetsLookup>({ name: 'lookup' });
 
 async function fetchOffsetLookupJson(): Promise<IOffsetsLookup> {
 	console.log(`Fetching lookup file`);
 	return fetch(`${BASE_URL}/lookup.json`)
 		.then((response) => response.json())
-		.then((data) => { return data as IOffsetsLookup })
-		.catch((_) => { throw Errors.LOOKUP_FETCH_ERROR })
+		.then((data) => {
+			return data as IOffsetsLookup;
+		})
+		.catch((_) => {
+			throw Errors.LOOKUP_FETCH_ERROR;
+		});
 }
 
 export async function fetchOffsetLookup(): Promise<IOffsetsLookup> {
@@ -155,7 +159,7 @@ export async function fetchOffsetLookup(): Promise<IOffsetsLookup> {
 	} catch {
 		// Check if cache file has never been generated
 		if (!lookupStore.get('patterns')) throw Errors.LOOKUP_FETCH_ERROR;
-		return lookupStore.store
+		return lookupStore.store;
 	}
 }
 
@@ -164,16 +168,24 @@ async function fetchOffsetsJson(is_64bit: boolean, filename: string): Promise<IO
 	console.log(`Fetching file: ${filename}`);
 	return fetch(`${OFFSETS_URL}/${is_64bit ? 'x64' : 'x86'}/${filename}`)
 		.then((response) => response.json())
-		.then((data) => { return data as IOffsets })
-		.catch((_) => { throw Errors.OFFSETS_FETCH_ERROR })
+		.then((data) => {
+			return data as IOffsets;
+		})
+		.catch((_) => {
+			throw Errors.OFFSETS_FETCH_ERROR;
+		});
 }
 
 export async function fetchOffsets(is_64bit: boolean, filename: string, offsetsVersion: number): Promise<IOffsets> {
 	// offsetsVersion in case we need to update people's cached file
 	// >= version to allow testing with local file updates (eg remote vers 2, local vers 3)
 	// no need to host local http server
-	if (store.get('filename')  == filename && store.get('is_64bit') == is_64bit && store.get('offsetsVersion') >= offsetsVersion) {
-		console.log("Loading cached offsets");
+	if (
+		store.get('filename') == filename &&
+		store.get('is_64bit') == is_64bit &&
+		store.get('offsetsVersion') >= offsetsVersion
+	) {
+		console.log('Loading cached offsets');
 		return store.get('IOffsets');
 	}
 	const offsets = await fetchOffsetsJson(is_64bit, filename);
@@ -297,7 +309,6 @@ export async function fetchOffsets(is_64bit: boolean, filename: string, offsetsV
 // 	offsets.lightRadius = [0x54, 0x1c];
 // 	return offsets;
 // }
-
 
 // export function TempFixOffsets6(offsetsOld: IOffsets): IOffsets {
 // 	const offsets = JSON.parse(JSON.stringify(offsetsOld)) as IOffsets; // ugly copy

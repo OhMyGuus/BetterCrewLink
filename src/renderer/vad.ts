@@ -102,7 +102,7 @@ export default function (
 
 	if (isNoiseCapturing) {
 		//console.log('VAD: start noise capturing');
-		captureTimeout = (setTimeout(init, options.noiseCaptureDuration) as unknown) as number;
+		captureTimeout = setTimeout(init, options.noiseCaptureDuration) as unknown as number;
 	}
 
 	function init() {

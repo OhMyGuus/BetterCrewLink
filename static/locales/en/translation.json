@@ -41,82 +41,82 @@
 			"advanced": "Advanced",
 			"arguments": "Arguments"
 		},
-			"audio": {
-				"title": "Audio",
-				"microphone": "Microphone",
-				"speaker": "Speaker",
-				"voice_activity": "Voice Activity",
-				"push_to_talk": "Push To Talk",
-				"push_to_mute": "Push To Mute",
-				"microphone_volume": "Microphone Volume",
-				"microphone_sens": "Microphone Sensitivity",
-				"microphone_sens_warning": "If you set the sensitivity any lower it might not work.",
-				"mastervolume": "Master Volume",
-				"crewvolume": "Crew Volume as Ghost",
-				"test_speaker_start": "Test Speaker",
-				"test_speaker_stop": "Stop Test Speaker"
-			},
-			"keyboard": {
-				"title": "Keyboard Shortcuts",
-				"push_to_talk": "Push To Talk",
-				"mute": "Mute",
-				"deafen": "Deafen",
-				"impostor_radio": "Impostor Radio"
-			},
-			"overlay": {
-				"title": "Overlay",
-				"always_on_top": "BetterCrewLink On Top",
-				"enabled": "Enable Overlay",
-				"compact": "Compact Overlay",
-				"meeting": "Meeting Overlay",
-				"pos": "Overlay Position",
-				"locations": {
-					"hidden": "Hidden",
-					"top": "Top Center",
-					"bottom": "Bottom Left",
-					"right": "Right",
-					"right1": "Right with Background",
-					"left": "Left",
-					"left1": "Left with Background"
-				}
-			},
-			"advanced": {
-				"title": "Advanced",
-				"nat_fix": "NAT Fix",
-				"nat_fix_warning": "This will FIX the NAT issues but will add a delay since it is using a server instead of Peer to Peer (P2P).",
-				"change_server": "Change Voice Server",
-				"voice_server": "Voice Server",
-				"invalid_url": "Invalid URL",
-				"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash BetterCrewLink.",
-				"reset_default": "Reset To Default"
-			},
-			"beta": {
-				"title": "BETA/DEBUG",
-				"mobilehost": "Mobile Host",
-				"vad_enabled": "VAD Enabled",
-				"hardware_acceleration": "Hardware Acceleration",
-				"hardware_acceleration_warning": "This disables hardware acceleration (which can increase cpu usage)",
-				"vad_enabled_warning": "You won't see who's talking if deactivate.",
-				"echocancellation": "Echo Cancellation",
-				"noiseSuppression": "Noise Suppression",
-				"spatial_audio": "Spatial Audio",
-				"oldsampledebug": "Samplerate debug",
-				"oldsampledebug_warning": "This is a test function only enabled when asked. "
-			},
-			"streaming": {
-				"title": "Streaming Settings",
-				"hidecode": "Show Lobby Code",
-				"obs_overlay": "OBS Browser Overlay",
-				"obs_url": "OBS Browser Source URL",
-				"voice_server_comp": "VS Compatibility Mode",
-				"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
-			},
-			"troubleshooting": {
-				"title": "Troubleshooting",
-				"restore": "Restore Defaults",
-				"restore_warning": "This will reset ALL settings to their default values.",
-				"warning": "Not available as host in game!"
+		"audio": {
+			"title": "Audio",
+			"microphone": "Microphone",
+			"speaker": "Speaker",
+			"voice_activity": "Voice Activity",
+			"push_to_talk": "Push To Talk",
+			"push_to_mute": "Push To Mute",
+			"microphone_volume": "Microphone Volume",
+			"microphone_sens": "Microphone Sensitivity",
+			"microphone_sens_warning": "If you set the sensitivity any lower it might not work.",
+			"mastervolume": "Master Volume",
+			"crewvolume": "Crew Volume as Ghost",
+			"test_speaker_start": "Test Speaker",
+			"test_speaker_stop": "Stop Test Speaker"
+		},
+		"keyboard": {
+			"title": "Keyboard Shortcuts",
+			"push_to_talk": "Push To Talk",
+			"mute": "Mute",
+			"deafen": "Deafen",
+			"impostor_radio": "Impostor Radio"
+		},
+		"overlay": {
+			"title": "Overlay",
+			"always_on_top": "BetterCrewLink On Top",
+			"enabled": "Enable Overlay",
+			"compact": "Compact Overlay",
+			"meeting": "Meeting Overlay",
+			"pos": "Overlay Position",
+			"locations": {
+				"hidden": "Hidden",
+				"top": "Top Center",
+				"bottom": "Bottom Left",
+				"right": "Right",
+				"right1": "Right with Background",
+				"left": "Left",
+				"left1": "Left with Background"
 			}
+		},
+		"advanced": {
+			"title": "Advanced",
+			"nat_fix": "NAT Fix",
+			"nat_fix_warning": "This will FIX the NAT issues but will add a delay since it is using a server instead of Peer to Peer (P2P).",
+			"change_server": "Change Voice Server",
+			"voice_server": "Voice Server",
+			"invalid_url": "Invalid URL",
+			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash BetterCrewLink.",
+			"reset_default": "Reset To Default"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "Mobile Host",
+			"vad_enabled": "VAD Enabled",
+			"hardware_acceleration": "Hardware Acceleration",
+			"hardware_acceleration_warning": "This disables hardware acceleration (which can increase cpu usage)",
+			"vad_enabled_warning": "You won't see who's talking if deactivate.",
+			"echocancellation": "Echo Cancellation",
+			"noiseSuppression": "Noise Suppression",
+			"spatial_audio": "Spatial Audio",
+			"oldsampledebug": "Samplerate debug",
+			"oldsampledebug_warning": "This is a test function only enabled when asked. "
+		},
+		"streaming": {
+			"title": "Streaming Settings",
+			"hidecode": "Show Lobby Code",
+			"obs_overlay": "OBS Browser Overlay",
+			"obs_url": "OBS Browser Source URL",
+			"voice_server_comp": "VS Compatibility Mode",
+			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
+		},
+		"troubleshooting": {
+			"title": "Troubleshooting",
+			"restore": "Restore Defaults",
+			"restore_warning": "This will reset ALL settings to their default values.",
+			"warning": "Not available as host in game!"
+		}
 	},
 	"lobbybrowser": {
 		"header": "Public Lobbies",

@@ -69,8 +69,6 @@ function getModHat(color: number, id = '', mod: ModsType, back = false) {
 	return undefined;
 }
 
-
-
 function getHat(id: string, modType: ModsType): hatData | undefined {
 	if (!initializedHats) {
 		return undefined;

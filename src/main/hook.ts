@@ -130,12 +130,12 @@ ipcMain.on('minimize', async (_, lobbybrowser) => {
 	//	global.overlay?.reload();
 });
 
-ipcMain.handle("getlocale", () => {
+ipcMain.handle('getlocale', () => {
 	return app.getLocale();
 });
 
 ipcMain.on('relaunch', async () => {
-	app.relaunch();  
+	app.relaunch();
 	app.exit();
 });
 // GenerateAvatars().then(() => console.log("done generate")).catch((e) => console.error(e));

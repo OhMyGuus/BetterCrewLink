@@ -1,19 +1,18 @@
 import { createTheme } from '@mui/material';
 import { red, purple, grey } from '@mui/material/colors';
 
-declare module "@mui/material/Button" {
+declare module '@mui/material/Button' {
 	interface ButtonPropsColorOverrides {
 		grey: true;
 	}
 }
 
-declare module "@mui/material" {
+declare module '@mui/material' {
 	interface Color {
 		main: string;
 		dark: string;
 	}
 }
-
 
 // Create a theme instance.
 const theme = createTheme({
@@ -28,7 +27,7 @@ const theme = createTheme({
 		},
 		grey: {
 			main: grey[300],
-			dark: grey[400]
+			dark: grey[400],
 		},
 		mode: 'dark',
 	},
@@ -40,11 +39,10 @@ const theme = createTheme({
 			styleOverrides: {
 				tooltip: {
 					fontSize: 15,
-				}
+				},
 			},
-
 		},
-	}
+	},
 });
 
 export default theme;

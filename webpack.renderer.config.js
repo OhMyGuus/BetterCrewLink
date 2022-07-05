@@ -1,6 +1,6 @@
-module.exports = function(config) {
-    // ...
-    config.externals = [];
+module.exports = function (config) {
+	// ...
+	config.externals = [];
 	config.devtool = 'source-map';
-    return config;
-}
+	return config;
+};

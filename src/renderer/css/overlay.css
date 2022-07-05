@@ -79,7 +79,7 @@ body,
 
 .overlay-wrapper.overlay_postion_right .playername,
 .overlay-wrapper.overlay_postion_left .playername {
-    transition:opacity 400ms;
+	transition: opacity 400ms;
 	padding-top: 3vh;
 	font-weight: bold;
 	padding-left: 5px;
@@ -146,12 +146,10 @@ body,
 
 .overlay-wrapper.compactoverlay.overlay_postion_left .player_wrapper > div:first-of-type {
 	padding-right: 0px;
-
 }
 .overlay-wrapper.compactoverlay.overlay_postion_right .player_wrapper > div:first-of-type {
 	padding-left: 0px;
 	float: left !important;
-
 }
 
 .otherplayers {
@@ -218,12 +216,11 @@ body,
 	padding: 5px;
 }
 
-
-.volumeicons{
+.volumeicons {
 	position: absolute;
-	left:0;
+	left: 0;
 	bottom: 0;
 	background-color: #25232ac0;
-	padding:4px;
+	padding: 4px;
 	border-top-right-radius: 10px;
 }
