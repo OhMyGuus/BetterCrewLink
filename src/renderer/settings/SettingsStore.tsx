@@ -13,10 +13,9 @@ export const SettingsStore = new Store<ISettings>({
 		'2.0.6': (store) => {
 			if (
 				store.get('serverURL') === 'http://bettercrewl.ink' ||
+				store.get('serverURL') === 'https://status.bettercrewl.ink' ||
 				store.get('serverURL') === 'https://bettercrewlink.app' ||
 				store.get('serverURL') === 'http://bettercrewlink.app' ||
-				store.get('serverURL') === 'https://bettercrewlink.app/' ||
-				store.get('serverURL') === 'http://bettercrewlink.app/' ||
 				store.get('serverURL') === 'https://bettercrewl.ink:6523' ||
 				store.get('serverURL') === 'http://bettercrewl.ink:6523' ||
 				store.get('serverURL') === 'https://crewlink.guus.info' ||
@@ -25,12 +24,14 @@ export const SettingsStore = new Store<ISettings>({
 				store.get('serverURL') === 'http://crewlink.guus.ninja' ||
 				store.get('serverURL') === 'https://github.com/OhMyGuus/BetterCrewLink' ||
 				store.get('serverURL') === 'https://mirror.bettercrewl.ink' ||
-				store.get('serverURL') === 'https://mirror.bettercrewl.ink/' ||
 				store.get('serverURL') === 'https://www.curseforge.com/among-us/all-mods/bettercrewlink-proximity-chat' ||
 				store.get('serverURL') === 'https://matadorprobr.itch.io/bettercrewlink' ||
 				store.get('serverURL') === 'https://gamebanana.com/tools/7079' ||
 				store.get('serverURL') === 'https://web.bettercrewl.ink' ||
 				store.get('serverURL') === 'https://obs.bettercrewlink.app' ||
+				store.get('serverURL') === 'https://dis.gg/bettercrewlink' ||
+				store.get('serverURL') === 'https://discord.io/bettercrewlink' ||
+				store.get('serverURL') === 'https://is.gd/bettercrewlink' ||
 				store.get('serverURL') === 'https://discord.gg/qDqTzvj4SH'
 			) {
 				store.set('serverURL', 'https://bettercrewl.ink');
@@ -39,10 +40,9 @@ export const SettingsStore = new Store<ISettings>({
 		'2.0.7': (store) => {
 			if (
 				store.get('serverURL') === 'http://bettercrewl.ink' ||
+				store.get('serverURL') === 'https://status.bettercrewl.ink' ||
 				store.get('serverURL') === 'https://bettercrewlink.app' ||
 				store.get('serverURL') === 'http://bettercrewlink.app' ||
-				store.get('serverURL') === 'https://bettercrewlink.app/' ||
-				store.get('serverURL') === 'http://bettercrewlink.app/' ||
 				store.get('serverURL') === 'https://bettercrewl.ink:6523' ||
 				store.get('serverURL') === 'http://bettercrewl.ink:6523' ||
 				store.get('serverURL') === 'https://crewlink.guus.info' ||
@@ -51,12 +51,14 @@ export const SettingsStore = new Store<ISettings>({
 				store.get('serverURL') === 'http://crewlink.guus.ninja' ||
 				store.get('serverURL') === 'https://github.com/OhMyGuus/BetterCrewLink' ||
 				store.get('serverURL') === 'https://mirror.bettercrewl.ink' ||
-				store.get('serverURL') === 'https://mirror.bettercrewl.ink/' ||
 				store.get('serverURL') === 'https://www.curseforge.com/among-us/all-mods/bettercrewlink-proximity-chat' ||
 				store.get('serverURL') === 'https://matadorprobr.itch.io/bettercrewlink' ||
 				store.get('serverURL') === 'https://gamebanana.com/tools/7079' ||
 				store.get('serverURL') === 'https://web.bettercrewl.ink' ||
 				store.get('serverURL') === 'https://obs.bettercrewlink.app' ||
+				store.get('serverURL') === 'https://dis.gg/bettercrewlink' ||
+				store.get('serverURL') === 'https://discord.io/bettercrewlink' ||
+				store.get('serverURL') === 'https://is.gd/bettercrewlink' ||
 				store.get('serverURL') === 'https://discord.gg/qDqTzvj4SH'
 			) {
 				store.set('serverURL', 'https://bettercrewl.ink');
