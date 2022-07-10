@@ -60,21 +60,30 @@ ipcMain.on(IpcSyncMessages.GET_INITIAL_STATE, (event) => {
 ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 	if (!readingGame) {
 		readingGame = true;
+		let speaking: number = 0
 		resetKeyHooks();
 
 		keyboardWatcher.on('keydown', (keyId: number) => {
 			if (keyCodeMatches(pushToTalkShortcut!, keyId)) {
-				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, true);
+				speaking += 1;
 			}
 			if (keyCodeMatches(impostorRadioShortcut!, keyId)) {
-				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, true);
+				speaking += 1;
 				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, true);
+			}
+
+			// Cover weird cases which shouldn't happen but just in case
+			if (speaking > 2) {
+				speaking = 2;
+			}
+			if (speaking) {
+				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, true);
 			}
 		});
 
 		keyboardWatcher.on('keyup', (keyId: number) => {
 			if (keyCodeMatches(pushToTalkShortcut!, keyId)) {
-				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, false);
+				speaking -= 1;
 			}
 			if (keyCodeMatches(deafenShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.TOGGLE_DEAFEN);
@@ -83,8 +92,16 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 				event.sender.send(IpcRendererMessages.TOGGLE_MUTE);
 			}
 			if (keyCodeMatches(impostorRadioShortcut!, keyId)) {
-				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, false);
+				speaking -= 1;
 				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, false);
+			}
+
+			// Cover weird cases which shouldn't happen but just in case
+			if (speaking < 0) {
+				speaking = 0;
+			}
+			if (!speaking) {
+				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, false);
 			}
 		});
 
