@@ -187,7 +187,7 @@ export default function lobbyBrowser({ t }) {
 												{row.current_players}/{row.max_players}
 											</StyledTableCell>
 											<StyledTableCell align="left">
-												{modList.find((o) => o.id === row.mods)?.label ?? 'None'}
+												{modList.find((o) => o.id === row.mods)?.label || (row.mods ?? 'None')}
 											</StyledTableCell>
 											<StyledTableCell align="left">
 												{(languages as any)[row.language]?.name ?? 'English'}
