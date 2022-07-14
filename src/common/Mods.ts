@@ -19,7 +19,7 @@ export const modList: AmongusMod[] = [
 	},
 	{
 		id: 'TOWN_OF_US',
-		label: 'Town of Us',
+		label: 'Town of Us: Reactivated',
 		dllStartsWith: 'TownOfUs',
 	},
 	{
