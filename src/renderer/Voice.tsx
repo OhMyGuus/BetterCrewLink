@@ -499,7 +499,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			audioElements.current[peer].pan.disconnect();
 			audioElements.current[peer].gain.disconnect();
 			// if (audioElements.current[peer].reverbGain != null) audioElements.current[peer].reverbGain?.disconnect();
-			if (audioElements.current[peer].reverb != null) audioElements.current[peer].reverb?.disconnect();
+			if (audioElements.current[peer].reverb !== null) audioElements.current[peer].reverb?.disconnect();
 			delete audioElements.current[peer];
 		}
 	}
@@ -738,7 +738,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	useEffect(() => {
 		const pressing = connectionStuff.current.impostorRadio;
 		if (
-			pressing == null ||
+			pressing === null ||
 			!myPlayer ||
 			!myPlayer.isImpostor ||
 			myPlayer.isDead ||
