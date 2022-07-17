@@ -26,7 +26,8 @@
 		"dist:64": "yarn compile && electron-builder --win --x64",
 		"dist:linux": "yarn compile && electron-builder --linux --x64",
 		"publish": "yarn compile && electron-builder --win --x64 --ia32 --publish always ",
-		"publish:linux": "yarn compile && electron-builder --x64 --linux --publish always"
+		"publish:linux": "yarn compile && electron-builder --x64 --linux --publish always",
+		"prepare": "husky install"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.9.3",
@@ -91,8 +92,10 @@
 		"eslint-config-prettier": "^7.1.0",
 		"eslint-plugin-prettier": "^3.3.0",
 		"eslint-plugin-react": "^7.21.5",
+		"husky": "^8.0.0",
 		"prettier": "^2.2.1",
 		"prettier-eslint": "^12.0.0",
+		"pretty-quick": "^3.1.3",
 		"typescript": "4.6.x",
 		"webpack": "~4.42.1",
 		"webpack-dev-server": "^3.11.0"
