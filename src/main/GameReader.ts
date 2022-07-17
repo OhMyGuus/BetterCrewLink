@@ -1149,7 +1149,7 @@ export default class GameReader {
 		const isDummy = this.readMemory<boolean>('boolean', data.objectPtr, this.offsets.player.isDummy);
 		let name = 'error';
 		let shiftedColor = -1;
-		if (data.hasOwnProperty('name')) {
+		if (Object.prototype.hasOwnProperty.call(data, 'name')) {
 			name = this.readString(data.name).split(/<.*?>/).join('');
 		} else {
 			this.readDictionary(data.outfitsPtr, 6, (k, v, i) => {

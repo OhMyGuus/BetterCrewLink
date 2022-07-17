@@ -1062,7 +1062,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 				connection.on('data', (data) => {
 					const parsedData = JSON.parse(data);
-					if (parsedData.hasOwnProperty('impostorRadio')) {
+					if (Object.prototype.hasOwnProperty.call(parsedData, 'impostorRadio')) {
 						const clientId = socketClientsRef.current[peer]?.clientId;
 						if (impostorRadioClientId.current === -1 && parsedData['impostorRadio']) {
 							impostorRadioClientId.current = clientId;
@@ -1071,7 +1071,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						}
 						console.log('Recieved impostor radio request', parsedData);
 					}
-					if (parsedData.hasOwnProperty('maxDistance')) {
+					if (Object.prototype.hasOwnProperty.call(parsedData, 'maxDistance')) {
 						if (!hostRef.current || hostRef.current.parsedHostId !== socketClientsRef.current[peer]?.clientId) return;
 						const newSettings = {...defaultlocalLobbySettings, ...parsedData};
 						setHostLobbySettings(newSettings);
@@ -1095,7 +1095,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 			socket.on('signal', ({ data, from, client }: { data: Peer.SignalData; from: string, client: Client }) => {
 				//console.log('onsignal', JSON.stringify(data));
-				if (data.hasOwnProperty('mobilePlayerInfo')) {
+				if (Object.prototype.hasOwnProperty.call(data, 'mobilePlayerInfo')) {
 					// eslint-disable-line
 					const mobiledata = data as mobileHostInfo;
 					if (
@@ -1113,7 +1113,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					console.warn('SIGNAL FROM UNKOWN SOCKET..');
 					return;
 				}
-				if (data.hasOwnProperty('type')) {
+				if (Object.prototype.hasOwnProperty.call(data, 'type')) {
 					// if (data.type === 'offer' && peerConnections[from]) {
 					// 	console.log("Got offer with already a connection")
 					// }
