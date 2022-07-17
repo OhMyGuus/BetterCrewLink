@@ -1,0 +1,16 @@
+version = 1
+
+exclude_patterns = [
+  "dist",
+  "node_modules",
+  "yarn.lock",
+  "tsconfig.json"
+]
+
+[[analyzers]]
+name = "javascript"
+enabled = true
+
+[[transformers]]
+name = "prettier"
+enabled = true
