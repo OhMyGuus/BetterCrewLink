@@ -10,13 +10,13 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { ipcRenderer } from 'electron';
-import { IpcHandlerMessages } from '../../common/ipc-messages';
+import { IpcHandlerMessages, IpcMessages } from '../../common/ipc-messages';
 import io from 'socket.io-client';
 import i18next from 'i18next';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Tooltip } from '@mui/material';
 import languages from '../language/languages';
 import { PublicLobbyMap, PublicLobby } from '../../common/PublicLobby';
-import { modList } from '../../common/Mods';
+import { modList, ModsType } from '../../common/Mods';
 import { GameState } from '../../common/AmongUsState';
 import SettingsStore from '../settings/SettingsStore';
 
@@ -83,6 +83,10 @@ function sortLobbies(a: PublicLobby, b: PublicLobby) {
 	}
 }
 
+function getModName(mod: string): string {
+	return modList.find((o) => o.id === mod)?.label || (mod ?? 'None')
+}
+
 // @ts-ignore
 export default function lobbyBrowser({ t }) {
 	const classes = useStyles();
@@ -91,7 +95,11 @@ export default function lobbyBrowser({ t }) {
 	const [code, setCode] = React.useState('');
 	const [, forceRender] = useState({});
 
+	const [mod, setMod] = useState<ModsType>('NONE');
+	
 	useEffect(() => {
+		ipcRenderer.invoke(IpcMessages.REQUEST_MOD).then((mod: ModsType) => setMod(mod));
+
 		const s = io(serverUrl, {
 			transports: ['websocket'],
 		});
@@ -187,7 +195,7 @@ export default function lobbyBrowser({ t }) {
 												{row.current_players}/{row.max_players}
 											</StyledTableCell>
 											<StyledTableCell align="left">
-												{modList.find((o) => o.id === row.mods)?.label || (row.mods ?? 'None')}
+												{getModName(row.mods)}
 											</StyledTableCell>
 											<StyledTableCell align="left">
 												{(languages as any)[row.language]?.name ?? 'English'}
@@ -197,27 +205,37 @@ export default function lobbyBrowser({ t }) {
 												{row.stateTime && new Date(Date.now() - row.stateTime).toISOString().substr(14, 5)}
 											</StyledTableCell>
 											<StyledTableCell align="right">
-												<Button
-													disabled={row.gameState !== GameState.LOBBY || row.max_players === row.current_players}
-													variant="contained"
-													color="secondary"
-													onClick={() => {
-														socket?.emit(
-															'join_lobby',
-															row.id,
-															(state: number, codeOrError: string, server: string, publicLobby: PublicLobby) => {
-																if (state === 0) {
-																	setCode(`${t('lobbybrowser.code')}: ${codeOrError} \n Region: ${server}`);
-																	// ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);
-																} else {
-																	setCode(`Error: ${codeOrError}`);
-																}
-															}
-														);
-													}}
+												<Tooltip 
+													title={
+														row.gameState !== GameState.LOBBY ? "Game in progress" :
+														row.max_players === row.current_players ? "Lobby is full" :
+														row.mods != mod ? `Incompatible mods '${getModName(mod)}' and '${getModName(row.mods)}'` : ""
+													}
 												>
-													Show code
-												</Button>
+													<span>
+														<Button
+														disabled={row.gameState !== GameState.LOBBY || row.max_players === row.current_players || row.mods != mod}
+														variant="contained"
+														color="secondary"
+														onClick={() => {
+															socket?.emit(
+																'join_lobby',
+																row.id,
+																(state: number, codeOrError: string, server: string, publicLobby: PublicLobby) => {
+																	if (state === 0) {
+																		setCode(`${t('lobbybrowser.code')}: ${codeOrError} \n Region: ${server}`);
+																		// ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);
+																	} else {
+																		setCode(`Error: ${codeOrError}`);
+																	}
+																}
+															);
+														}}
+													>
+														Show code
+														</Button>
+													</span>
+												</Tooltip>
 												{/* <Button variant="contained" color="secondary" style={{ marginLeft: '5px' }}>
 												report
 											</Button> */}

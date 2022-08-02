@@ -4,7 +4,7 @@ import GameReader from './GameReader';
 import { keyboardWatcher } from 'node-keyboard-watcher';
 import Store from 'electron-store';
 import { ISettings } from '../common/ISettings';
-import { IpcHandlerMessages, IpcRendererMessages, IpcSyncMessages } from '../common/ipc-messages';
+import { IpcHandlerMessages, IpcMessages, IpcRendererMessages, IpcSyncMessages } from '../common/ipc-messages';
 // import { GenerateAvatars } from './avatarGenerator';
 
 const store = new Store<ISettings>();
@@ -55,6 +55,10 @@ ipcMain.on(IpcSyncMessages.GET_INITIAL_STATE, (event) => {
 		return;
 	}
 	event.returnValue = gameReader.lastState;
+});
+
+ipcMain.handle(IpcMessages.REQUEST_MOD, () => {
+	return gameReader.loadedMod.id;
 });
 
 ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
