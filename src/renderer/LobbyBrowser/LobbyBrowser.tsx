@@ -207,9 +207,9 @@ export default function lobbyBrowser({ t }) {
 											<StyledTableCell align="right">
 												<Tooltip 
 													title={
-														row.gameState !== GameState.LOBBY ? "Game in progress" :
-														row.max_players === row.current_players ? "Lobby is full" :
-														row.mods != mod ? `Incompatible mods '${getModName(mod)}' and '${getModName(row.mods)}'` : ""
+														row.gameState !== GameState.LOBBY ? t('lobbybrowser.code_tooltips.in_progress') :
+														row.max_players === row.current_players ? t('lobbybrowser.code_tooltips.full_lobby') :
+														row.mods != mod ? `${t('lobbybrowser.code_tooltips.incompatible')} '${getModName(mod)}' ${t('lobbybrowser.code_tooltips.and')} '${getModName(row.mods)}'` : ""
 													}
 												>
 													<span>
