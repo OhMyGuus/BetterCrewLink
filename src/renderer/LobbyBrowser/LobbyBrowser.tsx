@@ -205,7 +205,7 @@ export default function lobbyBrowser({ t }) {
 												{row.stateTime && new Date(Date.now() - row.stateTime).toISOString().substr(14, 5)}
 											</StyledTableCell>
 											<StyledTableCell align="right">
-												<Tooltip 
+												<Tooltip
 													title={
 														row.gameState !== GameState.LOBBY ? t('lobbybrowser.code_tooltips.in_progress') :
 														row.max_players === row.current_players ? t('lobbybrowser.code_tooltips.full_lobby') :
@@ -214,25 +214,29 @@ export default function lobbyBrowser({ t }) {
 												>
 													<span>
 														<Button
-														disabled={row.gameState !== GameState.LOBBY || row.max_players === row.current_players || row.mods != mod}
-														variant="contained"
-														color="secondary"
-														onClick={() => {
-															socket?.emit(
-																'join_lobby',
-																row.id,
-																(state: number, codeOrError: string, server: string, publicLobby: PublicLobby) => {
-																	if (state === 0) {
-																		setCode(`${t('lobbybrowser.code')}: ${codeOrError} \n Region: ${server}`);
-																		// ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);
-																	} else {
-																		setCode(`Error: ${codeOrError}`);
+															disabled={
+																row.gameState !== GameState.LOBBY ||
+																row.max_players === row.current_players ||
+																row.mods != mod
+															}
+															variant="contained"
+															color="secondary"
+															onClick={() => {
+																socket?.emit(
+																	'join_lobby',
+																	row.id,
+																	(state: number, codeOrError: string, server: string, publicLobby: PublicLobby) => {
+																		if (state === 0) {
+																			setCode(`${t('lobbybrowser.code')}: ${codeOrError} \n Region: ${server}`);
+																			// ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);
+																		} else {
+																			setCode(`Error: ${codeOrError}`);
+																		}
 																	}
-																}
-															);
-														}}
-													>
-														Show code
+																);
+															}}
+														>
+															Show code
 														</Button>
 													</span>
 												</Tooltip>
