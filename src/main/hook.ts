@@ -67,7 +67,7 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 			if (keyCodeMatches(pushToTalkShortcut!, keyId)) {
 				speaking += 1;
 			}
-			if (keyCodeMatches(impostorRadioShortcut!, keyId)) {
+			if (keyCodeMatches(impostorRadioShortcut!, keyId) && gameReader.lastState.players.find((value) => {return value.clientId === gameReader.lastState.clientId})?.isImpostor) {
 				speaking += 1;
 				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, true);
 			}
@@ -91,7 +91,7 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 			if (keyCodeMatches(muteShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.TOGGLE_MUTE);
 			}
-			if (keyCodeMatches(impostorRadioShortcut!, keyId)) {
+			if (keyCodeMatches(impostorRadioShortcut!, keyId) && gameReader.lastState.players.find((value) => {return value.clientId === gameReader.lastState.clientId})?.isImpostor) {
 				speaking -= 1;
 				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, false);
 			}
