@@ -121,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "Public Lobbies",
 		"code": "Lobby Code",
+		"code_tooltips": {
+			"in_progress": "Game in progress",
+			"full_lobby": "Lobby is full",
+			"incompatible": "Incompatible mods",
+			"and": "and"
+		},
 		"list": {
 			"title": "Title",
 			"host": "Host",

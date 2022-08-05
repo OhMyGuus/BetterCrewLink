@@ -10,6 +10,7 @@ export enum IpcMessages {
 	SEND_TO_OVERLAY = 'SEND_TO_OVERLAY',
 	SEND_TO_MAINWINDOW = 'SEND_TO_MAINWINDOW',
 	RESTART_AND_UPDATE = 'RESTART_AND_UPDATE',
+	REQUEST_MOD = 'REQUEST_MOD',
 }
 
 // Renderer --> Main (sendSync/on)
