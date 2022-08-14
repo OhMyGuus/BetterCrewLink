@@ -54,7 +54,7 @@ export function initializeHats() {
 	return undefined;
 }
 
-const HAT_COLLECTION_URL = 'https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Hats/master';
+const HAT_COLLECTION_URL =  'https://cdn.jsdelivr.net/gh/ohmyguus/BetterCrewlink-Hats@master'; //'https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Hats/master';
 function getModHat(color: number, id = '', mod: ModsType, back = false) {
 	if (!initializedHats) {
 		return '';

@@ -134,7 +134,7 @@ interface IOffsetsStore {
 	offsets: IOffsets;
 }
 
-const BASE_URL = "https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Offsets/main";
+const BASE_URL = "https://cdn.jsdelivr.net/gh/ohmyguus/BetterCrewlink-Offsets@main"; // "https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Offsets/main"
 
 const store = new Store<IOffsetsStore>({name: "offsets"});
 const lookupStore = new Store<IOffsetsLookup>({name: "lookup"});
