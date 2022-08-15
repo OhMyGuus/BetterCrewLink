@@ -101,12 +101,10 @@ export default function (
 	scriptProcessorNode.onaudioprocess = monitor;
 
 	if (isNoiseCapturing) {
-		//console.log('VAD: start noise capturing');
 		captureTimeout = (setTimeout(init, options.noiseCaptureDuration) as unknown) as number;
 	}
 
 	function init() {
-		//console.log('VAD: stop noise capturing');
 		isNoiseCapturing = false;
 
 		envFreqRange = envFreqRange
@@ -126,7 +124,6 @@ export default function (
 
 		voiceScale = 1 - baseLevel;
 
-		//	console.log('VAD: base level:', options.minNoiseLevel);
 	}
 
 	function connect() {

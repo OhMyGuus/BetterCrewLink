@@ -16,7 +16,6 @@ import WifiOff from '@mui/icons-material/WifiOff';
 import LinkOff from '@mui/icons-material/LinkOff';
 import ErrorOutline from '@mui/icons-material/ErrorOutline'; //@ts-ignore
 import RadioSVG from '../../static/radio.svg';
-// import Tooltip from '@mui/material/Tooltip';
 import Tooltip from 'react-tooltip-lite';
 import { SocketConfig } from '../common/ISettings';
 import Slider from '@mui/material/Slider';
