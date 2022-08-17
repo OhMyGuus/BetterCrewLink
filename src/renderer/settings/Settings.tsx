@@ -205,23 +205,38 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	const [devices, setDevices] = useState<MediaDevice[]>([]);
 	const [_, updateDevices] = useReducer((state) => state + 1, 0);
 	useEffect(() => {
-		navigator.mediaDevices.enumerateDevices().then((devices) =>
-			setDevices(
-				devices.map((d) => {
-					let label = d.label;
-					if (d.deviceId === 'default') {
-						label = t('buttons.default');
-					} else {
-						const match = /.+?\([^(]+\)/.exec(d.label);
-						if (match && match[0]) label = match[0];
-					}
-					return {
-						id: d.deviceId,
-						kind: d.kind,
-						label,
-					};
+
+		navigator.mediaDevices.enumerateDevices().then((devices) => {
+			let mappedDevices = devices.map((d) => {
+				let label = d.label;
+				if (d.deviceId === 'default') {
+					label = t('buttons.default');
+				} else {
+					const match = /.+?\([^(]+\)/.exec(d.label);
+					if (match && match[0]) label = match[0];
+				}
+				return {
+					id: d.deviceId,
+					kind: d.kind,
+					label,
+				};
+			});
+			if (mappedDevices.filter(o => o.id == "default" && o.kind == 'audioinput').length == 0) {
+				mappedDevices.push({
+					id: 'default',
+					kind: 'audioinput',
+					label: 'default',
 				})
-			)
+			}
+			if (mappedDevices.filter(o => o.id == "default" && o.kind == 'audiooutput').length == 0) {
+				mappedDevices.push({
+					id: 'default',
+					kind: 'audiooutput',
+					label: 'default',
+				})
+			}
+			setDevices(mappedDevices);
+		}
 		);
 	}, [_]);
 
@@ -270,6 +285,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	};
 
 	const microphones = devices.filter((d) => d.kind === 'audioinput');
+
 	const speakers = devices.filter((d) => d.kind === 'audiooutput');
 
 	useEffect(() => {
