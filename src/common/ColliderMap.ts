@@ -103,8 +103,6 @@ export const doorMaps: { [key in MapType]: { [key in number]: string | undefined
 };
 
 export function poseCollide(p1: Vector2, p2: Vector2, map: MapType, closedDoors: number[]): boolean {
-	//  console.log(p1.x + 40, 40 - p1.y);
-	//console.log(colliderMaps[MapType.MIRA_HQ]?.join(' '));
 	if (map === MapType.THE_SKELD_APRIL) {
 		p1.x = p1.x * -1;
 		p2.x = p2.x * -1;
@@ -117,12 +115,9 @@ export function poseCollide(p1: Vector2, p2: Vector2, map: MapType, closedDoors:
 	for (const collider of colliderMap) {
 		const intersections = intersect(collider, `M ${p1.x + 40} ${40 - p1.y} L ${p2.x + 40} ${40 - p2.y}`);
 		if (intersections.length > 0) {
-			//	console.log(intersections)
 			return true;
 		}
 	}
-	// console.log('Closed doors: ', closedDoors);
-	// if (map === MapType.POLUS) { // temp only polus
 	const doorMap = doorMaps[map];
 	if (!doorMap) {
 		return false;

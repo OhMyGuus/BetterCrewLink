@@ -27,11 +27,9 @@ import { validateClientPeerConfig } from './validateClientPeerConfig';
 // @ts-ignore
 import reverbOgx from 'arraybuffer-loader!../../static/sounds/reverb.ogx'; // @ts-ignore
 import radioOnSound from '../../static/sounds/radio_on.wav'; // @ts-ignore
-// import radioBeep2 from '../../static/sounds/radio_beep2.wav';
 
 import { CameraLocation, AmongUsMaps, MapType } from '../common/AmongusMap';
 import { ObsVoiceState } from '../common/ObsOverlay';
-// import { poseCollide } from '../common/ColliderMap';
 import Footer from './Footer';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -1094,7 +1092,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			});
 
 			socket.on('signal', ({ data, from, client }: { data: Peer.SignalData; from: string, client: Client }) => {
-				//console.log('onsignal', JSON.stringify(data));
 				if (data.hasOwnProperty('mobilePlayerInfo')) {
 					// eslint-disable-line
 					const mobiledata = data as mobileHostInfo;
@@ -1107,22 +1104,15 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					}
 					return;
 				}
-				//console.log('ONSIGNAL', data, client);
 				let connection: Peer.Instance;
 				if (!socketClientsRef.current[from]) {
 					console.warn('SIGNAL FROM UNKOWN SOCKET..');
 					return;
 				}
 				if (data.hasOwnProperty('type')) {
-					// if (data.type === 'offer' && peerConnections[from]) {
-					// 	console.log("Got offer with already a connection")
-					// }
 					if (peerConnections[from] && data.type !== 'offer') {
-						//	console.log('Send to existing peer 1');
 						connection = peerConnections[from];
 					} else {
-						//	console.log('Send to new peer 1');
-
 						connection = createPeerConnection(from, false, client);
 					}
 					connection.signal(data);

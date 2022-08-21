@@ -4,8 +4,6 @@ import fs from 'fs';
 
 // @ts-ignore
 import playerBase from '../../static/images/generate/player.png'; // @ts-ignore
-// import balloonBase from '../../static/images/generate/balloon.png'; // @ts-ignore
-// import kidBase from '../../static/images/generate/kid.png'; // @ts-ignore
 import ghostBase from '../../static/images/generate/ghost.png'; // @ts-ignore
 import { app } from 'electron';
 

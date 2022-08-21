@@ -1,11 +1,9 @@
 import { app, ipcMain } from 'electron';
 import GameReader from './GameReader';
-// import iohook from 'iohook';
 import { keyboardWatcher } from 'node-keyboard-watcher';
 import Store from 'electron-store';
 import { ISettings } from '../common/ISettings';
 import { IpcHandlerMessages, IpcMessages, IpcRendererMessages, IpcSyncMessages } from '../common/ipc-messages';
-// import { GenerateAvatars } from './avatarGenerator';
 
 const store = new Store<ISettings>();
 
@@ -142,7 +140,6 @@ ipcMain.on('reload', async (_, lobbybrowser) => {
 		global.mainWindow?.reload();
 	}
 	global.lobbyBrowser?.reload();
-	//	global.overlay?.reload();
 });
 
 ipcMain.on('minimize', async (_, lobbybrowser) => {
@@ -150,7 +147,6 @@ ipcMain.on('minimize', async (_, lobbybrowser) => {
 		global.mainWindow?.minimize();
 	}
 	global.lobbyBrowser?.minimize();
-	//	global.overlay?.reload();
 });
 
 ipcMain.handle("getlocale", () => {
@@ -161,7 +157,6 @@ ipcMain.on('relaunch', async () => {
 	app.relaunch();  
 	app.exit();
 });
-// GenerateAvatars().then(() => console.log("done generate")).catch((e) => console.error(e));
 
 const keycodeMap = {
 	Space: 0x20,

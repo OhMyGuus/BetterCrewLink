@@ -226,7 +226,6 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	}, [_]);
 
 	const setShortcut = (ev: React.KeyboardEvent, shortcut: keyof ISettings) => {
-		//	console.log(ev, shortcut);
 		let k = ev.key;
 		if (k.length === 1) k = k.toUpperCase();
 		else if (k.startsWith('Arrow')) k = k.substring(5);

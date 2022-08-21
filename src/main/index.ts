@@ -9,7 +9,7 @@ import { format as formatUrl } from 'url';
 import './hook';
 import { overlayWindow } from 'electron-overlay-window';
 import { initializeIpcHandlers, initializeIpcListeners } from './ipc-handlers';
-import { IpcRendererMessages /*AutoUpdaterState*/, IpcHandlerMessages } from '../common/ipc-messages';
+import { IpcRendererMessages, IpcHandlerMessages } from '../common/ipc-messages';
 import { ProgressInfo, UpdateInfo } from 'builder-util-runtime';
 import { protocol } from 'electron';
 import Store from 'electron-store';
@@ -82,8 +82,6 @@ function createMainWindow() {
 	let crewlinkVersion: string;
 	if (isDevelopment) {
 		crewlinkVersion = '0.0.0';
-		//window.loadURL("https://google.com")
-
 		window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}?version=DEV&view=app`);
 	} else {
 		crewlinkVersion = autoUpdater.currentVersion.version;

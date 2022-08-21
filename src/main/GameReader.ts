@@ -408,7 +408,6 @@ export default class GameReader {
 					process.exit(0);
 				}
 			}
-			//	}
 			this.lastState = newState;
 			this.oldGameState = state;
 		}
@@ -537,72 +536,9 @@ export default class GameReader {
 			this.offsets.signatures.serverManager.patternOffset,
 			this.offsets.signatures.serverManager.addressOffset
 		);
-		// if (this.loadedMod.id === 'POLUS_GG') {
-		// 	this.offsets.serverManager_currentServer[4] = 0x0c;
-		// }
+
 		this.colorsInitialized = false;
 		console.log('serverManager_currentServer', this.offsets.serverManager_currentServer[0].toString(16));
-
-		// if (innerNetClient === 30104372 ||
-		// 	innerNetClient == 30001864 ||
-		// 	innerNetClient == 30155956 ||
-		// 	innerNetClient == 29580672 || 
-		// 	innerNetClient == 30160488 ||
-		// 	innerNetClient == 0x2c6c278 ||
-		// 	innerNetClient == 0x1c57f54 ||
-		// 	innerNetClient == 0x1d17f2c ||
-		// 	innerNetClient == 0x1baa960 ||
-		// 	innerNetClient == 0x1D17F2C ||
-		// 	innerNetClient == 29777072 ||
-		// 	innerNetClient == 0x1C9CAC8 ||
-		// 	innerNetClient == 0x1d9dbb4 ||
-		// 	innerNetClient == 0x1e247c4 || // Moving this soon to a new repo
-		// 	innerNetClient == 30112580 || 
-		// 	innerNetClient == 29537396 // 2022.2.24e
-		// 	) {
-		// 	this.offsets = TempFixOffsets7(this.offsets);
-		// }
-		
-		// if (innerNetClient === 0x2c6c278) {
-			// temp fix for older game until I added more sigs.. //
-		// 	this.disableWriting = true;
-		// 	this.oldMeetingHud = true;
-		// 	this.offsets = TempFixOffsets(this.offsets);
-		// }
-
-		// if (innerNetClient === 0x1c57f54) {
-		// 	this.disableWriting = true;
-		// 	this.oldMeetingHud = true;
-		// 	// temp fix for older game until I added more sigs.. // 12/9
-		// 	this.offsets = TempFixOffsets2(this.offsets);
-		// }
-
-		// if (innerNetClient === 0x1d9dbb4 || innerNetClient === 0x1e247c4) {
-		// 	// temp fix for older game until I added more sigs.. // 25/5
-		// 	this.oldMeetingHud = true;
-		// 	this.offsets = TempFixOffsets3(this.offsets);
-		// 	const gameData = this.findPattern(
-		// 		this.offsets.signatures.gameData.sig,
-		// 		this.offsets.signatures.gameData.patternOffset,
-		// 		this.offsets.signatures.gameData.addressOffset
-		// 	);
-		// 	this.offsets.allPlayersPtr[0] = gameData;
-		// }
-
-		// if (innerNetClient === 0x1d17f2c) {
-		// 	//6/15
-		// 	this.offsets = TempFixOffsets4(this.offsets);
-		// }
-
-		// if (innerNetClient === 0x1baa960 || innerNetClient == 0x1D17F2C || innerNetClient == 29777072) {
-		// 	this.offsets = TempFixOffsets5(this.offsets);
-		// 	this.disableWriting = true;
-		// }
-
-		// if (innerNetClient === 0x1C9CAC8) {
-		// 	this.offsets = TempFixOffsets6(this.offsets);
-		// }
-
 		
 		this.PlayerStruct = new Struct();
 		for (const member of this.offsets.player.struct) {
@@ -996,7 +932,7 @@ export default class GameReader {
 				0,
 				Math.min(readMemoryRaw<number>(this.amongUs.handle, address + (this.is_64bit ? 0x10 : 0x8), 'int'), maxLength)
 			);
-			//				//readMemoryRaw<number>(this.amongUs.handle, address + (this.is_64bit ? 0x10 : 0x8), 'int')
+			// readMemoryRaw<number>(this.amongUs.handle, address + (this.is_64bit ? 0x10 : 0x8), 'int')
 			const buffer = readBuffer(this.amongUs.handle, address + (this.is_64bit ? 0x14 : 0xc), length << 1);
 			if (buffer) {
 				return buffer.toString('utf16le').replace(/\0/g, '');
@@ -1056,7 +992,7 @@ export default class GameReader {
 	IntToGameCode(input: number): string {
 		if (!input || input === 0) return '';
 		else if (input <= -1000) return this.IntToGameCodeV2Impl(input);
-		else if (input > 0) return this.IntToGameCodeV1Impl(input); // && this.loadedMod.id == 'POLUS_GG')
+		else if (input > 0) return this.IntToGameCodeV1Impl(input);
 		else return '';
 	}
 
@@ -1081,7 +1017,7 @@ export default class GameReader {
 	}
 
 	gameCodeToInt(code: string): number {
-		return code.length === 4 //&& this.loadedMod.id === 'POLUS_GG'
+		return code.length === 4
 			? this.gameCodeToIntV1Impl(code)
 			: this.gameCodeToIntV2Impl(code);
 	}
