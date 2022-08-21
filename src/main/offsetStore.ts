@@ -134,14 +134,14 @@ interface IOffsetsStore {
 	offsets: IOffsets;
 }
 
-const BASE_URL = "https://cdn.jsdelivr.net/gh/ohmyguus/BetterCrewlink-Offsets@main"; // "https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Offsets/main"
+const BASE_URL = "https://cdn.jsdelivr.net/gh/OhMyGuus/BetterCrewlink-Offsets@main/"; // "https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Offsets/main"
 
 const store = new Store<IOffsetsStore>({name: "offsets"});
 const lookupStore = new Store<IOffsetsLookup>({name: "lookup"});
 
 async function fetchOffsetLookupJson(): Promise<IOffsetsLookup> {
 	console.log(`Fetching lookup file`);
-	return fetch(`${BASE_URL}/lookup.json`)
+	return fetch(`${BASE_URL}lookup.json`)
 		.then((response) => response.json())
 		.then((data) => { return data as IOffsetsLookup })
 		.catch((_) => { throw Errors.LOOKUP_FETCH_ERROR })
@@ -159,7 +159,7 @@ export async function fetchOffsetLookup(): Promise<IOffsetsLookup> {
 	}
 }
 
-const OFFSETS_URL = `${BASE_URL}/offsets`;
+const OFFSETS_URL = `${BASE_URL}offsets`;
 async function fetchOffsetsJson(is_64bit: boolean, filename: string): Promise<IOffsets> {
 	console.log(`Fetching file: ${filename}`);
 	return fetch(`${OFFSETS_URL}/${is_64bit ? 'x64' : 'x86'}/${filename}`)

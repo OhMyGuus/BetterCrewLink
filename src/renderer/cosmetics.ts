@@ -54,7 +54,7 @@ export function initializeHats() {
 	return undefined;
 }
 
-const HAT_COLLECTION_URL =  'https://cdn.jsdelivr.net/gh/ohmyguus/BetterCrewlink-Hats@master'; //'https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Hats/master';
+const HAT_COLLECTION_URL =  'https://cdn.jsdelivr.net/gh/OhMyGuus/BetterCrewLink-Hats@master/'; //'https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Hats/master';
 function getModHat(color: number, id = '', mod: ModsType, back = false) {
 	if (!initializedHats) {
 		return '';
@@ -63,8 +63,8 @@ function getModHat(color: number, id = '', mod: ModsType, back = false) {
 	const hat = back ? hatBase?.back_image : hatBase?.image;
 	const multiColor = hatBase?.multi_color;
 	if (hat && hatBase) {
-		if (!multiColor) return `${HAT_COLLECTION_URL}/${hatBase.mod}/${hat}`;
-		else return `generate:///${HAT_COLLECTION_URL}/${hatBase.mod}/${hat}?color=${color}`;
+		if (!multiColor) return `${HAT_COLLECTION_URL}${hatBase.mod}/${hat}`;
+		else return `generate:///${HAT_COLLECTION_URL}${hatBase.mod}/${hat}?color=${color}`;
 	}
 	return undefined;
 }
