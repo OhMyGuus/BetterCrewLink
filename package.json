@@ -40,7 +40,7 @@
 		"electron-log": "^4.3.2",
 		"electron-overlay-window": "https://github.com/OhMyGuus/electron-overlay-window",
 		"electron-store": "^8.0.1",
-		"electron-updater": "^4.3.5",
+		"electron-updater": "^4.6.5",
 		"electron-window-state": "^5.0.3",
 		"i18next": "^19.9.2",
 		"jimp": "^0.16.1",
