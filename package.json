@@ -59,7 +59,7 @@
 		"socket.io-client": "2.4.0",
 		"source-code-pro": "^2.30.2",
 		"source-map-support": "^0.5.16",
-		"structron": "^0.2.4",
+		"structron": "^0.4.3",
 		"typeface-varela": "^1.1.13",
 		"valid-url": "^1.0.9",
 		"vdf-parser": "^1.2.0",
