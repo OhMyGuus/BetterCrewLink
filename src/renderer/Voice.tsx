@@ -530,6 +530,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	useEffect(() => {
 		if (!connectionStuff.current.instream) return;
 		connectionStuff.current.instream.getAudioTracks()[0].enabled =
+			!connectionStuff.current.deafened &&
+			!connectionStuff.current.muted &&
 			settings.pushToTalkMode !== pushToTalkOptions.PUSH_TO_TALK;
 		connectionStuff.current.pushToTalkMode = settings.pushToTalkMode;
 	}, [settings.pushToTalkMode]);
