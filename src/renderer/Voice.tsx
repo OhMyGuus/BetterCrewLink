@@ -530,6 +530,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	useEffect(() => {
 		if (!connectionStuff.current.instream) return;
 		connectionStuff.current.instream.getAudioTracks()[0].enabled =
+			!connectionStuff.current.deafened &&
+			!connectionStuff.current.muted &&
 			settings.pushToTalkMode !== pushToTalkOptions.PUSH_TO_TALK;
 		connectionStuff.current.pushToTalkMode = settings.pushToTalkMode;
 	}, [settings.pushToTalkMode]);
@@ -936,7 +938,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			ipcRenderer.on(IpcRendererMessages.TOGGLE_MUTE, connectionStuff.current.toggleMute);
 			ipcRenderer.on(IpcRendererMessages.PUSH_TO_TALK, (_: unknown, pressing: boolean) => {
 				if (connectionStuff.current.pushToTalkMode === pushToTalkOptions.VOICE) return;
-				if (!connectionStuff.current.deafened) {
+				if (!connectionStuff.current.deafened && !connectionStuff.current.muted) {
 					inStream.getAudioTracks()[0].enabled =
 						connectionStuff.current.pushToTalkMode === pushToTalkOptions.PUSH_TO_TALK ? pressing : !pressing;
 				}
