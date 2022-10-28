@@ -150,6 +150,7 @@ const useStyles = makeStyles((theme) => ({
 		textAlign: 'center',
 		fontSize: 20,
 		whiteSpace: 'nowrap',
+		maxWidth: '115px',
 	},
 	code: {
 		fontFamily: "'Source Code Pro', monospace",
