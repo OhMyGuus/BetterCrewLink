@@ -95,13 +95,13 @@
 			"mobilehost": "Телефон өчен бүлмә хуҗасы",
 			"vad_enabled": "VAD кушылган",
 			"hardware_acceleration": "Аппарат тизләнеше",
-			"hardware_acceleration_warning": "This disables hardware acceleration (which can increase cpu usage)",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"vad_enabled_warning": "Сүнгән булса, кем сөйләгәнен күрмисез.",
 			"echocancellation": "Эхо бетерүче",
 			"noiseSuppression": "Тавыш бетерүче",
 			"spatial_audio": "Киңлектәге тавыш",
-			"oldsampledebug": "Samplerate debug",
-			"oldsampledebug_warning": "This is a test function only enabled when asked. "
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
 		},
 		"streaming": {
 			"title": "Стрим көйләүләре",
@@ -122,9 +122,9 @@
 		"header": "Ачык бүлмәләр",
 		"code": "Бүлмә коды",
 		"code_tooltips": {
-			"in_progress": "Game in progress",
-			"full_lobby": "Lobby is full",
-			"incompatible": "Incompatible mods",
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
 			"and": "and"
 		},
 		"list": {
@@ -147,12 +147,12 @@
 	},
 	"game": {
 		"menu": "МЕНЮ",
-		"open": "Open Via",
+		"open": "Open via",
 		"open_error": "Start the Among Us manually.",
 		"waiting": "Among Us көтүе",
 		"error": "ХАТА",
 		"error_admin": "Among Us-га тоташып булмады. Зинһар, BetterCrewLink-ны администратор исеменнән ачыгыз.",
-		"error_platform": "No Platform Detected",
+		"error_platform": "No platform detected",
 		"error_unsupport": "Сезнең Among Us версиясендә BetterCrewLink эшләми."
 	},
 	"platform": {

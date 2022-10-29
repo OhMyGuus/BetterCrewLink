@@ -50,7 +50,7 @@
 			"push_to_mute": "Отключение голоса по кнопке",
 			"microphone_volume": "Громкость микрофона",
 			"microphone_sens": "Чувствительность микрофона",
-			"microphone_sens_warning": "Если выставить чувствительность немого ниже, она может не сработать.",
+			"microphone_sens_warning": "Если выставить чувствительность ещё ниже, она может не сработать.",
 			"mastervolume": "Общая громкость",
 			"crewvolume": "Громкость экипажа для призрака",
 			"test_speaker_start": "Проверка динамика",
@@ -95,10 +95,13 @@
 			"mobilehost": "Хост для мобильных телефонов",
 			"vad_enabled": "VAD включен",
 			"hardware_acceleration": "Аппаратное ускорение",
+			"hardware_acceleration_warning": "Это отключает Аппаратное ускорение (что может повысить нагрузку на процессор)",
 			"vad_enabled_warning": "Если отключить, Вы не увидите, кто говорит.",
 			"echocancellation": "Эхоподавление",
 			"noiseSuppression": "Шумоподавление",
-			"spatial_audio": "Пространственный звук"
+			"spatial_audio": "Пространственный звук",
+			"oldsampledebug": "Отладка частоты дискретизации",
+			"oldsampledebug_warning": "Это тестовая функция, включайте её ТОЛЬКО по запросу."
 		},
 		"streaming": {
 			"title": "Настройки для стриминга",
@@ -118,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "Открытые комнаты",
 		"code": "Код комнаты",
+		"code_tooltips": {
+			"in_progress": "Идёт игра",
+			"full_lobby": "Лобби заполнено",
+			"incompatible": "Несовместимые моды",
+			"and": "и"
+		},
 		"list": {
 			"title": "Заголовок",
 			"host": "Владелец комнаты",

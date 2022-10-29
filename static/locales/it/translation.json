@@ -95,10 +95,13 @@
 			"mobilehost": "Host Mobile",
 			"vad_enabled": "VAD Abilitato",
 			"hardware_acceleration": "Accelerazione Hardware",
+			"hardware_acceleration_warning": "Disabilita l'accelerazione hardware (potrebbe aumentare l'uso della CPU)",
 			"vad_enabled_warning": "Non vedrete chi sta parlando se disattivato.",
 			"echocancellation": "Cancellazione eco",
 			"noiseSuppression": "Riduzione del rumore",
-			"spatial_audio": "Audio Spaziale"
+			"spatial_audio": "Audio Spaziale",
+			"oldsampledebug": "Debug del Samplerate",
+			"oldsampledebug_warning": "Questa è una funzione di prova, attivala SOLO quando ti è richesto."
 		},
 		"streaming": {
 			"title": "Impostazioni streaming",
@@ -118,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "Lobby Pubbliche",
 		"code": "Codice Della Lobby",
+		"code_tooltips": {
+			"in_progress": "Partita in Corso",
+			"full_lobby": "La lobby è piena",
+			"incompatible": "Mod incompatibili",
+			"and": "e"
+		},
 		"list": {
 			"title": "Titolo",
 			"host": "Host",

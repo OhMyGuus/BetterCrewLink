@@ -95,10 +95,13 @@
 			"mobilehost": "手機端主機",
 			"vad_enabled": "啟用語音活性檢測 (VAD)",
 			"hardware_acceleration": "硬體加速",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"vad_enabled_warning": "如果停用這個選項，你將看不到目前是誰在說話。",
 			"echocancellation": "回音消除",
 			"noiseSuppression": "降噪",
-			"spatial_audio": "空間音訊"
+			"spatial_audio": "空間音訊",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
 		},
 		"streaming": {
 			"title": "直播設定",
@@ -118,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "公開大廳",
 		"code": "大廳代碼",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
 		"list": {
 			"title": "標題",
 			"host": "房主",

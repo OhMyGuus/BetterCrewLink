@@ -22,15 +22,32 @@
 			"meetings_only": "Alleen Meetings/Lobby",
 			"meetings_only_warning": "Dit zet al het geluid uit voor levende spelers buiten de meetings om.",
 			"meetings_only_warning2": "Alleen praten in meetings aan!",
-			"impostor_radio": "Impostor Radio"
+			"impostor_radio": "Impostor Radio",
+			"public_lobby": {
+				"change_settings": "Change Lobby Info",
+				"title": "Title",
+				"enabled": "The Lobby is Public",
+				"mods": "Mods",
+				"language": "Language",
+				"enable_warning": "Enabling this will make your lobby public to other BetterCrewLink users!",
+				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
+			}
+		},
+		"customplatforms": {
+			"title": "Custom Platform",
+			"platform_title": "Title",
+			"path": "EXE Path",
+			"uri": "URI Link",
+			"advanced": "Advanced",
+			"arguments": "Arguments"
 		},
 		"audio": {
 			"title": "Geluid",
 			"microphone": "Microfoon",
 			"speaker": "Speaker",
 			"voice_activity": "Spraakactiviteit",
-			"push_to_talk": "Push To Talk",
-			"push_to_mute": "Push To Mute",
+			"push_to_talk": "Push to Talk",
+			"push_to_mute": "Push to Mute",
 			"microphone_volume": "Microfoon volume",
 			"microphone_sens": "Microfoon gevoeligheid",
 			"microphone_sens_warning": "Als je de gevoeligheid nog lager zet werkt het waarschijnlijk niet meer.",
@@ -41,14 +58,14 @@
 		},
 		"keyboard": {
 			"title": "Toetsenbord sneltoetsen",
-			"push_to_talk": "Push To Talk",
+			"push_to_talk": "Push to Talk",
 			"mute": "Mute",
 			"deafen": "Dempen",
 			"impostor_radio": "Impostor Radio"
 		},
 		"overlay": {
 			"title": "Overlay",
-			"always_on_top": "Crewlink on Top",
+			"always_on_top": "BetterCrewLink on Top",
 			"enabled": "Overlay aan",
 			"compact": "Compact Overlay",
 			"meeting": "Meeting Overlay",
@@ -77,16 +94,20 @@
 			"title": "BETA/DEBUG",
 			"mobilehost": "Mobile Host",
 			"vad_enabled": "VAD Enabled",
+			"hardware_acceleration": "Hardware Acceleration",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"vad_enabled_warning": "Je kan niet meer zien wie er praat als je dit activeert. ",
 			"echocancellation": "Echo-onderdrukking",
 			"noiseSuppression": "Geluidsonderdrukking",
-			"spatial_audio": "Ruimtelijke audio"
+			"spatial_audio": "Ruimtelijke audio",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
 		},
 		"streaming": {
 			"title": "Streamers instellingen",
 			"hidecode": "Toon lobbycode",
 			"obs_overlay": "OBS Browser Overlay",
-			"obs_url": "Obs browsersource url",
+			"obs_url": "OBS Browser Source URL",
 			"voice_server_comp": "Server compatibiliteit modus",
 			"voice_server_comp_warning": "Het is beter om de standaard server te gebruiken (https://bettercrewl.ink)"
 		},
@@ -97,20 +118,48 @@
 			"warning": "Niet beschikbaar als host."
 		}
 	},
+	"lobbybrowser": {
+		"header": "Public Lobbies",
+		"code": "Lobby Code",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
+		"list": {
+			"title": "Title",
+			"host": "Host",
+			"players": "Players",
+			"mods": "Mods",
+			"language": "Language"
+		}
+	},
 	"buttons": {
 		"default": "Standaard",
 		"confirm": "OK",
 		"cancel": "Annuleren",
-		"exit": "Sluit de instellingen om op te slaan"
+		"close": "Close",
+		"exit": "Exit settings to apply changes",
+		"public_lobby": "Public Lobbies",
+		"delete": "Delete",
+		"file_select": "Select File"
 	},
 	"game": {
 		"menu": "MENU",
-		"open": "Open Game",
-		"open_error": "Start Among Us handmatig. \n(Dit knopje is alleen de Steam versie)",
+		"open": "Open via",
+		"open_error": "Start the Among Us manually.",
 		"waiting": "Wachten op Among Us",
 		"error": "FOUT",
 		"error_admin": "Kan niet met Among Us verbinden. \nStart Crewlink opnieuw op als Administrator ",
+		"error_platform": "No platform detected",
 		"error_unsupport": "Je Among Us versie wordt niet ondersteund door BetterCrewlink."
 	},
-	"translator_name": "Translator Name"
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "Custom"
+	},
+	"translator_name": "Guus"
 }

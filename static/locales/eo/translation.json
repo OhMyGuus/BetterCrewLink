@@ -95,10 +95,13 @@
 			"mobilehost": "Poŝtelefona ludejestro",
 			"vad_enabled": "VAD estas ŝaltita",
 			"hardware_acceleration": "Aparata plirapidigo",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"vad_enabled_warning": "Oni ne vidos, kiu parolas, se la agordo estos malŝaltita.",
 			"echocancellation": "Seneĥigo",
 			"noiseSuppression": "Senbruigo",
-			"spatial_audio": "Laŭspacaj sonoj"
+			"spatial_audio": "Laŭspacaj sonoj",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
 		},
 		"streaming": {
 			"title": "Agordoj por dissendoj",
@@ -118,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "Publikaj ludejoj",
 		"code": "Ludeja kodo",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
 		"list": {
 			"title": "Titolo",
 			"host": "Ludejestro",

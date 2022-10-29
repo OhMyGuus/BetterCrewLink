@@ -33,6 +33,14 @@
 				"ban_warning": "Uyğunsuz mətn, BetterCrewLink-də qadağa qoyulmasına səbəb olacaqdır."
 			}
 		},
+		"customplatforms": {
+			"title": "Custom Platform",
+			"platform_title": "Title",
+			"path": "EXE Path",
+			"uri": "URI Link",
+			"advanced": "Advanced",
+			"arguments": "Arguments"
+		},
 		"audio": {
 			"title": "Səs",
 			"microphone": "Mikrofon",
@@ -87,10 +95,13 @@
 			"mobilehost": "Mobil Host",
 			"vad_enabled": "VAD Fəaldır",
 			"hardware_acceleration": "Aparat Təminatı Sürətləndirmə",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"vad_enabled_warning": "Bağlı olsa kimin danışdığını görə bilməyəcəksiniz.",
 			"echocancellation": "Əks-səda ləğv etmə",
 			"noiseSuppression": "Səs-küy azaltma",
-			"spatial_audio": "Məkan səsi"
+			"spatial_audio": "Məkan səsi",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
 		},
 		"streaming": {
 			"title": "Axın tənzimləmələri",
@@ -110,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "İctimai Lobbilər",
 		"code": "Lobbi Kodu",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
 		"list": {
 			"title": "Başlıq",
 			"host": "Host",
@@ -124,12 +141,14 @@
 		"cancel": "İmtina",
 		"close": "Bağla",
 		"exit": "Dəyişikliklərin tətbiq olunması üçün tənzimləmələrdən çıxın",
-		"public_lobby": "İctimai Lobbilər"
+		"public_lobby": "İctimai Lobbilər",
+		"delete": "Delete",
+		"file_select": "Select File"
 	},
 	"game": {
 		"menu": "MENYU",
 		"open": "Aç",
-		"open_error": "Əllə oyunu başladın. \n(bu düymə ancaq steam üçündür)",
+		"open_error": "Start the Among Us manually.",
 		"waiting": "Among Us gözlənilir",
 		"error": "XƏTA",
 		"error_admin": "Among Us ilə bağlantı qurula bilmir.\nZəhmət olmasa BetterCrewLink-i Administrator kimi yenidən açın.",
@@ -139,7 +158,8 @@
 	"platform": {
 		"steam": "Steam",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft"
+		"microsoft": "Microsoft",
+		"custom": "Custom"
 	},
 	"translator_name": "Şahin Fərzəliyev"
 }

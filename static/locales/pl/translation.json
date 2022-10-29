@@ -95,10 +95,13 @@
 			"mobilehost": "Host mobilny",
 			"vad_enabled": "VAD włączone",
 			"hardware_acceleration": "Przyspieszenie sprzętowe",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"vad_enabled_warning": "Nie będziesz widział kto mówi, jeśli jest wyłączone.",
 			"echocancellation": "Tłumienie echa",
 			"noiseSuppression": "Tłumienie hałasu",
-			"spatial_audio": "Dźwięk przestrzenny"
+			"spatial_audio": "Dźwięk przestrzenny",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
 		},
 		"streaming": {
 			"title": "Ustawienia streamingu",
@@ -118,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "Publiczne poczekalnie",
 		"code": "Kod poczekalni",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
 		"list": {
 			"title": "Nazwa",
 			"host": "Gospodarz",

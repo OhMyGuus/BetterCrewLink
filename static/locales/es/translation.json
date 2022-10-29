@@ -5,7 +5,7 @@
 		"warning": "¿Estás seguro?",
 		"lobbysettings": {
 			"title": "Opciones de la Sala",
-			"gamehostonly": "¡Solo el anfitrión de la sala puede cambiar esto!",
+			"gamehostonly": "¡Solo el anfitrón de la sala puede cambiar esto! ",
 			"inlobbyonly": "¡Solo puedes cambiar esto en la sala!",
 			"voicedistance": "Distancia de la Voz",
 			"voicedistance_impostor": "Distancia de Voz del Impostor",
@@ -95,17 +95,20 @@
 			"mobilehost": "Host móvil",
 			"vad_enabled": "VAD activado",
 			"hardware_acceleration": "Aceleración de Hardware",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"vad_enabled_warning": "No serás capaz de ver quién habla si se desactiva.",
 			"echocancellation": "Cancelación de Eco",
 			"noiseSuppression": "Supresión de Ruido",
-			"spatial_audio": "Audio Espacial"
+			"spatial_audio": "Audio Espacial",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
 		},
 		"streaming": {
 			"title": "Opciones para Directos",
 			"hidecode": "Enseñar código de la Sala",
 			"obs_overlay": "Overlay de Buscador de OBS",
 			"obs_url": "URL de la fuente del navegador OBS",
-			"voice_server_comp": "Modo de compatibilidad de Servidores de Voz",
+			"voice_server_comp": "Modo de compatiblidad de Servidores de Voz",
 			"voice_server_comp_warning": "Es recomendado que se cambie el servidor de voz a un Servidor de Voz de BetterCrewLink, (https://bettercrewl.ink) por ejemplo."
 		},
 		"troubleshooting": {
@@ -118,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "Salas Públicas",
 		"code": "Código de la Sala",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
 		"list": {
 			"title": "Título",
 			"host": "Anfitrión",

@@ -95,10 +95,13 @@
 			"mobilehost": "Mobil Oyun Kurucu",
 			"vad_enabled": "VAD Aktif",
 			"hardware_acceleration": "Donanım Hızlandırma",
+			"hardware_acceleration_warning": "Donanım Hızlandırmayı kapatır (İşlemci kullanımını arttırabilir.)",
 			"vad_enabled_warning": "Kapatılırsa kimin konuştuğunu görmezsin.",
 			"echocancellation": "Yankı İptali",
 			"noiseSuppression": "Gürültü Azaltma",
-			"spatial_audio": "Uzamsal Ses"
+			"spatial_audio": "Uzamsal Ses",
+			"oldsampledebug": "Örnek Oranı Debug",
+			"oldsampledebug_warning": "Bu bir test fonksiyonudur, SADECE istendiğinde etkinleştirin."
 		},
 		"streaming": {
 			"title": "Yayın Ayarları",
@@ -118,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "Herkese Açık Lobiler",
 		"code": "Lobi Kodu",
+		"code_tooltips": {
+			"in_progress": "Oyun Devam Ediyor",
+			"full_lobby": "Lobi Dolu",
+			"incompatible": "Uyumsuz Modlar",
+			"and": "ve"
+		},
 		"list": {
 			"title": "Başlık",
 			"host": "Oyun Kurucu",

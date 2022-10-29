@@ -33,6 +33,14 @@
 				"ban_warning": "Texto inapropriado levará a um ban do BetterCrewLink."
 			}
 		},
+		"customplatforms": {
+			"title": "Custom Platform",
+			"platform_title": "Title",
+			"path": "EXE Path",
+			"uri": "URI Link",
+			"advanced": "Advanced",
+			"arguments": "Arguments"
+		},
 		"audio": {
 			"title": "Áudio",
 			"microphone": "Microfone",
@@ -87,10 +95,13 @@
 			"mobilehost": "Permitir jogadores Android/iOS",
 			"vad_enabled": "VAD Ativo",
 			"hardware_acceleration": "Utilizar Aceleração por Hardware",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"vad_enabled_warning": "Ao desativar, não será vísivel quem está a falar.",
 			"echocancellation": "Cancelamento de Eco",
 			"noiseSuppression": "Supressão de Ruído",
-			"spatial_audio": "Áudio Espacial"
+			"spatial_audio": "Áudio Espacial",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
 		},
 		"streaming": {
 			"title": "Definições de Streaming",
@@ -110,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "Lobbies Públicos",
 		"code": "Código do Lobby",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
 		"list": {
 			"title": "Título",
 			"host": "Anfitrião",
@@ -124,12 +141,14 @@
 		"cancel": "Cancelar",
 		"close": "Fechar",
 		"exit": "As definições são aplicadas ao sair",
-		"public_lobby": "Lobbies Públicos"
+		"public_lobby": "Lobbies Públicos",
+		"delete": "Delete",
+		"file_select": "Select File"
 	},
 	"game": {
 		"menu": "MENU",
 		"open": "Abrir",
-		"open_error": "Inicie o jogo manualmente. \r\n(este botão é apenas para a versão Steam)",
+		"open_error": "Start the Among Us manually.",
 		"waiting": "À espera do Among Us",
 		"error": "ERRO",
 		"error_admin": "Não foi possível ligar ao Among Us.\nAbra novamente o BetterCrewLink como administrador.",
@@ -139,7 +158,8 @@
 	"platform": {
 		"steam": "Steam",
 		"epicgames": "Epic Games",
-		"microsoft": "Microsoft"
+		"microsoft": "Microsoft",
+		"custom": "Custom"
 	},
 	"translator_name": "vbtop/vb-03"
 }

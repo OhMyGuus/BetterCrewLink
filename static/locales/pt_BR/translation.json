@@ -4,14 +4,14 @@
 		"language": "Idioma",
 		"warning": "Você tem certeza?",
 		"lobbysettings": {
-			"title": "Configurações do Lobby",
-			"gamehostonly": "Apenas o Anfitrião da Partida pode alterar isso!",
+			"title": "Configurações da Sala",
+			"gamehostonly": "Apenas o anfitrião da partida pode alterar isso!",
 			"inlobbyonly": "Você pode alterar isso apenas se estiver no lobby!",
 			"voicedistance": "Distância da Voz",
 			"voicedistance_impostor": "Distância da Voz do Impostor",
 			"wallsblockaudio": "Paredes Bloqueiam o Áudio",
-			"visiononly": "Ouvir Pessoas Apenas na Visão",
-			"impostorshearsghost": "Impostor Ouve os Fantasmas",
+			"visiononly": "Ouvir Pessoas na Visão Apenas",
+			"impostorshearsghost": "Impostor Ouve Mortos",
 			"hear_imposters_invents": "Ouça Impostores na Ventilação",
 			"private_talk_invents": "Conversa Privada nas Ventilações",
 			"comms_sabotage_audio": "Comunicações sabotadas desabilitam o Áudio",
@@ -95,10 +95,13 @@
 			"mobilehost": "Permitir jogadores Android/iOS",
 			"vad_enabled": "VAD Habilitado",
 			"hardware_acceleration": "Aceleração de Hardware",
+			"hardware_acceleration_warning": "Isso desativa a Aceleração de Hardware (o que pode aumentar o uso da CPU)",
 			"vad_enabled_warning": "Você não verá quem está falando se desativar.",
 			"echocancellation": "Cancelamento de Eco",
 			"noiseSuppression": "Supressão de Ruído",
-			"spatial_audio": "Áudio Espacial"
+			"spatial_audio": "Áudio Espacial",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "Isso é uma função de teste SOMENTE habilitada quando solicitada."
 		},
 		"streaming": {
 			"title": "Configurações de Streaming",
@@ -118,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "Salas Públicas",
 		"code": "Código da Sala",
+		"code_tooltips": {
+			"in_progress": "Partida em Andamento",
+			"full_lobby": "Sala está Cheia",
+			"incompatible": "Modificações Incompatíveis",
+			"and": "e"
+		},
 		"list": {
 			"title": "Título",
 			"host": "Anfitrião",
@@ -139,7 +148,7 @@
 	"game": {
 		"menu": "MENU",
 		"open": "Abrir Via",
-		"open_error": "Inicie o jogo manualmente. \r\n(este botão é apenas para a versão da Steam)",
+		"open_error": "Abra o Among Us manualmente.",
 		"waiting": "À espera do Among Us",
 		"error": "ERRO",
 		"error_admin": "Não foi possível conectar-se ao Among Us.\nAbra novamente o BetterCrewLink como Administrador.",

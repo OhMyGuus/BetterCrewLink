@@ -95,10 +95,13 @@
 			"mobilehost": "Mobil vert",
 			"vad_enabled": "VAD aktivert",
 			"hardware_acceleration": "Maskinvareakselerasjon",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"vad_enabled_warning": "Du vil ikke se hvem som snakker hvis deaktivert.",
 			"echocancellation": "Ekkodemping",
 			"noiseSuppression": "Støyreduksjon",
-			"spatial_audio": "Romslig lyd"
+			"spatial_audio": "Romslig lyd",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
 		},
 		"streaming": {
 			"title": "Strømningsinnstillinger",
@@ -118,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "Offentlige lobbyer",
 		"code": "Lobbykode",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
 		"list": {
 			"title": "Tittel",
 			"host": "Vert",

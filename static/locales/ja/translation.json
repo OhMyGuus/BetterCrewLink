@@ -37,7 +37,7 @@
 			"title": "その他",
 			"platform_title": "名前",
 			"path": "実行ファイルのパス",
-			"uri": "URI Link",
+			"uri": "URIリンク",
 			"advanced": "詳細設定",
 			"arguments": "引数"
 		},
@@ -95,10 +95,13 @@
 			"mobilehost": "モバイル ホスト",
 			"vad_enabled": "音声アクティビティ検出",
 			"hardware_acceleration": "ハードウェア アクセラレーション",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"vad_enabled_warning": "非アクティブにすると誰が話しているのかわからなくなります。",
 			"echocancellation": "エコーキャンセラー",
 			"noiseSuppression": "ノイズ防止",
-			"spatial_audio": "立体音響"
+			"spatial_audio": "立体音響",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
 		},
 		"streaming": {
 			"title": "配信設定",
@@ -118,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "公開ロビー",
 		"code": "ロビーコード",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
 		"list": {
 			"title": "タイトル",
 			"host": "ホスト",

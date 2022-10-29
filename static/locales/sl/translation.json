@@ -95,10 +95,13 @@
 			"mobilehost": "Gostitelj za mobilne naprave",
 			"vad_enabled": "VAD omogočen",
 			"hardware_acceleration": "Pospeševanje s pomočjo strojne opreme",
+			"hardware_acceleration_warning": "To onemogoči strojno pospeševanje (lahko vpliva na povečano uporabo procesorja)",
 			"vad_enabled_warning": "Če onemogočite, ne boste videli kdo govori.",
 			"echocancellation": "Odstrani odmevanje",
 			"noiseSuppression": "Odstrani šume",
-			"spatial_audio": "Prostorski zvok"
+			"spatial_audio": "Prostorski zvok",
+			"oldsampledebug": "Hitrost vzorčenja za razhroščevanje",
+			"oldsampledebug_warning": "To je testna funkcija, omogoči LE V PRIMERU, ko to zahtevajo."
 		},
 		"streaming": {
 			"title": "Nastavitve za prenašanje v živo",
@@ -118,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "Javne čakalnice",
 		"code": "Koda",
+		"code_tooltips": {
+			"in_progress": "Igra je v teku",
+			"full_lobby": "Čakalnica je polna",
+			"incompatible": "Nezdružljivi modi",
+			"and": "in"
+		},
 		"list": {
 			"title": "Ime",
 			"host": "Gostitelj",

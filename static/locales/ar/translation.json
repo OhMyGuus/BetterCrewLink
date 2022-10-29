@@ -95,10 +95,13 @@
 			"mobilehost": "مضيف الجوال",
 			"vad_enabled": "تمكين VAD",
 			"hardware_acceleration": "تسريع الجهاز",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"vad_enabled_warning": "لن ترى من يتحدث إذا تم إلغاء التنشيط.",
 			"echocancellation": "إلغاء الصدى",
 			"noiseSuppression": "قمع الضوضاء",
-			"spatial_audio": "صوت الفضاء"
+			"spatial_audio": "صوت الفضاء",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
 		},
 		"streaming": {
 			"title": "إعدادات البث",
@@ -118,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "الردهات العامة",
 		"code": "كود الردهة",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
 		"list": {
 			"title": "العنوان",
 			"host": "المضيف",

@@ -95,10 +95,13 @@
 			"mobilehost": "모바일 호스트",
 			"vad_enabled": "VAD 켜짐",
 			"hardware_acceleration": "하드웨어 가속",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"vad_enabled_warning": "비활성화하는 경우 말하는 이가 누구인지 알 수 없습니다.",
 			"echocancellation": "반향 제거",
 			"noiseSuppression": "잡음 제거",
-			"spatial_audio": "공간음향"
+			"spatial_audio": "공간음향",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
 		},
 		"streaming": {
 			"title": "스트리밍 설정",
@@ -118,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "공개 로비",
 		"code": "로비 코드",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
 		"list": {
 			"title": "이름",
 			"host": "호스트",

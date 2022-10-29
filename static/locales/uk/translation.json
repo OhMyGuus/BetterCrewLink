@@ -29,7 +29,7 @@
 				"enabled": "Відкрита кімната",
 				"mods": "Моди",
 				"language": "Мова",
-				"enable_warning": "Це відкриє кімнату для іншіх користувачів BetterCrewLink!",
+				"enable_warning": "Це відкриє кімнату для інших користувачів BetterCrewLink!",
 				"ban_warning": "Недоречні висловлювання приведуть до заборони використання BetterCrewLink."
 			}
 		},
@@ -50,7 +50,7 @@
 			"push_to_mute": "Відключення голосу по кнопці",
 			"microphone_volume": "Гучність мікрофона",
 			"microphone_sens": "Чутливість мікрофона",
-			"microphone_sens_warning": "Якщо виставити чутливість трохи нижче, вона може не спрацювати.",
+			"microphone_sens_warning": "Якщо виставити чутливість ще нижче, вона може не спрацювати.",
 			"mastervolume": "Загальна гучність",
 			"crewvolume": "Гучність команди для привида",
 			"test_speaker_start": "Перевірка динаміка",
@@ -95,10 +95,13 @@
 			"mobilehost": "Хост для мобільних",
 			"vad_enabled": "Включення VAD",
 			"hardware_acceleration": "Апаратне прискорення",
+			"hardware_acceleration_warning": "Це вимикає Апаратне прискорення (що може підвищити навантаження на процесор)",
 			"vad_enabled_warning": "Якщо відключити, то не буде видно, хто говорить.",
 			"echocancellation": "Усунення відлуння",
 			"noiseSuppression": "Зниження шуму",
-			"spatial_audio": "Просторовий звук"
+			"spatial_audio": "Просторовий звук",
+			"oldsampledebug": "Налагодження частоти дискретизації",
+			"oldsampledebug_warning": "Це тестова функція, ввімкніть її ЛИШЕ за запитом."
 		},
 		"streaming": {
 			"title": "Налаштування для стрімінгу",
@@ -118,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "Відкриті кімнати",
 		"code": "Код кімнати",
+		"code_tooltips": {
+			"in_progress": "Триває гра",
+			"full_lobby": "Лобі заповнене",
+			"incompatible": "Несумісні моди",
+			"and": "і"
+		},
 		"list": {
 			"title": "Заголовок",
 			"host": "Власник",

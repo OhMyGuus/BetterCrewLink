@@ -95,10 +95,13 @@
 			"mobilehost": "Hôte pour mobile",
 			"vad_enabled": "VAD activée",
 			"hardware_acceleration": "Accélération Matérielle",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"vad_enabled_warning": "Vous ne verrez pas qui parle si vous désactivez cette option.",
 			"echocancellation": "Annulation de l'écho",
 			"noiseSuppression": "Réducteur de bruit",
-			"spatial_audio": "Spatialisation sonore"
+			"spatial_audio": "Spatialisation sonore",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
 		},
 		"streaming": {
 			"title": "Paramètres streaming",
@@ -118,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "Lobbies Publiques",
 		"code": "Code du Lobby",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
 		"list": {
 			"title": "Titre",
 			"host": "Hôte",
