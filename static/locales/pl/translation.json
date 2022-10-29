@@ -27,7 +27,7 @@
 				"change_settings": "Zmień informacje o poczekalni",
 				"title": "Nazwa",
 				"enabled": "Poczekalnia jest publiczna",
-				"mods": "Moderatorzy",
+				"mods": "Modyfikacje",
 				"language": "Język",
 				"enable_warning": "Włączenie tego sprawi, że Twoja poczekalnia stanie się publiczna dla innych użytkowników BetterCrewLink!",
 				"ban_warning": "Nieodpowiednia nazwa spowoduje otrzymanie blokady od BetterCrewLink."
@@ -122,7 +122,7 @@
 			"title": "Nazwa",
 			"host": "Gospodarz",
 			"players": "Gracze",
-			"mods": "Moderatorzy",
+			"mods": "Modyfikacje",
 			"language": "Język"
 		}
 	},

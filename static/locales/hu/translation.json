@@ -95,10 +95,13 @@
 			"mobilehost": "Mobile Host",
 			"vad_enabled": "VAD Enabled",
 			"hardware_acceleration": "Hardveres gyorsítás",
+			"hardware_acceleration_warning": "This disables hardware acceleration (which can increase cpu usage)",
 			"vad_enabled_warning": "You won't see who's talking if deactivate.",
 			"echocancellation": "Visszhang csökkentés",
 			"noiseSuppression": "Zajcsökkentés",
-			"spatial_audio": "Spatial Audio"
+			"spatial_audio": "Spatial Audio",
+			"oldsampledebug": "Samplerate debug",
+			"oldsampledebug_warning": "This is a test function only enabled when asked. "
 		},
 		"streaming": {
 			"title": "Streaming Settings",
@@ -118,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "Publikus Lobbik",
 		"code": "Lobby Kód",
+		"code_tooltips": {
+			"in_progress": "Game in progress",
+			"full_lobby": "Lobby is full",
+			"incompatible": "Incompatible mods",
+			"and": "and"
+		},
 		"list": {
 			"title": "Cím",
 			"host": "Hoszt",
@@ -139,7 +148,7 @@
 	"game": {
 		"menu": "MENÜ",
 		"open": "Megnyitás ez által:",
-		"open_error": "Manuális mentés",
+		"open_error": "Start the Among Us manually.",
 		"waiting": "Waiting for Among Us",
 		"error": "HIBA",
 		"error_admin": "Couldn't connect to Among Us.\nPlease re-open BetterCrewLink as Administrator.",

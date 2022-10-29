@@ -95,10 +95,13 @@
 			"mobilehost": "Mobiler Host",
 			"vad_enabled": "VAD einschalten",
 			"hardware_acceleration": "Hardwarebeschleunigung",
+			"hardware_acceleration_warning": "Dies deaktiviert die Hardwarebeschleunigung (was die CPU-Nutzung erhöhen kann)",
 			"vad_enabled_warning": "Falls VAD deaktivert ist, wird nicht angezeigt, wer derzeit spricht.",
 			"echocancellation": "Echounterdrückung",
 			"noiseSuppression": "Geräuschunterdrückung",
-			"spatial_audio": "Räumliches Audio"
+			"spatial_audio": "Räumliches Audio",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "Dies ist eine Testfunktion, die nur auf Anfrage aktiviert ist. "
 		},
 		"streaming": {
 			"title": "Streamingeinstellungen",
@@ -118,6 +121,12 @@
 	"lobbybrowser": {
 		"header": "Öffentliche Lobbys",
 		"code": "Lobbycode",
+		"code_tooltips": {
+			"in_progress": "Spiel läuft",
+			"full_lobby": "Lobby ist voll",
+			"incompatible": "Inkompatible Mods",
+			"and": "und"
+		},
 		"list": {
 			"title": "Titel",
 			"host": "Host",

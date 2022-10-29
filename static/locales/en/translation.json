@@ -16,7 +16,7 @@
 			"private_talk_invents": "Private Talk in Vents",
 			"comms_sabotage_audio": "Comms Sabotage Disables Voice",
 			"hear_through_cameras": "Hear Through Cameras",
-			"ghost_only": "Only Ghosts Can Talk/Hear",
+			"ghost_only": "Only Ghosts can Talk/Hear",
 			"ghost_only_warning": "This disables the sound for alive players.",
 			"ghost_only_warning2": "Ghost can talk only enabled.",
 			"meetings_only": "Meetings/Lobby Only",
@@ -46,8 +46,8 @@
 				"microphone": "Microphone",
 				"speaker": "Speaker",
 				"voice_activity": "Voice Activity",
-				"push_to_talk": "Push To Talk",
-				"push_to_mute": "Push To Mute",
+				"push_to_talk": "Push to Talk",
+				"push_to_mute": "Push to Mute",
 				"microphone_volume": "Microphone Volume",
 				"microphone_sens": "Microphone Sensitivity",
 				"microphone_sens_warning": "If you set the sensitivity any lower it might not work.",
@@ -58,14 +58,14 @@
 			},
 			"keyboard": {
 				"title": "Keyboard Shortcuts",
-				"push_to_talk": "Push To Talk",
+				"push_to_talk": "Push to Talk",
 				"mute": "Mute",
 				"deafen": "Deafen",
 				"impostor_radio": "Impostor Radio"
 			},
 			"overlay": {
 				"title": "Overlay",
-				"always_on_top": "BetterCrewLink On Top",
+				"always_on_top": "BetterCrewLink on Top",
 				"enabled": "Enable Overlay",
 				"compact": "Compact Overlay",
 				"meeting": "Meeting Overlay",
@@ -88,20 +88,20 @@
 				"voice_server": "Voice Server",
 				"invalid_url": "Invalid URL",
 				"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash BetterCrewLink.",
-				"reset_default": "Reset To Default"
+				"reset_default": "Reset to Default"
 			},
 			"beta": {
 				"title": "BETA/DEBUG",
 				"mobilehost": "Mobile Host",
 				"vad_enabled": "VAD Enabled",
 				"hardware_acceleration": "Hardware Acceleration",
-				"hardware_acceleration_warning": "This disables hardware acceleration (which can increase cpu usage)",
-				"vad_enabled_warning": "You won't see who's talking if deactivate.",
+				"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
+				"vad_enabled_warning": "You won't see who's talking if disabled.",
 				"echocancellation": "Echo Cancellation",
 				"noiseSuppression": "Noise Suppression",
 				"spatial_audio": "Spatial Audio",
-				"oldsampledebug": "Samplerate debug",
-				"oldsampledebug_warning": "This is a test function only enabled when asked. "
+				"oldsampledebug": "Samplerate Debug",
+				"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
 			},
 			"streaming": {
 				"title": "Streaming Settings",
@@ -113,7 +113,7 @@
 			},
 			"troubleshooting": {
 				"title": "Troubleshooting",
-				"restore": "Restore Defaults",
+				"restore": "Restore to Default",
 				"restore_warning": "This will reset ALL settings to their default values.",
 				"warning": "Not available as host in game!"
 			}
@@ -122,9 +122,9 @@
 		"header": "Public Lobbies",
 		"code": "Lobby Code",
 		"code_tooltips": {
-			"in_progress": "Game in progress",
-			"full_lobby": "Lobby is full",
-			"incompatible": "Incompatible mods",
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
 			"and": "and"
 		},
 		"list": {
@@ -140,19 +140,19 @@
 		"confirm": "Confirm",
 		"cancel": "Cancel",
 		"close": "Close",
-		"exit": "Exit Settings to Apply Changes",
+		"exit": "Exit settings to apply changes",
 		"public_lobby": "Public Lobbies",
 		"delete": "Delete",
 		"file_select": "Select File"
 	},
 	"game": {
 		"menu": "MENU",
-		"open": "Open Via",
+		"open": "Open via",
 		"open_error": "Start the Among Us manually.",
 		"waiting": "Waiting for Among Us",
 		"error": "ERROR",
 		"error_admin": "Couldn't connect to Among Us.\nPlease re-open BetterCrewLink as Administrator.",
-		"error_platform": "No Platform Detected",
+		"error_platform": "No platform detected",
 		"error_unsupport": "Your version of Among Us is unsupported by BetterCrewLink."
 	},
 	"platform": {
