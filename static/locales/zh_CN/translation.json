@@ -83,7 +83,7 @@
 		"advanced": {
 			"title": "高级设置",
 			"nat_fix": "NAT 修复",
-			"nat_fix_warning": "这会将默认的点对点（P2P) 连接改为通过中转服务器连接进行语音。",
+			"nat_fix_warning": "这会将默认的点对点（P2P）连接改为通过中转服务器连接进行语音。",
 			"change_server": "更改语音服务器",
 			"voice_server": "语音服务器",
 			"invalid_url": "无效的URL",
@@ -95,13 +95,13 @@
 			"mobilehost": "移动端主机",
 			"vad_enabled": "启用VAD",
 			"hardware_acceleration": "硬件加速",
-			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
-			"vad_enabled_warning": "如果停用这个选项，你看不到当前谁在说话。",
+			"hardware_acceleration_warning": "禁用硬件加速将会导致CPU占用上升！",
+			"vad_enabled_warning": "如果停用该选项，你将无法识别玩家当前语音状态。",
 			"echocancellation": "回音消除",
 			"noiseSuppression": "降噪",
 			"spatial_audio": "空间音频",
-			"oldsampledebug": "Samplerate Debug",
-			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
+			"oldsampledebug": "采样率调试",
+			"oldsampledebug_warning": "这是一个测试函数，请在被要求时开启。"
 		},
 		"streaming": {
 			"title": "直播设置",
@@ -122,10 +122,10 @@
 		"header": "公共大厅",
 		"code": "房间代码",
 		"code_tooltips": {
-			"in_progress": "Game in Progress",
-			"full_lobby": "Lobby is Full",
-			"incompatible": "Incompatible Mods",
-			"and": "and"
+			"in_progress": "正在游戏中",
+			"full_lobby": "房间已满",
+			"incompatible": "模组不兼容",
+			"and": "和"
 		},
 		"list": {
 			"title": "房间名",
@@ -161,5 +161,5 @@
 		"microsoft": "Microsoft",
 		"custom": "自定义"
 	},
-	"translator_name": "Zheng Syameimaru"
+	"translator_name": "Zheng Syameimaru、Er1ckW"
 }

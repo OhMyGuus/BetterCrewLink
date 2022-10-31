@@ -57,11 +57,11 @@ const languages = {
 	},
 	'zh_CN': {
 		translation: translationZHCN,
-		name: '汉语',
+		name: '简体中文',
 	},
 	'zh_TW': {
 		translation: translationZHTW,
-		name: '漢語',
+		name: '繁體中文',
 	},
 	cs: {
 		translation: translationCS,
