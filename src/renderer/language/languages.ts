@@ -15,6 +15,7 @@ import translationDE from '../../../static/locales/de/translation.json';
 import translationEL from '../../../static/locales/el/translation.json';
 import translationHE from '../../../static/locales/he/translation.json';
 import translationHU from '../../../static/locales/hu/translation.json';
+import translationID from '../../../static/locales/id/translation.json';
 import translationIT from '../../../static/locales/it/translation.json';
 import translationJA from '../../../static/locales/ja/translation.json';
 import translationKO from '../../../static/locales/ko/translation.json';
@@ -102,6 +103,10 @@ const languages = {
 	hu: {
 		translation: translationHU,
 		name: 'Magyar',
+	},
+	id: {
+		translation: translationID,
+		name: 'Bahasa Indonesia',
 	},
 	it: {
 		translation: translationIT,
