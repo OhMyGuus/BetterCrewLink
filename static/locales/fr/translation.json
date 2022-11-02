@@ -122,10 +122,10 @@
 		"header": "Lobbies Publiques",
 		"code": "Code du Lobby",
 		"code_tooltips": {
-			"in_progress": "Game in Progress",
-			"full_lobby": "Lobby is Full",
-			"incompatible": "Incompatible Mods",
-			"and": "and"
+			"in_progress": "Partie en cours",
+			"full_lobby": "Le lobby est plein",
+			"incompatible": "Mods incompatibles",
+			"and": "et"
 		},
 		"list": {
 			"title": "Titre",
@@ -161,5 +161,5 @@
 		"microsoft": "Microsoft",
 		"custom": "Personnalisé"
 	},
-	"translator_name": "Adofou"
+	"translator_name": "Adofou & NicolasBFR"
 }

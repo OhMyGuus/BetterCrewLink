@@ -100,8 +100,8 @@
 			"echocancellation": "Eko dämpning",
 			"noiseSuppression": "Ljuddämpning",
 			"spatial_audio": "Rumsligt ljud",
-			"oldsampledebug": "Samplerate Debug",
-			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
+			"oldsampledebug": "Samplingsfrekvens Felsökning",
+			"oldsampledebug_warning": "Detta är en testfunktion som ENDAST är aktiverad när den tillfrågas."
 		},
 		"streaming": {
 			"title": "Inställningar för streaming",
@@ -122,9 +122,9 @@
 		"header": "Offentliga Lobbys",
 		"code": "Lobby Kod",
 		"code_tooltips": {
-			"in_progress": "Game in Progress",
+			"in_progress": "Pågående Spel",
 			"full_lobby": "Lobbyn är full",
-			"incompatible": "Incompatible Mods",
+			"incompatible": "Inkompatibla Mods",
 			"and": "och"
 		},
 		"list": {
@@ -161,5 +161,5 @@
 		"microsoft": "Microsoft",
 		"custom": "Anpassad"
 	},
-	"translator_name": "NoikzGaming"
+	"translator_name": "NoikzGaming feat. Intancote"
 }
