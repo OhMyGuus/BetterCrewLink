@@ -763,7 +763,9 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		// (async function anyNameFunction() {
 		let currentLobby = '';
 		// Connect to voice relay server
-		connectionStuff.current.socket = io(settings.serverURL);
+		connectionStuff.current.socket = io(settings.serverURL,{
+			transports: ['websocket']
+		 });
 
 		const { socket } = connectionStuff.current;
 
