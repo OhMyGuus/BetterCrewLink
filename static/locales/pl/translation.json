@@ -95,7 +95,7 @@
 			"mobilehost": "Host mobilny",
 			"vad_enabled": "VAD włączone",
 			"hardware_acceleration": "Przyspieszenie sprzętowe",
-			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
+			"hardware_acceleration_warning": "To ustawienie wyłącza akcelerację sprzętową (co może zwiększyć użycie procesora)",
 			"vad_enabled_warning": "Nie będziesz widział kto mówi, jeśli jest wyłączone.",
 			"echocancellation": "Tłumienie echa",
 			"noiseSuppression": "Tłumienie hałasu",
@@ -122,10 +122,10 @@
 		"header": "Publiczne poczekalnie",
 		"code": "Kod poczekalni",
 		"code_tooltips": {
-			"in_progress": "Game in Progress",
-			"full_lobby": "Lobby is Full",
-			"incompatible": "Incompatible Mods",
-			"and": "and"
+			"in_progress": "Rozgrywka w toku",
+			"full_lobby": "Poczekalnia jest pełna",
+			"incompatible": "Niekompatybilne modyfikacje",
+			"and": "i"
 		},
 		"list": {
 			"title": "Nazwa",
