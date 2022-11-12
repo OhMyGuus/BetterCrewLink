@@ -20,6 +20,7 @@ import translationIT from '../../../static/locales/it/translation.json';
 import translationJA from '../../../static/locales/ja/translation.json';
 import translationKO from '../../../static/locales/ko/translation.json';
 import translationNO from '../../../static/locales/no/translation.json';
+import translationFA from '../../../static/locales/no/translation.json';
 import translationPL from '../../../static/locales/pl/translation.json';
 import translationPT from '../../../static/locales/pt/translation.json';
 import translationPTBR from '../../../static/locales/pt_BR/translation.json';
@@ -123,6 +124,10 @@ const languages = {
 	no: {
 		translation: translationNO,
 		name: 'Norsk',
+	},
+	fa: {
+		translation: translationFA,
+		name: 'فارسی',
 	},
 	pl: {
 		translation: translationPL,
