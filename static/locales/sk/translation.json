@@ -53,6 +53,7 @@
 			"microphone_sens_warning": "Ak nastavíš nižšiu citlivosť, nemusí to fungovať",
 			"mastervolume": "Celková hlasitosť",
 			"crewvolume": "Hlasitosť posádky keď si duch",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Test reproduktora",
 			"test_speaker_stop": "Zastaviť test reproduktora"
 		},

@@ -53,6 +53,7 @@
 			"microphone_sens_warning": "Jika Anda menyetel sensitivitas lebih rendah, itu mungkin tidak berfungsi.",
 			"mastervolume": "Volume Utama",
 			"crewvolume": "Volume Kru sebagai Hantu",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Uji Speaker",
 			"test_speaker_stop": "Hentikan Uji Speaker"
 		},

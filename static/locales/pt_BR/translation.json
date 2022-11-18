@@ -53,6 +53,7 @@
 			"microphone_sens_warning": "Se você definir a sensibilidade para um nível mais baixo, o microfone pode não funcionar.",
 			"mastervolume": "Volume Principal",
 			"crewvolume": "Volume da Tripulação como Fantasma",
+			"ghostvolumeasimpostor": "Volume do Fantasma como Impostor",
 			"test_speaker_start": "Iniciar o Teste de Alto-falante",
 			"test_speaker_stop": "Parar o Teste de Alto-falante"
 		},

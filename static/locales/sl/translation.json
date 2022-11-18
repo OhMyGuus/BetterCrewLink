@@ -53,6 +53,7 @@
 			"microphone_sens_warning": "Če nastavite občutljivost še nižje, morda ne bo več delovalo pravilno.",
 			"mastervolume": "Generalna jakost zvoka",
 			"crewvolume": "Glasnost živih igralcev, ko si duh",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Preizkusi zvočnike",
 			"test_speaker_stop": "Ustavi preizkus zvočnikov"
 		},

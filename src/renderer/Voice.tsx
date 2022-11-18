@@ -359,7 +359,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						applyEffect(gain, reverb, destination, other);
 					}
 					collided = false;
-					endGain = 0.1;
+					endGain = settings.ghostVolumeAsImpostor / 100;
 				} else {
 					if (other.isDead && !me.isDead) {
 						endGain = 0;
@@ -1217,7 +1217,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					gain = playerVolume === undefined ? gain : gain * playerVolume;
 
 					if (myPlayer.isDead && !player.isDead) {
-						gain = gain * (settings.ghostVolume / 100);
+						gain = gain * (settings.crewVolumeAsGhost / 100);
 					}
 					gain = gain * (settings.masterVolume / 100);
 				}

@@ -86,6 +86,13 @@ export const SettingsStore = new Store<ISettings>({
 				store.set('micSensitivityEnabled', false);
 			}
 		},
+		'3.0.6': (store) => {
+			if (store.has('ghostVolume')) {
+				store.set('crewVolumeAsGhost', store.get('ghostVolume', 100));
+				// @ts-ignore
+				store.delete('ghostVolume');
+			}
+		}
 	},
 	schema: {
 		alwaysOnTop: {
@@ -149,9 +156,13 @@ export const SettingsStore = new Store<ISettings>({
 			type: 'boolean',
 			default: true,
 		},
-		ghostVolume: {
+		crewVolumeAsGhost: {
 			type: 'number',
 			default: 100,
+		},
+		ghostVolumeAsImpostor: {
+			type: 'number',
+			default: 10,
 		},
 		masterVolume: {
 			type: 'number',

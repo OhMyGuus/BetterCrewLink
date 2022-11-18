@@ -19,7 +19,8 @@ export interface ISettings {
 	meetingOverlay: boolean;
 
 	localLobbySettings: ILobbySettings;
-	ghostVolume: number;
+	ghostVolumeAsImpostor: number;
+	crewVolumeAsGhost: number;
 	masterVolume: number;
 	microphoneGain: number;
 	microphoneGainEnabled: boolean;

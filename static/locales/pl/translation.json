@@ -53,6 +53,7 @@
 			"microphone_sens_warning": "Jeśli ustawisz czułość niżej, mikrofon może nie działać.",
 			"mastervolume": "Głośność główna",
 			"crewvolume": "Głośność żywych graczy dla duchów",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Przetestuj dźwięk",
 			"test_speaker_stop": "Zatrzymaj test dźwięku"
 		},

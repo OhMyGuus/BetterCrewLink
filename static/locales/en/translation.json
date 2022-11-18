@@ -53,6 +53,7 @@
 				"microphone_sens_warning": "If you set the sensitivity any lower it might not work.",
 				"mastervolume": "Master Volume",
 				"crewvolume": "Crew Volume as Ghost",
+				"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 				"test_speaker_start": "Test Speaker",
 				"test_speaker_stop": "Stop Test Speaker"
 			},
