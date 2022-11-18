@@ -53,6 +53,7 @@
 			"microphone_sens_warning": "Om du ställer in känsligheten ännu lägre så kanske det inte fungerar.",
 			"mastervolume": "Huvudvolym",
 			"crewvolume": "Besättningens volym som spöke",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Testa högtalaren",
 			"test_speaker_stop": "Sluta Testa Högtalaren"
 		},

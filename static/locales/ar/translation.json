@@ -53,6 +53,7 @@
 			"microphone_sens_warning": "إذا قمت بتعيين حساسية أي أقل من ذلك قد لا تعمل.",
 			"mastervolume": "الصوت الرئيسي",
 			"crewvolume": "صوت الفريق كشبح",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "اختبار مكبر الصوت",
 			"test_speaker_stop": "إيقاف اختبار مكبر الصوت"
 		},

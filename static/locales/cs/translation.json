@@ -53,6 +53,7 @@
 			"microphone_sens_warning": "Pokud nastavíte citlivost níže, mikrofon nemusí fungovat.",
 			"mastervolume": "Celková hlasitost",
 			"crewvolume": "Hlasitost živých když jsi duch",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Zkusit mikrofon",
 			"test_speaker_stop": "Zastavit zkoušku mikrofonu"
 		},

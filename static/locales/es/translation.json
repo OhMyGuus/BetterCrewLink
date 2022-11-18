@@ -53,6 +53,7 @@
 			"microphone_sens_warning": "Si pones la sensibilidad más baja puede ser que no funcione.",
 			"mastervolume": "Volumen general",
 			"crewvolume": "Volumen de los Tripulantes como Fantasma",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Test de Altavoz",
 			"test_speaker_stop": "Parar Test de Altavoz"
 		},

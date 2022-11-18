@@ -53,6 +53,7 @@
 			"microphone_sens_warning": "Si la sensibilitat és massa baixa potser no funciona",
 			"mastervolume": "Volum General",
 			"crewvolume": "Volum dels Companys com Fantasma",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Provar l'altaveu",
 			"test_speaker_stop": "Parar de Provar l'altaveu"
 		},

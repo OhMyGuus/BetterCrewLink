@@ -53,6 +53,7 @@
 			"microphone_sens_warning": "Eğer hassasiyeti daha da azaltırsan çalışmayabilir.",
 			"mastervolume": "Ana Ses",
 			"crewvolume": "Hayaletken Crew Seviyesi",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Hoparlörü Test Et",
 			"test_speaker_stop": "Hoparlör Testini Durdur"
 		},

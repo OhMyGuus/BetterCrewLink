@@ -53,6 +53,7 @@
 			"microphone_sens_warning": "Si vous diminuez encore la sensibilité, cela pourrait ne pas fonctionner.",
 			"mastervolume": "Volume général",
 			"crewvolume": "Volume des survivants (en tant que fantôme)",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Tester la sortie audio",
 			"test_speaker_stop": "Arrêter le test"
 		},
@@ -95,13 +96,13 @@
 			"mobilehost": "Hôte pour mobile",
 			"vad_enabled": "VAD activée",
 			"hardware_acceleration": "Accélération Matérielle",
-			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
+			"hardware_acceleration_warning": "Ceci désactive l'accélération matérielle (ce qui peut augmenter l'utilisation du processeur)",
 			"vad_enabled_warning": "Vous ne verrez pas qui parle si vous désactivez cette option.",
 			"echocancellation": "Annulation de l'écho",
 			"noiseSuppression": "Réducteur de bruit",
 			"spatial_audio": "Spatialisation sonore",
-			"oldsampledebug": "Samplerate Debug",
-			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
+			"oldsampledebug": "Débogage de la fréquence d'échantillonnage",
+			"oldsampledebug_warning": "Ceci est une fonction de test UNIQUEMENT activée lorsque demandée."
 		},
 		"streaming": {
 			"title": "Paramètres streaming",

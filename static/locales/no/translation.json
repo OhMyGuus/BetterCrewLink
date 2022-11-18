@@ -53,6 +53,7 @@
 			"microphone_sens_warning": "Hvis du angir følsomheten enda lavere, virker den kanskje ikke.",
 			"mastervolume": "Hovedvolum",
 			"crewvolume": "Crew-volum som spøkelse",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Test høyttaler",
 			"test_speaker_stop": "Stop testing av høyttaler"
 		},
@@ -95,13 +96,13 @@
 			"mobilehost": "Mobil vert",
 			"vad_enabled": "VAD aktivert",
 			"hardware_acceleration": "Maskinvareakselerasjon",
-			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
+			"hardware_acceleration_warning": "Dette deaktiverer maskinvareakselerasjon (som kan øke CPU-bruk)",
 			"vad_enabled_warning": "Du vil ikke se hvem som snakker hvis deaktivert.",
 			"echocancellation": "Ekkodemping",
 			"noiseSuppression": "Støyreduksjon",
 			"spatial_audio": "Romslig lyd",
-			"oldsampledebug": "Samplerate Debug",
-			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
+			"oldsampledebug": "Feilsøk Samplerate",
+			"oldsampledebug_warning": "Dette er en testfunksjon, IKKE skru denne på med mindre du blir spurt."
 		},
 		"streaming": {
 			"title": "Strømningsinnstillinger",
@@ -122,10 +123,10 @@
 		"header": "Offentlige lobbyer",
 		"code": "Lobbykode",
 		"code_tooltips": {
-			"in_progress": "Game in Progress",
-			"full_lobby": "Lobby is Full",
-			"incompatible": "Incompatible Mods",
-			"and": "and"
+			"in_progress": "Spill pågår",
+			"full_lobby": "Lobbyen er full",
+			"incompatible": "Inkompatible mods",
+			"and": "og"
 		},
 		"list": {
 			"title": "Tittel",

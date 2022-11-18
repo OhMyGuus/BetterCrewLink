@@ -53,6 +53,7 @@
 			"microphone_sens_warning": "如果你設定的靈敏度過低，可能導致麥克風無法正常運作。",
 			"mastervolume": "主音量",
 			"crewvolume": "作為幽靈時的船員音量",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "喇叭測試",
 			"test_speaker_stop": "停止喇叭測試"
 		},

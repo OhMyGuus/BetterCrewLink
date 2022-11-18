@@ -53,6 +53,7 @@
 			"microphone_sens_warning": "Ha az érzékenységet lejjebb veszed akkor lehet hogy nem fog működni a mikrofon.",
 			"mastervolume": "Fő Hangerő",
 			"crewvolume": "Az emberek hangereje a szellemeknek",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Hangszóró tesztelése",
 			"test_speaker_stop": "Hangszóró tesztelésének leállítása"
 		},

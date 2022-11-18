@@ -53,6 +53,7 @@
 			"microphone_sens_warning": "これ以上、感度を下げるとうまくいかないかもしれません。",
 			"mastervolume": "マスターボリューム",
 			"crewvolume": "幽霊クルーの音量",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "スピーカーテスト",
 			"test_speaker_stop": "スピーカーテスト停止"
 		},

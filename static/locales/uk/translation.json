@@ -53,6 +53,7 @@
 			"microphone_sens_warning": "Якщо виставити чутливість ще нижче, вона може не спрацювати.",
 			"mastervolume": "Загальна гучність",
 			"crewvolume": "Гучність команди для привида",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Перевірка динаміка",
 			"test_speaker_stop": "Зупинити перевірку динаміка"
 		},

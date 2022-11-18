@@ -53,6 +53,7 @@
 			"microphone_sens_warning": "Әгәр сизгерлекне бераз азрак куйсагыз, эшләмәскә мөмкин.",
 			"mastervolume": "Уртак тавыш",
 			"crewvolume": "Экипаж тавышы өрәкләр сыман",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Тавышны тикшерү",
 			"test_speaker_stop": "Тавышны тикшерүне туктату"
 		},
