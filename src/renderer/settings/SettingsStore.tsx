@@ -86,6 +86,12 @@ export const SettingsStore = new Store<ISettings>({
 				store.set('micSensitivityEnabled', false);
 			}
 		},
+		'3.0.6': (store) => {
+			if (store.has('ghostVolume')) {
+				// @ts-ignore
+				store.delete('ghostVolume');
+			}
+		}
 	},
 	schema: {
 		alwaysOnTop: {
