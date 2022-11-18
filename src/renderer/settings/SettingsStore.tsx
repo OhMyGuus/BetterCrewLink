@@ -88,6 +88,7 @@ export const SettingsStore = new Store<ISettings>({
 		},
 		'3.0.6': (store) => {
 			if (store.has('ghostVolume')) {
+				store.set('crewVolumeAsGhost', store.get('ghostVolume', 100));
 				// @ts-ignore
 				store.delete('ghostVolume');
 			}
