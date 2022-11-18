@@ -754,20 +754,6 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					<Divider />
 
 					<Typography id="input-slider" gutterBottom>
-						{t('settings.audio.crewvolume')}
-					</Typography>
-					<Grid container direction="row" justifyContent="center" alignItems="center">
-						<Grid item xs={11}>
-							<Slider
-								size="small"
-								value={settings.ghostVolume}
-								valueLabelDisplay="auto"
-								onChange={(_, newValue: number | number[]) => setSettings('ghostVolume', newValue as number)}
-								aria-labelledby="input-slider"
-							/>
-						</Grid>
-					</Grid>
-					<Typography id="input-slider" gutterBottom>
 						{t('settings.audio.mastervolume')}
 					</Typography>
 					<Grid container direction="row" justifyContent="center" alignItems="center">
@@ -778,6 +764,34 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								valueLabelDisplay="auto"
 								max={200}
 								onChange={(_, newValue: number | number[]) => setSettings('masterVolume', newValue as number)}
+								aria-labelledby="input-slider"
+							/>
+						</Grid>
+					</Grid>
+					<Typography id="input-slider" gutterBottom>
+						{t('settings.audio.crewvolume')}
+					</Typography>
+					<Grid container direction="row" justifyContent="center" alignItems="center">
+						<Grid item xs={11}>
+							<Slider
+								size="small"
+								value={settings.crewVolumeAsGhost}
+								valueLabelDisplay="auto"
+								onChange={(_, newValue: number | number[]) => setSettings('crewVolumeAsGhost', newValue as number)}
+								aria-labelledby="input-slider"
+							/>
+						</Grid>
+					</Grid>
+					<Typography id="input-slider" gutterBottom>
+						{t('settings.audio.ghostvolumeasimpostor')}
+					</Typography>
+					<Grid container direction="row" justifyContent="center" alignItems="center">
+						<Grid item xs={11}>
+							<Slider
+								size="small"
+								value={settings.ghostVolumeAsImpostor}
+								valueLabelDisplay="auto"
+								onChange={(_, newValue: number | number[]) => setSettings('ghostVolumeAsImpostor', newValue as number)}
 								aria-labelledby="input-slider"
 							/>
 						</Grid>

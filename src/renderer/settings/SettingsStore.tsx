@@ -149,9 +149,13 @@ export const SettingsStore = new Store<ISettings>({
 			type: 'boolean',
 			default: true,
 		},
-		ghostVolume: {
+		crewVolumeAsGhost: {
 			type: 'number',
 			default: 100,
+		},
+		ghostVolumeAsImpostor: {
+			type: 'number',
+			default: 10,
 		},
 		masterVolume: {
 			type: 'number',
