@@ -1,0 +1,166 @@
+{
+	"settings": {
+		"title": "Налаштування",
+		"language": "Мова",
+		"warning": "Ви впевнені?",
+		"lobbysettings": {
+			"title": "Налаштування кімнати",
+			"gamehostonly": "Тільки власник кімнати може це змінити!",
+			"inlobbyonly": "Ви можете змінити це тільки в кімнаті!",
+			"voicedistance": "Дальність голосу",
+			"voicedistance_impostor": "Дальність голосу самозванця",
+			"wallsblockaudio": "Без звуку крізь стіни",
+			"visiononly": "Чути людей тільки в полі зору",
+			"impostorshearsghost": "Самозванці чують привидів",
+			"hear_imposters_invents": "Чути самозванців у вентиляції",
+			"private_talk_invents": "Особиста розмова в вентиляції",
+			"comms_sabotage_audio": "Саботаж комунікацій глушить голос",
+			"hear_through_cameras": "Чути через камери",
+			"ghost_only": "Тільки привиди можуть розмовляти/чути",
+			"ghost_only_warning": "Це відключає звук для живих гравців.",
+			"ghost_only_warning2": "Включена розмова тільки для привидів.",
+			"meetings_only": "Тільки на зборах чи в кімнаті",
+			"meetings_only_warning": "Це відключає звук для живих гравців поза зборами.",
+			"meetings_only_warning2": "Включена розмова тільки на зборах.",
+			"impostor_radio": "Радіо самозванця",
+			"public_lobby": {
+				"change_settings": "Змінити відомості про кімнату",
+				"title": "Назва",
+				"enabled": "Відкрита кімната",
+				"mods": "Моди",
+				"language": "Мова",
+				"enable_warning": "Це відкриє кімнату для інших користувачів BetterCrewLink!",
+				"ban_warning": "Недоречні висловлювання приведуть до заборони використання BetterCrewLink."
+			}
+		},
+		"customplatforms": {
+			"title": "Власна платформа",
+			"platform_title": "Назва",
+			"path": "Шлях до EXE",
+			"uri": "URI-посилання",
+			"advanced": "Розширені",
+			"arguments": "Аргументи"
+		},
+		"audio": {
+			"title": "Звук",
+			"microphone": "Мікрофон",
+			"speaker": "Динамік",
+			"voice_activity": "Голосова активність",
+			"push_to_talk": "Активація голосу по кнопці",
+			"push_to_mute": "Відключення голосу по кнопці",
+			"microphone_volume": "Гучність мікрофона",
+			"microphone_sens": "Чутливість мікрофона",
+			"microphone_sens_warning": "Якщо виставити чутливість ще нижче, вона може не спрацювати.",
+			"mastervolume": "Загальна гучність",
+			"crewvolume": "Гучність команди для привида",
+			"ghostvolumeasimpostor": "Гучність привидів для самозванців",
+			"test_speaker_start": "Перевірка динаміка",
+			"test_speaker_stop": "Зупинити перевірку динаміка"
+		},
+		"keyboard": {
+			"title": "Сполучення клавіш",
+			"push_to_talk": "Активація голосу",
+			"mute": "Вимкнути мікрофон",
+			"deafen": "Заглушити звук",
+			"impostor_radio": "Радіо самозванця"
+		},
+		"overlay": {
+			"title": "Оверлей",
+			"always_on_top": "BetterCrewLink на передньому плані",
+			"enabled": "Увімкнути оверлей",
+			"compact": "Компактний оверлей",
+			"meeting": "Оверлей на зборах",
+			"pos": "Положення оверлея",
+			"locations": {
+				"hidden": "Прихований",
+				"top": "Посередині зверху",
+				"bottom": "Внизу зліва",
+				"right": "Справа",
+				"right1": "Справа з фоном",
+				"left": "Зліва",
+				"left1": "Зліва з фоном"
+			}
+		},
+		"advanced": {
+			"title": "Розширені",
+			"nat_fix": "Виправлення NAT",
+			"nat_fix_warning": "Це виправить проблеми з NAT, але створить затримку через використання центрального сервера замість піринговой мережі (P2P).",
+			"change_server": "Змінити голосовий сервер",
+			"voice_server": "Голосовий сервер",
+			"invalid_url": "Неправильний URL",
+			"voice_server_warning": "Це налаштування тільки для просунутих користувачів. Інші сервери можуть вкрасти ваші дані або викликати падіння BetterCrewLink.",
+			"reset_default": "Скинути налаштування"
+		},
+		"beta": {
+			"title": "БЕТА/ВІДЛАДКА",
+			"mobilehost": "Хост для мобільних",
+			"vad_enabled": "Включення VAD",
+			"hardware_acceleration": "Апаратне прискорення",
+			"hardware_acceleration_warning": "Це вимикає Апаратне прискорення (що може підвищити навантаження на процесор)",
+			"vad_enabled_warning": "Якщо відключити, то не буде видно, хто говорить.",
+			"echocancellation": "Усунення відлуння",
+			"noiseSuppression": "Зниження шуму",
+			"spatial_audio": "Просторовий звук",
+			"oldsampledebug": "Налагодження частоти дискретизації",
+			"oldsampledebug_warning": "Це тестова функція, ввімкніть її ЛИШЕ за запитом."
+		},
+		"streaming": {
+			"title": "Налаштування для стрімінгу",
+			"hidecode": "Показати код кімнати",
+			"obs_overlay": "Оверлей OBS-браузера",
+			"obs_url": "URL OBS-браузера",
+			"voice_server_comp": "Режим сумісності ГС",
+			"voice_server_comp_warning": "Рекомендується просто змінити голосовий сервер, наприклад, на Голосовий сервер BetterCrewLink (https://bettercrewl.ink)."
+		},
+		"troubleshooting": {
+			"title": "Вирішення проблем",
+			"restore": "Відновити налаштування за замовчуванням",
+			"restore_warning": "Це скине ВСІ налаштування до значень за замовчуванням.",
+			"warning": "Недоступно для власника кімнати під час гри!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "Відкриті кімнати",
+		"code": "Код кімнати",
+		"code_tooltips": {
+			"in_progress": "Триває гра",
+			"full_lobby": "Лобі заповнене",
+			"incompatible": "Несумісні моди",
+			"and": "і"
+		},
+		"list": {
+			"title": "Заголовок",
+			"host": "Власник",
+			"players": "Гравці",
+			"mods": "Моди",
+			"language": "Мова"
+		}
+	},
+	"buttons": {
+		"default": "За замовчуванням",
+		"confirm": "Підтвердити",
+		"cancel": "Скасувати",
+		"close": "Закрити",
+		"exit": "Закрийте налаштування для застосування змін",
+		"public_lobby": "Відкриті кімнати",
+		"delete": "Видалити",
+		"file_select": "Вибрати файл"
+	},
+	"game": {
+		"menu": "МЕНЮ",
+		"open": "Відкрити через",
+		"open_error": "Запустіть Among Us вручну.",
+		"waiting": "Очікування Among Us",
+		"error": "ПОМИЛКА",
+		"error_admin": "Неможливо під'єднатися до Among Us.\nБудь ласка, відкрийте BetterCrewLink знову як адміністратор.",
+		"error_platform": "Не виявлено платформи",
+		"error_unsupport": "Ваша версія Among Us не підтримується BetterCrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "Власна"
+	},
+	"translator_name": "XRevan86"
+}

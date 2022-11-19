@@ -1,0 +1,166 @@
+{
+	"settings": {
+		"title": "Nastavení",
+		"language": "Jazyk",
+		"warning": "Jsi si jist?",
+		"lobbysettings": {
+			"title": "Nastavení lobby",
+			"gamehostonly": "Toto může změnit pouze hostitel hry!",
+			"inlobbyonly": "Toto můžeš změnit pouze v lobby!",
+			"voicedistance": "Hlasová vzdálenost",
+			"voicedistance_impostor": "Impostor Hlasová vzdálenost",
+			"wallsblockaudio": "Zdi blokují zvuk",
+			"visiononly": "Slyšet pouze lidi, které vidíš",
+			"impostorshearsghost": "Imposteři slyší mrtvé",
+			"hear_imposters_invents": "Slyšet impostry ve ventě",
+			"private_talk_invents": "Soukromé rozhovory ve ventě",
+			"comms_sabotage_audio": "Comms sabotáž vypne hlasovou komunikaci",
+			"hear_through_cameras": "Slyšení přes kamery",
+			"ghost_only": "Pouze mrtví můžou mluvit a poslouchat",
+			"ghost_only_warning": "Toto vypne zvuk pro živé hráče.",
+			"ghost_only_warning2": "Je povoleno mluvení pouze mrtvých.",
+			"meetings_only": "Pouze při schůzích a v lobby",
+			"meetings_only_warning": "Živí hráči se uslyší pouze při schůzích.",
+			"meetings_only_warning2": "Mluvení pouze při schůzích povoleno.",
+			"impostor_radio": "Impostoři mají vysílačky",
+			"public_lobby": {
+				"change_settings": "Změnit informace o Lobby",
+				"title": "Název",
+				"enabled": "Lobby je veřejné",
+				"mods": "Módy",
+				"language": "Jazyk",
+				"enable_warning": "Povolením zveřejníte své lobby ostatním BetterCrewLink uživatelům!",
+				"ban_warning": "Nevhodný text povede k zabanování z BetterCrewLink."
+			}
+		},
+		"customplatforms": {
+			"title": "Vlastní platforma",
+			"platform_title": "Název",
+			"path": "Cesta k EXE",
+			"uri": "URI Odkaz",
+			"advanced": "Pokročilé",
+			"arguments": "Parametry"
+		},
+		"audio": {
+			"title": "Zvuk",
+			"microphone": "Mikrofon",
+			"speaker": "Reproduktor",
+			"voice_activity": "Hlasová aktivita",
+			"push_to_talk": "Push to talk",
+			"push_to_mute": "Push To Mute",
+			"microphone_volume": "Hlasitost mikrofonu",
+			"microphone_sens": "Citlivost mikrofonu",
+			"microphone_sens_warning": "Pokud nastavíte citlivost níže, mikrofon nemusí fungovat.",
+			"mastervolume": "Celková hlasitost",
+			"crewvolume": "Hlasitost živých když jsi duch",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
+			"test_speaker_start": "Zkusit mikrofon",
+			"test_speaker_stop": "Zastavit zkoušku mikrofonu"
+		},
+		"keyboard": {
+			"title": "Klávesové zkratky",
+			"push_to_talk": "Push to talk",
+			"mute": "Ztlumit mikrofon",
+			"deafen": "Ztlumit zvuk",
+			"impostor_radio": "Impostor vysílačka"
+		},
+		"overlay": {
+			"title": "Překrytí",
+			"always_on_top": "BetterCrewLink vždy navrchu",
+			"enabled": "Povolit překrytí",
+			"compact": "Kompaktní překrytí",
+			"meeting": "Překrytí při schůzích",
+			"pos": "Pozice překrytí",
+			"locations": {
+				"hidden": "Schovaný",
+				"top": "Navrchu uprostřed",
+				"bottom": "Dole vlevo",
+				"right": "Vpravo",
+				"right1": "Vpravo s pozadím",
+				"left": "Vlevo",
+				"left1": "Vlevo s pozadím"
+			}
+		},
+		"advanced": {
+			"title": "Pokročilé",
+			"nat_fix": "NAT Fix",
+			"nat_fix_warning": "Toto vyřeší problém s NAT, ale přidá zpoždění, protože komunikace používá server namísto Peer to Peer (P2P).",
+			"change_server": "Změnit hlasový server",
+			"voice_server": "Hlasový server",
+			"invalid_url": "Neplatná URL",
+			"voice_server_warning": "Tato možnost je určena pouze pro pokročilé uživatele. Ostatní servery mohou ukrást vaše osobní informace nebo shodit BetterCrewLink.",
+			"reset_default": "Obnovit výchozí nastavení"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "Povolit mobilní uživatele",
+			"vad_enabled": "VAD povoleno",
+			"hardware_acceleration": "Hardwarová Akcelerace",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
+			"vad_enabled_warning": "Neuvidíte, kdo mluví, když je tato funkce deaktivována.",
+			"echocancellation": "Odstranění ozvěny",
+			"noiseSuppression": "Potlačení šumu",
+			"spatial_audio": "Prostorový zvuk",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
+		},
+		"streaming": {
+			"title": "Nastavení pro streamování",
+			"hidecode": "Zobrazit kód lobby",
+			"obs_overlay": "OBS Webové Překrytí",
+			"obs_url": "OBS URL Webového Překrytí",
+			"voice_server_comp": "Kompatabilita zvukového serveru",
+			"voice_server_comp_warning": "Doporučujeme pouze změnit hlasový server na BetterCrewLink Voice Server (např: https://bettercrewl.ink.)."
+		},
+		"troubleshooting": {
+			"title": "Řešení problémů",
+			"restore": "Obnovit výchozí nastavení",
+			"restore_warning": "Tímto obnovíte VŠECHNA nastavení na jejich výchozí hodnoty.",
+			"warning": "Není k dispozici pro hostitele během hry!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "Veřejná Lobby",
+		"code": "Kód Lobby",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
+		"list": {
+			"title": "Název",
+			"host": "Hostitel",
+			"players": "Hráči",
+			"mods": "Módy",
+			"language": "Jazyk"
+		}
+	},
+	"buttons": {
+		"default": "Výchozí",
+		"confirm": "Potvrdit",
+		"cancel": "Zrušit",
+		"close": "Zavřít",
+		"exit": "Opusťte nastavení pro použití změn",
+		"public_lobby": "Veřejná Lobby",
+		"delete": "Odstranit",
+		"file_select": "Vybrat soubor"
+	},
+	"game": {
+		"menu": "MENU",
+		"open": "Otevřít pomocí",
+		"open_error": "Spusťte Among Us ručně.",
+		"waiting": "Čekání na Among Us",
+		"error": "CHYBA",
+		"error_admin": "Nelze se připojit k Among Us.\nProsím znovu otevřete BetterCrewLink jako správce.",
+		"error_platform": "Nebyla detekována žádná platforma",
+		"error_unsupport": "Tvá verze Among Us není podporována BetterCrewlinkem."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "Vlastní"
+	},
+	"translator_name": "Tiquis & fajnyCreeper"
+}

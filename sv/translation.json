@@ -1,0 +1,166 @@
+{
+	"settings": {
+		"title": "Inställningar",
+		"language": "Språk",
+		"warning": "Är du säker?",
+		"lobbysettings": {
+			"title": "Lobby Inställningar",
+			"gamehostonly": "Endast spelvärden kan ändra detta!",
+			"inlobbyonly": "Du kan bara ändra detta i lobbyn!",
+			"voicedistance": "Röst Avstånd",
+			"voicedistance_impostor": "Impostor Röst Avstånd",
+			"wallsblockaudio": "Väggar Blockerar Ljud",
+			"visiononly": "Hör Personer Endast i Syn",
+			"impostorshearsghost": "Impostors Hör Döda",
+			"hear_imposters_invents": "Hör Impostors i Ventiler",
+			"private_talk_invents": "Privata Samtal i Ventiler",
+			"comms_sabotage_audio": "Comms Sabotage Inaktiverar Röst",
+			"hear_through_cameras": "Hör Igenom Kameror",
+			"ghost_only": "Endast Spöken Kan Prata/Höra",
+			"ghost_only_warning": "Detta inaktiverar ljudet för levande spelare.",
+			"ghost_only_warning2": "Spöken kan endast prata aktiverat.",
+			"meetings_only": "Endast Möten/Lobbyn",
+			"meetings_only_warning": "Detta inaktiverar ljudet för levande spelare utanför möten.",
+			"meetings_only_warning2": "Endast prata under möten aktiverat.",
+			"impostor_radio": "Impostor Radio",
+			"public_lobby": {
+				"change_settings": "Ändra Lobby Information",
+				"title": "Titel",
+				"enabled": "Lobbyn är offentlig",
+				"mods": "Mods",
+				"language": "Språk",
+				"enable_warning": "Aktivering av detta kommer att göra din lobby offentlig för andra BetterCrewLink-användare!",
+				"ban_warning": "Olämplig text kommer att resultera i en bannlysning från BetterCrewLink."
+			}
+		},
+		"customplatforms": {
+			"title": "Anpassad Plattform",
+			"platform_title": "Titel",
+			"path": "EXE Sökväg",
+			"uri": "URI Link",
+			"advanced": "Avancerat",
+			"arguments": "Parametrar"
+		},
+		"audio": {
+			"title": "Ljud",
+			"microphone": "Mikrofon",
+			"speaker": "Högtalare",
+			"voice_activity": "Röstaktivitet",
+			"push_to_talk": "Tryck För Att Prata",
+			"push_to_mute": "Tryck För Att Tysta",
+			"microphone_volume": "Mikrofon Volym",
+			"microphone_sens": "Mikrofonens Känslighet",
+			"microphone_sens_warning": "Om du ställer in känsligheten ännu lägre så kanske det inte fungerar.",
+			"mastervolume": "Huvudvolym",
+			"crewvolume": "Besättningens volym som spöke",
+			"ghostvolumeasimpostor": "Spökets volym som Impostor",
+			"test_speaker_start": "Testa högtalaren",
+			"test_speaker_stop": "Sluta Testa Högtalaren"
+		},
+		"keyboard": {
+			"title": "Tangentbordsgenvägar",
+			"push_to_talk": "Tryck För Att Prata",
+			"mute": "Stäng Av Mikrofonen",
+			"deafen": "Stäng Av Ljud",
+			"impostor_radio": "Impostor Radio"
+		},
+		"overlay": {
+			"title": "Överlägg",
+			"always_on_top": "BetterCrewLink Överst",
+			"enabled": "Aktivera Överlägg",
+			"compact": "Kompakt Överlägg",
+			"meeting": "Mötes Överlägg",
+			"pos": "Överläggs Position",
+			"locations": {
+				"hidden": "Dold",
+				"top": "Överst i mitten",
+				"bottom": "Nederst till vänster",
+				"right": "Höger",
+				"right1": "Höger med bakgrund",
+				"left": "Vänster",
+				"left1": "Vänster med bakgrund"
+			}
+		},
+		"advanced": {
+			"title": "Avancerat",
+			"nat_fix": "NAT Fix",
+			"nat_fix_warning": "Detta fixar NAT-problemen men lägger till en fördröjning eftersom den använder en server istället för Peer to Peer (P2P).",
+			"change_server": "Ändra röstserver",
+			"voice_server": "Röstserver",
+			"invalid_url": "Ogiltig URL",
+			"voice_server_warning": "Detta alternativ är endast för avancerade användare. Andra servrar kan stjäla din information eller krascha BetterCrewLink.",
+			"reset_default": "Återställ till standard"
+		},
+		"beta": {
+			"title": "BETA/FELSÖKA",
+			"mobilehost": "Mobil Värd",
+			"vad_enabled": "VAD är aktiverat",
+			"hardware_acceleration": "Maskinvaruacceleration",
+			"hardware_acceleration_warning": "Detta inaktiverar maskinvaruacceleration (som kan öka CPU-användningen)",
+			"vad_enabled_warning": "Du kommer inte att se vem som pratar om inaktiverad.",
+			"echocancellation": "Eko dämpning",
+			"noiseSuppression": "Ljuddämpning",
+			"spatial_audio": "Rumsligt ljud",
+			"oldsampledebug": "Samplingsfrekvens Felsökning",
+			"oldsampledebug_warning": "Detta är en testfunktion som ENDAST är aktiverad när den tillfrågas."
+		},
+		"streaming": {
+			"title": "Inställningar för streaming",
+			"hidecode": "Visa Lobbykod",
+			"obs_overlay": "OBS Webbläsar Överlägg",
+			"obs_url": "OBS Webbläsarkälla URL",
+			"voice_server_comp": "RS Kompatibilitetsläge",
+			"voice_server_comp_warning": "Det är rekommenderat att endast ändra röstservern till en BetterCrewLink Voice Server (https://bettercrewl.ink) till exempel."
+		},
+		"troubleshooting": {
+			"title": "Felsökning",
+			"restore": "Återställ till standardvärden",
+			"restore_warning": "Detta kommer att återställa ALLA inställningar till deras standardvärden.",
+			"warning": "Inte tillgänglig som spelvärd i spelet!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "Offentliga Lobbys",
+		"code": "Lobby Kod",
+		"code_tooltips": {
+			"in_progress": "Pågående Spel",
+			"full_lobby": "Lobbyn är full",
+			"incompatible": "Inkompatibla Mods",
+			"and": "och"
+		},
+		"list": {
+			"title": "Titel",
+			"host": "Värd",
+			"players": "Spelare",
+			"mods": "Mods",
+			"language": "Språk"
+		}
+	},
+	"buttons": {
+		"default": "Standard",
+		"confirm": "Bekräfta",
+		"cancel": "Avbryt",
+		"close": "Stäng",
+		"exit": "Stäng inställningar för att tillämpa ändringar",
+		"public_lobby": "Offentliga Lobbys",
+		"delete": "Ta bort",
+		"file_select": "Välj Fil"
+	},
+	"game": {
+		"menu": "MENY",
+		"open": "Öppna med",
+		"open_error": "Starta Among Us manuellt.",
+		"waiting": "Väntar på Among Us",
+		"error": "FEL",
+		"error_admin": "Det gick inte att ansluta till Among Us.\nVänligen öppna BetterCrewLink på nytt som administratör.",
+		"error_platform": "Ingen plattform upptäckt",
+		"error_unsupport": "Din version av Among Us stöds inte med BetterCrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "Anpassad"
+	},
+	"translator_name": "NoikzGaming feat. Intancote"
+}

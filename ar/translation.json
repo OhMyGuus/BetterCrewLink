@@ -1,0 +1,166 @@
+{
+	"settings": {
+		"title": "الاعدادات",
+		"language": "اللغة",
+		"warning": "هل أنت متأكد من ذلك؟",
+		"lobbysettings": {
+			"title": "إعدادات الردهة",
+			"gamehostonly": "فقط مضيف اللعبة يمكنه تغيير هذا!",
+			"inlobbyonly": "يمكنك فقط تغيير هذا في ردهة اللعبة!",
+			"voicedistance": "مسافة الصوت",
+			"voicedistance_impostor": "مسافة صوت المحتال",
+			"wallsblockaudio": "حجب جدران الصوت",
+			"visiononly": "اسمع الناس في الرؤية فقط",
+			"impostorshearsghost": "المحتال يسمع الميت",
+			"hear_imposters_invents": "سمع المملوكين في الفتحات",
+			"private_talk_invents": "محادثة خاصة في الفتحات",
+			"comms_sabotage_audio": "تعطل تخريب الاتصالات الصوت",
+			"hear_through_cameras": "السماع عبر الكاميرات",
+			"ghost_only": "فقط الأشباح يستطيعون أن يتحدثوا/يسمعوا",
+			"ghost_only_warning": "هذا يعطل الصوت للاعبين الحيين.",
+			"ghost_only_warning2": "الشبح يمكنه التحدث فقط مفعل.",
+			"meetings_only": "الاجتماعات/الردهة فقط",
+			"meetings_only_warning": "هذا يعطل صوت اللاعبين الأحياء خارج الاجتماعات.",
+			"meetings_only_warning2": "التحدث في الاجتماعات مفعل فقط.",
+			"impostor_radio": "راديو المحتال",
+			"public_lobby": {
+				"change_settings": "تغيير معلومات الردهة",
+				"title": "العنوان",
+				"enabled": "الردهة عامة",
+				"mods": "التعديلات",
+				"language": "اللغة",
+				"enable_warning": "تفعيل هذا سيؤدي إلى جعل الردهة الخاصة بك عامة لمستخدمي BetterCrewLink الآخرين!",
+				"ban_warning": "سيؤدي النص الغير مناسب إلى حظر من BetterCrewLink."
+			}
+		},
+		"customplatforms": {
+			"title": "منصة مخصصة",
+			"platform_title": "العنوان",
+			"path": "مسار EXE",
+			"uri": "رابط URI",
+			"advanced": "خيارات متقدمة",
+			"arguments": "الوسائط"
+		},
+		"audio": {
+			"title": "صوت",
+			"microphone": "ميكرفون",
+			"speaker": "مكبر الصوت",
+			"voice_activity": "النشاط الصوتي",
+			"push_to_talk": "اضغط للتحدث",
+			"push_to_mute": "اضغط للكتم",
+			"microphone_volume": "مستوى صوت الميكروفون",
+			"microphone_sens": "حساس الميكروفون",
+			"microphone_sens_warning": "إذا قمت بتعيين حساسية أي أقل من ذلك قد لا تعمل.",
+			"mastervolume": "الصوت الرئيسي",
+			"crewvolume": "صوت الفريق كشبح",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
+			"test_speaker_start": "اختبار مكبر الصوت",
+			"test_speaker_stop": "إيقاف اختبار مكبر الصوت"
+		},
+		"keyboard": {
+			"title": "اختصارات لوحة المفاتيح",
+			"push_to_talk": "اضغط للتحدث",
+			"mute": "كتم الصوت",
+			"deafen": "وقف السمع",
+			"impostor_radio": "راديو المحتال"
+		},
+		"overlay": {
+			"title": "تراكب",
+			"always_on_top": "BetterCrewLink على القمة",
+			"enabled": "تمكين التراكب",
+			"compact": "تراكب مضغوط",
+			"meeting": "تراكب الاجتماع",
+			"pos": "موقف التراكب",
+			"locations": {
+				"hidden": "مختفي",
+				"top": "مركز أعلى",
+				"bottom": "أسفل اليسار",
+				"right": "يمين",
+				"right1": "يمين مع خلفية",
+				"left": "يسار",
+				"left1": "يسار مع خلفية"
+			}
+		},
+		"advanced": {
+			"title": "متقدم",
+			"nat_fix": "إصلاح NAT",
+			"nat_fix_warning": "سيؤدي هذا إلى إصلاح مشكلات NAT ولكنه سيضيف تأخيرًا نظرًا لأنه يستخدم خادمًا بدلاً من Peer to Peer (P2P).",
+			"change_server": "تغيير خادم الصوت",
+			"voice_server": "خادم الصوت",
+			"invalid_url": "URL غير صالح",
+			"voice_server_warning": "هذا الخيار للمستخدمين المتقدمين فقط. يمكن للخوادم الأخرى سرقة معلوماتك أو تعطل BetterCrewLink.",
+			"reset_default": "إعادة تعيين إلى الافتراضي"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "مضيف الجوال",
+			"vad_enabled": "تمكين VAD",
+			"hardware_acceleration": "تسريع الجهاز",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
+			"vad_enabled_warning": "لن ترى من يتحدث إذا تم إلغاء التنشيط.",
+			"echocancellation": "إلغاء الصدى",
+			"noiseSuppression": "قمع الضوضاء",
+			"spatial_audio": "صوت الفضاء",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
+		},
+		"streaming": {
+			"title": "إعدادات البث",
+			"hidecode": "إظهار كود الردهة",
+			"obs_overlay": "تراكب متصفح OBS",
+			"obs_url": "عنوان URL لمصدر متصفح OBS",
+			"voice_server_comp": "وضع التوافق مع خادم الصوت",
+			"voice_server_comp_warning": "يوصى بتغيير خادم الصوت إلى خادم صوت BetterCrewLink (https://bettercrewl.ink) على سبيل المثال."
+		},
+		"troubleshooting": {
+			"title": "استكشاف الأخطاء وإصلاحها",
+			"restore": "استعادة الضبط الافتراضي",
+			"restore_warning": "سيؤدي هذا إلى إعادة تعيين كافة الإعدادات إلى قيمها الافتراضية.",
+			"warning": "غير متوفر كمضيف في اللعبة!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "الردهات العامة",
+		"code": "كود الردهة",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
+		"list": {
+			"title": "العنوان",
+			"host": "المضيف",
+			"players": "اللاعبين",
+			"mods": "التعديلات",
+			"language": "اللغة"
+		}
+	},
+	"buttons": {
+		"default": "الافتراضي",
+		"confirm": "تأكيد",
+		"cancel": "إلغاء",
+		"close": "غلق",
+		"exit": "الخروج من الإعدادات لتطبيق التغييرات",
+		"public_lobby": "الردهات العامة",
+		"delete": "حذف",
+		"file_select": "حدد ملف"
+	},
+	"game": {
+		"menu": "قائمة",
+		"open": "فتح عبر",
+		"open_error": "ابدأ Among Us يدوياً.",
+		"waiting": "انتظار Among Us",
+		"error": "خطأ",
+		"error_admin": "تعذر الاتصال بـ Among Us.\nالرجاء إعادة فتح BetterCrewLink كمسؤول.",
+		"error_platform": "لم يتم اكتشاف أي منصة",
+		"error_unsupport": "الإصدار الخاص بك من Among Us غير مدعوم من قبل BetterCrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "مُخصّص"
+	},
+	"translator_name": "Hani Rouatbi, XRevan86 and Achs gaming"
+}

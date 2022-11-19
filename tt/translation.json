@@ -1,0 +1,166 @@
+{
+	"settings": {
+		"title": "Көйләүләр",
+		"language": "Тел",
+		"warning": "Сез ризамы?",
+		"lobbysettings": {
+			"title": "Бүлмә көйләүләре",
+			"gamehostonly": "Бүлмә хуҗасы гына моны үзгәртә ала!",
+			"inlobbyonly": "Сез моны бүлмәдә генә үзгәртә аласыз!",
+			"voicedistance": "Тавыш ераклыгы",
+			"voicedistance_impostor": "Хыянәтченең тавыш ераклыгы",
+			"wallsblockaudio": "Диварлар тавышны блоклый",
+			"visiononly": "Кешеләрне күз алдында гына ишетү",
+			"impostorshearsghost": "Хыянәтчеләр өрәкләрне ишетү",
+			"hear_imposters_invents": "Хыянәтчеләрне җилләткечтә ишетү",
+			"private_talk_invents": "Җилләтүгә шәхси әңгәмә",
+			"comms_sabotage_audio": "Элемтә саботажы тавышны сүндерә",
+			"hear_through_cameras": "Камералар аша ишетү",
+			"ghost_only": "Өрәкләр генә сөйләшә/ишетә ала",
+			"ghost_only_warning": "Бу исән уенчылар өчен тавышны сүндерә.",
+			"ghost_only_warning2": "Өрәк сөйләшә генә ала.",
+			"meetings_only": "Җыелышта яки бүлмәдә генә",
+			"meetings_only_warning": "Бу исән уенчылар өчен тавышны сүндерә очрашулардан башка.",
+			"meetings_only_warning2": "Очрашуларда гына сөйләшү кушылган.",
+			"impostor_radio": "Хыянәтчеләр радиосы",
+			"public_lobby": {
+				"change_settings": "Бүлмә мәгълүматларен үзгәртү",
+				"title": "Исем",
+				"enabled": "Бүлмә ачык",
+				"mods": "Модлар",
+				"language": "Тел",
+				"enable_warning": "Бу көйләнүне эшләтеп җибәрү сезнең бүлмәне бүтән BetterCrewLink кулланучылары өчен ачык итәчәк!",
+				"ban_warning": "Килешмәгән текстлар BetterCrewLink-та блокировкага китерәчәк."
+			}
+		},
+		"customplatforms": {
+			"title": "Custom Platform",
+			"platform_title": "Исем",
+			"path": "EXE-га юл",
+			"uri": "URI сылтама",
+			"advanced": "Advanced",
+			"arguments": "Аргументлар"
+		},
+		"audio": {
+			"title": "Тавыш",
+			"microphone": "Микрофон",
+			"speaker": "Динамик",
+			"voice_activity": "Тавыш активлыгы",
+			"push_to_talk": "Төймә буенча тавыш активациясе",
+			"push_to_mute": "Басыгыз, тавышны сүндерү өчен",
+			"microphone_volume": "Микрофон тавышы",
+			"microphone_sens": "Микрофон сизгерлеге",
+			"microphone_sens_warning": "Әгәр сизгерлекне бераз азрак куйсагыз, эшләмәскә мөмкин.",
+			"mastervolume": "Уртак тавыш",
+			"crewvolume": "Экипаж тавышы өрәкләр сыман",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
+			"test_speaker_start": "Тавышны тикшерү",
+			"test_speaker_stop": "Тавышны тикшерүне туктату"
+		},
+		"keyboard": {
+			"title": "Клавиатура кыскартулары",
+			"push_to_talk": "Тавыш активациясе",
+			"mute": "Тавышны сүндерү",
+			"deafen": "Тавышны сүндерү",
+			"impostor_radio": "Хыянәтчеләр радиосы"
+		},
+		"overlay": {
+			"title": "Оверлей",
+			"always_on_top": "BetterCrewLink алгы планда",
+			"enabled": "Оверлейны кушу",
+			"compact": "Җыйнак оверлей",
+			"meeting": "Җыелышта оверлей",
+			"pos": "Оверлея урыны",
+			"locations": {
+				"hidden": "Яшерелгән",
+				"top": "Өстә уртада",
+				"bottom": "Аста сулда",
+				"right": "Уңда",
+				"right1": "Уңда фон белән",
+				"left": "Сулда",
+				"left1": "Сулда фон белән"
+			}
+		},
+		"advanced": {
+			"title": "Алга киткән",
+			"nat_fix": "NAT төзәтмәсе",
+			"nat_fix_warning": "Бу NAT проблемаларын чишәчәк, ләкин тоткарлык тудырачак пиринг челтәре урынына (P2P) үзәк сервер куллану аркасында.",
+			"change_server": "Тавыш серверын узгәртү",
+			"voice_server": "Тавыш серверы",
+			"invalid_url": "Хаталы URL",
+			"voice_server_warning": "Бу көйләү алдынгы кулланучылар өчен генә. Башка серверлар сезнең мәгълүматны урлый яки BetterCrewLink ябылуга китерә ала.",
+			"reset_default": "Әүвәлге"
+		},
+		"beta": {
+			"title": "БЕТА/ТӨЗӘТҮ",
+			"mobilehost": "Телефон өчен бүлмә хуҗасы",
+			"vad_enabled": "VAD кушылган",
+			"hardware_acceleration": "Аппарат тизләнеше",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
+			"vad_enabled_warning": "Сүнгән булса, кем сөйләгәнен күрмисез.",
+			"echocancellation": "Эхо бетерүче",
+			"noiseSuppression": "Тавыш бетерүче",
+			"spatial_audio": "Киңлектәге тавыш",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
+		},
+		"streaming": {
+			"title": "Стрим көйләүләре",
+			"hidecode": "Бүлмә кодын күрсәтергә",
+			"obs_overlay": "OBS-браузер оверлее",
+			"obs_url": "OBS-браузер чыганак URL",
+			"voice_server_comp": "VS белән яраклашу шарты",
+			"voice_server_comp_warning": "Тавыш серверын BetterCrewLink тавыш серверына үзгәртү тәкъдим ителә (https://bettercrewl.ink), мәсәлән."
+		},
+		"troubleshooting": {
+			"title": "Диагностика",
+			"restore": "Әүвәлге",
+			"restore_warning": "Бу БӨТЕН көйләүләрне әүвәлге әйләндерә.",
+			"warning": "Уен вакытында бүлмә хуҗасы өчен мөмкин түгел!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "Ачык бүлмәләр",
+		"code": "Бүлмә коды",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
+		"list": {
+			"title": "Исем",
+			"host": "Бүлмә хуҗасы",
+			"players": "Уенчылар",
+			"mods": "Модлар",
+			"language": "Тел"
+		}
+	},
+	"buttons": {
+		"default": "Әүвәлге",
+		"confirm": "Расларга",
+		"cancel": "Баш тарту",
+		"close": "Ябу",
+		"exit": "Үзгәрешләр куллану өчен көйләүләрне ябыгыз",
+		"public_lobby": "Ачык бүлмәләр",
+		"delete": "Delete",
+		"file_select": "Файлны сайлау"
+	},
+	"game": {
+		"menu": "МЕНЮ",
+		"open": "Open via",
+		"open_error": "Start the Among Us manually.",
+		"waiting": "Among Us көтүе",
+		"error": "ХАТА",
+		"error_admin": "Among Us-га тоташып булмады. Зинһар, BetterCrewLink-ны администратор исеменнән ачыгыз.",
+		"error_platform": "No platform detected",
+		"error_unsupport": "Сезнең Among Us версиясендә BetterCrewLink эшләми."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "Custom"
+	},
+	"translator_name": "Amirhan-Taipovjan-Greatest-I (Әлмәт Ак Арыслан) һәм morewaves (күбрәк дулкыннар plz)"
+}

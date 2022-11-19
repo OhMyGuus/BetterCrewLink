@@ -1,0 +1,166 @@
+{
+	"settings": {
+		"title": "Definições",
+		"language": "Idioma",
+		"warning": "Quer continuar?",
+		"lobbysettings": {
+			"title": "Definições do Lobby",
+			"gamehostonly": "Apenas o Anfitrião pode alterar isto!",
+			"inlobbyonly": "Disponível apenas no Lobby!",
+			"voicedistance": "Distância da Voz",
+			"voicedistance_impostor": "Distância da Voz do Impostor",
+			"wallsblockaudio": "Paredes Bloqueiam o Áudio",
+			"visiononly": "Ouvir Pessoas no Campo de Visão",
+			"impostorshearsghost": "Impostor Ouve Fantasmas",
+			"hear_imposters_invents": "Ouvir Impostores nas Ventilações",
+			"private_talk_invents": "Falar nas Ventilações",
+			"comms_sabotage_audio": "Sabotagem das Comunicações Desativa o Áudio",
+			"hear_through_cameras": "Ouvir Através das Câmaras",
+			"ghost_only": "Apenas os Fantasmas Podem Falar/Ouvir",
+			"ghost_only_warning": "Isto desativa o som dos jogadores vivos.",
+			"ghost_only_warning2": "Apenas os fantasmas podem falar.",
+			"meetings_only": "Apenas nas Reuniões/Lobby",
+			"meetings_only_warning": "Isto desativa o som dos jogadores vivos fora das reuniões de emergência.",
+			"meetings_only_warning2": "Apenas se pode falar apenas nas reuniões de emergência.",
+			"impostor_radio": "Rádio do Impostor",
+			"public_lobby": {
+				"change_settings": "Mudar Definições do Lobby",
+				"title": "Título",
+				"enabled": "Lobby Aberto",
+				"mods": "Mods",
+				"language": "Linguagem",
+				"enable_warning": "Esta opção vai abrir o Lobby para outros utilizadores do BetterCrewLink!",
+				"ban_warning": "Texto inapropriado levará a um ban do BetterCrewLink."
+			}
+		},
+		"customplatforms": {
+			"title": "Custom Platform",
+			"platform_title": "Title",
+			"path": "EXE Path",
+			"uri": "URI Link",
+			"advanced": "Advanced",
+			"arguments": "Arguments"
+		},
+		"audio": {
+			"title": "Áudio",
+			"microphone": "Microfone",
+			"speaker": "Altifalante",
+			"voice_activity": "Deteção de Voz",
+			"push_to_talk": "Pressionar Para Falar",
+			"push_to_mute": "Pressionar Para Silenciar",
+			"microphone_volume": "Volume do Microfone",
+			"microphone_sens": "Sensibilidade do Microfone",
+			"microphone_sens_warning": "Ao baixar demasiado a sensibilidade, o microfone pode não funcionar.",
+			"mastervolume": "Volume Principal",
+			"crewvolume": "Volume dos Tripulantes como Fantasma",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
+			"test_speaker_start": "Teste de Altifalante",
+			"test_speaker_stop": "Terminar o Teste"
+		},
+		"keyboard": {
+			"title": "Atalhos de Teclado",
+			"push_to_talk": "Pressionar Para Falar",
+			"mute": "Desligar Microfone",
+			"deafen": "Desligar Áudio",
+			"impostor_radio": "Rádio do Impostor"
+		},
+		"overlay": {
+			"title": "Sobreposição",
+			"always_on_top": "BetterCrewLink no Topo",
+			"enabled": "Ativar a Sobreposição",
+			"compact": "Modo Compacto",
+			"meeting": "Sobrepôr em Reuniões",
+			"pos": "Posição da Sobreposição",
+			"locations": {
+				"hidden": "Oculta",
+				"top": "Centro Superior",
+				"bottom": "Inferior Esquerdo",
+				"right": "Direita",
+				"right1": "Direita com Opacidade",
+				"left": "Esquerda",
+				"left1": "Esquerda com Opacidade"
+			}
+		},
+		"advanced": {
+			"title": "Avançado",
+			"nat_fix": "NAT Fix",
+			"nat_fix_warning": "Esta opção resolve problemas de NAT, mas adicionará um atraso por estar a usar um servidor em vez de ligações Ponto a Ponto (P2P)",
+			"change_server": "Alterar Servidor de Voz",
+			"voice_server": "Servidor de Voz",
+			"invalid_url": "URL Inválido",
+			"voice_server_warning": "Esta opção é apenas para utilizadores avançados. Outros servidores podem obter os seus dados ou causar erros no BetterCrewLink.",
+			"reset_default": "Repôr predefinição"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "Permitir jogadores Android/iOS",
+			"vad_enabled": "VAD Ativo",
+			"hardware_acceleration": "Utilizar Aceleração por Hardware",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
+			"vad_enabled_warning": "Ao desativar, não será vísivel quem está a falar.",
+			"echocancellation": "Cancelamento de Eco",
+			"noiseSuppression": "Supressão de Ruído",
+			"spatial_audio": "Áudio Espacial",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
+		},
+		"streaming": {
+			"title": "Definições de Streaming",
+			"hidecode": "Mostrar o Código do Lobby",
+			"obs_overlay": "Sobreposição do OBS",
+			"obs_url": "Link da Sobreposição do OBS",
+			"voice_server_comp": "Modo de Compatibilidade com servidores Crewlink",
+			"voice_server_comp_warning": "É recomendado mudar para o Servidor de Voz predefinido do BetterCrewLink."
+		},
+		"troubleshooting": {
+			"title": "Resolução de Problemas",
+			"restore": "Repôr Predefinições",
+			"restore_warning": "Isso irá repôr TODAS as definições para os valores predefinidos.",
+			"warning": "Opção indisponível como anfitrião do jogo!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "Lobbies Públicos",
+		"code": "Código do Lobby",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
+		"list": {
+			"title": "Título",
+			"host": "Anfitrião",
+			"players": "Jogadores",
+			"mods": "Mods",
+			"language": "Linguagem"
+		}
+	},
+	"buttons": {
+		"default": "Predefinido",
+		"confirm": "Confirmar",
+		"cancel": "Cancelar",
+		"close": "Fechar",
+		"exit": "As definições são aplicadas ao sair",
+		"public_lobby": "Lobbies Públicos",
+		"delete": "Delete",
+		"file_select": "Select File"
+	},
+	"game": {
+		"menu": "MENU",
+		"open": "Abrir",
+		"open_error": "Start the Among Us manually.",
+		"waiting": "À espera do Among Us",
+		"error": "ERRO",
+		"error_admin": "Não foi possível ligar ao Among Us.\nAbra novamente o BetterCrewLink como administrador.",
+		"error_platform": "Plataforma não detetada",
+		"error_unsupport": "A versão do Among Us não é suportada pelo BetterCrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "Custom"
+	},
+	"translator_name": "vbtop/vb-03"
+}

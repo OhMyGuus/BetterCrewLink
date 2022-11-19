@@ -1,0 +1,166 @@
+{
+	"settings": {
+		"title": "Настройки",
+		"language": "Язык",
+		"warning": "Вы уверены?",
+		"lobbysettings": {
+			"title": "Настройки комнаты",
+			"gamehostonly": "Только владелец комнаты может это изменить!",
+			"inlobbyonly": "Вы можете изменить это только в комнате!",
+			"voicedistance": "Дальность голоса",
+			"voicedistance_impostor": "Дальность голоса предателя",
+			"wallsblockaudio": "Без звука сквозь стены",
+			"visiononly": "Слышать людей только в поле зрения",
+			"impostorshearsghost": "Предатели слышат призраков",
+			"hear_imposters_invents": "Слышать предателей в вентиляции",
+			"private_talk_invents": "Личный разговор в вентиляции",
+			"comms_sabotage_audio": "Саботаж коммуникаций глушит голос",
+			"hear_through_cameras": "Слышать через камеры",
+			"ghost_only": "Только призраки могут разговаривать/слышать",
+			"ghost_only_warning": "Это отключает звук для живых игроков.",
+			"ghost_only_warning2": "Включён разговор только для призраков.",
+			"meetings_only": "Только на собрании или в комнате",
+			"meetings_only_warning": "Это отключает звук для живых игроков вне собраний.",
+			"meetings_only_warning2": "Включён разговор только на собраниях.",
+			"impostor_radio": "Радио предателя",
+			"public_lobby": {
+				"change_settings": "Изменить сведения о комнате",
+				"title": "Название",
+				"enabled": "Открытая комната",
+				"mods": "Моды",
+				"language": "Язык",
+				"enable_warning": "Это откроет комнату для всех пользователей BetterCrewLink!",
+				"ban_warning": "Неуместные выражения приведут к запрету использования BetterCrewLink."
+			}
+		},
+		"customplatforms": {
+			"title": "Пользовательская платформа",
+			"platform_title": "Название",
+			"path": "Путь к EXE",
+			"uri": "URI-ссылка",
+			"advanced": "Расширенные",
+			"arguments": "Аргументы"
+		},
+		"audio": {
+			"title": "Звук",
+			"microphone": "Микрофон",
+			"speaker": "Динамик",
+			"voice_activity": "Голосовая активность",
+			"push_to_talk": "Активация голоса по кнопке",
+			"push_to_mute": "Отключение голоса по кнопке",
+			"microphone_volume": "Громкость микрофона",
+			"microphone_sens": "Чувствительность микрофона",
+			"microphone_sens_warning": "Если выставить чувствительность ещё ниже, она может не сработать.",
+			"mastervolume": "Общая громкость",
+			"crewvolume": "Громкость экипажа для призрака",
+			"ghostvolumeasimpostor": "Громкость призраков для предателей",
+			"test_speaker_start": "Проверка динамика",
+			"test_speaker_stop": "Остановить проверку динамика"
+		},
+		"keyboard": {
+			"title": "Сочетание клавиш",
+			"push_to_talk": "Активация голоса",
+			"mute": "Отключить микрофон",
+			"deafen": "Заглушить звук",
+			"impostor_radio": "Радио предателя"
+		},
+		"overlay": {
+			"title": "Оверлей",
+			"always_on_top": "BetterCrewLink на переднем плане",
+			"enabled": "Включить оверлей",
+			"compact": "Компактный оверлей",
+			"meeting": "Оверлей на собраниях",
+			"pos": "Положение оверлея",
+			"locations": {
+				"hidden": "Скрытый",
+				"top": "Посередине сверху",
+				"bottom": "Внизу слева",
+				"right": "Справа",
+				"right1": "Справа с фоном",
+				"left": "Слева",
+				"left1": "Слева с фоном"
+			}
+		},
+		"advanced": {
+			"title": "Расширенные",
+			"nat_fix": "Исправление NAT",
+			"nat_fix_warning": "Это исправит проблемы с NAT, но создаст задержку из-за использования центрального сервера вместо пиринговой сети (P2P).",
+			"change_server": "Изменить голосовой сервер",
+			"voice_server": "Голосовой сервер",
+			"invalid_url": "Неверный URL",
+			"voice_server_warning": "Эта настройка только для продвинутых пользователей. Иные серверы могут украсть ваши данные или уронить BetterCrewLink.",
+			"reset_default": "Восстановить настройки по умолчанию"
+		},
+		"beta": {
+			"title": "БЕТА/ОТЛАДКА",
+			"mobilehost": "Хост для мобильных телефонов",
+			"vad_enabled": "VAD включен",
+			"hardware_acceleration": "Аппаратное ускорение",
+			"hardware_acceleration_warning": "Это отключает Аппаратное ускорение (что может повысить нагрузку на процессор)",
+			"vad_enabled_warning": "Если отключить, Вы не увидите, кто говорит.",
+			"echocancellation": "Эхоподавление",
+			"noiseSuppression": "Шумоподавление",
+			"spatial_audio": "Пространственный звук",
+			"oldsampledebug": "Отладка частоты дискретизации",
+			"oldsampledebug_warning": "Это тестовая функция, включайте её ТОЛЬКО по запросу."
+		},
+		"streaming": {
+			"title": "Настройки для стриминга",
+			"hidecode": "Показать код комнаты",
+			"obs_overlay": "Оверлей OBS-браузера",
+			"obs_url": "OBS Browser Source URL",
+			"voice_server_comp": "Режим совместимости с VS",
+			"voice_server_comp_warning": "Рекомендуется просто сменить голосовой сервер, например, на Голосовой сервер BetterCrewLink (https://bettercrewl.ink)."
+		},
+		"troubleshooting": {
+			"title": "Диагностика",
+			"restore": "Восстановить настройки по умолчанию",
+			"restore_warning": "Это сбросит ВСЕ настройки до значений по умолчанию.",
+			"warning": "Недоступно для владельца комнаты во время игры!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "Открытые комнаты",
+		"code": "Код комнаты",
+		"code_tooltips": {
+			"in_progress": "Идёт игра",
+			"full_lobby": "Лобби заполнено",
+			"incompatible": "Несовместимые моды",
+			"and": "и"
+		},
+		"list": {
+			"title": "Заголовок",
+			"host": "Владелец комнаты",
+			"players": "Игроки",
+			"mods": "Моды",
+			"language": "Язык"
+		}
+	},
+	"buttons": {
+		"default": "По умолчанию",
+		"confirm": "Подтвердить",
+		"cancel": "Отменить",
+		"close": "Закрыть",
+		"exit": "Закройте настройки для применения изменений",
+		"public_lobby": "Открытые комнаты",
+		"delete": "Удалить",
+		"file_select": "Выбрать файл"
+	},
+	"game": {
+		"menu": "МЕНЮ",
+		"open": "Открыть через",
+		"open_error": "Запустите Among Us вручную.",
+		"waiting": "Ожидание Among Us",
+		"error": "ОШИБКА",
+		"error_admin": "Не удалось подключиться к Among Us.\nПожалуйста, повторно откройте BetterCrewLink от имени администратора.",
+		"error_platform": "Платформа не обнаружена",
+		"error_unsupport": "Ваша версия Among Us не поддерживается BetterCrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "Пользовательская"
+	},
+	"translator_name": "XRevan86 and Xoyn"
+}

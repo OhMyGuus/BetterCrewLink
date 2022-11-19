@@ -1,0 +1,166 @@
+{
+	"settings": {
+		"title": "設定",
+		"language": "語言",
+		"warning": "你確定嗎?",
+		"lobbysettings": {
+			"title": "大廳設定",
+			"gamehostonly": "只有房主可以更改這個選項!",
+			"inlobbyonly": "只能在大廳內更改這個選項!",
+			"voicedistance": "語音距離",
+			"voicedistance_impostor": "偽裝者語音距離",
+			"wallsblockaudio": "牆壁隔音",
+			"visiononly": "僅能聽見視野範圍內的人聲",
+			"impostorshearsghost": "偽裝者可聽見幽靈的聲音",
+			"hear_imposters_invents": "可聽見偽裝者於通風管內的聲音",
+			"private_talk_invents": "通風管內可進行私人語音",
+			"comms_sabotage_audio": "破壞通訊會禁用語音",
+			"hear_through_cameras": "可透過監視器聽見聲音",
+			"ghost_only": "只有幽靈可以語音",
+			"ghost_only_warning": "這將禁用所有存活玩家的語音功能。",
+			"ghost_only_warning2": "已啟用「僅幽靈可語音」功能。",
+			"meetings_only": "僅限會議/大廳",
+			"meetings_only_warning": "這將禁用所有會議外存活玩家的語音功能。",
+			"meetings_only_warning2": "已啟用「僅限會議內語音」功能",
+			"impostor_radio": "偽裝者私密通話",
+			"public_lobby": {
+				"change_settings": "更改大廳資訊",
+				"title": "標題",
+				"enabled": "此大廳為公開的",
+				"mods": "模組",
+				"language": "語言",
+				"enable_warning": "啟用這個選項將會讓你的大廳對其他 BetterCrewLink 使用者公開!",
+				"ban_warning": "不當言論將會被 BetterCrewLink ban 掉。"
+			}
+		},
+		"customplatforms": {
+			"title": "自訂平台",
+			"platform_title": "標題名稱",
+			"path": "EXE 路徑",
+			"uri": "URI 連結",
+			"advanced": "進階",
+			"arguments": "參數"
+		},
+		"audio": {
+			"title": "音訊",
+			"microphone": "麥克風",
+			"speaker": "喇叭",
+			"voice_activity": "語音感應",
+			"push_to_talk": "按鍵說話",
+			"push_to_mute": "按鍵關麥",
+			"microphone_volume": "麥克風音量",
+			"microphone_sens": "麥克風靈敏度",
+			"microphone_sens_warning": "如果你設定的靈敏度過低，可能導致麥克風無法正常運作。",
+			"mastervolume": "主音量",
+			"crewvolume": "作為幽靈時的船員音量",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
+			"test_speaker_start": "喇叭測試",
+			"test_speaker_stop": "停止喇叭測試"
+		},
+		"keyboard": {
+			"title": "快捷鍵",
+			"push_to_talk": "按鍵說話",
+			"mute": "關麥",
+			"deafen": "靜音",
+			"impostor_radio": "偽裝者私密通話"
+		},
+		"overlay": {
+			"title": "遊戲內疊層",
+			"always_on_top": "BetterCrewLink 在最上層",
+			"enabled": "啟用疊層",
+			"compact": "簡潔疊層",
+			"meeting": "會議疊層",
+			"pos": "疊層位置",
+			"locations": {
+				"hidden": "隱藏",
+				"top": "頂部居中",
+				"bottom": "左下角",
+				"right": "右側",
+				"right1": "右側/顯示背景",
+				"left": "左側",
+				"left1": "左側/顯示背景"
+			}
+		},
+		"advanced": {
+			"title": "進階設定",
+			"nat_fix": "NAT 修復",
+			"nat_fix_warning": "這會修復 NAT 的問題但可能會造成延遲，因為這將使用伺服器連線而不是 P2P 連線。",
+			"change_server": "更改語音伺服器",
+			"voice_server": "語音伺服器",
+			"invalid_url": "無效的網址",
+			"voice_server_warning": "此選項僅適用於進階用戶。其他服務器有可能會竊取你的資訊或導致 BetterCrewLink 崩潰。",
+			"reset_default": "重設為預設"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "手機端主機",
+			"vad_enabled": "啟用語音活性檢測 (VAD)",
+			"hardware_acceleration": "硬體加速",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
+			"vad_enabled_warning": "如果停用這個選項，你將看不到目前是誰在說話。",
+			"echocancellation": "回音消除",
+			"noiseSuppression": "降噪",
+			"spatial_audio": "空間音訊",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
+		},
+		"streaming": {
+			"title": "直播設定",
+			"hidecode": "顯示大廳代碼",
+			"obs_overlay": "OBS Browser 疊層",
+			"obs_url": "OBS Browser Source 網址",
+			"voice_server_comp": "語音伺服器相容模式",
+			"voice_server_comp_warning": "建議將語音伺服器更改為BetterCrewLink Voice Server，例如: https://bettercrewl.ink 。"
+		},
+		"troubleshooting": {
+			"title": "故障排除",
+			"restore": "恢復預設",
+			"restore_warning": "這將重置所有設定為預設值。",
+			"warning": "遊戲中沒有可用的房主!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "公開大廳",
+		"code": "大廳代碼",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
+		"list": {
+			"title": "標題",
+			"host": "房主",
+			"players": "玩家",
+			"mods": "模組",
+			"language": "語言"
+		}
+	},
+	"buttons": {
+		"default": "預設",
+		"confirm": "確認",
+		"cancel": "取消",
+		"close": "關閉",
+		"exit": "關閉設定以套用變更",
+		"public_lobby": "公開大廳",
+		"delete": "刪除",
+		"file_select": "選擇檔案"
+	},
+	"game": {
+		"menu": "選單",
+		"open": "由...開啟",
+		"open_error": "手動啟動 Among Us",
+		"waiting": "正在等待 Among Us",
+		"error": "錯誤",
+		"error_admin": "無法連接至 Among Us。\n請重新以管理員身分開啟 BetterCrewLink。",
+		"error_platform": "偵測不到平台",
+		"error_unsupport": "你的 Among Us 版本不支援 BetterCrewLink。"
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "自訂"
+	},
+	"translator_name": "narihira2000"
+}

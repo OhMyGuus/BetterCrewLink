@@ -1,0 +1,166 @@
+{
+	"settings": {
+		"title": "Configuració",
+		"language": "Idioma",
+		"warning": "Estàs segur?",
+		"lobbysettings": {
+			"title": "Opcions de la sala",
+			"gamehostonly": "Només l'amfitrió de la sala pot canviar això!",
+			"inlobbyonly": "Només podeu canviar això a la sala!",
+			"voicedistance": "Distància de la veu",
+			"voicedistance_impostor": "Distància de veu de l'impostor",
+			"wallsblockaudio": "Les parets bloquegen l'àudio",
+			"visiononly": "Només escoltar gent en la teva visió",
+			"impostorshearsghost": "Els impostors escolten als morts",
+			"hear_imposters_invents": "Escoltar als impostors ficats dins la ventilació",
+			"private_talk_invents": "Parlar privadament en la ventilació",
+			"comms_sabotage_audio": "Saboteig de comunicació desactiva la veu",
+			"hear_through_cameras": "Escoltar per les càmeres",
+			"ghost_only": "Només els fantasmes poden parlar/escoltar",
+			"ghost_only_warning": "Aixó desactiva el so per els jugadors vius.",
+			"ghost_only_warning2": "Els fantasmes només pot parlar.",
+			"meetings_only": "Només Reunions/Sala Principal",
+			"meetings_only_warning": "Aixó desactiva el so per els jugadors vius",
+			"meetings_only_warning2": "Només es pot parlar en les reunions activat.",
+			"impostor_radio": "Impostor Radio",
+			"public_lobby": {
+				"change_settings": "Change Lobby Info",
+				"title": "Title",
+				"enabled": "The Lobby is Public",
+				"mods": "Mods",
+				"language": "Language",
+				"enable_warning": "Enabling this will make your lobby public to other BetterCrewLink users!",
+				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
+			}
+		},
+		"customplatforms": {
+			"title": "Custom Platform",
+			"platform_title": "Title",
+			"path": "EXE Path",
+			"uri": "URI Link",
+			"advanced": "Advanced",
+			"arguments": "Arguments"
+		},
+		"audio": {
+			"title": "Audio",
+			"microphone": "Micròfon",
+			"speaker": "Altaveu",
+			"voice_activity": "Activitat de veu",
+			"push_to_talk": "Polsar per Parlar",
+			"push_to_mute": "Polsar per Silenciar-se",
+			"microphone_volume": "Volum del Micròfon",
+			"microphone_sens": "Sensibilitat del Micròfon",
+			"microphone_sens_warning": "Si la sensibilitat és massa baixa potser no funciona",
+			"mastervolume": "Volum General",
+			"crewvolume": "Volum dels Companys com Fantasma",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
+			"test_speaker_start": "Provar l'altaveu",
+			"test_speaker_stop": "Parar de Provar l'altaveu"
+		},
+		"keyboard": {
+			"title": "Dreceres de Teclat",
+			"push_to_talk": "Polsar per Parlar",
+			"mute": "Silenciar",
+			"deafen": "Ensordir",
+			"impostor_radio": "Impostor Radio"
+		},
+		"overlay": {
+			"title": "Superposició",
+			"always_on_top": "BetterCrewLink on Top",
+			"enabled": "Activar Superposició",
+			"compact": "Superposició Compacta",
+			"meeting": "Superposició de Reunions",
+			"pos": "Posició de Superposició",
+			"locations": {
+				"hidden": "Amagat",
+				"top": "Centre Superior",
+				"bottom": "Baix a L'esquerra",
+				"right": "Dreta",
+				"right1": "Fons-Dret",
+				"left": "Esquerra",
+				"left1": "Fons-Esquerre"
+			}
+		},
+		"advanced": {
+			"title": "Avançat",
+			"nat_fix": "Arregla de NAT",
+			"nat_fix_warning": "Això ARREGLARÀ els problemes de nat però ficarà un retard ja que està utilitzant un servidor en lloc de p2p",
+			"change_server": "Canviar Servidor de Veu",
+			"voice_server": "Servidor de Veu",
+			"invalid_url": "URL invàlida",
+			"voice_server_warning": "Aquesta opció és només per usuaris avançats. Altres servidors poden robar la teva informació o fer que CrewLink falli.",
+			"reset_default": "Reiniciar a predeterminat"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "Amfitrió Mòbil",
+			"vad_enabled": "VAD activat",
+			"hardware_acceleration": "Hardware Acceleration",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
+			"vad_enabled_warning": "No veuràs qui està parlant si es desactiva.",
+			"echocancellation": "Cancel·lació de Eco",
+			"noiseSuppression": "Supressió de Soroll",
+			"spatial_audio": "Audio Espacial",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
+		},
+		"streaming": {
+			"title": "Opcions de directe",
+			"hidecode": "Mostrar Codi del Vestíbul",
+			"obs_overlay": "Superposició de Navegador de OBS",
+			"obs_url": "OBS Browser Source URL",
+			"voice_server_comp": "Mode de compatibilitat VS",
+			"voice_server_comp_warning": "Es recomana canviar el servidor de veu per un servidor de veu bettercrewlink https://bettercrewl.ink, per exemple."
+		},
+		"troubleshooting": {
+			"title": "Resolució de problemes",
+			"restore": "Restaurar Predeterminats",
+			"restore_warning": "Això reiniciarà TOTES les opcions als seus valors predeterminats.",
+			"warning": "No disponible com a amfitrió del joc!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "Public Lobbies",
+		"code": "Lobby Code",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
+		"list": {
+			"title": "Title",
+			"host": "Host",
+			"players": "Players",
+			"mods": "Mods",
+			"language": "Language"
+		}
+	},
+	"buttons": {
+		"default": "Predeterminat",
+		"confirm": "Confirmar",
+		"cancel": "Cancel·lar",
+		"close": "Close",
+		"exit": "Exit settings to apply changes",
+		"public_lobby": "Public Lobbies",
+		"delete": "Delete",
+		"file_select": "Select File"
+	},
+	"game": {
+		"menu": "MENU",
+		"open": "Open via",
+		"open_error": "Start the Among Us manually.",
+		"waiting": "Esperar a Among Us",
+		"error": "ERROR",
+		"error_admin": "No es pot conectar a Among Us. Si us plau obre CrewLink una altra vegada com administrador.",
+		"error_platform": "No platform detected",
+		"error_unsupport": "La teva versió de Among Us no és compatible amb CrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "Custom"
+	},
+	"translator_name": "Translator Name"
+}

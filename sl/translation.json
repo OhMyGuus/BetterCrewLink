@@ -1,0 +1,166 @@
+{
+	"settings": {
+		"title": "Nastavitve",
+		"language": "Jezik",
+		"warning": "Ali ste prepričani?",
+		"lobbysettings": {
+			"title": "Nastavitve čakalnice",
+			"gamehostonly": "Te nastavitve lahko spreminja samo gostitelj!",
+			"inlobbyonly": "To lahko spreminjate samo v čakalnici!",
+			"voicedistance": "Domet sluha",
+			"voicedistance_impostor": "Vsiljivčev domet sluha",
+			"wallsblockaudio": "Zidovi omejijo sluh",
+			"visiononly": "Slišite lahko samo ljudi v vašem vidnem polju",
+			"impostorshearsghost": "Vsiljivec sliši duhove",
+			"hear_imposters_invents": "Vsiljivca v jašku se sliši",
+			"private_talk_invents": "Zasebni pogovori v jaških",
+			"comms_sabotage_audio": "Sabotaža komunikacij onemogoči pogovore",
+			"hear_through_cameras": "Kamere prenašajo zvok",
+			"ghost_only": "Samo duhovi lahko govorijo/slišijo",
+			"ghost_only_warning": "Ta možnost onemogoči pogovor živim igralcem.",
+			"ghost_only_warning2": "Sedaj se lahko pogovarjajo samo duhovi.",
+			"meetings_only": "Samo na sestankih/v čakalnici",
+			"meetings_only_warning": "Ta možnost onemogoči pogovor za žive igralce, ko ti niso na sestanku.",
+			"meetings_only_warning2": "Omogočen je samo pogovor med sestankom.",
+			"impostor_radio": "Vsiljivčev oddajnik",
+			"public_lobby": {
+				"change_settings": "Spremeni informacije čakalnice",
+				"title": "Ime",
+				"enabled": "Čakalnica je javna",
+				"mods": "Modifikacije",
+				"language": "Jezik",
+				"enable_warning": "Vključitev tega bo prikazala čakalnico na javnem seznamu ostalim igralcem BetterCrewLink-a!",
+				"ban_warning": "Neprimerne besede so lahko razlog za ban."
+			}
+		},
+		"customplatforms": {
+			"title": "Drugo",
+			"platform_title": "Ime",
+			"path": "Lokacija datoteke",
+			"uri": "URI povezava",
+			"advanced": "Napredno",
+			"arguments": "Argumenti"
+		},
+		"audio": {
+			"title": "Zvok",
+			"microphone": "Mikrofon",
+			"speaker": "Izhod zvoka",
+			"voice_activity": "Glasovna aktivacija",
+			"push_to_talk": "Govorjenje ob pritisku na tipko",
+			"push_to_mute": "Utišaj ob pritisku na tipko",
+			"microphone_volume": "Jakost mikrofona",
+			"microphone_sens": "Občutljivost mikrofona",
+			"microphone_sens_warning": "Če nastavite občutljivost še nižje, morda ne bo več delovalo pravilno.",
+			"mastervolume": "Generalna jakost zvoka",
+			"crewvolume": "Glasnost živih igralcev, ko si duh",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
+			"test_speaker_start": "Preizkusi zvočnike",
+			"test_speaker_stop": "Ustavi preizkus zvočnikov"
+		},
+		"keyboard": {
+			"title": "Bližjice na tipkovnici",
+			"push_to_talk": "Tipka za govor",
+			"mute": "Utišan",
+			"deafen": "Oglušen",
+			"impostor_radio": "Vsiljivčev oddajnik"
+		},
+		"overlay": {
+			"title": "Prikaz govorca",
+			"always_on_top": "BetterCrewLink v ospredju",
+			"enabled": "Omogoči prikaz govorca",
+			"compact": "Kompakten prikaz govorca",
+			"meeting": "Prikaz govorca na sestankih",
+			"pos": "Postavitev prikaza govorca",
+			"locations": {
+				"hidden": "Skrit",
+				"top": "Na vrhu v sredini",
+				"bottom": "Spodaj levo",
+				"right": "Desno",
+				"right1": "Desno z ozadjem",
+				"left": "Levo",
+				"left1": "Levo z ozadjem"
+			}
+		},
+		"advanced": {
+			"title": "Napredno",
+			"nat_fix": "NAT rešitev",
+			"nat_fix_warning": "To bo popravilo težave z NAT, vendar bo dodalo kratek zamik, ker bo promet posredovan skozi posredniški strežnik in ne neposredno med igralci.",
+			"change_server": "Spremeni glasovni strežnik",
+			"voice_server": "Glasovni strežnik",
+			"invalid_url": "Neveljaven URL",
+			"voice_server_warning": "Nadaljujte na lastno odgovornost. Ostali strežniki vam lahko kradejo podatke ali onemogočijo delovanje aplikacije.",
+			"reset_default": "Ponastavi na privzeto"
+		},
+		"beta": {
+			"title": "BETA/Dodatne nastavitve",
+			"mobilehost": "Gostitelj za mobilne naprave",
+			"vad_enabled": "VAD omogočen",
+			"hardware_acceleration": "Pospeševanje s pomočjo strojne opreme",
+			"hardware_acceleration_warning": "To onemogoči strojno pospeševanje (lahko vpliva na povečano uporabo procesorja)",
+			"vad_enabled_warning": "Če onemogočite, ne boste videli kdo govori.",
+			"echocancellation": "Odstrani odmevanje",
+			"noiseSuppression": "Odstrani šume",
+			"spatial_audio": "Prostorski zvok",
+			"oldsampledebug": "Hitrost vzorčenja za razhroščevanje",
+			"oldsampledebug_warning": "To je testna funkcija, omogoči LE V PRIMERU, ko to zahtevajo."
+		},
+		"streaming": {
+			"title": "Nastavitve za prenašanje v živo",
+			"hidecode": "Pokaži kodo čakalnice",
+			"obs_overlay": "OBS Browser Overlay",
+			"obs_url": "OBS Browser Source URL",
+			"voice_server_comp": "GS združljivostni način",
+			"voice_server_comp_warning": "Priporočeno je, da samo spremenite glasovni strežnik na uradni bettercrewlink strežnik na naslovu https://bettercrewl.ink."
+		},
+		"troubleshooting": {
+			"title": "Odpravljanje napak",
+			"restore": "Ponastavi na privzete vrednosti",
+			"restore_warning": "To bo ponastavilo VSE nastavitve na njihove privzete vrednosti.",
+			"warning": "Ni na voljo, ker je gostitelj že v igri!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "Javne čakalnice",
+		"code": "Koda",
+		"code_tooltips": {
+			"in_progress": "Igra je v teku",
+			"full_lobby": "Čakalnica je polna",
+			"incompatible": "Nezdružljivi modi",
+			"and": "in"
+		},
+		"list": {
+			"title": "Ime",
+			"host": "Gostitelj",
+			"players": "Igralci",
+			"mods": "Modifikacije",
+			"language": "Jezik"
+		}
+	},
+	"buttons": {
+		"default": "Privzeto",
+		"confirm": "Potrdi",
+		"cancel": "Prekliči",
+		"close": "Zapri",
+		"exit": "Zapustite nastavitve, da se spremembe upoštevajo",
+		"public_lobby": "Javne čakalnice",
+		"delete": "Izbriši",
+		"file_select": "Izberi datoteko"
+	},
+	"game": {
+		"menu": "MENI",
+		"open": "Odpri preko",
+		"open_error": "Ročno zaženi Among Us.",
+		"waiting": "Čakanje na odziv",
+		"error": "NAPAKA",
+		"error_admin": "Odpiranje Among Us neuspešno.\nProsimo zaženite Bettercrewlink kot administrator.",
+		"error_platform": "Ni zaznanega programa za zagon igre",
+		"error_unsupport": "Bettercrewlink ne podpira vaše verzije igre."
+	},
+	"platform": {
+		"steam": "Steam-a",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "Po meri"
+	},
+	"translator_name": "Stročji fižol"
+}

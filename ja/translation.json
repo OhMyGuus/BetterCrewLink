@@ -1,0 +1,166 @@
+{
+	"settings": {
+		"title": "設定",
+		"language": "言語",
+		"warning": "よろしいですか？",
+		"lobbysettings": {
+			"title": "ロビー設定",
+			"gamehostonly": "ゲームホストのみがこれを変更できます!",
+			"inlobbyonly": "ロビーでのみ変更できます！",
+			"voicedistance": "ボイスの距離",
+			"voicedistance_impostor": "インポスターに届く音声距離",
+			"wallsblockaudio": "壁越しで音声をブロック",
+			"visiononly": "視界内のプレイヤーの声だけが聞こえる",
+			"impostorshearsghost": "インポスターが幽霊の声も聞こえる",
+			"hear_imposters_invents": "インポスターはベント内にいても声が聞こえる",
+			"private_talk_invents": "インポスター同士でベント内で会話ができる",
+			"comms_sabotage_audio": "Commsサボタージュで音声を無効化",
+			"hear_through_cameras": "カメラ越しに声が聞こえる",
+			"ghost_only": "幽霊だけが話す/聞くことが可能",
+			"ghost_only_warning": "生きているプレーヤーのサウンドを無効にする。",
+			"ghost_only_warning2": "ゴーストが話せるのは有効な場合のみ",
+			"meetings_only": "ミーティング/ロビーのみ",
+			"meetings_only_warning": "会議以外での生存プレイヤーのサウンドを無効にします",
+			"meetings_only_warning2": "会議での発言のみ有効",
+			"impostor_radio": "インポスターラジオ",
+			"public_lobby": {
+				"change_settings": "ロビー情報の変更",
+				"title": "タイトル",
+				"enabled": "ロビーを公開する",
+				"mods": "モッド",
+				"language": "言語",
+				"enable_warning": "これを有効にすると、あなたのロビーは他のBetterCrewLinkユーザーに公開されます！",
+				"ban_warning": "不適切な表現を使った場合、BetterCrewLinkからBANされます。"
+			}
+		},
+		"customplatforms": {
+			"title": "その他",
+			"platform_title": "名前",
+			"path": "実行ファイルのパス",
+			"uri": "URIリンク",
+			"advanced": "詳細設定",
+			"arguments": "引数"
+		},
+		"audio": {
+			"title": "オーディオ",
+			"microphone": "マイク",
+			"speaker": "スピーカー",
+			"voice_activity": "常に有効",
+			"push_to_talk": "押して話す",
+			"push_to_mute": "押してミュート",
+			"microphone_volume": "マイク音量",
+			"microphone_sens": "マイク感度",
+			"microphone_sens_warning": "これ以上、感度を下げるとうまくいかないかもしれません。",
+			"mastervolume": "マスターボリューム",
+			"crewvolume": "幽霊クルーの音量",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
+			"test_speaker_start": "スピーカーテスト",
+			"test_speaker_stop": "スピーカーテスト停止"
+		},
+		"keyboard": {
+			"title": "キーボードショートカット",
+			"push_to_talk": "押して話す",
+			"mute": "ミュート",
+			"deafen": "スピーカーミュート",
+			"impostor_radio": "インポスターラジオ"
+		},
+		"overlay": {
+			"title": "オーバーレイ",
+			"always_on_top": "最前面に表示",
+			"enabled": "オーバーレイを有効化",
+			"compact": "コンパクトなオーバーレイ",
+			"meeting": "議論のオーバーレイ表示",
+			"pos": "オーバーレイの位置",
+			"locations": {
+				"hidden": "非表示",
+				"top": "中央上",
+				"bottom": "左下",
+				"right": "右",
+				"right1": "背景付き右",
+				"left": "左",
+				"left1": "背景付き左"
+			}
+		},
+		"advanced": {
+			"title": "詳細設定",
+			"nat_fix": "NATの修正",
+			"nat_fix_warning": "これによりNATの問題は解決されますが、Peer to Peer（P2P）ではなくサーバーを使用するため、遅延が発生します。",
+			"change_server": "ボイスサーバーの変更",
+			"voice_server": "ボイスサーバー",
+			"invalid_url": "無効なURL",
+			"voice_server_warning": "このオプションは、上級ユーザーのみが対象です。他のサーバーがあなたの情報を盗んだり、BetterCrewLinkをクラッシュさせる可能性があります。",
+			"reset_default": "デフォルトに戻す"
+		},
+		"beta": {
+			"title": "ベータ/デバッグ",
+			"mobilehost": "モバイル ホスト",
+			"vad_enabled": "音声アクティビティ検出",
+			"hardware_acceleration": "ハードウェア アクセラレーション",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
+			"vad_enabled_warning": "非アクティブにすると誰が話しているのかわからなくなります。",
+			"echocancellation": "エコーキャンセラー",
+			"noiseSuppression": "ノイズ防止",
+			"spatial_audio": "立体音響",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
+		},
+		"streaming": {
+			"title": "配信設定",
+			"hidecode": "ロビーコードの表示",
+			"obs_overlay": "OBS ブラウザーのオーバーレイ",
+			"obs_url": "OBSブラウザソースURL",
+			"voice_server_comp": "ボイスサーバー互換性モード",
+			"voice_server_comp_warning": "例えば、ボイスサーバーをBetterCrewLinkボイスサーバー(https://bettercrewl.ink)に変更することをお勧めします。"
+		},
+		"troubleshooting": {
+			"title": "トラブルシューティング",
+			"restore": "デフォルトに戻す",
+			"restore_warning": "すべての設定がリセットされます。",
+			"warning": "ゲーム内ではホストとして利用できません！"
+		}
+	},
+	"lobbybrowser": {
+		"header": "公開ロビー",
+		"code": "ロビーコード",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
+		"list": {
+			"title": "タイトル",
+			"host": "ホスト",
+			"players": "プレイヤー",
+			"mods": "Mods",
+			"language": "言語"
+		}
+	},
+	"buttons": {
+		"default": "デフォルト",
+		"confirm": "確認",
+		"cancel": "キャンセル",
+		"close": "閉じる",
+		"exit": "変更を適用し設定を終了",
+		"public_lobby": "公開ロビー",
+		"delete": "削除",
+		"file_select": "選択"
+	},
+	"game": {
+		"menu": "メニュー",
+		"open": "プリセット",
+		"open_error": "Among Usを手動で開始してください",
+		"waiting": "Among Usの待機中",
+		"error": "エラー",
+		"error_admin": "Among Usに接続できませんでした。\n管理者としてBetterCrewLinkを再度開いてください。",
+		"error_platform": "プラットフォームが見つかりません",
+		"error_unsupport": "お使いのバージョンの「Among Us」は、BetterCrewLinkに対応していません。"
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "その他"
+	},
+	"translator_name": "Aorin and Sakurai"
+}

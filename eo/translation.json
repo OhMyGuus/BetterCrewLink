@@ -1,0 +1,166 @@
+{
+	"settings": {
+		"title": "Agordoj",
+		"language": "Lingvo",
+		"warning": "Ĉu vi certas?",
+		"lobbysettings": {
+			"title": "Ludejaj agordoj",
+			"gamehostonly": "Nur la ludejestro povas ŝanĝi tion!",
+			"inlobbyonly": "Vi povas ŝanĝi tion nur en atendejo!",
+			"voicedistance": "Voĉdistanco",
+			"voicedistance_impostor": "Trompista voĉdistanco",
+			"wallsblockaudio": "Aŭdi tra muroj",
+			"visiononly": "Aŭdi nur vidatojn",
+			"impostorshearsghost": "Trompistoj aŭdu fantomojn",
+			"hear_imposters_invents": "Trompistoj en ventoliloj aŭdeblu",
+			"private_talk_invents": "Privataj interparoloj en ventoliloj",
+			"comms_sabotage_audio": "Malebligi paroladon ĉe komunikilaj sabotoj",
+			"hear_through_cameras": "Aŭdi per kameraoj",
+			"ghost_only": "Nur por fantomoj",
+			"ghost_only_warning": "Tio malebligas paroladon de vivantoj.",
+			"ghost_only_warning2": "Parolebleco nur por fantomoj estas ŝaltita.",
+			"meetings_only": "Nur renkontiĝe/atendeje",
+			"meetings_only_warning": "Tio malebligas paroladon de vivantoj ekster renkontiĝoj.",
+			"meetings_only_warning2": "Parolebleco nur renkontiĝe/atendeje estas ŝaltita.",
+			"impostor_radio": "Trompista radio",
+			"public_lobby": {
+				"change_settings": "Ŝanĝi ludejajn informojn",
+				"title": "Titolo",
+				"enabled": "La ludejo estas publika",
+				"mods": "Modifoj",
+				"language": "Lingvo",
+				"enable_warning": "Ŝaltinte ĉi tion vi igos la ludejon publika por aliaj uzantoj de BetterCrewLink!",
+				"ban_warning": "Maldecaj mesaĝoj kaŭzos forbaron el BetterCrewLink."
+			}
+		},
+		"customplatforms": {
+			"title": "Agordita platformo",
+			"platform_title": "Titolo",
+			"path": "Vojo al la EXE-dosiero",
+			"uri": "Ligilo",
+			"advanced": "Alio",
+			"arguments": "Argumentoj"
+		},
+		"audio": {
+			"title": "Sonoj",
+			"microphone": "Mikrofono",
+			"speaker": "Laŭtparolilo",
+			"voice_activity": "Voĉa aktiveco",
+			"push_to_talk": "Parolado ĉe premo",
+			"push_to_mute": "Mutiĝo ĉe premo",
+			"microphone_volume": "Mikrofona laŭto",
+			"microphone_sens": "Mikrofona sentiveco",
+			"microphone_sens_warning": "Se vi plu malgrandigos la sentivecon, eble okazos problemoj.",
+			"mastervolume": "Ĝenerala laŭto",
+			"crewvolume": "Laŭto fantome",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
+			"test_speaker_start": "Testi la laŭtparolilon",
+			"test_speaker_stop": "Ĉesi testi la laŭtparolilon"
+		},
+		"keyboard": {
+			"title": "Fulmoklavoj",
+			"push_to_talk": "Parolado ĉe premo",
+			"mute": "Mutiĝi",
+			"deafen": "Surdiĝi",
+			"impostor_radio": "Trompista radio"
+		},
+		"overlay": {
+			"title": "Plustavolo",
+			"always_on_top": "BetterCrewLink estu supre",
+			"enabled": "Ŝalti plustavolon",
+			"compact": "Kompaktigi la plustavolon",
+			"meeting": "Renkontiĝa plustavolo",
+			"pos": "Lokiĝo de la plustavolo",
+			"locations": {
+				"hidden": "Kaŝite",
+				"top": "Supre centre",
+				"bottom": "Malsupre maldekstre",
+				"right": "Dekstre",
+				"right1": "Dekstre, kun fono",
+				"left": "Maldekstre",
+				"left1": "Maldekstre, kun fono"
+			}
+		},
+		"advanced": {
+			"title": "Alio",
+			"nat_fix": "Riparo de TALR",
+			"nat_fix_warning": "Tio riparos problemojn pri TALR, sed aperos malfruiĝoj, ĉar konekto estos perservila anstataŭ senpera.",
+			"change_server": "Ŝanĝi voĉservilon",
+			"voice_server": "Voĉservilo",
+			"invalid_url": "Malĝusta retadreso",
+			"voice_server_warning": "Tiu ĉi agordo evitindas por nespertuloj. Aliaj serviloj povas provi ŝteli viajn informojn aŭ misfunkciigi BetterCrewLink.",
+			"reset_default": "Redefaŭltigi"
+		},
+		"beta": {
+			"title": "BETA/SENCIMIGO",
+			"mobilehost": "Poŝtelefona ludejestro",
+			"vad_enabled": "VAD estas ŝaltita",
+			"hardware_acceleration": "Aparata plirapidigo",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
+			"vad_enabled_warning": "Oni ne vidos, kiu parolas, se la agordo estos malŝaltita.",
+			"echocancellation": "Seneĥigo",
+			"noiseSuppression": "Senbruigo",
+			"spatial_audio": "Laŭspacaj sonoj",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
+		},
+		"streaming": {
+			"title": "Agordoj por dissendoj",
+			"hidecode": "Montri la ludejkodon",
+			"obs_overlay": "Plustavolo de foliumilo de OBS",
+			"obs_url": "Fonta retadreso de foliumilo de OBS",
+			"voice_server_comp": "Reĝimo de voĉservila kongruo",
+			"voice_server_comp_warning": "Ni rekomendas nur ŝanĝi la voĉservilon al ekz. la voĉservilo de BetterCrewLink (https://bettercrewl.ink)."
+		},
+		"troubleshooting": {
+			"title": "Problemsolvado",
+			"restore": "Redefaŭltigi",
+			"restore_warning": "Tio ŝanĝos ĈIUJN agordojn al la defaŭltaj.",
+			"warning": "La agordoj ne ŝanĝeblas dum ludoj!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "Publikaj ludejoj",
+		"code": "Ludeja kodo",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
+		"list": {
+			"title": "Titolo",
+			"host": "Ludejestro",
+			"players": "Ludantoj",
+			"mods": "Modifoj",
+			"language": "Lingvo"
+		}
+	},
+	"buttons": {
+		"default": "Defaŭlte",
+		"confirm": "Konfirmi",
+		"cancel": "Nuligi",
+		"close": "Fermi",
+		"exit": "Eliru la agordejon por efektivigi la ŝanĝojn",
+		"public_lobby": "Publikaj ludejoj",
+		"delete": "Forigi",
+		"file_select": "Elekti dosieron"
+	},
+	"game": {
+		"menu": "MENUE",
+		"open": "Malfermi per",
+		"open_error": "Startigu Trompiston permane.",
+		"waiting": "Atendado de la ludo",
+		"error": "ERARO",
+		"error_admin": "Ne eblis konekti al Among Us.\nBonvolu remalfermi BetterCrewLink kiel administranto.",
+		"error_platform": "La platformo ne detekteblis",
+		"error_unsupport": "BetterCrewLink ne subtenas vian version de Among Us."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "Agordita"
+	},
+	"translator_name": "Ajno and Jano Miĥalako"
+}

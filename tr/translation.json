@@ -1,0 +1,166 @@
+{
+	"settings": {
+		"title": "Ayarlar",
+		"language": "Dil",
+		"warning": "Emin misin?",
+		"lobbysettings": {
+			"title": "Lobi Ayarları",
+			"gamehostonly": "Sadece oyun kurucusu bunu değişebilir!",
+			"inlobbyonly": "Bunu sadece lobide değiştirebilirsin!",
+			"voicedistance": "Ses Mesafesi",
+			"voicedistance_impostor": "Impostor Ses Mesafesi",
+			"wallsblockaudio": "Duvarlar Sesi Engeller",
+			"visiononly": "Sadece Görüş İçinde Duy",
+			"impostorshearsghost": "Impostor'lar Ölüleri Duyabilir",
+			"hear_imposters_invents": "Impostor'ları Havalandırmada Dinle",
+			"private_talk_invents": "Havalandırmada Özel Konuşma",
+			"comms_sabotage_audio": "Comms Sabotajı Sesi Kapatır",
+			"hear_through_cameras": "Kameralardan Duy",
+			"ghost_only": "Sadece Hayaletler Konuşabilir/Duyabilir",
+			"ghost_only_warning": "Hayattaki oyuncular için sesi kapatır.",
+			"ghost_only_warning2": "Sadece hayaletler konuşabilir aktif.",
+			"meetings_only": "Sadece Toplantı/Lobi",
+			"meetings_only_warning": "Hayattaki oyuncular için toplantı dışında sesi kapatır.",
+			"meetings_only_warning2": "Sadece toplantılarda konuşma aktif.",
+			"impostor_radio": "Impostor Telsizi",
+			"public_lobby": {
+				"change_settings": "Lobi Bilgisini Değiştir",
+				"title": "Başlık",
+				"enabled": "Lobi Herkese Açık",
+				"mods": "Modlar",
+				"language": "Dil",
+				"enable_warning": "Bunu aktif ederek lobini diğer BetterCrewLink kullanıcılarına açabilirsin!",
+				"ban_warning": "Uygunsuz dil kullanmak BetterCrewLink'ten banlanmana sebep olabilir."
+			}
+		},
+		"customplatforms": {
+			"title": "Özel Platform",
+			"platform_title": "İsim",
+			"path": "EXE yolu",
+			"uri": "URI Linki",
+			"advanced": "Gelişmiş",
+			"arguments": "Argümanlar"
+		},
+		"audio": {
+			"title": "Ses",
+			"microphone": "Mikrofon",
+			"speaker": "Hoparlör",
+			"voice_activity": "Ses Aktivitesi",
+			"push_to_talk": "Bas Konuş",
+			"push_to_mute": "Bas Sustur",
+			"microphone_volume": "Mikrofon Sesi",
+			"microphone_sens": "Mikrofon Hassasiyeti",
+			"microphone_sens_warning": "Eğer hassasiyeti daha da azaltırsan çalışmayabilir.",
+			"mastervolume": "Ana Ses",
+			"crewvolume": "Hayaletken Crew Seviyesi",
+			"ghostvolumeasimpostor": "Impostor iken Hayaletlerin Sesi",
+			"test_speaker_start": "Hoparlörü Test Et",
+			"test_speaker_stop": "Hoparlör Testini Durdur"
+		},
+		"keyboard": {
+			"title": "Klavye Kısayolları",
+			"push_to_talk": "Bas Konuş",
+			"mute": "Sustur",
+			"deafen": "Sağırlaştır",
+			"impostor_radio": "Impostor Telsizi"
+		},
+		"overlay": {
+			"title": "Arayüz",
+			"always_on_top": "BetterCrewLink'i Üstte Tut",
+			"enabled": "Arayüzü etkinleştir",
+			"compact": "Kompak Arayüz",
+			"meeting": "Toplantı Arayüzü",
+			"pos": "Arayüz Konumu",
+			"locations": {
+				"hidden": "Gizli",
+				"top": "Üst Merkez",
+				"bottom": "Alt Sol",
+				"right": "Sağ",
+				"right1": "Arkaplan ile Sağda",
+				"left": "Sol",
+				"left1": "Arkaplan ile Solda"
+			}
+		},
+		"advanced": {
+			"title": "Gelişmiş",
+			"nat_fix": "NAT Düzelt",
+			"nat_fix_warning": "NAT sorunlarını düzeltir fakat Eşten Eşe (P2P) yerine sunucu kullanacağından gecikme yaratır.",
+			"change_server": "Ses Sunucusunu Değiştir",
+			"voice_server": "Ses Sunucusu",
+			"invalid_url": "Geçersiz URL",
+			"voice_server_warning": "Bu ayar sadece gelişmiş kullanıcılar içindir. Diğer sunucular bilginizi çalabilir veya BetterCrewLink'i çalışmaz hale getirebilir.",
+			"reset_default": "Varsayılana Sıfırla"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "Mobil Oyun Kurucu",
+			"vad_enabled": "VAD Aktif",
+			"hardware_acceleration": "Donanım Hızlandırma",
+			"hardware_acceleration_warning": "Donanım Hızlandırmayı kapatır (İşlemci kullanımını arttırabilir.)",
+			"vad_enabled_warning": "Kapatılırsa kimin konuştuğunu görmezsin.",
+			"echocancellation": "Yankı İptali",
+			"noiseSuppression": "Gürültü Azaltma",
+			"spatial_audio": "Uzamsal Ses",
+			"oldsampledebug": "Örnek Oranı Debug",
+			"oldsampledebug_warning": "Bu bir test fonksiyonudur, SADECE istendiğinde etkinleştirin."
+		},
+		"streaming": {
+			"title": "Yayın Ayarları",
+			"hidecode": "Lobi Kodunu Göster",
+			"obs_overlay": "OBS Tarayıcı Arayüzü",
+			"obs_url": "OBS Tarayıcı Kaynağı URL",
+			"voice_server_comp": "Ses Sunucusu Uyumluluk Modu",
+			"voice_server_comp_warning": "Ses sunucusunu, bir BetterCrewlink sunucusuna değiştirmeniz tavsiye edilir. Örneğin https://bettercrewl.ink ."
+		},
+		"troubleshooting": {
+			"title": "Sorun Giderme",
+			"restore": "Varsayılanlara Sıfırla",
+			"restore_warning": "Bütün ayarları varsayılan değerlerine döndürür.",
+			"warning": "Oyun Kurucu iken yapılamaz!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "Herkese Açık Lobiler",
+		"code": "Lobi Kodu",
+		"code_tooltips": {
+			"in_progress": "Oyun Devam Ediyor",
+			"full_lobby": "Lobi Dolu",
+			"incompatible": "Uyumsuz Modlar",
+			"and": "ve"
+		},
+		"list": {
+			"title": "Başlık",
+			"host": "Oyun Kurucu",
+			"players": "Oyuncular",
+			"mods": "Modlar",
+			"language": "Dil"
+		}
+	},
+	"buttons": {
+		"default": "Varsayılan",
+		"confirm": "Onayla",
+		"cancel": "İptal",
+		"close": "Kapat",
+		"exit": "Ayarları Kaydetmek İçin Ayarlardan Çıkın",
+		"public_lobby": "Herkese Açık Lobiler",
+		"delete": "Sil",
+		"file_select": "Dosya Seç"
+	},
+	"game": {
+		"menu": "MENÜ",
+		"open": "Birlikte Aç",
+		"open_error": "Among Us'ı elle başlat.",
+		"waiting": "Among Us Bekleniyor",
+		"error": "HATA",
+		"error_admin": "Among Us'a bağlanılamadı.\nLütfen BetterCrewLink'i Yönetici olarak başlatın.",
+		"error_platform": "Platform Bulunamadı",
+		"error_unsupport": "Kullandığınız Among Us versiyonu BetterCrewLink tarafından desteklenmemektedir."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "Özel"
+	},
+	"translator_name": "Archerist"
+}

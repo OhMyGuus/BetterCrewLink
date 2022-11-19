@@ -1,0 +1,166 @@
+{
+	"settings": {
+		"title": "تنظیمات",
+		"language": "زبان",
+		"warning": "آیا مطمئن هستید؟",
+		"lobbysettings": {
+			"title": "ورودی تنظیمات",
+			"gamehostonly": "فقط میزبان بازی میتواند این را تغییر دهد!",
+			"inlobbyonly": "تو فقط میتوانی این را در ورودی تغییر دهی!",
+			"voicedistance": "فاصله ی صوتی",
+			"voicedistance_impostor": "ایمپوستر فاصله صوتی",
+			"wallsblockaudio": "دیوار بازدارنده ی صوتی",
+			"visiononly": "مردم را فقط در نگاه بشنوید",
+			"impostorshearsghost": "ایمپوستر صدای مرگ",
+			"hear_imposters_invents": "شیندن ایمپوستر از دریچه",
+			"private_talk_invents": "دریچه ی خصوصی صحبت کردن",
+			"comms_sabotage_audio": "خراب کردن رابطه ی صدای غیر فعال",
+			"hear_through_cameras": "شنیدن از طریق دوربین",
+			"ghost_only": "فقط روح میتواند صحبت کند\\بشنود",
+			"ghost_only_warning": "این صدا را برای پخش کننده های زنده غیر فعال میکند.",
+			"ghost_only_warning2": "ارواح فقط می توانند فعال صحبت کنند.",
+			"meetings_only": "فقط ملاقات\\ورودی",
+			"meetings_only_warning": "این صدا را غیر فعال میکند برای بازیکننده های زنده ی خارج از ملاقات.",
+			"meetings_only_warning2": "حرف زدن فقط در ملاقات فعال است.",
+			"impostor_radio": "رادیوی ایمپستر",
+			"public_lobby": {
+				"change_settings": "تغییر اطلاعات ورودی",
+				"title": "عنوان",
+				"enabled": "ورودی عمومی است",
+				"mods": "تغیر",
+				"language": "زبان",
+				"enable_warning": "فعال کردن این باعث میشود که ورودی تو برای دیگر استفاده کننده های بترکرولینک همگانی شود!",
+				"ban_warning": "متن نامناسب منجر به محرومیت از بترکرولینک میشود."
+			}
+		},
+		"customplatforms": {
+			"title": "پلتفرم مناسب",
+			"platform_title": "عنوان",
+			"path": "مسیر EXE",
+			"uri": "لینک URI",
+			"advanced": "پیشرفته",
+			"arguments": "مفولفه ها"
+		},
+		"audio": {
+			"title": "صوتی",
+			"microphone": "میکروفون",
+			"speaker": "اسپیکر",
+			"voice_activity": "فعالیت صوتی",
+			"push_to_talk": "فشار دید تا صحبت کنید",
+			"push_to_mute": "فشار دهید تا سکوت کنید",
+			"microphone_volume": "ولوم میکروفون",
+			"microphone_sens": "حساسیت میکروفون",
+			"microphone_sens_warning": "اگر حساسیت را پائینتر بیاورید شاید کار نکند.",
+			"mastervolume": "ولوم اصلی",
+			"crewvolume": "حجم خدمه بعنوان ارواح",
+			"ghostvolumeasimpostor": "صدای ارواح برای ایمپوستر",
+			"test_speaker_start": "اسپیکر امتحان کن",
+			"test_speaker_stop": "تمام کردن اسپیکر امتحان کن"
+		},
+		"keyboard": {
+			"title": "میانبر کیبورد",
+			"push_to_talk": "فشار دید تا صحبت کنید",
+			"mute": "سکوت",
+			"deafen": "صدا را بستن",
+			"impostor_radio": "رادیوی ایمپستر"
+		},
+		"overlay": {
+			"title": "پوشش",
+			"always_on_top": "بترکرولینک در بالا",
+			"enabled": "فعال کردن پوشش",
+			"compact": "پوشش فشرده",
+			"meeting": "پوشش ملاقات",
+			"pos": "پوشش پوزیشن",
+			"locations": {
+				"hidden": "پنهان",
+				"top": "بالای مرکز",
+				"bottom": "پائین چپ",
+				"right": "راست",
+				"right1": "راست با بکراند",
+				"left": "چپ",
+				"left1": "چپ بکراند"
+			}
+		},
+		"advanced": {
+			"title": "مرجع",
+			"nat_fix": "فیکس NAT",
+			"nat_fix_warning": "این کار مشکلات NAT را برطرف میکند اما یک تاخیر اضافه می کند زیرا به جای شبکه های همتا به همتا (P2P) از سرور استفاده می کند.",
+			"change_server": "Change Voice Server",
+			"voice_server": "Voice Server",
+			"invalid_url": "Invalid URL",
+			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash BetterCrewLink.",
+			"reset_default": "Reset to Default"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "Mobile Host",
+			"vad_enabled": "VAD Enabled",
+			"hardware_acceleration": "Hardware Acceleration",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
+			"vad_enabled_warning": "You won't see who's talking if disabled.",
+			"echocancellation": "Echo Cancellation",
+			"noiseSuppression": "Noise Suppression",
+			"spatial_audio": "Spatial Audio",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
+		},
+		"streaming": {
+			"title": "Streaming Settings",
+			"hidecode": "Show Lobby Code",
+			"obs_overlay": "OBS Browser Overlay",
+			"obs_url": "OBS Browser Source URL",
+			"voice_server_comp": "VS Compatibility Mode",
+			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
+		},
+		"troubleshooting": {
+			"title": "Troubleshooting",
+			"restore": "Restore to Default",
+			"restore_warning": "This will reset ALL settings to their default values.",
+			"warning": "Not available as host in game!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "Public Lobbies",
+		"code": "Lobby Code",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
+		"list": {
+			"title": "Title",
+			"host": "Host",
+			"players": "Players",
+			"mods": "Mods",
+			"language": "Language"
+		}
+	},
+	"buttons": {
+		"default": "Default",
+		"confirm": "Confirm",
+		"cancel": "Cancel",
+		"close": "Close",
+		"exit": "Exit settings to apply changes",
+		"public_lobby": "Public Lobbies",
+		"delete": "Delete",
+		"file_select": "Select File"
+	},
+	"game": {
+		"menu": "MENU",
+		"open": "Open via",
+		"open_error": "Start the Among Us manually.",
+		"waiting": "Waiting for Among Us",
+		"error": "ERROR",
+		"error_admin": "Couldn't connect to Among Us.\nPlease re-open BetterCrewLink as Administrator.",
+		"error_platform": "No platform detected",
+		"error_unsupport": "Your version of Among Us is unsupported by BetterCrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "Custom"
+	},
+	"translator_name": "Intancote"
+}

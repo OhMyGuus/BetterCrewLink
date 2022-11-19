@@ -1,0 +1,166 @@
+{
+	"settings": {
+		"title": "Einstellungen",
+		"language": "Sprache",
+		"warning": "Bist du sicher?",
+		"lobbysettings": {
+			"title": "Lobby-Einstellungen",
+			"gamehostonly": "Kann nur vom Host bearbeitet werden!",
+			"inlobbyonly": "Kann nur in der Lobby geändert werden!",
+			"voicedistance": "Stimmwahrnehmungsradius",
+			"voicedistance_impostor": "Imposter/Verräter-Stimmwahrnehmungsradius",
+			"wallsblockaudio": "Wände blockieren Audio",
+			"visiononly": "Spieler nur in Sichtweite hören",
+			"impostorshearsghost": "Imposter/Verräter hören die Geister",
+			"hear_imposters_invents": "Crew hört Imposter/Verräter in Vents/Schächten",
+			"private_talk_invents": "Privatgespräche in Vents/Schächten",
+			"comms_sabotage_audio": "Kommunikationssabotage verhindert Unterhaltungen",
+			"hear_through_cameras": "Durch Kameras hören",
+			"ghost_only": "Nur die Geister können sprechen/hören",
+			"ghost_only_warning": "Dies deaktiviert das Audio für lebende Spieler.",
+			"ghost_only_warning2": "Nur die Geister können sprechen aktiviert",
+			"meetings_only": "Audio nur in Meetings/Lobby",
+			"meetings_only_warning": "Sound für lebende Mitspieler außerhalb von Meetings deaktivieren.",
+			"meetings_only_warning2": "Sprechen nur in Treffen aktiviert",
+			"impostor_radio": "Impostor Radio",
+			"public_lobby": {
+				"change_settings": "Lobbyinfo ändern",
+				"title": "Titel",
+				"enabled": "Diese Lobby ist öffentlich",
+				"mods": "Mods",
+				"language": "Sprache",
+				"enable_warning": "Wenn aktiviert, ist deine Lobby für andere BetterCrewLink-Nutzer sichtbar!",
+				"ban_warning": "Unangebrachter Text führt zu einer Sperre auf BetterCrewLink."
+			}
+		},
+		"customplatforms": {
+			"title": "Benutzerdefinierte Plattform",
+			"platform_title": "Titel",
+			"path": "EXE-Pfad",
+			"uri": "URI Link",
+			"advanced": "Erweitert",
+			"arguments": "Parameter"
+		},
+		"audio": {
+			"title": "Audio",
+			"microphone": "Mikrofon",
+			"speaker": "Lautsprecher",
+			"voice_activity": "Sprachaktivität",
+			"push_to_talk": "Push-to-Talk",
+			"push_to_mute": "Push-to-Mute",
+			"microphone_volume": "Mikrofonlautstärke",
+			"microphone_sens": "Mikrofonempfindlichkeit",
+			"microphone_sens_warning": "Falls die Empfindlichkeit zu niedrig eingestellt ist, kann es zu Problemen führen.",
+			"mastervolume": "Hauptlautstärke",
+			"crewvolume": "Crew-Lautstärke wenn tot",
+			"ghostvolumeasimpostor": "Lautstärke der Geister als Impostor",
+			"test_speaker_start": "Lautsprecher testen",
+			"test_speaker_stop": "Lautsprechertest stoppen"
+		},
+		"keyboard": {
+			"title": "Tastenkürzel",
+			"push_to_talk": "Push-to-Talk",
+			"mute": "Stummschalten",
+			"deafen": "Ausgabe aus",
+			"impostor_radio": "Imposter-Radio"
+		},
+		"overlay": {
+			"title": "Overlay",
+			"always_on_top": "BetterCrewLink immer im Vordergrund",
+			"enabled": "Overlay aktivieren",
+			"compact": "Kompaktes Overlay",
+			"meeting": "Meeting-Overlay",
+			"pos": "Overlay-Position",
+			"locations": {
+				"hidden": "Versteckt",
+				"top": "Oben zentriert",
+				"bottom": "Unten links",
+				"right": "Rechts",
+				"right1": "Rechts mit Hintergrund",
+				"left": "Links",
+				"left1": "Links mit Hintergrund"
+			}
+		},
+		"advanced": {
+			"title": "Erweitert",
+			"nat_fix": "NAT-Fix",
+			"nat_fix_warning": "Behebt Probleme bezüglich NAT, kann jedoch Verzögerungen verursachen, da die Verbindung nicht direkt (P2P), sondern über einen Server aufgebaut wird.",
+			"change_server": "Sprachserver wechseln",
+			"voice_server": "Sprachserver",
+			"invalid_url": "Ungültige URL",
+			"voice_server_warning": "Diese Option ist nur für fortgeschrittene Benutzer. Andere Server können Ihre Daten stehlen oder BetterCrewLink zum Absturz bringen.",
+			"reset_default": "Einstellungen zurücksetzen"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "Mobiler Host",
+			"vad_enabled": "VAD einschalten",
+			"hardware_acceleration": "Hardwarebeschleunigung",
+			"hardware_acceleration_warning": "Dies deaktiviert die Hardwarebeschleunigung (was die CPU-Nutzung erhöhen kann)",
+			"vad_enabled_warning": "Falls VAD deaktivert ist, wird nicht angezeigt, wer derzeit spricht.",
+			"echocancellation": "Echounterdrückung",
+			"noiseSuppression": "Geräuschunterdrückung",
+			"spatial_audio": "Räumliches Audio",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "Dies ist eine Testfunktion, die nur auf Anfrage aktiviert ist. "
+		},
+		"streaming": {
+			"title": "Streamingeinstellungen",
+			"hidecode": "Lobby-Code anzeigen",
+			"obs_overlay": "OBS-Browser-Overlay",
+			"obs_url": "OBS-Browser-Overlay",
+			"voice_server_comp": "VS Kompatibilitätsmodus",
+			"voice_server_comp_warning": "Es wird empfohlen, den Sprachserver auf einen BetterCrewLink Voiceserver (z.B. https://bettercrewl.ink) zu ändern."
+		},
+		"troubleshooting": {
+			"title": "Fehlerbehebung",
+			"restore": "Einstellungen zurücksetzen",
+			"restore_warning": "Dadurch werden ALLE Einstellungen auf die Standardwerte zurückgesetzt.",
+			"warning": "Nicht als Host im Spiel verfügbar!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "Öffentliche Lobbys",
+		"code": "Lobbycode",
+		"code_tooltips": {
+			"in_progress": "Spiel läuft",
+			"full_lobby": "Lobby ist voll",
+			"incompatible": "Inkompatible Mods",
+			"and": "und"
+		},
+		"list": {
+			"title": "Titel",
+			"host": "Host",
+			"players": "Spieler",
+			"mods": "Mods",
+			"language": "Sprache"
+		}
+	},
+	"buttons": {
+		"default": "Standard",
+		"confirm": "OK",
+		"cancel": "Abbrechen",
+		"close": "Schließen",
+		"exit": "Einstellungen verlassen, um Änderungen anzuwenden",
+		"public_lobby": "Öffentliche Lobbys",
+		"delete": "Löschen",
+		"file_select": "Datei auswählen"
+	},
+	"game": {
+		"menu": "MENÜ",
+		"open": "Öffnen mit",
+		"open_error": "Starte Among Us manuell.",
+		"waiting": "Warten auf Among Us",
+		"error": "FEHLER",
+		"error_admin": "Konnte keine Verbindung zu \"Among Us\" herstellen.\nBitte BetterCrewLink mit Administratorrechten neu starten.",
+		"error_platform": "Keine Plattform erkannt",
+		"error_unsupport": "Deine Version von Among Us wird nicht von BetterCrewLink unterstützt."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "Benutzerdefiniert"
+	},
+	"translator_name": "KadenBiel, SirBuvex, Jeddunk und Fauli1221"
+}

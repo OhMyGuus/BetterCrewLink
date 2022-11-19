@@ -1,0 +1,166 @@
+{
+	"settings": {
+		"title": "设置",
+		"language": "语言设置",
+		"warning": "你确定吗？",
+		"lobbysettings": {
+			"title": "大厅设置",
+			"gamehostonly": "只有房主才可以更改这个选项！",
+			"inlobbyonly": "只能在大厅内更改这个选项！",
+			"voicedistance": "语音距离",
+			"voicedistance_impostor": "内鬼语音距离",
+			"wallsblockaudio": "墙壁可以隔音",
+			"visiononly": "仅能听见视野内的人",
+			"impostorshearsghost": "内鬼能听见幽灵",
+			"hear_imposters_invents": "能听见管道里的人",
+			"private_talk_invents": "管道内私聊",
+			"comms_sabotage_audio": "破坏通讯会禁用语音",
+			"hear_through_cameras": "监控可以收听声音",
+			"ghost_only": "只有幽灵可以语音",
+			"ghost_only_warning": "这将禁用所有幸存玩家的语音功能。",
+			"ghost_only_warning2": "启用了只有幽灵可以语音。",
+			"meetings_only": "仅限会议内/大厅内语音",
+			"meetings_only_warning": "这将禁用所有会议外幸存玩家的语音功能。",
+			"meetings_only_warning2": "启用了仅限会议内语音",
+			"impostor_radio": "内鬼私密通话",
+			"public_lobby": {
+				"change_settings": "修改大厅信息",
+				"title": "名称",
+				"enabled": "公开大厅",
+				"mods": "模组",
+				"language": "语言",
+				"enable_warning": "启用此项会让你的大厅向其他BetterCrewLink用户公开！",
+				"ban_warning": "过激文本将会让你被BetterCrewLink封禁。"
+			}
+		},
+		"customplatforms": {
+			"title": "自定义平台",
+			"platform_title": "平台名称",
+			"path": "执行文件路劲",
+			"uri": "URI 链接",
+			"advanced": "高级设置",
+			"arguments": "参数"
+		},
+		"audio": {
+			"title": "音频设置",
+			"microphone": "麦克风",
+			"speaker": "扬声器",
+			"voice_activity": "语音感应",
+			"push_to_talk": "按键说话",
+			"push_to_mute": "按键闭麦",
+			"microphone_volume": "麦克风音量",
+			"microphone_sens": "麦克风灵敏度",
+			"microphone_sens_warning": "如果你设置灵敏度过低，可能导致麦克风无法正常工作。",
+			"mastervolume": "主音量",
+			"crewvolume": "作为幽灵时的船员音量",
+			"ghostvolumeasimpostor": "内鬼听见的幽灵音量",
+			"test_speaker_start": "扬声器测试",
+			"test_speaker_stop": "停止扬声器测试"
+		},
+		"keyboard": {
+			"title": "快捷键",
+			"push_to_talk": "按键说话",
+			"mute": "闭麦",
+			"deafen": "静音",
+			"impostor_radio": "内鬼私密通话"
+		},
+		"overlay": {
+			"title": "游戏内覆盖",
+			"always_on_top": "置顶BetterCrewLink",
+			"enabled": "启用覆盖",
+			"compact": "简洁覆盖",
+			"meeting": "会议覆盖",
+			"pos": "覆盖位置",
+			"locations": {
+				"hidden": "隐藏",
+				"top": "顶部居中",
+				"bottom": "左下角",
+				"right": "右侧",
+				"right1": "右侧/显示背景",
+				"left": "左侧",
+				"left1": "左侧/显示背景"
+			}
+		},
+		"advanced": {
+			"title": "高级设置",
+			"nat_fix": "NAT 修复",
+			"nat_fix_warning": "这会将默认的点对点（P2P）连接改为通过中转服务器连接进行语音。",
+			"change_server": "更改语音服务器",
+			"voice_server": "语音服务器",
+			"invalid_url": "无效的URL",
+			"voice_server_warning": "此选项仅适用于高级用户。其他服务器有可能会盗取你的信息或导致BetterCrewLink崩溃。",
+			"reset_default": "重置为默认设置"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "移动端主机",
+			"vad_enabled": "启用VAD",
+			"hardware_acceleration": "硬件加速",
+			"hardware_acceleration_warning": "禁用硬件加速将会导致CPU占用上升！",
+			"vad_enabled_warning": "如果停用该选项，你将无法识别玩家当前语音状态。",
+			"echocancellation": "回音消除",
+			"noiseSuppression": "降噪",
+			"spatial_audio": "空间音频",
+			"oldsampledebug": "采样率调试",
+			"oldsampledebug_warning": "这是一个测试函数，请在被要求时开启。"
+		},
+		"streaming": {
+			"title": "直播设置",
+			"hidecode": "显示大厅代码",
+			"obs_overlay": "OBS 浏览器覆盖源",
+			"obs_url": "OBS浏览器源URL",
+			"voice_server_comp": "VS 兼容模式",
+			"voice_server_comp_warning": "建议将语音服务器更改为BetterCrewLink Voice Server ，例如：https://bettercrewl.ink 。"
+		},
+		"troubleshooting": {
+			"title": "故障处理",
+			"restore": "恢复默认设置",
+			"restore_warning": "这将重置所有设置为默认值。",
+			"warning": "游戏中没有可用房主！"
+		}
+	},
+	"lobbybrowser": {
+		"header": "公共大厅",
+		"code": "房间代码",
+		"code_tooltips": {
+			"in_progress": "正在游戏中",
+			"full_lobby": "房间已满",
+			"incompatible": "模组不兼容",
+			"and": "和"
+		},
+		"list": {
+			"title": "房间名",
+			"host": "房主",
+			"players": "玩家",
+			"mods": "模组",
+			"language": "语言"
+		}
+	},
+	"buttons": {
+		"default": "默认",
+		"confirm": "确认",
+		"cancel": "取消",
+		"close": "关闭",
+		"exit": "退出设置并应用更改",
+		"public_lobby": "公共大厅",
+		"delete": "删除",
+		"file_select": "选择文件"
+	},
+	"game": {
+		"menu": "菜单",
+		"open": "通过……打开",
+		"open_error": "手动启动Among Us",
+		"waiting": "等待Among Us启动中",
+		"error": "错误",
+		"error_admin": "无法连接到Among Us。\n请以管理员权限重新打开 BetterCrewLink。",
+		"error_platform": "未检测到平台",
+		"error_unsupport": "BetterCrewLink不支持当前版本的Among Us。"
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic游戏",
+		"microsoft": "Microsoft",
+		"custom": "自定义"
+	},
+	"translator_name": "Zheng Syameimaru & Er1ckW"
+}

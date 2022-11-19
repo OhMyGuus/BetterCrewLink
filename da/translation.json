@@ -1,0 +1,166 @@
+{
+	"settings": {
+		"title": "Settings",
+		"language": "Language",
+		"warning": "Are you sure?",
+		"lobbysettings": {
+			"title": "Lobby Settings",
+			"gamehostonly": "Only the game host can change this!",
+			"inlobbyonly": "You can only change this in the lobby!",
+			"voicedistance": "Voice Distance",
+			"voicedistance_impostor": "Impostor Voice Distance",
+			"wallsblockaudio": "Walls Block Audio",
+			"visiononly": "Hear People in Vision Only",
+			"impostorshearsghost": "Impostors Hear Dead",
+			"hear_imposters_invents": "Hear Impostors in Vents",
+			"private_talk_invents": "Private Talk in Vents",
+			"comms_sabotage_audio": "Comms Sabotage Disables Voice",
+			"hear_through_cameras": "Hear Through Cameras",
+			"ghost_only": "Only Ghosts can Talk/Hear",
+			"ghost_only_warning": "This disables the sound for alive players.",
+			"ghost_only_warning2": "Ghost can talk only enabled.",
+			"meetings_only": "Meetings/Lobby Only",
+			"meetings_only_warning": "This disables the sound for alive players outside meetings.",
+			"meetings_only_warning2": "Talking in meetings only enabled.",
+			"impostor_radio": "Impostor Radio",
+			"public_lobby": {
+				"change_settings": "Change Lobby Info",
+				"title": "Title",
+				"enabled": "The Lobby is Public",
+				"mods": "Mods",
+				"language": "Language",
+				"enable_warning": "Enabling this will make your lobby public to other BetterCrewLink users!",
+				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
+			}
+		},
+		"customplatforms": {
+			"title": "Custom Platform",
+			"platform_title": "Title",
+			"path": "EXE Path",
+			"uri": "URI Link",
+			"advanced": "Advanced",
+			"arguments": "Arguments"
+		},
+		"audio": {
+			"title": "Audio",
+			"microphone": "Microphone",
+			"speaker": "Speaker",
+			"voice_activity": "Voice Activity",
+			"push_to_talk": "Push to Talk",
+			"push_to_mute": "Push to Mute",
+			"microphone_volume": "Microphone Volume",
+			"microphone_sens": "Microphone Sensitivity",
+			"microphone_sens_warning": "If you set the sensitivity any lower it might not work.",
+			"mastervolume": "Master Volume",
+			"crewvolume": "Crew Volume as Ghost",
+			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
+			"test_speaker_start": "Test Speaker",
+			"test_speaker_stop": "Stop Test Speaker"
+		},
+		"keyboard": {
+			"title": "Keyboard Shortcuts",
+			"push_to_talk": "Push to Talk",
+			"mute": "Mute",
+			"deafen": "Deafen",
+			"impostor_radio": "Impostor Radio"
+		},
+		"overlay": {
+			"title": "Overlay",
+			"always_on_top": "BetterCrewLink on Top",
+			"enabled": "Enable Overlay",
+			"compact": "Compact Overlay",
+			"meeting": "Meeting Overlay",
+			"pos": "Overlay Position",
+			"locations": {
+				"hidden": "Hidden",
+				"top": "Top Center",
+				"bottom": "Bottom Left",
+				"right": "Right",
+				"right1": "Right with Background",
+				"left": "Left",
+				"left1": "Left with Background"
+			}
+		},
+		"advanced": {
+			"title": "Advanced",
+			"nat_fix": "NAT Fix",
+			"nat_fix_warning": "This will FIX the NAT issues but will add a delay since it is using a server instead of Peer to Peer (P2P).",
+			"change_server": "Change Voice Server",
+			"voice_server": "Voice Server",
+			"invalid_url": "Invalid URL",
+			"voice_server_warning": "This option is for advanced users only. Other servers can steal your info or crash BetterCrewLink.",
+			"reset_default": "Reset to Default"
+		},
+		"beta": {
+			"title": "BETA/DEBUG",
+			"mobilehost": "Mobile Host",
+			"vad_enabled": "VAD Enabled",
+			"hardware_acceleration": "Hardware Acceleration",
+			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
+			"vad_enabled_warning": "You won't see who's talking if disabled.",
+			"echocancellation": "Echo Cancellation",
+			"noiseSuppression": "Noise Suppression",
+			"spatial_audio": "Spatial Audio",
+			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
+		},
+		"streaming": {
+			"title": "Streaming Settings",
+			"hidecode": "Show Lobby Code",
+			"obs_overlay": "OBS Browser Overlay",
+			"obs_url": "OBS Browser Source URL",
+			"voice_server_comp": "VS Compatibility Mode",
+			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
+		},
+		"troubleshooting": {
+			"title": "Troubleshooting",
+			"restore": "Restore to Default",
+			"restore_warning": "This will reset ALL settings to their default values.",
+			"warning": "Not available as host in game!"
+		}
+	},
+	"lobbybrowser": {
+		"header": "Public Lobbies",
+		"code": "Lobby Code",
+		"code_tooltips": {
+			"in_progress": "Game in Progress",
+			"full_lobby": "Lobby is Full",
+			"incompatible": "Incompatible Mods",
+			"and": "and"
+		},
+		"list": {
+			"title": "Title",
+			"host": "Host",
+			"players": "Players",
+			"mods": "Mods",
+			"language": "Language"
+		}
+	},
+	"buttons": {
+		"default": "Default",
+		"confirm": "Confirm",
+		"cancel": "Cancel",
+		"close": "Close",
+		"exit": "Exit settings to apply changes",
+		"public_lobby": "Public Lobbies",
+		"delete": "Delete",
+		"file_select": "Select File"
+	},
+	"game": {
+		"menu": "MENU",
+		"open": "Open via",
+		"open_error": "Start the Among Us manually.",
+		"waiting": "Waiting for Among Us",
+		"error": "ERROR",
+		"error_admin": "Couldn't connect to Among Us.\nPlease re-open BetterCrewLink as Administrator.",
+		"error_platform": "No platform detected",
+		"error_unsupport": "Your version of Among Us is unsupported by BetterCrewLink."
+	},
+	"platform": {
+		"steam": "Steam",
+		"epicgames": "Epic Games",
+		"microsoft": "Microsoft",
+		"custom": "Custom"
+	},
+	"translator_name": "Translator Name"
+}
