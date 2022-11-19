@@ -53,7 +53,7 @@
 			"microphone_sens_warning": "Если выставить чувствительность ещё ниже, она может не сработать.",
 			"mastervolume": "Общая громкость",
 			"crewvolume": "Громкость экипажа для призрака",
-			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
+			"ghostvolumeasimpostor": "Громкость призраков для предателей",
 			"test_speaker_start": "Проверка динамика",
 			"test_speaker_stop": "Остановить проверку динамика"
 		},

@@ -53,7 +53,7 @@
 			"microphone_sens_warning": "Falls die Empfindlichkeit zu niedrig eingestellt ist, kann es zu Problemen führen.",
 			"mastervolume": "Hauptlautstärke",
 			"crewvolume": "Crew-Lautstärke wenn tot",
-			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
+			"ghostvolumeasimpostor": "Lautstärke der Geister als Impostor",
 			"test_speaker_start": "Lautsprecher testen",
 			"test_speaker_stop": "Lautsprechertest stoppen"
 		},
