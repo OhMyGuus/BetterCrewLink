@@ -53,7 +53,7 @@
 			"microphone_sens_warning": "如果你设置灵敏度过低，可能导致麦克风无法正常工作。",
 			"mastervolume": "主音量",
 			"crewvolume": "作为幽灵时的船员音量",
-			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
+			"ghostvolumeasimpostor": "内鬼听见的幽灵音量",
 			"test_speaker_start": "扬声器测试",
 			"test_speaker_stop": "停止扬声器测试"
 		},
