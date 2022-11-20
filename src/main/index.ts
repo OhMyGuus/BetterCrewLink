@@ -98,7 +98,7 @@ function createMainWindow() {
 		);
 	}
 	//window.webContents.userAgent = `CrewLink/${crewlinkVersion} (${process.platform})`;
-	window.webContents.userAgent = `BetterCrewLink/3.0.1 (win32)`;
+	window.webContents.userAgent = `BetterCrewLink/3.1.0 (win32)`;
 
 	window.on('closed', () => {
 		try {
@@ -169,7 +169,7 @@ function createLobbyBrowser() {
 			})
 		);
 	}
-	window.webContents.userAgent = `BetterCrewLink/3.0.1 (win32)`;
+	window.webContents.userAgent = `BetterCrewLink/3.1.0 (win32)`;
 	console.log('Opened app version: ', crewlinkVersion);
 	return window;
 }
