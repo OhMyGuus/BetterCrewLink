@@ -48,7 +48,7 @@ export interface IOffsets {
 	palette: number[];
 	palette_shadowColor: number[];
 	palette_playercolor: number[];
-	playerControl_GameOptions: number[];
+	gameoptionsData: number[];
 	gameOptions_MapId: number[];
 	gameOptions_MaxPLayers: number[];
 	connectFunc: number;
@@ -122,9 +122,11 @@ export interface IOffsets {
 		serverManager: ISignature;
 		showModStamp: ISignature;
 		modLateUpdate: ISignature;
+		gameOptionsManager: ISignature;
 	};
 	oldMeetingHud: boolean;
 	disableWriting: boolean;
+	newGameOptions: boolean;
 }
 
 interface IOffsetsStore {

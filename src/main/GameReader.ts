@@ -264,7 +264,7 @@ export default class GameReader {
 				const gameOptionsPtr = this.readMemory<number>(
 					'ptr',
 					this.gameAssembly.modBaseAddr,
-					this.offsets.playerControl_GameOptions
+					this.offsets.gameoptionsData
 				);
 				maxPlayers = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MaxPLayers);
 				map = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MapId);
@@ -495,7 +495,16 @@ export default class GameReader {
 			this.offsets.signatures.playerControl.patternOffset,
 			this.offsets.signatures.playerControl.addressOffset
 		);
-		this.offsets.playerControl_GameOptions[0] = playerControl;
+		if(this.offsets.newGameOptions){
+			const gameOptionsManager = this.findPattern(
+				this.offsets.signatures.gameOptionsManager.sig,
+				this.offsets.signatures.gameOptionsManager.patternOffset,
+				this.offsets.signatures.gameOptionsManager.addressOffset
+			);
+			this.offsets.gameoptionsData[0] = gameOptionsManager;
+		}else{
+			this.offsets.gameoptionsData[0] = playerControl;
+		}
 		this.offsets.palette[0] = palette;
 		this.offsets.meetingHud[0] = meetingHud;
 		this.offsets.allPlayersPtr[0] = gameData;
