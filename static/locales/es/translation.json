@@ -53,7 +53,7 @@
 			"microphone_sens_warning": "Si pones la sensibilidad más baja puede ser que no funcione.",
 			"mastervolume": "Volumen general",
 			"crewvolume": "Volumen de los Tripulantes como Fantasma",
-			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
+			"ghostvolumeasimpostor": "Volumen de Fantasma como Impostor",
 			"test_speaker_start": "Test de Altavoz",
 			"test_speaker_stop": "Parar Test de Altavoz"
 		},
@@ -96,12 +96,12 @@
 			"mobilehost": "Host móvil",
 			"vad_enabled": "VAD activado",
 			"hardware_acceleration": "Aceleración de Hardware",
-			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
+			"hardware_acceleration_warning": "Esto desactiva la Aceleración por Hardware (que puede aumentar el uso del procesador)",
 			"vad_enabled_warning": "No serás capaz de ver quién habla si se desactiva.",
 			"echocancellation": "Cancelación de Eco",
 			"noiseSuppression": "Supresión de Ruido",
 			"spatial_audio": "Audio Espacial",
-			"oldsampledebug": "Samplerate Debug",
+			"oldsampledebug": "Depuración de tasa de muestreo",
 			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
 		},
 		"streaming": {
@@ -123,10 +123,10 @@
 		"header": "Salas Públicas",
 		"code": "Código de la Sala",
 		"code_tooltips": {
-			"in_progress": "Game in Progress",
-			"full_lobby": "Lobby is Full",
-			"incompatible": "Incompatible Mods",
-			"and": "and"
+			"in_progress": "Partida en Curso",
+			"full_lobby": "La sala está llena",
+			"incompatible": "Mods Incompatibles",
+			"and": "y"
 		},
 		"list": {
 			"title": "Título",
