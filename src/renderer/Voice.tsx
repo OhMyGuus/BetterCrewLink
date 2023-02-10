@@ -372,6 +372,9 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				if (!me.isDead && other.isDead) {
 					endGain = 0;
 				}
+				if (me.isDead && other.isDead && connectionStuff.current.muted) {
+					endGain = 0;
+				}
 				break;
 
 			case GameState.UNKNOWN:
