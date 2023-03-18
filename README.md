@@ -130,7 +130,7 @@ This project is a fork of the popular Proximity Voice Chat, [CrewLink](https://g
 - You can play BetterCrewLink without having to be stuck in MENU Infinitely.
 - Changing the Speaker Setting does actually something unlike Original CrewLink where it is always using the Default Output.
 - Microphone Echo Cancellation.
-- Microphone Eoise Suppression.
+- Microphone Noise Suppression.
 - More Overlay Positions and you can set the Overlay to the Top/Bottom and you can set It so It shows Everyone Even When Dead.
 - You can set the Lobby Up so Only Death people can talk. (Normal Lobbies but then with Death Talk)
 - Support for New/Older versions of Among Us. (v2021.11.9.2)
