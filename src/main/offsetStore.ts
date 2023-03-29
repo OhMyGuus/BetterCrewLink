@@ -135,18 +135,26 @@ interface IOffsetsStore {
 	offsetsVersion: number;
 	offsets: IOffsets;
 }
+//// "https://cdn.jsdelivr.net/gh/OhMyGuus/BetterCrewlink-Offsets@main/"; // "https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Offsets/main"
 
-const BASE_URL = "https://cdn.jsdelivr.net/gh/OhMyGuus/BetterCrewlink-Offsets@main/"; // "https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Offsets/main"
+const BASE_URL = "https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Offsets/main/";
+const BASE_URL_error = "https://cdn.jsdelivr.net/gh/OhMyGuus/BetterCrewlink-Offsets@main/";
 
 const store = new Store<IOffsetsStore>({name: "offsets"});
 const lookupStore = new Store<IOffsetsLookup>({name: "lookup"});
 
-async function fetchOffsetLookupJson(): Promise<IOffsetsLookup> {
-	console.log(`Fetching lookup file`);
-	return fetch(`${BASE_URL}lookup.json`)
-		.then((response) => response.json())
-		.then((data) => { return data as IOffsetsLookup })
-		.catch((_) => { throw Errors.LOOKUP_FETCH_ERROR })
+async function fetchOffsetLookupJson(error: boolean = false): Promise<IOffsetsLookup> {
+    const url = error ? BASE_URL_error : BASE_URL;
+    return fetch(`${url}/lookup.json`)
+        .then((response) => response.json())
+        .then((data) => { return data as IOffsetsLookup })
+        .catch((_) => {
+            if (!error) {
+                return fetchOffsetLookupJson(true);
+            } else {
+                throw Errors.LOOKUP_FETCH_ERROR;
+            }
+        });
 }
 
 export async function fetchOffsetLookup(): Promise<IOffsetsLookup> {
@@ -161,15 +169,20 @@ export async function fetchOffsetLookup(): Promise<IOffsetsLookup> {
 	}
 }
 
-const OFFSETS_URL = `${BASE_URL}offsets`;
-async function fetchOffsetsJson(is_64bit: boolean, filename: string): Promise<IOffsets> {
-	console.log(`Fetching file: ${filename}`);
-	return fetch(`${OFFSETS_URL}/${is_64bit ? 'x64' : 'x86'}/${filename}`)
-		.then((response) => response.json())
-		.then((data) => { return data as IOffsets })
-		.catch((_) => { throw Errors.OFFSETS_FETCH_ERROR })
+async function fetchOffsetsJson(is_64bit: boolean, filename: string, error: boolean = false): Promise<IOffsets> {
+    const url = error ? BASE_URL_error : BASE_URL;
+    const OFFSETS_URL = `${url}/offsets`;
+    return fetch(`${OFFSETS_URL}/${is_64bit ? 'x64' : 'x86'}/${filename}`)
+        .then((response) => response.json())
+        .then((data) => { return data as IOffsets })
+        .catch((_) => {
+            if (!error) {
+                return fetchOffsetsJson(is_64bit, filename, true);
+            } else {
+                throw Errors.OFFSETS_FETCH_ERROR;
+            }
+        });
 }
-
 export async function fetchOffsets(is_64bit: boolean, filename: string, offsetsVersion: number): Promise<IOffsets> {
 	// offsetsVersion in case we need to update people's cached file
 	// >= version to allow testing with local file updates (eg remote vers 2, local vers 3)
