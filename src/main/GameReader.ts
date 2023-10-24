@@ -268,7 +268,6 @@ export default class GameReader {
 				);
 				maxPlayers = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MaxPLayers);
 				map = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MapId);
-
 				if (state === GameState.TASKS) {
 					const shipPtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets.shipStatus);
 
@@ -282,6 +281,7 @@ export default class GameReader {
 								switch (map) {
 									case MapType.AIRSHIP:
 									case MapType.POLUS:
+									case MapType.FUNGLE:
 									case MapType.THE_SKELD:
 									case MapType.SUBMERGED: {
 										comsSabotaged =
@@ -1101,6 +1101,7 @@ export default class GameReader {
 					shiftedColor = this.readMemory<number>('uint32', val, this.offsets!.player.outfit.colorId); // 0x14
 				}
 			});
+
 			const roleTeam = this.readMemory<number>('uint32', data.rolePtr, this.offsets!.player.roleTeam)
 			data.impostor = roleTeam;
 
