@@ -268,7 +268,6 @@ export default class GameReader {
 				);
 				maxPlayers = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MaxPLayers);
 				map = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MapId);
-
 				if (state === GameState.TASKS) {
 					const shipPtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets.shipStatus);
 
@@ -282,6 +281,7 @@ export default class GameReader {
 								switch (map) {
 									case MapType.AIRSHIP:
 									case MapType.POLUS:
+									case MapType.FUNGLE:
 									case MapType.THE_SKELD:
 									case MapType.SUBMERGED: {
 										comsSabotaged =
@@ -1083,7 +1083,7 @@ export default class GameReader {
 		let name = 'error';
 		let shiftedColor = -1;
 		if (data.hasOwnProperty('name')) {
-			name = this.readString(data.name).split(/<.*?>/).join('');
+			name = this.readString(data.name, 1000).split(/<.*?>/).join('');
 		} else {
 			this.readDictionary(data.outfitsPtr, 6, (k, v, i) => {
 				const key = this.readMemory<number>('int32', k);
@@ -1091,7 +1091,7 @@ export default class GameReader {
 				if (key === 0 && i == 0) {
 					const namePtr = this.readMemory<number>('pointer', val, this.offsets!.player.outfit.playerName); // 0x40
 					data.color = this.readMemory<number>('uint32', val, this.offsets!.player.outfit.colorId); // 0x14
-					name = this.readString(namePtr).split(/<.*?>/).join('');
+					name = this.readString(namePtr, 1000).split(/<.*?>/).join('');
 					data.hat = this.readString(this.readMemory<number>('ptr', val, this.offsets!.player.outfit.hatId));
 					data.skin = this.readString(this.readMemory<number>('ptr', val, this.offsets!.player.outfit.skinId));
 					data.visor = this.readString(this.readMemory<number>('ptr', val, this.offsets!.player.outfit.visorId));
@@ -1101,6 +1101,7 @@ export default class GameReader {
 					shiftedColor = this.readMemory<number>('uint32', val, this.offsets!.player.outfit.colorId); // 0x14
 				}
 			});
+
 			const roleTeam = this.readMemory<number>('uint32', data.rolePtr, this.offsets!.player.roleTeam)
 			data.impostor = roleTeam;
 
