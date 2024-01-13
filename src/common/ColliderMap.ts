@@ -132,7 +132,16 @@ export const doorMaps: { [key in MapType]: { [key in number]: string | undefined
 		20: 'M 71.708 44.3274 H 73.3457', //Medical Top
 	},
 	[MapType.SUBMERGED]: undefined,
-	[MapType.FUNGLE]: undefined,
+	[MapType.FUNGLE]: {
+		0: 'M 62.95 27.87 H 65.34', // Horizontal Comms
+		1: 'M 58.53 27.51 V 25.63', // Vertical Comms
+		2: 'M 23.51 45.57 H 25.44', // Kitchen
+		3: 'M 34.65 47.6 H 36.84', // Laboratory
+		4: 'M 50.9 38.43 V 35.82', // Lookout
+		5: 'M 51.38 33.62 H 53.88', // MiningPit
+		6: 'M 59.52 47.91 V 45.62', // Reactor
+		7: 'M 38.31 36.76 V 34.37', // Storage
+	},
 	[MapType.THE_SKELD_APRIL]: undefined,
 	[MapType.UNKNOWN]: undefined,
 };
