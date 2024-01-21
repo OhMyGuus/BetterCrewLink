@@ -348,8 +348,16 @@ export default class GameReader {
 								'ptr',
 								allDoors + this.offsets.playerAddrPtr + doorNr * (this.is_64bit ? 0x8 : 0x4)
 							);
-							const doorOpen = this.readMemory<number>('int', door + this.offsets.door_isOpen) === 1;
-							//	const doorId = this.readMemory<number>('int', door + this.offsets.door_doorId);
+
+							let doorOpen: Boolean;
+							if (map === MapType.FUNGLE) {
+								doorOpen = this.readMemory<number>('int', door + this.offsets.mushroomDoor_isOpen) === 1;
+							}
+							else {
+								doorOpen = this.readMemory<number>('int', door + this.offsets.door_isOpen) === 1;
+							}
+							
+							//  const doorId = this.readMemory<number>('int', door + this.offsets.door_doorId);
 							//console.log(doorId);
 							if (!doorOpen) {
 								closedDoors.push(doorNr);
