@@ -27,6 +27,8 @@ import { validateClientPeerConfig } from './validateClientPeerConfig';
 // @ts-ignore
 import reverbOgx from 'arraybuffer-loader!../../static/sounds/reverb.ogx'; // @ts-ignore
 import radioOnSound from '../../static/sounds/radio_on.wav'; // @ts-ignore
+import EnableDeadPlayer from '../../static/images/button/EnableDeadPlayerButton.png'; // @ts-ignore
+import DisableDeadPlayer from '../../static/images/button/DisableDeadPlayerButton.png'; // @ts-ignore
 
 import { CameraLocation, AmongUsMaps, MapType } from '../common/AmongusMap';
 import { ObsVoiceState } from '../common/ObsOverlay';
@@ -35,8 +37,6 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import VolumeOff from '@mui/icons-material/VolumeOff';
 import VolumeUp from '@mui/icons-material/VolumeUp';
-import HearingIcon from '@mui/icons-material/Hearing';
-import HearingDisabledIcon from '@mui/icons-material/HearingDisabled';
 import Mic from '@mui/icons-material/Mic';
 import MicOff from '@mui/icons-material/MicOff';
 import adapter from 'webrtc-adapter';
@@ -946,7 +946,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				setDeafened(connectionStuff.current.deafened);
 			};
 
-			connectionStuff.current.toggleMute = () => {
+			connectionStuff.current.toggleMuteDead = () => {
 				connectionStuff.current.muteDead = !connectionStuff.current.muteDead;
 				setDead(connectionStuff.current.muteDead);
 			}
@@ -1404,7 +1404,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 							{gameState.lobbyCode !== 'MENU' && (
 								<div className={classes.muteButtons}>
 									<IconButton onClick={connectionStuff.current.toggleMuteDead} size="small">
-										{muteDead ? <HearingIcon /> : <HearingDisabledIcon />}
+										{muteDead ? <img src={DisableDeadPlayer} style={{ width: '20px', height: '20px' }} /> : <img src={EnableDeadPlayer} style={{ width: '20px', height: '20px' }} />}
 									</IconButton>
 									<IconButton onClick={connectionStuff.current.toggleMute} size="small">
 										{mutedState || deafenedState ? <MicOff /> : <Mic />}
