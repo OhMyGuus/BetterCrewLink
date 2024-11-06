@@ -45,8 +45,6 @@ export interface Player {
 	y: number;
 	inVent: boolean;
 	isDummy: boolean;
-	inputChannels: Set<string>;
-	outputChannels: Set<string>;
 }
 
 export enum GameState {

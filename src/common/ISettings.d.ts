@@ -68,3 +68,12 @@ export interface SocketConfig {
 export interface playerConfigMap {
 	[socketId: number]: SocketConfig;
 }
+
+export interface playerChannelMap {
+	[playerId: number]: ChannelConfig;
+}
+
+export interface ChannelConfig {
+	inputChannels: Set<string>;
+	outputChannels: Set<string>;
+}

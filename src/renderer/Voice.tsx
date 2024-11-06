@@ -16,7 +16,7 @@ import {
 import Peer from 'simple-peer';
 import { ipcRenderer } from 'electron';
 import VAD from './vad';
-import { ISettings, playerConfigMap, ILobbySettings } from '../common/ISettings';
+import { ISettings, playerConfigMap, ILobbySettings, playerChannelMap } from '../common/ISettings';
 import { IpcRendererMessages, IpcMessages, IpcOverlayMessages, IpcHandlerMessages } from '../common/ipc-messages';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -241,6 +241,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	const [talking, setTalking] = useState(false);
 	const [socketClients, setSocketClients] = useState<SocketClientMap>({});
 	const [playerConfigs] = useState<playerConfigMap>(settingsRef.current.playerConfigMap);
+	const [playerChannels, setPlayerChannels] = useState<playerChannelMap>({});
 	const socketClientsRef = useRef(socketClients);
 	const [peerConnections, setPeerConnections] = useState<PeerConnections>({});
 	const convolverBuffer = useRef<AudioBuffer | null>(null);
@@ -301,21 +302,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		let skipDistanceCheck = false;
 		let muffleEnabled = false;
 
-		if (me.inputChannels === undefined) {
-			me.inputChannels = new Set<string>('default');
-		}
-		if (me.outputChannels === undefined) {
-			me.outputChannels = new Set<string>('default');
-		}
-
-		const myInputs = me.inputChannels;
-		const otherOutputs = other.outputChannels;
-
-		// Check if other player is outputting to any of my inputs
-		const commonChannels = [...myInputs].filter((value) => otherOutputs.has(value));
-		const shareChannels = commonChannels.length > 0;
-
-		if (other.disconnected || other.isDummy || !shareChannels) {
+		if (other.disconnected || other.isDummy) {
 			return 0;
 		}
 
@@ -728,7 +715,14 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	useEffect(() => {
 		console.log('setting up listeners');
 		ipcRenderer.on(IpcRendererMessages.SET_CHANNELS, (_: unknown, id: number, channels: any) => {
-			console.log('Setting channels of player ', id, ' to ', channels);
+			let config = playerChannels[id];
+			if (!config) {
+				playerChannels[id] = { inputChannels: new Set(["default"]), outputChannels: new Set(["default"]) };
+				config = playerChannels[id];
+			}
+			config.inputChannels = new Set(channels.input);
+			config.outputChannels = new Set(channels.output);
+			setPlayerChannels({ ...playerChannels });
 		});
 	}, []);
 
@@ -1227,7 +1221,36 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				handledPeerIds.push(peerId);
 				let gain = calculateVoiceAudio(gameState, settingsRef.current, myPlayer, player, audio);
 
-				if (connectionStuff.current.deafened || playerConfigs[player.nameHash]?.isMuted) {
+				let myConfig = playerChannels[myPlayer.id];
+				if (myConfig === undefined) {
+					myConfig = { inputChannels: new Set<string>(['default']), outputChannels: new Set<string>(['default']) };
+					playerChannels[myPlayer.id] = myConfig;
+				}
+
+				let otherConfig = playerChannels[player.id];
+				if (otherConfig === undefined) {
+					otherConfig = { inputChannels: new Set<string>(['default']), outputChannels: new Set<string>(['default']) };
+					playerChannels[player.id] = otherConfig;
+				}
+		
+				if (myConfig.inputChannels === undefined) {
+					myConfig.inputChannels = new Set<string>(['default']);
+					console.log('me input channels undefined');
+				}
+				if (otherConfig.outputChannels === undefined) {
+					otherConfig.outputChannels = new Set<string>(['default']);
+					console.log('me output channels undefined');
+				}
+		
+				const myInputs = myConfig.inputChannels;
+				const otherOutputs = otherConfig.outputChannels;
+				console.log('myInputs: ', myConfig.inputChannels);
+		
+				// Check if other player is outputting to any of my inputs
+				const commonChannels = [...myInputs].filter((value) => otherOutputs.has(value));
+				const shareChannels = commonChannels.length > 0;
+
+				if (connectionStuff.current.deafened || playerConfigs[player.nameHash]?.isMuted || !shareChannels) {
 					gain = 0;
 				}
 

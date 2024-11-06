@@ -313,15 +313,21 @@ if (!gotTheLock) {
 		});
 
 		// use child_process to spawn integration server
-		const child_process_file = joinPath(process.resourcesPath, 'integrationServer.ts');
+		let child_process_file = joinPath(process.resourcesPath, 'integrationServer.ts');
+
+		if (isDevelopment) {
+			child_process_file = joinPath(__dirname, 'integrationServer.ts');
+		}
+
 		const integrationServer = fork(child_process_file, [], { "execArgv":["-r", "ts-node/register"] });
 		integrationServer.unref();
 
-		integrationServer.on('message', (message) => {
+		integrationServer.on('message', (message: any) => {
 			const json = JSON.parse(message);
 
 			switch (json.type) {
 				case 'channels':
+					console.log('Setting channels', json.value);
 					global.mainWindow?.webContents.send(IpcRendererMessages.SET_CHANNELS, json.id, json.value);
 					break;
 			}

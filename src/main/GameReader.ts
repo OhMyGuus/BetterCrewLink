@@ -1148,9 +1148,7 @@ export default class GameReader {
 			isLocal,
 			isDummy,
 			x: x_round || x || 999,
-			y: y_round || y || 999,
-			inputChannels: new Set<string>(["default"]),
-			outputChannels: new Set<string>(["default"])
+			y: y_round || y || 999
 		};
 	}
 }
