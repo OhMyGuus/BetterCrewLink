@@ -4,9 +4,6 @@ copyright: Copyright © 2021 OhMyGuus
 directories:
   output: dist
   buildResources: resources
-extraResources:
-  - from: src/extraResources/
-    to: ../resources
 files:
   - from: .
     filter:

@@ -6,7 +6,6 @@ import windowStateKeeper from 'electron-window-state';
 import { platform } from 'os';
 import { join as joinPath } from 'path';
 import { format as formatUrl } from 'url';
-import { fork } from 'child_process';
 import './hook';
 import { overlayWindow } from 'electron-overlay-window';
 import { initializeIpcHandlers, initializeIpcListeners } from './ipc-handlers';
@@ -18,6 +17,7 @@ import { ISettings } from '../common/ISettings';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { gameReader } from './hook';
 import { GenerateHat } from './avatarGenerator';
+import { WebSocketServer } from 'ws';
 const args = require('minimist')(process.argv); // eslint-disable-line
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const devTools = (isDevelopment || args.dev === 1) && true;
@@ -312,26 +312,23 @@ if (!gotTheLock) {
 			callback(path);
 		});
 
-		// use child_process to spawn integration server
-		let child_process_file = joinPath(process.resourcesPath, 'integrationServer.ts');
+		// integration server for mods
+		const wss = new WebSocketServer({ port: 8080 });
+		wss.on('connection', function connection(ws) {
+			ws.on('error', console.error);
+		
+			ws.on('message', function message(data) {        
+				const json = JSON.parse(data.toString().toLowerCase());
 
-		if (isDevelopment) {
-			child_process_file = joinPath(__dirname, 'integrationServer.ts');
-		}
-
-		const integrationServer = fork(child_process_file, [], { "execArgv":["-r", "ts-node/register"] });
-		integrationServer.unref();
-
-		integrationServer.on('message', (message: any) => {
-			const json = JSON.parse(message);
-
-			switch (json.type) {
-				case 'channels':
-					console.log('Setting channels', json.value);
-					global.mainWindow?.webContents.send(IpcRendererMessages.SET_CHANNELS, json.id, json.value);
-					break;
-			}
-
+				switch (json.type) {
+					case 'channels':
+						console.log('Setting channels', json.value);
+						global.mainWindow?.webContents.send(IpcRendererMessages.SET_CHANNELS, json.id, json.value);
+						break;
+				}
+			});
+		
+			ws.send('hello');
 		});
 
 		initializeIpcListeners();
