@@ -46,6 +46,7 @@ export enum IpcRendererMessages {
 	ERROR = 'ERROR',
 	AUTO_UPDATER_STATE = 'AUTO_UPDATER_STATE',
 	SET_CHANNELS = 'SET_CHANNELS',
+	SET_REF_PLAYER = 'SET_REF_PLAYER',
 }
 
 export interface AutoUpdaterState {

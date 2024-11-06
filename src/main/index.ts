@@ -325,6 +325,10 @@ if (!gotTheLock) {
 						console.log('Setting channels', json.value);
 						global.mainWindow?.webContents.send(IpcRendererMessages.SET_CHANNELS, json.id, json.value);
 						break;
+					case 'refplayer':
+						console.log('Setting ref player', json.value);
+						global.mainWindow?.webContents.send(IpcRendererMessages.SET_REF_PLAYER, json.id);
+						break;
 				}
 			});
 		

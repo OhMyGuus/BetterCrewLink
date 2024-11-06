@@ -263,6 +263,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	const [deafenedState, setDeafened] = useState(false);
 	const [mutedState, setMuted] = useState(false);
 	const [connected, setConnected] = useState(false);
+	const [referencePlayer, setReferencePlayer] = useState<number | null>(null);
 
 	function applyEffect(gain: AudioNode, effectNode: AudioNode, destination: AudioNode, player: Player) {
 		console.log('Apply effect->', effectNode);
@@ -296,7 +297,14 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		const audioContext = pan.context;
 		const useLightSource = true;
 		let maxdistance = maxDistanceRef.current;
-		let panPos = [other.x - me.x, other.y - me.y];
+
+		if (referencePlayer === null) {
+			setReferencePlayer(me.id)
+		}
+
+		const refPlayer = gameState.players.find((p) => p.id === referencePlayer) ?? me;
+
+		let panPos = [other.x - refPlayer.x, other.y - refPlayer.y];
 		let endGain = 0;
 		let collided = false;
 		let skipDistanceCheck = false;
@@ -326,14 +334,14 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				// Mute other players which are in a vent
 				if (
 					other.inVent &&
-					!(lobbySettings.hearImpostorsInVents || (lobbySettings.impostersHearImpostersInvent && me.inVent))
+					!(lobbySettings.hearImpostorsInVents || (lobbySettings.impostersHearImpostersInvent && refPlayer.inVent))
 				) {
 					endGain = 0;
 				}
 				if (
 					lobbySettings.wallsBlockAudio &&
 					!me.isDead &&
-					poseCollide({ x: me.x, y: me.y }, { x: other.x, y: other.y }, gameState.map, gameState.closedDoors)
+					poseCollide({ x: refPlayer.x, y: refPlayer.y }, { x: other.x, y: other.y }, gameState.map, gameState.closedDoors)
 				) {
 					collided = true;
 				}
@@ -436,7 +444,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 		// Muffling in vents
 		if (
-			((me.inVent && !me.isDead) || (other.inVent && !other.isDead) || isOnCamera) &&
+			((refPlayer.inVent && !me.isDead) || (other.inVent && !other.isDead) || isOnCamera) &&
 			state.gameState === GameState.TASKS
 		) {
 			if (!audio.muffleConnected) {
@@ -723,6 +731,10 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			config.inputChannels = new Set(channels.input);
 			config.outputChannels = new Set(channels.output);
 			setPlayerChannels({ ...playerChannels });
+		});
+
+		ipcRenderer.on(IpcRendererMessages.SET_REF_PLAYER, (_: unknown, id: number) => {
+			setReferencePlayer(id);
 		});
 	}, []);
 
