@@ -48,6 +48,7 @@ export interface ILobbySettings {
 	visionHearing: boolean;
 	haunting: boolean;
 	hearImpostorsInVents: boolean;
+	sidemenImpostorChat: boolean;
 	impostersHearImpostersInvent: boolean;
 	impostorRadioEnabled: boolean;
 	commsSabotage: boolean;

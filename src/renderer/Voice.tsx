@@ -197,6 +197,7 @@ const defaultlocalLobbySettings: ILobbySettings = {
 	hearImpostorsInVents: false,
 	impostersHearImpostersInvent: false,
 	impostorRadioEnabled: false,
+	sidemenImpostorChat: false,
 	commsSabotage: false,
 	deadOnly: false,
 	hearThroughCameras: false,
@@ -347,18 +348,25 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				}
 				if (
 					me.isImpostor &&
-					other.isImpostor &&
-					lobbySettings.impostorRadioEnabled &&
-					other.clientId === impostorRadioClientId.current
+					other.isImpostor
 				) {
-					skipDistanceCheck = true;
-					muffle.type = 'highpass';
-					muffle.frequency.value = 1000;
-					muffle.Q.value = 10;
-					muffleEnabled = true;
-					if (!audio.muffleConnected) {
-						audio.muffleConnected = true;
-						applyEffect(gain, muffle, destination, other);
+					if (lobbySettings.sidemenImpostorChat) {
+						endGain = 1;
+						skipDistanceCheck = true;
+					}
+					if (
+						lobbySettings.impostorRadioEnabled &&
+						other.clientId === impostorRadioClientId.current
+					) {			
+						skipDistanceCheck = true;
+						muffle.type = 'highpass';
+						muffle.frequency.value = 1000;
+						muffle.Q.value = 10;
+						muffleEnabled = true;
+						if (!audio.muffleConnected) {
+							audio.muffleConnected = true;
+							applyEffect(gain, muffle, destination, other);
+						}
 					}
 				}
 
