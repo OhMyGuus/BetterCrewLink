@@ -32,7 +32,7 @@ jobs:
         
       - name: Cache Node Modules
         id: node-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             node_modules
@@ -48,14 +48,14 @@ jobs:
         run: yarn run ${{ matrix.dist }} --publish never
      
       - name: Upload Installer
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: BetterCrewLink Installer ${{ runner.os }}
           path: ${{ matrix.installer }}
           if-no-files-found: error
           
       - name: Upload Unpacked
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ matrix.os == 'windows-latest'}}
         with:
           name: BetterCrewLink Unpacked 64bit 

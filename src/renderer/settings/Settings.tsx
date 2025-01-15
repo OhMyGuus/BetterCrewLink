@@ -556,7 +556,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					>
 						<FormControlLabel
 							className={classes.formLabel}
-							label={t('settings.lobbysettings.sidemen_impostor_chat')}
+							label="Sidemen Impostor Chat"
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ sidemenImpostorChat: newValue })}
 							value={
