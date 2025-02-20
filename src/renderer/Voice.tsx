@@ -325,6 +325,15 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			case GameState.TASKS:
 				endGain = 1;
 
+				if (lobbySettings.sidemenImpostorChat && !me.isDead && !other.isDead) {
+					if (me.isImpostor && other.isImpostor){
+						endGain = 1;
+					} else {
+						endGain = 0;
+					}
+					break;
+				}
+
 				if (lobbySettings.meetingGhostOnly) {
 					endGain = 0;
 				}
@@ -348,25 +357,18 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				}
 				if (
 					me.isImpostor &&
-					other.isImpostor
+					other.isImpostor &&
+					lobbySettings.impostorRadioEnabled &&
+					other.clientId === impostorRadioClientId.current
 				) {
-					if (lobbySettings.sidemenImpostorChat) {
-						endGain = 1;
-						skipDistanceCheck = true;
-					}
-					if (
-						lobbySettings.impostorRadioEnabled &&
-						other.clientId === impostorRadioClientId.current
-					) {			
-						skipDistanceCheck = true;
-						muffle.type = 'highpass';
-						muffle.frequency.value = 1000;
-						muffle.Q.value = 10;
-						muffleEnabled = true;
-						if (!audio.muffleConnected) {
-							audio.muffleConnected = true;
-							applyEffect(gain, muffle, destination, other);
-						}
+					skipDistanceCheck = true;
+					muffle.type = 'highpass';
+					muffle.frequency.value = 1000;
+					muffle.Q.value = 10;
+					muffleEnabled = true;
+					if (!audio.muffleConnected) {
+						audio.muffleConnected = true;
+						applyEffect(gain, muffle, destination, other);
 					}
 				}
 
