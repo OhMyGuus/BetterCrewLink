@@ -1,6 +1,7 @@
 export type ModsType =
 	| 'NONE'
 	| 'TOWN_OF_US'
+	| 'TOWN_OF_US_MIRA'
 	| 'THE_OTHER_ROLES'
 	| 'LAS_MONJAS'
 	| 'OTHER';
@@ -21,6 +22,11 @@ export const modList: AmongusMod[] = [
 		id: 'TOWN_OF_US',
 		label: 'Town of Us: Reactivated',
 		dllStartsWith: 'TownOfUs',
+	},
+	{
+		id: 'TOWN_OF_US_MIRA',
+		label: 'Town of Us: MIRA',
+		dllStartsWith: 'TownOfUsMira',
 	},
 	{
 		id: 'THE_OTHER_ROLES',
