@@ -269,6 +269,10 @@ export const SettingsStore = new Store<ISettings>({
 					type: 'boolean',
 					default: false,
 				},
+				sidemenImpostorChat: {
+					type: 'boolean',
+					default: false,
+				},
 				deadOnly: {
 					type: 'boolean',
 					default: false,

@@ -17,6 +17,7 @@ import { ISettings } from '../common/ISettings';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { gameReader } from './hook';
 import { GenerateHat } from './avatarGenerator';
+import { WebSocketServer } from 'ws';
 const args = require('minimist')(process.argv); // eslint-disable-line
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const devTools = (isDevelopment || args.dev === 1) && true;
@@ -218,6 +219,7 @@ function createOverlay() {
 	return overlay;
 }
 
+
 const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
 	app.quit();
@@ -310,6 +312,29 @@ if (!gotTheLock) {
 			callback(path);
 		});
 
+		// integration server for mods
+		const wss = new WebSocketServer({ port: 8080 });
+		wss.on('connection', function connection(ws) {
+			ws.on('error', console.error);
+		
+			ws.on('message', function message(data) {        
+				const json = JSON.parse(data.toString().toLowerCase());
+
+				switch (json.type) {
+					case 'channels':
+						console.log('Setting channels', json.value);
+						global.mainWindow?.webContents.send(IpcRendererMessages.SET_CHANNELS, json.id, json.value);
+						break;
+					case 'refplayer':
+						console.log('Setting ref player', json.value);
+						global.mainWindow?.webContents.send(IpcRendererMessages.SET_REF_PLAYER, json.id);
+						break;
+				}
+			});
+		
+			ws.send('hello');
+		});
+
 		initializeIpcListeners();
 		initializeIpcHandlers();
 		global.mainWindow = createMainWindow();
@@ -375,6 +400,4 @@ if (!gotTheLock) {
 			global.mainWindow.setAlwaysOnTop(enable, 'screen-saver');
 		}
 	});
-
-
 }

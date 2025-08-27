@@ -556,6 +556,24 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					>
 						<FormControlLabel
 							className={classes.formLabel}
+							label="Sidemen Impostor Chat"
+							disabled={!canChangeLobbySettings}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ sidemenImpostorChat: newValue })}
+							value={
+								canChangeLobbySettings ? localLobbySettingsBuffer.sidemenImpostorChat : hostLobbySettings.sidemenImpostorChat
+							}
+							checked={
+								canChangeLobbySettings ? localLobbySettingsBuffer.sidemenImpostorChat : hostLobbySettings.sidemenImpostorChat
+							}
+							control={<Checkbox />}
+						/>
+					</DisabledTooltip>
+					<DisabledTooltip
+						disabled={!canChangeLobbySettings}
+						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
+					>
+						<FormControlLabel
+							className={classes.formLabel}
 							label={t('settings.lobbysettings.impostor_radio')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ impostorRadioEnabled: newValue })}

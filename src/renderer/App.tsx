@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction, useEffect, useState, useRef } from 're
 import Voice from './Voice';
 import Menu from './Menu';
 import { ipcRenderer, shell } from 'electron';
-import { AmongUsState } from '../common/AmongUsState';
+import { AmongUsState, GameState } from '../common/AmongUsState';
 import Settings from './settings/Settings';
 import SettingsStore, { setSetting, setLobbySetting } from './settings/SettingsStore';
 import { GameStateContext, SettingsContext, PlayerColorContext, HostSettingsContext } from './contexts';
@@ -155,6 +155,9 @@ export default function App({ t }): JSX.Element {
 		};
 		const onState = (_: Electron.IpcRendererEvent, newState: AmongUsState) => {
 			setGameState(newState);
+			if (newState.gameState !== GameState.MENU && gameState.gameState === GameState.MENU) {
+				ipcRenderer.send("reload");
+			}
 		};
 
 		const onError = (_: Electron.IpcRendererEvent, error: string) => {

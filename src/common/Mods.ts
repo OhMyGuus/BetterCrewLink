@@ -2,6 +2,7 @@ export type ModsType =
 	| 'NONE'
 	| 'TOWN_OF_US_MIRA'
 	| 'TOWN_OF_US'
+	| 'TOWN_OF_US_MIRA'
 	| 'THE_OTHER_ROLES'
 	| 'LAS_MONJAS'
 	| 'OTHER';

@@ -1148,7 +1148,7 @@ export default class GameReader {
 			isLocal,
 			isDummy,
 			x: x_round || x || 999,
-			y: y_round || y || 999,
+			y: y_round || y || 999
 		};
 	}
 }

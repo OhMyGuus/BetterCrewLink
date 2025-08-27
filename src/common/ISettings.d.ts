@@ -48,6 +48,7 @@ export interface ILobbySettings {
 	visionHearing: boolean;
 	haunting: boolean;
 	hearImpostorsInVents: boolean;
+	sidemenImpostorChat: boolean;
 	impostersHearImpostersInvent: boolean;
 	impostorRadioEnabled: boolean;
 	commsSabotage: boolean;
@@ -67,4 +68,13 @@ export interface SocketConfig {
 
 export interface playerConfigMap {
 	[socketId: number]: SocketConfig;
+}
+
+export interface playerChannelMap {
+	[playerId: number]: ChannelConfig;
+}
+
+export interface ChannelConfig {
+	inputChannels: Set<string>;
+	outputChannels: Set<string>;
 }
