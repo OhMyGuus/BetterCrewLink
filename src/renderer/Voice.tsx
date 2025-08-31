@@ -263,6 +263,12 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	const [mutedState, setMuted] = useState(false);
 	const [connected, setConnected] = useState(false);
 
+	const [playersThatHaveDiedThisGame, setPlayersThatHaveDiedThisGame] = useState<number[]>([]);
+
+	const checkIfPlayerWasDeadAtStartOfMeeting = (ptr: number) => {
+		return playersThatHaveDiedThisGame.includes(ptr);
+	}
+	
 	function applyEffect(gain: AudioNode, effectNode: AudioNode, destination: AudioNode, player: Player) {
 		console.log('Apply effect->', effectNode);
 		try {
@@ -702,6 +708,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	// Set dead player data
 	useEffect(() => {
 		if (gameState.gameState === GameState.LOBBY) {
+			setPlayersThatHaveDiedThisGame([]);
 			setOtherDead({});
 		} else if (gameState.gameState !== GameState.TASKS) {
 			if (!gameState.players) return;
@@ -710,6 +717,14 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					old[player.clientId] = player.isDead || player.disconnected;
 				}
 				return { ...old };
+			});
+			setPlayersThatHaveDiedThisGame((prevState) => {
+				for (const player of gameState.players) {
+					if ((player.isDead || player.disconnected) && !prevState.includes(player.ptr)) {
+						prevState.push(player.ptr);
+					}
+				}
+				return [...prevState];
 			});
 		}
 	}, [gameState.gameState]);
@@ -1194,6 +1209,13 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		const tempTalking = { ...otherTalking };
 		let talkingUpdate = false;
 		for (const player of otherPlayers) {
+			// bug with TOH where all players are considered alive during the ejection screen. This is a workaround
+			if (checkIfPlayerWasDeadAtStartOfMeeting(player.ptr) && !player.isDead) {
+				player.isDead = true;
+			}
+			if (checkIfPlayerWasDeadAtStartOfMeeting(myPlayer.ptr) && !myPlayer.isDead) {
+				myPlayer.isDead = true;
+			}
 			const peerId = playerSocketIds[player.clientId];
 			const audio = player.clientId === myPlayer.clientId ? undefined : audioElements.current[peerId];
 			if (
