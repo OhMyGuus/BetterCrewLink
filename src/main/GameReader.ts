@@ -18,7 +18,7 @@ import { IpcOverlayMessages, IpcRendererMessages } from '../common/ipc-messages'
 import { GameState, AmongUsState, Player } from '../common/AmongUsState';
 import { fetchOffsetLookup, fetchOffsets, IOffsets, IOffsetsLookup } from './offsetStore';
 import Errors from '../common/Errors';
-import { CameraLocation, MapType } from '../common/AmongusMap';
+import { CameraLocation, MapType, SubmergedCamLocation } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
 import { RainbowColorId } from '../renderer/cosmetics';
 import { platform } from 'os';
@@ -224,7 +224,7 @@ export default class GameReader {
 			this.isLocalGame = lobbyCodeInt === 32; // is local game
 			let lightRadius = 1;
 			let comsSabotaged = false;
-			let currentCamera = CameraLocation.NONE;
+			let currentCamera: number = CameraLocation.NONE;
 			let map = MapType.UNKNOWN;
 			let maxPlayers = 10;
 			const closedDoors: number[] = [];
@@ -337,6 +337,16 @@ export default class GameReader {
 								if (dist < 0.6) {
 									currentCamera = CameraLocation.Skeld;
 								}
+							}
+						} else if (map === MapType.SUBMERGED) {
+							const currentCameraId = SubmergedCamLocation.NONE;
+							// TODO: Read from memory
+							// Probably from SubmarineSurvillanceMinigame.SelectedCam int
+							const currentCamEnabled = false;
+							// TODO: Read from memory based off of currentCameraId
+							// Probably from SubmarineSecuritySabotageSystem.FixedCams List<byte>
+							if (currentCamEnabled) {
+								currentCamera = (currentCameraId + SubmergedCamLocation.START) as SubmergedCamLocation;
 							}
 						}
 					}

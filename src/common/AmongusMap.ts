@@ -23,7 +23,19 @@ export enum CameraLocation {
 	SouthWest, // CARGO BAY
 	NorthWest, // MEETING ROOM
 	Skeld,
-	NONE,
+	NONE = -1,
+}
+
+export enum SubmergedCamLocation  {
+	NONE = -1,
+	START = 10,
+	LowerHall = 10,
+	Electrical,
+	LowerLobby,
+	UpperHall,
+	Central,
+	Comms,
+	UpperLobby,
 }
 
 export interface CamerasMap {
@@ -73,7 +85,15 @@ export const AmongUsMaps: { [key in MapType]: AmongUsMap } = {
 		cameras: {},
 	},
 	[MapType.SUBMERGED]: {
-		cameras: {},
+		cameras: {
+			[SubmergedCamLocation.LowerHall]: {x: -2.69, y: -28.45},
+			[SubmergedCamLocation.Electrical]: { x: 8.74, y: -24.58},
+			[SubmergedCamLocation.LowerLobby]: { x: 8.03, y: -38.03},
+			[SubmergedCamLocation.UpperHall]: { x: -10.46, y: 19.67 },
+			[SubmergedCamLocation.Central]: { x: 3.22, y: 24.07},
+			[SubmergedCamLocation.Comms]: { x: 10, y: 23.48},
+			[SubmergedCamLocation.UpperLobby]: { x: 7.09, y: 10.28},
+		},
 	},
 	[MapType.UNKNOWN]: defaultMap,
 };
