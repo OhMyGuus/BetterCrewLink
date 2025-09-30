@@ -37,6 +37,7 @@ export interface IOffsets {
 	shipstatus_allDoors: number[];
 	door_doorId: number;
 	door_isOpen: number;
+	mushroomDoor_isOpen: number;
 	deconDoorUpperOpen: number[];
 	deconDoorLowerOpen: number[];
 	hqHudSystemType_CompletedConsoles: number[];
