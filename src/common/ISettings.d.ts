@@ -58,6 +58,8 @@ export interface ILobbySettings {
 	publicLobby_on: boolean;
 	publicLobby_title: string;
 	publicLobby_language: string;
+	ghostsCanTalkIngame: boolean;
+	gracePeriod: number;
 }
 
 export interface SocketConfig {

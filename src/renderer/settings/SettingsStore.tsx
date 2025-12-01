@@ -305,6 +305,14 @@ export const SettingsStore = new Store<ISettings>({
 					type: 'string',
 					default: 'NONE',
 				},
+				ghostsCanTalkIngame: {
+					type: 'boolean',
+					default: false,
+				},
+				gracePeriod: {
+					type: 'number',
+					default: 0,
+				},
 			},
 			default: {
 				maxDistance: 5.32,
@@ -320,6 +328,8 @@ export const SettingsStore = new Store<ISettings>({
 				publicLobby_title: '',
 				publicLobby_language: 'en',
 				publicLobby_mods: 'NONE',
+				ghostsCanTalkIngame: false,
+				gracePeriod: 0,
 			},
 		},
 		launchPlatform: {

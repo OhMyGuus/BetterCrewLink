@@ -21,7 +21,11 @@
 			"ghost_only_warning2": "Ghost can talk only enabled.",
 			"meetings_only": "Meetings/Lobby Only",
 			"meetings_only_warning": "This disables the sound for alive players outside meetings.",
-			"meetings_only_warning2": "Talking in meetings only enabled.",
+			"meetings_only_warning2": "Meetings/Lobby Only must be enabled to use this setting.",
+			"ghosts_can_talk_ingame": "Ghosts can Talk Ingame",
+			"ghosts_can_talk_ingame_description": "Allows ghosts to talk during the game. Ghosts can hear each other anywhere in the map (like meetings).",
+			"grace_period": "Grace Period",
+			"grace_period_description": "Delay before cutting off voices when the game/meeting starts (in seconds).",
 			"impostor_radio": "Impostor Radio",
 			"public_lobby": {
 				"change_settings": "Change Lobby Info",
