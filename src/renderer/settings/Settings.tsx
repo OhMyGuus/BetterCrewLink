@@ -626,7 +626,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								? isInMenuOrLobby
 									? t('settings.lobbysettings.gamehostonly')
 									: t('settings.lobbysettings.inlobbyonly')
-								: t('settings.lobbysettings.meetings_only_warning2')
+								: t('settings.lobbysettings.meetings_only_warning3')
 						}
 					>
 						<FormControlLabel
@@ -646,7 +646,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								? isInMenuOrLobby
 									? t('settings.lobbysettings.gamehostonly')
 									: t('settings.lobbysettings.inlobbyonly')
-								: t('settings.lobbysettings.meetings_only_warning2')
+								: t('settings.lobbysettings.meetings_only_warning3')
 						}
 					>
 						<div style={{ marginTop: 16 }}>
