@@ -327,13 +327,19 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						panPos = [0, 0];
 						skipDistanceCheck = true;
 						endGain = 1;
+					} else if (!me.isDead && other.isDead) {
+						// Alive players should never hear ghosts, even during grace period
+						endGain = 0;
 					} else {
 						if (!isInGracePeriod) {
 							endGain = 0;
 						}
 					}
 				} else if (lobbySettings.meetingGhostOnly) {
-					if (!isInGracePeriod) {
+					if (!me.isDead && other.isDead) {
+						// Alive players should never hear ghosts, even during grace period
+						endGain = 0;
+					} else if (!isInGracePeriod) {
 						endGain = 0;
 					}
 				}
@@ -395,15 +401,13 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				
 				if (lobbySettings.meetingGhostOnly && lobbySettings.ghostsCanTalkIngame) {
 					if (!me.isDead && other.isDead) {
-						if (!isInGracePeriodDiscussion) {
-							endGain = 0;
-						}
+						// Alive players should never hear ghosts, even during grace period
+						endGain = 0;
 					}
 				} else {
 					if (!me.isDead && other.isDead) {
-						if (!isInGracePeriodDiscussion) {
-							endGain = 0;
-						}
+						// Alive players should never hear ghosts, even during grace period
+						endGain = 0;
 					}
 				}
 				break;
