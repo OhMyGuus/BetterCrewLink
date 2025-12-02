@@ -206,6 +206,8 @@ const defaultlocalLobbySettings: ILobbySettings = {
 	publicLobby_on: false,
 	publicLobby_title: '',
 	publicLobby_language: 'en',
+	ghostsCanTalkIngame: false,
+	gracePeriod: 0,
 };
 const radioOnAudio = new Audio();
 radioOnAudio.src = radioOnSound;
@@ -222,6 +224,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	const settingsRef = useRef<ISettings>(settings);
 	const [lobbySettings, setHostLobbySettings] = useContext(HostSettingsContext);
 	const lobbySettingsRef = useRef(lobbySettings);
+	const gracePeriodRef = useRef<number>(0);
 	const maxDistanceRef = useRef(2);
 	const gameState = useContext(GameStateContext);
 	const playerColors = useContext(PlayerColorContext);
@@ -294,6 +297,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		const { pan, gain, muffle, reverb, destination } = audio;
 		const audioContext = pan.context;
 		const useLightSource = true;
+		const lobbySettings = lobbySettingsRef.current;
 		let maxdistance = maxDistanceRef.current;
 		let panPos = [other.x - me.x, other.y - me.y];
 		let endGain = 0;
@@ -315,9 +319,31 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			case GameState.TASKS:
 				endGain = 1;
 
-				if (lobbySettings.meetingGhostOnly) {
-					endGain = 0;
+				const gracePeriodMs = (lobbySettings.gracePeriod || 0) * 1000;
+				const isInGracePeriod = gracePeriodRef.current > 0 && Date.now() < gracePeriodRef.current + gracePeriodMs;
+
+				if (lobbySettings.meetingGhostOnly && lobbySettings.ghostsCanTalkIngame) {
+					if (me.isDead && other.isDead) {
+						panPos = [0, 0];
+						skipDistanceCheck = true;
+						endGain = 1;
+					} else if (!me.isDead && other.isDead) {
+						// Alive players should never hear ghosts, even during grace period
+						endGain = 0;
+					} else {
+						if (!isInGracePeriod) {
+							endGain = 0;
+						}
+					}
+				} else if (lobbySettings.meetingGhostOnly) {
+					if (!me.isDead && other.isDead) {
+						// Alive players should never hear ghosts, even during grace period
+						endGain = 0;
+					} else if (!isInGracePeriod) {
+						endGain = 0;
+					}
 				}
+
 				if (!me.isDead && lobbySettings.commsSabotage && state.comsSabotaged && !me.isImpostor) {
 					endGain = 0;
 				}
@@ -360,8 +386,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					}
 					collided = false;
 					endGain = settings.ghostVolumeAsImpostor / 100;
-				} else {
-					if (other.isDead && !me.isDead) {
+				} else if (other.isDead && !me.isDead) {
+					if (!lobbySettings.meetingGhostOnly) {
 						endGain = 0;
 					}
 				}
@@ -369,8 +395,17 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			case GameState.DISCUSSION:
 				panPos = [0, 0];
 				endGain = 1;
-				if (!me.isDead && other.isDead) {
-					endGain = 0;
+				
+				if (lobbySettings.meetingGhostOnly && lobbySettings.ghostsCanTalkIngame) {
+					if (!me.isDead && other.isDead) {
+						// Alive players should never hear ghosts, even during grace period
+						endGain = 0;
+					}
+				} else {
+					if (!me.isDead && other.isDead) {
+						// Alive players should never hear ghosts, even during grace period
+						endGain = 0;
+					}
 				}
 				break;
 
@@ -1268,6 +1303,25 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		if (myPlayer?.shiftedColor == -1 || !talking)
 			connectionStuff.current.socket?.emit('VAD', talking);
 	}, [talking])
+
+	useEffect(() => {
+		if (
+			lobbySettingsRef.current.meetingGhostOnly &&
+			lobbySettingsRef.current.gracePeriod > 0 &&
+			(gameState.gameState === GameState.TASKS || gameState.gameState === GameState.DISCUSSION) &&
+			(gameState.oldGameState === GameState.LOBBY || gameState.oldGameState === GameState.DISCUSSION || gameState.oldGameState === GameState.TASKS)
+		) {
+			if (
+				gameState.oldGameState === GameState.LOBBY ||
+				(gameState.oldGameState === GameState.DISCUSSION && gameState.gameState === GameState.TASKS) ||
+				(gameState.oldGameState === GameState.TASKS && gameState.gameState === GameState.DISCUSSION)
+			) {
+				gracePeriodRef.current = Date.now();
+			}
+		} else if (gameState.gameState === GameState.LOBBY || gameState.gameState === GameState.MENU) {
+			gracePeriodRef.current = 0;
+		}
+	}, [gameState.gameState, gameState.oldGameState]);
 
 	// Connect to P2P negotiator, when game mode change
 	useEffect(() => {

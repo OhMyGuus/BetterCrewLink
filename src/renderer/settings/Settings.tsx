@@ -603,7 +603,14 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								openWarningDialog(
 									t('settings.warning'),
 									t('settings.lobbysettings.meetings_only_warning'),
-									() => updateLocalLobbySettingsBuffer({ meetingGhostOnly: newValue, deadOnly: false }),
+									() => {
+										updateLocalLobbySettingsBuffer({ 
+											meetingGhostOnly: newValue, 
+											deadOnly: false,
+											ghostsCanTalkIngame: newValue ? localLobbySettingsBuffer.ghostsCanTalkIngame : false,
+											gracePeriod: newValue ? localLobbySettingsBuffer.gracePeriod : 0
+										});
+									},
 									newValue
 								);
 							}}
@@ -611,6 +618,52 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							checked={canChangeLobbySettings ? localLobbySettingsBuffer.meetingGhostOnly : hostLobbySettings.meetingGhostOnly}
 							control={<Checkbox />}
 						/>
+					</DisabledTooltip>
+					<DisabledTooltip
+						disabled={!canChangeLobbySettings || !(canChangeLobbySettings ? localLobbySettingsBuffer.meetingGhostOnly : hostLobbySettings.meetingGhostOnly)}
+						title={
+							!canChangeLobbySettings
+								? isInMenuOrLobby
+									? t('settings.lobbysettings.gamehostonly')
+									: t('settings.lobbysettings.inlobbyonly')
+								: t('settings.lobbysettings.meetings_only_warning3')
+						}
+					>
+						<FormControlLabel
+							className={classes.formLabel}
+							label={t('settings.lobbysettings.ghosts_can_talk_ingame')}
+							disabled={!canChangeLobbySettings || !(canChangeLobbySettings ? localLobbySettingsBuffer.meetingGhostOnly : hostLobbySettings.meetingGhostOnly)}
+							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ ghostsCanTalkIngame: newValue })}
+							value={canChangeLobbySettings ? localLobbySettingsBuffer.ghostsCanTalkIngame : hostLobbySettings.ghostsCanTalkIngame}
+							checked={canChangeLobbySettings ? localLobbySettingsBuffer.ghostsCanTalkIngame : hostLobbySettings.ghostsCanTalkIngame}
+							control={<Checkbox />}
+						/>
+					</DisabledTooltip>
+					<DisabledTooltip
+						disabled={!canChangeLobbySettings || !(canChangeLobbySettings ? localLobbySettingsBuffer.meetingGhostOnly : hostLobbySettings.meetingGhostOnly)}
+						title={
+							!canChangeLobbySettings
+								? isInMenuOrLobby
+									? t('settings.lobbysettings.gamehostonly')
+									: t('settings.lobbysettings.inlobbyonly')
+								: t('settings.lobbysettings.meetings_only_warning3')
+						}
+					>
+						<div style={{ marginTop: 16 }}>
+							<Typography id="grace-period-slider" gutterBottom>
+								{t('settings.lobbysettings.grace_period')}: {canChangeLobbySettings ? localLobbySettingsBuffer.gracePeriod : hostLobbySettings.gracePeriod}s
+							</Typography>
+							<Slider
+								size="small"
+								disabled={!canChangeLobbySettings || !(canChangeLobbySettings ? localLobbySettingsBuffer.meetingGhostOnly : hostLobbySettings.meetingGhostOnly)}
+								value={canChangeLobbySettings ? localLobbySettingsBuffer.gracePeriod : hostLobbySettings.gracePeriod}
+								min={0}
+								max={10}
+								step={0.5}
+								onChange={(_, newValue: number | number[]) => updateLocalLobbySettingsBuffer({ gracePeriod: newValue as number })}
+								aria-labelledby="grace-period-slider"
+							/>
+						</div>
 					</DisabledTooltip>
 					{/* </FormGroup> */}
 				</div>
