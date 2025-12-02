@@ -396,9 +396,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				panPos = [0, 0];
 				endGain = 1;
 				
-				const gracePeriodMsDiscussion = (lobbySettings.gracePeriod || 0) * 1000;
-				const isInGracePeriodDiscussion = gracePeriodRef.current > 0 && Date.now() < gracePeriodRef.current + gracePeriodMsDiscussion;
-				
 				if (lobbySettings.meetingGhostOnly && lobbySettings.ghostsCanTalkIngame) {
 					if (!me.isDead && other.isDead) {
 						// Alive players should never hear ghosts, even during grace period
