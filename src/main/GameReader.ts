@@ -98,7 +98,7 @@ export default class GameReader {
 					this.pid = processOpen.th32ProcessID;
 					this.amongUs = openProcess(processOpen.th32ProcessID);
 					this.gameAssembly = findModule('GameAssembly.dll', this.amongUs.th32ProcessID);
-					this.gamePath = getProcessPath(this.amongUs.handle);
+					this.gamePath = this.is_linux ? `/proc/${this.pid}/cwd${getProcessPath(this.amongUs.handle)}` : getProcessPath(this.amongUs.handle);
 					this.loadedMod = this.getInstalledMods(this.gamePath);
 					await this.initializeoffsets();
 					this.sendIPC(IpcRendererMessages.NOTIFY_GAME_OPENED, true);
