@@ -129,7 +129,7 @@ export default class GameReader {
 
 	getInstalledMods(filePath: string): AmongusMod {
 		const pathLower = filePath.toLowerCase();
-		alert(filePath);
+		console.log(filePath);
 		if (pathLower.includes('?\\volume')) {
 			return modList[0];
 		} else {
