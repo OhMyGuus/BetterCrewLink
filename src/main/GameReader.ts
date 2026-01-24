@@ -101,7 +101,7 @@ export default class GameReader {
 					this.gamePath = this.is_linux ? `/proc/${this.pid}/cwd${getProcessPath(this.amongUs.handle)}` : getProcessPath(this.amongUs.handle);
 					this.loadedMod = this.getInstalledMods(this.gamePath);
 					await this.initializeoffsets();
-					this.sendIPC(IpcRendererMessages.NOTIFY_GAME_OPENED, true);\
+					this.sendIPC(IpcRendererMessages.NOTIFY_GAME_OPENED, true);
 					break;
 				} catch (e) {
 					console.log('ERROR:', e);
