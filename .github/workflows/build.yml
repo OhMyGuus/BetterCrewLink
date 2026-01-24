@@ -45,12 +45,12 @@ jobs:
             .yarn
           key: ${{ runner.os }}-3-${{ hashFiles('yarn.lock')}}
     
+      - name: Install Python Dependencies
+        run: python -m pip install setuptools
     
       - name: Install Dependencies
         if: steps.node-cache.outputs.cache-hit != 'true'
-        run: |
-          python -m pip install setuptools
-          yarn install  --cache-folder .yarn --network-timeout 100000
+        run: yarn install  --cache-folder .yarn --network-timeout 100000
         
       - name: Build App
         run: yarn run ${{ matrix.dist }} --publish never
