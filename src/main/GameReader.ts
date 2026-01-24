@@ -102,6 +102,7 @@ export default class GameReader {
 					this.loadedMod = this.getInstalledMods(this.gamePath);
 					await this.initializeoffsets();
 					this.sendIPC(IpcRendererMessages.NOTIFY_GAME_OPENED, true);
+					console.log(this)
 					break;
 				} catch (e) {
 					console.log('ERROR:', e);
