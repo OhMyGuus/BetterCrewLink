@@ -19,7 +19,7 @@ import { gameReader } from './hook';
 import { GenerateHat } from './avatarGenerator';
 const args = require('minimist')(process.argv); // eslint-disable-line
 const isDevelopment = process.env.NODE_ENV !== 'production';
-const devTools = (isDevelopment || args.dev === 1) || true;
+const devTools = (isDevelopment || args.dev === 1) && true;
 const appVersion: string = isDevelopment? "DEV" : autoUpdater.currentVersion.version;
 
 declare global {
