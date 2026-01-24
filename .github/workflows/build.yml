@@ -48,7 +48,9 @@ jobs:
     
       - name: Install Dependencies
         if: steps.node-cache.outputs.cache-hit != 'true'
-        run: yarn install  --cache-folder .yarn --network-timeout 100000
+        run: |
+          python -m pip install setuptools
+          yarn install  --cache-folder .yarn --network-timeout 100000
         
       - name: Build App
         run: yarn run ${{ matrix.dist }} --publish never
