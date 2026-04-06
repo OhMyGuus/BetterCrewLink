@@ -944,6 +944,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				if (!connectionStuff.current.deafened && !connectionStuff.current.muted) {
 					inStream.getAudioTracks()[0].enabled =
 						connectionStuff.current.pushToTalkMode === pushToTalkOptions.PUSH_TO_TALK ? pressing : !pressing;
+					setTalking(pressing);
 				}
 			});
 
@@ -1305,9 +1306,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 	// Pass voice state to overlay
 	useEffect(() => {
-		if (!settings.enableOverlay) {
-			return;
-		}
+		const isEffectivelyMuted = mutedState || deafenedState || (settings.pushToTalkMode !== pushToTalkOptions.VOICE && !talking);
 		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_VOICE_STATE_CHANGED, {
 			otherTalking,
 			playerSocketIds: playerSocketIdsRef.current,
@@ -1319,6 +1318,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			impostorRadioClientId: !myPlayer?.isImpostor ? -1 : impostorRadioClientId.current,
 			muted: mutedState,
 			deafened: deafenedState,
+			effectivelyMuted: isEffectivelyMuted,
 			mod: gameState.mod,
 		} as VoiceState);
 	}, [
@@ -1330,6 +1330,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		mutedState,
 		deafenedState,
 		impostorRadioClientId.current,
+		gameState.mod,
+		myPlayer?.isDead
 	]);
 
 	return (

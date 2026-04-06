@@ -14,6 +14,7 @@ import path from 'path';
 import fs from 'fs';
 
 import { IpcMessages, IpcOverlayMessages } from '../common/ipc-messages';
+import { updateMuteStatus } from './index';
 
 // Listeners are fire and forget, they do not have "responses" or return values
 export const initializeIpcListeners = (): void => {
@@ -50,8 +51,15 @@ export const initializeIpcListeners = (): void => {
 		app.quit();
 	});
 
-	ipcMain.on(IpcMessages.SEND_TO_OVERLAY, (_, event: IpcOverlayMessages, ...args: unknown[]) => {
+	ipcMain.on(IpcMessages.SEND_TO_OVERLAY, (_, event: IpcOverlayMessages, ...args: any[]) => {
 		try {
+			if (event === IpcOverlayMessages.NOTIFY_VOICE_STATE_CHANGED) {
+				const state = args[0];
+				if (state) {
+					const isMuted = state.effectivelyMuted !== undefined ? state.effectivelyMuted : (state.muted || false);
+					updateMuteStatus(isMuted, state.deafened || false);
+				}
+			}
 			if (global.overlay) global.overlay.webContents.send(event, ...args);
 		} catch (e) {
 			/*empty*/

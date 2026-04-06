@@ -85,5 +85,6 @@ export interface VoiceState {
 	localIsAlive: boolean;
 	muted: boolean;
 	deafened: boolean;
+	effectivelyMuted: boolean;
 	mod: ModsType;
 }

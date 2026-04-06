@@ -18,9 +18,11 @@ import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-insta
 import { gameReader } from './hook';
 import { GenerateHat } from './avatarGenerator';
 const args = require('minimist')(process.argv); // eslint-disable-line
+import * as http from 'http';
+import { readFileSync } from 'fs';
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const devTools = (isDevelopment || args.dev === 1) && true;
-const appVersion: string = isDevelopment? "DEV" : autoUpdater.currentVersion.version;
+const appVersion: string = isDevelopment ? "DEV" : autoUpdater.currentVersion.version;
 
 declare global {
 	namespace NodeJS {
@@ -35,6 +37,117 @@ declare global {
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 global.mainWindow = null;
 global.overlay = null;
+
+let isMutedGlobal = false;
+let isDeafenedGlobal = false;
+
+export function updateMuteStatus(muted: boolean, deafened: boolean) {
+	isMutedGlobal = muted;
+	isDeafenedGlobal = deafened;
+}
+
+function startMicrophoneStatusServer() {
+	const server = http.createServer((req, res) => {
+		if (!req.url) return;
+
+		if (req.url.startsWith('/status')) {
+			res.writeHead(200, {
+				'Content-Type': 'application/json',
+				'Access-Control-Allow-Origin': '*',
+				'Cache-Control': 'no-cache, no-store, must-revalidate',
+				'Pragma': 'no-cache',
+				'Expires': '0'
+			});
+			res.end(JSON.stringify({ muted: isMutedGlobal, deafened: isDeafenedGlobal }));
+			return;
+		}
+
+		if (req.url === '/Muted.png' || req.url === '/Unmuted.png' || req.url.startsWith('/icon')) {
+			const iconName = req.url.startsWith('/icon') ? (isMutedGlobal || isDeafenedGlobal ? 'Muted.png' : 'Unmuted.png') : req.url.slice(1).split('?')[0];
+
+			const possiblePaths = isDevelopment ? [
+				joinPath(__dirname, '..', '..', 'static', iconName),
+				joinPath(process.cwd(), 'static', iconName),
+				joinPath(__dirname, 'static', iconName)
+			] : [
+				joinPath(__dirname, '..', 'renderer', 'static', iconName),
+				joinPath(app.getAppPath(), 'dist', 'renderer', 'static', iconName),
+				joinPath(process.resourcesPath, 'static', iconName),
+				joinPath(__dirname, iconName)
+			];
+
+			let image = null;
+			for (const path of possiblePaths) {
+				try {
+					image = readFileSync(path);
+					if (image) break;
+				} catch (e) { }
+			}
+
+			if (image) {
+				res.writeHead(200, {
+					'Content-Type': 'image/png',
+					'Access-Control-Allow-Origin': '*',
+					'Cache-Control': 'no-cache, no-store, must-revalidate',
+					'Pragma': 'no-cache',
+					'Expires': '0'
+				});
+				res.end(image);
+			} else {
+				res.writeHead(404);
+				res.end();
+			}
+			return;
+		}
+
+		res.writeHead(200, { 'Content-Type': 'text/html' });
+		res.end(`
+			<!DOCTYPE html>
+			<html>
+			<head>
+				<title>Microphone Status Overlay</title>
+				<style>
+					body {
+						margin: 0; padding: 0; overflow: hidden; background: transparent;
+						display: flex; justify-content: center; align-items: center;
+						height: 100vh; width: 100vw;
+					}
+					img { max-width: 100%; max-height: 100%; object-fit: contain; }
+				</style>
+			</head>
+			<body>
+				<img id="status-icon" src="/icon" />
+				<script>
+					let currentMuted = null;
+					let currentDeafened = null;
+
+					async function updateStatus() {
+						try {
+							const response = await fetch('/status?t=' + Date.now());
+							const data = await response.json();
+							
+							if (data.muted !== currentMuted || data.deafened !== currentDeafened) {
+								currentMuted = data.muted;
+								currentDeafened = data.deafened;
+								const icon = document.getElementById('status-icon');
+								icon.src = '/icon?t=' + Date.now();
+							}
+						} catch (e) { }
+					}
+
+					setInterval(updateStatus, 500);
+					updateStatus();
+				</script>
+			</body>
+			</html>
+		`);
+	});
+
+	server.listen(4697, '0.0.0.0', () => {
+		console.log('Microphone Status Overlay server running on http://localhost:4697');
+	});
+}
+
 const store = new Store<ISettings>();
 app.commandLine.appendSwitch('disable-pinch');
 
@@ -43,7 +156,7 @@ if (platform() === 'linux' || !store.get('hardware_acceleration', true)) {
 
 }
 
-if(platform() === 'linux'){
+if (platform() === 'linux') {
 	app.commandLine.appendSwitch('disable-gpu-sandbox');
 }
 
@@ -303,6 +416,8 @@ if (!gotTheLock) {
 			const pathname = app.getPath('userData') + '/static/' + request.url.replace('static:///', '');
 			callback(pathname);
 		});
+
+		startMicrophoneStatusServer();
 
 		protocol.registerFileProtocol('generate', async (request, callback) => {
 			const url = new URL(request.url.replace('generate:///', ''));
