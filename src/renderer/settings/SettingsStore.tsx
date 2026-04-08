@@ -152,6 +152,10 @@ export const SettingsStore = new Store<ISettings>({
 			type: 'boolean',
 			default: true,
 		},
+		aleLuduMeetingOverlay: {
+			type: 'boolean',
+            default: false,
+		},
 		enableOverlay: {
 			type: 'boolean',
 			default: true,

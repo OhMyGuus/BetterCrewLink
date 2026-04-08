@@ -9,6 +9,13 @@ files:
     filter:
       - package.json
       - app
+asarUnpack:
+  - node_modules/memoryjs/**
+  - node_modules/electron-overlay-window/**
+  - node_modules/node-keyboard-watcher/**
+npmRebuild: false
+buildDependenciesFromSource: false
+nodeGypRebuild: false
 
 win:
   publish:

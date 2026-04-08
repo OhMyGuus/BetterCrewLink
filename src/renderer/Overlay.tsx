@@ -13,6 +13,7 @@ interface UseStylesProps {
 	height: number;
 	width: number;
 	oldHud: boolean;
+	aleLuduHud: boolean;
 }
 
 export interface playerContainerCss extends CSSProperties {
@@ -29,22 +30,22 @@ const useStyles = makeStyles(() => ({
 		transform: 'translate(-50%, -50%)',
 	},
 	tabletContainer: {
-		width: ({ oldHud }: UseStylesProps) => (oldHud ? '88.45%' : '100%'),
-		height: '10.5%',
-		left: ({ oldHud }: UseStylesProps) => (oldHud ? '4.7%' : '0.4%'),
-		top: ({ oldHud }: UseStylesProps) => (oldHud ? '18.4703%' : '15%'),
+		width: ({ oldHud, aleLuduHud }: UseStylesProps) => (oldHud ? '88.45%' : aleLuduHud ? '76%' : '100%'),
+		height: ({ aleLuduHud }: UseStylesProps) => (aleLuduHud ? '56%' : '10.5%'),
+		left: ({ oldHud, aleLuduHud }: UseStylesProps) => (oldHud ? '4.7%' : aleLuduHud ? '12.5%' : '0.4%'),
+		top: ({ oldHud, aleLuduHud }: UseStylesProps) => (oldHud ? '18.4703%' : aleLuduHud ? '19%' : '15%'),
 		position: 'absolute',
 		display: 'flex',
 		flexWrap: 'wrap',
 	},
 	playerContainer: {
-		width: ({ oldHud }: UseStylesProps) => (oldHud ? '46.41%' : '30%'),
-		height: ({ oldHud }: UseStylesProps) => (oldHud ? '100%' : '109%'),
+		width: ({ oldHud, aleLuduHud }: UseStylesProps) => (oldHud ? '46.41%' : aleLuduHud ? '21.5%' : '30%'),
+		height: ({ oldHud, aleLuduHud }: UseStylesProps) => (oldHud ? '100%' : aleLuduHud ? '18%' : '109%'),
 		borderRadius: ({ height }: UseStylesProps) => height / 100,
 		transition: 'opacity .1s linear',
-		marginBottom: ({ oldHud }: UseStylesProps) => (oldHud ? '2%' : '1.9%'),
-		marginRight: ({ oldHud }: UseStylesProps) => (oldHud ? '2.34%' : '0.23%'),
-		marginLeft: ({ oldHud }: UseStylesProps) => (oldHud ? '0%' : '2.4%'),
+		marginBottom: ({ oldHud, aleLuduHud }: UseStylesProps) => (oldHud ? '2%' : aleLuduHud ? '3.2%' : '1.9%'),
+		marginRight: ({ oldHud, aleLuduHud }: UseStylesProps) => (oldHud ? '2.34%' : aleLuduHud ? '3.5%' : '0.23%'),
+		marginLeft: ({ oldHud, aleLuduHud }: UseStylesProps) => (oldHud ? '0%' : aleLuduHud ? '0%' : '2.4%'),
 		boxSizing: 'border-box',
 	},
 }));
@@ -107,7 +108,12 @@ const Overlay: React.FC = function () {
 	return (
 		<>
 			{settings.meetingOverlay && gameState.gameState === GameState.DISCUSSION && (
-				<MeetingHud gameState={gameState} voiceState={voiceState} playerColors={playerColors} />
+				<MeetingHud
+					gameState={gameState}
+					voiceState={voiceState}
+					playerColors={playerColors}
+					aleLuduMeetingOverlay={settings.aleLuduMeetingOverlay}
+				/>
 			)}
 			{settings.overlayPosition !== 'hidden' && (
 				<AvatarOverlay
@@ -177,11 +183,6 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 		return playerss;
 	}, [gameState.players]);
 
-	// const myPLayer = useMemo(() => {
-	// 	if (!gameState.players) return null;
-	// 	return gameState.players.find(o => o.isLocal && (!o.disconnected || !o.bugged))
-	// }, [gameState.players]);
-
 	players?.forEach((player) => {
 		if (!voiceState.otherTalking[player.clientId] && !(player.isLocal && voiceState.localTalking) && compactOverlay) {
 			return;
@@ -193,13 +194,11 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 		}
 		const talking =
 			!player.inVent && (voiceState.otherTalking[player.clientId] || (player.isLocal && voiceState.localTalking));
-		// const audio = voiceState.audioConnected[peer];
 		avatars.push(
 			<div key={player.id} className="player_wrapper">
 				<div>
 					<Avatar
 						key={player.id}
-						// connectionState={!connected ? 'disconnected' : audio ? 'connected' : 'novoice'}
 						player={player}
 						showborder={isOnSide && !compactOverlay}
 						muted={voiceState.muted && player.isLocal}
@@ -238,9 +237,6 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 					<div className="players_container playerContainerBack">{avatars}</div>
 				</div>
 			</div>
-			{/* {(voiceState.muted || voiceState.deafened) && (
-				<div className="volumeicons">{voiceState.deafened ? <VolumeOff /> : <MicOff />}</div>
-			)} */}
 		</div>
 	);
 };
@@ -249,9 +245,15 @@ interface MeetingHudProps {
 	gameState: AmongUsState;
 	voiceState: VoiceState;
 	playerColors: string[][];
+	aleLuduMeetingOverlay: boolean;
 }
 
-const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerColors }: MeetingHudProps) => {
+const MeetingHud: React.FC<MeetingHudProps> = ({
+	voiceState,
+	gameState,
+	playerColors,
+	aleLuduMeetingOverlay,
+}: MeetingHudProps) => {
 	const [windowWidth, windowheight] = useWindowSize();
 	const [width, height] = useMemo(() => {
 		if (gameState.oldMeetingHud) {
@@ -287,6 +289,7 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 		width: width,
 		height: height,
 		oldHud: gameState.oldMeetingHud,
+		aleLuduHud: aleLuduMeetingOverlay,
 	});
 	const players = useMemo(() => {
 		if (!gameState.players) return null;
@@ -300,7 +303,7 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 			}
 			return a.id - b.id;
 		});
-	}, [gameState.gameState]);
+	}, [gameState.players]);
 	if (!players || gameState.gameState !== GameState.DISCUSSION) return null;
 
 	const overlays = players.map((player) => {

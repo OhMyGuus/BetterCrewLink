@@ -17,6 +17,7 @@ export interface ISettings {
 	overlayPosition: string;
 	enableOverlay: boolean;
 	meetingOverlay: boolean;
+	aleLuduMeetingOverlay: boolean;
 
 	localLobbySettings: ILobbySettings;
 	ghostVolumeAsImpostor: number;

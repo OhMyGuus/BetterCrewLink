@@ -1,0 +1,56 @@
+name: windows-build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+      - '**'
+
+jobs:
+  build-windows:
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 14
+        uses: actions/setup-node@v4
+        with:
+          node-version: '14.21.3'
+          cache: 'yarn'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Yarn
+        run: npm install -g yarn@1.22.22
+
+      - name: Install dependencies
+        shell: cmd
+        run: |
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\VsDevCmd.bat" -arch=x64
+          set GYP_MSVS_VERSION=2022
+          set npm_config_msvs_version=2022
+          yarn install --frozen-lockfile --ignore-engines
+
+      - name: Build installer
+        shell: cmd
+        run: |
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\VsDevCmd.bat" -arch=x64
+          set GYP_MSVS_VERSION=2022
+          set npm_config_msvs_version=2022
+          yarn dist:64
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: bettercrewlink-windows-installer
+          path: |
+            dist/*.exe
+            dist/*.blockmap
+            dist/latest.yml
