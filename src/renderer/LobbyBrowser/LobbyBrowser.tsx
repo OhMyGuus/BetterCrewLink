@@ -21,7 +21,7 @@ import { GameState } from '../../common/AmongUsState';
 import SettingsStore from '../settings/SettingsStore';
 
 const serverUrl = SettingsStore.get('serverURL', 'https://bettercrewl.ink/');
-const language = SettingsStore.get('language', 'en');
+const language = SettingsStore.get('language', 'ja');
 i18next.changeLanguage(language);
 
 const StyledTableCell = withStyles((theme) => ({

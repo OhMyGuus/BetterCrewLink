@@ -101,7 +101,7 @@ export const SettingsStore = new Store<ISettings>({
 		},
 		language: {
 			type: 'string',
-			default: 'unkown',
+			default: 'ja',
 		},
 		microphone: {
 			type: 'string',
@@ -299,7 +299,7 @@ export const SettingsStore = new Store<ISettings>({
 				},
 				publicLobby_language: {
 					type: 'string',
-					default: 'en',
+					default: 'ja',
 				},
 				publicLobby_mods: {
 					type: 'string',
@@ -318,7 +318,7 @@ export const SettingsStore = new Store<ISettings>({
 				visionHearing: false,
 				publicLobby_on: false,
 				publicLobby_title: '',
-				publicLobby_language: 'en',
+				publicLobby_language: 'ja',
 				publicLobby_mods: 'NONE',
 			},
 		},

@@ -53,7 +53,7 @@
 			"microphone_sens_warning": "これ以上、感度を下げるとうまくいかないかもしれません。",
 			"mastervolume": "マスターボリューム",
 			"crewvolume": "幽霊クルーの音量",
-			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
+			"ghostvolumeasimpostor": "インポスター時の幽霊の音量",
 			"test_speaker_start": "スピーカーテスト",
 			"test_speaker_stop": "スピーカーテスト停止"
 		},
@@ -96,13 +96,13 @@
 			"mobilehost": "モバイル ホスト",
 			"vad_enabled": "音声アクティビティ検出",
 			"hardware_acceleration": "ハードウェア アクセラレーション",
-			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
+			"hardware_acceleration_warning": "ハードウェアアクセラレーションを無効にします（CPU使用率が上がる可能性があります）",
 			"vad_enabled_warning": "非アクティブにすると誰が話しているのかわからなくなります。",
 			"echocancellation": "エコーキャンセラー",
 			"noiseSuppression": "ノイズ防止",
 			"spatial_audio": "立体音響",
-			"oldsampledebug": "Samplerate Debug",
-			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
+			"oldsampledebug": "サンプルレートデバッグ",
+			"oldsampledebug_warning": "依頼された場合のみ有効にするテスト機能です。"
 		},
 		"streaming": {
 			"title": "配信設定",
@@ -123,16 +123,16 @@
 		"header": "公開ロビー",
 		"code": "ロビーコード",
 		"code_tooltips": {
-			"in_progress": "Game in Progress",
-			"full_lobby": "Lobby is Full",
-			"incompatible": "Incompatible Mods",
-			"and": "and"
+			"in_progress": "ゲーム進行中",
+			"full_lobby": "ロビー満員",
+			"incompatible": "互換性のないMod",
+			"and": "および"
 		},
 		"list": {
 			"title": "タイトル",
 			"host": "ホスト",
 			"players": "プレイヤー",
-			"mods": "Mods",
+			"mods": "Mod",
 			"language": "言語"
 		}
 	},
