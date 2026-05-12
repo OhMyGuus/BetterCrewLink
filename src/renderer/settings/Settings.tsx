@@ -321,8 +321,9 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 		}
 	};
 
-	const URLInputCallback = useCallback((url: string) => {
+	const ServerURLsInputCallback = useCallback((url: string, urls: string[]) => {
 		setSettings('serverURL', url);
+		setSettings('serverURLs', urls);
 	}, []);
 
 	const SavePublicLobbyCallback = useCallback(<K extends keyof ILobbySettings>(setting: K, newValue: ILobbySettings[K]) => {
@@ -944,7 +945,8 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				<ServerURLInput
 					t={t}
 					initialURL={settings.serverURL}
-					onValidURL={URLInputCallback}
+					serverURLs={[settings.serverURL, ...(settings.serverURLs || [])]}
+					onSaveURLs={ServerURLsInputCallback}
 					className={classes.dialog}
 				/>
 				<Divider />

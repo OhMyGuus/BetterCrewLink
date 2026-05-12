@@ -6,7 +6,8 @@ import { isHttpUri, isHttpsUri } from 'valid-url';
 type URLInputProps = {
 	t: (key: string) => string;
 	initialURL: string;
-	onValidURL: (url: string) => void;
+	serverURLs: string[];
+	onSaveURLs: (url: string, urls: string[]) => void;
 	className: string;
 };
 
@@ -22,14 +23,34 @@ function validateServerUrl(uri: string): boolean {
 	}
 }
 
-const RawServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, onValidURL, className }: URLInputProps) {
+function normalizeServerUrl(url: string): string {
+	const trimmed = url.trim();
+	return trimmed.endsWith('/') ? trimmed.substring(0, trimmed.length - 1) : trimmed;
+}
+
+function normalizeServerUrls(urls: string[]): string[] {
+	return Array.from(new Set(urls.map(normalizeServerUrl).filter(validateServerUrl)));
+}
+
+const RawServerURLInput: React.FC<URLInputProps> = function ({
+	t,
+	initialURL,
+	serverURLs,
+	onSaveURLs,
+	className,
+}: URLInputProps) {
 	const [isValidURL, setURLValid] = useState(true);
 	const [currentURL, setCurrentURL] = useState(initialURL);
+	const [savedURLs, setSavedURLs] = useState(normalizeServerUrls(serverURLs.length ? serverURLs : [initialURL]));
 	const [open, setOpen] = useState(false);
 
 	useEffect(() => {
 		setCurrentURL(initialURL);
 	}, [initialURL]);
+
+	useEffect(() => {
+		setSavedURLs(normalizeServerUrls(serverURLs.length ? serverURLs : [initialURL]));
+	}, [serverURLs, initialURL]);
 
 	function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
 		const url = event.target.value.trim();
@@ -39,6 +60,31 @@ const RawServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, on
 		} else {
 			setURLValid(false);
 		}
+	}
+
+	function handleSelect(event: React.ChangeEvent<HTMLInputElement>) {
+		const url = event.target.value;
+		setCurrentURL(url);
+		setURLValid(validateServerUrl(url));
+	}
+
+	function handleRemoveCurrentURL() {
+		const normalizedURL = normalizeServerUrl(currentURL);
+		const nextURLs = savedURLs.filter((url) => url !== normalizedURL);
+		const fallbackURL = nextURLs[0] || 'https://bettercrewl.ink';
+		const finalURLs = nextURLs.length ? nextURLs : [fallbackURL];
+		setSavedURLs(finalURLs);
+		setCurrentURL(fallbackURL);
+		setURLValid(true);
+		onSaveURLs(fallbackURL, finalURLs);
+	}
+
+	function handleSave() {
+		const url = normalizeServerUrl(currentURL);
+		const nextURLs = normalizeServerUrls([url, ...savedURLs]);
+		setOpen(false);
+		setSavedURLs(nextURLs);
+		onSaveURLs(url, nextURLs);
 	}
 
 	return (
@@ -53,6 +99,23 @@ const RawServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, on
 				<DialogContent className={className}>
 					<TextField
 						fullWidth
+						select
+						SelectProps={{ native: true }}
+						label={t('settings.advanced.saved_voice_servers')}
+						value={savedURLs.includes(normalizeServerUrl(currentURL)) ? normalizeServerUrl(currentURL) : ''}
+						onChange={handleSelect}
+						variant="outlined"
+						color="primary"
+					>
+						{savedURLs.map((url) => (
+							<option key={url} value={url}>
+								{url}
+							</option>
+						))}
+						<option value="">{t('settings.advanced.custom_voice_server')}</option>
+					</TextField>
+					<TextField
+						fullWidth
 						error={!isValidURL}
 						spellCheck={false}
 						label={t('settings.advanced.voice_server')}
@@ -60,7 +123,7 @@ const RawServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, on
 						onChange={handleChange}
 						variant="outlined"
 						color="primary"
-						helperText={isValidURL ? '' : t('settings.advanced.voice_server')}
+						helperText={isValidURL ? '' : t('settings.advanced.invalid_url')}
 					/>
 					<Alert severity="error">{t('settings.advanced.voice_server_warning')}</Alert>
 					<Button
@@ -69,10 +132,19 @@ const RawServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, on
 						onClick={() => {
 							setOpen(false);
 							setURLValid(true);
-							onValidURL('https://bettercrewl.ink');
+							setSavedURLs(['https://bettercrewl.ink']);
+							onSaveURLs('https://bettercrewl.ink', ['https://bettercrewl.ink']);
 						}}
 					>
 						{t('settings.advanced.reset_default')}
+					</Button>
+					<Button
+						color="primary"
+						variant="contained"
+						disabled={savedURLs.length <= 1 || !savedURLs.includes(normalizeServerUrl(currentURL))}
+						onClick={handleRemoveCurrentURL}
+					>
+						{t('settings.advanced.remove_voice_server')}
 					</Button>
 				</DialogContent>
 				<DialogActions>
@@ -82,6 +154,7 @@ const RawServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, on
 							setURLValid(true);
 							setOpen(false);
 							setCurrentURL(initialURL);
+							setSavedURLs(normalizeServerUrls(serverURLs.length ? serverURLs : [initialURL]));
 						}}
 					>
 						{t('buttons.cancel')}
@@ -89,12 +162,7 @@ const RawServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, on
 					<Button
 						disabled={!isValidURL}
 						color="primary"
-						onClick={() => {
-							setOpen(false);
-							let url = currentURL;
-							if (url.endsWith('/')) url = url.substring(0, url.length - 1);
-							onValidURL(url);
-						}}
+						onClick={handleSave}
 					>
 						{t('buttons.confirm')}
 					</Button>

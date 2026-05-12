@@ -92,6 +92,10 @@ export const SettingsStore = new Store<ISettings>({
 				// @ts-ignore
 				store.delete('ghostVolume');
 			}
+		},
+		'3.1.5': (store) => {
+			const serverURL = store.get('serverURL', 'https://bettercrewl.ink') as string;
+			store.set('serverURLs', [serverURL]);
 		}
 	},
 	schema: {
@@ -119,6 +123,14 @@ export const SettingsStore = new Store<ISettings>({
 			type: 'string',
 			default: 'https://bettercrewl.ink',
 			format: 'uri',
+		},
+		serverURLs: {
+			type: 'array',
+			default: ['https://bettercrewl.ink'],
+			items: {
+				type: 'string',
+				format: 'uri',
+			},
 		},
 		pushToTalkShortcut: {
 			type: 'string',

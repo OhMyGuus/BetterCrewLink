@@ -87,6 +87,9 @@
 			"nat_fix_warning": "これによりNATの問題は解決されますが、Peer to Peer（P2P）ではなくサーバーを使用するため、遅延が発生します。",
 			"change_server": "ボイスサーバーの変更",
 			"voice_server": "ボイスサーバー",
+			"saved_voice_servers": "保存済みボイスサーバー",
+			"custom_voice_server": "カスタムボイスサーバー",
+			"remove_voice_server": "選択中のサーバーを削除",
 			"invalid_url": "無効なURL",
 			"voice_server_warning": "このオプションは、上級ユーザーのみが対象です。他のサーバーがあなたの情報を盗んだり、BetterCrewLinkをクラッシュさせる可能性があります。",
 			"reset_default": "デフォルトに戻す"
