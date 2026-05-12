@@ -82,6 +82,7 @@ export default class GameReader {
 	gamePath = '';
 	oldMeetingHud = false;
 	playercolors: string[][] = [];
+	stablePlayerColors: Record<string, number> = {};
 
 	constructor(sendIPC: Electron.WebContents['send']) {
 		this.is_linux = platform() === 'linux';
@@ -257,6 +258,7 @@ export default class GameReader {
 
 					players.push(player);
 				}
+				this.normalizePlayerColors(players);
 				if (localPlayer) {
 					this.fixPingMessage();
 					lightRadius = this.readMemory<number>('float', localPlayer.objectPtr, this.offsets.lightRadius, -1);
@@ -410,8 +412,61 @@ export default class GameReader {
 			}
 			this.lastState = newState;
 			this.oldGameState = state;
+			if (state === GameState.MENU) {
+				this.stablePlayerColors = {};
+			}
 		}
 		return null;
+	}
+
+	private getStableColorKey(player: Player): string {
+		return `${this.gameCode || 'LOCAL'}:${player.id}:${player.clientId}`;
+	}
+
+	private isValidColorId(colorId: number): boolean {
+		return colorId >= 0 && colorId < this.playercolors.length;
+	}
+
+	private normalizePlayerColors(players: Player[]): void {
+		const activePlayers = players.filter(
+			(player) => !player.disconnected && !player.bugged && this.isValidColorId(player.colorId)
+		);
+		const colorCounts: Record<number, number> = {};
+
+		for (const player of activePlayers) {
+			colorCounts[player.colorId] = (colorCounts[player.colorId] || 0) + 1;
+		}
+
+		const duplicateColors = new Set(
+			Object.keys(colorCounts)
+				.filter((colorId) => colorCounts[Number(colorId)] > 1)
+				.map(Number)
+		);
+
+		if (duplicateColors.size === 0) {
+			for (const player of activePlayers) {
+				this.stablePlayerColors[this.getStableColorKey(player)] = player.colorId;
+			}
+			return;
+		}
+
+		for (const player of activePlayers) {
+			const key = this.getStableColorKey(player);
+			if (!duplicateColors.has(player.colorId)) {
+				this.stablePlayerColors[key] = player.colorId;
+				continue;
+			}
+
+			const stableColor = this.stablePlayerColors[key];
+			if (stableColor === undefined || !this.isValidColorId(stableColor)) {
+				continue;
+			}
+
+			if (player.shiftedColor === -1) {
+				player.shiftedColor = player.colorId;
+			}
+			player.colorId = stableColor;
+		}
 	}
 
 	async initializeoffsets(): Promise<void> {

@@ -1,5 +1,6 @@
 export type ModsType =
 	| 'NONE'
+	| 'SUPER_NEW_ROLES'
 	| 'TOWN_OF_US_MIRA'
 	| 'TOWN_OF_US'
 	| 'THE_OTHER_ROLES'
@@ -17,6 +18,11 @@ export const modList: AmongusMod[] = [
 	{
 		id: 'NONE',
 		label: 'None',
+	},
+	{
+		id: 'SUPER_NEW_ROLES',
+		label: 'SuperNewRoles',
+		dllStartsWith: 'SuperNewRoles',
 	},
 	{
 		id: 'TOWN_OF_US_MIRA',
