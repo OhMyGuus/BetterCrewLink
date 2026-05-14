@@ -1,0 +1,40 @@
+{
+  "name": "memoryjs",
+  "version": "0.0.6",
+  "description": "Node add-on for memory reading and writing on linux!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "node-gyp rebuild",
+    "build32": "node-gyp clean configure build --arch=ia32",
+    "build64": "node-gyp clean configure build --arch=x64",
+    "buildtest": "cd test && MSBuild.exe project.sln //p:Configuration=Release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rob--/memoryjs.git"
+  },
+  "keywords": [
+    "memory",
+    "reading",
+    "writing",
+    "management",
+    "addon"
+  ],
+  "author": "Rob--",
+  "license": "MIT",
+  "gypfile": true,
+  "bugs": {
+    "url": "https://github.com/Rob--/memoryjs/issues"
+  },
+  "homepage": "https://github.com/Rob--/memoryjs#readme",
+  "dependencies": {
+    "bindings": "^1.5.0",
+    "concentrate": "^0.2.3",
+    "dissolve": "^0.3.3",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "node-addon-api": "^3.0.0"
+  }
+}

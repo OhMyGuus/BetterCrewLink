@@ -1,0 +1,57 @@
+{
+  "name": "electron-overlay-window",
+  "version": "2.0.2",
+  "author": {
+    "name": "Alexander Drozdov"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SnosMe/electron-overlay-window.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "window",
+    "overlay",
+    "electron",
+    "event",
+    "watch",
+    "foreground"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "install": "node-gyp rebuild && yarn build-ts",
+    "build32": "node-gyp clean configure build --arch=ia32",
+    "build64": "node-gyp clean configure build --arch=x64",
+    "prebuild": "prebuildify --napi",
+    "build-ts": "tsc",
+    "demo:electron": "node-gyp build && yarn build-ts && electron dist/demo/electron-demo.js"
+  },
+  "files": [
+    "dist/index.d.ts",
+    "dist/index.js",
+    "dist/index.js.map",
+    "binding.gyp",
+    "src/lib",
+    "prebuilds"
+  ],
+  "devDependencies": {
+    "@types/node": "12.x.x",
+    "@types/throttle-debounce": "2.x.x",
+    "electron": "10.x.x",
+    "prebuildify": "4.x.x",
+    "ts-node": "9.x.x"
+  },
+  "dependencies": {
+    "node-gyp-build": "4.x.x",
+    "throttle-debounce": "3.x.x",
+    "typescript": "^4.7.3"
+  },
+  "gypfile": true,
+  "engines": {
+    "node": ">= 12"
+  },
+  "peerDependencies": {
+    "electron": ">= 10"
+  }
+}

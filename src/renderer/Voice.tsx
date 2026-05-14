@@ -856,7 +856,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		// Initialize variables
 		let audioListener: VadNode;
 
-		const audio: MediaTrackConstraintSet = {
+		const audio: MediaTrackConstraints & Record<string, unknown> = {
 			deviceId: (undefined as unknown) as string,
 			autoGainControl: false,
 			channelCount: 2,

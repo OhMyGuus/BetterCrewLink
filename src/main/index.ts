@@ -23,14 +23,9 @@ const devTools = (isDevelopment || args.dev === 1) && true;
 const appVersion: string = isDevelopment? "DEV" : autoUpdater.currentVersion.version;
 
 declare global {
-	namespace NodeJS {
-		// eslint-disable-line
-		interface Global {
-			mainWindow: BrowserWindow | null;
-			overlay: BrowserWindow | null;
-			lobbyBrowser: BrowserWindow | null;
-		}
-	}
+	var mainWindow: BrowserWindow | null;
+	var overlay: BrowserWindow | null;
+	var lobbyBrowser: BrowserWindow | null;
 }
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 global.mainWindow = null;
@@ -234,11 +229,11 @@ if (!gotTheLock) {
 			/* Empty block */
 		}
 	});
-	autoUpdater.on('error', (err: string) => {
+	autoUpdater.on('error', (err: Error, message?: string) => {
 		try {
 			global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
 				state: 'error',
-				error: err,
+				error: message ?? err.message,
 			});
 		} catch (e) {
 			/*empty*/
@@ -316,7 +311,7 @@ if (!gotTheLock) {
 
 		if (isDevelopment)
 			installExtension(REACT_DEVELOPER_TOOLS)
-				.then((name: string) => console.log(`Added Extension:  ${name}`))
+				.then((extension) => console.log(`Added Extension:  ${extension.name}`))
 				.catch((err: string) => console.log('An error occurred: ', err));
 	});
 
