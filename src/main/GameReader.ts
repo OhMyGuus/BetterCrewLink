@@ -1114,7 +1114,7 @@ export default class GameReader {
 	parsePlayer(ptr: number, buffer: Buffer, LocalclientId = -1): Player | undefined {
 		if (!this.PlayerStruct || !this.offsets) return undefined;
 
-		const { data } = this.PlayerStruct.report<PlayerReport>(buffer, 0, {});
+		const { data } = this.PlayerStruct.report<PlayerReport>(buffer as unknown as BufferSource, 0, {});
 
 		if (this.is_64bit) {
 			data.objectPtr = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('objectPtr')]);

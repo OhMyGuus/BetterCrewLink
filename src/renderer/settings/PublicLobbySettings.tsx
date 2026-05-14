@@ -16,8 +16,8 @@ type publicLobbySettingProps = {
 
 const useStyles = makeStyles((theme) => ({
 	specialButton: {
-		width: '90%',
-		marginBottom: '10px',
+		width: '100%',
+		marginBottom: theme.spacing(0.75),
 	},
 	header: {
 		display: 'flex',

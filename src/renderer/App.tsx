@@ -68,6 +68,12 @@ const useStyles = makeStyles(() => ({
 		height: theme.spacing(3),
 		lineHeight: theme.spacing(3),
 		color: theme.palette.primary.main,
+		fontSize: 14,
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+		padding: '0 24px',
+		boxSizing: 'border-box',
 	},
 	button: {
 		WebkitAppRegion: 'no-drag',
@@ -87,7 +93,7 @@ const RawTitleBar: React.FC<TitleBarProps> = function ({ settingsOpen, setSettin
 	const classes = useStyles();
 	return (
 		<div className={classes.root}>
-			<span className={classes.title} style={{ marginLeft: 10 }}>
+			<span className={classes.title}>
 				BetterCrewLink{appVersion}
 			</span>
 			<IconButton
