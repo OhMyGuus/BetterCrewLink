@@ -68,11 +68,11 @@ const useStyles = makeStyles(() => ({
 		height: theme.spacing(3),
 		lineHeight: theme.spacing(3),
 		color: theme.palette.primary.main,
-		fontSize: 14,
+		fontSize: 12,
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
-		padding: '0 24px',
+		padding: '0 28px 0 52px',
 		boxSizing: 'border-box',
 	},
 	button: {

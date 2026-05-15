@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Alert from '@mui/material/Alert';
 import { DialogContent, DialogTitle, DialogActions, Dialog, Button, TextField } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { isHttpUri, isHttpsUri } from 'valid-url';
 
 type URLInputProps = {
@@ -10,6 +11,40 @@ type URLInputProps = {
 	onSaveURLs: (url: string, urls: string[]) => void;
 	className: string;
 };
+
+const useStyles = makeStyles((theme) => ({
+	dialogTitle: {
+		padding: theme.spacing(2, 2, 1),
+		'& h2, &.MuiDialogTitle-root': {
+			fontSize: 20,
+			lineHeight: '26px',
+			fontWeight: 700,
+		},
+	},
+	dialogContent: {
+		boxSizing: 'border-box',
+		padding: theme.spacing(0.5, 2, 0),
+		overflowX: 'hidden',
+		'& .MuiTextField-root': {
+			marginTop: theme.spacing(0.75),
+		},
+		'& .MuiInputBase-root': {
+			fontSize: 13,
+		},
+		'& .MuiInputLabel-root': {
+			fontSize: 13,
+		},
+		'& .MuiAlert-root': {
+			fontSize: 12,
+			lineHeight: 1.25,
+			padding: theme.spacing(0.5, 1),
+		},
+	},
+	dialogActions: {
+		padding: theme.spacing(0.5, 1.5, 1),
+		justifyContent: 'space-between',
+	},
+}));
 
 function validateServerUrl(uri: string): boolean {
 	try {
@@ -39,6 +74,7 @@ const RawServerURLInput: React.FC<URLInputProps> = function ({
 	onSaveURLs,
 	className,
 }: URLInputProps) {
+	const classes = useStyles();
 	const [isValidURL, setURLValid] = useState(true);
 	const [currentURL, setCurrentURL] = useState(initialURL);
 	const [savedURLs, setSavedURLs] = useState(normalizeServerUrls(serverURLs.length ? serverURLs : [initialURL]));
@@ -94,9 +130,9 @@ const RawServerURLInput: React.FC<URLInputProps> = function ({
 			</Button>
 			<Dialog fullScreen open={open} onClose={() => setOpen(false)}>
 				<div>
-					<DialogTitle>{t('settings.advanced.change_server')}</DialogTitle>
+					<DialogTitle className={classes.dialogTitle}>{t('settings.advanced.change_server')}</DialogTitle>
 				</div>
-				<DialogContent className={className}>
+				<DialogContent className={`${className} ${classes.dialogContent}`}>
 					<TextField
 						fullWidth
 						select
@@ -147,7 +183,7 @@ const RawServerURLInput: React.FC<URLInputProps> = function ({
 						{t('settings.advanced.remove_voice_server')}
 					</Button>
 				</DialogContent>
-				<DialogActions>
+				<DialogActions className={classes.dialogActions}>
 					<Button
 						color="primary"
 						onClick={() => {

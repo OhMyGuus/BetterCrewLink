@@ -20,7 +20,9 @@ import { GenerateHat } from './avatarGenerator';
 const args = require('minimist')(process.argv); // eslint-disable-line
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const devTools = (isDevelopment || args.dev === 1) && true;
-const appVersion: string = isDevelopment? "DEV" : autoUpdater.currentVersion.version;
+const rawAppVersion: string = isDevelopment ? 'DEV' : autoUpdater.currentVersion.version;
+const appVersion: string = rawAppVersion;
+const shouldCheckForUpdates = !isDevelopment && !rawAppVersion.includes('-');
 
 declare global {
 	var mainWindow: BrowserWindow | null;
@@ -31,6 +33,7 @@ declare global {
 global.mainWindow = null;
 global.overlay = null;
 const store = new Store<ISettings>();
+let isQuitting = false;
 app.commandLine.appendSwitch('disable-pinch');
 
 if (platform() === 'linux' || !store.get('hardware_acceleration', true)) {
@@ -42,17 +45,41 @@ if(platform() === 'linux'){
 	app.commandLine.appendSwitch('disable-gpu-sandbox');
 }
 
+function closeAppWindows() {
+	try {
+		overlayWindow.stop();
+	} catch {
+		/* empty */
+	}
+
+	const windows = [global.lobbyBrowser, global.overlay, global.mainWindow];
+	global.lobbyBrowser = null;
+	global.overlay = null;
+	global.mainWindow = null;
+
+	for (const window of windows) {
+		try {
+			if (window && !window.isDestroyed()) {
+				window.removeAllListeners('closed');
+				window.destroy();
+			}
+		} catch {
+			/* empty */
+		}
+	}
+}
+
 function createMainWindow() {
 	const mainWindowState = windowStateKeeper({});
 
 	const window = new BrowserWindow({
 		title: 'BetterCrewLink',
-		width: 250,
-		height: 350,
-		maxWidth: 250,
-		minWidth: 250,
-		maxHeight: 350,
-		minHeight: 350,
+		width: 280,
+		height: 390,
+		maxWidth: 280,
+		minWidth: 280,
+		maxHeight: 390,
+		minHeight: 390,
 		x: mainWindowState.x,
 		y: mainWindowState.y,
 		resizable: false,
@@ -93,18 +120,15 @@ function createMainWindow() {
 	//window.webContents.userAgent = `CrewLink/${crewlinkVersion} (${process.platform})`;
 	window.webContents.userAgent = `BetterCrewLink/${appVersion} (win32)`;
 
-	window.on('closed', () => {
-		try {
-			const mainWindow = global.mainWindow;
-			const overlay = global.overlay;
-			global.mainWindow = null;
-			global.overlay = null;
-			overlay?.close();
-			mainWindow?.destroy();
-			overlay?.destroy();
-		} catch {
-			/* empty */
+	window.on('close', () => {
+		if (!isQuitting) {
+			isQuitting = true;
+			setImmediate(() => app.quit());
 		}
+	});
+
+	window.on('closed', () => {
+		closeAppWindows();
 	});
 
 	window.webContents.on('devtools-opened', () => {
@@ -218,7 +242,9 @@ if (!gotTheLock) {
 	app.quit();
 } else {
 	autoUpdater.autoDownload = false;
-	autoUpdater.checkForUpdates();
+	if (shouldCheckForUpdates) {
+		autoUpdater.checkForUpdates();
+	}
 	autoUpdater.on('update-available', (info: UpdateInfo) => {
 		try {
 			global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
@@ -253,20 +279,15 @@ if (!gotTheLock) {
 		autoUpdater.quitAndInstall();
 	});
 
+	app.on('before-quit', () => {
+		isQuitting = true;
+		closeAppWindows();
+	});
+
 	// quit application when all windows are closed
 	app.on('window-all-closed', () => {
 		// on macOS it is common for applications to stay open until the user explicitly quits
-		try {
-			const mainWindow = global.mainWindow;
-			const overlay = global.overlay;
-			global.mainWindow = null;
-			global.overlay = null;
-			overlay?.close();
-			mainWindow?.destroy();
-			overlay?.destroy();
-		} catch {
-			/* empty */
-		}
+		closeAppWindows();
 		app.quit();
 	});
 

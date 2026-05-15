@@ -1,4 +1,4 @@
-appId: net.ottomated.crewlink.beta
+appId: net.ottomated.crewlink.beta.local
 productName: Better-CrewLink
 copyright: Copyright © 2021 OhMyGuus
 directories:
@@ -13,6 +13,8 @@ files:
 win:
   publish:
     - github
+nsis:
+  include: resources/installer.nsh
 linux:
   target:
     - "AppImage"

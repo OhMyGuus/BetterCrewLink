@@ -147,7 +147,10 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: 'center',
 		justifyContent: 'start',
 		width: '100%',
+		boxSizing: 'border-box',
 		'&>*': {
+			width: '100%',
+			boxSizing: 'border-box',
 			marginBottom: theme.spacing(0.75),
 		},
 	},

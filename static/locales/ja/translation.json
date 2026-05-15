@@ -14,7 +14,7 @@
 			"impostorshearsghost": "インポスターが幽霊の声も聞こえる",
 			"hear_imposters_invents": "インポスターはベント内にいても声が聞こえる",
 			"private_talk_invents": "インポスター同士でベント内で会話ができる",
-			"comms_sabotage_audio": "Commsサボタージュで音声を無効化",
+			"comms_sabotage_audio": "コミュサボタージュで音声を無効化",
 			"hear_through_cameras": "カメラ越しに声が聞こえる",
 			"ghost_only": "幽霊だけが話す/聞くことが可能",
 			"ghost_only_warning": "生きているプレーヤーのサウンドを無効にする。",
