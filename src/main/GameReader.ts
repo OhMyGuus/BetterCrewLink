@@ -225,6 +225,8 @@ export default class GameReader {
 			this.isLocalGame = lobbyCodeInt === 32; // is local game
 			let lightRadius = 1;
 			let comsSabotaged = false;
+			let mushroomMixupSabotaged = false;
+			let camouflaged = false;
 			let currentCamera = CameraLocation.NONE;
 			let map = MapType.UNKNOWN;
 			let maxPlayers = 10;
@@ -270,6 +272,21 @@ export default class GameReader {
 				);
 				maxPlayers = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MaxPLayers);
 				map = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MapId);
+				if (state === GameState.TASKS) {
+					const activePlayers = players.filter((player) => !player.disconnected && !player.bugged);
+					const activePlayerCount = activePlayers.length;
+					const shiftedPlayers = activePlayers.filter((player) => player.shiftedColor !== -1);
+					const shiftedPlayerCount = shiftedPlayers.length;
+					const mushroomMixupThreshold = Math.min(2, Math.max(1, activePlayerCount - 1));
+					mushroomMixupSabotaged = map === MapType.FUNGLE && shiftedPlayerCount >= mushroomMixupThreshold;
+					const camouflageThreshold = Math.max(2, activePlayerCount - 1);
+					const shiftedColors = new Set(shiftedPlayers.map((player) => player.shiftedColor));
+					camouflaged =
+						this.loadedMod.id === 'SUPER_NEW_ROLES' &&
+						activePlayerCount >= 3 &&
+						shiftedPlayerCount >= camouflageThreshold &&
+						shiftedColors.size === 1;
+				}
 				if (state === GameState.TASKS) {
 					const shipPtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets.shipStatus);
 
@@ -392,6 +409,8 @@ export default class GameReader {
 				hostId: hostId,
 				clientId: clientId,
 				comsSabotaged,
+				mushroomMixupSabotaged,
+				camouflaged,
 				currentCamera,
 				lightRadius,
 				lightRadiusChanged: lightRadius != this.lastState?.lightRadius,

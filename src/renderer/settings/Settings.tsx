@@ -2,6 +2,7 @@ import React, { ReactChild, useCallback, useContext, useEffect, useReducer, useS
 import { SettingsContext, GameStateContext, HostSettingsContext } from '../contexts';
 import MicrophoneSoundBar from './MicrophoneSoundBar';
 import TestSpeakersButton from './TestSpeakersButton';
+import TestVoiceEffectButton from './TestVoiceEffectButton';
 import { ISettings, ILobbySettings } from '../../common/ISettings';
 import makeStyles from '@mui/styles/makeStyles';
 import withStyles from '@mui/styles/withStyles';
@@ -716,6 +717,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					))}
 				</TextField>
 				{open && <TestSpeakersButton t={t} speaker={settings.speaker} />}
+				{open && <TestVoiceEffectButton t={t} speaker={settings.speaker} />}
 				<RadioGroup
 					value={settings.pushToTalkMode}
 					onChange={(ev) => {

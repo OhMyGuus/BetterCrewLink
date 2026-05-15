@@ -55,7 +55,9 @@
 			"crewvolume": "幽霊クルーの音量",
 			"ghostvolumeasimpostor": "インポスター時の幽霊の音量",
 			"test_speaker_start": "スピーカーテスト",
-			"test_speaker_stop": "スピーカーテスト停止"
+			"test_speaker_stop": "スピーカーテスト停止",
+			"test_voice_effect_start": "ボイスエフェクトテスト",
+			"test_voice_effect_stop": "エフェクトテスト停止"
 		},
 		"keyboard": {
 			"title": "キーボードショートカット",

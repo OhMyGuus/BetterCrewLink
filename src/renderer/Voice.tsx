@@ -355,6 +355,16 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						applyEffect(gain, muffle, destination, other);
 					}
 				}
+				if ((state.mushroomMixupSabotaged || state.camouflaged) && !me.isDead && !other.isDead && !muffleEnabled) {
+					muffle.type = 'bandpass';
+					muffle.frequency.value = 950;
+					muffle.Q.value = 4.5;
+					muffleEnabled = true;
+					if (!audio.muffleConnected) {
+						audio.muffleConnected = true;
+						applyEffect(gain, muffle, destination, other);
+					}
+				}
 
 				if (!me.isDead && other.isDead && me.isImpostor && lobbySettings.haunting) {
 					if (!audio.reverbConnected) {

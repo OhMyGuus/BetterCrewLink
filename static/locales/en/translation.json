@@ -55,7 +55,9 @@
 				"crewvolume": "Crew Volume as Ghost",
 				"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 				"test_speaker_start": "Test Speaker",
-				"test_speaker_stop": "Stop Test Speaker"
+				"test_speaker_stop": "Stop Test Speaker",
+				"test_voice_effect_start": "Test Voice Effect",
+				"test_voice_effect_stop": "Stop Voice Effect"
 			},
 			"keyboard": {
 				"title": "Keyboard Shortcuts",
