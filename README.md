@@ -33,11 +33,11 @@
 
 <p>
 <p align="center">
-    <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/"><img src="https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/total?logo=GitHub&label=Downloads" alt="GitHub Downloads"></img></a>
+    <a href="https://github.com/kuretoshi/BetterCrewLink/releases/"><img src="https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/total?logo=GitHub&label=Downloads" alt="GitHub Downloads"></img></a>
     <a href="https://www.curseforge.com/among-us/all-mods/bettercrewlink/files"><img src="http://cf.way2muchnoise.eu/full_463977_downloads.svg" alt="CurseForge Downloads"></img></a>
-    <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/latest/total?label=Downloads%20%28latest%20release%29&logo=GitHub" alt="GitHub Downloads Latest Release"></img></a>
-    <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/v/release/OhMyGuus/BetterCrewLink?logo=GitHub&color=success&label=Latest%20Release" alt="GitHub Latest Release"></img></a>
-    <a href="https://github.com/OhMyGuus/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/release-date/OhMyGuus/BetterCrewLink?label=Released&logo=GitHub" alt="GitHub Latest Release Date"></img></a>
+    <a href="https://github.com/kuretoshi/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/downloads/OhMyGuus/BetterCrewLink/latest/total?label=Downloads%20%28latest%20release%29&logo=GitHub" alt="GitHub Downloads Latest Release"></img></a>
+    <a href="https://github.com/kuretoshi/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/v/release/OhMyGuus/BetterCrewLink?logo=GitHub&color=success&label=Latest%20Release" alt="GitHub Latest Release"></img></a>
+    <a href="https://github.com/kuretoshi/BetterCrewLink/releases/latest/"><img src="https://img.shields.io/github/release-date/OhMyGuus/BetterCrewLink?label=Released&logo=GitHub" alt="GitHub Latest Release Date"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/blob/nightly/LICENSE"><img src="https://img.shields.io/github/license/OhMyGuus/BetterCrewLink?label=License" alt="GPL-3.0 License"></img></a>
     <a href="https://github.com/OhMyGuus/BetterCrewLink/actions"><img src="https://img.shields.io/github/workflow/status/OhMyGuus/BetterCrewLink/BetterCrewLink%20Build%20(CI)?label=Build%20%28CI%29&logo=GitHub" alt="GitHub Actions Build"></img></a>
     <a href="https://bettercrewlink-status.netlify.app/history/voice-server"><img src="https://img.shields.io/website?down_message=Offline&label=Status&up_message=Online&url=https%3A%2F%2Fbettercrewl.ink%2F" alt="BetterCrewLink Voice Server Status"></img></a>
