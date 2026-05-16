@@ -188,6 +188,10 @@ export const SettingsStore = new Store<ISettings>({
 			type: 'boolean',
 			default: false,
 		},
+		voiceEffectStrength: {
+			type: 'number',
+			default: 100,
+		},
 		micSensitivity: {
 			type: 'number',
 			default: 0.15,

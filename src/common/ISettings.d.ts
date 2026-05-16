@@ -25,6 +25,7 @@ export interface ISettings {
 	masterVolume: number;
 	microphoneGain: number;
 	microphoneGainEnabled: boolean;
+	voiceEffectStrength: number;
 	micSensitivity: number;
 	micSensitivityEnabled: boolean;
 	mobileHost: boolean;

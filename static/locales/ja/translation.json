@@ -57,7 +57,8 @@
 			"test_speaker_start": "スピーカーテスト",
 			"test_speaker_stop": "スピーカーテスト停止",
 			"test_voice_effect_start": "ボイスエフェクトテスト",
-			"test_voice_effect_stop": "エフェクトテスト停止"
+			"test_voice_effect_stop": "エフェクトテスト停止",
+			"voice_effect_strength": "ボイスエフェクトの強さ"
 		},
 		"keyboard": {
 			"title": "キーボードショートカット",

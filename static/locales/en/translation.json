@@ -57,7 +57,8 @@
 				"test_speaker_start": "Test Speaker",
 				"test_speaker_stop": "Stop Test Speaker",
 				"test_voice_effect_start": "Test Voice Effect",
-				"test_voice_effect_stop": "Stop Voice Effect"
+				"test_voice_effect_stop": "Stop Voice Effect",
+				"voice_effect_strength": "Voice Effect Strength"
 			},
 			"keyboard": {
 				"title": "Keyboard Shortcuts",

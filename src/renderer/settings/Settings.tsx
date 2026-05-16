@@ -167,6 +167,14 @@ const useStyles = makeStyles((theme) => ({
 		fontWeight: 700,
 		marginBottom: theme.spacing(0.25),
 	},
+	voiceEffectControl: {
+		marginTop: theme.spacing(1.25),
+	},
+	voiceEffectLabel: {
+		textAlign: 'center',
+		fontWeight: 700,
+		marginBottom: theme.spacing(0.5),
+	},
 }));
 
 const keys = new Set([
@@ -253,6 +261,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 		settings.echoCancellation,
 		settings.mobileHost,
 		settings.microphoneGainEnabled,
+		settings.voiceEffectStrength,
 		settings.micSensitivityEnabled,
 	]);
 
@@ -717,7 +726,33 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					))}
 				</TextField>
 				{open && <TestSpeakersButton t={t} speaker={settings.speaker} />}
-				{open && <TestVoiceEffectButton t={t} speaker={settings.speaker} />}
+				<div className={classes.voiceEffectControl}>
+					<Typography id="voice-effect-slider" className={classes.voiceEffectLabel}>
+						{t('settings.audio.voice_effect_strength')}
+					</Typography>
+					<Grid container direction="row" justifyContent="center" alignItems="center">
+						<Grid item xs={11}>
+							<Slider
+								size="small"
+								value={settings.voiceEffectStrength}
+								valueLabelDisplay="auto"
+								min={0}
+								max={100}
+								step={5}
+								onChange={(_, newValue: number | number[]) => setSettings('voiceEffectStrength', newValue as number)}
+								aria-labelledby="voice-effect-slider"
+							/>
+						</Grid>
+					</Grid>
+				</div>
+				{open && (
+					<TestVoiceEffectButton
+						t={t}
+						microphone={settings.microphone}
+						speaker={settings.speaker}
+						voiceEffectStrength={settings.voiceEffectStrength}
+					/>
+				)}
 				<RadioGroup
 					value={settings.pushToTalkMode}
 					onChange={(ev) => {
