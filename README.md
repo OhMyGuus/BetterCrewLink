@@ -9,7 +9,7 @@ BetterCrewLinkは、Among Us 向け近接ボイスチャットアプリ [BetterC
 - 日本語 UI / 日本語説明を中心に調整しています。
 - BetterCrewLink の機能をベースに、国内プレイヤー向けの使いやすさを優先しています。
 - キノコカオスやカモフラージュ系の状態に合わせたボイスエフェクト調整を追加しています。
-- Windows での利用とビルドを主な対象にしています。
+- Windows を主な対象にしつつ、Linux 版 AppImage 対応も進めています。
 
 ## 主な機能
 
@@ -20,6 +20,7 @@ BetterCrewLinkは、Among Us 向け近接ボイスチャットアプリ [BetterC
 - マイク音量、感度、ノイズ抑制、エコーキャンセル設定
 - プレイヤーごとの音量調整
 - ロビー設定の同期
+- カスタムボイスサーバーの複数登録と切り替え
 - キノコカオス / カモフラージュ時のボイスエフェクト
 - ボイスエフェクト強度の調整とテスト再生
 
@@ -30,6 +31,37 @@ BetterCrewLinkは、Among Us 向け近接ボイスチャットアプリ [BetterC
 [Releases](https://github.com/kuretoshi/BetterCrewLink/releases)
 
 Windows では `BetterCrewLink-Setup-x.x.x.exe` を実行してインストールします。Among Us の状態を読むためにプロセスへアクセスするため、環境によってはセキュリティソフトの警告が出る場合があります。
+
+### Linux 版について
+
+Linux 版は AppImage での配布を目標に対応中です。Among Us を Proton / Wine 経由で起動している環境を想定しています。
+
+現時点では以下の点に注意してください。
+
+- X11 環境を前提にしています。Wayland 環境ではオーバーレイやグローバルキー入力が正常に動かない可能性があります。
+- Among Us のメモリを読むため、環境によっては `ptrace` 権限の調整が必要です。
+- ネイティブモジュールのビルドに `build-essential`、`python3`、`libx11-dev`、`libxcb1-dev` などが必要になる場合があります。
+
+Ubuntu / Debian 系で開発ビルドする場合の例:
+
+```bash
+sudo apt update
+sudo apt install -y build-essential python3 pkg-config libx11-dev libxcb1-dev libcap2-bin
+npm install
+npm run dist:linux
+```
+
+実行時に Among Us を検出できない場合は、開発中の暫定対応として以下のどちらかを試してください。
+
+```bash
+echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+```
+
+または、Wine 側へ ptrace 権限を付与します。
+
+```bash
+sudo setcap cap_sys_ptrace=eip "$(command -v wineserver)"
+```
 
 ## 使い方
 
@@ -88,6 +120,16 @@ npm.cmd run dist
 ```
 
 PowerShell で `npm` が実行ポリシーにより止まる場合は、`npm.cmd` を使ってください。
+
+### Linux AppImage ビルド
+
+Linux 上で実行してください。
+
+```bash
+npm run dist:linux
+```
+
+生成物は `dist` に出力されます。
 
 ## 貢献
 

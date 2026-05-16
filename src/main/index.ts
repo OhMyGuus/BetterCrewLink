@@ -118,7 +118,7 @@ function createMainWindow() {
 		);
 	}
 	//window.webContents.userAgent = `CrewLink/${crewlinkVersion} (${process.platform})`;
-	window.webContents.userAgent = `BetterCrewLink/${appVersion} (win32)`;
+	window.webContents.userAgent = `BetterCrewLink/${appVersion} (${process.platform})`;
 
 	window.on('close', () => {
 		if (!isQuitting) {
@@ -183,7 +183,7 @@ function createLobbyBrowser() {
 			})
 		);
 	}
-	window.webContents.userAgent = `BetterCrewLink/${appVersion} (win32)`;
+	window.webContents.userAgent = `BetterCrewLink/${appVersion} (${process.platform})`;
 	console.log('Opened app version: ', appVersion);
 	return window;
 }
