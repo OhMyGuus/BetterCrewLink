@@ -18,10 +18,10 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: npm
@@ -44,21 +44,21 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Upload Installer
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: BetterCrewLink Installer ${{ runner.os }}
           path: ${{ matrix.installer }}
           if-no-files-found: error
 
       - name: Upload Unpacked 64bit
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: ${{ matrix.os == 'windows-latest' }}
         with:
           name: BetterCrewLink Unpacked 64bit
           path: 'dist/win-unpacked'
 
       - name: Upload Unpacked 32bit
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: ${{ matrix.os == 'windows-latest' }}
         with:
           name: BetterCrewLink Unpacked 32bit
