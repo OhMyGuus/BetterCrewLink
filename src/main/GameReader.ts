@@ -886,9 +886,11 @@ export default class GameReader {
 		this.colorsInitialized = colorLength > 0;
 		this.playercolors = playercolors;
 		try {
-			this.sendIPC(IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, playercolors);
 			GenerateAvatars(playercolors)
-				.then(() => console.log('done generate'))
+				.then(() => {
+					console.log('done generate');
+					this.sendIPC(IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, playercolors);
+				})
 				.catch((e) => console.error(e));
 		} catch {
 			/* Empty block */

@@ -341,17 +341,21 @@ function Canvas({
 
 	const hatElement = (
 		<>
-			<Box component="img" src={hatImg.hat_front} sx={classes.hat} onError={onerror} onLoad={onload} />
-			<Box component="img" src={hatImg.visor} sx={classes.visor} onError={onerror} onLoad={onload} />
+			{hatImg.hat_front && (
+				<Box component="img" src={hatImg.hat_front} sx={classes.hat} onError={onerror} onLoad={onload} />
+			)}
+			{hatImg.visor && <Box component="img" src={hatImg.visor} sx={classes.visor} onError={onerror} onLoad={onload} />}
 
-			<Box
-				component="img"
-				src={hatImg.hat_back}
-				sx={classes.hat}
-				style={{ zIndex: 1 }}
-				onError={onerror}
-				onLoad={onload}
-			/>
+			{hatImg.hat_back && (
+				<Box
+					component="img"
+					src={hatImg.hat_back}
+					sx={classes.hat}
+					style={{ zIndex: 1 }}
+					onError={onerror}
+					onLoad={onload}
+				/>
+			)}
 		</>
 	);
 
@@ -378,7 +382,7 @@ function Canvas({
 						}}
 					/>
 
-					<Box component="img" src={hatImg.skin} sx={classes.skin} onError={onerror} onLoad={onload} />
+					{hatImg.skin && <Box component="img" src={hatImg.skin} sx={classes.skin} onError={onerror} onLoad={onload} />}
 					{overflow && hatElement}
 				</Box>
 				{!overflow && hatElement}
