@@ -43,7 +43,7 @@
 		"electron-updater": "^6.8.9",
 		"electron-window-state": "^5.0.3",
 		"jimp": "^1.6.1",
-		"memoryjs": "github:OhMyGuus/memoryjs#v0.0.9",
+		"memoryjs": "github:OhMyGuus/memoryjs#v0.0.10",
 		"minimist": "^1.2.8",
 		"node-keyboard-watcher": "github:OhMyGuus/node-keyboard-watcher#v1.0.5",
 		"process": "^0.11.10",

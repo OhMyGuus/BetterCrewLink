@@ -71,7 +71,7 @@ async function colorImage(img: JimpImage, originalData: Uint8Array, color: strin
 			data[i + 2] = pixelColor.blue();
 		}
 	}
-	const savepathTemp = `${savepath}.${Math.floor(Math.random() * 101)}`;
+	const savepathTemp = savepath.replace(/\.png$/, `.${Math.floor(Math.random() * 101)}.png`);
 	await img.write(savepathTemp as `${string}.png`);
 	try {
 		await fs.promises.rename(savepathTemp, savepath);
