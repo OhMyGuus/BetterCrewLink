@@ -57,11 +57,11 @@ const languages = {
 		translation: translationCA,
 		name: 'Català',
 	},
-	'zh_CN': {
+	zh_CN: {
 		translation: translationZHCN,
 		name: '简体中文',
 	},
-	'zh_TW': {
+	zh_TW: {
 		translation: translationZHTW,
 		name: '繁體中文',
 	},
@@ -133,11 +133,11 @@ const languages = {
 		translation: translationPL,
 		name: 'Polski',
 	},
-	'pt': {
+	pt: {
 		translation: translationPT,
 		name: 'Português (Portugal)',
 	},
-	'pt_BR': {
+	pt_BR: {
 		translation: translationPTBR,
 		name: 'Português (Brasil)',
 	},
@@ -165,11 +165,11 @@ const languages = {
 		translation: translationES,
 		name: 'Español',
 	},
-	'sv': {
+	sv: {
 		translation: translationSV,
 		name: 'Svenska',
 	},
-	'tt': {
+	tt: {
 		translation: translationTT,
 		name: 'Татар',
 	},

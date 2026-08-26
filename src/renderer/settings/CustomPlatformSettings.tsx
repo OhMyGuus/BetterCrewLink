@@ -127,7 +127,7 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 		if (editPlatform && settings.customPlatforms[editPlatform.key]) {
 			const { [editPlatform.key]: remove, ...rest } = settings.customPlatforms;
 			setSettings('customPlatforms', {
-				...rest, 
+				...rest,
 				[customPlatform.key]: customPlatform,
 			});
 		} else {

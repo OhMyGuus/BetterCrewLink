@@ -1,5 +1,3 @@
-'use strict'; // eslint-disable-line
-
 import electronUpdater from 'electron-updater';
 import { app, BrowserWindow, ipcMain, session, net, protocol } from 'electron';
 import windowStateKeeper from 'electron-window-state';
@@ -16,11 +14,13 @@ import type { ProgressInfo, UpdateInfo } from 'builder-util-runtime';
 import Store from 'electron-store';
 import { ISettings } from '../common/ISettings';
 import devtoolsInstaller from 'electron-devtools-installer';
-const { default: installExtension, REACT_DEVELOPER_TOOLS } = devtoolsInstaller as any;
+// Node's ESM/CJS interop resolves the default import to the whole CJS module object here.
+const { default: installExtension, REACT_DEVELOPER_TOOLS } =
+	devtoolsInstaller as unknown as typeof import('electron-devtools-installer');
 import { gameReader } from './hook';
 import { GenerateHat } from './avatarGenerator';
 import minimist from 'minimist';
-const args = minimist(process.argv); // eslint-disable-line
+const args = minimist(process.argv);
 const isDevelopment = !app.isPackaged;
 const devTools = (isDevelopment || args.dev === 1) && true;
 const { autoUpdater } = electronUpdater;
@@ -28,7 +28,6 @@ const appVersion: string = isDevelopment ? 'DEV' : autoUpdater.currentVersion.ve
 
 declare global {
 	namespace NodeJS {
-		// eslint-disable-line
 		interface Global {
 			mainWindow: BrowserWindow | null;
 			overlay: BrowserWindow | null;
@@ -215,7 +214,7 @@ if (!gotTheLock) {
 				state: 'available',
 				info: info,
 			});
-		} catch (e) {
+		} catch {
 			/* Empty block */
 		}
 	});
@@ -225,7 +224,7 @@ if (!gotTheLock) {
 				state: 'error',
 				error: err.message,
 			});
-		} catch (e) {
+		} catch {
 			/*empty*/
 		}
 	});
@@ -235,7 +234,7 @@ if (!gotTheLock) {
 				state: 'downloading',
 				progress,
 			});
-		} catch (e) {
+		} catch {
 			/*empty*/
 		}
 	});
@@ -291,7 +290,7 @@ if (!gotTheLock) {
 
 		protocol.handle('generate', async (request) => {
 			const url = new URL(request.url.replace('generate:///', ''));
-			const filePath = await GenerateHat(url, gameReader.playercolors, Number(url.searchParams.get('color')), '');
+			const filePath = await GenerateHat(url, gameReader.playercolors, Number(url.searchParams.get('color')));
 			return net.fetch(pathToFileURL(filePath).toString());
 		});
 
@@ -334,29 +333,26 @@ if (!gotTheLock) {
 	});
 
 	ipcMain.on('enableOverlay', async (_event, enable) => {
-		setTimeout(
-			() => {
-				try {
-					if (enable) {
-						if (!global.overlay) {
-							global.overlay = createOverlay();
-						}
-						overlayWindow.show();
-					} else {
-						overlayWindow.hide();
-						if (global.overlay?.closable) {
-							overlayWindow.stop();
-							global.overlay?.close();
-							global.overlay = null;
-						}
+		setTimeout(() => {
+			try {
+				if (enable) {
+					if (!global.overlay) {
+						global.overlay = createOverlay();
 					}
-				} catch (exception) {
-					global.overlay?.hide();
-					global.overlay?.close();
+					overlayWindow.show();
+				} else {
+					overlayWindow.hide();
+					if (global.overlay?.closable) {
+						overlayWindow.stop();
+						global.overlay?.close();
+						global.overlay = null;
+					}
 				}
-			},
-			1000
-		);
+			} catch {
+				global.overlay?.hide();
+				global.overlay?.close();
+			}
+		}, 1000);
 	});
 
 	ipcMain.on('setAlwaysOnTop', async (_event, enable) => {

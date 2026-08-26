@@ -36,7 +36,7 @@ function onSettingsChanged(_event: unknown, settings: ISettings) {
 }
 
 export async function initSettings(): Promise<ISettings> {
-	currentSettings = await ipcRenderer.invoke('settings:get');
+	currentSettings = (await ipcRenderer.invoke('settings:get')) as ISettings;
 	if (!initialized) {
 		initialized = true;
 		ipcRenderer.on('settings:changed', onSettingsChanged);

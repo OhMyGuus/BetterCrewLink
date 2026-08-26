@@ -92,7 +92,7 @@ export const settingsStore = new Store<ISettings>({
 				// @ts-ignore
 				store.delete('ghostVolume');
 			}
-		}
+		},
 	},
 	schema: {
 		alwaysOnTop: {

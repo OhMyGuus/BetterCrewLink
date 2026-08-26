@@ -17,7 +17,7 @@ import languages from '../language/languages';
 import { PublicLobbyMap, PublicLobby } from '../../common/PublicLobby';
 import { modList, ModsType } from '../../common/Mods';
 import { GameState } from '../../common/AmongUsState';
-import SettingsStore, { initSettings } from '../settings/SettingsStore';
+import { initSettings } from '../settings/SettingsStore';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
 	'&.MuiTableCell-head': {
@@ -77,7 +77,7 @@ function sortLobbies(a: PublicLobby, b: PublicLobby) {
 }
 
 function getModName(mod: string): string {
-	return modList.find((o) => o.id === mod)?.label || (mod ?? 'None')
+	return modList.find((o) => o.id === mod)?.label || (mod ?? 'None');
 }
 
 // @ts-ignore
@@ -89,7 +89,7 @@ export default function lobbyBrowser({ t }) {
 	const [, forceRender] = useState({});
 
 	const [mod, setMod] = useState<ModsType>('NONE');
-	
+
 	useEffect(() => {
 		let cancelled = false;
 		ipcRenderer.invoke(IpcMessages.REQUEST_MOD).then((mod: ModsType) => {
@@ -199,11 +199,9 @@ export default function lobbyBrowser({ t }) {
 											<StyledTableCell align="left">
 												{row.current_players}/{row.max_players}
 											</StyledTableCell>
+											<StyledTableCell align="left">{getModName(row.mods)}</StyledTableCell>
 											<StyledTableCell align="left">
-												{getModName(row.mods)}
-											</StyledTableCell>
-											<StyledTableCell align="left">
-												{(languages as any)[row.language]?.name ?? 'English'}
+												{(languages as Record<string, { name: string }>)[row.language]?.name ?? 'English'}
 											</StyledTableCell>
 											<StyledTableCell align="left">
 												{row.gameState === GameState.LOBBY ? 'Lobby' : 'In game'}{' '}
@@ -212,9 +210,13 @@ export default function lobbyBrowser({ t }) {
 											<StyledTableCell align="right">
 												<Tooltip
 													title={
-														row.gameState !== GameState.LOBBY ? t('lobbybrowser.code_tooltips.in_progress') :
-														row.max_players === row.current_players ? t('lobbybrowser.code_tooltips.full_lobby') :
-														row.mods != mod ? `${t('lobbybrowser.code_tooltips.incompatible')} '${getModName(mod)}' ${t('lobbybrowser.code_tooltips.and')} '${getModName(row.mods)}'` : ""
+														row.gameState !== GameState.LOBBY
+															? t('lobbybrowser.code_tooltips.in_progress')
+															: row.max_players === row.current_players
+																? t('lobbybrowser.code_tooltips.full_lobby')
+																: row.mods != mod
+																	? `${t('lobbybrowser.code_tooltips.incompatible')} '${getModName(mod)}' ${t('lobbybrowser.code_tooltips.and')} '${getModName(row.mods)}'`
+																	: ''
 													}
 												>
 													<span>
@@ -230,7 +232,7 @@ export default function lobbyBrowser({ t }) {
 																socket?.emit(
 																	'join_lobby',
 																	row.id,
-																	(state: number, codeOrError: string, server: string, publicLobby: PublicLobby) => {
+																	(state: number, codeOrError: string, server: string) => {
 																		if (state === 0) {
 																			setCode(`${t('lobbybrowser.code')}: ${codeOrError} \n Region: ${server}`);
 																			// ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);

@@ -18,7 +18,7 @@ function validateServerUrl(uri: string): boolean {
 		if (url.hostname === 'discord.gg') return false;
 		if (url.pathname !== '/') return false;
 		return true;
-	} catch (_) {
+	} catch {
 		return false;
 	}
 }

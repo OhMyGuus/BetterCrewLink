@@ -101,7 +101,7 @@ export default function (
 	scriptProcessorNode.onaudioprocess = monitor;
 
 	if (isNoiseCapturing) {
-		captureTimeout = (setTimeout(init, options.noiseCaptureDuration) as unknown) as number;
+		captureTimeout = setTimeout(init, options.noiseCaptureDuration) as unknown as number;
 	}
 
 	function init() {
@@ -115,7 +115,7 @@ export default function (
 		const averageEnvFreq = envFreqRange.length
 			? envFreqRange.reduce(function (p, c) {
 					return Math.min(p, c);
-			  }, 1)
+				}, 1)
 			: options.minNoiseLevel || 0.1;
 
 		baseLevel = averageEnvFreq * options.avgNoiseMultiplier;
@@ -123,7 +123,6 @@ export default function (
 		if (options.maxNoiseLevel && baseLevel > options.maxNoiseLevel) baseLevel = options.maxNoiseLevel;
 
 		voiceScale = 1 - baseLevel;
-
 	}
 
 	function connect() {
@@ -144,7 +143,7 @@ export default function (
 	}
 
 	function destroy() {
-		captureTimeout && clearTimeout(captureTimeout);
+		if (captureTimeout) clearTimeout(captureTimeout);
 		disconnect();
 		scriptProcessorNode.onaudioprocess = null;
 	}
@@ -176,7 +175,8 @@ export default function (
 		vadState = activityCounter > activityCounterThresh;
 
 		if (prevVadState !== vadState) {
-			vadState ? onVoiceStart() : onVoiceStop();
+			if (vadState) onVoiceStart();
+			else onVoiceStop();
 			prevVadState = vadState;
 		}
 

@@ -39,8 +39,9 @@ async function colorImages(playerColors: string[][], image: string, imagename: s
 }
 
 function rgb2hsv(r: number, g: number, b: number) {
-	let v = Math.max(r, g, b), c = v - Math.min(r, g, b);
-	let h = c && ((v == r) ? (g - b) / c : ((v == g) ? 2 + (b - r) / c : 4 + (r - g) / c));
+	const v = Math.max(r, g, b),
+		c = v - Math.min(r, g, b);
+	const h = c && (v == r ? (g - b) / c : v == g ? 2 + (b - r) / c : 4 + (r - g) / c);
 	return [60 * (h < 0 ? h + 6 : h), v && c / v, v];
 }
 
@@ -48,7 +49,7 @@ function isBetween(h: number, h1: number, maxdiffrence: number) {
 	return 180 - Math.abs(Math.abs(h - h1) - 180) < maxdiffrence;
 }
 
-async function colorImage(img: JimpImage, originalData: Uint8Array, color: string, shadow: string, savepath: string, returnImg = false) {
+async function colorImage(img: JimpImage, originalData: Uint8Array, color: string, shadow: string, savepath: string) {
 	img.bitmap.data = Buffer.from(originalData);
 	for (let i = 0, l = img.bitmap.data.length; i < l; i += 4) {
 		const data = img.bitmap.data;
@@ -58,7 +59,8 @@ async function colorImage(img: JimpImage, originalData: Uint8Array, color: strin
 		//   let alpha = data[i + 3];
 		const h = rgb2hsv(r, g, b);
 
-		if ((h[1] > 0.4) && (isBetween(h[0], 240, 30) || isBetween(h[0], 0, 100) || isBetween(h[0], 120, 40))) { //  )
+		if (h[1] > 0.4 && (isBetween(h[0], 240, 30) || isBetween(h[0], 0, 100) || isBetween(h[0], 120, 40))) {
+			//  )
 
 			const pixelColor = Color('#000000')
 				.mix(Color(shadow), b / 255)
@@ -69,12 +71,11 @@ async function colorImage(img: JimpImage, originalData: Uint8Array, color: strin
 			data[i + 2] = pixelColor.blue();
 		}
 	}
-	var savepathTemp = `${savepath}.${Math.floor(Math.random() * 101)}`;
+	const savepathTemp = `${savepath}.${Math.floor(Math.random() * 101)}`;
 	await img.write(savepathTemp as `${string}.png`);
-	try{
-	await fs.promises.rename(savepathTemp, savepath);
-	}
-	catch(ex){
+	try {
+		await fs.promises.rename(savepathTemp, savepath);
+	} catch {
 		await fs.promises.unlink(savepathTemp);
 	}
 }
@@ -89,7 +90,7 @@ export async function GenerateAvatars(colors: string[][]): Promise<void> {
 	}
 }
 
-export async function GenerateHat(imagePath: URL, colors: string[][], colorId: number, path: string) {
+export async function GenerateHat(imagePath: URL, colors: string[][], colorId: number) {
 	try {
 		const img = await Jimp.read(imagePath.href);
 		const originalData = new Uint8Array(img.bitmap.data);
@@ -103,7 +104,6 @@ export async function GenerateHat(imagePath: URL, colors: string[][], colorId: n
 			await colorImage(img, originalData, color, shadow, temp);
 		}
 		return temp;
-
 	} catch (exception) {
 		console.log('error while generating the avatars..', exception);
 		return '';

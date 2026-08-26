@@ -6,7 +6,7 @@ import { AmongUsState } from '../common/AmongUsState';
 import Settings from './settings/Settings';
 import SettingsStore, { setSetting, setLobbySetting, initSettings } from './settings/SettingsStore';
 import { GameStateContext, SettingsContext, PlayerColorContext, HostSettingsContext } from './contexts';
-import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import {
 	AutoUpdaterState,
@@ -35,10 +35,8 @@ import 'source-code-pro/source-code-pro.css';
 import 'typeface-varela/index.css';
 import { DEFAULT_PLAYERCOLORS } from '../common/playerColors';
 import './language/i18n';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { ISettings, ILobbySettings } from '../common/ISettings';
-
-
 
 let appVersion = '';
 if (typeof window !== 'undefined' && window.location) {
@@ -85,20 +83,10 @@ const RawTitleBar: React.FC<TitleBarProps> = function ({ settingsOpen, setSettin
 			<Box component="span" sx={classes.title} style={{ marginLeft: 10 }}>
 				BetterCrewLink{appVersion}
 			</Box>
-			<IconButton
-				sx={classes.button}
-				style={{ left: 0 }}
-				size="small"
-				onClick={() => setSettingsOpen(!settingsOpen)}
-			>
+			<IconButton sx={classes.button} style={{ left: 0 }} size="small" onClick={() => setSettingsOpen(!settingsOpen)}>
 				<SettingsIcon htmlColor="#777" />
 			</IconButton>
-			<IconButton
-				sx={classes.button}
-				style={{ left: 22 }}
-				size="small"
-				onClick={() => ipcRenderer.send('reload')}
-			>
+			<IconButton sx={classes.button} style={{ left: 22 }} size="small" onClick={() => ipcRenderer.send('reload')}>
 				<RefreshSharpIcon htmlColor="#777" />
 			</IconButton>
 			<IconButton
@@ -119,8 +107,7 @@ enum AppState {
 	MENU,
 	VOICE,
 }
-// @ts-ignore
-export default function App({ t }): React.JSX.Element {
+export default function App({ t }: WithTranslation): React.JSX.Element {
 	const [state, setState] = useState<AppState>(AppState.MENU);
 	const [gameState, setGameState] = useState<AmongUsState>({} as AmongUsState);
 	const [settingsOpen, setSettingsOpen] = useState(false);
@@ -184,7 +171,7 @@ export default function App({ t }): React.JSX.Element {
 			.invoke(IpcHandlerMessages.START_HOOK)
 			.then(() => {
 				if (shouldInit) {
-					setGameState(ipcRenderer.sendSync(IpcSyncMessages.GET_INITIAL_STATE));
+					setGameState(ipcRenderer.sendSync(IpcSyncMessages.GET_INITIAL_STATE) as AmongUsState);
 				}
 			})
 			.catch((error: Error) => {
@@ -244,9 +231,7 @@ export default function App({ t }): React.JSX.Element {
 									{updaterState.state === 'available' && updaterState.info && (
 										<DialogTitle>Update v{updaterState.info.version}</DialogTitle>
 									)}
-									{updaterState.state === 'error' && (
-										<DialogTitle>Updater Error</DialogTitle>
-									)}
+									{updaterState.state === 'error' && <DialogTitle>Updater Error</DialogTitle>}
 									{updaterState.state === 'downloading' && <DialogTitle>Updating...</DialogTitle>}
 									<DialogContent>
 										{updaterState.state === 'downloading' && updaterState.progress && (
@@ -272,7 +257,7 @@ export default function App({ t }): React.JSX.Element {
 											<Button
 												color="grey"
 												onClick={() => {
-													shell.openExternal("https://github.com/OhMyGuus/BetterCrewLink/releases/latest");
+													shell.openExternal('https://github.com/OhMyGuus/BetterCrewLink/releases/latest');
 												}}
 											>
 												Download Manually
@@ -315,7 +300,5 @@ export default function App({ t }): React.JSX.Element {
 		</PlayerColorContext.Provider>
 	);
 }
-// @ts-ignore
 const App2 = withTranslation()(App);
-// @ts-ignore
 createRoot(document.getElementById('app')!).render(<App2 />);

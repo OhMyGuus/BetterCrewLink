@@ -63,14 +63,19 @@ ipcMain.handle(IpcMessages.REQUEST_MOD, () => {
 ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 	if (!readingGame) {
 		readingGame = true;
-		let speaking: number = 0
+		let speaking: number = 0;
 		resetKeyHooks();
 
 		keyboardWatcher.on('keydown', (keyId: number) => {
 			if (keyCodeMatches(pushToTalkShortcut!, keyId)) {
 				speaking += 1;
 			}
-			if (keyCodeMatches(impostorRadioShortcut!, keyId) && gameReader.lastState.players?.find((value) => {return value.clientId === gameReader.lastState.clientId})?.isImpostor) {
+			if (
+				keyCodeMatches(impostorRadioShortcut!, keyId) &&
+				gameReader.lastState.players?.find((value) => {
+					return value.clientId === gameReader.lastState.clientId;
+				})?.isImpostor
+			) {
 				speaking += 1;
 				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, true);
 			}
@@ -94,7 +99,12 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 			if (keyCodeMatches(muteShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.TOGGLE_MUTE);
 			}
-			if (keyCodeMatches(impostorRadioShortcut!, keyId) && gameReader.lastState.players?.find((value) => {return value.clientId === gameReader.lastState.clientId})?.isImpostor) {
+			if (
+				keyCodeMatches(impostorRadioShortcut!, keyId) &&
+				gameReader.lastState.players?.find((value) => {
+					return value.clientId === gameReader.lastState.clientId;
+				})?.isImpostor
+			) {
 				speaking -= 1;
 				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, false);
 			}
@@ -150,12 +160,12 @@ ipcMain.on('minimize', async (_, lobbybrowser) => {
 	global.lobbyBrowser?.minimize();
 });
 
-ipcMain.handle("getlocale", () => {
+ipcMain.handle('getlocale', () => {
 	return app.getLocale();
 });
 
 ipcMain.on('relaunch', async () => {
-	app.relaunch();  
+	app.relaunch();
 	app.exit();
 });
 

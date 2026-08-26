@@ -8,6 +8,15 @@ interface TestMicProps {
 	microphone: string;
 }
 
+// Legacy Chrome-only getUserMedia constraints, not part of the standard MediaTrackConstraints lib types.
+interface LegacyAudioConstraints extends MediaTrackConstraints {
+	googEchoCancellation?: boolean;
+	googAutoGainControl2?: boolean;
+	googNoiseSuppression?: boolean;
+	googHighpassFilter?: boolean;
+	googTypingNoiseDetection?: boolean;
+}
+
 const useStyles = () => {
 	const theme = useTheme();
 	return {
@@ -58,8 +67,7 @@ const TestMicrophoneButton: React.FC<TestMicProps> = function ({ microphone }: T
 			setRms(rms);
 		};
 
-		// @ts-ignore-line
-		const audio_options: any = {
+		const audio_options: LegacyAudioConstraints = {
 			deviceId: microphone ?? 'default',
 			autoGainControl: false,
 			echoCancellation: false,

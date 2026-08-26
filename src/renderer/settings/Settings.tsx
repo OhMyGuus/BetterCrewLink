@@ -175,7 +175,10 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 
 	// Used to buffer changes that are only sent out on settings close
 	const [localLobbySettingsBuffer, setLocalLobbySettingsBuffer] = useState(settings.localLobbySettings);
-	const updateLocalLobbySettingsBuffer = (newValues: Partial<ILobbySettings>) => setLocalLobbySettingsBuffer((oldState) => { return { ...oldState, ...newValues } });
+	const updateLocalLobbySettingsBuffer = (newValues: Partial<ILobbySettings>) =>
+		setLocalLobbySettingsBuffer((oldState) => {
+			return { ...oldState, ...newValues };
+		});
 
 	useEffect(() => {
 		if (open) {
@@ -296,7 +299,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 		(async () => {
 			let effectiveLanguage = settings.language;
 			if (effectiveLanguage === 'unkown') {
-				const locale: string = await ipcRenderer.invoke("getlocale");
+				const locale = (await ipcRenderer.invoke('getlocale')) as string;
 				const lang = Object.keys(languages).includes(locale)
 					? locale
 					: Object.keys(languages).includes(locale.split('-')[0])
@@ -346,15 +349,20 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 		setSettings('serverURL', url);
 	}, []);
 
-	const SavePublicLobbyCallback = useCallback(<K extends keyof ILobbySettings>(setting: K, newValue: ILobbySettings[K]) => {
-		// We want lobby browser related settings to save on Submit button click
-		setLobbySettings(setting, newValue);
-		const newSetting: Partial<ILobbySettings> = {};
-		newSetting[setting] = newValue;
-		updateLocalLobbySettingsBuffer(newSetting);
-	}, []);
+	const SavePublicLobbyCallback = useCallback(
+		<K extends keyof ILobbySettings>(setting: K, newValue: ILobbySettings[K]) => {
+			// We want lobby browser related settings to save on Submit button click
+			setLobbySettings(setting, newValue);
+			const newSetting: Partial<ILobbySettings> = {};
+			newSetting[setting] = newValue;
+			updateLocalLobbySettingsBuffer(newSetting);
+		},
+		[]
+	);
 
-	if (!open) { return <></> }
+	if (!open) {
+		return <></>;
+	}
 
 	return (
 		<Box sx={classes.root}>
@@ -406,7 +414,10 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						{(canChangeLobbySettings ? localLobbySettingsBuffer.visionHearing : hostLobbySettings.visionHearing)
 							? t('settings.lobbysettings.voicedistance_impostor')
 							: t('settings.lobbysettings.voicedistance')}
-						: {canChangeLobbySettings ? localLobbySettingsBuffer.maxDistance.toFixed(1) : hostLobbySettings.maxDistance.toFixed(1)}
+						:{' '}
+						{canChangeLobbySettings
+							? localLobbySettingsBuffer.maxDistance.toFixed(1)
+							: hostLobbySettings.maxDistance.toFixed(1)}
 					</Typography>
 					<DisabledTooltip
 						disabled={!canChangeLobbySettings}
@@ -419,7 +430,9 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							min={1}
 							max={10}
 							step={0.1}
-							onChange={(_, newValue: number | number[]) => updateLocalLobbySettingsBuffer({ maxDistance: newValue as number })}
+							onChange={(_, newValue: number | number[]) =>
+								updateLocalLobbySettingsBuffer({ maxDistance: newValue as number })
+							}
 						/>
 					</DisabledTooltip>
 				</div>
@@ -436,12 +449,18 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								openWarningDialog(
 									t('settings.warning'),
 									t('settings.lobbysettings.public_lobby.enable_warning'),
-									() => { updateLocalLobbySettingsBuffer({ publicLobby_on: newValue }) },
+									() => {
+										updateLocalLobbySettingsBuffer({ publicLobby_on: newValue });
+									},
 									!localLobbySettingsBuffer.publicLobby_on
 								);
 							}}
-							value={canChangeLobbySettings ? localLobbySettingsBuffer.publicLobby_on : hostLobbySettings.publicLobby_on}
-							checked={canChangeLobbySettings ? localLobbySettingsBuffer.publicLobby_on : hostLobbySettings.publicLobby_on}
+							value={
+								canChangeLobbySettings ? localLobbySettingsBuffer.publicLobby_on : hostLobbySettings.publicLobby_on
+							}
+							checked={
+								canChangeLobbySettings ? localLobbySettingsBuffer.publicLobby_on : hostLobbySettings.publicLobby_on
+							}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
@@ -468,8 +487,12 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							label={t('settings.lobbysettings.wallsblockaudio')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ wallsBlockAudio: newValue })}
-							value={canChangeLobbySettings ? localLobbySettingsBuffer.wallsBlockAudio : hostLobbySettings.wallsBlockAudio}
-							checked={canChangeLobbySettings ? localLobbySettingsBuffer.wallsBlockAudio : hostLobbySettings.wallsBlockAudio}
+							value={
+								canChangeLobbySettings ? localLobbySettingsBuffer.wallsBlockAudio : hostLobbySettings.wallsBlockAudio
+							}
+							checked={
+								canChangeLobbySettings ? localLobbySettingsBuffer.wallsBlockAudio : hostLobbySettings.wallsBlockAudio
+							}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
@@ -483,7 +506,9 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ visionHearing: newValue })}
 							value={canChangeLobbySettings ? localLobbySettingsBuffer.visionHearing : hostLobbySettings.visionHearing}
-							checked={canChangeLobbySettings ? localLobbySettingsBuffer.visionHearing : hostLobbySettings.visionHearing}
+							checked={
+								canChangeLobbySettings ? localLobbySettingsBuffer.visionHearing : hostLobbySettings.visionHearing
+							}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
@@ -512,10 +537,14 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ hearImpostorsInVents: newValue })}
 							value={
-								canChangeLobbySettings ? localLobbySettingsBuffer.hearImpostorsInVents : hostLobbySettings.hearImpostorsInVents
+								canChangeLobbySettings
+									? localLobbySettingsBuffer.hearImpostorsInVents
+									: hostLobbySettings.hearImpostorsInVents
 							}
 							checked={
-								canChangeLobbySettings ? localLobbySettingsBuffer.hearImpostorsInVents : hostLobbySettings.hearImpostorsInVents
+								canChangeLobbySettings
+									? localLobbySettingsBuffer.hearImpostorsInVents
+									: hostLobbySettings.hearImpostorsInVents
 							}
 							control={<Checkbox />}
 						/>
@@ -528,7 +557,9 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							sx={classes.formLabel}
 							label={t('settings.lobbysettings.private_talk_invents')}
 							disabled={!canChangeLobbySettings}
-							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ impostersHearImpostersInvent: newValue })}
+							onChange={(_, newValue: boolean) =>
+								updateLocalLobbySettingsBuffer({ impostersHearImpostersInvent: newValue })
+							}
 							value={
 								canChangeLobbySettings
 									? localLobbySettingsBuffer.impostersHearImpostersInvent
@@ -553,7 +584,9 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ commsSabotage: newValue })}
 							value={canChangeLobbySettings ? localLobbySettingsBuffer.commsSabotage : hostLobbySettings.commsSabotage}
-							checked={canChangeLobbySettings ? localLobbySettingsBuffer.commsSabotage : hostLobbySettings.commsSabotage}
+							checked={
+								canChangeLobbySettings ? localLobbySettingsBuffer.commsSabotage : hostLobbySettings.commsSabotage
+							}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
@@ -566,9 +599,15 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							label={t('settings.lobbysettings.hear_through_cameras')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ hearThroughCameras: newValue })}
-							value={canChangeLobbySettings ? localLobbySettingsBuffer.hearThroughCameras : hostLobbySettings.hearThroughCameras}
+							value={
+								canChangeLobbySettings
+									? localLobbySettingsBuffer.hearThroughCameras
+									: hostLobbySettings.hearThroughCameras
+							}
 							checked={
-								canChangeLobbySettings ? localLobbySettingsBuffer.hearThroughCameras : hostLobbySettings.hearThroughCameras
+								canChangeLobbySettings
+									? localLobbySettingsBuffer.hearThroughCameras
+									: hostLobbySettings.hearThroughCameras
 							}
 							control={<Checkbox />}
 						/>
@@ -583,10 +622,14 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ impostorRadioEnabled: newValue })}
 							value={
-								canChangeLobbySettings ? localLobbySettingsBuffer.impostorRadioEnabled : hostLobbySettings.impostorRadioEnabled
+								canChangeLobbySettings
+									? localLobbySettingsBuffer.impostorRadioEnabled
+									: hostLobbySettings.impostorRadioEnabled
 							}
 							checked={
-								canChangeLobbySettings ? localLobbySettingsBuffer.impostorRadioEnabled : hostLobbySettings.impostorRadioEnabled
+								canChangeLobbySettings
+									? localLobbySettingsBuffer.impostorRadioEnabled
+									: hostLobbySettings.impostorRadioEnabled
 							}
 							control={<Checkbox />}
 						/>
@@ -630,8 +673,12 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 									newValue
 								);
 							}}
-							value={canChangeLobbySettings ? localLobbySettingsBuffer.meetingGhostOnly : hostLobbySettings.meetingGhostOnly}
-							checked={canChangeLobbySettings ? localLobbySettingsBuffer.meetingGhostOnly : hostLobbySettings.meetingGhostOnly}
+							value={
+								canChangeLobbySettings ? localLobbySettingsBuffer.meetingGhostOnly : hostLobbySettings.meetingGhostOnly
+							}
+							checked={
+								canChangeLobbySettings ? localLobbySettingsBuffer.meetingGhostOnly : hostLobbySettings.meetingGhostOnly
+							}
 							control={<Checkbox />}
 						/>
 					</DisabledTooltip>
@@ -972,12 +1019,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						control={<Checkbox />}
 					/>
 				</div>
-				<ServerURLInput
-					t={t}
-					initialURL={settings.serverURL}
-					onValidURL={URLInputCallback}
-					sx={classes.dialog}
-				/>
+				<ServerURLInput t={t} initialURL={settings.serverURL} onValidURL={URLInputCallback} sx={classes.dialog} />
 				<Divider />
 				<Typography variant="h6">{t('settings.beta.title')}</Typography>
 				<div>
@@ -1012,7 +1054,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								t('settings.beta.hardware_acceleration_warning'),
 								() => {
 									setSettings('hardware_acceleration', checked);
-									ipcRenderer.send("relaunch");
+									ipcRenderer.send('relaunch');
 								},
 								!checked
 							);
@@ -1053,8 +1095,6 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								},
 								checked
 							);
-
-
 						}}
 						control={<Checkbox />}
 					/>
@@ -1104,9 +1144,11 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								fullWidth
 								spellCheck={false}
 								label={t('settings.streaming.obs_url')}
-								value={`${settings.serverURL.includes('https') ? 'https' : 'http'}://obs.bettercrewlink.app/?compact=${settings.compactOverlay ? '1' : '0'
-									}&position=${settings.overlayPosition}&meeting=${settings.meetingOverlay ? '1' : '0'}&secret=${settings.obsSecret
-									}&server=${settings.serverURL}`}
+								value={`${settings.serverURL.includes('https') ? 'https' : 'http'}://obs.bettercrewlink.app/?compact=${
+									settings.compactOverlay ? '1' : '0'
+								}&position=${settings.overlayPosition}&meeting=${settings.meetingOverlay ? '1' : '0'}&secret=${
+									settings.obsSecret
+								}&server=${settings.serverURL}`}
 								variant="outlined"
 								color="primary"
 								slotProps={{ input: { readOnly: true } }}

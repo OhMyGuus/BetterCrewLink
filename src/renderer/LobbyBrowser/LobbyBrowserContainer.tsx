@@ -12,9 +12,8 @@ import 'typeface-varela/index.css';
 import '../language/i18n';
 import theme from '../theme';
 import LobbyBrowser from './LobbyBrowser';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { ipcRenderer } from '../electron-bridge';
-
 
 const useStyles = () => ({
 	root: {
@@ -81,18 +80,15 @@ const TitleBar = function () {
 	);
 };
 
-// @ts-ignore
-export default function App({ t }): React.JSX.Element {
+export default function App({ t }: WithTranslation): React.JSX.Element {
 	return (
-        <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={theme}>
-                <TitleBar />
-                <LobbyBrowser t={t}></LobbyBrowser>
-            </ThemeProvider>
-        </StyledEngineProvider>
-    );
+		<StyledEngineProvider injectFirst>
+			<ThemeProvider theme={theme}>
+				<TitleBar />
+				<LobbyBrowser t={t}></LobbyBrowser>
+			</ThemeProvider>
+		</StyledEngineProvider>
+	);
 }
-// @ts-ignore
 const App2 = withTranslation()(App);
-// @ts-ignore
 createRoot(document.getElementById('app')!).render(<App2 />);

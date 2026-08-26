@@ -1,9 +1,9 @@
 interface IpcRendererBridge {
-	send(channel: string, ...args: any[]): void;
-	invoke(channel: string, ...args: any[]): Promise<any>;
-	sendSync(channel: string, ...args: any[]): any;
-	on(channel: string, listener: (...args: any[]) => void): void;
-	off(channel: string, listener?: (...args: any[]) => void): void;
+	send(channel: string, ...args: unknown[]): void;
+	invoke(channel: string, ...args: unknown[]): Promise<unknown>;
+	sendSync(channel: string, ...args: unknown[]): unknown;
+	on(channel: string, listener: (...args: unknown[]) => void): void;
+	off(channel: string, listener?: (...args: unknown[]) => void): void;
 }
 
 interface ElectronBridge {

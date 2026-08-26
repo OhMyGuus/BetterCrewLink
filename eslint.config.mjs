@@ -29,6 +29,8 @@ export default tseslint.config(
 			'prettier/prettier': 'error',
 			'@typescript-eslint/ban-ts-comment': 'off',
 			'@typescript-eslint/no-non-null-assertion': 'off',
+			'@typescript-eslint/no-namespace': ['error', { allowDeclarations: true }],
+			'@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true, argsIgnorePattern: '^_' }],
 		},
 	}
 );

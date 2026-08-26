@@ -163,17 +163,18 @@ const Avatar: React.FC<AvatarProps> = function ({
 						<b>{player.name}</b>
 						<Grid container spacing={0} sx={classes.slidecontainer}>
 							<Grid>
-							<IconButton
-								onClick={() => {
-									socketConfig.isMuted = !socketConfig.isMuted;
-									if (onConfigChange) {
-										onConfigChange();
-									}
-								}}
-								style={{ margin: '1px 1px 0px 0px' }}
-								size="large">
-								{muteButtonIcon}
-							</IconButton>
+								<IconButton
+									onClick={() => {
+										socketConfig.isMuted = !socketConfig.isMuted;
+										if (onConfigChange) {
+											onConfigChange();
+										}
+									}}
+									style={{ margin: '1px 1px 0px 0px' }}
+									size="large"
+								>
+									{muteButtonIcon}
+								</IconButton>
 							</Grid>
 							<Grid size="auto">
 								<Slider
@@ -330,14 +331,12 @@ function Canvas({
 		borderColor,
 		paddingLeft: -7,
 	});
-	//@ts-ignore
-	const onerror = (e: any) => {
-		e.target.style.display = 'none';
+	const onerror = (e: React.SyntheticEvent<HTMLImageElement>) => {
+		e.currentTarget.style.display = 'none';
 	};
 
-	//@ts-ignore
-	const onload = (e: any) => {
-		e.target.style.display = '';
+	const onload = (e: React.SyntheticEvent<HTMLImageElement>) => {
+		e.currentTarget.style.display = '';
 	};
 
 	const hatElement = (
@@ -345,7 +344,14 @@ function Canvas({
 			<Box component="img" src={hatImg.hat_front} sx={classes.hat} onError={onerror} onLoad={onload} />
 			<Box component="img" src={hatImg.visor} sx={classes.visor} onError={onerror} onLoad={onload} />
 
-			<Box component="img" src={hatImg.hat_back} sx={classes.hat} style={{ zIndex: 1 }} onError={onerror} onLoad={onload} />
+			<Box
+				component="img"
+				src={hatImg.hat_back}
+				sx={classes.hat}
+				style={{ zIndex: 1 }}
+				onError={onerror}
+				onLoad={onload}
+			/>
 		</>
 	);
 
@@ -366,10 +372,9 @@ function Canvas({
 						component="img"
 						src={hatImg.base}
 						sx={classes.base}
-						//@ts-ignore
-						onError={(e: any) => {
-							e.target.onError = null;
-							e.target.src = redAlive;
+						onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+							e.currentTarget.onerror = null;
+							e.currentTarget.src = redAlive;
 						}}
 					/>
 

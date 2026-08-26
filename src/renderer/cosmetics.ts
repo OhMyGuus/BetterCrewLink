@@ -38,7 +38,7 @@ export interface HatDementions {
 }
 
 let requestingHats = false;
-export var initializedHats = false;
+export let initializedHats = false;
 
 export function initializeHats() {
 	if (initializedHats || requestingHats) {
@@ -54,7 +54,7 @@ export function initializeHats() {
 	return undefined;
 }
 
-const HAT_COLLECTION_URL =  'https://cdn.jsdelivr.net/gh/OhMyGuus/BetterCrewLink-Hats@master/'; //'https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Hats/master';
+const HAT_COLLECTION_URL = 'https://cdn.jsdelivr.net/gh/OhMyGuus/BetterCrewLink-Hats@master/'; //'https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Hats/master';
 function getModHat(color: number, id = '', mod: ModsType, back = false) {
 	if (!initializedHats) {
 		return '';
@@ -68,8 +68,6 @@ function getModHat(color: number, id = '', mod: ModsType, back = false) {
 	}
 	return undefined;
 }
-
-
 
 function getHat(id: string, modType: ModsType): hatData | undefined {
 	if (!initializedHats) {

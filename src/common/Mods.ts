@@ -1,3 +1,4 @@
+// prettier-ignore
 export type ModsType =
 	| 'NONE'
 	| 'TOWN_OF_US_MIRA'

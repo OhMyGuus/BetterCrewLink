@@ -71,7 +71,7 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 	const [launchPlatforms, setLaunchPlatforms] = useState<GamePlatformMap>();
 	const [launchItemList, setLaunchItemList] = useState([] as React.JSX.Element[]);
 	const [customPlatformOpen, setCustomPlatformOpen] = useState(false);
-	const [customPlatformEdit, setCustomPlatformEdit] = useState((undefined as unknown) as GamePlatformInstance);
+	const [customPlatformEdit, setCustomPlatformEdit] = useState(undefined as unknown as GamePlatformInstance);
 
 	const anchorRef = useRef(null);
 
@@ -124,7 +124,7 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 			<MenuItem
 				key={t('platform.custom')}
 				onClick={() => {
-					setCustomPlatformEdit((undefined as unknown) as GamePlatformInstance);
+					setCustomPlatformEdit(undefined as unknown as GamePlatformInstance);
 					setDropdownOpen(false);
 					setCustomPlatformOpen(true);
 				}}
@@ -180,16 +180,16 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 				sx={classes.dropdown}
 				modifiers={[
 					{
-						name: "flip",
+						name: 'flip',
 						options: {
 							enabled: false,
 						},
 					},
 					{
-						name: "preventOverflow",
+						name: 'preventOverflow',
 						options: {
 							enabled: true,
-							boundariesElement: 'viewport'
+							boundariesElement: 'viewport',
 						},
 					},
 				]}
