@@ -28,7 +28,12 @@ export default defineConfig({
 			alias: {
 				'@': resolve(__dirname, 'src'),
 				path: 'path-browserify',
+				buffer: 'buffer',
+				process: 'process',
 			},
+		},
+		define: {
+			global: 'globalThis',
 		},
 		plugins: [react()],
 	},
