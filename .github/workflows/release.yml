@@ -26,9 +26,6 @@ jobs:
           node-version: 24
           cache: npm
 
-      - name: Install yarn (for native git deps)
-        run: npm install -g yarn
-
       - name: Install Linux dependencies
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
