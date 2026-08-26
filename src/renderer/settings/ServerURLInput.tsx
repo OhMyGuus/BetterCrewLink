@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Alert from '@mui/material/Alert';
 import { DialogContent, DialogTitle, DialogActions, Dialog, Button, TextField } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material';
 import { isHttpUri, isHttpsUri } from 'valid-url';
 
 type URLInputProps = {
 	t: (key: string) => string;
 	initialURL: string;
 	onValidURL: (url: string) => void;
-	className: string;
+	sx?: SxProps<Theme>;
 };
 
 function validateServerUrl(uri: string): boolean {
@@ -22,13 +23,14 @@ function validateServerUrl(uri: string): boolean {
 	}
 }
 
-const RawServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, onValidURL, className }: URLInputProps) {
+const RawServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, onValidURL, sx }: URLInputProps) {
 	const [isValidURL, setURLValid] = useState(true);
 	const [currentURL, setCurrentURL] = useState(initialURL);
 	const [open, setOpen] = useState(false);
 
 	useEffect(() => {
 		setCurrentURL(initialURL);
+		setURLValid(true);
 	}, [initialURL]);
 
 	function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -50,7 +52,7 @@ const RawServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, on
 				<div>
 					<DialogTitle>{t('settings.advanced.change_server')}</DialogTitle>
 				</div>
-				<DialogContent className={className}>
+				<DialogContent sx={sx}>
 					<TextField
 						fullWidth
 						error={!isValidURL}

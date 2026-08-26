@@ -3,19 +3,18 @@ import React, { useState, useEffect } from 'react';
 import chime from '../../../static/sounds/chime.mp3';
 import { ExtendedAudioElement } from '../Voice';
 import Button from '@mui/material/Button';
-import makeStyles from '@mui/styles/makeStyles';
 
 interface TestSpeakersProps {
 	t: (key: string) => string;
 	speaker: string;
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = () => ({
 	button: {
 		width: 'fit-content',
 		margin: '5px auto',
 	},
-}));
+});
 
 const audio = new Audio() as ExtendedAudioElement;
 audio.src = chime;
@@ -27,6 +26,11 @@ const TestSpeakersButton: React.FC<TestSpeakersProps> = ({ t, speaker }: TestSpe
 	useEffect(() => {
 		if (speaker.toLowerCase() !== 'default') audio.setSinkId(speaker);
 		audio.onended = () => {
+			setPlaying(false);
+		};
+		return () => {
+			audio.pause();
+			audio.currentTime = 0;
 			setPlaying(false);
 		};
 	}, [speaker]);
@@ -43,7 +47,7 @@ const TestSpeakersButton: React.FC<TestSpeakersProps> = ({ t, speaker }: TestSpe
 	};
 
 	return (
-		<Button variant="contained" color="secondary" size="small" className={classes.button} onClick={testSpeakers}>
+		<Button variant="contained" color="secondary" size="small" sx={classes.button} onClick={testSpeakers}>
 			{playing ? t('settings.audio.test_speaker_stop') : t('settings.audio.test_speaker_start')}
 		</Button>
 	);

@@ -1,5 +1,4 @@
 import Store from 'electron-store';
-import fetch from 'node-fetch';
 import Errors from '../common/Errors';
 
 export interface IOffsetsLookup {

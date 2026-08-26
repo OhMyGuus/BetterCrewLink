@@ -5,10 +5,9 @@ directories:
   output: dist
   buildResources: resources
 files:
-  - from: .
-    filter:
-      - package.json
-      - app
+  - out/**
+  - package.json
+  - "!**/*.map"
 
 win:
   publish:

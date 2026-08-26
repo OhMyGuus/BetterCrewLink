@@ -1,6 +1,7 @@
 import { app, ipcMain } from 'electron';
 import GameReader from './GameReader';
-import { keyboardWatcher } from 'node-keyboard-watcher';
+import keyboardWatcherModule from 'node-keyboard-watcher';
+const { keyboardWatcher } = keyboardWatcherModule;
 import Store from 'electron-store';
 import { ISettings } from '../common/ISettings';
 import { IpcHandlerMessages, IpcMessages, IpcRendererMessages, IpcSyncMessages } from '../common/ipc-messages';

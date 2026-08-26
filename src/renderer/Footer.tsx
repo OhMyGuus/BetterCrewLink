@@ -1,10 +1,10 @@
-import { shell } from 'electron';
+import { shell } from './electron-bridge';
 import React from 'react';
-import makeStyles from '@mui/styles/makeStyles';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { Tooltip } from '@mui/material';
 
-const useStyles = makeStyles(() => ({
+const useStyles = () => ({
 	footer: {
 		position: 'absolute',
 		bottom: 0,
@@ -18,15 +18,15 @@ const useStyles = makeStyles(() => ({
 		width: '100%',
 		display: 'flex',
 		justifyContent: 'space-evenly',
-		margin: 5,
+		margin: '5px',
 	},
-}));
+});
 
 const RawFooter: React.FC = function () {
 	const classes = useStyles();
 	return (
-		<div className={classes.footer}>
-			<div className={classes.row}>
+		<Box sx={classes.footer}>
+			<Box sx={classes.row}>
 				<Button 
 					color="grey"
 					onClick={() => {
@@ -76,8 +76,8 @@ const RawFooter: React.FC = function () {
 						</svg>
 					</Tooltip>
 				</Button>
-			</div>
-		</div>
+			</Box>
+		</Box>
 	);
 };
 

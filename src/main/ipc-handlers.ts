@@ -1,6 +1,7 @@
 import { app, dialog, ipcMain, shell } from 'electron';
 import { platform, homedir } from 'os';
-import { enumerateValues, enumerateKeys, HKEY } from 'registry-js';
+import registryJs from 'registry-js';
+const { enumerateValues, enumerateKeys, HKEY } = registryJs;
 import {
 	DefaultGamePlatforms,
 	GamePlatform,
@@ -8,7 +9,8 @@ import {
 	GamePlatformMap,
 	PlatformRunType,
 } from '../common/GamePlatform';
-import { parse } from 'vdf-parser';
+import vdfParser from 'vdf-parser';
+const { parse } = vdfParser;
 import spawn from 'cross-spawn';
 import path from 'path';
 import fs from 'fs';

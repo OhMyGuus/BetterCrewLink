@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import makeStyles from '@mui/styles/makeStyles';
+import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
 import { DialogContent, DialogTitle, DialogActions, Dialog, Button, TextField, IconButton } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material';
 import languages from '../language/languages';
 import { ILobbySettings } from '../../common/ISettings';
 import Alert from '@mui/material/Alert';
@@ -11,31 +13,34 @@ type publicLobbySettingProps = {
 	updateSetting: <K extends keyof ILobbySettings>(setting: K, newValue: ILobbySettings[K]) => void;
 	lobbySettings: ILobbySettings;
 	canChange: boolean;
-	className: string;
+	sx?: SxProps<Theme>;
 };
 
-const useStyles = makeStyles((theme) => ({
-	specialButton: {
-		width: '90%',
-		marginBottom: '10px',
-	},
-	header: {
-		display: 'flex',
-		alignItems: 'center',
-	},
-	back: {
-		cursor: 'pointer',
-		position: 'absolute',
-		right: theme.spacing(1),
-		WebkitAppRegion: 'no-drag',
-	},
-}));
+const useStyles = () => {
+	const theme = useTheme();
+	return {
+		specialButton: {
+			width: '90%',
+			marginBottom: '10px',
+		},
+		header: {
+			display: 'flex',
+			alignItems: 'center',
+		},
+		back: {
+			cursor: 'pointer',
+			position: 'absolute',
+			right: theme.spacing(1),
+			WebkitAppRegion: 'no-drag',
+		},
+	};
+};
 const RawPublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 	t,
 	lobbySettings,
 	updateSetting,
 	canChange,
-	className,
+	sx,
 }: publicLobbySettingProps) {
 	const [open, setOpen] = useState(false);
 	const classes = useStyles();
@@ -50,17 +55,17 @@ const RawPublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 			<Button
 				variant="contained"
 				color="secondary"
-				className={classes.specialButton}
+				sx={classes.specialButton}
 				onClick={() => setOpen(true)}
 				disabled={!canChange}
 			>
 				{t('settings.lobbysettings.public_lobby.change_settings')}
 			</Button>
 			<Dialog fullScreen open={open} onClose={() => setOpen(false)}>
-				<div className={classes.header}>
+				<Box sx={classes.header}>
 					<DialogTitle>{t('settings.lobbysettings.public_lobby.change_settings')}</DialogTitle>
 					<IconButton
-						className={classes.back}
+						sx={classes.back}
 						size="small"
 						onClick={() => {
 							setOpen(false);
@@ -68,8 +73,8 @@ const RawPublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 					>
 						<ChevronLeft htmlColor="#777" />
 					</IconButton>
-				</div>
-				<DialogContent className={className}>
+				</Box>
+				<DialogContent sx={sx}>
 					<TextField
 						fullWidth
 						spellCheck={false}
@@ -87,8 +92,7 @@ const RawPublicLobbySettings: React.FC<publicLobbySettingProps> = function ({
 						label={t('settings.lobbysettings.public_lobby.language')}
 						variant="outlined"
 						color="secondary"
-						SelectProps={{ native: true }}
-						InputLabelProps={{ shrink: true }}
+						slotProps={{ select: { native: true }, inputLabel: { shrink: true } }}
 						value={lobbySettingState.publicLobby_language}
 						onChange={(ev) => setLobbySettingState({ ...lobbySettingState, publicLobby_language: ev.target.value })}
 						onBlur={(ev) => updateSetting('publicLobby_language', ev.target.value)}

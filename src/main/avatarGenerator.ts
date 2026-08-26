@@ -1,26 +1,16 @@
 import Color from 'color';
-import jimp from 'jimp';
+import { Jimp } from 'jimp';
 import fs from 'fs';
 
 // @ts-ignore
-import playerBase from '../../static/images/generate/player.png'; // @ts-ignore
-import ghostBase from '../../static/images/generate/ghost.png'; // @ts-ignore
+import playerBase from '../../static/images/generate/player.png?inline'; // @ts-ignore
+import ghostBase from '../../static/images/generate/ghost.png?inline'; // @ts-ignore
 import { app } from 'electron';
+import { DEFAULT_PLAYERCOLORS, numberToColorHex } from '../common/playerColors';
 
-export const DEFAULT_PLAYERCOLORS = [
-	['#C51111', '#7A0838'],
-	['#132ED1', '#09158E'],
-	['#117F2D', '#0A4D2E'],
-	['#ED54BA', '#AB2BAD'],
-	['#EF7D0D', '#B33E15'],
-	['#F5F557', '#C38823'],
-	['#3F474E', '#1E1F26'],
-	['#FFFFFF', '#8394BF'],
-	['#6B2FBB', '#3B177C'],
-	['#71491E', '#5E2615'],
-	['#38FEDC', '#24A8BE'],
-	['#50EF39', '#15A742'],
-];
+export { DEFAULT_PLAYERCOLORS, numberToColorHex };
+
+type JimpImage = Awaited<ReturnType<typeof Jimp.read>>;
 
 function pathToHash(input: string): number {
 	let hash = 0;
@@ -32,21 +22,8 @@ function pathToHash(input: string): number {
 	return hash;
 }
 
-export function numberToColorHex(colour: number): string {
-	return (
-		'#' +
-		(colour & 0x00ffffff)
-			.toString(16)
-			.padStart(6, '0')
-			.match(/.{1,2}/g)
-			?.reverse()
-			.join('')
-	);
-}
-
-
 async function colorImages(playerColors: string[][], image: string, imagename: string): Promise<void> {
-	const img = await jimp.read(Buffer.from(image.replace(/^data:image\/png;base64,/, ''), 'base64')); //`${app.getAppPath()}/../test/${imagename}.png`
+	const img = await Jimp.read(Buffer.from(image.replace(/^data:image\/png;base64,/, ''), 'base64')); //`${app.getAppPath()}/../test/${imagename}.png`
 	const originalData = new Uint8Array(img.bitmap.data);
 	for (let colorId = 0; colorId < playerColors.length; colorId++) {
 		const color = playerColors[colorId][0];
@@ -71,8 +48,8 @@ function isBetween(h: number, h1: number, maxdiffrence: number) {
 	return 180 - Math.abs(Math.abs(h - h1) - 180) < maxdiffrence;
 }
 
-async function colorImage(img: jimp, originalData: Uint8Array, color: string, shadow: string, savepath: string, returnImg = false) {
-	img.bitmap.data = new Uint8Array(originalData) as Buffer;
+async function colorImage(img: JimpImage, originalData: Uint8Array, color: string, shadow: string, savepath: string, returnImg = false) {
+	img.bitmap.data = Buffer.from(originalData);
 	for (let i = 0, l = img.bitmap.data.length; i < l; i += 4) {
 		const data = img.bitmap.data;
 		const r = data[i];
@@ -93,7 +70,7 @@ async function colorImage(img: jimp, originalData: Uint8Array, color: string, sh
 		}
 	}
 	var savepathTemp = `${savepath}.${Math.floor(Math.random() * 101)}`;
-	await img.writeAsync(savepathTemp);
+	await img.write(savepathTemp as `${string}.png`);
 	try{
 	await fs.promises.rename(savepathTemp, savepath);
 	}
@@ -114,7 +91,7 @@ export async function GenerateAvatars(colors: string[][]): Promise<void> {
 
 export async function GenerateHat(imagePath: URL, colors: string[][], colorId: number, path: string) {
 	try {
-		const img = await jimp.read(imagePath.href);
+		const img = await Jimp.read(imagePath.href);
 		const originalData = new Uint8Array(img.bitmap.data);
 		const color = colors[colorId][0];
 		const shadow = colors[colorId][1];

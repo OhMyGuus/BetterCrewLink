@@ -1,4 +1,4 @@
-import { ProgressInfo, UpdateInfo } from 'builder-util-runtime';
+import type { ProgressInfo, UpdateInfo } from 'builder-util-runtime';
 
 // Renderer --> Main (send/on)
 export enum IpcMessages {

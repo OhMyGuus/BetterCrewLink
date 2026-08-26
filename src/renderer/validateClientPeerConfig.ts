@@ -1,9 +1,13 @@
 import Ajv from 'ajv';
+import addFormats from 'ajv-formats';
 
-export const validateClientPeerConfig = new Ajv({
-	format: 'full',
+const ajv = new Ajv({
 	allErrors: true,
-}).compile({
+	strict: false,
+});
+addFormats(ajv);
+
+export const validateClientPeerConfig = ajv.compile({
 	type: 'object',
 	properties: {
 		forceRelayOnly: {

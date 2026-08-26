@@ -1,7 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
+import { createRoot } from 'react-dom/client';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
+import Box from '@mui/material/Box';
 import RefreshSharpIcon from '@mui/icons-material/RefreshSharp';
 import CloseIcon from '@mui/icons-material/Close';
 import MinimizeIcon from '@mui/icons-material/Minimize';
@@ -12,17 +12,11 @@ import 'typeface-varela/index.css';
 import '../language/i18n';
 import theme from '../theme';
 import LobbyBrowser from './LobbyBrowser';
-import { withNamespaces } from 'react-i18next';
-import { ipcRenderer } from 'electron';
+import { withTranslation } from 'react-i18next';
+import { ipcRenderer } from '../electron-bridge';
 
 
-declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Theme {}
-}
-
-
-const useStyles = makeStyles(() => ({
+const useStyles = () => ({
 	root: {
 		position: 'absolute',
 		width: '100vw',
@@ -52,20 +46,20 @@ const useStyles = makeStyles(() => ({
 			marginTop: '-8px',
 		},
 	},
-}));
+});
 
 const TitleBar = function () {
 	const classes = useStyles();
 	return (
-		<div className={classes.root}>
-			<span className={classes.title} style={{ marginLeft: 10 }}>
+		<Box sx={classes.root}>
+			<Box component="span" sx={classes.title} style={{ marginLeft: 10 }}>
 				LobbyBrowser
-			</span>
-			<IconButton className={classes.button} size="small" onClick={() => ipcRenderer.send('reload', true)}>
+			</Box>
+			<IconButton sx={classes.button} size="small" onClick={() => ipcRenderer.send('reload', true)}>
 				<RefreshSharpIcon htmlColor="#777" />
 			</IconButton>
 			<IconButton
-				className={[classes.button, classes.minimalizeIcon].join(' ')}
+				sx={[classes.button, classes.minimalizeIcon]}
 				style={{ right: 20 }}
 				size="small"
 				onClick={() => ipcRenderer.send('minimize', true)}
@@ -74,7 +68,7 @@ const TitleBar = function () {
 			</IconButton>
 
 			<IconButton
-				className={classes.button}
+				sx={classes.button}
 				style={{ right: 0 }}
 				size="small"
 				onClick={() => {
@@ -83,12 +77,12 @@ const TitleBar = function () {
 			>
 				<CloseIcon htmlColor="#777" />
 			</IconButton>
-		</div>
+		</Box>
 	);
 };
 
 // @ts-ignore
-export default function App({ t }): JSX.Element {
+export default function App({ t }): React.JSX.Element {
 	return (
         <StyledEngineProvider injectFirst>
             <ThemeProvider theme={theme}>
@@ -99,6 +93,6 @@ export default function App({ t }): JSX.Element {
     );
 }
 // @ts-ignore
-const App2 = withNamespaces()(App);
+const App2 = withTranslation()(App);
 // @ts-ignore
-ReactDOM.render(<App2 />, document.getElementById('app'));
+createRoot(document.getElementById('app')!).render(<App2 />);

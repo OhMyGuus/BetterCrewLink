@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useState, CSSProperties } from 'react';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer } from './electron-bridge';
 import { AmongUsState, GameState, VoiceState } from '../common/AmongUsState';
 import { IpcOverlayMessages, IpcMessages } from '../common/ipc-messages';
-import ReactDOM from 'react-dom';
-import makeStyles from '@mui/styles/makeStyles';
+import { createRoot } from 'react-dom/client';
+import Box from '@mui/material/Box';
 import './css/overlay.css';
 import Avatar from './Avatar';
 import { ISettings } from '../common/ISettings';
-import { DEFAULT_PLAYERCOLORS } from '../main/avatarGenerator';
+import { DEFAULT_PLAYERCOLORS } from '../common/playerColors';
 
 interface UseStylesProps {
 	height: number;
@@ -19,35 +19,35 @@ export interface playerContainerCss extends CSSProperties {
 	'--size': string;
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = (props: UseStylesProps) => ({
 	meetingHud: {
 		position: 'absolute',
 		top: '50%',
 		left: '50%',
-		width: ({ width }: UseStylesProps) => width,
-		height: ({ height }: UseStylesProps) => height,
+		width: props.width,
+		height: props.height,
 		transform: 'translate(-50%, -50%)',
 	},
 	tabletContainer: {
-		width: ({ oldHud }: UseStylesProps) => (oldHud ? '88.45%' : '100%'),
+		width: props.oldHud ? '88.45%' : '100%',
 		height: '10.5%',
-		left: ({ oldHud }: UseStylesProps) => (oldHud ? '4.7%' : '0.4%'),
-		top: ({ oldHud }: UseStylesProps) => (oldHud ? '18.4703%' : '15%'),
+		left: props.oldHud ? '4.7%' : '0.4%',
+		top: props.oldHud ? '18.4703%' : '15%',
 		position: 'absolute',
 		display: 'flex',
 		flexWrap: 'wrap',
 	},
 	playerContainer: {
-		width: ({ oldHud }: UseStylesProps) => (oldHud ? '46.41%' : '30%'),
-		height: ({ oldHud }: UseStylesProps) => (oldHud ? '100%' : '109%'),
-		borderRadius: ({ height }: UseStylesProps) => height / 100,
+		width: props.oldHud ? '46.41%' : '30%',
+		height: props.oldHud ? '100%' : '109%',
+		borderRadius: props.height / 100,
 		transition: 'opacity .1s linear',
-		marginBottom: ({ oldHud }: UseStylesProps) => (oldHud ? '2%' : '1.9%'),
-		marginRight: ({ oldHud }: UseStylesProps) => (oldHud ? '2.34%' : '0.23%'),
-		marginLeft: ({ oldHud }: UseStylesProps) => (oldHud ? '0%' : '2.4%'),
+		marginBottom: props.oldHud ? '2%' : '1.9%',
+		marginRight: props.oldHud ? '2.34%' : '0.23%',
+		marginLeft: props.oldHud ? '0%' : '2.4%',
 		boxSizing: 'border-box',
 	},
-}));
+});
 
 function useWindowSize() {
 	const [windowSize, setWindowSize] = useState<[number, number]>([0, 0]);
@@ -72,18 +72,18 @@ const Overlay: React.FC = function () {
 	const [settings, setSettings] = useState<ISettings>((undefined as unknown) as ISettings);
 	const [playerColors, setColors] = useState<string[][]>(DEFAULT_PLAYERCOLORS);
 	useEffect(() => {
-		const onState = (_: Electron.IpcRendererEvent, newState: AmongUsState) => {
+		const onState = (_: unknown, newState: AmongUsState) => {
 			setGameState(newState);
 		};
-		const onVoiceState = (_: Electron.IpcRendererEvent, newState: VoiceState) => {
+		const onVoiceState = (_: unknown, newState: VoiceState) => {
 			setVoiceState(newState);
 		};
-		const onSettings = (_: Electron.IpcRendererEvent, newState: ISettings) => {
+		const onSettings = (_: unknown, newState: ISettings) => {
 			console.log('Recieved settings..');
 
 			setSettings(newState);
 		};
-		const onColorChange = (_: Electron.IpcRendererEvent, colors: string[][]) => {
+		const onColorChange = (_: unknown, colors: string[][]) => {
 			console.log('Recieved colors..');
 			setColors(colors);
 			console.log('new colors: ', playerColors);
@@ -138,7 +138,7 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 
 	const positionParse = position.replace('1', '');
 
-	const avatars: JSX.Element[] = [];
+	const avatars: React.JSX.Element[] = [];
 	const isOnSide = positionParse == 'right' || positionParse == 'left';
 	const showName = isOnSide && (!compactOverlay || position === 'right1' || position === 'left1');
 	const classnames: string[] = ['overlay-wrapper'];
@@ -307,9 +307,9 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 		const color = playerColors[player.colorId] ? playerColors[player.colorId][0] : '#C51111';
 
 		return (
-			<div
+			<Box
 				key={player.id}
-				className={classes.playerContainer}
+				sx={classes.playerContainer}
 				style={{
 					opacity: voiceState.otherTalking[player.clientId] || (player.isLocal && voiceState.localTalking) ? 1 : 0,
 					border: 'solid',
@@ -323,12 +323,12 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 	});
 
 	return (
-		<div className={classes.meetingHud}>
-			<div className={classes.tabletContainer}>{overlays}</div>
-		</div>
+		<Box sx={classes.meetingHud}>
+			<Box sx={classes.tabletContainer}>{overlays}</Box>
+		</Box>
 	);
 };
 
-ReactDOM.render(<Overlay />, document.getElementById('app'));
+createRoot(document.getElementById('app')!).render(<Overlay />);
 
 export default Overlay;

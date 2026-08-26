@@ -31,38 +31,34 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v4
 
-      - name: Install Node.js, NPM and Yarn
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 16.14.2
-        
-      - name: Cache Node Modules
-        id: node-cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            node_modules
-            .yarn
-          key: ${{ runner.os }}-3-${{ hashFiles('yarn.lock')}}
-    
-    
+          node-version: 24
+          cache: npm
+
+      - name: Install yarn (for native git deps)
+        run: npm install -g yarn
+
       - name: Install Dependencies
-        if: steps.node-cache.outputs.cache-hit != 'true'
-        run: yarn install  --cache-folder .yarn --network-timeout 100000
-        
+        run: npm ci
+
+      - name: Verify ESM interop
+        run: npm run verify:esm
+
       - name: Build App
-        run: yarn run ${{ matrix.dist }} --publish never
-     
+        run: npm run ${{ matrix.dist }} -- --publish never
+
       - name: Upload Installer
         uses: actions/upload-artifact@v4
         with:
           name: BetterCrewLink Installer ${{ runner.os }}
           path: ${{ matrix.installer }}
           if-no-files-found: error
-          
+
       - name: Upload Unpacked
         uses: actions/upload-artifact@v4
         if: ${{ matrix.os == 'windows-latest'}}
         with:
-          name: BetterCrewLink Unpacked 64bit 
+          name: BetterCrewLink Unpacked 64bit
           path: 'dist/win-unpacked'

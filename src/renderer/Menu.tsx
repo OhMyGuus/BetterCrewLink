@@ -1,37 +1,41 @@
 import React from 'react';
 import Footer from './Footer';
-import makeStyles from '@mui/styles/makeStyles';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import SupportLink from './SupportLink';
 import LaunchButton from './LaunchButton';
+import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		width: '100vw',
-		height: '100vh',
-		paddingTop: theme.spacing(3),
-	},
-	error: {
-		paddingTop: theme.spacing(4),
-	},
-	menu: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		justifyContent: 'start',
-	},
-	waiting: {
-		fontSize: 20,
-		marginTop: 12,
-		marginBottom: 12,
-	},
-	open_message: {
-		fontSize: 24,
-		marginTop: '15px',
-		marginBottom: '5px',
-	},
-}));
+const useStyles = () => {
+	const theme = useTheme();
+	return {
+		root: {
+			width: '100vw',
+			height: '100vh',
+			paddingTop: theme.spacing(3),
+		},
+		error: {
+			paddingTop: theme.spacing(4),
+		},
+		menu: {
+			display: 'flex',
+			flexDirection: 'column',
+			alignItems: 'center',
+			justifyContent: 'start',
+		},
+		waiting: {
+			fontSize: 20,
+			marginTop: '12px',
+			marginBottom: '12px',
+		},
+		open_message: {
+			fontSize: 24,
+			marginTop: '15px',
+			marginBottom: '5px',
+		},
+	};
+};
 
 export interface MenuProps {
 	t: (key: string) => string;
@@ -42,10 +46,10 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 	const classes = useStyles();
 
 	return (
-		<div className={classes.root}>
-			<div className={classes.menu}>
+		<Box sx={classes.root}>
+			<Box sx={classes.menu}>
 				{error ? (
-					<div className={classes.error}>
+					<Box sx={classes.error}>
 						<Typography align="center" variant="h6" color="error">
 							{t('game.error')}
 						</Typography>
@@ -53,18 +57,22 @@ const Menu: React.FC<MenuProps> = function ({ t, error }: MenuProps) {
 							{error}
 						</Typography>
 						<SupportLink />
-					</div>
+					</Box>
 				) : (
 					<>
-						<span className={classes.waiting}>{t('game.waiting')}</span>
+						<Box component="span" sx={classes.waiting}>
+							{t('game.waiting')}
+						</Box>
 						<CircularProgress color="primary" size={40} />
-						<span className={classes.open_message}>{t('game.open')}</span>
+						<Box component="span" sx={classes.open_message}>
+							{t('game.open')}
+						</Box>
 						<LaunchButton t={t} />
 					</>
 				)}
 				<Footer />
-			</div>
-		</div>
+			</Box>
+		</Box>
 	);
 };
 

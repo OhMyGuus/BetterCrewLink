@@ -1,19 +1,19 @@
-import {
-	DataType,
+import memoryjs from 'memoryjs';
+import type { DataType, ModuleObject, ProcessObject } from 'memoryjs';
+import Struct from 'structron';
+
+const {
 	findModule,
 	getProcesses,
-	ModuleObject,
 	openProcess,
-	ProcessObject,
 	readBuffer,
-	readMemory as readMemoryRaw,
-	findPattern as findPatternRaw,
+	readMemory: readMemoryRaw,
+	findPattern: findPatternRaw,
 	virtualAllocEx,
 	writeBuffer,
 	writeMemory,
 	getProcessPath,
-} from 'memoryjs';
-import Struct from 'structron';
+} = memoryjs;
 import { IpcOverlayMessages, IpcRendererMessages } from '../common/ipc-messages';
 import { GameState, AmongUsState, Player } from '../common/AmongUsState';
 import { fetchOffsetLookup, fetchOffsets, IOffsets, IOffsetsLookup } from './offsetStore';
@@ -1059,7 +1059,7 @@ export default class GameReader {
 	parsePlayer(ptr: number, buffer: Buffer, LocalclientId = -1): Player | undefined {
 		if (!this.PlayerStruct || !this.offsets) return undefined;
 
-		const { data } = this.PlayerStruct.report<PlayerReport>(buffer, 0, {});
+		const { data } = this.PlayerStruct.report<PlayerReport>(buffer as unknown as BufferSource, 0, {});
 
 		if (this.is_64bit) {
 			data.objectPtr = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('objectPtr')]);
@@ -1134,7 +1134,7 @@ export default class GameReader {
 			nameHash,
 			colorId,
 			hatId: data.hat ?? '',
-			petId: data.pet ?? '',
+			petId: data.pet,
 			skinId: data.skin ?? '',
 			visorId: data.visor ?? '',
 			disconnected: data.disconnected != 0,

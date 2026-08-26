@@ -15,11 +15,6 @@ body {
 	height: 100vh;
 }
 
-.react-tooltip-lite {
-	background: #23272adb;
-	border: 1px solid gray;
-	border-radius: 5px;
-}
 
 .otherplayers > * {
 	margin: 5px;

@@ -1,13 +1,13 @@
 import React, { Dispatch, SetStateAction, useEffect, useState, useRef } from 'react';
 import Voice from './Voice';
 import Menu from './Menu';
-import { ipcRenderer, shell } from 'electron';
+import { ipcRenderer, shell } from './electron-bridge';
 import { AmongUsState } from '../common/AmongUsState';
 import Settings from './settings/Settings';
-import SettingsStore, { setSetting, setLobbySetting } from './settings/SettingsStore';
+import SettingsStore, { setSetting, setLobbySetting, initSettings } from './settings/SettingsStore';
 import { GameStateContext, SettingsContext, PlayerColorContext, HostSettingsContext } from './contexts';
 import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
+import Box from '@mui/material/Box';
 import {
 	AutoUpdaterState,
 	IpcHandlerMessages,
@@ -29,20 +29,15 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import prettyBytes from 'pretty-bytes';
 import { IpcOverlayMessages } from '../common/ipc-messages';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import './css/index.css';
 import 'source-code-pro/source-code-pro.css';
 import 'typeface-varela/index.css';
-import { DEFAULT_PLAYERCOLORS } from '../main/avatarGenerator';
+import { DEFAULT_PLAYERCOLORS } from '../common/playerColors';
 import './language/i18n';
-import { withNamespaces } from 'react-i18next';
-import { ISettings } from '../common/ISettings';
+import { withTranslation } from 'react-i18next';
+import { ISettings, ILobbySettings } from '../common/ISettings';
 
-
-declare module '@mui/styles/defaultTheme' {
-	// eslint-disable-next-line @typescript-eslint/no-empty-interface
-	interface DefaultTheme extends Theme { }
-}
 
 
 let appVersion = '';
@@ -51,7 +46,7 @@ if (typeof window !== 'undefined' && window.location) {
 	appVersion = ' v' + query.get('version') || '';
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = () => ({
 	root: {
 		position: 'absolute',
 		width: '100vw',
@@ -76,7 +71,7 @@ const useStyles = makeStyles(() => ({
 		position: 'absolute',
 		top: 0,
 	},
-}));
+});
 
 interface TitleBarProps {
 	settingsOpen: boolean;
@@ -86,12 +81,12 @@ interface TitleBarProps {
 const RawTitleBar: React.FC<TitleBarProps> = function ({ settingsOpen, setSettingsOpen }: TitleBarProps) {
 	const classes = useStyles();
 	return (
-		<div className={classes.root}>
-			<span className={classes.title} style={{ marginLeft: 10 }}>
+		<Box sx={classes.root}>
+			<Box component="span" sx={classes.title} style={{ marginLeft: 10 }}>
 				BetterCrewLink{appVersion}
-			</span>
+			</Box>
 			<IconButton
-				className={classes.button}
+				sx={classes.button}
 				style={{ left: 0 }}
 				size="small"
 				onClick={() => setSettingsOpen(!settingsOpen)}
@@ -99,7 +94,7 @@ const RawTitleBar: React.FC<TitleBarProps> = function ({ settingsOpen, setSettin
 				<SettingsIcon htmlColor="#777" />
 			</IconButton>
 			<IconButton
-				className={classes.button}
+				sx={classes.button}
 				style={{ left: 22 }}
 				size="small"
 				onClick={() => ipcRenderer.send('reload')}
@@ -107,14 +102,14 @@ const RawTitleBar: React.FC<TitleBarProps> = function ({ settingsOpen, setSettin
 				<RefreshSharpIcon htmlColor="#777" />
 			</IconButton>
 			<IconButton
-				className={classes.button}
+				sx={classes.button}
 				style={{ right: 0 }}
 				size="small"
 				onClick={() => ipcRenderer.send(IpcMessages.QUIT_CREWLINK)}
 			>
 				<CloseIcon htmlColor="#777" />
 			</IconButton>
-		</div>
+		</Box>
 	);
 };
 
@@ -125,7 +120,7 @@ enum AppState {
 	VOICE,
 }
 // @ts-ignore
-export default function App({ t }): JSX.Element {
+export default function App({ t }): React.JSX.Element {
 	const [state, setState] = useState<AppState>(AppState.MENU);
 	const [gameState, setGameState] = useState<AmongUsState>({} as AmongUsState);
 	const [settingsOpen, setSettingsOpen] = useState(false);
@@ -137,10 +132,20 @@ export default function App({ t }): JSX.Element {
 	const playerColors = useRef<string[][]>(DEFAULT_PLAYERCOLORS);
 	const overlayInitCount = useRef<number>(0);
 
-	const [settings, setSettings] = useState(SettingsStore.store);
-	const [hostLobbySettings, setHostLobbySettings] = useState(settings.localLobbySettings);
+	const [settings, setSettings] = useState<ISettings>({} as ISettings);
+	const [settingsLoaded, setSettingsLoaded] = useState(false);
+	const [hostLobbySettings, setHostLobbySettings] = useState<ILobbySettings>({} as ILobbySettings);
 	useEffect(() => {
-		SettingsStore.onDidAnyChange((newValue, _) => { setSettings(newValue as ISettings) });
+		const onSettingsChanged = (newValue: ISettings) => setSettings(newValue);
+		SettingsStore.onDidAnyChange(onSettingsChanged);
+		initSettings()
+			.then((s) => {
+				setSettings(s);
+				setHostLobbySettings(s.localLobbySettings);
+				setSettingsLoaded(true);
+			})
+			.catch(() => setSettingsLoaded(true));
+		return () => SettingsStore.offDidAnyChange(onSettingsChanged);
 	}, []);
 
 	useEffect(() => {
@@ -150,21 +155,21 @@ export default function App({ t }): JSX.Element {
 	}, [overlayInitCount.current]);
 
 	useEffect(() => {
-		const onOpen = (_: Electron.IpcRendererEvent, isOpen: boolean) => {
+		const onOpen = (_: unknown, isOpen: boolean) => {
 			setState(isOpen ? AppState.VOICE : AppState.MENU);
 		};
-		const onState = (_: Electron.IpcRendererEvent, newState: AmongUsState) => {
+		const onState = (_: unknown, newState: AmongUsState) => {
 			setGameState(newState);
 		};
 
-		const onError = (_: Electron.IpcRendererEvent, error: string) => {
+		const onError = (_: unknown, error: string) => {
 			shouldInit = false;
 			setError(error);
 		};
-		const onAutoUpdaterStateChange = (_: Electron.IpcRendererEvent, state: AutoUpdaterState) => {
+		const onAutoUpdaterStateChange = (_: unknown, state: AutoUpdaterState) => {
 			setUpdaterState((old) => ({ ...old, ...state }));
 		};
-		const onColorsChange = (_: Electron.IpcRendererEvent, colors: string[][]) => {
+		const onColorsChange = (_: unknown, colors: string[][]) => {
 			console.log('RECIEVED COLORS');
 			playerColors.current = colors;
 			ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, colors);
@@ -223,6 +228,8 @@ export default function App({ t }): JSX.Element {
 			page = <Voice t={t} error={error} />;
 			break;
 	}
+
+	if (!settingsLoaded) return null;
 
 	return (
 		<PlayerColorContext.Provider value={playerColors.current}>
@@ -309,6 +316,6 @@ export default function App({ t }): JSX.Element {
 	);
 }
 // @ts-ignore
-const App2 = withNamespaces()(App);
+const App2 = withTranslation()(App);
 // @ts-ignore
-ReactDOM.render(<App2 />, document.getElementById('app'));
+createRoot(document.getElementById('app')!).render(<App2 />);

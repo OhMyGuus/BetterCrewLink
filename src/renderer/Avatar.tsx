@@ -9,14 +9,14 @@ import {
 	initializeHats,
 	HatDementions,
 } from './cosmetics';
-import makeStyles from '@mui/styles/makeStyles';
+import Box from '@mui/material/Box';
 import MicOff from '@mui/icons-material/MicOff';
 import VolumeOff from '@mui/icons-material/VolumeOff';
 import WifiOff from '@mui/icons-material/WifiOff';
 import LinkOff from '@mui/icons-material/LinkOff';
-import ErrorOutline from '@mui/icons-material/ErrorOutline'; //@ts-ignore
+import ErrorOutlineOutlined from '@mui/icons-material/ErrorOutlineOutlined'; //@ts-ignore
 import RadioSVG from '../../static/radio.svg';
-import Tooltip from 'react-tooltip-lite';
+import { Tooltip } from '@mui/material';
 import { SocketConfig } from '../common/ISettings';
 import Slider from '@mui/material/Slider';
 import VolumeUp from '@mui/icons-material/VolumeUp';
@@ -24,7 +24,7 @@ import IconButton from '@mui/material/IconButton';
 import Grid from '@mui/material/Grid';
 import { ModsType } from '../common/Mods';
 
-const useStyles = makeStyles(() => ({
+const useStyles = () => ({
 	canvas: {
 		position: 'absolute',
 		width: '100%',
@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => ({
 		transform: 'translate(-50%, -50%)',
 		border: '2px solid #690a00',
 		borderRadius: '50%',
-		padding: 2,
+		padding: '2px',
 		zIndex: 10,
 	},
 	iconNoBackground: {
@@ -46,7 +46,7 @@ const useStyles = makeStyles(() => ({
 		top: '50%',
 		transform: 'translate(-50%, -50%)',
 		borderRadius: '50%',
-		padding: 2,
+		padding: '2px',
 		zIndex: 10,
 	},
 	relative: {
@@ -58,14 +58,13 @@ const useStyles = makeStyles(() => ({
 	innerTooltip: {
 		textAlign: 'center',
 	},
-}));
+});
 
 export interface CanvasProps {
 	hat: string;
 	skin: string;
 	visor: string;
 	isAlive: boolean;
-	className: string;
 	lookLeft: boolean;
 	size: number;
 	borderColor: string;
@@ -119,24 +118,23 @@ const Avatar: React.FC<AvatarProps> = function ({
 	switch (connectionState) {
 		case 'connected':
 			if (deafened) {
-				icon = <VolumeOff className={classes.icon} />;
+				icon = <VolumeOff sx={classes.icon} />;
 			} else if (muted) {
-				icon = <MicOff className={classes.icon} />;
+				icon = <MicOff sx={classes.icon} />;
 			}
 			break;
 		case 'novoice':
-			icon = <LinkOff className={classes.icon} style={{ background: '#e67e22', borderColor: '#694900' }} />;
+			icon = <LinkOff sx={classes.icon} style={{ background: '#e67e22', borderColor: '#694900' }} />;
 			break;
 		case 'disconnected':
-			icon = <WifiOff className={classes.icon} />;
+			icon = <WifiOff sx={classes.icon} />;
 			break;
 	}
 	if (player.bugged) {
-		icon = <ErrorOutline className={classes.icon} style={{ background: 'red', borderColor: '' }} />;
+		icon = <ErrorOutlineOutlined sx={classes.icon} style={{ background: 'red', borderColor: '' }} />;
 	}
 	const canvas = (
 		<Canvas
-			className={classes.canvas}
 			color={player.colorId}
 			hat={showHat === false ? '' : player.hatId}
 			visor={showHat === false ? '' : player.visorId}
@@ -154,28 +152,30 @@ const Avatar: React.FC<AvatarProps> = function ({
 	if (socketConfig) {
 		let muteButtonIcon;
 		if (socketConfig.isMuted) {
-			muteButtonIcon = <VolumeOff color="primary" className={classes.iconNoBackground}></VolumeOff>;
+			muteButtonIcon = <VolumeOff color="primary" sx={classes.iconNoBackground}></VolumeOff>;
 		} else {
-			muteButtonIcon = <VolumeUp color="primary" className={classes.iconNoBackground}></VolumeUp>;
+			muteButtonIcon = <VolumeUp color="primary" sx={classes.iconNoBackground}></VolumeUp>;
 		}
 		return (
 			<Tooltip
-				mouseOutDelay={300}
-				content={
-					<div className={classes.innerTooltip}>
+				title={
+					<Box sx={classes.innerTooltip}>
 						<b>{player.name}</b>
-						<Grid container spacing={0} className={classes.slidecontainer}>
-							<Grid item>
-								<IconButton
-									onClick={() => {
-										socketConfig.isMuted = !socketConfig.isMuted;
-									}}
-									style={{ margin: '1px 1px 0px 0px' }}
-									size="large">
-									{muteButtonIcon}
-								</IconButton>
+						<Grid container spacing={0} sx={classes.slidecontainer}>
+							<Grid>
+							<IconButton
+								onClick={() => {
+									socketConfig.isMuted = !socketConfig.isMuted;
+									if (onConfigChange) {
+										onConfigChange();
+									}
+								}}
+								style={{ margin: '1px 1px 0px 0px' }}
+								size="large">
+								{muteButtonIcon}
+							</IconButton>
 							</Grid>
-							<Grid item xs>
+							<Grid size="auto">
 								<Slider
 									size="small"
 									value={socketConfig.volume}
@@ -196,20 +196,24 @@ const Avatar: React.FC<AvatarProps> = function ({
 								/>
 							</Grid>
 						</Grid>
-					</div>
+					</Box>
 				}
-				padding={5}
+				leaveDelay={300}
+				arrow
+				placement="top"
 			>
-				{canvas}
-				{icon}
+				<Box sx={classes.relative}>
+					{canvas}
+					{icon}
+				</Box>
 			</Tooltip>
 		);
 	} else {
 		return (
-			<div className={classes.relative}>
+			<Box sx={classes.relative}>
 				{canvas}
 				{icon}
-			</div>
+			</Box>
 		);
 	}
 };
@@ -226,43 +230,40 @@ interface UseCanvasStylesParams {
 	borderColor: string;
 	paddingLeft: number;
 }
-const useCanvasStyles = makeStyles(() => ({
+const useCanvasStyles = (props: UseCanvasStylesParams) => ({
 	base: {
 		width: '105%',
 		position: 'absolute',
 		top: '22%',
-		left: ({ paddingLeft }: UseCanvasStylesParams) => paddingLeft,
+		left: props.paddingLeft,
 		zIndex: 2,
 	},
 	hat: {
 		pointerEvents: 'none',
-		width: ({ dementions }: UseCanvasStylesParams) => dementions.hat.width,
+		width: props.dementions.hat.width,
 		position: 'absolute',
-		top: ({ dementions }: UseCanvasStylesParams) => `calc(22% + ${dementions.hat.top})`,
-		left: ({ size, paddingLeft, dementions }: UseCanvasStylesParams) =>
-			`calc(${dementions.hat.left} + ${Math.max(2, size / 40) / 2 + paddingLeft}px)`,
+		top: `calc(22% + ${props.dementions.hat.top})`,
+		left: `calc(${props.dementions.hat.left} + ${Math.max(2, props.size / 40) / 2 + props.paddingLeft}px)`,
 		zIndex: 4,
-		display: ({ isAlive }: UseCanvasStylesParams) => (isAlive ? 'block' : 'none'),
+		display: props.isAlive ? 'block' : 'none',
 	},
 	skin: {
 		pointerEvents: 'none',
-		width: ({ dementions }: UseCanvasStylesParams) => dementions.skin.width,
+		width: props.dementions.skin.width,
 		position: 'absolute',
-		top: ({ dementions }: UseCanvasStylesParams) => `calc(22% + ${dementions.skin.top})`,
-		left: ({ size, paddingLeft, dementions }: UseCanvasStylesParams) =>
-			`calc(${dementions.skin.left} + ${Math.max(2, size / 40) / 2 + paddingLeft}px)`,
+		top: `calc(22% + ${props.dementions.skin.top})`,
+		left: `calc(${props.dementions.skin.left} + ${Math.max(2, props.size / 40) / 2 + props.paddingLeft}px)`,
 		zIndex: 3,
-		display: ({ isAlive }: UseCanvasStylesParams) => (isAlive ? 'block' : 'none'),
+		display: props.isAlive ? 'block' : 'none',
 	},
 	visor: {
 		pointerEvents: 'none',
-		width: ({ dementions }: UseCanvasStylesParams) => dementions.visor.width,
+		width: props.dementions.visor.width,
 		position: 'absolute',
-		top: ({ dementions }: UseCanvasStylesParams) => `calc(22% + ${dementions.visor.top})`,
-		left: ({ size, paddingLeft, dementions }: UseCanvasStylesParams) =>
-			`calc(${dementions.visor.left} + ${Math.max(2, size / 40) / 2 + paddingLeft}px)`,
+		top: `calc(22% + ${props.dementions.visor.top})`,
+		left: `calc(${props.dementions.visor.left} + ${Math.max(2, props.size / 40) / 2 + props.paddingLeft}px)`,
 		zIndex: 3,
-		display: ({ isAlive }: UseCanvasStylesParams) => (isAlive ? 'block' : 'none'),
+		display: props.isAlive ? 'block' : 'none',
 	},
 	avatar: {
 		// overflow: 'hidden',
@@ -270,9 +271,9 @@ const useCanvasStyles = makeStyles(() => ({
 		position: 'relative',
 		borderStyle: 'solid',
 		transition: 'border-color .2s ease-out',
-		borderColor: ({ borderColor }: UseCanvasStylesParams) => borderColor,
-		borderWidth: ({ size }: UseCanvasStylesParams) => Math.max(2, size / 40),
-		transform: ({ lookLeft }: UseCanvasStylesParams) => (lookLeft ? 'scaleX(-1)' : 'scaleX(1)'),
+		borderColor: props.borderColor,
+		borderWidth: Math.max(2, props.size / 40),
+		transform: props.lookLeft ? 'scaleX(-1)' : 'scaleX(1)',
 		width: '100%',
 		paddingBottom: '100%',
 		cursor: 'pointer',
@@ -284,10 +285,10 @@ const useCanvasStyles = makeStyles(() => ({
 		width: '30px',
 		transform: 'translate(-50%, -50%)',
 		fill: 'white',
-		padding: 2,
+		padding: '2px',
 		zIndex: 12,
 	},
-}));
+});
 
 function Canvas({
 	hat,
@@ -341,18 +342,18 @@ function Canvas({
 
 	const hatElement = (
 		<>
-			<img src={hatImg.hat_front} className={classes.hat} onError={onerror} onLoad={onload} />
-			<img src={hatImg.visor} className={classes.visor} onError={onerror} onLoad={onload} />
+			<Box component="img" src={hatImg.hat_front} sx={classes.hat} onError={onerror} onLoad={onload} />
+			<Box component="img" src={hatImg.visor} sx={classes.visor} onError={onerror} onLoad={onload} />
 
-			<img src={hatImg.hat_back} className={classes.hat} style={{ zIndex: 1 }} onError={onerror} onLoad={onload} />
+			<Box component="img" src={hatImg.hat_back} sx={classes.hat} style={{ zIndex: 1 }} onError={onerror} onLoad={onload} />
 		</>
 	);
 
 	return (
 		<>
-			<div className={classes.avatar} onClick={onClick}>
-				<div
-					className={classes.avatar}
+			<Box sx={classes.avatar} onClick={onClick}>
+				<Box
+					sx={classes.avatar}
 					style={{
 						overflow: 'hidden',
 						position: 'absolute',
@@ -361,9 +362,10 @@ function Canvas({
 						transform: 'unset',
 					}}
 				>
-					<img
+					<Box
+						component="img"
 						src={hatImg.base}
-						className={classes.base}
+						sx={classes.base}
 						//@ts-ignore
 						onError={(e: any) => {
 							e.target.onError = null;
@@ -371,12 +373,12 @@ function Canvas({
 						}}
 					/>
 
-					<img src={hatImg.skin} className={classes.skin} onError={onerror} onLoad={onload} />
+					<Box component="img" src={hatImg.skin} sx={classes.skin} onError={onerror} onLoad={onload} />
 					{overflow && hatElement}
-				</div>
+				</Box>
 				{!overflow && hatElement}
-				{usingRadio && <img src={RadioSVG} className={classes.radio} />}
-			</div>
+				{usingRadio && <Box component="img" src={RadioSVG} sx={classes.radio} />}
+			</Box>
 		</>
 	);
 }

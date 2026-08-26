@@ -1,10 +1,9 @@
-import React, { ReactChild, useCallback, useContext, useEffect, useReducer, useState } from 'react';
+import React, { ReactNode, useCallback, useContext, useEffect, useReducer, useState } from 'react';
 import { SettingsContext, GameStateContext, HostSettingsContext } from '../contexts';
 import MicrophoneSoundBar from './MicrophoneSoundBar';
 import TestSpeakersButton from './TestSpeakersButton';
 import { ISettings, ILobbySettings } from '../../common/ISettings';
-import makeStyles from '@mui/styles/makeStyles';
-import withStyles from '@mui/styles/withStyles';
+import { styled, useTheme } from '@mui/material/styles';
 import {
 	Grid,
 	RadioGroup,
@@ -21,7 +20,7 @@ import { Dialog, TextField } from '@mui/material';
 import ChevronLeft from '@mui/icons-material/ArrowBack';
 import Alert from '@mui/material/Alert';
 import { GameState } from '../../common/AmongUsState';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer } from '../electron-bridge';
 import { IpcHandlerMessages } from '../../common/ipc-messages';
 import i18next, { TFunction } from 'i18next';
 import languages from '../language/languages';
@@ -34,78 +33,79 @@ interface StyleInput {
 	open: boolean;
 }
 
-const Divider = withStyles((theme) => ({
-	root: {
-		width: '100%',
-		marginTop: theme.spacing(2),
-		marginBottom: theme.spacing(2),
-	},
-}))(MuiDivider);
-
-const useStyles = makeStyles((theme) => ({
-	root: {
-		width: '100vw',
-		height: `calc(100vh - ${theme.spacing(3)})`,
-		background: '#171717ad',
-		backdropFilter: 'blur(4px)',
-		position: 'absolute',
-		left: 0,
-		top: 0,
-		zIndex: 99,
-		alignItems: 'center',
-		marginTop: theme.spacing(3),
-		transition: 'transform .1s ease-in-out',
-		WebkitAppRegion: 'no-drag',
-		transform: ({ open }: StyleInput) => (open ? 'translateX(0)' : 'translateX(-100%)'),
-	},
-	header: {
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-		height: 40,
-	},
-	scroll: {
-		paddingTop: theme.spacing(1),
-		paddingLeft: theme.spacing(2),
-		paddingRight: theme.spacing(2),
-		overflowY: 'auto',
-		display: 'flex',
-		flexDirection: 'column',
-		justifyContent: 'start',
-		alignItems: 'center',
-		paddingBottom: theme.spacing(7),
-		height: `calc(100vh - 40px - ${theme.spacing(7 + 3 + 3)})`,
-	},
-	shortcutField: {
-		marginTop: theme.spacing(1),
-	},
-	back: {
-		cursor: 'pointer',
-		position: 'absolute',
-		right: theme.spacing(1),
-		WebkitAppRegion: 'no-drag',
-	},
-	alert: {
-		position: 'absolute',
-		bottom: theme.spacing(1),
-		zIndex: 10,
-	},
-	dialog: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		justifyContent: 'start',
-		'&>*': {
-			marginBottom: theme.spacing(1),
-		},
-	},
-	formLabel: {
-		width: '100%',
-		borderTop: '1px solid #313135',
-		marginRight: '0px',
-		// paddingBottom:'5px'
-	},
+const Divider = styled(MuiDivider)(({ theme }) => ({
+	width: '100%',
+	marginTop: theme.spacing(2),
+	marginBottom: theme.spacing(2),
 }));
+
+const useStyles = (props: StyleInput) => {
+	const theme = useTheme();
+	return {
+		root: {
+			width: '100vw',
+			height: `calc(100vh - ${theme.spacing(3)})`,
+			background: '#171717ad',
+			backdropFilter: 'blur(4px)',
+			position: 'absolute',
+			left: 0,
+			top: 0,
+			zIndex: 99,
+			alignItems: 'center',
+			marginTop: theme.spacing(3),
+			transition: 'transform .1s ease-in-out',
+			WebkitAppRegion: 'no-drag',
+			transform: props.open ? 'translateX(0)' : 'translateX(-100%)',
+		},
+		header: {
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+			height: 40,
+		},
+		scroll: {
+			paddingTop: theme.spacing(1),
+			paddingLeft: theme.spacing(2),
+			paddingRight: theme.spacing(2),
+			overflowY: 'auto',
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'start',
+			alignItems: 'center',
+			paddingBottom: theme.spacing(7),
+			height: `calc(100vh - 40px - ${theme.spacing(7 + 3 + 3)})`,
+		},
+		shortcutField: {
+			marginTop: theme.spacing(1),
+		},
+		back: {
+			cursor: 'pointer',
+			position: 'absolute',
+			right: theme.spacing(1),
+			WebkitAppRegion: 'no-drag',
+		},
+		alert: {
+			position: 'absolute',
+			bottom: theme.spacing(1),
+			zIndex: 10,
+		},
+		dialog: {
+			display: 'flex',
+			flexDirection: 'column',
+			alignItems: 'center',
+			justifyContent: 'start',
+			'&>*': {
+				marginBottom: theme.spacing(1),
+			},
+		},
+		formLabel: {
+			width: '100%',
+			borderTop: '1px solid #313135',
+			marginRight: '0px',
+			// paddingBottom:'5px'
+		},
+	};
+};
 
 const keys = new Set([
 	'CapsLock',
@@ -145,7 +145,7 @@ interface MediaDevice {
 interface DisabledTooltipProps {
 	disabled: boolean;
 	title: string;
-	children: ReactChild;
+	children: ReactNode;
 }
 
 interface IConfirmDialog {
@@ -176,6 +176,27 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	// Used to buffer changes that are only sent out on settings close
 	const [localLobbySettingsBuffer, setLocalLobbySettingsBuffer] = useState(settings.localLobbySettings);
 	const updateLocalLobbySettingsBuffer = (newValues: Partial<ILobbySettings>) => setLocalLobbySettingsBuffer((oldState) => { return { ...oldState, ...newValues } });
+
+	useEffect(() => {
+		if (open) {
+			setLocalLobbySettingsBuffer(settings.localLobbySettings);
+		}
+	}, [open]);
+
+	const [microphoneGainLocal, setMicrophoneGainLocal] = useState(settings.microphoneGain);
+	useEffect(() => setMicrophoneGainLocal(settings.microphoneGain), [settings.microphoneGain]);
+
+	const [micSensitivityLocal, setMicSensitivityLocal] = useState(settings.micSensitivity);
+	useEffect(() => setMicSensitivityLocal(settings.micSensitivity), [settings.micSensitivity]);
+
+	const [masterVolumeLocal, setMasterVolumeLocal] = useState(settings.masterVolume);
+	useEffect(() => setMasterVolumeLocal(settings.masterVolume), [settings.masterVolume]);
+
+	const [crewVolumeAsGhostLocal, setCrewVolumeAsGhostLocal] = useState(settings.crewVolumeAsGhost);
+	useEffect(() => setCrewVolumeAsGhostLocal(settings.crewVolumeAsGhost), [settings.crewVolumeAsGhost]);
+
+	const [ghostVolumeAsImpostorLocal, setGhostVolumeAsImpostorLocal] = useState(settings.ghostVolumeAsImpostor);
+	useEffect(() => setGhostVolumeAsImpostorLocal(settings.ghostVolumeAsImpostor), [settings.ghostVolumeAsImpostor]);
 
 	useEffect(() => {
 		setUnsavedCount((s) => s + 1);
@@ -223,7 +244,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				})
 			)
 		);
-	}, [_]);
+	}, [_, t]);
 
 	const setShortcut = (ev: React.KeyboardEvent, shortcut: keyof ISettings) => {
 		let k = ev.key;
@@ -273,8 +294,8 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 
 	useEffect(() => {
 		(async () => {
-			console.log(settings.language);
-			if (settings.language === 'unkown') {
+			let effectiveLanguage = settings.language;
+			if (effectiveLanguage === 'unkown') {
 				const locale: string = await ipcRenderer.invoke("getlocale");
 				const lang = Object.keys(languages).includes(locale)
 					? locale
@@ -282,11 +303,11 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						? locale.split('-')[0]
 						: undefined;
 				if (lang) {
-					settings.language = lang;
-					setSettings('language', settings.language);
+					effectiveLanguage = lang;
+					setSettings('language', lang);
 				}
 			}
-			i18next.changeLanguage(settings.language);
+			i18next.changeLanguage(effectiveLanguage);
 		})();
 	}, [settings.language]);
 
@@ -336,13 +357,15 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	if (!open) { return <></> }
 
 	return (
-		<Box className={classes.root}>
-			<div className={classes.header}>
+		<Box sx={classes.root}>
+			<Box sx={classes.header}>
 				<IconButton
-					className={classes.back}
+					sx={classes.back}
 					size="small"
 					onClick={() => {
-						setSettings('localLobbySettings', localLobbySettingsBuffer);
+						if (canChangeLobbySettings) {
+							setSettings('localLobbySettings', localLobbySettingsBuffer);
+						}
 						if (unsaved) {
 							onClose();
 							location.reload();
@@ -352,8 +375,8 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					<ChevronLeft htmlColor="#777" />
 				</IconButton>
 				<Typography variant="h6">{t('settings.title')}</Typography>
-			</div>
-			<div className={classes.scroll}>
+			</Box>
+			<Box sx={classes.scroll}>
 				{/* Lobby Settings */}
 				<div>
 					<Dialog
@@ -406,7 +429,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							className={classes.formLabel}
+							sx={classes.formLabel}
 							label={t('settings.lobbysettings.public_lobby.enabled')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
@@ -432,7 +455,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							updateSetting={SavePublicLobbyCallback}
 							lobbySettings={canChangeLobbySettings ? localLobbySettingsBuffer : hostLobbySettings}
 							canChange={canChangeLobbySettings}
-							className={classes.dialog}
+							sx={classes.dialog}
 						/>
 					</DisabledTooltip>
 
@@ -441,7 +464,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							className={classes.formLabel}
+							sx={classes.formLabel}
 							label={t('settings.lobbysettings.wallsblockaudio')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ wallsBlockAudio: newValue })}
@@ -455,7 +478,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							className={classes.formLabel}
+							sx={classes.formLabel}
 							label={t('settings.lobbysettings.visiononly')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ visionHearing: newValue })}
@@ -469,7 +492,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							className={classes.formLabel}
+							sx={classes.formLabel}
 							label={t('settings.lobbysettings.impostorshearsghost')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ haunting: newValue })}
@@ -484,7 +507,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							className={classes.formLabel}
+							sx={classes.formLabel}
 							label={t('settings.lobbysettings.hear_imposters_invents')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ hearImpostorsInVents: newValue })}
@@ -502,7 +525,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							className={classes.formLabel}
+							sx={classes.formLabel}
 							label={t('settings.lobbysettings.private_talk_invents')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ impostersHearImpostersInvent: newValue })}
@@ -525,7 +548,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							className={classes.formLabel}
+							sx={classes.formLabel}
 							label={t('settings.lobbysettings.comms_sabotage_audio')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ commsSabotage: newValue })}
@@ -539,7 +562,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							className={classes.formLabel}
+							sx={classes.formLabel}
 							label={t('settings.lobbysettings.hear_through_cameras')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ hearThroughCameras: newValue })}
@@ -555,7 +578,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							className={classes.formLabel}
+							sx={classes.formLabel}
 							label={t('settings.lobbysettings.impostor_radio')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => updateLocalLobbySettingsBuffer({ impostorRadioEnabled: newValue })}
@@ -573,7 +596,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							className={classes.formLabel}
+							sx={classes.formLabel}
 							label={t('settings.lobbysettings.ghost_only')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
@@ -595,7 +618,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						title={isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')}
 					>
 						<FormControlLabel
-							className={classes.formLabel}
+							sx={classes.formLabel}
 							label={t('settings.lobbysettings.meetings_only')}
 							disabled={!canChangeLobbySettings}
 							onChange={(_, newValue: boolean) => {
@@ -622,9 +645,8 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					variant="outlined"
 					color="secondary"
 					value={settings.microphone}
-					className={classes.shortcutField}
-					SelectProps={{ native: true }}
-					InputLabelProps={{ shrink: true }}
+					sx={classes.shortcutField}
+					slotProps={{ select: { native: true }, inputLabel: { shrink: true } }}
 					onChange={(ev) => setSettings('microphone', ev.target.value)}
 					onClick={updateDevices}
 				>
@@ -641,9 +663,8 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					variant="outlined"
 					color="secondary"
 					value={settings.speaker}
-					className={classes.shortcutField}
-					SelectProps={{ native: true }}
-					InputLabelProps={{ shrink: true }}
+					sx={classes.shortcutField}
+					slotProps={{ select: { native: true }, inputLabel: { shrink: true } }}
 					onChange={(ev) => setSettings('speaker', ev.target.value)}
 					onClick={updateDevices}
 				>
@@ -683,15 +704,14 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						{t('settings.audio.microphone_volume')}
 					</Typography>
 					<Grid container spacing={2}>
-						<Grid item xs={3}>
+						<Grid size={3}>
 							<Checkbox
 								checked={settings.microphoneGainEnabled}
 								onChange={(_, checked: boolean) => setSettings('microphoneGainEnabled', checked)}
 							/>
 						</Grid>
 						<Grid
-							item
-							xs={8}
+							size={8}
 							style={{
 								display: 'flex',
 								justifyContent: 'center',
@@ -701,12 +721,15 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							<Slider
 								size="small"
 								disabled={!settings.microphoneGainEnabled}
-								value={settings.microphoneGain}
+								value={microphoneGainLocal}
 								valueLabelDisplay="auto"
 								min={0}
 								max={300}
 								step={2}
-								onChange={(_, newValue: number | number[]) => setSettings('microphoneGain', newValue as number)}
+								onChange={(_, newValue: number | number[]) => {
+									setMicrophoneGainLocal(newValue as number);
+									setSettings('microphoneGain', newValue as number);
+								}}
 								aria-labelledby="input-slider"
 							/>
 						</Grid>
@@ -715,15 +738,14 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						{t('settings.audio.microphone_sens')}
 					</Typography>
 					<Grid container spacing={2}>
-						<Grid item xs={3}>
+						<Grid size={3}>
 							<Checkbox
 								checked={settings.micSensitivityEnabled}
 								onChange={(_, checked: boolean) => setSettings('micSensitivityEnabled', checked)}
 							/>
 						</Grid>
 						<Grid
-							item
-							xs={8}
+							size={8}
 							style={{
 								display: 'flex',
 								justifyContent: 'center',
@@ -733,13 +755,14 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							<Slider
 								size="small"
 								disabled={!settings.micSensitivityEnabled}
-								value={+(1 - settings.micSensitivity).toFixed(2)}
+								value={+(1 - micSensitivityLocal).toFixed(2)}
 								valueLabelDisplay="auto"
 								min={0}
 								max={1}
-								color={settings.micSensitivity < 0.3 ? 'primary' : 'secondary'}
+								color={micSensitivityLocal < 0.3 ? 'primary' : 'secondary'}
 								step={0.05}
 								onChange={(_, newValue: number | number[]) => {
+									setMicSensitivityLocal(1 - (newValue as number));
 									openWarningDialog(
 										t('settings.warning'),
 										t('settings.audio.microphone_sens_warning'),
@@ -756,14 +779,17 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					<Typography id="input-slider" gutterBottom>
 						{t('settings.audio.mastervolume')}
 					</Typography>
-					<Grid container direction="row" justifyContent="center" alignItems="center">
-						<Grid item xs={11}>
+					<Grid container direction="row" sx={{ justifyContent: 'center', alignItems: 'center' }}>
+						<Grid size={11}>
 							<Slider
 								size="small"
-								value={settings.masterVolume}
+								value={masterVolumeLocal}
 								valueLabelDisplay="auto"
 								max={200}
-								onChange={(_, newValue: number | number[]) => setSettings('masterVolume', newValue as number)}
+								onChange={(_, newValue: number | number[]) => {
+									setMasterVolumeLocal(newValue as number);
+									setSettings('masterVolume', newValue as number);
+								}}
 								aria-labelledby="input-slider"
 							/>
 						</Grid>
@@ -771,13 +797,16 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					<Typography id="input-slider" gutterBottom>
 						{t('settings.audio.crewvolume')}
 					</Typography>
-					<Grid container direction="row" justifyContent="center" alignItems="center">
-						<Grid item xs={11}>
+					<Grid container direction="row" sx={{ justifyContent: 'center', alignItems: 'center' }}>
+						<Grid size={11}>
 							<Slider
 								size="small"
-								value={settings.crewVolumeAsGhost}
+								value={crewVolumeAsGhostLocal}
 								valueLabelDisplay="auto"
-								onChange={(_, newValue: number | number[]) => setSettings('crewVolumeAsGhost', newValue as number)}
+								onChange={(_, newValue: number | number[]) => {
+									setCrewVolumeAsGhostLocal(newValue as number);
+									setSettings('crewVolumeAsGhost', newValue as number);
+								}}
 								aria-labelledby="input-slider"
 							/>
 						</Grid>
@@ -785,13 +814,16 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					<Typography id="input-slider" gutterBottom>
 						{t('settings.audio.ghostvolumeasimpostor')}
 					</Typography>
-					<Grid container direction="row" justifyContent="center" alignItems="center">
-						<Grid item xs={11}>
+					<Grid container direction="row" sx={{ justifyContent: 'center', alignItems: 'center' }}>
+						<Grid size={11}>
 							<Slider
 								size="small"
-								value={settings.ghostVolumeAsImpostor}
+								value={ghostVolumeAsImpostorLocal}
 								valueLabelDisplay="auto"
-								onChange={(_, newValue: number | number[]) => setSettings('ghostVolumeAsImpostor', newValue as number)}
+								onChange={(_, newValue: number | number[]) => {
+									setGhostVolumeAsImpostorLocal(newValue as number);
+									setSettings('ghostVolumeAsImpostor', newValue as number);
+								}}
 								aria-labelledby="input-slider"
 							/>
 						</Grid>
@@ -800,14 +832,14 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				<Divider />
 				<Typography variant="h6">{t('settings.keyboard.title')}</Typography>
 				<Grid container spacing={1}>
-					<Grid item xs={6}>
+					<Grid size={6}>
 						<TextField
 							fullWidth
 							spellCheck={false}
 							color="secondary"
 							label={t('settings.keyboard.push_to_talk')}
 							value={settings.pushToTalkShortcut}
-							className={classes.shortcutField}
+							sx={classes.shortcutField}
 							variant="outlined"
 							onKeyDown={(ev) => {
 								setShortcut(ev, 'pushToTalkShortcut');
@@ -817,13 +849,13 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							}}
 						/>
 					</Grid>
-					<Grid item xs={6}>
+					<Grid size={6}>
 						<TextField
 							spellCheck={false}
 							color="secondary"
 							label={t('settings.keyboard.impostor_radio')}
 							value={settings.impostorRadioShortcut}
-							className={classes.shortcutField}
+							sx={classes.shortcutField}
 							variant="outlined"
 							onKeyDown={(ev) => {
 								setShortcut(ev, 'impostorRadioShortcut');
@@ -833,13 +865,13 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							}}
 						/>
 					</Grid>
-					<Grid item xs={6}>
+					<Grid size={6}>
 						<TextField
 							spellCheck={false}
 							color="secondary"
 							label={t('settings.keyboard.mute')}
 							value={settings.muteShortcut}
-							className={classes.shortcutField}
+							sx={classes.shortcutField}
 							variant="outlined"
 							onKeyDown={(ev) => {
 								setShortcut(ev, 'muteShortcut');
@@ -849,13 +881,13 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 							}}
 						/>
 					</Grid>
-					<Grid item xs={6}>
+					<Grid size={6}>
 						<TextField
 							spellCheck={false}
 							color="secondary"
 							label={t('settings.keyboard.deafen')}
 							value={settings.deafenShortcut}
-							className={classes.shortcutField}
+							sx={classes.shortcutField}
 							variant="outlined"
 							onKeyDown={(ev) => {
 								setShortcut(ev, 'deafenShortcut');
@@ -871,14 +903,14 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				<Typography variant="h6">{t('settings.overlay.title')}</Typography>
 				<div>
 					<FormControlLabel
-						className={classes.formLabel}
+						sx={classes.formLabel}
 						label={t('settings.overlay.always_on_top')}
 						checked={settings.alwaysOnTop}
 						onChange={(_, checked: boolean) => setSettings('alwaysOnTop', checked)}
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
-						className={classes.formLabel}
+						sx={classes.formLabel}
 						label={t('settings.overlay.enabled')}
 						checked={settings.enableOverlay}
 						onChange={(_, checked: boolean) => setSettings('enableOverlay', checked)}
@@ -887,14 +919,14 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					{settings.enableOverlay && (
 						<>
 							<FormControlLabel
-								className={classes.formLabel}
+								sx={classes.formLabel}
 								label={t('settings.overlay.compact')}
 								checked={settings.compactOverlay}
 								onChange={(_, checked: boolean) => setSettings('compactOverlay', checked)}
 								control={<Checkbox />}
 							/>
 							<FormControlLabel
-								className={classes.formLabel}
+								sx={classes.formLabel}
 								label={t('settings.overlay.meeting')}
 								checked={settings.meetingOverlay}
 								onChange={(_, checked: boolean) => setSettings('meetingOverlay', checked)}
@@ -907,9 +939,8 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 								variant="outlined"
 								color="secondary"
 								value={settings.overlayPosition}
-								className={classes.shortcutField}
-								SelectProps={{ native: true }}
-								InputLabelProps={{ shrink: true }}
+								sx={classes.shortcutField}
+								slotProps={{ select: { native: true }, inputLabel: { shrink: true } }}
 								onChange={(ev) => setSettings('overlayPosition', ev.target.value)}
 								onClick={updateDevices}
 							>
@@ -945,20 +976,20 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					t={t}
 					initialURL={settings.serverURL}
 					onValidURL={URLInputCallback}
-					className={classes.dialog}
+					sx={classes.dialog}
 				/>
 				<Divider />
 				<Typography variant="h6">{t('settings.beta.title')}</Typography>
 				<div>
 					<FormControlLabel
-						className={classes.formLabel}
+						sx={classes.formLabel}
 						label={t('settings.beta.mobilehost')}
 						checked={settings.mobileHost}
 						onChange={(_, checked: boolean) => setSettings('mobileHost', checked)}
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
-						className={classes.formLabel}
+						sx={classes.formLabel}
 						label={t('settings.beta.vad_enabled')}
 						checked={settings.vadEnabled}
 						onChange={(_, checked: boolean) => {
@@ -972,7 +1003,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
-						className={classes.formLabel}
+						sx={classes.formLabel}
 						label={t('settings.beta.hardware_acceleration')}
 						checked={settings.hardware_acceleration}
 						onChange={(_, checked: boolean) => {
@@ -989,28 +1020,28 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
-						className={classes.formLabel}
+						sx={classes.formLabel}
 						label={t('settings.beta.echocancellation')}
 						checked={settings.echoCancellation}
 						onChange={(_, checked: boolean) => setSettings('echoCancellation', checked)}
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
-						className={classes.formLabel}
+						sx={classes.formLabel}
 						label={t('settings.beta.spatial_audio')}
 						checked={settings.enableSpatialAudio}
 						onChange={(_, checked: boolean) => setSettings('enableSpatialAudio', checked)}
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
-						className={classes.formLabel}
+						sx={classes.formLabel}
 						label={t('settings.beta.noiseSuppression')}
 						checked={settings.noiseSuppression}
 						onChange={(_, checked: boolean) => setSettings('noiseSuppression', checked)}
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
-						className={classes.formLabel}
+						sx={classes.formLabel}
 						label={t('settings.beta.oldsampledebug')}
 						checked={settings.oldSampleDebug}
 						onChange={(_, checked: boolean) => {
@@ -1035,9 +1066,8 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 					variant="outlined"
 					color="secondary"
 					value={settings.language}
-					className={classes.shortcutField}
-					SelectProps={{ native: true }}
-					InputLabelProps={{ shrink: true }}
+					sx={classes.shortcutField}
+					slotProps={{ select: { native: true }, inputLabel: { shrink: true } }}
 					onChange={(ev) => setSettings('language', ev.target.value)}
 				>
 					{Object.entries(languages).map(([key, value]) => (
@@ -1050,14 +1080,14 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 				<Typography variant="h6">{t('settings.streaming.title')}</Typography>
 				<div>
 					<FormControlLabel
-						className={classes.formLabel}
+						sx={classes.formLabel}
 						label={t('settings.streaming.hidecode')}
 						checked={!settings.hideCode}
 						onChange={(_, checked: boolean) => setSettings('hideCode', !checked)}
 						control={<Checkbox />}
 					/>
 					<FormControlLabel
-						className={classes.formLabel}
+						sx={classes.formLabel}
 						label={t('settings.streaming.obs_overlay')}
 						checked={settings.obsOverlay}
 						onChange={(_, checked: boolean) => {
@@ -1079,9 +1109,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 									}&server=${settings.serverURL}`}
 								variant="outlined"
 								color="primary"
-								InputProps={{
-									readOnly: true,
-								}}
+								slotProps={{ input: { readOnly: true } }}
 							/>
 						</>
 					)}
@@ -1107,10 +1135,10 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 						</Button>
 					</DisabledTooltip>
 				</div>
-				<Alert className={classes.alert} severity="info" style={{ display: unsaved ? undefined : 'none' }}>
+				<Alert sx={classes.alert} severity="info" style={{ display: unsaved ? undefined : 'none' }}>
 					{t('buttons.exit')}
 				</Alert>
-			</div>
+			</Box>
 		</Box>
 	);
 };

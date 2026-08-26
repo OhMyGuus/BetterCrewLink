@@ -1,15 +1,15 @@
-import { ipcRenderer } from 'electron';
+import { ipcRenderer } from './electron-bridge';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { GamePlatformInstance, GamePlatformMap } from '../common/GamePlatform';
 import { SettingsContext } from './contexts';
-import makeStyles from '@mui/styles/makeStyles';
+import Box from '@mui/material/Box';
 import { IpcMessages } from '../common/ipc-messages';
 import { Button, ClickAwayListener, MenuItem, MenuList, Paper, Popper } from '@mui/material';
 import { ToggleButton } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { CustomPlatformSettings } from './settings/CustomPlatformSettings';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = () => ({
 	button_group: {
 		display: 'inline-flex',
 		margin: '0px 10px',
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 		border: '1px solid rgba(255, 255, 255, 0.3)',
 		background: '#272727',
 	},
-}));
+});
 
 export interface LauncherProps {
 	t: (key: string) => string;
@@ -69,7 +69,7 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 	const [openMessage, setOpenMessage] = useState(<>{t('game.error_platform')}</>);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const [launchPlatforms, setLaunchPlatforms] = useState<GamePlatformMap>();
-	const [launchItemList, setLaunchItemList] = useState([] as JSX.Element[]);
+	const [launchItemList, setLaunchItemList] = useState([] as React.JSX.Element[]);
 	const [customPlatformOpen, setCustomPlatformOpen] = useState(false);
 	const [customPlatformEdit, setCustomPlatformEdit] = useState((undefined as unknown) as GamePlatformInstance);
 
@@ -95,7 +95,7 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 		}
 
 		// Generate an array of <MenuItem>'s from available platforms for dropdown
-		const platformArray = Array.from(Object.keys(launchPlatforms)).reduce((filtered: JSX.Element[], key) => {
+		const platformArray = Array.from(Object.keys(launchPlatforms)).reduce((filtered: React.JSX.Element[], key) => {
 			const platform = launchPlatforms[key];
 			const platformName = platform.default ? t(platform.translateKey) : platform.translateKey;
 			filtered.push(
@@ -153,9 +153,9 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 				setOpenState={setCustomPlatformOpen}
 				editPlatform={customPlatformEdit}
 			/>
-			<div className={classes.button_group} ref={anchorRef}>
+			<Box sx={classes.button_group} ref={anchorRef}>
 				<Button
-					className={classes.button_primary}
+					sx={classes.button_primary}
 					disabled={launchItemList.length === 1}
 					onClick={() => {
 						ipcRenderer.send(IpcMessages.OPEN_AMONG_US_GAME, launchPlatforms![settings.launchPlatform]);
@@ -164,20 +164,20 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 					{openMessage}
 				</Button>
 				<ToggleButton
-					className={classes.button_dropdown}
+					sx={classes.button_dropdown}
 					onClick={() => setDropdownOpen((status) => !status)}
 					selected={dropdownOpen}
 					value=""
 				>
 					<ArrowDropDownIcon />
 				</ToggleButton>
-			</div>
+			</Box>
 			<Popper
 				open={dropdownOpen}
 				anchorEl={anchorRef.current}
 				placement="bottom-end"
 				disablePortal={false}
-				className={classes.dropdown}
+				sx={classes.dropdown}
 				modifiers={[
 					{
 						name: "flip",

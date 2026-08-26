@@ -11,38 +11,42 @@ import {
 	RadioGroup,
 	TextField,
 } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
 import React, { useMemo, useState, useEffect, useContext } from 'react';
 import ChevronLeft from '@mui/icons-material/ArrowBack';
 import { GamePlatformInstance, PlatformRunType } from '../../common/GamePlatform';
 import path from 'path';
-import { platform } from 'process';
+import { platform, getPathForFile } from '../electron-bridge';
 import { SettingsContext } from '../contexts';
 
-const useStyles = makeStyles((theme) => ({
-	header: {
-		display: 'flex',
-		alignItems: 'center',
-	},
-	back: {
-		cursor: 'pointer',
-		position: 'absolute',
-		right: theme.spacing(1),
-		WebkitAppRegion: 'no-drag',
-	},
-	dialog: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		justifyContent: 'start',
-		'&>*': {
-			marginBottom: theme.spacing(1),
+const useStyles = () => {
+	const theme = useTheme();
+	return {
+		header: {
+			display: 'flex',
+			alignItems: 'center',
 		},
-	},
-	radioGroup: {
-		flexDirection: 'row',
-	},
-}));
+		back: {
+			cursor: 'pointer',
+			position: 'absolute',
+			right: theme.spacing(1),
+			WebkitAppRegion: 'no-drag',
+		},
+		dialog: {
+			display: 'flex',
+			flexDirection: 'column',
+			alignItems: 'center',
+			justifyContent: 'start',
+			'&>*': {
+				marginBottom: theme.spacing(1),
+			},
+		},
+		radioGroup: {
+			flexDirection: 'row',
+		},
+	};
+};
 
 export interface CustomPlatformSettingProps {
 	t: (key: string) => string;
@@ -80,7 +84,7 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 		} else {
 			setAdvanced(false);
 		}
-	}, [open]);
+	}, [open, editPlatform]);
 
 	const setPlatformName = (name: string) => {
 		setCustomPlatform((prevState) => ({ ...prevState, key: name, translateKey: name }));
@@ -159,7 +163,7 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 							hidden
 							onChange={(ev) => {
 								if (ev.target.files && ev.target.files.length > 0) {
-									setPlatformRun(ev.target.files[0].path);
+									setPlatformRun(getPathForFile(ev.target.files[0]));
 								} else {
 									setPlatformRun('');
 								}
@@ -207,18 +211,18 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 				</>
 			);
 		}
-	}, [customPlatform, advanced]);
+	}, [customPlatform, advanced, t]);
 
 	return (
 		<>
 			<Dialog fullScreen open={open}>
-				<div className={classes.header}>
+				<Box sx={classes.header}>
 					<DialogTitle>{t('settings.customplatforms.title')}</DialogTitle>
-					<IconButton className={classes.back} size="small" onClick={() => setOpenState(false)}>
+					<IconButton sx={classes.back} size="small" onClick={() => setOpenState(false)}>
 						<ChevronLeft htmlColor="#777" />
 					</IconButton>
-				</div>
-				<DialogContent className={classes.dialog}>
+				</Box>
+				<DialogContent sx={classes.dialog}>
 					<TextField
 						fullWidth
 						spellCheck={false}
@@ -230,7 +234,7 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 						disabled={false}
 					/>
 					<RadioGroup
-						className={classes.radioGroup}
+						sx={classes.radioGroup}
 						value={customPlatform.launchType}
 						onChange={(ev) => {
 							setPlatformRunType(ev.target.value as PlatformRunType);

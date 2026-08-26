@@ -1,10 +1,10 @@
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import React from 'react';
-import { shell, ipcRenderer } from 'electron';
-import makeStyles from '@mui/styles/makeStyles';
+import { shell, ipcRenderer } from './electron-bridge';
+import Box from '@mui/material/Box';
 
-const useStyles = makeStyles(() => ({
+const useStyles = () => ({
 	button: {
 		color: 'white',
 		background: 'none',
@@ -15,13 +15,13 @@ const useStyles = makeStyles(() => ({
 		outline: 'none',
 		fontWeight: 500,
 		fontFamily: '"Varela", sans-serif',
-		marginTop: 24,
+		marginTop: '24px',
 		'&:hover': {
 			borderColor: '#00ff00',
 			cursor: 'pointer',
 		},
 	},
-}));
+});
 const onRefreshClick = () => {
 	ipcRenderer.send('reload');
 };
@@ -35,9 +35,9 @@ const SupportLink: React.FC = function () {
 			<Link href="#" color="secondary" onClick={() => shell.openExternal('https://discord.gg/4cpvp3KyhF')}>
 				Get support
 			</Link>
-			<button className={classes.button} onClick={onRefreshClick}>
+			<Box component="button" sx={classes.button} onClick={onRefreshClick}>
 				Reload
-			</button>
+			</Box>
 		</Typography>
 	);
 };

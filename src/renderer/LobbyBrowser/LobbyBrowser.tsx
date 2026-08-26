@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import withStyles from '@mui/styles/withStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -9,43 +8,37 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer } from '../electron-bridge';
 import { IpcHandlerMessages, IpcMessages } from '../../common/ipc-messages';
-import io from 'socket.io-client';
+import io, { Socket } from 'socket.io-client';
 import i18next from 'i18next';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Tooltip } from '@mui/material';
 import languages from '../language/languages';
 import { PublicLobbyMap, PublicLobby } from '../../common/PublicLobby';
 import { modList, ModsType } from '../../common/Mods';
 import { GameState } from '../../common/AmongUsState';
-import SettingsStore from '../settings/SettingsStore';
+import SettingsStore, { initSettings } from '../settings/SettingsStore';
 
-const serverUrl = SettingsStore.get('serverURL', 'https://bettercrewl.ink/');
-const language = SettingsStore.get('language', 'en');
-i18next.changeLanguage(language);
-
-const StyledTableCell = withStyles((theme) => ({
-	head: {
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+	'&.MuiTableCell-head': {
 		backgroundColor: '#1d1a23',
 		color: theme.palette.common.white,
 	},
-	body: {
+	'&.MuiTableCell-body': {
 		fontSize: 14,
 	},
-}))(TableCell);
+}));
 
-const StyledTableRow = withStyles(() => ({
-	root: {
-		'&:nth-of-type(odd)': {
-			backgroundColor: '#25232a',
-		},
-		'&:nth-of-type(even)': {
-			backgroundColor: '#1d1a23',
-		},
+const StyledTableRow = styled(TableRow)({
+	'&:nth-of-type(odd)': {
+		backgroundColor: '#25232a',
 	},
-}))(TableRow);
+	'&:nth-of-type(even)': {
+		backgroundColor: '#1d1a23',
+	},
+});
 
-const useStyles = makeStyles({
+const useStyles = () => ({
 	table: {
 		minWidth: 700,
 	},
@@ -91,53 +84,65 @@ function getModName(mod: string): string {
 export default function lobbyBrowser({ t }) {
 	const classes = useStyles();
 	const [publiclobbies, setPublicLobbies] = useState<PublicLobbyMap>({});
-	const [socket, setSocket] = useState<SocketIOClient.Socket>();
+	const [socket, setSocket] = useState<Socket>();
 	const [code, setCode] = React.useState('');
 	const [, forceRender] = useState({});
 
 	const [mod, setMod] = useState<ModsType>('NONE');
 	
 	useEffect(() => {
-		ipcRenderer.invoke(IpcMessages.REQUEST_MOD).then((mod: ModsType) => setMod(mod));
-
-		const s = io(serverUrl, {
-			transports: ['websocket'],
-		});
-		setSocket(s);
-
-		s.on('update_lobby', (lobby: PublicLobby) => {
-			setPublicLobbies((old) => ({ ...old, [lobby.id]: lobby }));
+		let cancelled = false;
+		ipcRenderer.invoke(IpcMessages.REQUEST_MOD).then((mod: ModsType) => {
+			if (!cancelled) setMod(mod);
 		});
 
-		s.on('new_lobbies', (lobbies: PublicLobby[]) => {
-			setPublicLobbies((old) => {
-				const lobbyMap: PublicLobbyMap = { ...old };
-				for (const index in lobbies) {
-					lobbyMap[lobbies[index].id] = lobbies[index];
-				}
-				return lobbyMap;
+		let s: ReturnType<typeof io> | null = null;
+		initSettings().then((settings) => {
+			if (cancelled) return;
+			i18next.changeLanguage(settings.language);
+			s = io(settings.serverURL, {
+				transports: ['websocket'],
+			});
+			setSocket(s);
+
+			s.on('update_lobby', (lobby: PublicLobby) => {
+				setPublicLobbies((old) => ({ ...old, [lobby.id]: lobby }));
+			});
+
+			s.on('new_lobbies', (lobbies: PublicLobby[]) => {
+				setPublicLobbies((old) => {
+					const lobbyMap: PublicLobbyMap = { ...old };
+					for (const index in lobbies) {
+						lobbyMap[lobbies[index].id] = lobbies[index];
+					}
+					return lobbyMap;
+				});
+			});
+			s.on('remove_lobby', (lobbyId: number) => {
+				setPublicLobbies((old) => {
+					const lobbyMap = { ...old };
+					delete lobbyMap[lobbyId];
+					return lobbyMap;
+				});
+			});
+			s.on('connect', () => {
+				s?.emit('lobbybrowser', true);
 			});
 		});
-		s.on('remove_lobby', (lobbyId: number) => {
-			setPublicLobbies((old) => {
-				delete old[lobbyId];
-				return { ...old };
-			});
-		});
-		s.on('connect', () => {
-			s.emit('lobbybrowser', true);
-		});
 
-		ipcRenderer.on(IpcHandlerMessages.JOIN_LOBBY_ERROR, (event, code, server) => {
+		const onJoinLobbyError = (event: unknown, code: string, server: string) => {
 			console.log('ERROR: ', code);
 			setCode(`${code}  ${servers[server] ? `on region ${servers[server]}` : `\n Custom Server: ${server}`}`);
-		});
+		};
+		ipcRenderer.on(IpcHandlerMessages.JOIN_LOBBY_ERROR, onJoinLobbyError);
 		const secondPassed = setInterval(() => {
 			forceRender({});
 		}, 1000);
 		return () => {
-			socket?.emit('lobbybrowser', false);
-			socket?.close();
+			cancelled = true;
+			s?.emit('lobbybrowser', false);
+			s?.close();
+			ipcRenderer.off(IpcHandlerMessages.JOIN_LOBBY_ERROR, onJoinLobbyError);
 			clearInterval(secondPassed);
 		};
 	}, []);
@@ -168,8 +173,8 @@ export default function lobbyBrowser({ t }) {
 					</DialogActions>
 				</Dialog>
 				<Paper>
-					<TableContainer component={Paper} className={classes.container}>
-						<Table className={classes.table} aria-label="customized table" stickyHeader>
+					<TableContainer component={Paper} sx={classes.container}>
+						<Table sx={classes.table} aria-label="customized table" stickyHeader>
 							<TableHead>
 								<TableRow>
 									<StyledTableCell>{t('lobbybrowser.list.title')}</StyledTableCell>
