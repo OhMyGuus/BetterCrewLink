@@ -249,9 +249,6 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	const [playerConfigs] = useState<playerConfigMap>(settingsRef.current.playerConfigMap);
 	const socketClientsRef = useRef(socketClients);
 	const [peerConnections, setPeerConnections] = useState<PeerConnections>({});
-	// Synchronous mirror of peerConnections. React state updates are batched/deferred,
-	// so back-to-back signaling events (join/offer bursts) can't rely on `peerConnections`
-	// reflecting a connection that was "just" created a moment ago - this ref is always current.
 	const peerConnectionsRef = useRef<PeerConnections>({});
 	const convolverBuffer = useRef<AudioBuffer | null>(null);
 	const playerSocketIdsRef = useRef<numberStringMap>({});
