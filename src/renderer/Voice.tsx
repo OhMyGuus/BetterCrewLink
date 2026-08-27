@@ -13,7 +13,7 @@ import {
 	Client,
 	VoiceState,
 } from '../common/AmongUsState';
-import Peer from 'simple-peer';
+import PeerConnection, { SignalData } from './PeerConnection';
 import { ipcRenderer } from './electron-bridge';
 import VAD from './vad';
 import { ISettings, playerConfigMap, ILobbySettings } from '../common/ISettings';
@@ -36,19 +36,16 @@ import VolumeOff from '@mui/icons-material/VolumeOff';
 import VolumeUp from '@mui/icons-material/VolumeUp';
 import Mic from '@mui/icons-material/Mic';
 import MicOff from '@mui/icons-material/MicOff';
-import adapter from 'webrtc-adapter';
 import { VADOptions } from './vad';
 import { pushToTalkOptions } from './settings/SettingsStore';
 import { poseCollide } from '../common/ColliderMap';
-
-console.log(adapter.browserDetails.browser);
 
 export interface ExtendedAudioElement extends HTMLAudioElement {
 	setSinkId: (sinkId: string) => Promise<void>;
 }
 
 interface PeerConnections {
-	[peer: string]: Peer.Instance;
+	[peer: string]: PeerConnection;
 }
 
 interface VadNode {
@@ -252,6 +249,10 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	const [playerConfigs] = useState<playerConfigMap>(settingsRef.current.playerConfigMap);
 	const socketClientsRef = useRef(socketClients);
 	const [peerConnections, setPeerConnections] = useState<PeerConnections>({});
+	// Synchronous mirror of peerConnections. React state updates are batched/deferred,
+	// so back-to-back signaling events (join/offer bursts) can't rely on `peerConnections`
+	// reflecting a connection that was "just" created a moment ago - this ref is always current.
+	const peerConnectionsRef = useRef<PeerConnections>({});
 	const convolverBuffer = useRef<AudioBuffer | null>(null);
 	const playerSocketIdsRef = useRef<numberStringMap>({});
 	const playerSocketIds = useMemo(() => {
@@ -583,11 +584,12 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			clearTimeout(iceRestartTimers.current[peer]);
 			delete iceRestartTimers.current[peer];
 		}
-		const connection = peerConnections[peer];
+		const connection = peerConnectionsRef.current[peer];
 		if (!connection) {
 			return;
 		}
 		connection.destroy();
+		delete peerConnectionsRef.current[peer];
 		setPeerConnections((connections) => {
 			delete connections[peer];
 			return connections;
@@ -832,6 +834,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		// (async function anyNameFunction() {
 		let currentLobby = '';
 		let cancelled = false;
+		const peerCreatedAt: Record<string, number> = {};
 		mobileNotifyCancelledRef.current = false;
 		let toggleDeafenHandler: (() => void) | undefined;
 		let impostorRadioHandler: ((_: unknown, pressing: boolean) => void) | undefined;
@@ -895,6 +898,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 				iceTransportPolicy: clientPeerConfig.forceRelayOnly ? 'relay' : 'all',
 				iceServers: clientPeerConfig.iceServers,
 			};
+			console.log('Received WebRTC config from server:', iceConfig);
 		});
 
 		socket.on('VAD', (data: { activity: boolean; client: Client; socketId: string }) => {
@@ -1037,7 +1041,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					setOtherVAD({});
 					setOtherTalking({});
 					if (lobbyCode === 'MENU') {
-						Object.keys(peerConnections).forEach((k) => {
+						Object.keys(peerConnectionsRef.current).forEach((k) => {
 							disconnectPeer(k);
 						});
 						setSocketClients({});
@@ -1055,13 +1059,33 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 
 				function createPeerConnection(peer: string, initiator: boolean, client: Client) {
 					console.log('CreatePeerConnection: ', peer, initiator);
+					const existing = peerConnectionsRef.current[peer];
+					const lastCreated = peerCreatedAt[peer] ?? 0;
+					if (
+						existing &&
+						Date.now() - lastCreated < 1500 &&
+						existing.connectionState !== 'failed' &&
+						existing.connectionState !== 'closed'
+					) {
+						console.warn(
+							'Ignoring rapid duplicate join/offer for',
+							peer,
+							'- reusing existing connection (state:',
+							existing.connectionState,
+							')'
+						);
+						return existing;
+					}
+					peerCreatedAt[peer] = Date.now();
 					disconnectClient(client);
-					const connection = new Peer({
+					const rtcConfig = settingsRef.current.natFix ? DEFAULT_ICE_CONFIG_TURN : iceConfig;
+					console.log('WebRTC config for', peer, ':', rtcConfig);
+					const connection = new PeerConnection({
 						stream,
-						initiator, // @ts-ignore-line
-						iceRestartEnabled: true,
-						config: settingsRef.current.natFix ? DEFAULT_ICE_CONFIG_TURN : iceConfig,
+						initiator,
+						config: rtcConfig,
 					});
+					peerConnectionsRef.current[peer] = connection;
 
 					setPeerConnections((connections) => {
 						connections[peer] = connection;
@@ -1191,9 +1215,8 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						console.log('Disconnected from', peer, 'Initiator:', initiator);
 						disconnectPeer(peer);
 					});
-					connection.on('error', () => {
-						console.log('ONERROR');
-						/*empty*/
+					connection.on('error', (err) => {
+						console.warn('Peer connection error for', peer, ':', err);
 					});
 					return connection;
 				}
@@ -1203,7 +1226,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					setSocketClients((old) => ({ ...old, [peer]: client }));
 				});
 
-				socket.on('signal', ({ data, from, client }: { data: Peer.SignalData; from: string; client: Client }) => {
+				socket.on('signal', ({ data, from, client }: { data: SignalData; from: string; client: Client }) => {
 					if (Object.prototype.hasOwnProperty.call(data, 'mobilePlayerInfo')) {
 						const mobiledata = data as unknown as mobileHostInfo;
 						if (
@@ -1215,14 +1238,14 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 						}
 						return;
 					}
-					let connection: Peer.Instance;
+					let connection: PeerConnection;
 					if (!socketClientsRef.current[from]) {
 						console.warn('SIGNAL FROM UNKOWN SOCKET..');
 						return;
 					}
 					if (Object.prototype.hasOwnProperty.call(data, 'type')) {
-						if (peerConnections[from] && data.type !== 'offer') {
-							connection = peerConnections[from];
+						if (peerConnectionsRef.current[from] && data.type !== 'offer') {
+							connection = peerConnectionsRef.current[from];
 						} else {
 							connection = createPeerConnection(from, false, client);
 						}
@@ -1245,7 +1268,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 			mobileNotifyCancelledRef.current = true;
 			hostRef.current.mobileRunning = false;
 			socket.emit('leave');
-			Object.keys(peerConnections).forEach((k) => {
+			Object.keys(peerConnectionsRef.current).forEach((k) => {
 				disconnectPeer(k);
 			});
 			connectionStuff.current.socket?.close();

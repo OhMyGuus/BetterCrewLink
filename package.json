@@ -42,6 +42,7 @@
 		"electron-store": "^11.0.2",
 		"electron-updater": "^6.8.9",
 		"electron-window-state": "^5.0.3",
+		"events": "^3.3.0",
 		"jimp": "^1.6.1",
 		"memoryjs": "github:OhMyGuus/memoryjs#v0.0.10",
 		"minimist": "^1.2.8",
@@ -61,7 +62,6 @@
 		"@types/node": "^24.0.0",
 		"@types/react": "^19.2.18",
 		"@types/react-dom": "^19.2.5",
-		"@types/simple-peer": "^9.6.1",
 		"@types/valid-url": "^1.0.4",
 		"@vitejs/plugin-react": "^5.2.0",
 		"ajv": "^8.17.1",
@@ -81,14 +81,12 @@
 		"react": "^19.2.8",
 		"react-dom": "^19.2.8",
 		"react-i18next": "^17.0.12",
-		"simple-peer": "^9.11.1",
 		"socket.io-client": "^4.8.3",
 		"source-code-pro": "^2.42.0",
 		"typeface-varela": "^1.1.13",
 		"typescript": "^6.0.3",
 		"typescript-eslint": "^8.68.0",
 		"valid-url": "^1.0.9",
-		"vite": "^7.1.7",
-		"webrtc-adapter": "^9.0.6"
+		"vite": "^7.1.7"
 	}
 }

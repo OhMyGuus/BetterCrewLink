@@ -30,6 +30,7 @@ export default defineConfig({
 				path: 'path-browserify',
 				buffer: 'buffer',
 				process: 'process',
+				events: 'events',
 			},
 		},
 		define: {
