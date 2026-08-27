@@ -160,7 +160,7 @@ export default function lobbyBrowser({ t }) {
 				>
 					<DialogTitle id="alert-dialog-slide-title">Lobby information</DialogTitle>
 					<DialogContent>
-						<DialogContentText id="alert-dialog-slide-description">
+						<DialogContentText id="alert-dialog-slide-description" component="div">
 							{code.split('\n').map((i, key) => {
 								return <div key={key}>{i}</div>;
 							})}

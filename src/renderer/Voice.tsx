@@ -19,7 +19,6 @@ import VAD from './vad';
 import { ISettings, playerConfigMap, ILobbySettings } from '../common/ISettings';
 import { IpcRendererMessages, IpcMessages, IpcOverlayMessages, IpcHandlerMessages } from '../common/ipc-messages';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import SupportLink from './SupportLink';
@@ -179,23 +178,19 @@ const useStyles = () => {
 	};
 };
 
-const OtherPlayersGrid = styled(Grid)({
-	width: 225,
-	height: 225,
+const otherPlayersGridWidth = 225;
+const otherPlayersGridGap = 8;
+
+const OtherPlayersGrid = styled(Box)({
+	display: 'grid',
+	gap: otherPlayersGridGap,
+	width: 'fit-content',
 	margin: '4px auto',
-	'& .MuiGrid-grid-xs-1': {
-		maxHeight: '8.3333333%',
-	},
-	'& .MuiGrid-grid-xs-2': {
-		maxHeight: '16.666667%',
-	},
-	'& .MuiGrid-grid-xs-3': {
-		maxHeight: '25%',
-	},
-	'& .MuiGrid-grid-xs-4': {
-		maxHeight: '33.333333%',
-	},
 });
+
+function getOtherPlayerAvatarSize(playersPerRow: number): number {
+	return otherPlayersGridWidth / playersPerRow - otherPlayersGridGap;
+}
 
 const defaultlocalLobbySettings: ILobbySettings = {
 	maxDistance: 5.32,
@@ -1429,6 +1424,9 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 		playerSocketIds,
 	]);
 
+	const otherPlayersPerRow = getPlayersPerRow(otherPlayers.length);
+	const otherPlayerAvatarSize = getOtherPlayerAvatarSize(otherPlayersPerRow);
+
 	return (
 		<Box sx={classes.root}>
 			{(error || initialError) && (
@@ -1522,9 +1520,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 					)}
 					{myPlayer && gameState.lobbyCode !== 'MENU' && (
 						<OtherPlayersGrid
-							container
-							spacing={1}
-							sx={{ alignItems: 'flex-start', alignContent: 'flex-start', justifyContent: 'flex-start' }}
+							sx={{ gridTemplateColumns: `repeat(${otherPlayersPerRow}, ${otherPlayerAvatarSize}px)` }}
 						>
 							{otherPlayers.map((player) => {
 								const peer = playerSocketIds[player.clientId];
@@ -1537,7 +1533,7 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 								const socketConfig = playerConfigs[player.nameHash];
 
 								return (
-									<Grid key={player.id} size={getPlayersPerRow(otherPlayers.length)}>
+									<Box key={player.id} sx={{ width: otherPlayerAvatarSize }}>
 										<Avatar
 											connectionState={!connected ? 'disconnected' : audio ? 'connected' : 'novoice'}
 											player={player}
@@ -1549,14 +1545,14 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 												!(player.disconnected || player.bugged) &&
 												impostorRadioClientId.current === player.clientId
 											}
-											size={50}
+											size={otherPlayerAvatarSize}
 											socketConfig={socketConfig}
 											onConfigChange={() =>
 												setSetting(`playerConfigMap.${player.nameHash}`, playerConfigs[player.nameHash])
 											}
 											mod={gameState.mod}
 										/>
-									</Grid>
+									</Box>
 								);
 							})}
 						</OtherPlayersGrid>
@@ -1568,10 +1564,9 @@ const Voice: React.FC<VoiceProps> = function ({ t, error: initialError }: VoiceP
 	);
 };
 
-type ValidPlayersPerRow = 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-function getPlayersPerRow(playerCount: number): ValidPlayersPerRow {
-	if (playerCount <= 9) return (12 / 3) as ValidPlayersPerRow;
-	else return Math.min(12, Math.floor(12 / Math.ceil(Math.sqrt(playerCount)))) as ValidPlayersPerRow;
+function getPlayersPerRow(playerCount: number): number {
+	if (playerCount <= 9) return 3;
+	return Math.min(12, Math.ceil(Math.sqrt(playerCount)));
 }
 
 export default Voice;

@@ -176,7 +176,7 @@ const Avatar: React.FC<AvatarProps> = function ({
 									{muteButtonIcon}
 								</IconButton>
 							</Grid>
-							<Grid size="auto">
+							<Grid size="grow">
 								<Slider
 									size="small"
 									value={socketConfig.volume}
@@ -291,7 +291,7 @@ const useCanvasStyles = (props: UseCanvasStylesParams) => ({
 	},
 });
 
-function Canvas({
+const Canvas = React.memo(function Canvas({
 	hat,
 	skin,
 	visor,
@@ -390,6 +390,6 @@ function Canvas({
 			</Box>
 		</>
 	);
-}
+});
 
 export default Avatar;

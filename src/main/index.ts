@@ -26,6 +26,8 @@ const devTools = (isDevelopment || args.dev === 1) && true;
 const { autoUpdater } = electronUpdater;
 const appVersion: string = isDevelopment ? 'DEV' : autoUpdater.currentVersion.version;
 
+app.userAgentFallback = `BetterCrewLink/${appVersion} (win32)`;
+
 declare global {
 	namespace NodeJS {
 		interface Global {
@@ -37,9 +39,9 @@ declare global {
 }
 
 protocol.registerSchemesAsPrivileged([
-	{ scheme: 'static', privileges: { standard: true, secure: true, supportFetchAPI: true, stream: true } },
-	{ scheme: 'generate', privileges: { standard: true, secure: true, supportFetchAPI: true, stream: true } },
-	{ scheme: 'app', privileges: { standard: true, secure: true, supportFetchAPI: true, stream: true } },
+	{ scheme: 'static', privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true } },
+	{ scheme: 'generate', privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true } },
+	{ scheme: 'app', privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true } },
 ]);
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
@@ -107,10 +109,8 @@ function createMainWindow() {
 		});
 	}
 
-	loadView(window, 'app');
 
-	//window.webContents.userAgent = `CrewLink/${crewlinkVersion} (${process.platform})`;
-	window.webContents.userAgent = `BetterCrewLink/${appVersion} (win32)`;
+	loadView(window, 'app');
 
 	window.on('closed', () => {
 		try {
@@ -160,7 +160,6 @@ function createLobbyBrowser() {
 		global.lobbyBrowser = null;
 	});
 	loadView(window, 'lobbies');
-	window.webContents.userAgent = `BetterCrewLink/${appVersion} (win32)`;
 	console.log('Opened app version: ', appVersion);
 	return window;
 }
@@ -284,13 +283,15 @@ if (!gotTheLock) {
 	// create main BrowserWindow when electron is ready
 	app.whenReady().then(() => {
 		protocol.handle('static', (request) => {
-			const filePath = app.getPath('userData') + '/static/' + request.url.replace('static:///', '');
+			const url = new URL(request.url);
+			const filePath = app.getPath('userData') + '/static/' + decodeURIComponent(url.host + url.pathname);
 			return net.fetch(pathToFileURL(filePath).toString());
 		});
 
 		protocol.handle('generate', async (request) => {
-			const url = new URL(request.url.replace('generate:///', ''));
-			const filePath = await GenerateHat(url, gameReader.playercolors, Number(url.searchParams.get('color')));
+			const requestUrl = new URL(request.url);
+			const imagePath = new URL(requestUrl.searchParams.get('url')!);
+			const filePath = await GenerateHat(imagePath, gameReader.playercolors, Number(requestUrl.searchParams.get('color')));
 			return net.fetch(pathToFileURL(filePath).toString());
 		});
 

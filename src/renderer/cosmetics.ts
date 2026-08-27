@@ -64,7 +64,8 @@ function getModHat(color: number, id = '', mod: ModsType, back = false) {
 	const multiColor = hatBase?.multi_color;
 	if (hat && hatBase) {
 		if (!multiColor) return `${HAT_COLLECTION_URL}${hatBase.mod}/${hat}`;
-		else return `generate:///${HAT_COLLECTION_URL}${hatBase.mod}/${hat}?color=${color}`;
+		else
+			return `generate:///hat?color=${color}&url=${encodeURIComponent(`${HAT_COLLECTION_URL}${hatBase.mod}/${hat}`)}`;
 	}
 	return undefined;
 }

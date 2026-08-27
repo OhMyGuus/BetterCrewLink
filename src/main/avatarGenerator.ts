@@ -1,6 +1,7 @@
 import Color from 'color';
 import { Jimp } from 'jimp';
 import fs from 'fs';
+import path from 'path';
 
 // @ts-ignore
 import playerBase from '../../static/images/generate/player.png?inline'; // @ts-ignore
@@ -50,6 +51,7 @@ function isBetween(h: number, h1: number, maxdiffrence: number) {
 }
 
 async function colorImage(img: JimpImage, originalData: Uint8Array, color: string, shadow: string, savepath: string) {
+	await fs.promises.mkdir(path.dirname(savepath), { recursive: true });
 	img.bitmap.data = Buffer.from(originalData);
 	for (let i = 0, l = img.bitmap.data.length; i < l; i += 4) {
 		const data = img.bitmap.data;
