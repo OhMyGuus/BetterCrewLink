@@ -68,6 +68,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 	private unsubscribers: (() => void)[] = [];
 
 	private otherVAD: ClientBoolMap = {};
+	private localTalking = false;
 	private playerConfigs: playerConfigMap = {};
 	private impostorRadioPressed = false;
 
@@ -88,7 +89,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		playerId: -1,
 		clientId: -1,
 		playerName: '',
-		shiftedColor: -1,
+		vadHidden: false,
 		playerCount: -1,
 		publicLobbyTitle: '',
 		publicLobbyLanguage: '',
@@ -167,6 +168,8 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		this.audio.stop();
 
 		this.otherVAD = {};
+		this.localTalking = false;
+		this.prev.vadHidden = false;
 		this.prev.lobbyCode = '';
 		this.prev.gameState = GameState.UNKNOWN;
 		this.snapshot = EMPTY_SNAPSHOT;
@@ -205,8 +208,9 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 
 	private wireAudio(): void {
 		this.audio.on('talking', (talking) => {
+			this.localTalking = talking;
 			this.patch({ talking });
-			if ((this.getMyPlayer()?.shiftedColor ?? -1) === -1 || !talking) {
+			if (!this.prev.vadHidden || !talking) {
 				this.connection.emitVad(talking);
 			}
 		});
@@ -276,11 +280,6 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 			if (this.host.parsedHostId !== this.connection.getClient(peerId)?.clientId) return;
 			this.patch({ lobbySettings: { ...defaultLobbySettings, ...data } as ILobbySettings });
 		}
-	}
-
-	private getMyPlayer(): Player | undefined {
-		const { gameState } = gameStore.getSnapshot();
-		return gameState?.players?.find((player) => player.isLocal);
 	}
 
 	private onSettings(settings: ISettings): void {
@@ -423,14 +422,22 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 			}
 		}
 
-		const shiftedColor = myPlayer?.shiftedColor ?? -1;
-		if (shiftedColor !== this.prev.shiftedColor) {
-			this.prev.shiftedColor = shiftedColor;
-			if (shiftedColor !== -1) {
+		const vadHidden = this.isVadHidden(state, myPlayer);
+		if (vadHidden !== this.prev.vadHidden) {
+			this.prev.vadHidden = vadHidden;
+			if (vadHidden) {
 				this.connection.emitVad(false);
 				this.patch({ talking: false });
+			} else {
+				this.connection.emitVad(this.localTalking);
+				this.patch({ talking: this.localTalking });
 			}
 		}
+	}
+
+	private isVadHidden(state: AmongUsState, myPlayer: Player | undefined): boolean {
+		if (state.gameState === GameState.DISCUSSION) return false;
+		return (myPlayer?.shiftedColor ?? -1) !== -1;
 	}
 
 	private handlePublicLobby(state: AmongUsState, myPlayer: Player | undefined): void {

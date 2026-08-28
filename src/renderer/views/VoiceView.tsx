@@ -102,6 +102,7 @@ const VoiceView: React.FC<VoiceProps> = function ({ t, error: initialError }: Vo
 	const { voice, controller } = useVoiceEngine();
 
 	const myPlayer = useMemo(() => gameState?.players?.find((player) => player.isLocal), [gameState?.players]);
+	const vadHidden = (myPlayer?.shiftedColor ?? -1) !== -1 && gameState?.gameState !== GameState.DISCUSSION;
 
 	const otherPlayers = useMemo(() => {
 		if (!gameState?.players || !myPlayer) return [];
@@ -139,7 +140,7 @@ const VoiceView: React.FC<VoiceProps> = function ({ t, error: initialError }: Vo
 									deafened={voice.deafened}
 									muted={voice.muted}
 									player={myPlayer}
-									borderColor={myPlayer.shiftedColor == -1 ? '#2ecc71' : 'gray'}
+									borderColor={vadHidden ? 'gray' : '#2ecc71'}
 									connectionState={voice.connected ? 'connected' : 'disconnected'}
 									isUsingRadio={myPlayer.isImpostor && voice.impostorRadioClientId === myPlayer.clientId}
 									talking={voice.talking}
@@ -213,6 +214,8 @@ const VoiceView: React.FC<VoiceProps> = function ({ t, error: initialError }: Vo
 									playerConfigs[player.nameHash] = { volume: 1, isMuted: false };
 								}
 
+								const theirVadHidden = player.shiftedColor !== -1 && gameState?.gameState !== GameState.DISCUSSION;
+
 								return (
 									<Box key={player.id} sx={{ width: otherPlayerAvatarSize }}>
 										<Avatar
@@ -220,7 +223,7 @@ const VoiceView: React.FC<VoiceProps> = function ({ t, error: initialError }: Vo
 												!connected ? 'disconnected' : voice.audioConnected[peer] ? 'connected' : 'novoice'
 											}
 											player={player}
-											talking={!player.inVent && voice.otherTalking[player.clientId]}
+											talking={!player.inVent && !theirVadHidden && voice.otherTalking[player.clientId]}
 											borderColor="#2ecc71"
 											isAlive={!voice.otherDead[player.clientId]}
 											isUsingRadio={
