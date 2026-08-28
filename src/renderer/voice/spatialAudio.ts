@@ -51,7 +51,7 @@ export function calculateVoiceAudio(input: VoiceAudioInput): VoiceAudioResult {
 
 	let panPos: [number, number] = [other.x - me.x, other.y - me.y];
 	let endGain = 0;
-	let collided = false;
+	let wallCheckEnabled = false;
 	let skipDistanceCheck = false;
 	let muffleEnabled = false;
 
@@ -79,13 +79,7 @@ export function calculateVoiceAudio(input: VoiceAudioInput): VoiceAudioResult {
 			) {
 				endGain = 0;
 			}
-			if (
-				lobbySettings.wallsBlockAudio &&
-				!me.isDead &&
-				poseCollide({ x: me.x, y: me.y }, { x: other.x, y: other.y }, state.map, state.closedDoors)
-			) {
-				collided = true;
-			}
+			wallCheckEnabled = lobbySettings.wallsBlockAudio && !me.isDead;
 			if (
 				me.isImpostor &&
 				other.isImpostor &&
@@ -99,7 +93,7 @@ export function calculateVoiceAudio(input: VoiceAudioInput): VoiceAudioResult {
 
 			if (!me.isDead && other.isDead && me.isImpostor && lobbySettings.haunting) {
 				result.reverb = true;
-				collided = false;
+				wallCheckEnabled = false;
 				endGain = settings.ghostVolumeAsImpostor / 100;
 			} else if (other.isDead && !me.isDead) {
 				endGain = 0;
@@ -163,7 +157,11 @@ export function calculateVoiceAudio(input: VoiceAudioInput): VoiceAudioResult {
 			return result;
 		}
 	} else {
-		if (collided && !skipDistanceCheck) {
+		if (
+			!skipDistanceCheck &&
+			wallCheckEnabled &&
+			poseCollide({ x: me.x, y: me.y }, { x: other.x, y: other.y }, state.map, state.closedDoors)
+		) {
 			return result;
 		}
 		isOnCamera = false;

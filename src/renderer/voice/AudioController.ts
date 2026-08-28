@@ -31,7 +31,11 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 	private started = false;
 	private inputStream?: MediaStream;
 	private stream?: MediaStream;
-	private inputContext?: AudioContext;
+	private context?: AudioContext;
+	private masterGain?: GainNode;
+	private masterDestination?: MediaStreamAudioDestinationNode;
+	private masterElement?: ExtendedAudioElement;
+	private useContextSink = false;
 	private microphoneGain?: GainNode;
 	private audioListener?: VadNode;
 	private convolverBuffer: AudioBuffer | null = null;
@@ -66,6 +70,12 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		const settings = SettingsStore.store;
 		this.pushToTalkMode = settings.pushToTalkMode;
 
+		const context = new AudioContext();
+		this.context = context;
+		void context.resume().catch(() => {
+			/* resumed on first user gesture instead */
+		});
+		this.createOutputBus(settings.speaker);
 		void this.loadConvolverBuffer();
 
 		const constraints = {
@@ -90,20 +100,20 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 			inputStream = await navigator.mediaDevices.getUserMedia({ video: false, audio: constraints });
 		} catch (error) {
 			this.started = false;
+			this.teardownGraph();
 			this.emit('error', "Couldn't connect to your microphone:\n" + error);
 			throw error;
 		}
 
 		if (!this.started) {
 			inputStream.getTracks().forEach((track) => track.stop());
+			this.teardownGraph();
 			return;
 		}
 
 		this.inputStream = inputStream;
 		this.stream = inputStream;
 
-		const context = new AudioContext();
-		this.inputContext = context;
 		const source = context.createMediaStreamSource(inputStream);
 
 		if (settings.microphoneGainEnabled || settings.micSensitivityEnabled) {
@@ -163,25 +173,81 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		this.stream = undefined;
 		this.microphoneGain = undefined;
 
-		const context = this.inputContext;
-		this.inputContext = undefined;
-		if (context) {
-			context.close().catch(() => {
-				/* context already closed */
-			});
-		}
+		this.teardownGraph();
 
 		this.mutedState = false;
 		this.deafenedState = false;
 		this.removeAllListeners();
 	}
 
+	private createOutputBus(speaker: string): void {
+		const context = this.context;
+		if (!context) return;
+
+		const masterGain = context.createGain();
+		masterGain.gain.value = 1;
+		this.masterGain = masterGain;
+
+		this.useContextSink = 'setSinkId' in AudioContext.prototype;
+		if (this.useContextSink) {
+			masterGain.connect(context.destination);
+		} else {
+			const masterDestination = context.createMediaStreamDestination();
+			masterGain.connect(masterDestination);
+			const element = document.createElement('audio') as ExtendedAudioElement;
+			document.body.appendChild(element);
+			element.setAttribute('autoplay', '');
+			element.srcObject = masterDestination.stream;
+			this.masterDestination = masterDestination;
+			this.masterElement = element;
+		}
+
+		this.setSpeaker(speaker);
+	}
+
+	private teardownGraph(): void {
+		this.masterGain?.disconnect();
+		this.masterGain = undefined;
+		this.masterDestination?.disconnect();
+		this.masterDestination = undefined;
+
+		if (this.masterElement) {
+			this.teardownAudioElement(this.masterElement);
+			this.masterElement = undefined;
+		}
+
+		const context = this.context;
+		this.context = undefined;
+		if (context) {
+			context.close().catch(() => {
+				/* already closed */
+			});
+		}
+	}
+
+	setSpeaker(deviceId: string): void {
+		const sinkId = !deviceId || deviceId.toLowerCase() === 'default' ? '' : deviceId;
+		const onError = (error: unknown) => console.warn('Failed to set audio output device', error);
+
+		if (this.useContextSink) {
+			const context = this.context as (AudioContext & { setSinkId?: (id: string) => Promise<void> }) | undefined;
+			context?.setSinkId?.(sinkId).catch(onError);
+			return;
+		}
+
+		this.masterElement?.setSinkId(sinkId).catch(onError);
+	}
+
 	private async loadConvolverBuffer(): Promise<void> {
+		const context = this.context;
+		if (!context) return;
 		try {
-			const context = new AudioContext();
 			const response = await fetch(REVERB_URL);
-			this.convolverBuffer = await context.decodeAudioData(await response.arrayBuffer());
-			await context.close();
+			const buffer = await context.decodeAudioData(await response.arrayBuffer());
+			this.convolverBuffer = buffer;
+			for (const peer of this.peers.values()) {
+				peer.reverb.buffer = buffer;
+			}
 		} catch (error) {
 			console.warn('Failed to load reverb impulse response', error);
 		}
@@ -265,13 +331,18 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 	addPeer(peerId: string, stream: MediaStream): void {
 		this.removePeer(peerId);
 
-		const settings = SettingsStore.store;
+		const context = this.context;
+		const masterGain = this.masterGain;
+		if (!context || !masterGain) return;
+
+		void context.resume().catch(() => {
+			/* resumed on first user gesture instead */
+		});
+
 		const dummyAudioElement = new Audio();
 		dummyAudioElement.srcObject = stream;
 
-		const context = new AudioContext();
 		const source = context.createMediaStreamSource(stream);
-		const destination = context.createMediaStreamDestination();
 
 		const gain = context.createGain();
 		gain.gain.value = 0;
@@ -291,30 +362,17 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 
 		source.connect(pan);
 		pan.connect(gain);
-		gain.connect(destination);
-
-		const audioElement = document.createElement('audio') as ExtendedAudioElement;
-		document.body.appendChild(audioElement);
-		audioElement.setAttribute('autoplay', '');
-		audioElement.srcObject = destination.stream;
-		if (settings.speaker.toLowerCase() !== 'default') {
-			audioElement.setSinkId(settings.speaker).catch((error) => {
-				console.warn('Failed to set sink id for peer', peerId, error);
-			});
-		}
+		gain.connect(masterGain);
 
 		this.peers.set(peerId, {
 			dummyAudioElement,
-			audioElement,
 			gain,
 			pan,
 			reverb,
 			muffle,
 			muffleConnected: false,
 			reverbConnected: false,
-			destination,
 			source,
-			context,
 		});
 
 		this.emit('peerAudioReady', peerId);
@@ -325,20 +383,12 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		if (!peer) return;
 		this.peers.delete(peerId);
 
-		this.teardownAudioElement(peer.audioElement);
 		this.teardownAudioElement(peer.dummyAudioElement);
 		peer.source.disconnect();
 		peer.pan.disconnect();
 		peer.gain.disconnect();
-		peer.destination.disconnect();
 		peer.reverb?.disconnect();
 		peer.muffle?.disconnect();
-
-		try {
-			peer.context.close();
-		} catch (error) {
-			console.warn('Failed to close AudioContext for peer', peerId, error);
-		}
 	}
 
 	private teardownAudioElement(element: HTMLAudioElement): void {
@@ -384,9 +434,10 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		impostorRadioClientId: number
 	): number | null {
 		const peer = this.peers.get(peerId);
-		if (!peer) return null;
+		const destination = this.masterGain;
+		if (!peer || !destination) return null;
 
-		const { pan, gain, muffle, reverb, destination } = peer;
+		const { pan, gain, muffle, reverb } = peer;
 		const result = calculateVoiceAudio({
 			state,
 			settings,

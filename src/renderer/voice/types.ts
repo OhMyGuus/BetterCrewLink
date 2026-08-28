@@ -7,14 +7,11 @@ export interface ExtendedAudioElement extends HTMLAudioElement {
 
 export interface PeerAudioNodes {
 	dummyAudioElement: HTMLAudioElement;
-	audioElement: HTMLAudioElement;
 	gain: GainNode;
 	pan: PannerNode;
 	reverb: ConvolverNode;
 	muffle: BiquadFilterNode;
-	destination: MediaStreamAudioDestinationNode;
 	source: MediaStreamAudioSourceNode;
-	context: AudioContext;
 	reverbConnected: boolean;
 	muffleConnected: boolean;
 }

@@ -1,5 +1,5 @@
 import { MapType, Vector2 } from './AmongusMap';
-import intersect from 'path-intersection';
+import intersect, { parsePath, PathComponent } from 'path-intersection';
 
 export const colliderMaps: { [key in MapType]: string[] | undefined } = {
 	[MapType.THE_SKELD]: [
@@ -146,6 +146,17 @@ export const doorMaps: { [key in MapType]: { [key in number]: string | undefined
 	[MapType.UNKNOWN]: undefined,
 };
 
+const parsedPathCache = new Map<string, PathComponent[]>();
+
+function parsedPath(path: string): PathComponent[] {
+	let parsed = parsedPathCache.get(path);
+	if (!parsed) {
+		parsed = parsePath(path);
+		parsedPathCache.set(path, parsed);
+	}
+	return parsed;
+}
+
 export function poseCollide(p1: Vector2, p2: Vector2, map: MapType, closedDoors: number[]): boolean {
 	if (map === MapType.THE_SKELD_APRIL) {
 		p1.x = p1.x * -1;
@@ -156,9 +167,9 @@ export function poseCollide(p1: Vector2, p2: Vector2, map: MapType, closedDoors:
 	if (!colliderMap || map === MapType.UNKNOWN) {
 		return false;
 	}
+	const segment = `M ${p1.x + 40} ${40 - p1.y} L ${p2.x + 40} ${40 - p2.y}`;
 	for (const collider of colliderMap) {
-		const intersections = intersect(collider, `M ${p1.x + 40} ${40 - p1.y} L ${p2.x + 40} ${40 - p2.y}`);
-		if (intersections.length > 0) {
+		if (intersect(parsedPath(collider), segment, true) > 0) {
 			return true;
 		}
 	}
@@ -168,11 +179,8 @@ export function poseCollide(p1: Vector2, p2: Vector2, map: MapType, closedDoors:
 	}
 	for (const doorId of Object.values(closedDoors)) {
 		const doorPath = doorMap[doorId];
-		if (doorPath) {
-			const intersections = intersect(doorPath, `M ${p1.x + 40} ${40 - p1.y} L ${p2.x + 40} ${40 - p2.y}`);
-			if (intersections.length > 0) {
-				return true;
-			}
+		if (doorPath && intersect(parsedPath(doorPath), segment, true) > 0) {
+			return true;
 		}
 	}
 	return false;

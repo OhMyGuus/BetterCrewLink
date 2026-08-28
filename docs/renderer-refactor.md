@@ -31,14 +31,14 @@ SettingsStore ──────────────┘            └──
 
 ### `voice/`
 
-| File | Responsibility |
-| --- | --- |
-| `ConnectionController.ts` | Socket.io connection, join/leave/id/setHost, `clientPeerConfig` validation and ICE selection, the peer map, ICE-restart timers, datachannel traffic, the mobile-host beacon, public-lobby publishing. No WebAudio, no React. |
-| `AudioController.ts` | `getUserMedia`, microphone gain, VAD, mute/deafen/push-to-talk plus their hotkey IPC, and the per-peer output chain (source → pan → gain → [muffle] → [reverb] → destination → `<audio>` + `setSinkId`). No socket, no React. |
-| `VoiceController.ts` | Orchestrator and the only thing React touches. Subscribes to `gameStore` and `SettingsStore`, derives the local/other players and peer mapping, drives lobby join/leave, runs the per-tick gain loop, and publishes voice state to the overlay (IPC) and OBS (socket). Exposes `subscribe`/`getSnapshot` over an immutable `VoiceSnapshot`. |
-| `spatialAudio.ts` | Pure. `calculateVoiceAudio(input)` returns a `VoiceAudioResult` describing gain, pan, muffle and reverb; it no longer touches WebAudio nodes. `AudioController` applies the result. |
-| `types.ts` | `PeerAudioNodes`, `ExtendedAudioElement`, `ClientPeerConfig`, `VoiceSnapshot`, the two ICE configs, `defaultLobbySettings`. |
-| `useVoiceController.ts` | The React seam. `useVoiceSnapshot()` reads without starting; `useVoiceEngine()` starts the engine for as long as the caller is mounted. |
+| File                      | Responsibility                                                                                                                                                                                                                                                                                                                              |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ConnectionController.ts` | Socket.io connection, join/leave/id/setHost, `clientPeerConfig` validation and ICE selection, the peer map, ICE-restart timers, datachannel traffic, the mobile-host beacon, public-lobby publishing. No WebAudio, no React.                                                                                                                |
+| `AudioController.ts`      | `getUserMedia`, microphone gain, VAD, mute/deafen/push-to-talk plus their hotkey IPC, and the per-peer output chain (source → pan → gain → [muffle] → [reverb] → shared master bus). No socket, no React.                                                                                                                                   |
+| `VoiceController.ts`      | Orchestrator and the only thing React touches. Subscribes to `gameStore` and `SettingsStore`, derives the local/other players and peer mapping, drives lobby join/leave, runs the per-tick gain loop, and publishes voice state to the overlay (IPC) and OBS (socket). Exposes `subscribe`/`getSnapshot` over an immutable `VoiceSnapshot`. |
+| `spatialAudio.ts`         | Pure. `calculateVoiceAudio(input)` returns a `VoiceAudioResult` describing gain, pan, muffle and reverb; it no longer touches WebAudio nodes. `AudioController` applies the result.                                                                                                                                                         |
+| `types.ts`                | `PeerAudioNodes`, `ExtendedAudioElement`, `ClientPeerConfig`, `VoiceSnapshot`, the two ICE configs, `defaultLobbySettings`.                                                                                                                                                                                                                 |
+| `useVoiceController.ts`   | The React seam. `useVoiceSnapshot()` reads without starting; `useVoiceEngine()` starts the engine for as long as the caller is mounted.                                                                                                                                                                                                     |
 
 `getSnapshot()` returns the same object reference until `patch()` actually changes a field —
 required by `useSyncExternalStore`, and the easiest thing to break here.
@@ -80,7 +80,7 @@ that folder as the implicit renderer root and `src/main/index.ts` resolves
 
 1. **Peers of departed players were never silenced.**
    `Voice.tsx:1355` used `for (const peerId in Object.keys(...).filter(...))`. `for...in` over
-   an *array* yields indices (`"0"`, `"1"`, …), so `audioElements.current[peerId]` was always
+   an _array_ yields indices (`"0"`, `"1"`, …), so `audioElements.current[peerId]` was always
    `undefined` and the loop body never ran. Replaced by
    `AudioController.silencePeersExcept(handledPeerIds)`.
 
@@ -118,15 +118,23 @@ Also removed: a stray `console.log('HEY')` in `index.ts` and its stale comment c
 `global`/`process` shims exist for `simple-peer` (replaced by `lib/PeerConnection.ts`). The
 shims themselves were kept — other bundled dependencies may still rely on them.
 
-## Recommended follow-up, not done here
+## Follow-up: audio graph consolidation
 
-**One `AudioContext` per peer.** `Voice.tsx:1134` created a new `AudioContext` for every peer
-and `AudioController.addPeer` still does. Browsers cap concurrent contexts (roughly 6 in
-Chrome), so a full 10-player lobby is likely already hitting the limit and silently failing to
-build graphs for the last few players. A single shared context with one
-`MediaStreamAudioDestinationNode` per peer would fix it and still supports per-peer
-`setSinkId`. It changes audio behaviour, so it deserves its own change rather than being
-buried in a refactor.
+The one-`AudioContext`-per-peer design was left alone by this refactor and fixed in the next
+commit. See **Audio graph** below.
+
+## Remaining follow-up, not done
+
+**`vad.ts` uses `createScriptProcessor`** (`vad.ts:99`). It is deprecated and runs its callback
+on the **main thread** roughly every 21 ms, which is a plausible jank source; `AudioWorklet` is
+the modern replacement. Left alone because the noise-floor calibration and hysteresis are
+delicate, and it is a fixed cost that does not scale with player count.
+
+Note that `vad.ts:131` connects its `ScriptProcessorNode` to `audioContext.destination`. It
+emits silence only because `monitor()` (`vad.ts:152`) copies input to output solely when a
+`destination` argument was passed, and `AudioController` passes `undefined`. This is what makes
+sharing one context between microphone input and peer output safe — do not pass a destination
+to `VAD()`.
 
 ## Environment note
 
@@ -147,3 +155,100 @@ permanently for everyone; that is a repo-wide decision and was left alone.
 Still needs a live two-client test: audio audible and distance-attenuated between two peers,
 mute/deafen/PTT, ghost and vent rules, impostor radio, the overlay and lobby-browser views,
 and leaving to menu and rejoining twice to confirm no duplicate sockets accumulate.
+
+---
+
+# Audio graph
+
+Follow-up change on top of the refactor above.
+
+## Before
+
+Every peer got its own `AudioContext`, so a nine-other-player lobby ran ten of them. Each
+peer's chain also ended in its own `MediaStreamAudioDestinationNode` feeding its own `<audio>`
+element, a round-trip out of Web Audio and back that exists only so `setSinkId` can pick an
+output device per element.
+
+## After
+
+One `AudioContext`, shared by the microphone and every peer. All peer chains sum into a single
+`masterGain`.
+
+```
+one AudioContext
+
+input:  mic -> [microphoneGain] -> micDestination -> outbound stream
+        mic -> analyser -> scriptProcessor -> destination   (silent, see vad.ts note)
+
+output: peer -> pan -> gain -> [muffle] -> [reverb] -\
+        peer -> pan -> gain -> [muffle] -> [reverb] --> masterGain -> sink
+        peer -> pan -> gain -> [muffle] -> [reverb] -/
+```
+
+**Per-peer effects are unchanged.** Each peer still owns its panner, gain, biquad and
+convolver; only the destination is shared. `AudioNode.disconnect(dest)` removes only that
+node's own edge, so `connectEffect`/`disconnectEffect` work unmodified against `masterGain`.
+
+**Sink selection** is decided once at startup by feature detection. With
+`AudioContext.setSinkId` available, `masterGain` goes straight to `context.destination` and the
+`MediaStream -> <audio>` round-trip disappears entirely. Without it, `masterGain` feeds one
+`MediaStreamAudioDestinationNode` and one `<audio>` element — one, not one per peer.
+
+**Per-peer dummy `<audio>` elements stay.** They are the long-standing Chrome workaround where
+a remote WebRTC stream will not feed Web Audio unless it is also attached to a media element.
+Removing them breaks audio outright.
+
+`PeerAudioNodes` dropped `context`, `destination` and `audioElement`.
+
+## Bugs fixed
+
+1. **Reverb impulse decoded on a foreign context.** `loadConvolverBuffer` used a throwaway
+   `AudioContext` to decode, then assigned that `AudioBuffer` to `ConvolverNode`s on different
+   contexts. Per spec a convolver buffer whose sample rate differs from its context throws
+   `NotSupportedError`; it worked only because every context happened to get the same device
+   rate. Now decoded on the shared context.
+2. **Late impulse meant no ghost reverb.** A peer connecting before the download finished got
+   `reverb.buffer = null` forever. The buffer is now backfilled onto existing peers when it
+   resolves.
+3. **Speaker changes did not affect connected players.** `settings.speaker` was applied only
+   inside `addPeer`. Now `AudioController.setSpeaker` is wired from the settings subscription
+   in `VoiceController`. Selecting "default" maps to `''`, which both `setSinkId` APIs accept —
+   the old code never called `setSinkId` for default, so switching back would have been a
+   no-op.
+
+## Collision-check cost
+
+`spatialAudio.ts` called `poseCollide()` for **every** peer before the distance test, but the
+result was only ever read inside the branch where the peer had already passed it — so most
+calls were computed and discarded. The check now runs at the point of use. Semantics are
+unchanged: impostor radio (`skipDistanceCheck`) already bypassed it, and the haunting branch
+still suppresses it.
+
+`poseCollide` also re-parsed constant SVG collider strings on every call. `path-intersection`
+exports `parsePath` and documents pre-parsing for exactly this; its `justCount` mode also
+avoids building intersection objects that were only tested for emptiness. Both are now used,
+with a lazily populated cache keyed by path string.
+
+Verified equivalent over 900 random segments against 36 real collider paths with zero
+mismatches, and benchmarked at **2.1x** on the check itself — on top of the much larger saving
+from not running it for out-of-range peers.
+
+## Not measured
+
+Whether this Chromium build still enforces the historical ~6-`AudioContext` cap was never
+confirmed; the earlier version of this document asserted it more confidently than the evidence
+supported. To check, in the renderer devtools console:
+
+```js
+const a = [];
+try {
+	for (let i = 0; i < 20; i++) a.push(new AudioContext());
+} catch (e) {
+	console.log('capped at', a.length, e.message);
+} finally {
+	a.forEach((c) => c.close());
+}
+```
+
+End-to-end CPU before and after was also not measured, so the thread reduction should be
+treated as a robustness win rather than a demonstrated performance one.

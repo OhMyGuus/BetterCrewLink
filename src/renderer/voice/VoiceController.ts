@@ -97,6 +97,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		pushToTalkMode: -1,
 		microphoneGain: -1,
 		micSensitivity: -1,
+		speaker: '',
 		localLobbySettings: null as ILobbySettings | null,
 	};
 
@@ -121,6 +122,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		this.prev.pushToTalkMode = settings.pushToTalkMode;
 		this.prev.microphoneGain = settings.microphoneGain;
 		this.prev.micSensitivity = settings.micSensitivity;
+		this.prev.speaker = settings.speaker;
 		this.prev.localLobbySettings = settings.localLobbySettings;
 		this.patch({ lobbySettings: settings.localLobbySettings ?? defaultLobbySettings });
 
@@ -287,6 +289,11 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		if (settings.pushToTalkMode !== this.prev.pushToTalkMode) {
 			this.prev.pushToTalkMode = settings.pushToTalkMode;
 			this.audio.setPushToTalkMode(settings.pushToTalkMode);
+		}
+
+		if (settings.speaker !== this.prev.speaker) {
+			this.prev.speaker = settings.speaker;
+			this.audio.setSpeaker(settings.speaker);
 		}
 
 		if (settings.microphoneGain !== this.prev.microphoneGain || settings.micSensitivity !== this.prev.micSensitivity) {
