@@ -1,4 +1,4 @@
-// Node globals required at runtime by browser-bundled deps (simple-peer -> randombytes/readable-stream)
+// Node globals required at runtime by browser-bundled deps
 if (typeof globalThis.global === 'undefined') globalThis.global = globalThis;
 if (typeof globalThis.process === 'undefined') {
 	globalThis.process = {
@@ -10,13 +10,12 @@ if (typeof globalThis.process === 'undefined') {
 if (typeof window !== 'undefined' && window.location) {
 	const query = new URLSearchParams(window.location.search.substring(1));
 
-	console.log('HEY');
 	const view = query.get('view') || 'app';
 	if (view === 'app') {
-		import('./App');
+		import('./views/App');
 	} else if (view === 'lobbies') {
-		import('./LobbyBrowser/LobbyBrowserContainer');
+		import('./views/LobbyBrowser/LobbyBrowserContainer');
 	} else {
-		import('./Overlay');
+		import('./views/Overlay');
 	}
 }

@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useState, CSSProperties } from 'react';
-import { ipcRenderer } from './electron-bridge';
-import { AmongUsState, GameState, VoiceState } from '../common/AmongUsState';
-import { IpcOverlayMessages, IpcMessages } from '../common/ipc-messages';
+import { ipcRenderer } from '../lib/electron-bridge';
+import { AmongUsState, GameState, VoiceState } from '../../common/AmongUsState';
+import { IpcOverlayMessages, IpcMessages } from '../../common/ipc-messages';
 import { createRoot } from 'react-dom/client';
 import Box from '@mui/material/Box';
-import './css/overlay.css';
-import Avatar from './Avatar';
-import { ISettings } from '../common/ISettings';
-import { DEFAULT_PLAYERCOLORS } from '../common/playerColors';
+import '../css/overlay.css';
+import Avatar from '../components/Avatar';
+import { ISettings } from '../../common/ISettings';
+import { DEFAULT_PLAYERCOLORS } from '../../common/playerColors';
 
 interface UseStylesProps {
 	height: number;
@@ -98,7 +98,7 @@ const Overlay: React.FC = function () {
 			ipcRenderer.off(IpcOverlayMessages.NOTIFY_GAME_STATE_CHANGED, onState);
 			ipcRenderer.off(IpcOverlayMessages.NOTIFY_VOICE_STATE_CHANGED, onVoiceState);
 			ipcRenderer.off(IpcOverlayMessages.NOTIFY_SETTINGS_CHANGED, onSettings);
-			ipcRenderer.on(IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, onColorChange);
+			ipcRenderer.off(IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, onColorChange);
 		};
 	}, []);
 

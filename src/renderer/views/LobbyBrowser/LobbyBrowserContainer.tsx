@@ -6,14 +6,14 @@ import RefreshSharpIcon from '@mui/icons-material/RefreshSharp';
 import CloseIcon from '@mui/icons-material/Close';
 import MinimizeIcon from '@mui/icons-material/Minimize';
 import IconButton from '@mui/material/IconButton';
-import '../css/index.css';
+import '../../css/index.css';
 import 'source-code-pro/source-code-pro.css';
 import 'typeface-varela/index.css';
-import '../language/i18n';
-import theme from '../theme';
+import '../../language/i18n';
+import theme from '../../lib/theme';
 import LobbyBrowser from './LobbyBrowser';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { ipcRenderer } from '../electron-bridge';
+import { ipcRenderer } from '../../lib/electron-bridge';
 
 const useStyles = () => ({
 	root: {

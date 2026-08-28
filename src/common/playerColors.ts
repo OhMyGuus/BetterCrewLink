@@ -24,3 +24,5 @@ export function numberToColorHex(colour: number): string {
 			.join('')
 	);
 }
+
+export const RainbowColorId = -99234;

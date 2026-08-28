@@ -1,9 +1,10 @@
 // @ts-ignore
-import redAliveimg from '../../static/images/avatar/placeholder.png'; // @ts-ignore
-import rainbowAliveimg from '../../static/images/avatar/rainbow-alive.png'; // @ts-ignore
-import rainbowDeadeimg from '../../static/images/avatar/rainbow-dead.png';
+import redAliveimg from '../../../static/images/avatar/placeholder.png'; // @ts-ignore
+import rainbowAliveimg from '../../../static/images/avatar/rainbow-alive.png'; // @ts-ignore
+import rainbowDeadeimg from '../../../static/images/avatar/rainbow-dead.png';
 
-import { ModsType } from '../common/Mods';
+import { ModsType } from '../../common/Mods';
+import { RainbowColorId } from '../../common/playerColors';
 export const redAlive = redAliveimg;
 
 export enum cosmeticType {
@@ -97,7 +98,6 @@ export function getHatDementions(id: string, mod: ModsType): HatDementions {
 	};
 }
 
-export const RainbowColorId = -99234;
 export function getCosmetic(
 	color: number,
 	isAlive: boolean,

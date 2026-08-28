@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Player } from '../common/AmongUsState';
+import { Player } from '../../common/AmongUsState';
 import {
 	getCosmetic,
 	redAlive,
@@ -8,21 +8,21 @@ import {
 	initializedHats as initializedHats,
 	initializeHats,
 	HatDementions,
-} from './cosmetics';
+} from '../lib/cosmetics';
 import Box from '@mui/material/Box';
 import MicOff from '@mui/icons-material/MicOff';
 import VolumeOff from '@mui/icons-material/VolumeOff';
 import WifiOff from '@mui/icons-material/WifiOff';
 import LinkOff from '@mui/icons-material/LinkOff';
 import ErrorOutlineOutlined from '@mui/icons-material/ErrorOutlineOutlined'; //@ts-ignore
-import RadioSVG from '../../static/radio.svg';
+import RadioSVG from '../../../static/radio.svg';
 import { Tooltip } from '@mui/material';
-import { SocketConfig } from '../common/ISettings';
+import { SocketConfig } from '../../common/ISettings';
 import Slider from '@mui/material/Slider';
 import VolumeUp from '@mui/icons-material/VolumeUp';
 import IconButton from '@mui/material/IconButton';
 import Grid from '@mui/material/Grid';
-import { ModsType } from '../common/Mods';
+import { ModsType } from '../../common/Mods';
 
 const useStyles = () => ({
 	canvas: {

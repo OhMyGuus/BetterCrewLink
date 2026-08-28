@@ -20,7 +20,7 @@ import { fetchOffsetLookup, fetchOffsets, IOffsets, IOffsetsLookup } from './off
 import Errors from '../common/Errors';
 import { CameraLocation, MapType } from '../common/AmongusMap';
 import { GenerateAvatars, numberToColorHex } from './avatarGenerator';
-import { RainbowColorId } from '../renderer/cosmetics';
+import { RainbowColorId } from '../common/playerColors';
 import { platform } from 'os';
 import fs from 'fs';
 import path from 'path';

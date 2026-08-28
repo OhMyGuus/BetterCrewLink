@@ -1,5 +1,5 @@
 import React, { ReactNode, useCallback, useContext, useEffect, useReducer, useState } from 'react';
-import { SettingsContext, GameStateContext, HostSettingsContext } from '../contexts';
+import { SettingsContext, GameStateContext, HostSettingsContext } from '../state/contexts';
 import MicrophoneSoundBar from './MicrophoneSoundBar';
 import TestSpeakersButton from './TestSpeakersButton';
 import { ISettings, ILobbySettings } from '../../common/ISettings';
@@ -20,7 +20,7 @@ import { Dialog, TextField } from '@mui/material';
 import ChevronLeft from '@mui/icons-material/ArrowBack';
 import Alert from '@mui/material/Alert';
 import { GameState } from '../../common/AmongUsState';
-import { ipcRenderer } from '../electron-bridge';
+import { ipcRenderer } from '../lib/electron-bridge';
 import { IpcHandlerMessages } from '../../common/ipc-messages';
 import i18next, { TFunction } from 'i18next';
 import languages from '../language/languages';
@@ -169,7 +169,7 @@ const Settings: React.FC<SettingsProps> = function ({ t, open, onClose }: Settin
 	const classes = useStyles({ open });
 	const [settings, setSettings, setLobbySettings] = useContext(SettingsContext);
 	const gameState = useContext(GameStateContext);
-	const [hostLobbySettings] = useContext(HostSettingsContext);
+	const hostLobbySettings = useContext(HostSettingsContext);
 	const [unsavedCount, setUnsavedCount] = useState(0);
 	const unsaved = unsavedCount > 1;
 

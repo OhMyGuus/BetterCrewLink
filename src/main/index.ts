@@ -39,9 +39,18 @@ declare global {
 }
 
 protocol.registerSchemesAsPrivileged([
-	{ scheme: 'static', privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true } },
-	{ scheme: 'generate', privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true } },
-	{ scheme: 'app', privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true } },
+	{
+		scheme: 'static',
+		privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true },
+	},
+	{
+		scheme: 'generate',
+		privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true },
+	},
+	{
+		scheme: 'app',
+		privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true },
+	},
 ]);
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
@@ -108,7 +117,6 @@ function createMainWindow() {
 			});
 		});
 	}
-
 
 	loadView(window, 'app');
 
@@ -291,7 +299,11 @@ if (!gotTheLock) {
 		protocol.handle('generate', async (request) => {
 			const requestUrl = new URL(request.url);
 			const imagePath = new URL(requestUrl.searchParams.get('url')!);
-			const filePath = await GenerateHat(imagePath, gameReader.playercolors, Number(requestUrl.searchParams.get('color')));
+			const filePath = await GenerateHat(
+				imagePath,
+				gameReader.playercolors,
+				Number(requestUrl.searchParams.get('color'))
+			);
 			return net.fetch(pathToFileURL(filePath).toString());
 		});
 

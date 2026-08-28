@@ -1,4 +1,4 @@
-import { ipcRenderer } from '../electron-bridge';
+import { ipcRenderer } from '../lib/electron-bridge';
 import { ILobbySettings, ISettings, SocketConfig } from '../../common/ISettings';
 import { pushToTalkOptions } from '../../common/pushToTalkOptions';
 

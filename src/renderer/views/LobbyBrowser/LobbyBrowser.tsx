@@ -8,16 +8,16 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import { ipcRenderer } from '../electron-bridge';
-import { IpcHandlerMessages, IpcMessages } from '../../common/ipc-messages';
+import { ipcRenderer } from '../../lib/electron-bridge';
+import { IpcHandlerMessages, IpcMessages } from '../../../common/ipc-messages';
 import io, { Socket } from 'socket.io-client';
 import i18next from 'i18next';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Tooltip } from '@mui/material';
-import languages from '../language/languages';
-import { PublicLobbyMap, PublicLobby } from '../../common/PublicLobby';
-import { modList, ModsType } from '../../common/Mods';
-import { GameState } from '../../common/AmongUsState';
-import { initSettings } from '../settings/SettingsStore';
+import languages from '../../language/languages';
+import { PublicLobbyMap, PublicLobby } from '../../../common/PublicLobby';
+import { modList, ModsType } from '../../../common/Mods';
+import { GameState } from '../../../common/AmongUsState';
+import { initSettings } from '../../settings/SettingsStore';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
 	'&.MuiTableCell-head': {

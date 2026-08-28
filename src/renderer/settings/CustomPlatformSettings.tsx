@@ -17,8 +17,8 @@ import React, { useMemo, useState, useEffect, useContext } from 'react';
 import ChevronLeft from '@mui/icons-material/ArrowBack';
 import { GamePlatformInstance, PlatformRunType } from '../../common/GamePlatform';
 import path from 'path';
-import { platform, getPathForFile } from '../electron-bridge';
-import { SettingsContext } from '../contexts';
+import { platform, getPathForFile } from '../lib/electron-bridge';
+import { SettingsContext } from '../state/contexts';
 
 const useStyles = () => {
 	const theme = useTheme();

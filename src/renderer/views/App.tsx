@@ -1,21 +1,17 @@
-import React, { Dispatch, SetStateAction, useEffect, useState, useRef } from 'react';
-import Voice from './Voice';
+import React, { Dispatch, SetStateAction, useEffect, useState, useSyncExternalStore } from 'react';
+import VoiceView from './VoiceView';
 import Menu from './Menu';
-import { ipcRenderer, shell } from './electron-bridge';
-import { AmongUsState } from '../common/AmongUsState';
-import Settings from './settings/Settings';
-import SettingsStore, { setSetting, setLobbySetting, initSettings } from './settings/SettingsStore';
-import { GameStateContext, SettingsContext, PlayerColorContext, HostSettingsContext } from './contexts';
+import { ipcRenderer, shell } from '../lib/electron-bridge';
+import Settings from '../settings/Settings';
+import SettingsStore, { setSetting, setLobbySetting, initSettings } from '../settings/SettingsStore';
+import { GameStateContext, SettingsContext, PlayerColorContext, HostSettingsContext } from '../state/contexts';
+import { gameStore, startGameStore } from '../state/gameStore';
+import { startOverlayBridge } from '../state/overlayBridge';
+import { useVoiceSnapshot } from '../voice/useVoiceController';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import {
-	AutoUpdaterState,
-	IpcHandlerMessages,
-	IpcMessages,
-	IpcRendererMessages,
-	IpcSyncMessages,
-} from '../common/ipc-messages';
-import theme from './theme';
+import { AutoUpdaterState, IpcMessages, IpcRendererMessages } from '../../common/ipc-messages';
+import theme from '../lib/theme';
 import SettingsIcon from '@mui/icons-material/Settings';
 import RefreshSharpIcon from '@mui/icons-material/RefreshSharp';
 import CloseIcon from '@mui/icons-material/Close';
@@ -28,15 +24,13 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import prettyBytes from 'pretty-bytes';
-import { IpcOverlayMessages } from '../common/ipc-messages';
 import { createRoot } from 'react-dom/client';
-import './css/index.css';
+import '../css/index.css';
 import 'source-code-pro/source-code-pro.css';
 import 'typeface-varela/index.css';
-import { DEFAULT_PLAYERCOLORS } from '../common/playerColors';
-import './language/i18n';
+import '../language/i18n';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { ISettings, ILobbySettings } from '../common/ISettings';
+import { ISettings } from '../../common/ISettings';
 
 let appVersion = '';
 if (typeof window !== 'undefined' && window.location) {
@@ -103,32 +97,23 @@ const RawTitleBar: React.FC<TitleBarProps> = function ({ settingsOpen, setSettin
 
 const TitleBar = React.memo(RawTitleBar);
 
-enum AppState {
-	MENU,
-	VOICE,
-}
 export default function App({ t }: WithTranslation): React.JSX.Element {
-	const [state, setState] = useState<AppState>(AppState.MENU);
-	const [gameState, setGameState] = useState<AmongUsState>({} as AmongUsState);
 	const [settingsOpen, setSettingsOpen] = useState(false);
 	const [diaOpen, setDiaOpen] = useState(true);
-	const [error, setError] = useState('');
-	const [updaterState, setUpdaterState] = useState<AutoUpdaterState>({
-		state: 'unavailable',
-	});
-	const playerColors = useRef<string[][]>(DEFAULT_PLAYERCOLORS);
-	const overlayInitCount = useRef<number>(0);
+	const [updaterState, setUpdaterState] = useState<AutoUpdaterState>({ state: 'unavailable' });
 
 	const [settings, setSettings] = useState<ISettings>({} as ISettings);
 	const [settingsLoaded, setSettingsLoaded] = useState(false);
-	const [hostLobbySettings, setHostLobbySettings] = useState<ILobbySettings>({} as ILobbySettings);
+
+	const { gameState, gameOpen, playerColors, error } = useSyncExternalStore(gameStore.subscribe, gameStore.getSnapshot);
+	const voice = useVoiceSnapshot();
+
 	useEffect(() => {
 		const onSettingsChanged = (newValue: ISettings) => setSettings(newValue);
 		SettingsStore.onDidAnyChange(onSettingsChanged);
 		initSettings()
 			.then((s) => {
 				setSettings(s);
-				setHostLobbySettings(s.localLobbySettings);
 				setSettingsLoaded(true);
 			})
 			.catch(() => setSettingsLoaded(true));
@@ -136,92 +121,27 @@ export default function App({ t }: WithTranslation): React.JSX.Element {
 	}, []);
 
 	useEffect(() => {
-		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, playerColors.current);
-		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_SETTINGS_CHANGED, SettingsStore.store);
-		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_GAME_STATE_CHANGED, gameState);
-	}, [overlayInitCount.current]);
+		if (!settingsLoaded) return;
+		startGameStore();
+		startOverlayBridge();
+	}, [settingsLoaded]);
 
 	useEffect(() => {
-		const onOpen = (_: unknown, isOpen: boolean) => {
-			setState(isOpen ? AppState.VOICE : AppState.MENU);
-		};
-		const onState = (_: unknown, newState: AmongUsState) => {
-			setGameState(newState);
-		};
-
-		const onError = (_: unknown, error: string) => {
-			shouldInit = false;
-			setError(error);
-		};
 		const onAutoUpdaterStateChange = (_: unknown, state: AutoUpdaterState) => {
 			setUpdaterState((old) => ({ ...old, ...state }));
 		};
-		const onColorsChange = (_: unknown, colors: string[][]) => {
-			console.log('RECIEVED COLORS');
-			playerColors.current = colors;
-			ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, colors);
-		};
-
-		const onOverlayInit = () => {
-			overlayInitCount.current++;
-		};
-
-		let shouldInit = true;
-		ipcRenderer
-			.invoke(IpcHandlerMessages.START_HOOK)
-			.then(() => {
-				if (shouldInit) {
-					setGameState(ipcRenderer.sendSync(IpcSyncMessages.GET_INITIAL_STATE) as AmongUsState);
-				}
-			})
-			.catch((error: Error) => {
-				if (shouldInit) {
-					shouldInit = false;
-					setError(error.message);
-				}
-			});
 		ipcRenderer.on(IpcRendererMessages.AUTO_UPDATER_STATE, onAutoUpdaterStateChange);
-		ipcRenderer.on(IpcRendererMessages.NOTIFY_GAME_OPENED, onOpen);
-		ipcRenderer.on(IpcRendererMessages.NOTIFY_GAME_STATE_CHANGED, onState);
-		ipcRenderer.on(IpcRendererMessages.ERROR, onError);
-		ipcRenderer.on(IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, onColorsChange);
-		ipcRenderer.on(IpcOverlayMessages.REQUEST_INITVALUES, onOverlayInit);
-
-		return () => {
-			ipcRenderer.off(IpcRendererMessages.AUTO_UPDATER_STATE, onAutoUpdaterStateChange);
-			ipcRenderer.off(IpcRendererMessages.NOTIFY_GAME_OPENED, onOpen);
-			ipcRenderer.off(IpcRendererMessages.NOTIFY_GAME_STATE_CHANGED, onState);
-			ipcRenderer.off(IpcRendererMessages.ERROR, onError);
-			ipcRenderer.off(IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, onColorsChange);
-			shouldInit = false;
-		};
+		return () => ipcRenderer.off(IpcRendererMessages.AUTO_UPDATER_STATE, onAutoUpdaterStateChange);
 	}, []);
-
-	useEffect(() => {
-		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_GAME_STATE_CHANGED, gameState);
-	}, [gameState]);
-
-	useEffect(() => {
-		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, playerColors.current);
-		ipcRenderer.send(IpcMessages.SEND_TO_OVERLAY, IpcOverlayMessages.NOTIFY_SETTINGS_CHANGED, SettingsStore.store);
-	}, [settings]);
-
-	let page;
-	switch (state) {
-		case AppState.MENU:
-			page = <Menu t={t} error={error} />;
-			break;
-		case AppState.VOICE:
-			page = <Voice t={t} error={error} />;
-			break;
-	}
 
 	if (!settingsLoaded) return null;
 
+	const lobbySettings = voice.lobbySettings ?? settings.localLobbySettings;
+
 	return (
-		<PlayerColorContext.Provider value={playerColors.current}>
+		<PlayerColorContext.Provider value={playerColors}>
 			<GameStateContext.Provider value={gameState}>
-				<HostSettingsContext.Provider value={[hostLobbySettings, setHostLobbySettings]}>
+				<HostSettingsContext.Provider value={lobbySettings}>
 					<SettingsContext.Provider value={[settings, setSetting, setLobbySetting]}>
 						<StyledEngineProvider injectFirst>
 							<ThemeProvider theme={theme}>
@@ -262,36 +182,19 @@ export default function App({ t }: WithTranslation): React.JSX.Element {
 											>
 												Download Manually
 											</Button>
-											<Button
-												color="grey"
-												onClick={() => {
-													setDiaOpen(false);
-												}}
-											>
+											<Button color="grey" onClick={() => setDiaOpen(false)}>
 												Skip
 											</Button>
 										</DialogActions>
 									)}
 									{updaterState.state === 'available' && (
 										<DialogActions>
-											<Button
-												onClick={() => {
-													ipcRenderer.send('update-app');
-												}}
-											>
-												Now
-											</Button>
-											<Button
-												onClick={() => {
-													setDiaOpen(false);
-												}}
-											>
-												Later
-											</Button>
+											<Button onClick={() => ipcRenderer.send('update-app')}>Now</Button>
+											<Button onClick={() => setDiaOpen(false)}>Later</Button>
 										</DialogActions>
 									)}
 								</Dialog>
-								{page}
+								{gameOpen ? <VoiceView t={t} error={error} /> : <Menu t={t} error={error} />}
 							</ThemeProvider>
 						</StyledEngineProvider>
 					</SettingsContext.Provider>
@@ -300,5 +203,6 @@ export default function App({ t }: WithTranslation): React.JSX.Element {
 		</PlayerColorContext.Provider>
 	);
 }
+
 const App2 = withTranslation()(App);
 createRoot(document.getElementById('app')!).render(<App2 />);

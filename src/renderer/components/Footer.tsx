@@ -1,4 +1,4 @@
-import { shell } from './electron-bridge';
+import { shell } from '../lib/electron-bridge';
 import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';

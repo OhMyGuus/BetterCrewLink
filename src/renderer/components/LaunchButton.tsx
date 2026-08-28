@@ -1,13 +1,13 @@
-import { ipcRenderer } from './electron-bridge';
+import { ipcRenderer } from '../lib/electron-bridge';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { GamePlatformInstance, GamePlatformMap } from '../common/GamePlatform';
-import { SettingsContext } from './contexts';
+import { GamePlatformInstance, GamePlatformMap } from '../../common/GamePlatform';
+import { SettingsContext } from '../state/contexts';
 import Box from '@mui/material/Box';
-import { IpcMessages } from '../common/ipc-messages';
+import { IpcMessages } from '../../common/ipc-messages';
 import { Button, ClickAwayListener, MenuItem, MenuList, Paper, Popper } from '@mui/material';
 import { ToggleButton } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { CustomPlatformSettings } from './settings/CustomPlatformSettings';
+import { CustomPlatformSettings } from '../settings/CustomPlatformSettings';
 
 const useStyles = () => ({
 	button_group: {

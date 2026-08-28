@@ -1,7 +1,7 @@
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import React from 'react';
-import { shell, ipcRenderer } from './electron-bridge';
+import { shell, ipcRenderer } from '../lib/electron-bridge';
 import Box from '@mui/material/Box';
 
 const useStyles = () => ({

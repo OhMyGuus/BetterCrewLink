@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // @ts-ignore
 import chime from '../../../static/sounds/chime.mp3';
-import { ExtendedAudioElement } from '../Voice';
+import { ExtendedAudioElement } from '../voice/types';
 import Button from '@mui/material/Button';
 
 interface TestSpeakersProps {

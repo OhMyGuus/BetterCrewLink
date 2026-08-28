@@ -1,9 +1,9 @@
 import React from 'react';
-import Footer from './Footer';
+import Footer from '../components/Footer';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
-import SupportLink from './SupportLink';
-import LaunchButton from './LaunchButton';
+import SupportLink from '../components/SupportLink';
+import LaunchButton from '../components/LaunchButton';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
