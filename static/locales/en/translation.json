@@ -42,6 +42,15 @@
 			"no_lobby": "Not connected to a lobby yet. Join or host a game to see the settings in effect.",
 			"mine_notice": "These apply to everyone in the lobby while you are the host."
 		},
+		"players": {
+			"title": "Players",
+			"volume": "Volume",
+			"empty": "No other players right now. Join a lobby to adjust their volume.",
+			"disconnected": "Disconnected",
+			"mute": "Mute",
+			"unmute": "Unmute",
+			"muted": "Muted"
+		},
 		"customplatforms": {
 			"title": "Custom Platform",
 			"platform_title": "Title",

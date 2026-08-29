@@ -100,6 +100,8 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		microphoneGain: -1,
 		micSensitivity: -1,
 		speaker: '',
+		inputSignature: '',
+		serverURL: '',
 		myLobbySettings: null as ILobbySettings | null,
 		lobbySettingsLobby: null as string | null,
 		lobbySettingsHosted: false,
@@ -127,6 +129,8 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		this.prev.microphoneGain = settings.microphoneGain;
 		this.prev.micSensitivity = settings.micSensitivity;
 		this.prev.speaker = settings.speaker;
+		this.prev.inputSignature = VoiceController.inputSignature(settings);
+		this.prev.serverURL = settings.serverURL;
 		this.prev.myLobbySettings = settings.myLobbySettings;
 		this.patch({ activeLobbySettings: settings.myLobbySettings ?? defaultLobbySettings });
 
@@ -285,8 +289,45 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		}
 	}
 
+	private static inputSignature(settings: ISettings): string {
+		return [
+			settings.microphone,
+			settings.echoCancellation,
+			settings.noiseSuppression,
+			settings.oldSampleDebug,
+			settings.vadEnabled,
+			settings.microphoneGainEnabled,
+			settings.micSensitivityEnabled,
+		].join('|');
+	}
+
+	private reconnectToServer(serverURL: string): void {
+		const stream = this.audio.outboundStream;
+		if (!stream) return;
+		this.connection.stop();
+		this.wireConnection();
+		this.connection.start(serverURL, stream);
+	}
+
+	private async rebuildAudioInput(): Promise<void> {
+		const track = await this.audio.restartInput();
+		if (!track || !this.started) return;
+		this.connection.replaceOutboundTrack(track);
+	}
+
 	private onSettings(settings: ISettings): void {
 		this.playerConfigs = settings.playerConfigMap;
+
+		const inputSignature = VoiceController.inputSignature(settings);
+		if (inputSignature !== this.prev.inputSignature) {
+			this.prev.inputSignature = inputSignature;
+			void this.rebuildAudioInput();
+		}
+
+		if (settings.serverURL !== this.prev.serverURL) {
+			this.prev.serverURL = settings.serverURL;
+			this.reconnectToServer(settings.serverURL);
+		}
 
 		if (settings.pushToTalkMode !== this.prev.pushToTalkMode) {
 			this.prev.pushToTalkMode = settings.pushToTalkMode;

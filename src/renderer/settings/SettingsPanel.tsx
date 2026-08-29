@@ -5,16 +5,15 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Alert from '@mui/material/Alert';
-import Snackbar from '@mui/material/Snackbar';
 import TuneIcon from '@mui/icons-material/Tune';
 import GroupsIcon from '@mui/icons-material/Groups';
+import PersonIcon from '@mui/icons-material/Person';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import KeyboardIcon from '@mui/icons-material/Keyboard';
 import LayersIcon from '@mui/icons-material/Layers';
 import ScienceIcon from '@mui/icons-material/Science';
 import VideocamIcon from '@mui/icons-material/Videocam';
-import { ILobbySettings, ISettings } from '../../common/ISettings';
+import { ILobbySettings } from '../../common/ISettings';
 import { GameState } from '../../common/AmongUsState';
 import { IpcHandlerMessages } from '../../common/ipc-messages';
 import { GameStateContext, SettingsContext } from '../state/contexts';
@@ -23,28 +22,14 @@ import SettingsStore from './SettingsStore';
 import { useConfirmDialog } from './SettingsControls';
 import GeneralSection from './sections/GeneralSection';
 import LobbySection from './sections/LobbySection';
+import PlayersSection from './sections/PlayersSection';
 import AudioSection, { MediaDevice } from './sections/AudioSection';
 import KeybindsSection, { ShortcutSetting } from './sections/KeybindsSection';
 import OverlaySection from './sections/OverlaySection';
 import AdvancedSection from './sections/AdvancedSection';
 import StreamingSection from './sections/StreamingSection';
 
-type CategoryId = 'general' | 'lobby' | 'audio' | 'keybinds' | 'overlay' | 'advanced' | 'streaming';
-
-const RESTART_REQUIRED_SETTINGS: (keyof ISettings)[] = [
-	'microphone',
-	'speaker',
-	'serverURL',
-	'vadEnabled',
-	'hardware_acceleration',
-	'natFix',
-	'noiseSuppression',
-	'oldSampleDebug',
-	'echoCancellation',
-	'mobileHost',
-	'microphoneGainEnabled',
-	'micSensitivityEnabled',
-];
+type CategoryId = 'general' | 'lobby' | 'players' | 'audio' | 'keybinds' | 'overlay' | 'advanced' | 'streaming';
 
 const MY_LOBBY_COMMIT_DELAY = 750;
 
@@ -52,9 +37,10 @@ export interface SettingsPanelProps {
 	t: TFunction;
 	activeLobbySettings: ILobbySettings | null;
 	hostId: number;
+	playerColors: string[][];
 }
 
-const SettingsPanel: React.FC<SettingsPanelProps> = function ({ t, activeLobbySettings, hostId }) {
+const SettingsPanel: React.FC<SettingsPanelProps> = function ({ t, activeLobbySettings, hostId, playerColors }) {
 	const [settings, setSettings] = useContext(SettingsContext);
 	const gameState = useContext(GameStateContext);
 	const { confirm, dialog } = useConfirmDialog(t);
@@ -93,18 +79,6 @@ const SettingsPanel: React.FC<SettingsPanelProps> = function ({ t, activeLobbySe
 			return next;
 		});
 	}, []);
-
-	const initialRestartValues = useRef<Partial<ISettings> | null>(null);
-	if (!initialRestartValues.current) {
-		initialRestartValues.current = Object.fromEntries(
-			RESTART_REQUIRED_SETTINGS.map((key) => [key, settings[key]])
-		) as Partial<ISettings>;
-	}
-	const restartRequired = RESTART_REQUIRED_SETTINGS.some((key) => initialRestartValues.current![key] !== settings[key]);
-
-	useEffect(() => {
-		ipcRenderer.send(IpcHandlerMessages.SETTINGS_PENDING_RELOAD, restartRequired);
-	}, [restartRequired]);
 
 	useEffect(() => {
 		window.addEventListener('beforeunload', flushMyLobbyDraft);
@@ -158,6 +132,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = function ({ t, activeLobbySe
 			[
 				{ id: 'general', label: t('settings.general'), icon: <TuneIcon fontSize="small" /> },
 				{ id: 'lobby', label: t('settings.lobbysettings.title'), icon: <GroupsIcon fontSize="small" /> },
+				{ id: 'players', label: t('settings.players.title'), icon: <PersonIcon fontSize="small" /> },
 				{ id: 'audio', label: t('settings.audio.title'), icon: <VolumeUpIcon fontSize="small" /> },
 				{ id: 'keybinds', label: t('settings.keyboard.title'), icon: <KeyboardIcon fontSize="small" /> },
 				{ id: 'overlay', label: t('settings.overlay.title'), icon: <LayersIcon fontSize="small" /> },
@@ -231,6 +206,9 @@ const SettingsPanel: React.FC<SettingsPanelProps> = function ({ t, activeLobbySe
 							confirm={confirm}
 						/>
 					)}
+					{category === 'players' && (
+						<PlayersSection t={t} gameState={gameState} playerColors={playerColors} settings={settings} />
+					)}
 					{category === 'audio' && (
 						<AudioSection
 							t={t}
@@ -251,11 +229,6 @@ const SettingsPanel: React.FC<SettingsPanelProps> = function ({ t, activeLobbySe
 			</Box>
 
 			{dialog}
-			<Snackbar open={restartRequired} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-				<Alert severity="info" variant="filled">
-					{t('buttons.exit')}
-				</Alert>
-			</Snackbar>
 		</Box>
 	);
 };

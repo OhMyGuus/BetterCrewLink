@@ -177,10 +177,7 @@ function createLobbyBrowser() {
 	return window;
 }
 
-let settingsNeedMainWindowReload = false;
-
 function createSettingsWindow() {
-	settingsNeedMainWindowReload = false;
 	const settingsWindowState = windowStateKeeper({
 		file: 'settings-window-state.json',
 		defaultWidth: 940,
@@ -218,10 +215,6 @@ function createSettingsWindow() {
 	window.once('ready-to-show', () => window.show());
 	window.on('closed', () => {
 		global.settingsWindow = null;
-		if (settingsNeedMainWindowReload) {
-			settingsNeedMainWindowReload = false;
-			global.mainWindow?.reload();
-		}
 	});
 
 	loadView(window, 'settings');
@@ -391,10 +384,6 @@ if (!gotTheLock) {
 
 	ipcMain.on('update-app', () => {
 		autoUpdater.downloadUpdate();
-	});
-
-	ipcMain.on(IpcHandlerMessages.SETTINGS_PENDING_RELOAD, (_event, pending: boolean) => {
-		settingsNeedMainWindowReload = pending;
 	});
 
 	ipcMain.on(IpcHandlerMessages.OPEN_SETTINGS, () => {

@@ -48,6 +48,7 @@ export interface SettingRowProps {
 	control: ReactNode;
 	controlWidth?: number | string;
 	stack?: boolean;
+	icon?: ReactNode;
 }
 
 export const SettingRow: React.FC<SettingRowProps> = function ({
@@ -58,6 +59,7 @@ export const SettingRow: React.FC<SettingRowProps> = function ({
 	control,
 	controlWidth = 300,
 	stack,
+	icon,
 }) {
 	const row = (
 		<Box
@@ -73,6 +75,7 @@ export const SettingRow: React.FC<SettingRowProps> = function ({
 		>
 			<Box sx={{ flex: '1 1 auto', minWidth: 0 }}>
 				<Typography variant="body2" sx={{ fontWeight: 600 }}>
+					{icon}
 					{label}
 				</Typography>
 				{description && (
@@ -139,6 +142,8 @@ export interface SliderRowProps extends Omit<SettingRowProps, 'control'> {
 	onChange: (value: number) => void;
 	color?: 'primary' | 'secondary';
 	toggle?: { checked: boolean; onChange: (checked: boolean) => void };
+	leading?: ReactNode;
+	sliderDisabled?: boolean;
 }
 
 export const SliderRow: React.FC<SliderRowProps> = function ({
@@ -150,9 +155,11 @@ export const SliderRow: React.FC<SliderRowProps> = function ({
 	onChange,
 	color = 'primary',
 	toggle,
+	leading,
+	sliderDisabled,
 	...rest
 }) {
-	const sliderDisabled = rest.disabled || (toggle ? !toggle.checked : false);
+	const isSliderDisabled = rest.disabled || sliderDisabled || (toggle ? !toggle.checked : false);
 	const [localValue, setLocalValue] = useState(value);
 	const dragging = useRef(false);
 	useEffect(() => {
@@ -164,6 +171,7 @@ export const SliderRow: React.FC<SliderRowProps> = function ({
 			{...rest}
 			control={
 				<>
+					{leading}
 					{toggle && (
 						<Switch
 							size="small"
@@ -176,7 +184,7 @@ export const SliderRow: React.FC<SliderRowProps> = function ({
 					<Slider
 						size="small"
 						color={color}
-						disabled={sliderDisabled}
+						disabled={isSliderDisabled}
 						value={localValue}
 						min={min}
 						max={max}

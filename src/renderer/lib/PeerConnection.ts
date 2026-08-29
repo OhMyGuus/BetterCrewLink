@@ -126,6 +126,14 @@ export default class PeerConnection {
 		}
 	}
 
+	replaceAudioTrack(track: MediaStreamTrack): void {
+		if (this.destroyed) return;
+		const sender = this.pc.getSenders().find((candidate) => candidate.track?.kind === 'audio');
+		sender?.replaceTrack(track).catch((error) => {
+			console.warn('Failed to replace outgoing audio track:', error);
+		});
+	}
+
 	send(data: string): void {
 		if (this.writable) {
 			this.dataChannel!.send(data);

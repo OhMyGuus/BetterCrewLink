@@ -67,7 +67,7 @@ const TitleBar: React.FC<{ title: string }> = function ({ title }) {
 function SettingsWindow({ t }: WithTranslation): React.JSX.Element | null {
 	const [settings, setSettings] = useState<ISettings>({} as ISettings);
 	const [settingsLoaded, setSettingsLoaded] = useState(false);
-	const { gameState, activeLobbySettings, hostId } = useSyncExternalStore(
+	const { gameState, activeLobbySettings, hostId, playerColors } = useSyncExternalStore(
 		remoteGameStore.subscribe,
 		remoteGameStore.getSnapshot
 	);
@@ -96,7 +96,12 @@ function SettingsWindow({ t }: WithTranslation): React.JSX.Element | null {
 					<ThemeProvider theme={theme}>
 						<Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
 							<TitleBar title={t('settings.title')} />
-							<SettingsPanel t={t} activeLobbySettings={activeLobbySettings} hostId={hostId} />
+							<SettingsPanel
+								t={t}
+								activeLobbySettings={activeLobbySettings}
+								hostId={hostId}
+								playerColors={playerColors}
+							/>
 						</Box>
 					</ThemeProvider>
 				</StyledEngineProvider>

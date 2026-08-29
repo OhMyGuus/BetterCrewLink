@@ -267,6 +267,13 @@ export class ConnectionController extends TypedEmitter<ConnectionControllerEvent
 		this.socket?.emit('signal', { to: target, data });
 	}
 
+	replaceOutboundTrack(track: MediaStreamTrack): void {
+		this.stream = new MediaStream([track]);
+		for (const peer of this.peers.values()) {
+			peer.replaceAudioTrack(track);
+		}
+	}
+
 	broadcast(payload: string): void {
 		for (const peer of this.peers.values()) {
 			if (!peer.writable) continue;

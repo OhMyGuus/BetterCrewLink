@@ -8,6 +8,7 @@ let started = false;
 let unsubscribeGameStore: (() => void) | undefined;
 let unsubscribeVoice: (() => void) | undefined;
 let lastSentGameState: unknown;
+let lastSentPlayerColors: unknown;
 let lastSentActiveLobbySettings: ILobbySettings | null | undefined;
 let lastSentHostId: number | undefined;
 
@@ -15,6 +16,12 @@ function sendGameState(): void {
 	const { gameState } = gameStore.getSnapshot();
 	lastSentGameState = gameState;
 	ipcRenderer.send(IpcMessages.SEND_TO_SETTINGS, IpcSettingsMessages.NOTIFY_GAME_STATE_CHANGED, gameState);
+}
+
+function sendPlayerColors(): void {
+	const { playerColors } = gameStore.getSnapshot();
+	lastSentPlayerColors = playerColors;
+	ipcRenderer.send(IpcMessages.SEND_TO_SETTINGS, IpcSettingsMessages.NOTIFY_PLAYER_COLORS_CHANGED, playerColors);
 }
 
 function sendActiveLobbySettings(): void {
@@ -35,12 +42,15 @@ function sendHostId(): void {
 
 function sendAll(): void {
 	sendGameState();
+	sendPlayerColors();
 	sendActiveLobbySettings();
 	sendHostId();
 }
 
 function onGameStoreChanged(): void {
-	if (gameStore.getSnapshot().gameState !== lastSentGameState) sendGameState();
+	const { gameState, playerColors } = gameStore.getSnapshot();
+	if (gameState !== lastSentGameState) sendGameState();
+	if (playerColors !== lastSentPlayerColors) sendPlayerColors();
 }
 
 function onVoiceChanged(): void {

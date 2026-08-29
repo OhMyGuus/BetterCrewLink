@@ -37,6 +37,8 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 	private masterElement?: ExtendedAudioElement;
 	private useContextSink = false;
 	private microphoneGain?: GainNode;
+	private inputSource?: MediaStreamAudioSourceNode;
+	private inputDestination?: MediaStreamAudioDestinationNode;
 	private audioListener?: VadNode;
 	private convolverBuffer: AudioBuffer | null = null;
 	private peers = new Map<string, PeerAudioNodes>();
@@ -78,6 +80,46 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		this.createOutputBus(settings.speaker);
 		void this.loadConvolverBuffer();
 
+		try {
+			await this.createInputChain(settings);
+		} catch (error) {
+			this.started = false;
+			this.teardownGraph();
+			throw error;
+		}
+
+		if (!this.started) {
+			this.teardownInputChain();
+			this.teardownGraph();
+			return;
+		}
+
+		this.applyTrackEnabled();
+		this.registerHotkeys();
+	}
+
+	async restartInput(): Promise<MediaStreamTrack | undefined> {
+		if (!this.started || !this.context) return undefined;
+
+		this.teardownInputChain();
+		try {
+			await this.createInputChain(SettingsStore.store);
+		} catch {
+			return undefined;
+		}
+		if (!this.started) {
+			this.teardownInputChain();
+			return undefined;
+		}
+
+		this.applyTrackEnabled();
+		return this.stream?.getAudioTracks()[0];
+	}
+
+	private async createInputChain(settings: ISettings): Promise<void> {
+		const context = this.context;
+		if (!context) return;
+
 		const constraints = {
 			deviceId: undefined as unknown as string,
 			autoGainControl: false,
@@ -89,7 +131,6 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 			googEchoCancellation: settings.echoCancellation, // @ts-ignore-line
 			googTypingNoiseDetection: settings.noiseSuppression, // @ts-ignore-line
 			sampleRate: settings.oldSampleDebug ? 48000 : undefined,
-			sampleSize: settings.oldSampleDebug ? 16 : undefined,
 		};
 		if (settings.microphone.toLowerCase() !== 'default') {
 			constraints.deviceId = settings.microphone;
@@ -99,15 +140,12 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		try {
 			inputStream = await navigator.mediaDevices.getUserMedia({ video: false, audio: constraints });
 		} catch (error) {
-			this.started = false;
-			this.teardownGraph();
 			this.emit('error', "Couldn't connect to your microphone:\n" + error);
 			throw error;
 		}
 
 		if (!this.started) {
 			inputStream.getTracks().forEach((track) => track.stop());
-			this.teardownGraph();
 			return;
 		}
 
@@ -115,6 +153,7 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		this.stream = inputStream;
 
 		const source = context.createMediaStreamSource(inputStream);
+		this.inputSource = source;
 
 		if (settings.microphoneGainEnabled || settings.micSensitivityEnabled) {
 			const microphoneGain = context.createGain();
@@ -123,6 +162,7 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 			microphoneGain.gain.value = settings.microphoneGainEnabled ? settings.microphoneGain / 100 : 1;
 			microphoneGain.connect(destination);
 			this.microphoneGain = microphoneGain;
+			this.inputDestination = destination;
 			this.stream = destination.stream;
 		}
 
@@ -150,9 +190,24 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 			audioListener.init();
 			this.audioListener = audioListener;
 		}
+	}
 
-		this.applyTrackEnabled();
-		this.registerHotkeys();
+	private teardownInputChain(): void {
+		this.audioListener?.destroy();
+		this.audioListener = undefined;
+
+		this.inputSource?.disconnect();
+		this.inputSource = undefined;
+
+		this.microphoneGain?.disconnect();
+		this.microphoneGain = undefined;
+
+		this.inputDestination?.disconnect();
+		this.inputDestination = undefined;
+
+		this.inputStream?.getTracks().forEach((track) => track.stop());
+		this.inputStream = undefined;
+		this.stream = undefined;
 	}
 
 	stop(): void {
@@ -165,14 +220,7 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 			this.removePeer(peerId);
 		}
 
-		this.audioListener?.destroy();
-		this.audioListener = undefined;
-
-		this.inputStream?.getTracks().forEach((track) => track.stop());
-		this.inputStream = undefined;
-		this.stream = undefined;
-		this.microphoneGain = undefined;
-
+		this.teardownInputChain();
 		this.teardownGraph();
 
 		this.mutedState = false;
