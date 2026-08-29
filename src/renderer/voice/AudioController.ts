@@ -428,7 +428,7 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		peerId: string,
 		state: AmongUsState,
 		settings: ISettings,
-		lobbySettings: ILobbySettings,
+		activeLobbySettings: ILobbySettings,
 		me: Player,
 		other: Player,
 		impostorRadioClientId: number
@@ -441,7 +441,7 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		const result = calculateVoiceAudio({
 			state,
 			settings,
-			lobbySettings,
+			activeLobbySettings,
 			me,
 			other,
 			maxDistance: this.maxDistance,

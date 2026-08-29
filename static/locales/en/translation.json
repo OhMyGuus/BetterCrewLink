@@ -33,7 +33,14 @@
 				"enable_warning": "Enabling this will make your lobby public to other BetterCrewLink users!",
 				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
 			},
-			"host_notice": "These settings are controlled by the game host."
+			"host_notice": "These settings are controlled by the game host.",
+			"tab_current": "Current Lobby",
+			"tab_mine": "My Settings",
+			"host": "Host",
+			"host_you": "You",
+			"host_unknown": "Unknown",
+			"no_lobby": "Not connected to a lobby yet. Join or host a game to see the settings in effect.",
+			"mine_notice": "These apply to everyone in the lobby while you are the host."
 		},
 		"customplatforms": {
 			"title": "Custom Platform",
@@ -61,7 +68,7 @@
 				"mode": "Voice Transmission"
 			},
 			"keyboard": {
-				"title": "Keyboard Shortcuts",
+				"title": "Hotkeys",
 				"push_to_talk": "Push to Talk",
 				"mute": "Mute",
 				"deafen": "Deafen",

@@ -56,7 +56,8 @@ const EMPTY_SNAPSHOT: VoiceSnapshot = {
 	playerSocketIds: {},
 	audioConnected: {},
 	impostorRadioClientId: -1,
-	lobbySettings: null,
+	activeLobbySettings: null,
+	hostId: 0,
 };
 
 export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
@@ -99,11 +100,13 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		microphoneGain: -1,
 		micSensitivity: -1,
 		speaker: '',
-		localLobbySettings: null as ILobbySettings | null,
+		myLobbySettings: null as ILobbySettings | null,
+		lobbySettingsLobby: null as string | null,
+		lobbySettingsHosted: false,
 	};
 
-	private get lobbySettings(): ILobbySettings {
-		return this.snapshot.lobbySettings ?? defaultLobbySettings;
+	private get activeLobbySettings(): ILobbySettings {
+		return this.snapshot.activeLobbySettings ?? defaultLobbySettings;
 	}
 
 	getSnapshot = (): VoiceSnapshot => this.snapshot;
@@ -124,8 +127,8 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		this.prev.microphoneGain = settings.microphoneGain;
 		this.prev.micSensitivity = settings.micSensitivity;
 		this.prev.speaker = settings.speaker;
-		this.prev.localLobbySettings = settings.localLobbySettings;
-		this.patch({ lobbySettings: settings.localLobbySettings ?? defaultLobbySettings });
+		this.prev.myLobbySettings = settings.myLobbySettings;
+		this.patch({ activeLobbySettings: settings.myLobbySettings ?? defaultLobbySettings });
 
 		this.wireAudio();
 		this.wireConnection();
@@ -278,7 +281,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 
 		if (Object.prototype.hasOwnProperty.call(data, 'maxDistance')) {
 			if (this.host.parsedHostId !== this.connection.getClient(peerId)?.clientId) return;
-			this.patch({ lobbySettings: { ...defaultLobbySettings, ...data } as ILobbySettings });
+			this.patch({ activeLobbySettings: { ...defaultLobbySettings, ...data } as ILobbySettings });
 		}
 	}
 
@@ -301,11 +304,11 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 			this.audio.updateMicrophoneSettings(settings);
 		}
 
-		if (settings.localLobbySettings !== this.prev.localLobbySettings) {
-			this.prev.localLobbySettings = settings.localLobbySettings;
+		if (settings.myLobbySettings !== this.prev.myLobbySettings) {
+			this.prev.myLobbySettings = settings.myLobbySettings;
 			if (this.host.isHost) {
-				this.connection.broadcast(JSON.stringify(settings.localLobbySettings));
-				this.patch({ lobbySettings: settings.localLobbySettings });
+				this.connection.broadcast(JSON.stringify(settings.myLobbySettings));
+				this.patch({ activeLobbySettings: settings.myLobbySettings });
 			}
 		}
 	}
@@ -324,13 +327,15 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 				parsedHostId: state.hostId > 0 ? state.hostId : this.host.serverHostId,
 				serverHostId: this.host.serverHostId,
 			};
+			this.patch({ hostId: this.host.parsedHostId });
+			this.claimLobbySettingsOwnership(state);
 
-			const lobbySettings = this.lobbySettings;
-			let maxDistance = lobbySettings.visionHearing
+			const activeLobbySettings = this.activeLobbySettings;
+			let maxDistance = activeLobbySettings.visionHearing
 				? myPlayer.isImpostor
-					? lobbySettings.maxDistance
+					? activeLobbySettings.maxDistance
 					: state.lightRadius + 0.5
-				: lobbySettings.maxDistance;
+				: activeLobbySettings.maxDistance;
 			if (maxDistance <= 0.6) maxDistance = 1;
 			this.audio.setMaxDistance(maxDistance);
 		}
@@ -340,7 +345,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 			lobbyCode: state.lobbyCode,
 			gameState: state.gameState,
 			parsedHostId: this.host.parsedHostId,
-			lobbySettings: this.lobbySettings,
+			activeLobbySettings: this.activeLobbySettings,
 		});
 
 		this.handleHostChange(state);
@@ -351,6 +356,25 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		this.cleanupImpostorRadio(state, myPlayer);
 		this.updatePeerAudio(state, myPlayer);
 		this.publishMobileAndObs(state, myPlayer);
+	}
+
+	private claimLobbySettingsOwnership(state: AmongUsState): void {
+		const lobbyCode = state.lobbyCode ?? 'MENU';
+		const joinedOtherLobby = lobbyCode !== this.prev.lobbySettingsLobby;
+		const becameHost = this.host.isHost && !this.prev.lobbySettingsHosted;
+		this.prev.lobbySettingsLobby = lobbyCode;
+		this.prev.lobbySettingsHosted = this.host.isHost;
+		if (!joinedOtherLobby && !becameHost) return;
+
+		if (!this.host.isHost) {
+			this.patch({ activeLobbySettings: null });
+			return;
+		}
+
+		const ownSettings = SettingsStore.store.myLobbySettings ?? defaultLobbySettings;
+		this.prev.myLobbySettings = ownSettings;
+		this.patch({ activeLobbySettings: ownSettings });
+		this.connection.broadcast(JSON.stringify(ownSettings));
 	}
 
 	private handleHostChange(state: AmongUsState): void {
@@ -441,7 +465,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 	}
 
 	private handlePublicLobby(state: AmongUsState, myPlayer: Player | undefined): void {
-		const settings = this.lobbySettings;
+		const settings = this.activeLobbySettings;
 		const playerCount = state.players?.length ?? -1;
 		if (
 			state.gameState === this.prev.publicLobbyGameState &&
@@ -464,17 +488,17 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		if (!state || !this.host.isHost || !state.lobbyCode || state.gameState === GameState.MENU || !state.players) {
 			return;
 		}
-		const lobbySettings = this.lobbySettings;
+		const activeLobbySettings = this.activeLobbySettings;
 		this.connection.publishLobby(state.lobbyCode, {
 			id: -1,
-			title: lobbySettings.publicLobby_title,
+			title: activeLobbySettings.publicLobby_title,
 			host: myPlayer?.name ?? '',
 			current_players: state.players.length,
 			max_players: state.maxPlayers,
 			server: state.currentServer,
-			language: lobbySettings.publicLobby_language,
+			language: activeLobbySettings.publicLobby_language,
 			mods: state.mod,
-			isPublic: lobbySettings.publicLobby_on,
+			isPublic: activeLobbySettings.publicLobby_on,
 			gameState: state.gameState,
 		});
 	}
@@ -488,7 +512,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 			!myPlayer.isImpostor ||
 			myPlayer.isDead ||
 			!(current === myPlayer.clientId || current === -1) ||
-			!this.lobbySettings.impostorRadioEnabled
+			!this.activeLobbySettings.impostorRadioEnabled
 		) {
 			return;
 		}
@@ -531,7 +555,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		if (!state.players || !myPlayer) return;
 
 		const settings = SettingsStore.store;
-		const lobbySettings = this.lobbySettings;
+		const activeLobbySettings = this.activeLobbySettings;
 		const playerSocketIds = this.connection.playerSocketIds;
 		const handledPeerIds: string[] = [];
 		const otherTalking = { ...this.snapshot.otherTalking };
@@ -547,7 +571,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 				peerId,
 				state,
 				settings,
-				lobbySettings,
+				activeLobbySettings,
 				myPlayer,
 				player,
 				this.snapshot.impostorRadioClientId
@@ -591,7 +615,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		if (this.connection.isMobileRunning) {
 			this.connection.signalTo(state.lobbyCode + '_mobile', {
 				gameState: state,
-				lobbySettings: this.lobbySettings,
+				activeLobbySettings: this.activeLobbySettings,
 			});
 		}
 

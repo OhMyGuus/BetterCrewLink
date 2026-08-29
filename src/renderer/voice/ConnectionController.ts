@@ -28,7 +28,7 @@ export interface ConnectionContext {
 	lobbyCode: string;
 	gameState: GameState;
 	parsedHostId: number;
-	lobbySettings: ILobbySettings;
+	activeLobbySettings: ILobbySettings;
 }
 
 interface ConnectionControllerEvents extends Record<string, unknown[]> {
@@ -64,7 +64,7 @@ export class ConnectionController extends TypedEmitter<ConnectionControllerEvent
 		lobbyCode: 'MENU',
 		gameState: GameState.UNKNOWN,
 		parsedHostId: 0,
-		lobbySettings: {} as ILobbySettings,
+		activeLobbySettings: {} as ILobbySettings,
 	};
 
 	get socketClients(): SocketClientMap {
@@ -344,7 +344,7 @@ export class ConnectionController extends TypedEmitter<ConnectionControllerEvent
 			setTimeout(() => {
 				if (!this.context.isHost || !connection.writable) return;
 				try {
-					connection.send(JSON.stringify(this.context.lobbySettings));
+					connection.send(JSON.stringify(this.context.activeLobbySettings));
 				} catch (error) {
 					console.warn('failed to send lobby settings: ', error);
 				}

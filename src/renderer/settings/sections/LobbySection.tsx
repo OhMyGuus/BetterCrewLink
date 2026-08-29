@@ -1,28 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TFunction } from 'i18next';
 import Alert from '@mui/material/Alert';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import { AmongUsState } from '../../../common/AmongUsState';
 import { ILobbySettings } from '../../../common/ISettings';
 import languages from '../../language/languages';
+import { defaultLobbySettings } from '../../voice/types';
 import { ConfirmApi, SelectRow, SettingRow, SettingsSection, SliderRow, SwitchRow } from '../SettingsControls';
+
+type LobbyTab = 'current' | 'mine';
 
 export interface LobbySectionProps {
 	t: TFunction;
-	lobbySettings: ILobbySettings;
-	canChange: boolean;
-	disabledReason: string;
+	gameState: AmongUsState;
+	activeLobbySettings: ILobbySettings | null;
+	hostId: number;
+	myLobbySettings: ILobbySettings;
+	canEditMine: boolean;
+	editDisabledReason: string;
 	update: (partial: Partial<ILobbySettings>) => void;
 	confirm: ConfirmApi['confirm'];
 }
 
-const LobbySection: React.FC<LobbySectionProps> = function ({
-	t,
-	lobbySettings,
-	canChange,
-	disabledReason,
-	update,
-	confirm,
-}) {
+interface RowsProps {
+	t: TFunction;
+	values: ILobbySettings;
+	disabled: boolean;
+	disabledReason?: string;
+	update: (partial: Partial<ILobbySettings>) => void;
+	confirm: ConfirmApi['confirm'];
+}
+
+const LobbySettingRows: React.FC<RowsProps> = function ({ t, values, disabled, disabledReason, update, confirm }) {
 	const toggles: { key: keyof ILobbySettings; label: string }[] = [
 		{ key: 'wallsBlockAudio', label: t('settings.lobbysettings.wallsblockaudio') },
 		{ key: 'visionHearing', label: t('settings.lobbysettings.visiononly') },
@@ -36,22 +48,16 @@ const LobbySection: React.FC<LobbySectionProps> = function ({
 
 	return (
 		<>
-			{!canChange && (
-				<Alert severity="info" sx={{ mb: 2 }}>
-					{disabledReason}
-				</Alert>
-			)}
-
 			<SettingsSection title={t('settings.lobbysettings.title')}>
 				<SliderRow
 					label={
-						lobbySettings.visionHearing
+						values.visionHearing
 							? t('settings.lobbysettings.voicedistance_impostor')
 							: t('settings.lobbysettings.voicedistance')
 					}
-					disabled={!canChange}
+					disabled={disabled}
 					disabledReason={disabledReason}
-					value={lobbySettings.maxDistance}
+					value={values.maxDistance}
 					min={1}
 					max={10}
 					step={0.1}
@@ -62,18 +68,18 @@ const LobbySection: React.FC<LobbySectionProps> = function ({
 					<SwitchRow
 						key={key}
 						label={label}
-						disabled={!canChange}
+						disabled={disabled}
 						disabledReason={disabledReason}
-						checked={lobbySettings[key] as boolean}
+						checked={values[key] as boolean}
 						onChange={(checked) => update({ [key]: checked } as Partial<ILobbySettings>)}
 					/>
 				))}
 				<SwitchRow
 					label={t('settings.lobbysettings.ghost_only')}
 					description={t('settings.lobbysettings.ghost_only_warning')}
-					disabled={!canChange}
+					disabled={disabled}
 					disabledReason={disabledReason}
-					checked={lobbySettings.deadOnly}
+					checked={values.deadOnly}
 					onChange={(checked) =>
 						confirm(
 							t('settings.warning'),
@@ -86,9 +92,9 @@ const LobbySection: React.FC<LobbySectionProps> = function ({
 				<SwitchRow
 					label={t('settings.lobbysettings.meetings_only')}
 					description={t('settings.lobbysettings.meetings_only_warning')}
-					disabled={!canChange}
+					disabled={disabled}
 					disabledReason={disabledReason}
-					checked={lobbySettings.meetingGhostOnly}
+					checked={values.meetingGhostOnly}
 					onChange={(checked) =>
 						confirm(
 							t('settings.warning'),
@@ -104,9 +110,9 @@ const LobbySection: React.FC<LobbySectionProps> = function ({
 				<SwitchRow
 					label={t('settings.lobbysettings.public_lobby.enabled')}
 					description={t('settings.lobbysettings.public_lobby.enable_warning')}
-					disabled={!canChange}
+					disabled={disabled}
 					disabledReason={disabledReason}
-					checked={lobbySettings.publicLobby_on}
+					checked={values.publicLobby_on}
 					onChange={(checked) =>
 						confirm(
 							t('settings.warning'),
@@ -119,7 +125,7 @@ const LobbySection: React.FC<LobbySectionProps> = function ({
 				<SettingRow
 					label={t('settings.lobbysettings.public_lobby.title')}
 					description={t('settings.lobbysettings.public_lobby.ban_warning')}
-					disabled={!canChange}
+					disabled={disabled}
 					disabledReason={disabledReason}
 					control={
 						<TextField
@@ -128,21 +134,94 @@ const LobbySection: React.FC<LobbySectionProps> = function ({
 							spellCheck={false}
 							variant="outlined"
 							color="primary"
-							disabled={!canChange}
-							value={lobbySettings.publicLobby_title}
+							disabled={disabled}
+							value={values.publicLobby_title}
 							onChange={(ev) => update({ publicLobby_title: ev.target.value })}
 						/>
 					}
 				/>
 				<SelectRow
 					label={t('settings.lobbysettings.public_lobby.language')}
-					disabled={!canChange}
+					disabled={disabled}
 					disabledReason={disabledReason}
-					value={lobbySettings.publicLobby_language}
+					value={values.publicLobby_language}
 					options={Object.entries(languages).map(([key, value]) => ({ value: key, label: value.name }))}
 					onChange={(value) => update({ publicLobby_language: value })}
 				/>
 			</SettingsSection>
+		</>
+	);
+};
+
+const noop = () => undefined;
+
+const LobbySection: React.FC<LobbySectionProps> = function ({
+	t,
+	gameState,
+	activeLobbySettings,
+	hostId,
+	myLobbySettings,
+	canEditMine,
+	editDisabledReason,
+	update,
+	confirm,
+}) {
+	const inLobby = activeLobbySettings !== null;
+	const [tab, setTab] = useState<LobbyTab>(inLobby && !gameState?.isHost ? 'current' : 'mine');
+
+	const resolvedHostId = hostId || gameState?.hostId || 0;
+	const hostName = gameState?.isHost
+		? t('settings.lobbysettings.host_you')
+		: (gameState?.players?.find((player) => player.clientId === resolvedHostId)?.name ??
+			t('settings.lobbysettings.host_unknown'));
+
+	return (
+		<>
+			<Tabs
+				value={tab}
+				onChange={(_, value: LobbyTab) => setTab(value)}
+				sx={{ mb: 2, minHeight: 36, borderBottom: '1px solid rgba(255,255,255,0.08)' }}
+			>
+				<Tab value="current" label={t('settings.lobbysettings.tab_current')} sx={{ minHeight: 36, py: 0 }} />
+				<Tab value="mine" label={t('settings.lobbysettings.tab_mine')} sx={{ minHeight: 36, py: 0 }} />
+			</Tabs>
+
+			{tab === 'current' &&
+				(inLobby ? (
+					<>
+						<SettingsSection>
+							<SettingRow
+								label={t('settings.lobbysettings.host')}
+								description={t('settings.lobbysettings.host_notice')}
+								controlWidth="auto"
+								control={
+									<Typography variant="body2" sx={{ fontWeight: 700, color: 'primary.main' }}>
+										{hostName}
+									</Typography>
+								}
+							/>
+						</SettingsSection>
+						<LobbySettingRows t={t} values={activeLobbySettings} disabled update={noop} confirm={confirm} />
+					</>
+				) : (
+					<Alert severity="info">{t('settings.lobbysettings.no_lobby')}</Alert>
+				))}
+
+			{tab === 'mine' && (
+				<>
+					<Alert severity={canEditMine ? 'info' : 'warning'} sx={{ mb: 2 }}>
+						{canEditMine ? t('settings.lobbysettings.mine_notice') : editDisabledReason}
+					</Alert>
+					<LobbySettingRows
+						t={t}
+						values={myLobbySettings ?? defaultLobbySettings}
+						disabled={!canEditMine}
+						disabledReason={editDisabledReason}
+						update={update}
+						confirm={confirm}
+					/>
+				</>
+			)}
 		</>
 	);
 };

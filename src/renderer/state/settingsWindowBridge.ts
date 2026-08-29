@@ -8,7 +8,8 @@ let started = false;
 let unsubscribeGameStore: (() => void) | undefined;
 let unsubscribeVoice: (() => void) | undefined;
 let lastSentGameState: unknown;
-let lastSentLobbySettings: ILobbySettings | null | undefined;
+let lastSentActiveLobbySettings: ILobbySettings | null | undefined;
+let lastSentHostId: number | undefined;
 
 function sendGameState(): void {
 	const { gameState } = gameStore.getSnapshot();
@@ -16,15 +17,26 @@ function sendGameState(): void {
 	ipcRenderer.send(IpcMessages.SEND_TO_SETTINGS, IpcSettingsMessages.NOTIFY_GAME_STATE_CHANGED, gameState);
 }
 
-function sendHostLobbySettings(): void {
-	const { lobbySettings } = voiceController.getSnapshot();
-	lastSentLobbySettings = lobbySettings;
-	ipcRenderer.send(IpcMessages.SEND_TO_SETTINGS, IpcSettingsMessages.NOTIFY_HOST_LOBBYSETTINGS_CHANGED, lobbySettings);
+function sendActiveLobbySettings(): void {
+	const { activeLobbySettings } = voiceController.getSnapshot();
+	lastSentActiveLobbySettings = activeLobbySettings;
+	ipcRenderer.send(
+		IpcMessages.SEND_TO_SETTINGS,
+		IpcSettingsMessages.NOTIFY_ACTIVE_LOBBY_SETTINGS_CHANGED,
+		activeLobbySettings
+	);
+}
+
+function sendHostId(): void {
+	const { hostId } = voiceController.getSnapshot();
+	lastSentHostId = hostId;
+	ipcRenderer.send(IpcMessages.SEND_TO_SETTINGS, IpcSettingsMessages.NOTIFY_HOST_ID_CHANGED, hostId);
 }
 
 function sendAll(): void {
 	sendGameState();
-	sendHostLobbySettings();
+	sendActiveLobbySettings();
+	sendHostId();
 }
 
 function onGameStoreChanged(): void {
@@ -32,7 +44,9 @@ function onGameStoreChanged(): void {
 }
 
 function onVoiceChanged(): void {
-	if (voiceController.getSnapshot().lobbySettings !== lastSentLobbySettings) sendHostLobbySettings();
+	const { activeLobbySettings, hostId } = voiceController.getSnapshot();
+	if (activeLobbySettings !== lastSentActiveLobbySettings) sendActiveLobbySettings();
+	if (hostId !== lastSentHostId) sendHostId();
 }
 
 export function startSettingsWindowBridge(): void {

@@ -181,12 +181,12 @@ const VoiceView: React.FC<VoiceProps> = function ({ t, error: initialError }: Vo
 							</div>
 						</Box>
 					</Box>
-					{voice.lobbySettings?.deadOnly && (
+					{voice.activeLobbySettings?.deadOnly && (
 						<Box sx={classes.top}>
 							<small style={{ padding: 0 }}>{t('settings.lobbysettings.ghost_only_warning2')}</small>
 						</Box>
 					)}
-					{voice.lobbySettings?.meetingGhostOnly && (
+					{voice.activeLobbySettings?.meetingGhostOnly && (
 						<Box sx={classes.top}>
 							<small style={{ padding: 0 }}>{t('settings.lobbysettings.meetings_only_warning2')}</small>
 						</Box>

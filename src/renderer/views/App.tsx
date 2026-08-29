@@ -2,13 +2,12 @@ import React, { useEffect, useState, useSyncExternalStore } from 'react';
 import VoiceView from './VoiceView';
 import Menu from './Menu';
 import { ipcRenderer, shell } from '../lib/electron-bridge';
-import SettingsStore, { setSetting, setLobbySetting, initSettings } from '../settings/SettingsStore';
-import { GameStateContext, SettingsContext, PlayerColorContext, HostSettingsContext } from '../state/contexts';
+import SettingsStore, { setSetting, initSettings } from '../settings/SettingsStore';
+import { GameStateContext, SettingsContext, PlayerColorContext } from '../state/contexts';
 import { gameStore, startGameStore } from '../state/gameStore';
 import { startOverlayBridge } from '../state/overlayBridge';
 import { startSettingsWindowBridge } from '../state/settingsWindowBridge';
 import { useLanguage } from '../language/useLanguage';
-import { useVoiceSnapshot } from '../voice/useVoiceController';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import { AutoUpdaterState, IpcHandlerMessages, IpcMessages, IpcRendererMessages } from '../../common/ipc-messages';
@@ -106,7 +105,6 @@ export default function App({ t }: WithTranslation): React.JSX.Element {
 	const [settingsLoaded, setSettingsLoaded] = useState(false);
 
 	const { gameState, gameOpen, playerColors, error } = useSyncExternalStore(gameStore.subscribe, gameStore.getSnapshot);
-	const voice = useVoiceSnapshot();
 
 	useEffect(() => {
 		const onSettingsChanged = (newValue: ISettings) => setSettings(newValue);
@@ -149,68 +147,64 @@ export default function App({ t }: WithTranslation): React.JSX.Element {
 
 	if (!settingsLoaded) return null;
 
-	const lobbySettings = voice.lobbySettings ?? settings.localLobbySettings;
-
 	return (
 		<PlayerColorContext.Provider value={playerColors}>
 			<GameStateContext.Provider value={gameState}>
-				<HostSettingsContext.Provider value={lobbySettings}>
-					<SettingsContext.Provider value={[settings, setSetting, setLobbySetting]}>
-						<StyledEngineProvider injectFirst>
-							<ThemeProvider theme={theme}>
-								<TitleBar />
-								<Dialog fullWidth open={updaterState.state !== 'unavailable' && diaOpen}>
-									{updaterState.state === 'available' && updaterState.info && (
-										<DialogTitle>Update v{updaterState.info.version}</DialogTitle>
-									)}
-									{updaterState.state === 'error' && <DialogTitle>Updater Error</DialogTitle>}
-									{updaterState.state === 'downloading' && <DialogTitle>Updating...</DialogTitle>}
-									<DialogContent>
-										{updaterState.state === 'downloading' && updaterState.progress && (
-											<>
-												<LinearProgress variant={'determinate'} value={updaterState.progress.percent} />
-												<DialogContentText>
-													{prettyBytes(updaterState.progress.transferred)} / {prettyBytes(updaterState.progress.total)}
-												</DialogContentText>
-											</>
-										)}
-										{updaterState.state === 'available' && (
-											<>
-												<LinearProgress variant={'indeterminate'} />
-												<DialogContentText>Update now or later?</DialogContentText>
-											</>
-										)}
-										{updaterState.state === 'error' && (
-											<DialogContentText color="error">{String(updaterState.error)}</DialogContentText>
-										)}
-									</DialogContent>
-									{updaterState.state === 'error' && (
-										<DialogActions>
-											<Button
-												color="grey"
-												onClick={() => {
-													shell.openExternal('https://github.com/OhMyGuus/BetterCrewLink/releases/latest');
-												}}
-											>
-												Download Manually
-											</Button>
-											<Button color="grey" onClick={() => setDiaOpen(false)}>
-												Skip
-											</Button>
-										</DialogActions>
+				<SettingsContext.Provider value={[settings, setSetting]}>
+					<StyledEngineProvider injectFirst>
+						<ThemeProvider theme={theme}>
+							<TitleBar />
+							<Dialog fullWidth open={updaterState.state !== 'unavailable' && diaOpen}>
+								{updaterState.state === 'available' && updaterState.info && (
+									<DialogTitle>Update v{updaterState.info.version}</DialogTitle>
+								)}
+								{updaterState.state === 'error' && <DialogTitle>Updater Error</DialogTitle>}
+								{updaterState.state === 'downloading' && <DialogTitle>Updating...</DialogTitle>}
+								<DialogContent>
+									{updaterState.state === 'downloading' && updaterState.progress && (
+										<>
+											<LinearProgress variant={'determinate'} value={updaterState.progress.percent} />
+											<DialogContentText>
+												{prettyBytes(updaterState.progress.transferred)} / {prettyBytes(updaterState.progress.total)}
+											</DialogContentText>
+										</>
 									)}
 									{updaterState.state === 'available' && (
-										<DialogActions>
-											<Button onClick={() => ipcRenderer.send('update-app')}>Now</Button>
-											<Button onClick={() => setDiaOpen(false)}>Later</Button>
-										</DialogActions>
+										<>
+											<LinearProgress variant={'indeterminate'} />
+											<DialogContentText>Update now or later?</DialogContentText>
+										</>
 									)}
-								</Dialog>
-								{gameOpen ? <VoiceView t={t} error={error} /> : <Menu t={t} error={error} />}
-							</ThemeProvider>
-						</StyledEngineProvider>
-					</SettingsContext.Provider>
-				</HostSettingsContext.Provider>
+									{updaterState.state === 'error' && (
+										<DialogContentText color="error">{String(updaterState.error)}</DialogContentText>
+									)}
+								</DialogContent>
+								{updaterState.state === 'error' && (
+									<DialogActions>
+										<Button
+											color="grey"
+											onClick={() => {
+												shell.openExternal('https://github.com/OhMyGuus/BetterCrewLink/releases/latest');
+											}}
+										>
+											Download Manually
+										</Button>
+										<Button color="grey" onClick={() => setDiaOpen(false)}>
+											Skip
+										</Button>
+									</DialogActions>
+								)}
+								{updaterState.state === 'available' && (
+									<DialogActions>
+										<Button onClick={() => ipcRenderer.send('update-app')}>Now</Button>
+										<Button onClick={() => setDiaOpen(false)}>Later</Button>
+									</DialogActions>
+								)}
+							</Dialog>
+							{gameOpen ? <VoiceView t={t} error={error} /> : <Menu t={t} error={error} />}
+						</ThemeProvider>
+					</StyledEngineProvider>
+				</SettingsContext.Provider>
 			</GameStateContext.Provider>
 		</PlayerColorContext.Provider>
 	);

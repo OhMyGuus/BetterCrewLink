@@ -10,11 +10,10 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import theme from '../lib/theme';
 import { ipcRenderer } from '../lib/electron-bridge';
 import { ISettings } from '../../common/ISettings';
-import { GameStateContext, HostSettingsContext, SettingsContext } from '../state/contexts';
+import { GameStateContext, SettingsContext } from '../state/contexts';
 import { remoteGameStore, startRemoteGameStore } from '../state/remoteGameStore';
-import SettingsStore, { initSettings, setSetting, setLobbySetting } from '../settings/SettingsStore';
+import SettingsStore, { initSettings, setSetting } from '../settings/SettingsStore';
 import SettingsPanel from '../settings/SettingsPanel';
-import { defaultLobbySettings } from '../voice/types';
 import { useLanguage } from '../language/useLanguage';
 import '../css/index.css';
 import 'source-code-pro/source-code-pro.css';
@@ -68,7 +67,10 @@ const TitleBar: React.FC<{ title: string }> = function ({ title }) {
 function SettingsWindow({ t }: WithTranslation): React.JSX.Element | null {
 	const [settings, setSettings] = useState<ISettings>({} as ISettings);
 	const [settingsLoaded, setSettingsLoaded] = useState(false);
-	const { gameState, hostLobbySettings } = useSyncExternalStore(remoteGameStore.subscribe, remoteGameStore.getSnapshot);
+	const { gameState, activeLobbySettings, hostId } = useSyncExternalStore(
+		remoteGameStore.subscribe,
+		remoteGameStore.getSnapshot
+	);
 
 	useEffect(() => {
 		const onSettingsChanged = (newValue: ISettings) => setSettings(newValue);
@@ -87,22 +89,18 @@ function SettingsWindow({ t }: WithTranslation): React.JSX.Element | null {
 
 	if (!settingsLoaded) return null;
 
-	const lobbySettings = hostLobbySettings ?? settings.localLobbySettings ?? defaultLobbySettings;
-
 	return (
 		<GameStateContext.Provider value={gameState}>
-			<HostSettingsContext.Provider value={lobbySettings}>
-				<SettingsContext.Provider value={[settings, setSetting, setLobbySetting]}>
-					<StyledEngineProvider injectFirst>
-						<ThemeProvider theme={theme}>
-							<Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-								<TitleBar title={t('settings.title')} />
-								<SettingsPanel t={t} />
-							</Box>
-						</ThemeProvider>
-					</StyledEngineProvider>
-				</SettingsContext.Provider>
-			</HostSettingsContext.Provider>
+			<SettingsContext.Provider value={[settings, setSetting]}>
+				<StyledEngineProvider injectFirst>
+					<ThemeProvider theme={theme}>
+						<Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+							<TitleBar title={t('settings.title')} />
+							<SettingsPanel t={t} activeLobbySettings={activeLobbySettings} hostId={hostId} />
+						</Box>
+					</ThemeProvider>
+				</StyledEngineProvider>
+			</SettingsContext.Provider>
 		</GameStateContext.Provider>
 	);
 }

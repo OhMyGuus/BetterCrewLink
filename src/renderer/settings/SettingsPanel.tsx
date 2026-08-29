@@ -17,7 +17,7 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import { ILobbySettings, ISettings } from '../../common/ISettings';
 import { GameState } from '../../common/AmongUsState';
 import { IpcHandlerMessages } from '../../common/ipc-messages';
-import { GameStateContext, HostSettingsContext, SettingsContext } from '../state/contexts';
+import { GameStateContext, SettingsContext } from '../state/contexts';
 import { ipcRenderer } from '../lib/electron-bridge';
 import SettingsStore from './SettingsStore';
 import { useConfirmDialog } from './SettingsControls';
@@ -46,50 +46,50 @@ const RESTART_REQUIRED_SETTINGS: (keyof ISettings)[] = [
 	'micSensitivityEnabled',
 ];
 
-const LOBBY_SETTINGS_COMMIT_DELAY = 750;
+const MY_LOBBY_COMMIT_DELAY = 750;
 
 export interface SettingsPanelProps {
 	t: TFunction;
+	activeLobbySettings: ILobbySettings | null;
+	hostId: number;
 }
 
-const SettingsPanel: React.FC<SettingsPanelProps> = function ({ t }) {
+const SettingsPanel: React.FC<SettingsPanelProps> = function ({ t, activeLobbySettings, hostId }) {
 	const [settings, setSettings] = useContext(SettingsContext);
 	const gameState = useContext(GameStateContext);
-	const hostLobbySettings = useContext(HostSettingsContext);
 	const { confirm, dialog } = useConfirmDialog(t);
 
 	const [category, setCategory] = useState<CategoryId>('general');
 	const [devices, setDevices] = useState<MediaDevice[]>([]);
 	const [deviceRefreshCount, refreshDevices] = useReducer((count: number) => count + 1, 0);
 
-	const canChangeLobbySettings =
-		gameState?.gameState === GameState.MENU || (gameState?.isHost && gameState?.gameState === GameState.LOBBY);
-	const isInMenuOrLobby = gameState?.gameState === GameState.LOBBY || gameState?.gameState === GameState.MENU;
+	const gameInProgress = gameState?.gameState === GameState.TASKS || gameState?.gameState === GameState.DISCUSSION;
+	const canEditMyLobbySettings = !(gameState?.isHost && gameInProgress);
 	const canResetSettings =
 		gameState?.gameState === undefined ||
 		!gameState?.isHost ||
 		gameState.gameState === GameState.MENU ||
 		gameState.gameState === GameState.LOBBY;
 
-	const [lobbyBuffer, setLobbyBuffer] = useState<ILobbySettings>(settings.localLobbySettings);
-	const pendingLobbyBuffer = useRef<ILobbySettings | null>(null);
+	const [myLobbyDraft, setMyLobbyDraft] = useState<ILobbySettings>(settings.myLobbySettings);
+	const pendingMyLobbyDraft = useRef<ILobbySettings | null>(null);
 
-	const flushLobbyBuffer = useCallback(() => {
-		if (!pendingLobbyBuffer.current) return;
-		setSettings('localLobbySettings', pendingLobbyBuffer.current);
-		pendingLobbyBuffer.current = null;
+	const flushMyLobbyDraft = useCallback(() => {
+		if (!pendingMyLobbyDraft.current) return;
+		setSettings('myLobbySettings', pendingMyLobbyDraft.current);
+		pendingMyLobbyDraft.current = null;
 	}, [setSettings]);
 
 	useEffect(() => {
-		if (!pendingLobbyBuffer.current) return;
-		const timeout = setTimeout(flushLobbyBuffer, LOBBY_SETTINGS_COMMIT_DELAY);
+		if (!pendingMyLobbyDraft.current) return;
+		const timeout = setTimeout(flushMyLobbyDraft, MY_LOBBY_COMMIT_DELAY);
 		return () => clearTimeout(timeout);
-	}, [lobbyBuffer, flushLobbyBuffer]);
+	}, [myLobbyDraft, flushMyLobbyDraft]);
 
-	const updateLobbySettings = useCallback((partial: Partial<ILobbySettings>) => {
-		setLobbyBuffer((current) => {
+	const updateMyLobbySettings = useCallback((partial: Partial<ILobbySettings>) => {
+		setMyLobbyDraft((current) => {
 			const next = { ...current, ...partial };
-			pendingLobbyBuffer.current = next;
+			pendingMyLobbyDraft.current = next;
 			return next;
 		});
 	}, []);
@@ -107,18 +107,18 @@ const SettingsPanel: React.FC<SettingsPanelProps> = function ({ t }) {
 	}, [restartRequired]);
 
 	useEffect(() => {
-		window.addEventListener('beforeunload', flushLobbyBuffer);
-		window.addEventListener('blur', flushLobbyBuffer);
+		window.addEventListener('beforeunload', flushMyLobbyDraft);
+		window.addEventListener('blur', flushMyLobbyDraft);
 		return () => {
-			flushLobbyBuffer();
-			window.removeEventListener('beforeunload', flushLobbyBuffer);
-			window.removeEventListener('blur', flushLobbyBuffer);
+			flushMyLobbyDraft();
+			window.removeEventListener('beforeunload', flushMyLobbyDraft);
+			window.removeEventListener('blur', flushMyLobbyDraft);
 		};
-	}, [flushLobbyBuffer]);
+	}, [flushMyLobbyDraft]);
 
 	useEffect(() => {
-		if (category !== 'lobby') flushLobbyBuffer();
-	}, [category, flushLobbyBuffer]);
+		if (category !== 'lobby') flushMyLobbyDraft();
+	}, [category, flushMyLobbyDraft]);
 
 	useEffect(() => {
 		navigator.mediaDevices.enumerateDevices().then((mediaDevices) =>
@@ -146,7 +146,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = function ({ t }) {
 	);
 
 	const resetDefaults = useCallback(() => {
-		pendingLobbyBuffer.current = null;
+		pendingMyLobbyDraft.current = null;
 		SettingsStore.clear();
 		ipcRenderer.send(IpcHandlerMessages.RESET_KEYHOOKS);
 		ipcRenderer.send('reload');
@@ -166,8 +166,6 @@ const SettingsPanel: React.FC<SettingsPanelProps> = function ({ t }) {
 			] as { id: CategoryId; label: string; icon: React.JSX.Element }[],
 		[t]
 	);
-
-	const effectiveLobbySettings = canChangeLobbySettings ? lobbyBuffer : hostLobbySettings;
 
 	return (
 		<Box sx={{ display: 'flex', height: '100%', minHeight: 0 }}>
@@ -223,12 +221,13 @@ const SettingsPanel: React.FC<SettingsPanelProps> = function ({ t }) {
 					{category === 'lobby' && (
 						<LobbySection
 							t={t}
-							lobbySettings={effectiveLobbySettings}
-							canChange={!!canChangeLobbySettings}
-							disabledReason={
-								isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')
-							}
-							update={updateLobbySettings}
+							gameState={gameState}
+							activeLobbySettings={activeLobbySettings}
+							hostId={hostId}
+							myLobbySettings={myLobbyDraft}
+							canEditMine={canEditMyLobbySettings}
+							editDisabledReason={t('settings.lobbysettings.inlobbyonly')}
+							update={updateMyLobbySettings}
 							confirm={confirm}
 						/>
 					)}
