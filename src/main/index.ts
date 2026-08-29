@@ -34,6 +34,7 @@ declare global {
 			mainWindow: BrowserWindow | null;
 			overlay: BrowserWindow | null;
 			lobbyBrowser: BrowserWindow | null;
+			settingsWindow: BrowserWindow | null;
 		}
 	}
 }
@@ -56,6 +57,7 @@ protocol.registerSchemesAsPrivileged([
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 global.mainWindow = null;
 global.overlay = null;
+global.settingsWindow = null;
 const store = new Store<ISettings>();
 app.commandLine.appendSwitch('disable-pinch');
 
@@ -69,7 +71,7 @@ if (platform() === 'linux') {
 
 const rendererUrl = process.env['ELECTRON_RENDERER_URL'];
 
-function loadView(window: BrowserWindow, view: 'app' | 'lobbies' | 'overlay'): void {
+function loadView(window: BrowserWindow, view: 'app' | 'lobbies' | 'overlay' | 'settings'): void {
 	if (isDevelopment && rendererUrl) {
 		window.loadURL(`${rendererUrl}?version=DEV&view=${view}`);
 	} else {
@@ -124,9 +126,12 @@ function createMainWindow() {
 		try {
 			const mainWindow = global.mainWindow;
 			const overlay = global.overlay;
+			const settingsWindow = global.settingsWindow;
 			global.mainWindow = null;
 			global.overlay = null;
+			global.settingsWindow = null;
 			overlay?.close();
+			settingsWindow?.close();
 			mainWindow?.destroy();
 			overlay?.destroy();
 		} catch {
@@ -169,6 +174,57 @@ function createLobbyBrowser() {
 	});
 	loadView(window, 'lobbies');
 	console.log('Opened app version: ', appVersion);
+	return window;
+}
+
+let settingsNeedMainWindowReload = false;
+
+function createSettingsWindow() {
+	settingsNeedMainWindowReload = false;
+	const settingsWindowState = windowStateKeeper({
+		file: 'settings-window-state.json',
+		defaultWidth: 940,
+		defaultHeight: 660,
+	});
+
+	const window = new BrowserWindow({
+		title: 'BetterCrewLink Settings',
+		width: settingsWindowState.width,
+		height: settingsWindowState.height,
+		x: settingsWindowState.x,
+		y: settingsWindowState.y,
+		minWidth: 620,
+		minHeight: 440,
+		backgroundColor: '#25232a',
+		resizable: true,
+		frame: false,
+		fullscreenable: false,
+		closable: true,
+		maximizable: true,
+		show: false,
+		webPreferences: {
+			contextIsolation: true,
+			nodeIntegration: false,
+			sandbox: false,
+			preload: preload(),
+		},
+	});
+	settingsWindowState.manage(window);
+
+	if (devTools) {
+		window.webContents.openDevTools({ mode: 'detach' });
+	}
+
+	window.once('ready-to-show', () => window.show());
+	window.on('closed', () => {
+		global.settingsWindow = null;
+		if (settingsNeedMainWindowReload) {
+			settingsNeedMainWindowReload = false;
+			global.mainWindow?.reload();
+		}
+	});
+
+	loadView(window, 'settings');
 	return window;
 }
 
@@ -255,6 +311,7 @@ if (!gotTheLock) {
 		try {
 			const mainWindow = global.mainWindow;
 			const overlay = global.overlay;
+			global.settingsWindow = null;
 			global.mainWindow = null;
 			global.overlay = null;
 			overlay?.close();
@@ -334,6 +391,20 @@ if (!gotTheLock) {
 
 	ipcMain.on('update-app', () => {
 		autoUpdater.downloadUpdate();
+	});
+
+	ipcMain.on(IpcHandlerMessages.SETTINGS_PENDING_RELOAD, (_event, pending: boolean) => {
+		settingsNeedMainWindowReload = pending;
+	});
+
+	ipcMain.on(IpcHandlerMessages.OPEN_SETTINGS, () => {
+		if (!global.settingsWindow) {
+			global.settingsWindow = createSettingsWindow();
+		} else {
+			if (global.settingsWindow.isMinimized()) global.settingsWindow.restore();
+			global.settingsWindow.show();
+			global.settingsWindow.focus();
+		}
 	});
 
 	ipcMain.on(IpcHandlerMessages.OPEN_LOBBYBROWSER, () => {

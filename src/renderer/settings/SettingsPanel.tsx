@@ -1,0 +1,264 @@
+import React, { useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { TFunction } from 'i18next';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
+import TuneIcon from '@mui/icons-material/Tune';
+import GroupsIcon from '@mui/icons-material/Groups';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import KeyboardIcon from '@mui/icons-material/Keyboard';
+import LayersIcon from '@mui/icons-material/Layers';
+import ScienceIcon from '@mui/icons-material/Science';
+import VideocamIcon from '@mui/icons-material/Videocam';
+import { ILobbySettings, ISettings } from '../../common/ISettings';
+import { GameState } from '../../common/AmongUsState';
+import { IpcHandlerMessages } from '../../common/ipc-messages';
+import { GameStateContext, HostSettingsContext, SettingsContext } from '../state/contexts';
+import { ipcRenderer } from '../lib/electron-bridge';
+import SettingsStore from './SettingsStore';
+import { useConfirmDialog } from './SettingsControls';
+import GeneralSection from './sections/GeneralSection';
+import LobbySection from './sections/LobbySection';
+import AudioSection, { MediaDevice } from './sections/AudioSection';
+import KeybindsSection, { ShortcutSetting } from './sections/KeybindsSection';
+import OverlaySection from './sections/OverlaySection';
+import AdvancedSection from './sections/AdvancedSection';
+import StreamingSection from './sections/StreamingSection';
+
+type CategoryId = 'general' | 'lobby' | 'audio' | 'keybinds' | 'overlay' | 'advanced' | 'streaming';
+
+const RESTART_REQUIRED_SETTINGS: (keyof ISettings)[] = [
+	'microphone',
+	'speaker',
+	'serverURL',
+	'vadEnabled',
+	'hardware_acceleration',
+	'natFix',
+	'noiseSuppression',
+	'oldSampleDebug',
+	'echoCancellation',
+	'mobileHost',
+	'microphoneGainEnabled',
+	'micSensitivityEnabled',
+];
+
+const LOBBY_SETTINGS_COMMIT_DELAY = 750;
+
+export interface SettingsPanelProps {
+	t: TFunction;
+}
+
+const SettingsPanel: React.FC<SettingsPanelProps> = function ({ t }) {
+	const [settings, setSettings] = useContext(SettingsContext);
+	const gameState = useContext(GameStateContext);
+	const hostLobbySettings = useContext(HostSettingsContext);
+	const { confirm, dialog } = useConfirmDialog(t);
+
+	const [category, setCategory] = useState<CategoryId>('general');
+	const [devices, setDevices] = useState<MediaDevice[]>([]);
+	const [deviceRefreshCount, refreshDevices] = useReducer((count: number) => count + 1, 0);
+
+	const canChangeLobbySettings =
+		gameState?.gameState === GameState.MENU || (gameState?.isHost && gameState?.gameState === GameState.LOBBY);
+	const isInMenuOrLobby = gameState?.gameState === GameState.LOBBY || gameState?.gameState === GameState.MENU;
+	const canResetSettings =
+		gameState?.gameState === undefined ||
+		!gameState?.isHost ||
+		gameState.gameState === GameState.MENU ||
+		gameState.gameState === GameState.LOBBY;
+
+	const [lobbyBuffer, setLobbyBuffer] = useState<ILobbySettings>(settings.localLobbySettings);
+	const pendingLobbyBuffer = useRef<ILobbySettings | null>(null);
+
+	const flushLobbyBuffer = useCallback(() => {
+		if (!pendingLobbyBuffer.current) return;
+		setSettings('localLobbySettings', pendingLobbyBuffer.current);
+		pendingLobbyBuffer.current = null;
+	}, [setSettings]);
+
+	useEffect(() => {
+		if (!pendingLobbyBuffer.current) return;
+		const timeout = setTimeout(flushLobbyBuffer, LOBBY_SETTINGS_COMMIT_DELAY);
+		return () => clearTimeout(timeout);
+	}, [lobbyBuffer, flushLobbyBuffer]);
+
+	const updateLobbySettings = useCallback((partial: Partial<ILobbySettings>) => {
+		setLobbyBuffer((current) => {
+			const next = { ...current, ...partial };
+			pendingLobbyBuffer.current = next;
+			return next;
+		});
+	}, []);
+
+	const initialRestartValues = useRef<Partial<ISettings> | null>(null);
+	if (!initialRestartValues.current) {
+		initialRestartValues.current = Object.fromEntries(
+			RESTART_REQUIRED_SETTINGS.map((key) => [key, settings[key]])
+		) as Partial<ISettings>;
+	}
+	const restartRequired = RESTART_REQUIRED_SETTINGS.some((key) => initialRestartValues.current![key] !== settings[key]);
+
+	useEffect(() => {
+		ipcRenderer.send(IpcHandlerMessages.SETTINGS_PENDING_RELOAD, restartRequired);
+	}, [restartRequired]);
+
+	useEffect(() => {
+		window.addEventListener('beforeunload', flushLobbyBuffer);
+		window.addEventListener('blur', flushLobbyBuffer);
+		return () => {
+			flushLobbyBuffer();
+			window.removeEventListener('beforeunload', flushLobbyBuffer);
+			window.removeEventListener('blur', flushLobbyBuffer);
+		};
+	}, [flushLobbyBuffer]);
+
+	useEffect(() => {
+		if (category !== 'lobby') flushLobbyBuffer();
+	}, [category, flushLobbyBuffer]);
+
+	useEffect(() => {
+		navigator.mediaDevices.enumerateDevices().then((mediaDevices) =>
+			setDevices(
+				mediaDevices.map((device) => {
+					let label = device.label;
+					if (device.deviceId === 'default') {
+						label = t('buttons.default');
+					} else {
+						const match = /.+?\([^(]+\)/.exec(device.label);
+						if (match && match[0]) label = match[0];
+					}
+					return { id: device.deviceId, kind: device.kind, label };
+				})
+			)
+		);
+	}, [deviceRefreshCount, t]);
+
+	const setShortcut = useCallback(
+		(shortcut: ShortcutSetting, key: string) => {
+			setSettings(shortcut, key);
+			ipcRenderer.send(IpcHandlerMessages.RESET_KEYHOOKS);
+		},
+		[setSettings]
+	);
+
+	const resetDefaults = useCallback(() => {
+		pendingLobbyBuffer.current = null;
+		SettingsStore.clear();
+		ipcRenderer.send(IpcHandlerMessages.RESET_KEYHOOKS);
+		ipcRenderer.send('reload');
+		location.reload();
+	}, []);
+
+	const categories = useMemo(
+		() =>
+			[
+				{ id: 'general', label: t('settings.general'), icon: <TuneIcon fontSize="small" /> },
+				{ id: 'lobby', label: t('settings.lobbysettings.title'), icon: <GroupsIcon fontSize="small" /> },
+				{ id: 'audio', label: t('settings.audio.title'), icon: <VolumeUpIcon fontSize="small" /> },
+				{ id: 'keybinds', label: t('settings.keyboard.title'), icon: <KeyboardIcon fontSize="small" /> },
+				{ id: 'overlay', label: t('settings.overlay.title'), icon: <LayersIcon fontSize="small" /> },
+				{ id: 'advanced', label: t('settings.advanced.title'), icon: <ScienceIcon fontSize="small" /> },
+				{ id: 'streaming', label: t('settings.streaming.title'), icon: <VideocamIcon fontSize="small" /> },
+			] as { id: CategoryId; label: string; icon: React.JSX.Element }[],
+		[t]
+	);
+
+	const effectiveLobbySettings = canChangeLobbySettings ? lobbyBuffer : hostLobbySettings;
+
+	return (
+		<Box sx={{ display: 'flex', height: '100%', minHeight: 0 }}>
+			<Box
+				component="nav"
+				sx={{
+					width: 200,
+					flexShrink: 0,
+					borderRight: '1px solid rgba(255,255,255,0.08)',
+					backgroundColor: 'rgba(0,0,0,0.2)',
+					overflowY: 'auto',
+				}}
+			>
+				<List dense disablePadding sx={{ py: 1 }}>
+					{categories.map(({ id, label, icon }) => (
+						<ListItemButton
+							key={id}
+							selected={category === id}
+							onClick={() => setCategory(id)}
+							sx={{
+								mx: 1,
+								borderRadius: 1,
+								'&.Mui-selected': { backgroundColor: 'rgba(206,147,216,0.16)' },
+								'&.Mui-selected:hover': { backgroundColor: 'rgba(206,147,216,0.24)' },
+							}}
+						>
+							<ListItemIcon sx={{ minWidth: 32, color: category === id ? 'primary.main' : 'text.secondary' }}>
+								{icon}
+							</ListItemIcon>
+							<ListItemText
+								primary={label}
+								slotProps={{
+									primary: { variant: 'body2', sx: { fontWeight: category === id ? 700 : 400, lineHeight: 1.3 } },
+								}}
+							/>
+						</ListItemButton>
+					))}
+				</List>
+			</Box>
+
+			<Box sx={{ flex: 1, minWidth: 0, overflowY: 'auto', px: 3, py: 2 }}>
+				<Box sx={{ maxWidth: 720, mx: 'auto' }}>
+					{category === 'general' && (
+						<GeneralSection
+							t={t}
+							settings={settings}
+							setSettings={setSettings}
+							canResetSettings={canResetSettings}
+							resetDefaults={resetDefaults}
+							confirm={confirm}
+						/>
+					)}
+					{category === 'lobby' && (
+						<LobbySection
+							t={t}
+							lobbySettings={effectiveLobbySettings}
+							canChange={!!canChangeLobbySettings}
+							disabledReason={
+								isInMenuOrLobby ? t('settings.lobbysettings.gamehostonly') : t('settings.lobbysettings.inlobbyonly')
+							}
+							update={updateLobbySettings}
+							confirm={confirm}
+						/>
+					)}
+					{category === 'audio' && (
+						<AudioSection
+							t={t}
+							settings={settings}
+							setSettings={setSettings}
+							devices={devices}
+							refreshDevices={refreshDevices}
+							confirm={confirm}
+						/>
+					)}
+					{category === 'keybinds' && <KeybindsSection t={t} settings={settings} setShortcut={setShortcut} />}
+					{category === 'overlay' && <OverlaySection t={t} settings={settings} setSettings={setSettings} />}
+					{category === 'advanced' && (
+						<AdvancedSection t={t} settings={settings} setSettings={setSettings} confirm={confirm} />
+					)}
+					{category === 'streaming' && <StreamingSection t={t} settings={settings} setSettings={setSettings} />}
+				</Box>
+			</Box>
+
+			{dialog}
+			<Snackbar open={restartRequired} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+				<Alert severity="info" variant="filled">
+					{t('buttons.exit')}
+				</Alert>
+			</Snackbar>
+		</Box>
+	);
+};
+
+export default SettingsPanel;

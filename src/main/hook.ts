@@ -146,18 +146,25 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 	}
 });
 
-ipcMain.on('reload', async (_, lobbybrowser) => {
-	if (!lobbybrowser) {
-		global.mainWindow?.reload();
+type WindowTarget = 'main' | 'lobbies' | 'settings';
+
+function targetWindow(target: WindowTarget = 'main') {
+	switch (target) {
+		case 'lobbies':
+			return global.lobbyBrowser;
+		case 'settings':
+			return global.settingsWindow;
+		default:
+			return global.mainWindow;
 	}
-	global.lobbyBrowser?.reload();
+}
+
+ipcMain.on('reload', async (_, target: WindowTarget) => {
+	targetWindow(target)?.reload();
 });
 
-ipcMain.on('minimize', async (_, lobbybrowser) => {
-	if (!lobbybrowser) {
-		global.mainWindow?.minimize();
-	}
-	global.lobbyBrowser?.minimize();
+ipcMain.on('minimize', async (_, target: WindowTarget) => {
+	targetWindow(target)?.minimize();
 });
 
 ipcMain.handle('getlocale', () => {

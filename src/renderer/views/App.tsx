@@ -1,16 +1,17 @@
-import React, { Dispatch, SetStateAction, useEffect, useState, useSyncExternalStore } from 'react';
+import React, { useEffect, useState, useSyncExternalStore } from 'react';
 import VoiceView from './VoiceView';
 import Menu from './Menu';
 import { ipcRenderer, shell } from '../lib/electron-bridge';
-import Settings from '../settings/Settings';
 import SettingsStore, { setSetting, setLobbySetting, initSettings } from '../settings/SettingsStore';
 import { GameStateContext, SettingsContext, PlayerColorContext, HostSettingsContext } from '../state/contexts';
 import { gameStore, startGameStore } from '../state/gameStore';
 import { startOverlayBridge } from '../state/overlayBridge';
+import { startSettingsWindowBridge } from '../state/settingsWindowBridge';
+import { useLanguage } from '../language/useLanguage';
 import { useVoiceSnapshot } from '../voice/useVoiceController';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import { AutoUpdaterState, IpcMessages, IpcRendererMessages } from '../../common/ipc-messages';
+import { AutoUpdaterState, IpcHandlerMessages, IpcMessages, IpcRendererMessages } from '../../common/ipc-messages';
 import theme from '../lib/theme';
 import SettingsIcon from '@mui/icons-material/Settings';
 import RefreshSharpIcon from '@mui/icons-material/RefreshSharp';
@@ -65,19 +66,19 @@ const useStyles = () => ({
 	},
 });
 
-interface TitleBarProps {
-	settingsOpen: boolean;
-	setSettingsOpen: Dispatch<SetStateAction<boolean>>;
-}
-
-const RawTitleBar: React.FC<TitleBarProps> = function ({ settingsOpen, setSettingsOpen }: TitleBarProps) {
+const RawTitleBar: React.FC = function () {
 	const classes = useStyles();
 	return (
 		<Box sx={classes.root}>
 			<Box component="span" sx={classes.title} style={{ marginLeft: 10 }}>
 				BetterCrewLink{appVersion}
 			</Box>
-			<IconButton sx={classes.button} style={{ left: 0 }} size="small" onClick={() => setSettingsOpen(!settingsOpen)}>
+			<IconButton
+				sx={classes.button}
+				style={{ left: 0 }}
+				size="small"
+				onClick={() => ipcRenderer.send(IpcHandlerMessages.OPEN_SETTINGS)}
+			>
 				<SettingsIcon htmlColor="#777" />
 			</IconButton>
 			<IconButton sx={classes.button} style={{ left: 22 }} size="small" onClick={() => ipcRenderer.send('reload')}>
@@ -98,7 +99,6 @@ const RawTitleBar: React.FC<TitleBarProps> = function ({ settingsOpen, setSettin
 const TitleBar = React.memo(RawTitleBar);
 
 export default function App({ t }: WithTranslation): React.JSX.Element {
-	const [settingsOpen, setSettingsOpen] = useState(false);
 	const [diaOpen, setDiaOpen] = useState(true);
 	const [updaterState, setUpdaterState] = useState<AutoUpdaterState>({ state: 'unavailable' });
 
@@ -124,7 +124,18 @@ export default function App({ t }: WithTranslation): React.JSX.Element {
 		if (!settingsLoaded) return;
 		startGameStore();
 		startOverlayBridge();
+		startSettingsWindowBridge();
 	}, [settingsLoaded]);
+
+	useEffect(() => {
+		if (!settingsLoaded) return;
+		ipcRenderer.send('setAlwaysOnTop', settings.alwaysOnTop);
+	}, [settingsLoaded, settings.alwaysOnTop]);
+
+	useEffect(() => {
+		if (!settingsLoaded) return;
+		ipcRenderer.send('enableOverlay', settings.enableOverlay);
+	}, [settingsLoaded, settings.enableOverlay]);
 
 	useEffect(() => {
 		const onAutoUpdaterStateChange = (_: unknown, state: AutoUpdaterState) => {
@@ -133,6 +144,8 @@ export default function App({ t }: WithTranslation): React.JSX.Element {
 		ipcRenderer.on(IpcRendererMessages.AUTO_UPDATER_STATE, onAutoUpdaterStateChange);
 		return () => ipcRenderer.off(IpcRendererMessages.AUTO_UPDATER_STATE, onAutoUpdaterStateChange);
 	}, []);
+
+	useLanguage(settings.language, true);
 
 	if (!settingsLoaded) return null;
 
@@ -145,8 +158,7 @@ export default function App({ t }: WithTranslation): React.JSX.Element {
 					<SettingsContext.Provider value={[settings, setSetting, setLobbySetting]}>
 						<StyledEngineProvider injectFirst>
 							<ThemeProvider theme={theme}>
-								<TitleBar settingsOpen={settingsOpen} setSettingsOpen={setSettingsOpen} />
-								<Settings t={t} open={settingsOpen} onClose={() => setSettingsOpen(false)} />
+								<TitleBar />
 								<Dialog fullWidth open={updaterState.state !== 'unavailable' && diaOpen}>
 									{updaterState.state === 'available' && updaterState.info && (
 										<DialogTitle>Update v{updaterState.info.version}</DialogTitle>

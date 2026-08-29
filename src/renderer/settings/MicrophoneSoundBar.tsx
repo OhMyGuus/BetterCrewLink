@@ -23,12 +23,13 @@ const useStyles = () => {
 		root: {
 			display: 'flex',
 			width: '100%',
-			marginBottom: theme.spacing(2),
+			alignItems: 'center',
+			minHeight: theme.spacing(3),
 		},
 		bar: {
 			height: 8,
-			margin: '5px auto',
-			width: 200,
+			width: '100%',
+			borderRadius: 4,
 		},
 		inner: {
 			transition: 'transform .05s linear',

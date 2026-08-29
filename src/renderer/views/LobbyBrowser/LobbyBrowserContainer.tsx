@@ -54,14 +54,14 @@ const TitleBar = function () {
 			<Box component="span" sx={classes.title} style={{ marginLeft: 10 }}>
 				LobbyBrowser
 			</Box>
-			<IconButton sx={classes.button} size="small" onClick={() => ipcRenderer.send('reload', true)}>
+			<IconButton sx={classes.button} size="small" onClick={() => ipcRenderer.send('reload', 'lobbies')}>
 				<RefreshSharpIcon htmlColor="#777" />
 			</IconButton>
 			<IconButton
 				sx={[classes.button, classes.minimalizeIcon]}
 				style={{ right: 20 }}
 				size="small"
-				onClick={() => ipcRenderer.send('minimize', true)}
+				onClick={() => ipcRenderer.send('minimize', 'lobbies')}
 			>
 				<MinimizeIcon htmlColor="#777" y="100" />
 			</IconButton>

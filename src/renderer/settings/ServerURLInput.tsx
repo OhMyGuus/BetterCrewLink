@@ -45,13 +45,17 @@ const RawServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, on
 
 	return (
 		<>
-			<Button variant="contained" color="secondary" onClick={() => setOpen(true)}>
+			<Button
+				variant="contained"
+				color="secondary"
+				size="small"
+				sx={{ whiteSpace: 'nowrap' }}
+				onClick={() => setOpen(true)}
+			>
 				{t('settings.advanced.change_server')}
 			</Button>
-			<Dialog fullScreen open={open} onClose={() => setOpen(false)}>
-				<div>
-					<DialogTitle>{t('settings.advanced.change_server')}</DialogTitle>
-				</div>
+			<Dialog fullWidth maxWidth="sm" open={open} onClose={() => setOpen(false)}>
+				<DialogTitle>{t('settings.advanced.change_server')}</DialogTitle>
 				<DialogContent sx={sx}>
 					<TextField
 						fullWidth
