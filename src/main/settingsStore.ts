@@ -1,7 +1,7 @@
 import Store from 'electron-store';
 import { ipcMain, BrowserWindow } from 'electron';
 import { GamePlatform } from '../common/GamePlatform';
-import { ISettings } from '../common/ISettings';
+import { ILobbySettings, ISettings } from '../common/ISettings';
 import { pushToTalkOptions } from '../common/pushToTalkOptions';
 
 export { pushToTalkOptions };
@@ -242,7 +242,7 @@ export const settingsStore = new Store<ISettings>({
 				},
 			},
 		},
-		localLobbySettings: {
+		myLobbySettings: {
 			type: 'object',
 			properties: {
 				maxDistance: {
@@ -365,6 +365,17 @@ export const settingsStore = new Store<ISettings>({
 		},
 	},
 });
+
+const LEGACY_LOBBY_SETTINGS_KEY = 'localLobbySettings' as keyof ISettings;
+
+function adoptLegacyLobbySettings(): void {
+	const legacy = settingsStore.get(LEGACY_LOBBY_SETTINGS_KEY) as ILobbySettings | undefined;
+	if (!legacy) return;
+	settingsStore.set('myLobbySettings', legacy);
+	settingsStore.delete(LEGACY_LOBBY_SETTINGS_KEY);
+}
+
+adoptLegacyLobbySettings();
 
 function broadcastSettings(): void {
 	for (const win of BrowserWindow.getAllWindows()) {

@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "Settings",
 		"language": "Language",
+		"general": "General",
 		"warning": "Are you sure?",
 		"lobbysettings": {
 			"title": "Lobby Settings",
@@ -31,7 +32,26 @@
 				"language": "Language",
 				"enable_warning": "Enabling this will make your lobby public to other BetterCrewLink users!",
 				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
-			}
+			},
+			"host_notice": "These settings are controlled by the game host.",
+			"host_notice_you": "You are the host, so the lobby uses your own settings.",
+			"edit_as_host": "Change",
+			"tab_current": "Current Lobby",
+			"tab_mine": "My Settings",
+			"host": "Host",
+			"host_you": "You",
+			"host_unknown": "Unknown",
+			"no_lobby": "Not connected to a lobby yet. Join or host a game to see the settings in effect.",
+			"mine_notice": "These apply to everyone in the lobby while you are the host."
+		},
+		"players": {
+			"title": "Players",
+			"volume": "Volume",
+			"empty": "No other players right now. Join a lobby to adjust their volume.",
+			"disconnected": "Disconnected",
+			"mute": "Mute",
+			"unmute": "Unmute",
+			"muted": "Muted"
 		},
 		"customplatforms": {
 			"title": "Custom Platform",
@@ -55,14 +75,18 @@
 				"crewvolume": "Crew Volume as Ghost",
 				"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 				"test_speaker_start": "Test Speaker",
-				"test_speaker_stop": "Stop Test Speaker"
+				"test_speaker_stop": "Stop Test Speaker",
+				"mode": "Voice Transmission"
 			},
 			"keyboard": {
-				"title": "Keyboard Shortcuts",
+				"title": "Hotkeys",
 				"push_to_talk": "Push to Talk",
 				"mute": "Mute",
 				"deafen": "Deafen",
-				"impostor_radio": "Impostor Radio"
+				"impostor_radio": "Impostor Radio",
+				"hint": "Click a shortcut, then press a key or mouse button. Press Escape to disable it.",
+				"press_key": "Press a key…",
+				"disabled": "Disabled"
 			},
 			"overlay": {
 				"title": "Overlay",
@@ -110,7 +134,8 @@
 				"obs_overlay": "OBS Browser Overlay",
 				"obs_url": "OBS Browser Source URL",
 				"voice_server_comp": "VS Compatibility Mode",
-				"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
+				"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example.",
+				"copy_url": "Copy URL"
 			},
 			"troubleshooting": {
 				"title": "Troubleshooting",

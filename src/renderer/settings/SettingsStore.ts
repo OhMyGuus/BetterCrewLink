@@ -1,5 +1,5 @@
 import { ipcRenderer } from '../lib/electron-bridge';
-import { ILobbySettings, ISettings, SocketConfig } from '../../common/ISettings';
+import { ISettings, SocketConfig } from '../../common/ISettings';
 import { pushToTalkOptions } from '../../common/pushToTalkOptions';
 
 export { pushToTalkOptions };
@@ -53,10 +53,6 @@ export const setSetting = <K extends keyof ISettings | `playerConfigMap.${number
 	value: ISettingOrSocketConfig<K>
 ): void => {
 	SettingsStore.set(setting as string, value);
-};
-
-export const setLobbySetting = <K extends keyof ILobbySettings>(setting: K, value: ILobbySettings[K]): void => {
-	SettingsStore.set(`localLobbySettings.${setting}`, value);
 };
 
 export default SettingsStore;

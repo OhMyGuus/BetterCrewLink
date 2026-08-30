@@ -15,7 +15,7 @@ import spawn from 'cross-spawn';
 import path from 'path';
 import fs from 'fs';
 
-import { IpcMessages, IpcOverlayMessages } from '../common/ipc-messages';
+import { IpcMessages, IpcOverlayMessages, IpcSettingsMessages } from '../common/ipc-messages';
 
 // Listeners are fire and forget, they do not have "responses" or return values
 export const initializeIpcListeners = (): void => {
@@ -59,21 +59,35 @@ export const initializeIpcListeners = (): void => {
 		}
 	});
 
-	ipcMain.on(IpcMessages.SEND_TO_MAINWINDOW, (_, event: IpcOverlayMessages, ...args: unknown[]) => {
-		console.log('SEND TO MAINWINDOW CALLLED');
+	ipcMain.on(IpcMessages.SEND_TO_SETTINGS, (_, event: IpcSettingsMessages, ...args: unknown[]) => {
 		try {
-			if (global.mainWindow) global.mainWindow.webContents.send(event, ...args);
+			if (global.settingsWindow) global.settingsWindow.webContents.send(event, ...args);
 		} catch {
 			/*empty*/
 		}
 	});
 
+	ipcMain.on(
+		IpcMessages.SEND_TO_MAINWINDOW,
+		(_, event: IpcOverlayMessages | IpcSettingsMessages, ...args: unknown[]) => {
+			console.log('SEND TO MAINWINDOW CALLLED');
+			try {
+				if (global.mainWindow) global.mainWindow.webContents.send(event, ...args);
+			} catch {
+				/*empty*/
+			}
+		}
+	);
+
 	ipcMain.on(IpcMessages.QUIT_CREWLINK, () => {
 		try {
 			const mainWindow = global.mainWindow;
 			const overlay = global.overlay;
+			const settingsWindow = global.settingsWindow;
 			global.mainWindow = null;
 			global.overlay = null;
+			global.settingsWindow = null;
+			settingsWindow?.close();
 			mainWindow?.close();
 			overlay?.close();
 			mainWindow?.destroy();

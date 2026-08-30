@@ -12,7 +12,7 @@ export interface MuffleSetting {
 export interface VoiceAudioInput {
 	state: AmongUsState;
 	settings: ISettings;
-	lobbySettings: ILobbySettings;
+	activeLobbySettings: ILobbySettings;
 	me: Player;
 	other: Player;
 	maxDistance: number;
@@ -35,7 +35,7 @@ function distance(panPos: [number, number]): number {
 }
 
 export function calculateVoiceAudio(input: VoiceAudioInput): VoiceAudioResult {
-	const { state, settings, lobbySettings, me, other, maxDistance, impostorRadioClientId } = input;
+	const { state, settings, activeLobbySettings, me, other, maxDistance, impostorRadioClientId } = input;
 
 	const result: VoiceAudioResult = {
 		gain: 0,
@@ -66,24 +66,24 @@ export function calculateVoiceAudio(input: VoiceAudioInput): VoiceAudioResult {
 		case GameState.TASKS:
 			endGain = 1;
 
-			if (lobbySettings.meetingGhostOnly) {
+			if (activeLobbySettings.meetingGhostOnly) {
 				endGain = 0;
 			}
-			if (!me.isDead && lobbySettings.commsSabotage && state.comsSabotaged && !me.isImpostor) {
+			if (!me.isDead && activeLobbySettings.commsSabotage && state.comsSabotaged && !me.isImpostor) {
 				endGain = 0;
 			}
 
 			if (
 				other.inVent &&
-				!(lobbySettings.hearImpostorsInVents || (lobbySettings.impostersHearImpostersInvent && me.inVent))
+				!(activeLobbySettings.hearImpostorsInVents || (activeLobbySettings.impostersHearImpostersInvent && me.inVent))
 			) {
 				endGain = 0;
 			}
-			wallCheckEnabled = lobbySettings.wallsBlockAudio && !me.isDead;
+			wallCheckEnabled = activeLobbySettings.wallsBlockAudio && !me.isDead;
 			if (
 				me.isImpostor &&
 				other.isImpostor &&
-				lobbySettings.impostorRadioEnabled &&
+				activeLobbySettings.impostorRadioEnabled &&
 				other.clientId === impostorRadioClientId
 			) {
 				skipDistanceCheck = true;
@@ -91,7 +91,7 @@ export function calculateVoiceAudio(input: VoiceAudioInput): VoiceAudioResult {
 				result.muffle = { type: 'highpass', frequency: 1000, q: 10 };
 			}
 
-			if (!me.isDead && other.isDead && me.isImpostor && lobbySettings.haunting) {
+			if (!me.isDead && other.isDead && me.isImpostor && activeLobbySettings.haunting) {
 				result.reverb = true;
 				wallCheckEnabled = false;
 				endGain = settings.ghostVolumeAsImpostor / 100;
@@ -122,7 +122,7 @@ export function calculateVoiceAudio(input: VoiceAudioInput): VoiceAudioResult {
 		result.reverb = false;
 	}
 
-	if (lobbySettings.deadOnly) {
+	if (activeLobbySettings.deadOnly) {
 		panPos = [0, 0];
 		if (!me.isDead || !other.isDead) {
 			endGain = 0;
@@ -131,7 +131,7 @@ export function calculateVoiceAudio(input: VoiceAudioInput): VoiceAudioResult {
 
 	let isOnCamera = state.currentCamera !== CameraLocation.NONE;
 	if (!skipDistanceCheck && distance(panPos) > maxDistance) {
-		if (!lobbySettings.hearThroughCameras || state.gameState !== GameState.TASKS) {
+		if (!activeLobbySettings.hearThroughCameras || state.gameState !== GameState.TASKS) {
 			return result;
 		}
 

@@ -12,7 +12,7 @@ interface TestSpeakersProps {
 const useStyles = () => ({
 	button: {
 		width: 'fit-content',
-		margin: '5px auto',
+		alignSelf: 'flex-end',
 	},
 });
 

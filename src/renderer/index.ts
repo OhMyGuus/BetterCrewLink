@@ -15,6 +15,8 @@ if (typeof window !== 'undefined' && window.location) {
 		import('./views/App');
 	} else if (view === 'lobbies') {
 		import('./views/LobbyBrowser/LobbyBrowserContainer');
+	} else if (view === 'settings') {
+		import('./views/SettingsWindow');
 	} else {
 		import('./views/Overlay');
 	}

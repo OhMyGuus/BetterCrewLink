@@ -70,5 +70,6 @@ export interface VoiceSnapshot {
 	playerSocketIds: numberStringMap;
 	audioConnected: AudioConnected;
 	impostorRadioClientId: number;
-	lobbySettings: ILobbySettings | null;
+	activeLobbySettings: ILobbySettings | null;
+	hostId: number;
 }
