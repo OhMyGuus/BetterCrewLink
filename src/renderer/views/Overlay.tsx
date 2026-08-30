@@ -40,7 +40,7 @@ const useStyles = (props: UseStylesProps) => ({
 	playerContainer: {
 		width: props.oldHud ? '46.41%' : '30%',
 		height: props.oldHud ? '100%' : '109%',
-		borderRadius: props.height / 100,
+		borderRadius: `${props.height / 100}px`,
 		transition: 'opacity .1s linear',
 		marginBottom: props.oldHud ? '2%' : '1.9%',
 		marginRight: props.oldHud ? '2.34%' : '0.23%',

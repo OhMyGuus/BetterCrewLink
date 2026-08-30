@@ -59,7 +59,7 @@ const useStyles = () => {
 			width: 'fit-content',
 			margin: '5px auto',
 			padding: '5px',
-			borderRadius: 5,
+			borderRadius: '5px',
 			fontSize: 28,
 		},
 		avatarWrapper: {

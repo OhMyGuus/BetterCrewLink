@@ -9,7 +9,7 @@ const useStyles = () => ({
 		color: 'white',
 		background: 'none',
 		padding: '2px 10px',
-		borderRadius: 10,
+		borderRadius: '10px',
 		border: '2px solid white',
 		fontSize: 19,
 		outline: 'none',
