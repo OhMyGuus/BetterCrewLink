@@ -572,7 +572,6 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 			host: myPlayer?.name ?? '',
 			current_players: state.players.length,
 			max_players: state.maxPlayers,
-			server: state.currentServer,
 			language: activeLobbySettings.publicLobby_language,
 			mods: state.mod,
 			isPublic: activeLobbySettings.publicLobby_on,

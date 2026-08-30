@@ -229,18 +229,14 @@ export default function lobbyBrowser({ t }) {
 															variant="contained"
 															color="secondary"
 															onClick={() => {
-																socket?.emit(
-																	'join_lobby',
-																	row.id,
-																	(state: number, codeOrError: string, server: string) => {
-																		if (state === 0) {
-																			setCode(`${t('lobbybrowser.code')}: ${codeOrError} \n Region: ${server}`);
-																			// ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);
-																		} else {
-																			setCode(`Error: ${codeOrError}`);
-																		}
+																socket?.emit('join_lobby', row.id, (state: number, codeOrError: string) => {
+																	if (state === 0) {
+																		setCode(`${t('lobbybrowser.code')}: ${codeOrError}`);
+																		// ipcRenderer.send(IpcHandlerMessages.JOIN_LOBBY, codeOrError, server);
+																	} else {
+																		setCode(`Error: ${codeOrError}`);
 																	}
-																);
+																});
 															}}
 														>
 															Show code

@@ -16,7 +16,6 @@ export interface AmongUsState {
 	lightRadius: number;
 	lightRadiusChanged: boolean;
 	closedDoors: number[];
-	currentServer: string;
 	maxPlayers: number;
 	mod: ModsType;
 	oldMeetingHud: boolean;

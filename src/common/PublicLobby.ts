@@ -9,7 +9,6 @@ export interface PublicLobby {
 	language: string;
 	mods: string;
 	isPublic: boolean;
-	server: string;
 	gameState: GameState;
 	stateTime: number;
 }

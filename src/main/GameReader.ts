@@ -76,7 +76,6 @@ export default class GameReader {
 	rainbowColor = -9999;
 	gameCode = 'MENU';
 	shellcodeAddr = -1;
-	currentServer = '';
 	disableWriting = false;
 	pid = -1;
 	loadedMod = modList[0];
@@ -251,13 +250,7 @@ export default class GameReader {
 			let maxPlayers = 10;
 			const closedDoors: number[] = [];
 			let localPlayer = undefined;
-			if (
-				this.currentServer === '' ||
-				(this.oldGameState != state &&
-					(this.oldGameState === GameState.MENU || this.oldGameState === GameState.UNKNOWN))
-			) {
-				this.readCurrentServer();
-			}
+
 			if ((this.gameCode || this.isLocalGame) && playerCount) {
 				for (let i = 0; i < Math.min(playerCount, 40); i++) {
 					const { address, last } = this.offsetAddress(playerAddrPtr, this.offsets.player.offsets);
@@ -417,7 +410,6 @@ export default class GameReader {
 				map,
 				mod: this.loadedMod.id,
 				closedDoors,
-				currentServer: this.currentServer,
 				maxPlayers,
 				oldMeetingHud: this.oldMeetingHud,
 			};
@@ -556,14 +548,7 @@ export default class GameReader {
 				true
 			);
 		}
-		this.offsets.serverManager_currentServer[0] = this.findPattern(
-			this.offsets.signatures.serverManager.sig,
-			this.offsets.signatures.serverManager.patternOffset,
-			this.offsets.signatures.serverManager.addressOffset
-		);
-
 		this.colorsInitialized = false;
-		console.log('serverManager_currentServer', this.offsets.serverManager_currentServer[0].toString(16));
 
 		this.PlayerStruct = new Struct();
 		for (const member of this.offsets.player.struct) {
@@ -926,15 +911,6 @@ export default class GameReader {
 		);
 		//	console.log(optionalHeader_magic, 'optionalHeader_magic');
 		return optionalHeader_magic === 0x20b;
-	}
-
-	readCurrentServer(): void {
-		const currentServer = this.readMemory<number>(
-			'ptr',
-			this.gameAssembly!.modBaseAddr,
-			this.offsets!.serverManager_currentServer
-		);
-		this.currentServer = this.readString(currentServer);
 	}
 
 	readMemory<T>(dataType: DataType, address: number, offsets?: number[] | number, defaultParam?: T): T {
