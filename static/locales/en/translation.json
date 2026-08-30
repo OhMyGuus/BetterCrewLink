@@ -81,7 +81,10 @@
 				"push_to_talk": "Push to Talk",
 				"mute": "Mute",
 				"deafen": "Deafen",
-				"impostor_radio": "Impostor Radio"
+				"impostor_radio": "Impostor Radio",
+				"hint": "Click a shortcut, then press a key or mouse button. Press Escape to disable it.",
+				"press_key": "Press a key…",
+				"disabled": "Disabled"
 			},
 			"overlay": {
 				"title": "Overlay",
