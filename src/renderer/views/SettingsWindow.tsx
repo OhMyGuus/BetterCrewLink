@@ -4,7 +4,7 @@ import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import MinimizeIcon from '@mui/icons-material/Minimize';
+import MinimizeIcon from '@mui/icons-material/Remove';
 import CloseIcon from '@mui/icons-material/Close';
 import SettingsIcon from '@mui/icons-material/Settings';
 import theme from '../lib/theme';
@@ -55,7 +55,7 @@ const TitleBar: React.FC<{ title: string }> = function ({ title }) {
 				{title}
 			</Box>
 			<IconButton sx={titleBarStyles.button} size="small" onClick={() => ipcRenderer.send('minimize', 'settings')}>
-				<MinimizeIcon htmlColor="#777" sx={{ fontSize: 16, mb: '-6px' }} />
+				<MinimizeIcon htmlColor="#777" sx={{ fontSize: 16 }} />
 			</IconButton>
 			<IconButton sx={titleBarStyles.button} size="small" onClick={() => window.close()}>
 				<CloseIcon htmlColor="#777" sx={{ fontSize: 16 }} />

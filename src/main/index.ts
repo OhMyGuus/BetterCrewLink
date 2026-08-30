@@ -180,8 +180,8 @@ function createLobbyBrowser() {
 function createSettingsWindow() {
 	const settingsWindowState = windowStateKeeper({
 		file: 'settings-window-state.json',
-		defaultWidth: 940,
-		defaultHeight: 660,
+		defaultWidth: 750,
+		defaultHeight: 630,
 	});
 
 	const window = new BrowserWindow({

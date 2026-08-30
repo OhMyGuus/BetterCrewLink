@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TFunction } from 'i18next';
 import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import TextField from '@mui/material/TextField';
@@ -166,11 +167,13 @@ const LobbySection: React.FC<LobbySectionProps> = function ({
 	update,
 	confirm,
 }) {
-	const inLobby = activeLobbySettings !== null;
+	const lobbyCode = gameState?.lobbyCode;
+	const inLobby = activeLobbySettings !== null && !!lobbyCode && lobbyCode !== 'MENU';
+	const iAmHost = !!gameState?.isHost;
 	const [tab, setTab] = useState<LobbyTab>(inLobby && !gameState?.isHost ? 'current' : 'mine');
 
 	const resolvedHostId = hostId || gameState?.hostId || 0;
-	const hostName = gameState?.isHost
+	const hostName = iAmHost
 		? t('settings.lobbysettings.host_you')
 		: (gameState?.players?.find((player) => player.clientId === resolvedHostId)?.name ??
 			t('settings.lobbysettings.host_unknown'));
@@ -192,12 +195,21 @@ const LobbySection: React.FC<LobbySectionProps> = function ({
 						<SettingsSection>
 							<SettingRow
 								label={t('settings.lobbysettings.host')}
-								description={t('settings.lobbysettings.host_notice')}
+								description={
+									iAmHost ? t('settings.lobbysettings.host_notice_you') : t('settings.lobbysettings.host_notice')
+								}
 								controlWidth="auto"
 								control={
-									<Typography variant="body2" sx={{ fontWeight: 700, color: 'primary.main' }}>
-										{hostName}
-									</Typography>
+									<>
+										<Typography variant="body2" sx={{ fontWeight: 700, color: 'primary.main' }}>
+											{hostName}
+										</Typography>
+										{iAmHost && (
+											<Button size="small" variant="contained" color="secondary" onClick={() => setTab('mine')}>
+												{t('settings.lobbysettings.edit_as_host')}
+											</Button>
+										)}
+									</>
 								}
 							/>
 						</SettingsSection>

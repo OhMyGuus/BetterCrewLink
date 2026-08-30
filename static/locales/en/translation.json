@@ -34,6 +34,8 @@
 				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
 			},
 			"host_notice": "These settings are controlled by the game host.",
+			"host_notice_you": "You are the host, so the lobby uses your own settings.",
+			"edit_as_host": "Change",
 			"tab_current": "Current Lobby",
 			"tab_mine": "My Settings",
 			"host": "Host",
