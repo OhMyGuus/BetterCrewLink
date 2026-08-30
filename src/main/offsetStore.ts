@@ -55,7 +55,6 @@ export interface IOffsets {
 	showModStampFunc: number;
 	modLateUpdateFunc: number;
 	pingMessageString: number;
-	serverManager_currentServer: number[];
 	innerNetClient: {
 		base: number[];
 		networkAddress: number;
@@ -118,7 +117,6 @@ export interface IOffsets {
 		connectFunc: ISignature;
 		fixedUpdateFunc: ISignature;
 		pingMessageString: ISignature;
-		serverManager: ISignature;
 		showModStamp: ISignature;
 		modLateUpdate: ISignature;
 		gameOptionsManager: ISignature;
