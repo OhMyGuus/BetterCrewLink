@@ -1,5 +1,6 @@
 import { AmongUsState, ClientBoolMap, GameState, Player } from '../../common/AmongUsState';
 import { MapType } from '../../common/AmongusMap';
+import { GameInfo } from '../../common/GameInfo';
 import { ILobbySettings, ISettings, playerConfigMap } from '../../common/ISettings';
 import { IpcMessages, IpcOverlayMessages, IpcRendererMessages } from '../../common/ipc-messages';
 import { ObsVoiceState } from '../../common/ObsOverlay';
@@ -105,6 +106,8 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		myLobbySettings: null as ILobbySettings | null,
 		lobbySettingsLobby: null as string | null,
 		lobbySettingsHosted: false,
+		gameOpen: false,
+		gameInfo: '',
 	};
 
 	private get activeLobbySettings(): ILobbySettings {
@@ -153,7 +156,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 
 		this.connection.start(settings.serverURL, stream);
 
-		this.unsubscribers.push(gameStore.subscribe(() => this.onGameState(gameStore.getSnapshot().gameState)));
+		this.unsubscribers.push(gameStore.subscribe(() => this.onGameStore()));
 		const onSettings = (next: ISettings) => this.onSettings(next);
 		SettingsStore.onDidAnyChange(onSettings);
 		this.unsubscribers.push(() => SettingsStore.offDidAnyChange(onSettings));
@@ -161,7 +164,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		ipcRenderer.on(IpcRendererMessages.IMPOSTOR_RADIO, this.onImpostorRadioKey);
 		this.unsubscribers.push(() => ipcRenderer.off(IpcRendererMessages.IMPOSTOR_RADIO, this.onImpostorRadioKey));
 
-		this.onGameState(gameStore.getSnapshot().gameState);
+		this.onGameStore();
 	}
 
 	stop(): void {
@@ -179,6 +182,8 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		this.prev.vadHidden = false;
 		this.prev.lobbyCode = '';
 		this.prev.gameState = GameState.UNKNOWN;
+		this.prev.gameOpen = false;
+		this.prev.gameInfo = '';
 		this.snapshot = EMPTY_SNAPSHOT;
 		this.emit('change');
 	}
@@ -235,9 +240,13 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		this.connection.on('connected', () => {
 			this.patch({ connected: true });
 			this.syncLobbyConnection(true);
+			void this.publishGameInfo();
 		});
 
-		this.connection.on('disconnected', () => this.patch({ connected: false }));
+		this.connection.on('disconnected', () => {
+			this.prev.gameInfo = '';
+			this.patch({ connected: false });
+		});
 
 		this.connection.on('error', (error) => this.patch({ error }));
 
@@ -416,6 +425,33 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		this.prev.myLobbySettings = ownSettings;
 		this.patch({ activeLobbySettings: ownSettings });
 		this.connection.broadcast(JSON.stringify(ownSettings));
+	}
+
+	private onGameStore(): void {
+		const { gameState, gameOpen } = gameStore.getSnapshot();
+		if (gameOpen !== this.prev.gameOpen) {
+			this.prev.gameOpen = gameOpen;
+			if (gameOpen) void this.publishGameInfo();
+		}
+		this.onGameState(gameState);
+	}
+
+	private async publishGameInfo(): Promise<void> {
+		if (!this.started || !this.snapshot.connected || !gameStore.getSnapshot().gameOpen) return;
+
+		let gameInfo: GameInfo | null = null;
+		try {
+			gameInfo = (await ipcRenderer.invoke(IpcMessages.REQUEST_GAME_INFO)) as GameInfo | null;
+		} catch (error) {
+			console.warn('failed to read game info:', error);
+			return;
+		}
+		if (!this.started || !gameInfo || gameInfo.broadcastVersion < 0) return;
+
+		const signature = JSON.stringify(gameInfo);
+		if (signature === this.prev.gameInfo) return;
+		this.prev.gameInfo = signature;
+		this.connection.sendGameInfo(gameInfo);
 	}
 
 	private handleHostChange(state: AmongUsState): void {

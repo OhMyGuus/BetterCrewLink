@@ -25,6 +25,7 @@ import { platform } from 'os';
 import fs from 'fs';
 import path from 'path';
 import { AmongusMod, modList } from '../common/Mods';
+import { GameInfo } from '../common/GameInfo';
 import { app } from 'electron';
 
 let appVersion = '';
@@ -79,6 +80,9 @@ export default class GameReader {
 	disableWriting = false;
 	pid = -1;
 	loadedMod = modList[0];
+	loadedMods: string[] = [];
+	broadcastVersion = -1;
+	offsetsVersion = -1;
 	gamePath = '';
 	oldMeetingHud = false;
 	playercolors: string[][] = [];
@@ -128,21 +132,40 @@ export default class GameReader {
 	}
 
 	getInstalledMods(filePath: string): AmongusMod {
-		const pathLower = filePath.toLowerCase();
-		if (pathLower.includes('?\\volume')) {
-			return modList[0];
-		} else {
-			const dir = path.dirname(filePath);
-			if (!fs.existsSync(path.join(dir, 'winhttp.dll')) || !fs.existsSync(path.join(dir, 'BepInEx', 'plugins'))) {
-				return modList[0];
-			}
-			for (const file of fs.readdirSync(path.join(dir, 'BepInEx', 'plugins'))) {
-				console.log(`MOD! ${file}`);
-				const mod = modList.find((o) => o.dllStartsWith && file.includes(o.dllStartsWith));
-				if (mod) return mod;
-			}
-			return modList[0];
+		this.loadedMods = this.readPluginFiles(filePath);
+		for (const file of this.loadedMods) {
+			const mod = modList.find((o) => o.dllStartsWith && file.includes(o.dllStartsWith));
+			if (mod) return mod;
 		}
+		return modList[0];
+	}
+
+	private readPluginFiles(filePath: string): string[] {
+		if (filePath.toLowerCase().includes('?\\volume')) {
+			return [];
+		}
+		const dir = path.dirname(filePath);
+		if (!fs.existsSync(path.join(dir, 'winhttp.dll')) || !fs.existsSync(path.join(dir, 'BepInEx', 'plugins'))) {
+			return [];
+		}
+		try {
+			return fs.readdirSync(path.join(dir, 'BepInEx', 'plugins')).filter((file) => file.endsWith('.dll'));
+		} catch (e) {
+			console.log('failed to read plugins directory:', e);
+			return [];
+		}
+	}
+
+	getGameInfo(): GameInfo {
+		return {
+			appVersion,
+			broadcastVersion: this.broadcastVersion,
+			offsetsVersion: this.offsetsVersion,
+			is64bit: this.is_64bit,
+			platform: platform(),
+			mod: this.loadedMod.id,
+			mods: this.loadedMods,
+		};
 	}
 
 	checkProcessDelay = 0;
@@ -441,20 +464,11 @@ export default class GameReader {
 
 		const broadcastVersion = this.readMemory<number>('int', this.gameAssembly!.modBaseAddr, broadcastVersionAddr);
 		console.log('broadcastVersion: ', broadcastVersion);
+		this.broadcastVersion = broadcastVersion;
 
-		if (offsetLookups.versions[broadcastVersion]) {
-			this.offsets = await fetchOffsets(
-				this.is_64bit,
-				offsetLookups.versions[broadcastVersion].file,
-				offsetLookups.versions[broadcastVersion].offsetsVersion
-			);
-		} else {
-			this.offsets = await fetchOffsets(
-				this.is_64bit,
-				offsetLookups.versions['default'].file,
-				offsetLookups.versions['default'].offsetsVersion
-			); // can't find file for this client, return default
-		}
+		const versionLookup = offsetLookups.versions[broadcastVersion] ?? offsetLookups.versions['default'];
+		this.offsetsVersion = versionLookup.offsetsVersion;
+		this.offsets = await fetchOffsets(this.is_64bit, versionLookup.file, versionLookup.offsetsVersion);
 
 		this.disableWriting = this.offsets.disableWriting;
 		this.oldMeetingHud = this.offsets.oldMeetingHud;

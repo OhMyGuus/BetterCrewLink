@@ -60,6 +60,11 @@ ipcMain.handle(IpcMessages.REQUEST_MOD, () => {
 	return gameReader.loadedMod.id;
 });
 
+ipcMain.handle(IpcMessages.REQUEST_GAME_INFO, () => {
+	if (!readingGame) return null;
+	return gameReader.getGameInfo();
+});
+
 ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 	if (!readingGame) {
 		readingGame = true;

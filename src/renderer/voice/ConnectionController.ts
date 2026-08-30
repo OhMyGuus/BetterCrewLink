@@ -1,6 +1,7 @@
 import io, { Socket } from 'socket.io-client';
 import { Client, GameState, SocketClientMap, numberStringMap } from '../../common/AmongUsState';
 import { ILobbySettings } from '../../common/ISettings';
+import { GameInfo } from '../../common/GameInfo';
 import { PublicLobby } from '../../common/PublicLobby';
 import PeerConnection, { SignalData } from '../lib/PeerConnection';
 import { TypedEmitter } from '../lib/TypedEmitter';
@@ -261,6 +262,10 @@ export class ConnectionController extends TypedEmitter<ConnectionControllerEvent
 
 	publishLobby(lobbyCode: string, lobby: Omit<PublicLobby, 'stateTime'>): void {
 		this.socket?.emit('lobby', lobbyCode, lobby);
+	}
+
+	sendGameInfo(gameInfo: GameInfo): void {
+		this.socket?.emit('gameinfo', gameInfo);
 	}
 
 	signalTo(target: string, data: unknown): void {

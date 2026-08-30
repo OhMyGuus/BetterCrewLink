@@ -12,6 +12,7 @@ export enum IpcMessages {
 	SEND_TO_SETTINGS = 'SEND_TO_SETTINGS',
 	RESTART_AND_UPDATE = 'RESTART_AND_UPDATE',
 	REQUEST_MOD = 'REQUEST_MOD',
+	REQUEST_GAME_INFO = 'REQUEST_GAME_INFO',
 }
 
 // Renderer --> Main (sendSync/on)
