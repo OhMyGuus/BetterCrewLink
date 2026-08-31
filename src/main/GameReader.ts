@@ -44,6 +44,9 @@ interface PlayerReport {
 	objectPtr: number;
 	outfitsPtr: number;
 	id: number;
+	clientId: number;
+	friendCode: number;
+	puid: number;
 	name: number;
 	color: number;
 	hat: string;
@@ -939,7 +942,7 @@ export default class GameReader {
 
 	readString(address: number, maxLength = 50): string {
 		try {
-			if (address === 0 || !this.amongUs) {
+			if (!address || !this.amongUs) {
 				return '';
 			}
 			const length = Math.max(
@@ -1070,9 +1073,17 @@ export default class GameReader {
 			data.taskPtr = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('taskPtr')]);
 			data.rolePtr = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('rolePtr')]);
 
-			// data.name = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('name')]);
+			if (Object.prototype.hasOwnProperty.call(data, 'friendCode')) {
+				data.friendCode = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('friendCode')]);
+				data.puid = this.readMemory('pointer', ptr, [this.PlayerStruct.getOffsetByName('puid')]);
+			}
 		}
-		const clientId = this.readMemory<number>('uint32', data.objectPtr, this.offsets.player.clientId);
+		if (data.objectPtr === 0) {
+			return undefined;
+		}
+		const clientId = Object.prototype.hasOwnProperty.call(data, 'clientId')
+			? data.clientId
+			: this.readMemory<number>('uint32', data.objectPtr, this.offsets.player.clientId);
 		const isLocal = clientId === LocalclientId && data.disconnected === 0;
 
 		const positionOffsets = isLocal
@@ -1083,13 +1094,10 @@ export default class GameReader {
 		let y = this.readMemory<number>('float', data.objectPtr, positionOffsets[1]);
 		const currentOutfit = this.readMemory<number>('uint32', data.objectPtr, this.offsets.player.currentOutfit);
 		const isDummy = this.readMemory<boolean>('boolean', data.objectPtr, this.offsets.player.isDummy);
-		const friendCode = this.offsets.player.friendCode
-			? this.readString(this.readMemory<number>('ptr', data.objectPtr, this.offsets.player.friendCode))
-			: '';
-		const playerUid = this.offsets.player.puid
-			? this.readString(this.readMemory<number>('ptr', data.objectPtr, this.offsets.player.puid))
-			: '';
-		const playerIdentifier = playerUid || clientId.toString();
+		const friendCode = this.readString(data.friendCode);
+		const playerUid = this.readString(data.puid);
+		const playerIdentifier = playerUid || (clientId === undefined ? '' : clientId.toString());
+
 		let name = 'error';
 		let shiftedColor = -1;
 		if (Object.prototype.hasOwnProperty.call(data, 'name')) {
@@ -1113,14 +1121,6 @@ export default class GameReader {
 
 			const roleTeam = this.readMemory<number>('uint32', data.rolePtr, this.offsets!.player.roleTeam);
 			data.impostor = roleTeam;
-
-			//	if (this.offsets!.player.nameText && shiftedColor == -1 && (this.loadedMod.id == "THE_OTHER_ROLES")) {
-			//		let nameText = this.readMemory<number>('ptr', data.objectPtr, this.offsets!.player.nameText);
-			//		var nameText_name = this.readString(nameText);
-			//		if (nameText_name != name) {
-			//			shiftedColor = data.color;
-			//		}
-			//	}
 		}
 		name = name.split(/<.*?>/).join('');
 		let bugged = false;

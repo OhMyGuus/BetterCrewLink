@@ -87,8 +87,6 @@ export interface IOffsets {
 		offsets: number[];
 		inVent: number[];
 		clientId: number[];
-		friendCode?: number[];
-		puid?: number[];
 		isDummy: number[]; // used for muting
 		struct: {
 			type:
