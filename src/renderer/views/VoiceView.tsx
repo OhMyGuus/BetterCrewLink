@@ -210,8 +210,8 @@ const VoiceView: React.FC<VoiceProps> = function ({ t, error: initialError }: Vo
 								const peer = voice.playerSocketIds[player.clientId];
 								const connected = voice.socketClients[peer]?.clientId === player.clientId || false;
 
-								if (!playerConfigs[player.nameHash]) {
-									playerConfigs[player.nameHash] = { volume: 1, isMuted: false };
+								if (!playerConfigs[player.playerConfigId]) {
+									playerConfigs[player.playerConfigId] = { volume: 1, isMuted: false };
 								}
 
 								const theirVadHidden = player.shiftedColor !== -1 && gameState?.gameState !== GameState.DISCUSSION;
@@ -232,9 +232,9 @@ const VoiceView: React.FC<VoiceProps> = function ({ t, error: initialError }: Vo
 												voice.impostorRadioClientId === player.clientId
 											}
 											size={otherPlayerAvatarSize}
-											socketConfig={playerConfigs[player.nameHash]}
+											socketConfig={playerConfigs[player.playerConfigId]}
 											onConfigChange={() =>
-												setSetting(`playerConfigMap.${player.nameHash}`, playerConfigs[player.nameHash])
+												setSetting(`playerConfigMap.${player.playerConfigId}`, playerConfigs[player.playerConfigId])
 											}
 											mod={gameState.mod}
 										/>

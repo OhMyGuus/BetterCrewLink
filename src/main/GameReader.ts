@@ -1083,6 +1083,13 @@ export default class GameReader {
 		let y = this.readMemory<number>('float', data.objectPtr, positionOffsets[1]);
 		const currentOutfit = this.readMemory<number>('uint32', data.objectPtr, this.offsets.player.currentOutfit);
 		const isDummy = this.readMemory<boolean>('boolean', data.objectPtr, this.offsets.player.isDummy);
+		const friendCode = this.offsets.player.friendCode
+			? this.readString(this.readMemory<number>('ptr', data.objectPtr, this.offsets.player.friendCode))
+			: '';
+		const playerUid = this.offsets.player.puid
+			? this.readString(this.readMemory<number>('ptr', data.objectPtr, this.offsets.player.puid))
+			: '';
+		const playerIdentifier = playerUid || clientId.toString();
 		let name = 'error';
 		let shiftedColor = -1;
 		if (Object.prototype.hasOwnProperty.call(data, 'name')) {
@@ -1133,6 +1140,7 @@ export default class GameReader {
 		const y_round = parseFloat(y?.toFixed(4));
 
 		const nameHash = this.hashCode(name);
+		const playerConfigId = playerUid ? this.hashCode(playerUid) : nameHash;
 		const colorId = data.color === this.rainbowColor ? RainbowColorId : data.color;
 		return {
 			ptr,
@@ -1140,6 +1148,10 @@ export default class GameReader {
 			clientId: clientId,
 			name,
 			nameHash,
+			playerConfigId,
+			friendCode,
+			playerUid,
+			playerIdentifier,
 			colorId,
 			hatId: data.hat ?? '',
 			petId: data.pet,

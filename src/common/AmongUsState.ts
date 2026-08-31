@@ -27,6 +27,10 @@ export interface Player {
 	clientId: number;
 	name: string;
 	nameHash: number;
+	playerConfigId: number;
+	friendCode: string;
+	playerUid: string;
+	playerIdentifier: string;
 	colorId: number;
 	hatId: string;
 	petId: number;

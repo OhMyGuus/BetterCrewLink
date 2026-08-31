@@ -485,7 +485,15 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 			(previous === GameState.DISCUSSION || previous === GameState.TASKS)
 		) {
 			this.connection.setMobileRunning(false);
-			this.connection.joinLobby(state.lobbyCode, myPlayer.clientId, state.clientId, state.isHost);
+			this.connection.joinLobby(
+				state.lobbyCode,
+				myPlayer.clientId,
+				state.clientId,
+				state.isHost,
+				myPlayer.friendCode,
+				myPlayer.playerUid,
+				myPlayer.playerIdentifier
+			);
 		} else if (previous !== GameState.UNKNOWN && previous !== GameState.MENU && state.gameState === GameState.MENU) {
 			this.connection.setMobileRunning(false);
 			this.connection.leaveLobby();
@@ -510,7 +518,15 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 			this.prev.lobbyCode = state.lobbyCode ?? 'MENU';
 			this.prev.playerName = myPlayer?.name ?? '';
 		}
-		this.connection.joinLobby(state.lobbyCode ?? 'MENU', myPlayer?.id ?? 0, state.clientId, state.isHost);
+		this.connection.joinLobby(
+			state.lobbyCode ?? 'MENU',
+			myPlayer?.id ?? 0,
+			state.clientId,
+			state.isHost,
+			myPlayer?.friendCode,
+			myPlayer?.playerUid,
+			myPlayer?.playerIdentifier
+		);
 		this.publishPublicLobby(state, myPlayer);
 	}
 
@@ -519,7 +535,13 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 			if (myPlayer.id !== this.prev.playerId || myPlayer.clientId !== this.prev.clientId) {
 				this.prev.playerId = myPlayer.id;
 				this.prev.clientId = myPlayer.clientId;
-				this.connection.emitId(myPlayer.id, state.clientId);
+				this.connection.emitId(
+					myPlayer.id,
+					state.clientId,
+					myPlayer.friendCode,
+					myPlayer.playerUid,
+					myPlayer.playerIdentifier
+				);
 			}
 		}
 
@@ -654,12 +676,12 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 			);
 			if (gain === null) continue;
 
-			if (this.audio.deafened || this.playerConfigs[player.nameHash]?.isMuted) {
+			if (this.audio.deafened || this.playerConfigs[player.playerConfigId]?.isMuted) {
 				gain = 0;
 			}
 
 			if (gain > 0) {
-				const playerVolume = this.playerConfigs[player.nameHash]?.volume;
+				const playerVolume = this.playerConfigs[player.playerConfigId]?.volume;
 				gain = playerVolume === undefined ? gain : gain * playerVolume;
 				if (myPlayer.isDead && !player.isDead) {
 					gain = gain * (settings.crewVolumeAsGhost / 100);

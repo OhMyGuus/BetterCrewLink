@@ -221,7 +221,15 @@ export class ConnectionController extends TypedEmitter<ConnectionControllerEvent
 		});
 	}
 
-	joinLobby(lobbyCode: string, playerId: number, clientId: number, isHost: boolean): void {
+	joinLobby(
+		lobbyCode: string,
+		playerId: number,
+		clientId: number,
+		isHost: boolean,
+		friendCode = '',
+		playerUid = '',
+		playerIdentifier = ''
+	): void {
 		if (!this.socket) return;
 
 		if (lobbyCode === 'MENU') {
@@ -236,7 +244,7 @@ export class ConnectionController extends TypedEmitter<ConnectionControllerEvent
 		if (this.currentLobby === lobbyCode) return;
 
 		this.socket.emit('leave');
-		this.socket.emit('id', playerId, clientId);
+		this.socket.emit('id', playerId, clientId, friendCode, playerUid, playerIdentifier);
 		this.socket.emit('join', lobbyCode, playerId, clientId, isHost);
 		this.currentLobby = lobbyCode;
 		this.emit('lobbyReset');
@@ -248,8 +256,8 @@ export class ConnectionController extends TypedEmitter<ConnectionControllerEvent
 		this.currentLobby = 'MENU';
 	}
 
-	emitId(playerId: number, clientId: number): void {
-		this.socket?.emit('id', playerId, clientId);
+	emitId(playerId: number, clientId: number, friendCode = '', playerUid = '', playerIdentifier = ''): void {
+		this.socket?.emit('id', playerId, clientId, friendCode, playerUid, playerIdentifier);
 	}
 
 	emitSetHost(lobbyCode: string, clientId: number): void {

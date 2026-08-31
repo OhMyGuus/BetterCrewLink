@@ -93,6 +93,9 @@ export const settingsStore = new Store<ISettings>({
 				store.delete('ghostVolume');
 			}
 		},
+		'3.1.5': (store) => {
+			store.set('playerConfigMap', {});
+		},
 	},
 	schema: {
 		alwaysOnTop: {

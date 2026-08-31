@@ -86,10 +86,11 @@ const PlayersSection: React.FC<PlayersSectionProps> = function ({ t, gameState, 
 		return <Alert severity="info">{t('settings.players.empty')}</Alert>;
 	}
 
-	const configFor = (player: Player): SocketConfig => settings.playerConfigMap?.[player.nameHash] ?? DEFAULT_CONFIG;
+	const configFor = (player: Player): SocketConfig =>
+		settings.playerConfigMap?.[player.playerConfigId] ?? DEFAULT_CONFIG;
 
 	const updateConfig = (player: Player, partial: Partial<SocketConfig>) => {
-		setSetting(`playerConfigMap.${player.nameHash}`, { ...configFor(player), ...partial });
+		setSetting(`playerConfigMap.${player.playerConfigId}`, { ...configFor(player), ...partial });
 	};
 
 	return (
@@ -98,7 +99,7 @@ const PlayersSection: React.FC<PlayersSectionProps> = function ({ t, gameState, 
 				const config = configFor(player);
 				return (
 					<SliderRow
-						key={player.nameHash}
+						key={player.playerConfigId}
 						label={player.name}
 						description={player.disconnected ? t('settings.players.disconnected') : undefined}
 						disabled={player.disconnected}
