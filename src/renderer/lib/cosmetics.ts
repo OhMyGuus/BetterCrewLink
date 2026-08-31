@@ -1,3 +1,4 @@
+import { useEffect, useSyncExternalStore } from 'react';
 // @ts-ignore
 import redAliveimg from '../../../static/images/avatar/placeholder.png'; // @ts-ignore
 import rainbowAliveimg from '../../../static/images/avatar/rainbow-alive.png'; // @ts-ignore
@@ -40,6 +41,7 @@ export interface HatDementions {
 
 let requestingHats = false;
 export let initializedHats = false;
+const hatListeners = new Set<() => void>();
 
 export function initializeHats() {
 	if (initializedHats || requestingHats) {
@@ -51,8 +53,32 @@ export function initializeHats() {
 		.then((data) => {
 			hatCollection = data;
 			initializedHats = true;
+			hatListeners.forEach((listener) => listener());
+		})
+		.catch((error) => {
+			console.error('Failed to load hats.json', error);
+			requestingHats = false;
 		});
 	return undefined;
+}
+
+function subscribeToHats(listener: () => void): () => void {
+	hatListeners.add(listener);
+	return () => {
+		hatListeners.delete(listener);
+	};
+}
+
+function getHatsSnapshot(): boolean {
+	return initializedHats;
+}
+
+export function useHatsLoaded(): boolean {
+	const loaded = useSyncExternalStore(subscribeToHats, getHatsSnapshot, getHatsSnapshot);
+	useEffect(() => {
+		initializeHats();
+	}, []);
+	return loaded;
 }
 
 const HAT_COLLECTION_URL = 'https://cdn.jsdelivr.net/gh/OhMyGuus/BetterCrewLink-Hats@master/'; //'https://raw.githubusercontent.com/OhMyGuus/BetterCrewlink-Hats/master';

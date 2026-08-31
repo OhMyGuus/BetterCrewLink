@@ -1,14 +1,6 @@
 import React, { useMemo } from 'react';
 import { Player } from '../../common/AmongUsState';
-import {
-	getCosmetic,
-	redAlive,
-	cosmeticType,
-	getHatDementions,
-	initializedHats as initializedHats,
-	initializeHats,
-	HatDementions,
-} from '../lib/cosmetics';
+import { getCosmetic, redAlive, cosmeticType, getHatDementions, useHatsLoaded, HatDementions } from '../lib/cosmetics';
 import Box from '@mui/material/Box';
 import MicOff from '@mui/icons-material/MicOff';
 import VolumeOff from '@mui/icons-material/VolumeOff';
@@ -305,23 +297,21 @@ const Canvas = React.memo(function Canvas({
 	onClick,
 	mod,
 }: CanvasProps) {
+	const hatsLoaded = useHatsLoaded();
 	const hatImg = useMemo(() => {
-		if (!initializedHats) {
-			initializeHats();
-		}
 		return {
 			base: getCosmetic(color, isAlive, cosmeticType.base),
-			hat_front: !initializedHats ? '' : getCosmetic(color, isAlive, cosmeticType.hat, hat, mod),
-			hat_back: !initializedHats ? '' : getCosmetic(color, isAlive, cosmeticType.hat_back, hat, mod),
-			skin: !initializedHats ? '' : getCosmetic(color, isAlive, cosmeticType.hat, skin, mod),
-			visor: !initializedHats ? '' : getCosmetic(color, isAlive, cosmeticType.hat, visor, mod),
+			hat_front: !hatsLoaded ? '' : getCosmetic(color, isAlive, cosmeticType.hat, hat, mod),
+			hat_back: !hatsLoaded ? '' : getCosmetic(color, isAlive, cosmeticType.hat_back, hat, mod),
+			skin: !hatsLoaded ? '' : getCosmetic(color, isAlive, cosmeticType.hat, skin, mod),
+			visor: !hatsLoaded ? '' : getCosmetic(color, isAlive, cosmeticType.hat, visor, mod),
 			dementions: {
 				hat: getHatDementions(hat, mod),
 				visor: getHatDementions(visor, mod),
 				skin: getHatDementions(skin, mod),
 			},
 		};
-	}, [color, hat, skin, visor, initializedHats, isAlive]);
+	}, [color, hat, skin, visor, hatsLoaded, isAlive, mod]);
 
 	const classes = useCanvasStyles({
 		isAlive,
