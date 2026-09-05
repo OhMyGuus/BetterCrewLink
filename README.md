@@ -266,8 +266,17 @@ Server Code is located at [OhMyGuus/BetterCrewLink-server](https://github.com/Oh
 ### Prerequisites
 
 * [Node.js 24](https://nodejs.org/en/download/) with npm (the version used in CI)
-* [Python](https://www.python.org/downloads/) and a C++ build toolchain for native dependencies
 * On Debian/Ubuntu, install the Linux build dependencies with `sudo apt-get install libxcb1-dev libx11-dev` (as in CI).
+
+Python and a C++ toolchain are **not** required. Every native dependency (`memoryjs`,
+`node-keyboard-watcher`, `registry-js`, `electron-overlay-window`) ships N-API prebuilt binaries for
+`win32-x64`, `win32-ia32` and `linux-x64`, so nothing is compiled from source — `@electron/rebuild`
+picks up the prebuilds during packaging too. You only need [Python](https://www.python.org/downloads/)
+and a C++ toolchain if you are building for a target without a prebuild, such as arm64 or macOS.
+
+npm 11 asks you to approve dependency install scripts, so `npm ci` prints a warning listing several
+packages. You can ignore it — the prebuilt binaries are resolved at require time and are present in
+the published packages, so a clean `npm ci` with those scripts left unapproved still builds and runs.
 
 ### Setup
 
