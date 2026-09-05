@@ -90,7 +90,8 @@
   * [Console](#console)
 * [Development](#development)
   * [Prerequisites](#prerequisites)
-      * [Setup](#setup)
+  * [Setup](#setup)
+  * [Build](#build)
 * [Contributing](#contributing)
 * [Translating](#translating)
 * [Donate](#donate)
@@ -264,29 +265,47 @@ Server Code is located at [OhMyGuus/BetterCrewLink-server](https://github.com/Oh
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* [Python](https://www.python.org/downloads/)
-* [node.js](https://nodejs.org/en/download/)
-* yarn
-```sh
-npm install yarn -g
-```
+* [Node.js 24](https://nodejs.org/en/download/) with npm (the version used in CI)
+* [Python](https://www.python.org/downloads/) and a C++ build toolchain for native dependencies
+* On Debian/Ubuntu, install the Linux build dependencies with `sudo apt-get install libxcb1-dev libx11-dev` (as in CI).
 
 ### Setup
 
-1. Clone The Repo
+1. Clone the repo and check out the branch you want to develop.
+
+   ```sh
+   git clone https://github.com/OhMyGuus/BetterCrewLink.git
+   cd BetterCrewLink
+   ```
+
+2. Install dependencies using the committed npm lockfile.
+
+   ```sh
+   npm ci
+   ```
+
+3. Run the project with electron-vite.
+
+   ```sh
+   npm run dev
+   ```
+
+### Build
+
+Compile the application into `out/`:
+
 ```sh
-git clone https://github.com/OhMyGuus/BetterCrewLink.git
-cd BetterCrewLink
+npm run build
 ```
-2. Install NPM Packages
-```sh
-yarn install
-```
-3. Run The Project
-```JS
-yarn dev
-```
+
+To create installers, run the command for your platform below. Each command also builds the application and writes the packaged output to `dist/`.
+
+| Platform | Command |
+| --- | --- |
+| Windows (64-bit and 32-bit) | `npm run dist -- --publish never` |
+| Windows (64-bit only) | `npm run dist:64 -- --publish never` |
+| Windows (32-bit only) | `npm run dist:32 -- --publish never` |
+| Linux (64-bit AppImage) | `npm run dist:linux -- --publish never` |
 
 <!-- CONTRIBUTING -->
 ## Contributing
