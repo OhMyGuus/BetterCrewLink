@@ -185,7 +185,10 @@ export class ConnectionController extends TypedEmitter<ConnectionControllerEvent
 	}
 
 	stop(): void {
-		if (!this.started) return;
+		if (!this.started) {
+			this.removeAllListeners();
+			return;
+		}
 		this.started = false;
 
 		if (this.mobileBeaconTimer) {

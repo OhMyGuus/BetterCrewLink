@@ -61,20 +61,8 @@ const EMPTY_SNAPSHOT: VoiceSnapshot = {
 	hostId: 0,
 };
 
-export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
-	private readonly audio = new AudioController();
-	private readonly connection = new ConnectionController();
-
-	private started = false;
-	private snapshot: VoiceSnapshot = EMPTY_SNAPSHOT;
-	private unsubscribers: (() => void)[] = [];
-
-	private otherVAD: ClientBoolMap = {};
-	private localTalking = false;
-	private playerConfigs: playerConfigMap = {};
-	private impostorRadioPressed = false;
-
-	private host: HostInfo = {
+function emptyHost(): HostInfo {
+	return {
 		map: MapType.UNKNOWN,
 		gamestate: GameState.UNKNOWN,
 		code: 'MENU',
@@ -83,8 +71,10 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		isHost: false,
 		serverHostId: 0,
 	};
+}
 
-	private prev = {
+function emptyPrev() {
+	return {
 		lobbyCode: '',
 		gameState: GameState.UNKNOWN,
 		isHost: false,
@@ -109,6 +99,27 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		gameOpen: false,
 		gameInfo: '',
 	};
+}
+
+export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
+	private readonly audio = new AudioController();
+	private readonly connection = new ConnectionController();
+
+	private started = false;
+	private startToken = 0;
+	private snapshot: VoiceSnapshot = EMPTY_SNAPSHOT;
+	private unsubscribers: (() => void)[] = [];
+	private audioUnsubscribers: (() => void)[] = [];
+	private connectionUnsubscribers: (() => void)[] = [];
+
+	private otherVAD: ClientBoolMap = {};
+	private localTalking = false;
+	private playerConfigs: playerConfigMap = {};
+	private impostorRadioPressed = false;
+
+	private host: HostInfo = emptyHost();
+
+	private prev = emptyPrev();
 
 	private get activeLobbySettings(): ILobbySettings {
 		return this.snapshot.activeLobbySettings ?? defaultLobbySettings;
@@ -125,6 +136,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 	async start(): Promise<void> {
 		if (this.started) return;
 		this.started = true;
+		const token = ++this.startToken;
 
 		const settings = SettingsStore.store;
 		this.playerConfigs = settings.playerConfigMap;
@@ -135,7 +147,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		this.prev.inputSignature = VoiceController.inputSignature(settings);
 		this.prev.serverURL = settings.serverURL;
 		this.prev.myLobbySettings = settings.myLobbySettings;
-		this.patch({ activeLobbySettings: settings.myLobbySettings ?? defaultLobbySettings });
+		this.patch({ activeLobbySettings: settings.myLobbySettings ?? defaultLobbySettings, error: '' });
 
 		this.wireAudio();
 		this.wireConnection();
@@ -143,14 +155,14 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		try {
 			await this.audio.start();
 		} catch {
-			this.started = false;
+			if (token === this.startToken) this.teardown(true);
 			return;
 		}
-		if (!this.started) return;
+		if (!this.started || token !== this.startToken) return;
 
 		const stream = this.audio.outboundStream;
 		if (!stream) {
-			this.started = false;
+			this.teardown(true);
 			return;
 		}
 
@@ -169,22 +181,29 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 
 	stop(): void {
 		if (!this.started) return;
+		this.teardown();
+	}
+
+	private teardown(preserveError = false): void {
 		this.started = false;
+		this.startToken++;
+		const lastError = this.snapshot.error;
 
 		for (const unsubscribe of this.unsubscribers) unsubscribe();
 		this.unsubscribers = [];
 
 		this.connection.stop();
 		this.audio.stop();
+		this.unwireConnection();
+		this.unwireAudio();
 
 		this.otherVAD = {};
 		this.localTalking = false;
-		this.prev.vadHidden = false;
-		this.prev.lobbyCode = '';
-		this.prev.gameState = GameState.UNKNOWN;
-		this.prev.gameOpen = false;
-		this.prev.gameInfo = '';
-		this.snapshot = EMPTY_SNAPSHOT;
+		this.impostorRadioPressed = false;
+		this.playerConfigs = {};
+		this.host = emptyHost();
+		this.prev = emptyPrev();
+		this.snapshot = preserveError && lastError ? { ...EMPTY_SNAPSHOT, error: lastError } : EMPTY_SNAPSHOT;
 		this.emit('change');
 	}
 
@@ -218,65 +237,99 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		}
 	}
 
+	private unwireAudio(): void {
+		for (const unsubscribe of this.audioUnsubscribers) unsubscribe();
+		this.audioUnsubscribers = [];
+	}
+
+	private unwireConnection(): void {
+		for (const unsubscribe of this.connectionUnsubscribers) unsubscribe();
+		this.connectionUnsubscribers = [];
+	}
+
 	private wireAudio(): void {
-		this.audio.on('talking', (talking) => {
-			this.localTalking = talking;
-			this.patch({ talking });
-			if (!this.prev.vadHidden || !talking) {
-				this.connection.emitVad(talking);
-			}
-		});
+		this.unwireAudio();
+		const add = this.audioUnsubscribers.push.bind(this.audioUnsubscribers);
 
-		this.audio.on('muteStateChanged', (muted, deafened) => this.patch({ muted, deafened }));
+		add(
+			this.audio.on('talking', (talking) => {
+				this.localTalking = talking;
+				this.patch({ talking });
+				if (!this.prev.vadHidden || !talking) {
+					this.connection.emitVad(talking);
+				}
+			})
+		);
 
-		this.audio.on('peerAudioReady', (peerId) => {
-			this.patch({ audioConnected: { ...this.snapshot.audioConnected, [peerId]: true } });
-		});
+		add(this.audio.on('muteStateChanged', (muted, deafened) => this.patch({ muted, deafened })));
 
-		this.audio.on('error', (error) => this.patch({ error }));
+		add(
+			this.audio.on('peerAudioReady', (peerId) => {
+				this.patch({ audioConnected: { ...this.snapshot.audioConnected, [peerId]: true } });
+			})
+		);
+
+		add(this.audio.on('error', (error) => this.patch({ error })));
 	}
 
 	private wireConnection(): void {
-		this.connection.on('connected', () => {
-			this.patch({ connected: true });
-			this.syncLobbyConnection(true);
-			void this.publishGameInfo();
-		});
+		this.unwireConnection();
+		const add = this.connectionUnsubscribers.push.bind(this.connectionUnsubscribers);
 
-		this.connection.on('disconnected', () => {
-			this.prev.gameInfo = '';
-			this.patch({ connected: false });
-		});
+		add(
+			this.connection.on('connected', () => {
+				this.patch({ connected: true });
+				this.syncLobbyConnection(true);
+				void this.publishGameInfo();
+			})
+		);
 
-		this.connection.on('error', (error) => this.patch({ error }));
+		add(
+			this.connection.on('disconnected', () => {
+				this.prev.gameInfo = '';
+				this.patch({ connected: false });
+			})
+		);
 
-		this.connection.on('serverHost', (hostId) => {
-			this.host.serverHostId = hostId;
-		});
+		add(this.connection.on('error', (error) => this.patch({ error })));
 
-		this.connection.on('socketClients', (clients) => {
-			this.patch({ socketClients: clients, playerSocketIds: this.connection.playerSocketIds });
-		});
+		add(
+			this.connection.on('serverHost', (hostId) => {
+				this.host.serverHostId = hostId;
+			})
+		);
 
-		this.connection.on('vad', (clientId, activity) => {
-			this.otherVAD = { ...this.otherVAD, [clientId]: activity };
-		});
+		add(
+			this.connection.on('socketClients', (clients) => {
+				this.patch({ socketClients: clients, playerSocketIds: this.connection.playerSocketIds });
+			})
+		);
 
-		this.connection.on('peerStream', (peerId, stream) => this.audio.addPeer(peerId, stream));
+		add(
+			this.connection.on('vad', (clientId, activity) => {
+				this.otherVAD = { ...this.otherVAD, [clientId]: activity };
+			})
+		);
 
-		this.connection.on('peerClosed', (peerId) => {
-			this.audio.removePeer(peerId);
-			const audioConnected = { ...this.snapshot.audioConnected };
-			delete audioConnected[peerId];
-			this.patch({ audioConnected });
-		});
+		add(this.connection.on('peerStream', (peerId, stream) => this.audio.addPeer(peerId, stream)));
 
-		this.connection.on('lobbyReset', () => {
-			this.otherVAD = {};
-			this.patch({ otherTalking: {} });
-		});
+		add(
+			this.connection.on('peerClosed', (peerId) => {
+				this.audio.removePeer(peerId);
+				const audioConnected = { ...this.snapshot.audioConnected };
+				delete audioConnected[peerId];
+				this.patch({ audioConnected });
+			})
+		);
 
-		this.connection.on('peerData', (peerId, data) => this.onPeerData(peerId, data));
+		add(
+			this.connection.on('lobbyReset', () => {
+				this.otherVAD = {};
+				this.patch({ otherTalking: {} });
+			})
+		);
+
+		add(this.connection.on('peerData', (peerId, data) => this.onPeerData(peerId, data)));
 	}
 
 	private onPeerData(peerId: string, data: Record<string, unknown>): void {

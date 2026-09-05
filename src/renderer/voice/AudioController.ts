@@ -29,6 +29,7 @@ const REVERB_URL = import.meta.env.DEV
 
 export class AudioController extends TypedEmitter<AudioControllerEvents> {
 	private started = false;
+	private startToken = 0;
 	private inputStream?: MediaStream;
 	private stream?: MediaStream;
 	private context?: AudioContext;
@@ -68,6 +69,7 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 	async start(): Promise<void> {
 		if (this.started) return;
 		this.started = true;
+		const token = ++this.startToken;
 
 		const settings = SettingsStore.store;
 		this.pushToTalkMode = settings.pushToTalkMode;
@@ -81,13 +83,16 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		void this.loadConvolverBuffer();
 
 		try {
-			await this.createInputChain(settings);
+			await this.createInputChain(settings, token);
 		} catch (error) {
-			this.started = false;
-			this.teardownGraph();
+			if (token === this.startToken) {
+				this.started = false;
+				this.teardownGraph();
+			}
 			throw error;
 		}
 
+		if (token !== this.startToken) return;
 		if (!this.started) {
 			this.teardownInputChain();
 			this.teardownGraph();
@@ -100,13 +105,15 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 
 	async restartInput(): Promise<MediaStreamTrack | undefined> {
 		if (!this.started || !this.context) return undefined;
+		const token = this.startToken;
 
 		this.teardownInputChain();
 		try {
-			await this.createInputChain(SettingsStore.store);
+			await this.createInputChain(SettingsStore.store, token);
 		} catch {
 			return undefined;
 		}
+		if (token !== this.startToken) return undefined;
 		if (!this.started) {
 			this.teardownInputChain();
 			return undefined;
@@ -116,7 +123,7 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		return this.stream?.getAudioTracks()[0];
 	}
 
-	private async createInputChain(settings: ISettings): Promise<void> {
+	private async createInputChain(settings: ISettings, token: number): Promise<void> {
 		const context = this.context;
 		if (!context) return;
 
@@ -144,7 +151,7 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 			throw error;
 		}
 
-		if (!this.started) {
+		if (!this.started || token !== this.startToken) {
 			inputStream.getTracks().forEach((track) => track.stop());
 			return;
 		}
@@ -211,7 +218,11 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 	}
 
 	stop(): void {
-		if (!this.started) return;
+		this.startToken++;
+		if (!this.started) {
+			this.removeAllListeners();
+			return;
+		}
 		this.started = false;
 
 		this.unregisterHotkeys();
@@ -377,6 +388,7 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 	}
 
 	addPeer(peerId: string, stream: MediaStream): void {
+		if (this.peers.get(peerId)?.stream === stream) return;
 		this.removePeer(peerId);
 
 		const context = this.context;
@@ -413,6 +425,7 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		gain.connect(masterGain);
 
 		this.peers.set(peerId, {
+			stream,
 			dummyAudioElement,
 			gain,
 			pan,
@@ -485,7 +498,7 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		const destination = this.masterGain;
 		if (!peer || !destination) return null;
 
-		const { pan, gain, muffle, reverb } = peer;
+		const { pan, muffle } = peer;
 		const result = calculateVoiceAudio({
 			state,
 			settings,
@@ -500,28 +513,15 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 			pan.maxDistance = result.panMaxDistance;
 		}
 
-		if (result.reverb === true) {
-			if (!peer.reverbConnected) {
-				peer.reverbConnected = true;
-				connectEffect(gain, reverb, destination);
-			}
-		} else if (result.reverb === false && peer.reverbConnected) {
-			peer.reverbConnected = false;
-			disconnectEffect(gain, reverb, destination);
-		}
-
 		if (result.muffle) {
 			muffle.type = result.muffle.type;
 			muffle.frequency.value = result.muffle.frequency;
 			muffle.Q.value = result.muffle.q;
-			if (!peer.muffleConnected) {
-				peer.muffleConnected = true;
-				connectEffect(gain, muffle, destination);
-			}
-		} else if (result.muffle === false && peer.muffleConnected) {
-			peer.muffleConnected = false;
-			disconnectEffect(gain, muffle, destination);
 		}
+
+		const wantReverb = result.reverb === null ? peer.reverbConnected : result.reverb;
+		const wantMuffle = result.muffle === null ? peer.muffleConnected : result.muffle !== false;
+		rebuildEffectChain(peer, destination, wantReverb, wantMuffle);
 
 		if (result.panPosition) {
 			const time = pan.context.currentTime;
@@ -534,22 +534,41 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 	}
 }
 
-function connectEffect(gain: AudioNode, effect: AudioNode, destination: AudioNode): void {
-	try {
-		gain.disconnect(destination);
-		gain.connect(effect);
-		effect.connect(destination);
-	} catch (error) {
-		console.warn('Failed to apply audio effect', error);
-	}
-}
+function rebuildEffectChain(
+	peer: PeerAudioNodes,
+	destination: AudioNode,
+	wantReverb: boolean,
+	wantMuffle: boolean
+): void {
+	if (peer.reverbConnected === wantReverb && peer.muffleConnected === wantMuffle) return;
 
-function disconnectEffect(gain: AudioNode, effect: AudioNode, destination: AudioNode): void {
+	for (const node of [peer.gain, peer.muffle, peer.reverb]) {
+		try {
+			node.disconnect();
+		} catch {
+			/* not connected */
+		}
+	}
+
+	const chain: AudioNode[] = [peer.gain];
+	if (wantMuffle) chain.push(peer.muffle);
+	if (wantReverb) chain.push(peer.reverb);
+	chain.push(destination);
+
 	try {
-		effect.disconnect(destination);
-		gain.disconnect(effect);
-		gain.connect(destination);
+		for (let index = 0; index < chain.length - 1; index++) {
+			chain[index].connect(chain[index + 1]);
+		}
+		peer.reverbConnected = wantReverb;
+		peer.muffleConnected = wantMuffle;
 	} catch (error) {
-		console.warn('Failed to restore audio effect', error);
+		console.warn('Failed to rebuild audio effect chain', error);
+		peer.reverbConnected = false;
+		peer.muffleConnected = false;
+		try {
+			peer.gain.connect(destination);
+		} catch {
+			/* destination already gone */
+		}
 	}
 }

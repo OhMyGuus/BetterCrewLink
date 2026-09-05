@@ -1,6 +1,8 @@
 import { contextBridge, ipcRenderer, shell, webUtils } from 'electron';
 
-const listenerWrappers = new Map<(...args: unknown[]) => void, (...args: unknown[]) => void>();
+type Listener = (...args: unknown[]) => void;
+
+const listenerWrappers = new Map<string, Map<Listener, Listener>>();
 
 const bridge = {
 	ipcRenderer: {
@@ -13,21 +15,32 @@ const bridge = {
 		sendSync(channel: string, ...args: unknown[]): unknown {
 			return ipcRenderer.sendSync(channel, ...args);
 		},
-		on(channel: string, listener: (...args: unknown[]) => void): void {
+		on(channel: string, listener: Listener): void {
+			let wrappers = listenerWrappers.get(channel);
+			if (!wrappers) {
+				wrappers = new Map<Listener, Listener>();
+				listenerWrappers.set(channel, wrappers);
+			}
+			if (wrappers.has(listener)) return;
+
 			const wrapped = (_event: Electron.IpcRendererEvent, ...args: unknown[]) => listener(undefined, ...args);
-			listenerWrappers.set(listener, wrapped);
+			wrappers.set(listener, wrapped);
 			ipcRenderer.on(channel, wrapped);
 		},
-		off(channel: string, listener?: (...args: unknown[]) => void): void {
-			if (listener) {
-				const wrapped = listenerWrappers.get(listener);
-				if (wrapped) {
-					listenerWrappers.delete(listener);
-					ipcRenderer.removeListener(channel, wrapped);
-					return;
-				}
+		off(channel: string, listener?: Listener): void {
+			if (!listener) {
+				listenerWrappers.delete(channel);
+				ipcRenderer.removeAllListeners(channel);
+				return;
 			}
-			ipcRenderer.removeAllListeners(channel);
+
+			const wrappers = listenerWrappers.get(channel);
+			const wrapped = wrappers?.get(listener);
+			if (!wrappers || !wrapped) return;
+
+			wrappers.delete(listener);
+			if (wrappers.size === 0) listenerWrappers.delete(channel);
+			ipcRenderer.removeListener(channel, wrapped);
 		},
 	},
 	shell: {

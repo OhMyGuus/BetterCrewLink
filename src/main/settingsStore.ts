@@ -380,10 +380,34 @@ function adoptLegacyLobbySettings(): void {
 
 adoptLegacyLobbySettings();
 
+const unsavedSettings = new Map<string, unknown>();
+
+function assignPath(target: Record<string, unknown>, path: string, value: unknown): void {
+	const segments = path.split('.');
+	let cursor = target;
+	for (let index = 0; index < segments.length - 1; index++) {
+		const segment = segments[index];
+		const next = cursor[segment];
+		cursor[segment] = typeof next === 'object' && next !== null ? { ...(next as Record<string, unknown>) } : {};
+		cursor = cursor[segment] as Record<string, unknown>;
+	}
+	cursor[segments[segments.length - 1]] = value;
+}
+
+function currentSettings(): ISettings {
+	if (unsavedSettings.size === 0) return settingsStore.store;
+	const merged = { ...settingsStore.store } as unknown as Record<string, unknown>;
+	for (const [key, value] of unsavedSettings) {
+		assignPath(merged, key, value);
+	}
+	return merged as unknown as ISettings;
+}
+
 function broadcastSettings(): void {
+	const settings = currentSettings();
 	for (const win of BrowserWindow.getAllWindows()) {
 		try {
-			win.webContents.send('settings:changed', settingsStore.store);
+			win.webContents.send('settings:changed', settings);
 		} catch {
 			/* empty */
 		}
@@ -391,12 +415,18 @@ function broadcastSettings(): void {
 }
 
 export function initSettingsIpc(): void {
-	ipcMain.handle('settings:get', () => settingsStore.store);
-	ipcMain.on('settings:set', (_event, key: string, value: unknown) => {
-		settingsStore.set(key as never, value as never);
+	ipcMain.handle('settings:get', () => currentSettings());
+	ipcMain.on('settings:set', (_event, key: string, value: unknown, persist = true) => {
+		if (persist) {
+			unsavedSettings.delete(key);
+			settingsStore.set(key as never, value as never);
+		} else {
+			unsavedSettings.set(key, value);
+		}
 		broadcastSettings();
 	});
 	ipcMain.on('settings:clear', () => {
+		unsavedSettings.clear();
 		settingsStore.clear();
 		broadcastSettings();
 	});

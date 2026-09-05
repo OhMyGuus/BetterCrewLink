@@ -89,8 +89,8 @@ const PlayersSection: React.FC<PlayersSectionProps> = function ({ t, gameState, 
 	const configFor = (player: Player): SocketConfig =>
 		settings.playerConfigMap?.[player.playerConfigId] ?? DEFAULT_CONFIG;
 
-	const updateConfig = (player: Player, partial: Partial<SocketConfig>) => {
-		setSetting(`playerConfigMap.${player.playerConfigId}`, { ...configFor(player), ...partial });
+	const updateConfig = (player: Player, partial: Partial<SocketConfig>, persist = true) => {
+		setSetting(`playerConfigMap.${player.playerConfigId}`, { ...configFor(player), ...partial }, persist);
 	};
 
 	return (
@@ -118,7 +118,7 @@ const PlayersSection: React.FC<PlayersSectionProps> = function ({ t, gameState, 
 							/>
 						}
 						sliderDisabled={config.isMuted}
-						onChange={(volume) => updateConfig(player, { volume })}
+						onChange={(volume, persist) => updateConfig(player, { volume }, persist)}
 					/>
 				);
 			})}

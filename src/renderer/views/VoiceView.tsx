@@ -15,6 +15,7 @@ import Footer from '../components/Footer';
 import SupportLink from '../components/SupportLink';
 import { GameStateContext, SettingsContext } from '../state/contexts';
 import { GameState } from '../../common/AmongUsState';
+import { SocketConfig } from '../../common/ISettings';
 import { IpcHandlerMessages } from '../../common/ipc-messages';
 import { ipcRenderer } from '../lib/electron-bridge';
 import { useVoiceEngine } from '../voice/useVoiceController';
@@ -75,6 +76,8 @@ const useStyles = () => {
 		left: { float: 'left' },
 	};
 };
+
+const DEFAULT_PLAYER_CONFIG: SocketConfig = { volume: 1, isMuted: false };
 
 const otherPlayersGridWidth = 225;
 const otherPlayersGridGap = 8;
@@ -209,11 +212,7 @@ const VoiceView: React.FC<VoiceProps> = function ({ t, error: initialError }: Vo
 							{otherPlayers.map((player) => {
 								const peer = voice.playerSocketIds[player.clientId];
 								const connected = voice.socketClients[peer]?.clientId === player.clientId || false;
-
-								if (!playerConfigs[player.playerConfigId]) {
-									playerConfigs[player.playerConfigId] = { volume: 1, isMuted: false };
-								}
-
+								const playerConfig = playerConfigs?.[player.playerConfigId] ?? DEFAULT_PLAYER_CONFIG;
 								const theirVadHidden = player.shiftedColor !== -1 && gameState?.gameState !== GameState.DISCUSSION;
 
 								return (
@@ -232,9 +231,9 @@ const VoiceView: React.FC<VoiceProps> = function ({ t, error: initialError }: Vo
 												voice.impostorRadioClientId === player.clientId
 											}
 											size={otherPlayerAvatarSize}
-											socketConfig={playerConfigs[player.playerConfigId]}
-											onConfigChange={() =>
-												setSetting(`playerConfigMap.${player.playerConfigId}`, playerConfigs[player.playerConfigId])
+											socketConfig={playerConfig}
+											onConfigChange={(config, persist) =>
+												setSetting(`playerConfigMap.${player.playerConfigId}`, config, persist)
 											}
 											mod={gameState.mod}
 										/>

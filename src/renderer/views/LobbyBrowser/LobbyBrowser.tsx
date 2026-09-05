@@ -80,8 +80,11 @@ function getModName(mod: string): string {
 	return modList.find((o) => o.id === mod)?.label || (mod ?? 'None');
 }
 
-// @ts-ignore
-export default function lobbyBrowser({ t }) {
+export interface LobbyBrowserProps {
+	t: (key: string) => string;
+}
+
+export default function LobbyBrowser({ t }: LobbyBrowserProps) {
 	const classes = useStyles();
 	const [publiclobbies, setPublicLobbies] = useState<PublicLobbyMap>({});
 	const [socket, setSocket] = useState<Socket>();

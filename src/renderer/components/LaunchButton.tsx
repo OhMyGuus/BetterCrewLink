@@ -66,7 +66,6 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 
 	const [settings, setSettings] = useContext(SettingsContext);
 
-	const [openMessage, setOpenMessage] = useState(<>{t('game.error_platform')}</>);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const [launchPlatforms, setLaunchPlatforms] = useState<GamePlatformMap>();
 	const [launchItemList, setLaunchItemList] = useState([] as React.JSX.Element[]);
@@ -133,17 +132,11 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 			</MenuItem>
 		);
 		setLaunchItemList(platformArray);
-	}, [launchPlatforms]);
+	}, [launchPlatforms, settings.launchPlatform, setSettings, t]);
 
-	// Update button message when platform changes or no platforms are available (list empty)
-	useEffect(() => {
-		if (!launchPlatforms) return;
-		if (launchItemList.length > 1) {
-			setOpenMessage(<>{t(launchPlatforms[settings.launchPlatform].translateKey)}</>);
-		} else {
-			setOpenMessage(<>{t('game.error_platform')}</>);
-		}
-	}, [launchItemList, settings.launchPlatform]);
+	const selectedPlatform = launchPlatforms?.[settings.launchPlatform];
+	const openMessage =
+		launchItemList.length > 1 && selectedPlatform ? t(selectedPlatform.translateKey) : t('game.error_platform');
 
 	return (
 		<>
@@ -156,9 +149,10 @@ const LaunchButton: React.FC<LauncherProps> = function ({ t }: LauncherProps) {
 			<Box sx={classes.button_group} ref={anchorRef}>
 				<Button
 					sx={classes.button_primary}
-					disabled={launchItemList.length === 1}
+					disabled={launchItemList.length === 1 || !launchPlatforms?.[settings.launchPlatform]}
 					onClick={() => {
-						ipcRenderer.send(IpcMessages.OPEN_AMONG_US_GAME, launchPlatforms![settings.launchPlatform]);
+						const selected = launchPlatforms?.[settings.launchPlatform];
+						if (selected) ipcRenderer.send(IpcMessages.OPEN_AMONG_US_GAME, selected);
 					}}
 				>
 					{openMessage}

@@ -79,21 +79,16 @@ const Overlay: React.FC = function () {
 			setVoiceState(newState);
 		};
 		const onSettings = (_: unknown, newState: ISettings) => {
-			console.log('Recieved settings..');
-
 			setSettings(newState);
 		};
 		const onColorChange = (_: unknown, colors: string[][]) => {
-			console.log('Recieved colors..');
 			setColors(colors);
-			console.log('new colors: ', playerColors);
 		};
 		ipcRenderer.on(IpcOverlayMessages.NOTIFY_GAME_STATE_CHANGED, onState);
 		ipcRenderer.on(IpcOverlayMessages.NOTIFY_VOICE_STATE_CHANGED, onVoiceState);
 		ipcRenderer.on(IpcOverlayMessages.NOTIFY_SETTINGS_CHANGED, onSettings);
 		ipcRenderer.on(IpcOverlayMessages.NOTIFY_PLAYERCOLORS_CHANGED, onColorChange);
 		ipcRenderer.send(IpcMessages.SEND_TO_MAINWINDOW, IpcOverlayMessages.REQUEST_INITVALUES);
-		console.log('REQUEST_INITVALUES');
 		return () => {
 			ipcRenderer.off(IpcOverlayMessages.NOTIFY_GAME_STATE_CHANGED, onState);
 			ipcRenderer.off(IpcOverlayMessages.NOTIFY_VOICE_STATE_CHANGED, onVoiceState);
@@ -134,6 +129,26 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 	position,
 	compactOverlay,
 }: AvatarOverlayProps) => {
+	const players = useMemo(() => {
+		if (!gameState.players) return null;
+		return gameState.players
+			.filter((o) => !voiceState.localIsAlive || !(voiceState.otherDead[o.clientId] && !o.isLocal))
+			.slice()
+			.sort((a, b) => {
+				if (
+					(a.disconnected || voiceState.otherDead[a.clientId]) &&
+					(b.disconnected || voiceState.otherDead[b.clientId])
+				) {
+					return a.id - b.id;
+				} else if (a.disconnected || voiceState.otherDead[a.clientId]) {
+					return 1000;
+				} else if (b.disconnected || voiceState.otherDead[b.clientId]) {
+					return -1000;
+				}
+				return a.id - b.id;
+			});
+	}, [gameState.players, voiceState.localIsAlive, voiceState.otherDead]);
+
 	if (!gameState.players) return null;
 
 	const positionParse = position.replace('1', '');
@@ -154,33 +169,6 @@ const AvatarOverlay: React.FC<AvatarOverlayProps> = ({
 			classnames.push('overlay_postion_' + position);
 		}
 	}
-
-	const players = useMemo(() => {
-		if (!gameState.players) return null;
-		const playerss = gameState.players
-			.filter((o) => !voiceState.localIsAlive || !(voiceState.otherDead[o.clientId] && !o.isLocal))
-			.slice()
-			.sort((a, b) => {
-				if (
-					(a.disconnected || voiceState.otherDead[a.clientId]) &&
-					(b.disconnected || voiceState.otherDead[b.clientId])
-				) {
-					return a.id - b.id;
-				} else if (a.disconnected || voiceState.otherDead[a.clientId]) {
-					return 1000;
-				} else if (b.disconnected || voiceState.otherDead[b.clientId]) {
-					return -1000;
-				}
-				return a.id - b.id;
-			});
-
-		return playerss;
-	}, [gameState.players]);
-
-	// const myPLayer = useMemo(() => {
-	// 	if (!gameState.players) return null;
-	// 	return gameState.players.find(o => o.isLocal && (!o.disconnected || !o.bugged))
-	// }, [gameState.players]);
 
 	players?.forEach((player) => {
 		const vadHidden = player.shiftedColor !== -1 && gameState.gameState !== GameState.DISCUSSION;
@@ -303,6 +291,9 @@ const MeetingHud: React.FC<MeetingHudProps> = ({ voiceState, gameState, playerCo
 			}
 			return a.id - b.id;
 		});
+		// Frozen for the duration of the meeting: re-sorting on player updates would make the
+		// tablet boxes jump as players are voted out. Live values come from voiceState instead.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [gameState.gameState]);
 	if (!players || gameState.gameState !== GameState.DISCUSSION) return null;
 

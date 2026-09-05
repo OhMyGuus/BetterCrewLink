@@ -139,11 +139,12 @@ export interface SliderRowProps extends Omit<SettingRowProps, 'control'> {
 	max?: number;
 	step?: number;
 	format?: (value: number) => string;
-	onChange: (value: number) => void;
+	onChange: (value: number, persist: boolean) => void;
 	color?: 'primary' | 'secondary';
 	toggle?: { checked: boolean; onChange: (checked: boolean) => void };
 	leading?: ReactNode;
 	sliderDisabled?: boolean;
+	commitOnly?: boolean;
 }
 
 export const SliderRow: React.FC<SliderRowProps> = function ({
@@ -157,6 +158,7 @@ export const SliderRow: React.FC<SliderRowProps> = function ({
 	toggle,
 	leading,
 	sliderDisabled,
+	commitOnly,
 	...rest
 }) {
 	const isSliderDisabled = rest.disabled || sliderDisabled || (toggle ? !toggle.checked : false);
@@ -192,11 +194,11 @@ export const SliderRow: React.FC<SliderRowProps> = function ({
 						onChange={(_, newValue) => {
 							dragging.current = true;
 							setLocalValue(newValue as number);
-							onChange(newValue as number);
+							if (!commitOnly) onChange(newValue as number, false);
 						}}
 						onChangeCommitted={(_, newValue) => {
 							dragging.current = false;
-							onChange(newValue as number);
+							onChange(newValue as number, true);
 						}}
 						aria-label={rest.label}
 					/>

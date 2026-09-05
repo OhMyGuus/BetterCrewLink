@@ -6,6 +6,7 @@ export interface ExtendedAudioElement extends HTMLAudioElement {
 }
 
 export interface PeerAudioNodes {
+	stream: MediaStream;
 	dummyAudioElement: HTMLAudioElement;
 	gain: GainNode;
 	pan: PannerNode;

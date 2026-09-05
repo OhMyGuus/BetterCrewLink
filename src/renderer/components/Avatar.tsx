@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Player } from '../../common/AmongUsState';
 import { getCosmetic, redAlive, cosmeticType, getHatDementions, useHatsLoaded, HatDementions } from '../lib/cosmetics';
 import Box from '@mui/material/Box';
@@ -82,9 +82,67 @@ export interface AvatarProps {
 	lookLeft?: boolean;
 	overflow?: boolean;
 	isUsingRadio?: boolean;
-	onConfigChange?: () => void;
+	onConfigChange?: (config: SocketConfig, persist: boolean) => void;
 	mod: ModsType;
 }
+
+interface PlayerConfigTooltipProps {
+	name: string;
+	config: SocketConfig;
+	onChange?: (config: SocketConfig, persist: boolean) => void;
+}
+
+const PlayerConfigTooltip: React.FC<PlayerConfigTooltipProps> = function ({ name, config, onChange }) {
+	const classes = useStyles();
+	const [volume, setVolume] = useState(config.volume);
+	const dragging = useRef(false);
+
+	useEffect(() => {
+		if (!dragging.current) setVolume(config.volume);
+	}, [config.volume]);
+
+	return (
+		<Box sx={classes.innerTooltip}>
+			<b>{name}</b>
+			<Grid container spacing={0} sx={classes.slidecontainer}>
+				<Grid>
+					<IconButton
+						onClick={() => onChange?.({ ...config, isMuted: !config.isMuted }, true)}
+						style={{ margin: '1px 1px 0px 0px' }}
+						size="large"
+					>
+						{config.isMuted ? (
+							<VolumeOff color="primary" sx={classes.iconNoBackground} />
+						) : (
+							<VolumeUp color="primary" sx={classes.iconNoBackground} />
+						)}
+					</IconButton>
+				</Grid>
+				<Grid size="grow">
+					<Slider
+						size="small"
+						value={volume}
+						min={0}
+						max={2}
+						step={0.02}
+						onChange={(_, newValue) => {
+							dragging.current = true;
+							setVolume(newValue as number);
+							onChange?.({ ...config, volume: newValue as number }, false);
+						}}
+						onChangeCommitted={(_, newValue) => {
+							dragging.current = false;
+							onChange?.({ ...config, volume: newValue as number }, true);
+						}}
+						valueLabelDisplay={'auto'}
+						valueLabelFormat={(value) => Math.floor(value * 100) + '%'}
+						aria-labelledby="continuous-slider"
+					/>
+				</Grid>
+			</Grid>
+		</Box>
+	);
+};
 
 const Avatar: React.FC<AvatarProps> = function ({
 	talking,
@@ -142,55 +200,9 @@ const Avatar: React.FC<AvatarProps> = function ({
 	);
 
 	if (socketConfig) {
-		let muteButtonIcon;
-		if (socketConfig.isMuted) {
-			muteButtonIcon = <VolumeOff color="primary" sx={classes.iconNoBackground}></VolumeOff>;
-		} else {
-			muteButtonIcon = <VolumeUp color="primary" sx={classes.iconNoBackground}></VolumeUp>;
-		}
 		return (
 			<Tooltip
-				title={
-					<Box sx={classes.innerTooltip}>
-						<b>{player.name}</b>
-						<Grid container spacing={0} sx={classes.slidecontainer}>
-							<Grid>
-								<IconButton
-									onClick={() => {
-										socketConfig.isMuted = !socketConfig.isMuted;
-										if (onConfigChange) {
-											onConfigChange();
-										}
-									}}
-									style={{ margin: '1px 1px 0px 0px' }}
-									size="large"
-								>
-									{muteButtonIcon}
-								</IconButton>
-							</Grid>
-							<Grid size="grow">
-								<Slider
-									size="small"
-									value={socketConfig.volume}
-									min={0}
-									max={2}
-									step={0.02}
-									onChange={(_, newValue: number | number[]) => {
-										socketConfig.volume = newValue as number;
-									}}
-									valueLabelDisplay={'auto'}
-									valueLabelFormat={(value) => Math.floor(value * 100) + '%'}
-									onMouseLeave={() => {
-										if (onConfigChange) {
-											onConfigChange();
-										}
-									}}
-									aria-labelledby="continuous-slider"
-								/>
-							</Grid>
-						</Grid>
-					</Box>
-				}
+				title={<PlayerConfigTooltip name={player.name} config={socketConfig} onChange={onConfigChange} />}
 				leaveDelay={300}
 				arrow
 				placement="top"

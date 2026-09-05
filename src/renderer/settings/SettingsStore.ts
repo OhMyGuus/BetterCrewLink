@@ -15,8 +15,8 @@ export const SettingsStore = {
 		const value = (currentSettings as unknown as Record<string, unknown>)[key];
 		return value === undefined ? defaultValue : value;
 	},
-	set(key: string, value: unknown): void {
-		ipcRenderer.send('settings:set', key, value);
+	set(key: string, value: unknown, persist = true): void {
+		ipcRenderer.send('settings:set', key, value, persist);
 	},
 	clear(): void {
 		ipcRenderer.send('settings:clear');
@@ -50,9 +50,10 @@ type ISettingOrSocketConfig<K extends keyof ISettings | `playerConfigMap.${numbe
 
 export const setSetting = <K extends keyof ISettings | `playerConfigMap.${number}`>(
 	setting: K,
-	value: ISettingOrSocketConfig<K>
+	value: ISettingOrSocketConfig<K>,
+	persist = true
 ): void => {
-	SettingsStore.set(setting as string, value);
+	SettingsStore.set(setting as string, value, persist);
 };
 
 export default SettingsStore;

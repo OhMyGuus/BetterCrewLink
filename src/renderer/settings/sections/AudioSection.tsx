@@ -50,7 +50,7 @@ const DeviceSelect: React.FC<DeviceSelectProps> = function ({ value, options, on
 export interface AudioSectionProps {
 	t: TFunction;
 	settings: ISettings;
-	setSettings: <K extends keyof ISettings>(setting: K, value: ISettings[K]) => void;
+	setSettings: <K extends keyof ISettings>(setting: K, value: ISettings[K], persist?: boolean) => void;
 	devices: MediaDevice[];
 	refreshDevices: () => void;
 	confirm: ConfirmApi['confirm'];
@@ -136,7 +136,7 @@ const AudioSection: React.FC<AudioSectionProps> = function ({
 						checked: settings.microphoneGainEnabled,
 						onChange: (checked) => setSettings('microphoneGainEnabled', checked),
 					}}
-					onChange={(value) => setSettings('microphoneGain', value)}
+					onChange={(value, persist) => setSettings('microphoneGain', value, persist)}
 				/>
 				<SliderRow
 					label={t('settings.audio.microphone_sens')}
@@ -145,6 +145,7 @@ const AudioSection: React.FC<AudioSectionProps> = function ({
 					step={0.05}
 					color={settings.micSensitivity < 0.3 ? 'primary' : 'secondary'}
 					format={(value) => value.toFixed(2)}
+					commitOnly
 					toggle={{
 						checked: settings.micSensitivityEnabled,
 						onChange: (checked) => setSettings('micSensitivityEnabled', checked),
@@ -154,7 +155,7 @@ const AudioSection: React.FC<AudioSectionProps> = function ({
 							t('settings.warning'),
 							t('settings.audio.microphone_sens_warning'),
 							() => setSettings('micSensitivity', 1 - value),
-							value === 0.7 && settings.micSensitivity < 0.3
+							Math.abs(value - 0.7) < 0.001 && settings.micSensitivity < 0.3
 						)
 					}
 				/>
@@ -166,19 +167,19 @@ const AudioSection: React.FC<AudioSectionProps> = function ({
 					value={settings.masterVolume}
 					max={200}
 					format={(value) => `${value}%`}
-					onChange={(value) => setSettings('masterVolume', value)}
+					onChange={(value, persist) => setSettings('masterVolume', value, persist)}
 				/>
 				<SliderRow
 					label={t('settings.audio.crewvolume')}
 					value={settings.crewVolumeAsGhost}
 					format={(value) => `${value}%`}
-					onChange={(value) => setSettings('crewVolumeAsGhost', value)}
+					onChange={(value, persist) => setSettings('crewVolumeAsGhost', value, persist)}
 				/>
 				<SliderRow
 					label={t('settings.audio.ghostvolumeasimpostor')}
 					value={settings.ghostVolumeAsImpostor}
 					format={(value) => `${value}%`}
-					onChange={(value) => setSettings('ghostVolumeAsImpostor', value)}
+					onChange={(value, persist) => setSettings('ghostVolumeAsImpostor', value, persist)}
 				/>
 			</SettingsSection>
 		</>
