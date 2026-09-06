@@ -7,6 +7,8 @@ export default defineConfig({
 		plugins: [externalizeDepsPlugin()],
 		build: {
 			rollupOptions: {
+				// Dev-only dependency: never bundled, and absent from packaged builds.
+				external: ['electron-devtools-installer'],
 				input: {
 					index: resolve(__dirname, 'src/main/index.ts'),
 				},

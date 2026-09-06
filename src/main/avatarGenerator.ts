@@ -1,7 +1,10 @@
 import Color from 'color';
-import { Jimp } from 'jimp';
+import { createJimp } from '@jimp/core';
+import png from '@jimp/js-png';
 import fs from 'fs';
 import path from 'path';
+
+const Jimp = createJimp({ formats: [png] });
 
 // @ts-ignore
 import playerBase from '../../static/images/generate/player.png?inline'; // @ts-ignore

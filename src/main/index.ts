@@ -13,10 +13,6 @@ import { IpcRendererMessages, IpcHandlerMessages } from '../common/ipc-messages'
 import type { ProgressInfo, UpdateInfo } from 'builder-util-runtime';
 import Store from 'electron-store';
 import { ISettings } from '../common/ISettings';
-import devtoolsInstaller from 'electron-devtools-installer';
-// Node's ESM/CJS interop resolves the default import to the whole CJS module object here.
-const { default: installExtension, REACT_DEVELOPER_TOOLS } =
-	devtoolsInstaller as unknown as typeof import('electron-devtools-installer');
 import { gameReader } from './hook';
 import { GenerateHat } from './avatarGenerator';
 import minimist from 'minimist';
@@ -368,10 +364,20 @@ if (!gotTheLock) {
 		initSettingsIpc();
 		global.mainWindow = createMainWindow();
 
-		if (isDevelopment)
-			installExtension(REACT_DEVELOPER_TOOLS)
-				.then((name: unknown) => console.log(`Added Extension:  ${name}`))
-				.catch((err: string) => console.log('An error occurred: ', err));
+		// Dev-only: kept out of the packaged app, so this import is absent in production builds.
+		if (isDevelopment) {
+			void (async () => {
+				try {
+					const devtoolsInstaller = (await import('electron-devtools-installer')).default;
+					// Node's ESM/CJS interop resolves the default import to the whole CJS module object here.
+					const { default: installExtension, REACT_DEVELOPER_TOOLS } =
+						devtoolsInstaller as unknown as typeof import('electron-devtools-installer');
+					console.log(`Added Extension:  ${await installExtension(REACT_DEVELOPER_TOOLS)}`);
+				} catch (error) {
+					console.log('An error occurred: ', error);
+				}
+			})();
+		}
 	});
 
 	app.on('second-instance', () => {
