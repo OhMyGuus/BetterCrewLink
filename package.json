@@ -91,5 +91,8 @@
 		"typescript-eslint": "^8.68.0",
 		"valid-url": "^1.0.9",
 		"vite": "^7.1.7"
+	},
+	"overrides": {
+		"prebuild-install": "^7.1.3"
 	}
 }
