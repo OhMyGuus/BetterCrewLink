@@ -94,10 +94,8 @@
 		"beta": {
 			"title": "BETA/DEPURACIÓN",
 			"mobilehost": "Host móvil",
-			"vad_enabled": "VAD activado",
 			"hardware_acceleration": "Aceleración de Hardware",
 			"hardware_acceleration_warning": "Esto desactiva la Aceleración por Hardware (que puede aumentar el uso del procesador)",
-			"vad_enabled_warning": "No serás capaz de ver quién habla si se desactiva.",
 			"echocancellation": "Cancelación de Eco",
 			"noiseSuppression": "Supresión de Ruido",
 			"spatial_audio": "Audio Espacial",

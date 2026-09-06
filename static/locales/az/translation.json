@@ -94,10 +94,8 @@
 		"beta": {
 			"title": "BETA/SAZLAMA",
 			"mobilehost": "Mobil Host",
-			"vad_enabled": "VAD Fəaldır",
 			"hardware_acceleration": "Aparat Təminatı Sürətləndirmə",
 			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
-			"vad_enabled_warning": "Bağlı olsa kimin danışdığını görə bilməyəcəksiniz.",
 			"echocancellation": "Əks-səda ləğv etmə",
 			"noiseSuppression": "Səs-küy azaltma",
 			"spatial_audio": "Məkan səsi",

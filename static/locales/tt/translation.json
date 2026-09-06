@@ -94,10 +94,8 @@
 		"beta": {
 			"title": "БЕТА/ТӨЗӘТҮ",
 			"mobilehost": "Телефон өчен бүлмә хуҗасы",
-			"vad_enabled": "VAD кушылган",
 			"hardware_acceleration": "Аппарат тизләнеше",
 			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
-			"vad_enabled_warning": "Сүнгән булса, кем сөйләгәнен күрмисез.",
 			"echocancellation": "Эхо бетерүче",
 			"noiseSuppression": "Тавыш бетерүче",
 			"spatial_audio": "Киңлектәге тавыш",

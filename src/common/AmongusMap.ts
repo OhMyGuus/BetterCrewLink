@@ -7,7 +7,6 @@ export enum MapType {
 	FUNGLE,
 	UNKNOWN,
 	SUBMERGED = 105,
-
 }
 
 export interface Vector2 {

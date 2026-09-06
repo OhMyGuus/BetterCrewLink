@@ -1,4 +1,4 @@
-name: Release 
+name: Release
 
 on:
   workflow_dispatch:
@@ -18,44 +18,45 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      - name: Install Node.js, NPM and Yarn
-        uses: actions/setup-node@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v7
         with:
-          node-version: 16.14.2
+          node-version: 24
+          cache: npm
 
       - name: Install Linux dependencies
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
           sudo apt-get update
           sudo apt-get install -y libxcb1-dev libx11-dev
-    
+
       - name: Install Dependencies
-        run: yarn install --cache-folder .yarn --network-timeout 100000
-        
+        run: npm ci
+
       - name: Build App
-        run: yarn run ${{ matrix.dist }}
+        run: npm run ${{ matrix.dist }}
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Upload Installer
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: BetterCrewLink Installer ${{ runner.os }}
           path: ${{ matrix.installer }}
           if-no-files-found: error
-          
+
       - name: Upload Unpacked 64bit
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: ${{ matrix.os == 'windows-latest' }}
         with:
-          name: BetterCrewLink Unpacked 64bit 
+          name: BetterCrewLink Unpacked 64bit
           path: 'dist/win-unpacked'
-          
+
       - name: Upload Unpacked 32bit
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: ${{ matrix.os == 'windows-latest' }}
         with:
-          name: BetterCrewLink Unpacked 32bit 
+          name: BetterCrewLink Unpacked 32bit
           path: 'dist/win-ia32-unpacked'

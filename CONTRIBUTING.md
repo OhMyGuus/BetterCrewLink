@@ -19,13 +19,11 @@ Server code is located at [OhMyGuus/BetterCrewLink-server](https://github.com/Oh
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* [Python](https://www.python.org/downloads/)
-* [node.js](https://nodejs.org/en/download/)
-* yarn
-```sh
-npm install yarn -g
-```
+* [Node.js 24](https://nodejs.org/en/download/) with npm (the version used in CI)
+* On Debian/Ubuntu: `sudo apt-get install libxcb1-dev libx11-dev`
+
+Python and a C++ toolchain are not required — the native dependencies ship prebuilt binaries for the
+platforms we target. See the [README](README.md#prerequisites) for the details.
 
 ### Setup
 
@@ -34,13 +32,13 @@ npm install yarn -g
 git clone https://github.com/OhMyGuus/BetterCrewLink.git
 cd BetterCrewLink
 ```
-2. Install NPM packages
+2. Install dependencies from the committed lockfile
 ```sh
-yarn install
+npm ci
 ```
 3. Run the project
-```JS
-yarn dev
+```sh
+npm run dev
 ```
 
 <!-- TRANSLATING -->

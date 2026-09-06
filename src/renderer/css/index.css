@@ -1,7 +1,6 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Varela&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap'); */
 
-
 body {
 	background-color: #25232a;
 	color: white;
@@ -13,12 +12,6 @@ body {
 #app {
 	width: 100vw;
 	height: 100vh;
-}
-
-.react-tooltip-lite {
-	background: #23272adb;
-	border: 1px solid gray;
-	border-radius: 5px;
 }
 
 .otherplayers > * {
@@ -54,4 +47,3 @@ body {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-

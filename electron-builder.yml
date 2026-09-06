@@ -5,10 +5,12 @@ directories:
   output: dist
   buildResources: resources
 files:
-  - from: .
-    filter:
-      - package.json
-      - app
+  - out/**
+  - package.json
+  - "!**/*.map"
+  # node-gyp build intermediates; only the .node binary is needed at runtime.
+  - "!**/node_modules/*/build/Release/obj/**"
+  - "!**/node_modules/*/build/Release/*.{iobj,ipdb,pdb,lib,exp}"
 
 win:
   publish:

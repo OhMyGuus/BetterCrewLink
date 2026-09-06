@@ -11,38 +11,42 @@ import {
 	RadioGroup,
 	TextField,
 } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
-import React, { useMemo, useState, useEffect, useContext } from 'react';
+import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
+import React, { useCallback, useMemo, useState, useEffect, useContext } from 'react';
 import ChevronLeft from '@mui/icons-material/ArrowBack';
 import { GamePlatformInstance, PlatformRunType } from '../../common/GamePlatform';
 import path from 'path';
-import { platform } from 'process';
-import { SettingsContext } from '../contexts';
+import { platform, getPathForFile } from '../lib/electron-bridge';
+import { SettingsContext } from '../state/contexts';
 
-const useStyles = makeStyles((theme) => ({
-	header: {
-		display: 'flex',
-		alignItems: 'center',
-	},
-	back: {
-		cursor: 'pointer',
-		position: 'absolute',
-		right: theme.spacing(1),
-		WebkitAppRegion: 'no-drag',
-	},
-	dialog: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		justifyContent: 'start',
-		'&>*': {
-			marginBottom: theme.spacing(1),
+const useStyles = () => {
+	const theme = useTheme();
+	return {
+		header: {
+			display: 'flex',
+			alignItems: 'center',
 		},
-	},
-	radioGroup: {
-		flexDirection: 'row',
-	},
-}));
+		back: {
+			cursor: 'pointer',
+			position: 'absolute',
+			right: theme.spacing(1),
+			WebkitAppRegion: 'no-drag',
+		},
+		dialog: {
+			display: 'flex',
+			flexDirection: 'column',
+			alignItems: 'center',
+			justifyContent: 'start',
+			'&>*': {
+				marginBottom: theme.spacing(1),
+			},
+		},
+		radioGroup: {
+			flexDirection: 'row',
+		},
+	};
+};
 
 export interface CustomPlatformSettingProps {
 	t: (key: string) => string;
@@ -51,26 +55,24 @@ export interface CustomPlatformSettingProps {
 	editPlatform?: GamePlatformInstance;
 }
 
+const emptyCustomPlatform: GamePlatformInstance = {
+	default: false,
+	key: '',
+	launchType: PlatformRunType.EXE,
+	runPath: '',
+	execute: [''],
+	translateKey: '',
+};
+
 export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = function ({
 	t,
 	open,
 	setOpenState,
 	editPlatform,
 }: CustomPlatformSettingProps) {
-	const desktopPlatform = platform;
-
 	const classes = useStyles();
 	const [settings, setSettings] = useContext(SettingsContext);
 	const [advanced, setAdvanced] = useState(false);
-
-	const emptyCustomPlatform: GamePlatformInstance = {
-		default: false,
-		key: '',
-		launchType: PlatformRunType.EXE,
-		runPath: '',
-		execute: [''],
-		translateKey: '',
-	};
 	const [customPlatform, setCustomPlatform] = useState(emptyCustomPlatform);
 
 	useEffect(() => {
@@ -80,7 +82,7 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 		} else {
 			setAdvanced(false);
 		}
-	}, [open]);
+	}, [open, editPlatform]);
 
 	const setPlatformName = (name: string) => {
 		setCustomPlatform((prevState) => ({ ...prevState, key: name, translateKey: name }));
@@ -90,40 +92,40 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 		setCustomPlatform((prevState) => ({ ...prevState, launchType: runType, runPath: '', execute: [''] }));
 	};
 
-	const setPlatformRun = (pathsString: string) => {
-		if (customPlatform.launchType === PlatformRunType.EXE) {
-			const exe = path.parse(pathsString);
-			if (exe) {
-				setCustomPlatform((prevState) => ({
-					...prevState,
-					runPath: exe.dir,
-					execute: [exe.base].concat(...prevState.execute.slice(1)),
-				}));
-			} else {
-				setCustomPlatform((prevState) => ({ ...prevState, runPath: '', execute: [''] }));
+	const setPlatformRun = useCallback((pathsString: string) => {
+		setCustomPlatform((prevState) => {
+			if (prevState.launchType === PlatformRunType.EXE) {
+				const exe = path.parse(pathsString);
+				if (exe) {
+					return { ...prevState, runPath: exe.dir, execute: [exe.base].concat(...prevState.execute.slice(1)) };
+				}
+				return { ...prevState, runPath: '', execute: [''] };
 			}
-		} else if (customPlatform.launchType === PlatformRunType.URI) {
-			setCustomPlatform((prevState) => ({ ...prevState, runPath: pathsString }));
-		}
-	};
+			if (prevState.launchType === PlatformRunType.URI) {
+				return { ...prevState, runPath: pathsString };
+			}
+			return prevState;
+		});
+	}, []);
 
-	const setPlatformArgs = (args: string) => {
-		if (args === '') {
-			setCustomPlatform((prevState) => ({ ...prevState, execute: [customPlatform.execute[0]] }));
-		} else if (customPlatform.launchType === PlatformRunType.EXE) {
-			setCustomPlatform((prevState) => ({
-				...prevState,
-				execute: [customPlatform.execute[0]].concat(...args.split(' ')),
-			}));
-		}
-	};
+	const setPlatformArgs = useCallback((args: string) => {
+		setCustomPlatform((prevState) => {
+			if (args === '') {
+				return { ...prevState, execute: [prevState.execute[0]] };
+			}
+			if (prevState.launchType === PlatformRunType.EXE) {
+				return { ...prevState, execute: [prevState.execute[0]].concat(...args.split(' ')) };
+			}
+			return prevState;
+		});
+	}, []);
 
 	// Delete and re-add platform if we're editing
 	const saveCustomPlatform = () => {
 		if (editPlatform && settings.customPlatforms[editPlatform.key]) {
 			const { [editPlatform.key]: remove, ...rest } = settings.customPlatforms;
 			setSettings('customPlatforms', {
-				...rest, 
+				...rest,
 				[customPlatform.key]: customPlatform,
 			});
 		} else {
@@ -154,12 +156,12 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 					<Button variant="contained" component="label">
 						{t('buttons.file_select')}
 						<input
-							accept={desktopPlatform === 'win32' ? '.exe' : '*'}
+							accept={platform === 'win32' ? '.exe' : '*'}
 							type="file"
 							hidden
 							onChange={(ev) => {
 								if (ev.target.files && ev.target.files.length > 0) {
-									setPlatformRun(ev.target.files[0].path);
+									setPlatformRun(getPathForFile(ev.target.files[0]));
 								} else {
 									setPlatformRun('');
 								}
@@ -207,18 +209,18 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 				</>
 			);
 		}
-	}, [customPlatform, advanced]);
+	}, [customPlatform, advanced, t, setPlatformRun, setPlatformArgs]);
 
 	return (
 		<>
 			<Dialog fullScreen open={open}>
-				<div className={classes.header}>
+				<Box sx={classes.header}>
 					<DialogTitle>{t('settings.customplatforms.title')}</DialogTitle>
-					<IconButton className={classes.back} size="small" onClick={() => setOpenState(false)}>
+					<IconButton sx={classes.back} size="small" onClick={() => setOpenState(false)}>
 						<ChevronLeft htmlColor="#777" />
 					</IconButton>
-				</div>
-				<DialogContent className={classes.dialog}>
+				</Box>
+				<DialogContent sx={classes.dialog}>
 					<TextField
 						fullWidth
 						spellCheck={false}
@@ -230,7 +232,7 @@ export const CustomPlatformSettings: React.FC<CustomPlatformSettingProps> = func
 						disabled={false}
 					/>
 					<RadioGroup
-						className={classes.radioGroup}
+						sx={classes.radioGroup}
 						value={customPlatform.launchType}
 						onChange={(ev) => {
 							setPlatformRunType(ev.target.value as PlatformRunType);

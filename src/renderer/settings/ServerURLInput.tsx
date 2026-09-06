@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Alert from '@mui/material/Alert';
 import { DialogContent, DialogTitle, DialogActions, Dialog, Button, TextField } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material';
 import { isHttpUri, isHttpsUri } from 'valid-url';
 
 type URLInputProps = {
 	t: (key: string) => string;
 	initialURL: string;
 	onValidURL: (url: string) => void;
-	className: string;
+	sx?: SxProps<Theme>;
 };
 
 function validateServerUrl(uri: string): boolean {
@@ -17,18 +18,19 @@ function validateServerUrl(uri: string): boolean {
 		if (url.hostname === 'discord.gg') return false;
 		if (url.pathname !== '/') return false;
 		return true;
-	} catch (_) {
+	} catch {
 		return false;
 	}
 }
 
-const RawServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, onValidURL, className }: URLInputProps) {
+const RawServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, onValidURL, sx }: URLInputProps) {
 	const [isValidURL, setURLValid] = useState(true);
 	const [currentURL, setCurrentURL] = useState(initialURL);
 	const [open, setOpen] = useState(false);
 
 	useEffect(() => {
 		setCurrentURL(initialURL);
+		setURLValid(true);
 	}, [initialURL]);
 
 	function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -43,14 +45,18 @@ const RawServerURLInput: React.FC<URLInputProps> = function ({ t, initialURL, on
 
 	return (
 		<>
-			<Button variant="contained" color="secondary" onClick={() => setOpen(true)}>
+			<Button
+				variant="contained"
+				color="secondary"
+				size="small"
+				sx={{ whiteSpace: 'nowrap' }}
+				onClick={() => setOpen(true)}
+			>
 				{t('settings.advanced.change_server')}
 			</Button>
-			<Dialog fullScreen open={open} onClose={() => setOpen(false)}>
-				<div>
-					<DialogTitle>{t('settings.advanced.change_server')}</DialogTitle>
-				</div>
-				<DialogContent className={className}>
+			<Dialog fullWidth maxWidth="sm" open={open} onClose={() => setOpen(false)}>
+				<DialogTitle>{t('settings.advanced.change_server')}</DialogTitle>
+				<DialogContent sx={sx}>
 					<TextField
 						fullWidth
 						error={!isValidURL}

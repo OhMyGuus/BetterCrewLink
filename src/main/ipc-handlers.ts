@@ -1,6 +1,7 @@
 import { app, dialog, ipcMain, shell } from 'electron';
 import { platform, homedir } from 'os';
-import { enumerateValues, enumerateKeys, HKEY } from 'registry-js';
+import registryJs from 'registry-js';
+const { enumerateValues, enumerateKeys, HKEY } = registryJs;
 import {
 	DefaultGamePlatforms,
 	GamePlatform,
@@ -8,12 +9,13 @@ import {
 	GamePlatformMap,
 	PlatformRunType,
 } from '../common/GamePlatform';
-import { parse } from 'vdf-parser';
+import vdfParser from 'vdf-parser';
+const { parse } = vdfParser;
 import spawn from 'cross-spawn';
 import path from 'path';
 import fs from 'fs';
 
-import { IpcMessages, IpcOverlayMessages } from '../common/ipc-messages';
+import { IpcMessages, IpcOverlayMessages, IpcSettingsMessages } from '../common/ipc-messages';
 
 // Listeners are fire and forget, they do not have "responses" or return values
 export const initializeIpcListeners = (): void => {
@@ -32,14 +34,13 @@ export const initializeIpcListeners = (): void => {
 			shell.openExternal(platform.runPath);
 		} else if (platform.launchType === PlatformRunType.EXE) {
 			try {
-				const process = spawn(
-					path.join(platform.runPath, platform.execute[0]),
-					platform.execute.slice(1),
-					{ detached: true, stdio: 'ignore' }
-				);
+				const process = spawn(path.join(platform.runPath, platform.execute[0]), platform.execute.slice(1), {
+					detached: true,
+					stdio: 'ignore',
+				});
 				process.on('error', error);
 				process.unref();
-			} catch (e) {
+			} catch {
 				error();
 			}
 		}
@@ -53,26 +54,40 @@ export const initializeIpcListeners = (): void => {
 	ipcMain.on(IpcMessages.SEND_TO_OVERLAY, (_, event: IpcOverlayMessages, ...args: unknown[]) => {
 		try {
 			if (global.overlay) global.overlay.webContents.send(event, ...args);
-		} catch (e) {
+		} catch {
 			/*empty*/
 		}
 	});
 
-	ipcMain.on(IpcMessages.SEND_TO_MAINWINDOW, (_, event: IpcOverlayMessages, ...args: unknown[]) => {
-		console.log('SEND TO MAINWINDOW CALLLED');
+	ipcMain.on(IpcMessages.SEND_TO_SETTINGS, (_, event: IpcSettingsMessages, ...args: unknown[]) => {
 		try {
-			if (global.mainWindow) global.mainWindow.webContents.send(event, ...args);
-		} catch (e) {
+			if (global.settingsWindow) global.settingsWindow.webContents.send(event, ...args);
+		} catch {
 			/*empty*/
 		}
 	});
+
+	ipcMain.on(
+		IpcMessages.SEND_TO_MAINWINDOW,
+		(_, event: IpcOverlayMessages | IpcSettingsMessages, ...args: unknown[]) => {
+			console.log('SEND TO MAINWINDOW CALLLED');
+			try {
+				if (global.mainWindow) global.mainWindow.webContents.send(event, ...args);
+			} catch {
+				/*empty*/
+			}
+		}
+	);
 
 	ipcMain.on(IpcMessages.QUIT_CREWLINK, () => {
 		try {
 			const mainWindow = global.mainWindow;
 			const overlay = global.overlay;
+			const settingsWindow = global.settingsWindow;
 			global.mainWindow = null;
 			global.overlay = null;
+			global.settingsWindow = null;
+			settingsWindow?.close();
 			mainWindow?.close();
 			overlay?.close();
 			mainWindow?.destroy();
@@ -145,7 +160,7 @@ export const initializeIpcHandlers = (): void => {
 				if (vdfObject['Registry']['HKCU']['Software']['Valve']['Steam']['Apps']['945360']['installed'] == 1) {
 					availableGamePlatforms[GamePlatform.STEAM] = DefaultGamePlatforms[GamePlatform.STEAM];
 				}
-			} catch (e) {
+			} catch {
 				/* empty */
 			}
 		}

@@ -1,50 +1,84 @@
-'use strict'; // eslint-disable-line
-
-import { autoUpdater } from 'electron-updater';
-import { app, BrowserWindow, ipcMain, session } from 'electron';
+import electronUpdater from 'electron-updater';
+import { app, BrowserWindow, ipcMain, session, net, protocol } from 'electron';
 import windowStateKeeper from 'electron-window-state';
 import { platform } from 'os';
 import { join as joinPath } from 'path';
-import { format as formatUrl } from 'url';
+import { pathToFileURL } from 'url';
 import './hook';
-import { overlayWindow } from 'electron-overlay-window';
+import overlayWindowModule from 'electron-overlay-window';
+const { overlayWindow } = overlayWindowModule;
 import { initializeIpcHandlers, initializeIpcListeners } from './ipc-handlers';
+import { initSettingsIpc } from './settingsStore';
 import { IpcRendererMessages, IpcHandlerMessages } from '../common/ipc-messages';
-import { ProgressInfo, UpdateInfo } from 'builder-util-runtime';
-import { protocol } from 'electron';
+import type { ProgressInfo, UpdateInfo } from 'builder-util-runtime';
 import Store from 'electron-store';
 import { ISettings } from '../common/ISettings';
-import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { gameReader } from './hook';
 import { GenerateHat } from './avatarGenerator';
-const args = require('minimist')(process.argv); // eslint-disable-line
-const isDevelopment = process.env.NODE_ENV !== 'production';
+import minimist from 'minimist';
+const args = minimist(process.argv);
+const isDevelopment = !app.isPackaged;
 const devTools = (isDevelopment || args.dev === 1) && true;
-const appVersion: string = isDevelopment? "DEV" : autoUpdater.currentVersion.version;
+const { autoUpdater } = electronUpdater;
+const appVersion: string = isDevelopment ? 'DEV' : autoUpdater.currentVersion.version;
+
+app.userAgentFallback = `BetterCrewLink/${appVersion} (win32)`;
 
 declare global {
 	namespace NodeJS {
-		// eslint-disable-line
 		interface Global {
 			mainWindow: BrowserWindow | null;
 			overlay: BrowserWindow | null;
 			lobbyBrowser: BrowserWindow | null;
+			settingsWindow: BrowserWindow | null;
 		}
 	}
 }
+
+protocol.registerSchemesAsPrivileged([
+	{
+		scheme: 'static',
+		privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true },
+	},
+	{
+		scheme: 'generate',
+		privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true },
+	},
+	{
+		scheme: 'app',
+		privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true },
+	},
+]);
+
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 global.mainWindow = null;
 global.overlay = null;
+global.settingsWindow = null;
 const store = new Store<ISettings>();
 app.commandLine.appendSwitch('disable-pinch');
 
 if (platform() === 'linux' || !store.get('hardware_acceleration', true)) {
 	app.disableHardwareAcceleration();
-
 }
 
-if(platform() === 'linux'){
+if (platform() === 'linux') {
 	app.commandLine.appendSwitch('disable-gpu-sandbox');
+}
+
+const rendererUrl = process.env['ELECTRON_RENDERER_URL'];
+
+function loadView(window: BrowserWindow, view: 'app' | 'lobbies' | 'overlay' | 'settings'): void {
+	if (isDevelopment && rendererUrl) {
+		window.loadURL(`${rendererUrl}?version=DEV&view=${view}`);
+	} else {
+		window.loadFile(joinPath(import.meta.dirname, '../renderer/index.html'), {
+			query: { version: appVersion, view },
+		});
+	}
+}
+
+function preload(): string {
+	return joinPath(import.meta.dirname, '../preload/index.mjs');
 }
 
 function createMainWindow() {
@@ -65,8 +99,10 @@ function createMainWindow() {
 		fullscreenable: false,
 		maximizable: false,
 		webPreferences: {
-			nodeIntegration: true,
-			contextIsolation: false
+			contextIsolation: true,
+			nodeIntegration: false,
+			sandbox: false,
+			preload: preload(),
 		},
 	});
 	mainWindowState.manage(window);
@@ -77,34 +113,21 @@ function createMainWindow() {
 			window.webContents.openDevTools({
 				mode: 'detach',
 			});
-		})
+		});
 	}
 
-	if (isDevelopment) {
-		window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}?version=DEV&view=app`);
-	} else {
-		window.loadURL(
-			formatUrl({
-				pathname: joinPath(__dirname, 'index.html'),
-				protocol: 'file',
-				query: {
-					version: appVersion,
-					view: 'app',
-				},
-				slashes: true,
-			})
-		);
-	}
-	//window.webContents.userAgent = `CrewLink/${crewlinkVersion} (${process.platform})`;
-	window.webContents.userAgent = `BetterCrewLink/${appVersion} (win32)`;
+	loadView(window, 'app');
 
 	window.on('closed', () => {
 		try {
 			const mainWindow = global.mainWindow;
 			const overlay = global.overlay;
+			const settingsWindow = global.settingsWindow;
 			global.mainWindow = null;
 			global.overlay = null;
+			global.settingsWindow = null;
 			overlay?.close();
+			settingsWindow?.close();
 			mainWindow?.destroy();
 			overlay?.destroy();
 		} catch {
@@ -135,37 +158,62 @@ function createLobbyBrowser() {
 		closable: true,
 		maximizable: false,
 		webPreferences: {
-			nodeIntegration: true,
-			contextIsolation: false,
+			contextIsolation: true,
+			nodeIntegration: false,
+			sandbox: false,
+			preload: preload(),
 		},
 	});
 
 	window.on('closed', () => {
 		global.lobbyBrowser = null;
 	});
-	// if (devTools) {
-	// 	// Force devtools into detached mode otherwise they are unusable
-	// 	window.webContents.openDevTools({
-	// 		mode: 'detach',
-	// 	});
-	// }
-	if (isDevelopment) {
-		window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}?version=DEV&view=lobbies`);
-	} else {
-		window.loadURL(
-			formatUrl({
-				pathname: joinPath(__dirname, 'index.html'),
-				protocol: 'file',
-				query: {
-					version: appVersion,
-					view: 'lobbies',
-				},
-				slashes: true,
-			})
-		);
-	}
-	window.webContents.userAgent = `BetterCrewLink/${appVersion} (win32)`;
+	loadView(window, 'lobbies');
 	console.log('Opened app version: ', appVersion);
+	return window;
+}
+
+function createSettingsWindow() {
+	const settingsWindowState = windowStateKeeper({
+		file: 'settings-window-state.json',
+		defaultWidth: 750,
+		defaultHeight: 630,
+	});
+
+	const window = new BrowserWindow({
+		title: 'BetterCrewLink Settings',
+		width: settingsWindowState.width,
+		height: settingsWindowState.height,
+		x: settingsWindowState.x,
+		y: settingsWindowState.y,
+		minWidth: 620,
+		minHeight: 440,
+		backgroundColor: '#25232a',
+		resizable: true,
+		frame: false,
+		fullscreenable: false,
+		closable: true,
+		maximizable: true,
+		show: false,
+		webPreferences: {
+			contextIsolation: true,
+			nodeIntegration: false,
+			sandbox: false,
+			preload: preload(),
+		},
+	});
+	settingsWindowState.manage(window);
+
+	if (devTools) {
+		window.webContents.openDevTools({ mode: 'detach' });
+	}
+
+	window.once('ready-to-show', () => window.show());
+	window.on('closed', () => {
+		global.settingsWindow = null;
+	});
+
+	loadView(window, 'settings');
 	return window;
 }
 
@@ -175,8 +223,10 @@ function createOverlay() {
 		width: 400,
 		height: 300,
 		webPreferences: {
-			nodeIntegration: true,
-			contextIsolation: false,
+			contextIsolation: true,
+			nodeIntegration: false,
+			sandbox: false,
+			preload: preload(),
 		},
 		fullscreenable: true,
 		skipTaskbar: true,
@@ -195,23 +245,7 @@ function createOverlay() {
 		});
 	}
 
-	if (isDevelopment) {
-		overlay.loadURL(
-			`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}?version=${appVersion}&view=overlay`
-		);
-	} else {
-		overlay.loadURL(
-			formatUrl({
-				pathname: joinPath(__dirname, 'index.html'),
-				protocol: 'file',
-				query: {
-					version: appVersion,
-					view: 'overlay',
-				},
-				slashes: true,
-			})
-		);
-	}
+	loadView(overlay, 'overlay');
 	overlay.setIgnoreMouseEvents(true);
 	overlayWindow.attachTo(overlay, 'Among Us');
 	overlay.setBackgroundColor('#00000000');
@@ -223,24 +257,26 @@ if (!gotTheLock) {
 	app.quit();
 } else {
 	autoUpdater.autoDownload = false;
-	autoUpdater.checkForUpdates();
+	autoUpdater.checkForUpdates().catch(() => {
+		/* swallow unhandled rejection; 'error' event reports it */
+	});
 	autoUpdater.on('update-available', (info: UpdateInfo) => {
 		try {
 			global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
 				state: 'available',
 				info: info,
 			});
-		} catch (e) {
+		} catch {
 			/* Empty block */
 		}
 	});
-	autoUpdater.on('error', (err: string) => {
+	autoUpdater.on('error', (err: Error) => {
 		try {
 			global.mainWindow?.webContents.send(IpcRendererMessages.AUTO_UPDATER_STATE, {
 				state: 'error',
-				error: err,
+				error: err.message,
 			});
-		} catch (e) {
+		} catch {
 			/*empty*/
 		}
 	});
@@ -250,7 +286,7 @@ if (!gotTheLock) {
 				state: 'downloading',
 				progress,
 			});
-		} catch (e) {
+		} catch {
 			/*empty*/
 		}
 	});
@@ -264,6 +300,7 @@ if (!gotTheLock) {
 		try {
 			const mainWindow = global.mainWindow;
 			const overlay = global.overlay;
+			global.settingsWindow = null;
 			global.mainWindow = null;
 			global.overlay = null;
 			overlay?.close();
@@ -276,7 +313,7 @@ if (!gotTheLock) {
 	});
 
 	app.on('activate', () => {
-		console.log("ACTIVATE???")
+		console.log('ACTIVATE???');
 		// on macOS it is common to re-create a window even after all windows have been closed
 		if (global.mainWindow === null) {
 			global.mainWindow = createMainWindow();
@@ -299,25 +336,48 @@ if (!gotTheLock) {
 
 	// create main BrowserWindow when electron is ready
 	app.whenReady().then(() => {
-		protocol.registerFileProtocol('static', (request, callback) => {
-			const pathname = app.getPath('userData') + '/static/' + request.url.replace('static:///', '');
-			callback(pathname);
+		protocol.handle('static', (request) => {
+			const url = new URL(request.url);
+			const filePath = app.getPath('userData') + '/static/' + decodeURIComponent(url.host + url.pathname);
+			return net.fetch(pathToFileURL(filePath).toString());
 		});
 
-		protocol.registerFileProtocol('generate', async (request, callback) => {
-			const url = new URL(request.url.replace('generate:///', ''));
-			const path = await GenerateHat(url, gameReader.playercolors, Number(url.searchParams.get('color')), '');
-			callback(path);
+		protocol.handle('generate', async (request) => {
+			const requestUrl = new URL(request.url);
+			const imagePath = new URL(requestUrl.searchParams.get('url')!);
+			const filePath = await GenerateHat(
+				imagePath,
+				gameReader.playercolors,
+				Number(requestUrl.searchParams.get('color'))
+			);
+			return net.fetch(pathToFileURL(filePath).toString());
+		});
+
+		protocol.handle('app', (request) => {
+			const { pathname } = new URL(request.url);
+			const filePath = joinPath(import.meta.dirname, '../renderer', decodeURIComponent(pathname));
+			return net.fetch(pathToFileURL(filePath).toString());
 		});
 
 		initializeIpcListeners();
 		initializeIpcHandlers();
+		initSettingsIpc();
 		global.mainWindow = createMainWindow();
 
-		if (isDevelopment)
-			installExtension(REACT_DEVELOPER_TOOLS)
-				.then((name: string) => console.log(`Added Extension:  ${name}`))
-				.catch((err: string) => console.log('An error occurred: ', err));
+		// Dev-only: kept out of the packaged app, so this import is absent in production builds.
+		if (isDevelopment) {
+			void (async () => {
+				try {
+					const devtoolsInstaller = (await import('electron-devtools-installer')).default;
+					// Node's ESM/CJS interop resolves the default import to the whole CJS module object here.
+					const { default: installExtension, REACT_DEVELOPER_TOOLS } =
+						devtoolsInstaller as unknown as typeof import('electron-devtools-installer');
+					console.log(`Added Extension:  ${await installExtension(REACT_DEVELOPER_TOOLS)}`);
+				} catch (error) {
+					console.log('An error occurred: ', error);
+				}
+			})();
+		}
 	});
 
 	app.on('second-instance', () => {
@@ -332,6 +392,16 @@ if (!gotTheLock) {
 		autoUpdater.downloadUpdate();
 	});
 
+	ipcMain.on(IpcHandlerMessages.OPEN_SETTINGS, () => {
+		if (!global.settingsWindow) {
+			global.settingsWindow = createSettingsWindow();
+		} else {
+			if (global.settingsWindow.isMinimized()) global.settingsWindow.restore();
+			global.settingsWindow.show();
+			global.settingsWindow.focus();
+		}
+	});
+
 	ipcMain.on(IpcHandlerMessages.OPEN_LOBBYBROWSER, () => {
 		if (!global.lobbyBrowser) {
 			global.lobbyBrowser = createLobbyBrowser();
@@ -342,39 +412,33 @@ if (!gotTheLock) {
 	});
 
 	ipcMain.on('enableOverlay', async (_event, enable) => {
-		setTimeout(
-			() => {
-
-				try {
-					if (enable) {
-						if (!global.overlay) {
-							global.overlay = createOverlay();
-						}
-						overlayWindow.show();
-					} else {
-						overlayWindow.hide();
-						if (global.overlay?.closable) {
-							overlayWindow.stop();
-							global.overlay?.close();
-							global.overlay = null;
-						}
+		setTimeout(() => {
+			try {
+				if (enable) {
+					if (!global.overlay) {
+						global.overlay = createOverlay();
 					}
-				} catch (exception) {
-					global.overlay?.hide();
-					global.overlay?.close();
+					overlayWindow.show();
+				} else {
+					overlayWindow.hide();
+					if (global.overlay?.closable) {
+						overlayWindow.stop();
+						global.overlay?.close();
+						global.overlay = null;
+					}
 				}
-			},
-			1000
-		)
+			} catch {
+				global.overlay?.hide();
+				global.overlay?.close();
+			}
+		}, 1000);
 	});
 
 	ipcMain.on('setAlwaysOnTop', async (_event, enable) => {
-		console.log("SETALWAYSONTOP?")
+		console.log('SETALWAYSONTOP?');
 		if (global.mainWindow) {
-			console.log("SETALWAYSONTOP?1")
+			console.log('SETALWAYSONTOP?1');
 			global.mainWindow.setAlwaysOnTop(enable, 'screen-saver');
 		}
 	});
-
-
 }
