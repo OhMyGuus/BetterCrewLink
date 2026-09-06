@@ -94,10 +94,8 @@
 		"beta": {
 			"title": "BETA/DEBUG",
 			"mobilehost": "移动端主机",
-			"vad_enabled": "启用VAD",
 			"hardware_acceleration": "硬件加速",
 			"hardware_acceleration_warning": "禁用硬件加速将会导致CPU占用上升！",
-			"vad_enabled_warning": "如果停用该选项，你将无法识别玩家当前语音状态。",
 			"echocancellation": "回音消除",
 			"noiseSuppression": "降噪",
 			"spatial_audio": "空间音频",

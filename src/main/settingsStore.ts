@@ -195,10 +195,6 @@ export const settingsStore = new Store<ISettings>({
 			type: 'boolean',
 			default: true,
 		},
-		vadEnabled: {
-			type: 'boolean',
-			default: true,
-		},
 		hardware_acceleration: {
 			type: 'boolean',
 			default: true,

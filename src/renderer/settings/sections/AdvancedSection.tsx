@@ -51,19 +51,6 @@ const AdvancedSection: React.FC<AdvancedSectionProps> = function ({ t, settings,
 					onChange={(checked) => setSettings('mobileHost', checked)}
 				/>
 				<SwitchRow
-					label={t('settings.beta.vad_enabled')}
-					description={t('settings.beta.vad_enabled_warning')}
-					checked={settings.vadEnabled}
-					onChange={(checked) =>
-						confirm(
-							t('settings.warning'),
-							t('settings.beta.vad_enabled_warning'),
-							() => setSettings('vadEnabled', checked),
-							!checked
-						)
-					}
-				/>
-				<SwitchRow
 					label={t('settings.beta.hardware_acceleration')}
 					description={t('settings.beta.hardware_acceleration_warning')}
 					checked={settings.hardware_acceleration}

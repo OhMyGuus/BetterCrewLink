@@ -358,7 +358,6 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 			settings.echoCancellation,
 			settings.noiseSuppression,
 			settings.oldSampleDebug,
-			settings.vadEnabled,
 			settings.microphoneGainEnabled,
 			settings.micSensitivityEnabled,
 		].join('|');

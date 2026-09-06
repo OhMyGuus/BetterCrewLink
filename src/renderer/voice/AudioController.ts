@@ -173,30 +173,28 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 			this.stream = destination.stream;
 		}
 
-		if (settings.vadEnabled) {
-			const audioListener = VAD(context, source, undefined, {
-				onVoiceStart: () => {
-					const current = SettingsStore.store;
-					if (this.microphoneGain && current.micSensitivityEnabled) {
-						this.microphoneGain.gain.value = current.microphoneGainEnabled ? current.microphoneGain / 100 : 1;
-					}
-					this.emit('talking', true);
-				},
-				onVoiceStop: () => {
-					if (this.microphoneGain && SettingsStore.store.micSensitivityEnabled) {
-						this.microphoneGain.gain.value = 0;
-					}
-					this.emit('talking', false);
-				},
-				noiseCaptureDuration: 0,
-				stereo: false,
-			}) as VadNode;
+		const audioListener = VAD(context, source, undefined, {
+			onVoiceStart: () => {
+				const current = SettingsStore.store;
+				if (this.microphoneGain && current.micSensitivityEnabled) {
+					this.microphoneGain.gain.value = current.microphoneGainEnabled ? current.microphoneGain / 100 : 1;
+				}
+				this.emit('talking', true);
+			},
+			onVoiceStop: () => {
+				if (this.microphoneGain && SettingsStore.store.micSensitivityEnabled) {
+					this.microphoneGain.gain.value = 0;
+				}
+				this.emit('talking', false);
+			},
+			noiseCaptureDuration: 0,
+			stereo: false,
+		}) as VadNode;
 
-			audioListener.options.minNoiseLevel = settings.micSensitivityEnabled ? settings.micSensitivity : 0.15;
-			audioListener.options.maxNoiseLevel = 1;
-			audioListener.init();
-			this.audioListener = audioListener;
-		}
+		audioListener.options.minNoiseLevel = settings.micSensitivityEnabled ? settings.micSensitivity : 0.15;
+		audioListener.options.maxNoiseLevel = 1;
+		audioListener.init();
+		this.audioListener = audioListener;
 	}
 
 	private teardownInputChain(): void {

@@ -118,10 +118,8 @@
 			"beta": {
 				"title": "BETA/DEBUG",
 				"mobilehost": "Mobile Host",
-				"vad_enabled": "VAD Enabled",
 				"hardware_acceleration": "Hardware Acceleration",
 				"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
-				"vad_enabled_warning": "You won't see who's talking if disabled.",
 				"echocancellation": "Echo Cancellation",
 				"noiseSuppression": "Noise Suppression",
 				"spatial_audio": "Spatial Audio",

@@ -94,10 +94,8 @@
 		"beta": {
 			"title": "Béta/Hibakeresés",
 			"mobilehost": "Mobile Host",
-			"vad_enabled": "VAD Enabled",
 			"hardware_acceleration": "Hardveres gyorsítás",
 			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
-			"vad_enabled_warning": "You won't see who's talking if disabled.",
 			"echocancellation": "Visszhang csökkentés",
 			"noiseSuppression": "Zajcsökkentés",
 			"spatial_audio": "Spatial Audio",

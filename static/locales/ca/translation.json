@@ -94,10 +94,8 @@
 		"beta": {
 			"title": "BETA/DEBUG",
 			"mobilehost": "Amfitrió Mòbil",
-			"vad_enabled": "VAD activat",
 			"hardware_acceleration": "Hardware Acceleration",
 			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
-			"vad_enabled_warning": "No veuràs qui està parlant si es desactiva.",
 			"echocancellation": "Cancel·lació de Eco",
 			"noiseSuppression": "Supressió de Soroll",
 			"spatial_audio": "Audio Espacial",

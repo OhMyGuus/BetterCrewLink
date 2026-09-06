@@ -27,7 +27,6 @@ export interface ISettings {
 	micSensitivity: number;
 	micSensitivityEnabled: boolean;
 	mobileHost: boolean;
-	vadEnabled: boolean;
 	hardware_acceleration: boolean;
 	echoCancellation: boolean;
 	noiseSuppression: boolean;

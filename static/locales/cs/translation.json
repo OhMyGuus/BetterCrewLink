@@ -94,10 +94,8 @@
 		"beta": {
 			"title": "BETA/DEBUG",
 			"mobilehost": "Povolit mobilní uživatele",
-			"vad_enabled": "VAD povoleno",
 			"hardware_acceleration": "Hardwarová Akcelerace",
 			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
-			"vad_enabled_warning": "Neuvidíte, kdo mluví, když je tato funkce deaktivována.",
 			"echocancellation": "Odstranění ozvěny",
 			"noiseSuppression": "Potlačení šumu",
 			"spatial_audio": "Prostorový zvuk",
