@@ -2,7 +2,7 @@ import electronUpdater from 'electron-updater';
 import { app, BrowserWindow, ipcMain, session, net, protocol } from 'electron';
 import windowStateKeeper from 'electron-window-state';
 import { platform } from 'os';
-import { join as joinPath } from 'path';
+import { join as joinPath, resolve as resolvePath, sep } from 'path';
 import { pathToFileURL } from 'url';
 import './hook';
 import overlayWindowModule from 'electron-overlay-window';
@@ -338,7 +338,12 @@ if (!gotTheLock) {
 	app.whenReady().then(() => {
 		protocol.handle('static', (request) => {
 			const url = new URL(request.url);
-			const filePath = app.getPath('userData') + '/static/' + decodeURIComponent(url.host + url.pathname);
+			const decoded = decodeURIComponent(url.host + url.pathname).replace(/\.\./g, '');
+			const baseDir = resolvePath(app.getPath('userData'), 'static');
+			const filePath = resolvePath(baseDir, decoded);
+			if (filePath !== baseDir && !filePath.startsWith(baseDir + sep)) {
+				return new Response('Forbidden', { status: 403 });
+			}
 			return net.fetch(pathToFileURL(filePath).toString());
 		});
 
@@ -355,7 +360,12 @@ if (!gotTheLock) {
 
 		protocol.handle('app', (request) => {
 			const { pathname } = new URL(request.url);
-			const filePath = joinPath(import.meta.dirname, '../renderer', decodeURIComponent(pathname));
+			const decoded = decodeURIComponent(pathname).replace(/\.\./g, '');
+			const baseDir = resolvePath(import.meta.dirname, '../renderer');
+			const filePath = resolvePath(baseDir, decoded);
+			if (filePath !== baseDir && !filePath.startsWith(baseDir + sep)) {
+				return new Response('Forbidden', { status: 403 });
+			}
 			return net.fetch(pathToFileURL(filePath).toString());
 		});
 
