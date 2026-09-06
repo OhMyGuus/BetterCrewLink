@@ -98,6 +98,7 @@ function emptyPrev() {
 		lobbySettingsHosted: false,
 		gameOpen: false,
 		gameInfo: '',
+		obsPayload: '',
 	};
 }
 
@@ -818,6 +819,10 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 			mod: state.mod,
 			oldMeetingHud: state.oldMeetingHud,
 		};
+
+		const payload = JSON.stringify(obsVoiceState);
+		if (payload === this.prev.obsPayload) return;
+		this.prev.obsPayload = payload;
 
 		this.connection.signalTo(settings.obsSecret, obsVoiceState);
 	}
