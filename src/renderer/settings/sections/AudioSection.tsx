@@ -133,6 +133,7 @@ const AudioSection: React.FC<AudioSectionProps> = function ({
 					step={2}
 					format={(value) => `${value}%`}
 					disabled={settings.autoGainControl}
+					disabledReason={t('settings.audio.auto_gain_disabled')}
 					toggle={{
 						checked: settings.microphoneGainEnabled,
 						onChange: (checked) => setSettings('microphoneGainEnabled', checked),
@@ -148,6 +149,7 @@ const AudioSection: React.FC<AudioSectionProps> = function ({
 					format={(value) => value.toFixed(2)}
 					commitOnly
 					disabled={settings.autoGainControl}
+					disabledReason={t('settings.audio.auto_gain_disabled')}
 					toggle={{
 						checked: settings.micSensitivityEnabled,
 						onChange: (checked) => setSettings('micSensitivityEnabled', checked),
@@ -163,6 +165,7 @@ const AudioSection: React.FC<AudioSectionProps> = function ({
 				/>
 				<SwitchRow
 					label={t('settings.beta.echocancellation')}
+					description={t('settings.beta.echocancellation_description')}
 					checked={settings.echoCancellation}
 					onChange={(checked) => setSettings('echoCancellation', checked)}
 				/>
@@ -173,6 +176,7 @@ const AudioSection: React.FC<AudioSectionProps> = function ({
 				/>
 				<SwitchRow
 					label={t('settings.beta.autoGainControl')}
+					description={t('settings.beta.autoGainControl_warning')}
 					checked={settings.autoGainControl}
 					onChange={(checked) =>
 						confirm(
