@@ -39,6 +39,8 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 	private ipcHandlers: [string, (...args: unknown[]) => void][] = [];
 
 	private pushToTalkMode: number = pushToTalkOptions.VOICE;
+	private pushToTalkPressed = false;
+	private radioTransmitting = false;
 	private mutedState = false;
 	private deafenedState = false;
 	private maxDistance = 2;
@@ -228,6 +230,8 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 
 		this.mutedState = false;
 		this.deafenedState = false;
+		this.pushToTalkPressed = false;
+		this.radioTransmitting = false;
 		this.removeAllListeners();
 	}
 
@@ -313,11 +317,8 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		add(IpcRendererMessages.TOGGLE_DEAFEN, () => this.toggleDeafen());
 		add(IpcRendererMessages.TOGGLE_MUTE, () => this.toggleMute());
 		add(IpcRendererMessages.PUSH_TO_TALK, (_: unknown, pressing: boolean) => {
-			if (this.pushToTalkMode === pushToTalkOptions.VOICE) return;
-			if (this.deafenedState || this.mutedState) return;
-			const track = this.inputStream?.getAudioTracks()[0];
-			if (!track) return;
-			track.enabled = this.pushToTalkMode === pushToTalkOptions.PUSH_TO_TALK ? pressing : !pressing;
+			this.pushToTalkPressed = pressing;
+			this.applyTrackEnabled();
 		});
 	}
 
@@ -331,11 +332,28 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 	private applyTrackEnabled(): void {
 		const track = this.inputStream?.getAudioTracks()[0];
 		if (!track) return;
-		track.enabled = !this.deafenedState && !this.mutedState && this.pushToTalkMode !== pushToTalkOptions.PUSH_TO_TALK;
+		if (this.deafenedState || this.mutedState) {
+			track.enabled = false;
+			return;
+		}
+		if (this.radioTransmitting) {
+			track.enabled = true;
+			return;
+		}
+		if (this.pushToTalkMode === pushToTalkOptions.PUSH_TO_TALK) {
+			track.enabled = this.pushToTalkPressed;
+			return;
+		}
+		track.enabled = this.pushToTalkMode !== pushToTalkOptions.PUSH_TO_MUTE || !this.pushToTalkPressed;
 	}
 
 	setPushToTalkMode(mode: number): void {
 		this.pushToTalkMode = mode;
+		this.applyTrackEnabled();
+	}
+
+	setRadioTransmitting(transmitting: boolean): void {
+		this.radioTransmitting = transmitting;
 		this.applyTrackEnabled();
 	}
 
