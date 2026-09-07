@@ -27,7 +27,18 @@ function resetKeyHooks(): void {
 	deafenShortcut = store.get('deafenShortcut', 'RControl') as K;
 	muteShortcut = store.get('muteShortcut', 'RAlt') as K;
 	impostorRadioShortcut = store.get('impostorRadioShortcut', 'F') as K;
-	keyboardWatcher.clearKeyHooks();
+	// Deliberately no clearKeyHooks() here. The watcher polls, and its map is what it
+	// compares against: clearing re-seeds every key as up, so the next poll invents a
+	// keydown for any key that is physically down at that moment, and loses the keyup for
+	// any key it was already tracking. The invented press is what fires mute or deafen the
+	// instant one of them is assigned; the lost release is what leaves `speaking` above
+	// zero with the microphone open until the app restarts.
+	//
+	// addKeyHook ignores a key already in the map, so re-applying the shortcuts leaves
+	// every key exactly as the watcher last saw it. The cost is that a key which stops
+	// being a shortcut keeps being polled until exit; it matches no binding, so nothing
+	// acts on it. The addon offers no way to unhook a single key -- its RemoveKeyHandler
+	// is an empty function -- which is why this used to wipe everything.
 	addKeyHandler(pushToTalkShortcut);
 	addKeyHandler(deafenShortcut);
 	addKeyHandler(muteShortcut);
@@ -69,26 +80,39 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 	if (!readingGame) {
 		readingGame = true;
 		let speaking: number = 0;
-		// Whether the impostor radio is currently held down and was granted. The keyup
-		// branch below used to re-evaluate `isImpostor` instead, and that answer can change
-		// while the key is still down -- a round ending leaves `lastState.players` without
-		// this client in it. When it did, the decrement and the release were both skipped,
-		// `speaking` stayed above zero, and PUSH_TO_TALK false was never sent afterwards.
-		let impostorRadioHeld = false;
+		// What each held key was granted when it went down. Every release is answered from
+		// this record rather than by asking the bindings again, because the answer can
+		// change while the key is still down: a round can end, leaving `lastState.players`
+		// without this client in it, and a binding can be reassigned -- including to the
+		// very key being held, which is what happens when a player assigns a shortcut.
+		// Re-asking at keyup makes the release answer a different question than the press
+		// did, which either fires a shortcut the press never claimed or skips the decrement
+		// and leaves `speaking` above zero with the microphone open until the app restarts.
+		const heldGrants = new Map<number, { talk: boolean; radio: boolean; mute: boolean; deafen: boolean }>();
 		resetKeyHooks();
 
 		keyboardWatcher.on('keydown', (keyId: number) => {
-			if (keyCodeMatches(pushToTalkShortcut!, keyId)) {
+			// Already held: the watcher re-reporting a key it is polling, or auto-repeat.
+			// Counting it again would need two releases to undo one press.
+			if (heldGrants.has(keyId)) return;
+
+			const talk = keyCodeMatches(pushToTalkShortcut!, keyId);
+			const radio =
+				keyCodeMatches(impostorRadioShortcut!, keyId) &&
+				gameReader?.lastState.players?.find((value) => {
+					return value.clientId === gameReader.lastState.clientId;
+				})?.isImpostor === true;
+			heldGrants.set(keyId, {
+				talk,
+				radio,
+				mute: keyCodeMatches(muteShortcut!, keyId),
+				deafen: keyCodeMatches(deafenShortcut!, keyId),
+			});
+
+			if (talk) {
 				speaking += 1;
 			}
-			if (
-				keyCodeMatches(impostorRadioShortcut!, keyId) &&
-				!impostorRadioHeld &&
-				gameReader.lastState.players?.find((value) => {
-					return value.clientId === gameReader.lastState.clientId;
-				})?.isImpostor
-			) {
-				impostorRadioHeld = true;
+			if (radio) {
 				speaking += 1;
 				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, true);
 			}
@@ -103,21 +127,21 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 		});
 
 		keyboardWatcher.on('keyup', (keyId: number) => {
-			if (keyCodeMatches(pushToTalkShortcut!, keyId)) {
+			const grant = heldGrants.get(keyId);
+			heldGrants.delete(keyId);
+
+			if (grant?.talk) {
 				speaking -= 1;
 			}
-			if (keyCodeMatches(deafenShortcut!, keyId)) {
-				event.sender.send(IpcRendererMessages.TOGGLE_DEAFEN);
-			}
-			if (keyCodeMatches(muteShortcut!, keyId)) {
-				event.sender.send(IpcRendererMessages.TOGGLE_MUTE);
-			}
-			// Released on the fact that it was granted, not on whether it would be granted
-			// again now.
-			if (keyCodeMatches(impostorRadioShortcut!, keyId) && impostorRadioHeld) {
-				impostorRadioHeld = false;
+			if (grant?.radio) {
 				speaking -= 1;
 				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, false);
+			}
+			if (grant?.deafen) {
+				event.sender.send(IpcRendererMessages.TOGGLE_DEAFEN);
+			}
+			if (grant?.mute) {
+				event.sender.send(IpcRendererMessages.TOGGLE_MUTE);
 			}
 
 			// Cover weird cases which shouldn't happen but just in case
