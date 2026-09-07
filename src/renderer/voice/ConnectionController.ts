@@ -48,6 +48,19 @@ interface ConnectionControllerEvents extends Record<string, unknown[]> {
 	lobbyReset: [];
 }
 
+/**
+ * Whether one advertised ICE server is a relay.
+ *
+ * `turns:` is a relay as much as `turn:` is, and a substring test for `'turn:'` does not
+ * find it: in `'turns:host'` the `s` sits between the word and the colon, so
+ * `'turns:host'.includes('turn:')` is false. A deployment offering only TLS relays --
+ * which is the configuration a cautious operator is most likely to choose -- therefore
+ * read as offering no relay at all.
+ */
+function isRelayUrl(urls: RTCIceServer['urls']): boolean {
+	return ([] as string[]).concat(urls).some((url) => url.startsWith('turn:') || url.startsWith('turns:'));
+}
+
 export class ConnectionController extends TypedEmitter<ConnectionControllerEvents> {
 	private socket?: Socket;
 	private stream?: MediaStream;
@@ -134,10 +147,7 @@ export class ConnectionController extends TypedEmitter<ConnectionControllerEvent
 				return;
 			}
 
-			if (
-				clientPeerConfig.forceRelayOnly &&
-				!clientPeerConfig.iceServers.some((server) => server.urls.toString().includes('turn:'))
-			) {
+			if (clientPeerConfig.forceRelayOnly && !clientPeerConfig.iceServers.some((server) => isRelayUrl(server.urls))) {
 				alert('Server has forced relay mode enabled but provides no relay servers. Default config will be used.');
 				return;
 			}
