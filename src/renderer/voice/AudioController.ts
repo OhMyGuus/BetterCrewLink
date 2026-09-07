@@ -364,7 +364,7 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 			this.microphoneGain.gain.value = settings.microphoneGainEnabled ? settings.microphoneGain / 100 : 1;
 		}
 		if (this.audioListener?.options) {
-			this.audioListener.options.minNoiseLevel = settings.micSensitivity;
+			this.audioListener.options.minNoiseLevel = settings.micSensitivityEnabled ? settings.micSensitivity : 0.15;
 			this.audioListener.init();
 		}
 	}
