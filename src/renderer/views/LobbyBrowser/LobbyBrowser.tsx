@@ -67,6 +67,9 @@ function sortLobbies(a: PublicLobby, b: PublicLobby) {
 		if (b.current_players === b.max_players && a.current_players !== a.max_players) {
 			return -1;
 		}
+		if (a.current_players === a.max_players && b.current_players !== b.max_players) {
+			return 1;
+		}
 		if (a.current_players < b.current_players) {
 			return 1;
 		} else if (a.current_players > b.current_players) {
