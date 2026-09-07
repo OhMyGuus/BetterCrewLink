@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "Definições",
 		"language": "Idioma",
+		"general": "Geral",
 		"warning": "Quer continuar?",
 		"lobbysettings": {
 			"title": "Definições do Lobby",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "Isto desativa o som dos jogadores vivos fora das reuniões de emergência.",
 			"meetings_only_warning2": "Apenas se pode falar apenas nas reuniões de emergência.",
 			"impostor_radio": "Rádio do Impostor",
+			"impostor_radio_private": "Rádio privado de impostor",
+			"impostor_radio_private_description": "Os tripulantes próximos não ouvem o impostor pelo rádio.",
+			"impostor_radio_private_requires": "Ativa primeiro o rádio de impostor.",
 			"public_lobby": {
 				"change_settings": "Mudar Definições do Lobby",
 				"title": "Título",
@@ -31,7 +35,26 @@
 				"language": "Linguagem",
 				"enable_warning": "Esta opção vai abrir o Lobby para outros utilizadores do BetterCrewLink!",
 				"ban_warning": "Texto inapropriado levará a um ban do BetterCrewLink."
-			}
+			},
+			"host_notice": "O anfitrião controla as definições da sala.",
+			"host_notice_you": "És o anfitrião; a sala usa as tuas definições.",
+			"edit_as_host": "Alterar",
+			"tab_current": "Sala atual",
+			"tab_mine": "As minhas definições",
+			"host": "Anfitrião",
+			"host_you": "Tu",
+			"host_unknown": "Desconhecido",
+			"no_lobby": "Não estás numa sala. Entra ou cria uma para ver as definições.",
+			"mine_notice": "As tuas definições aplicam-se a todos quando és anfitrião."
+		},
+		"players": {
+			"title": "Jogadores",
+			"volume": "Volume",
+			"empty": "Não há outros jogadores. Entra numa sala para alterar o volume.",
+			"disconnected": "Desligado",
+			"mute": "Silenciar",
+			"unmute": "Ativar som",
+			"muted": "Silenciado"
 		},
 		"customplatforms": {
 			"title": "Custom Platform",
@@ -51,18 +74,25 @@
 			"microphone_volume": "Volume do Microfone",
 			"microphone_sens": "Sensibilidade do Microfone",
 			"microphone_sens_warning": "Ao baixar demasiado a sensibilidade, o microfone pode não funcionar.",
+			"auto_gain_disabled": "Desativado com ganho automático.",
 			"mastervolume": "Volume Principal",
 			"crewvolume": "Volume dos Tripulantes como Fantasma",
 			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Teste de Altifalante",
-			"test_speaker_stop": "Terminar o Teste"
+			"test_speaker_stop": "Terminar o Teste",
+			"test_microphone_start": "Testar microfone",
+			"test_microphone_stop": "Parar teste",
+			"mode": "Modo de voz"
 		},
 		"keyboard": {
 			"title": "Atalhos de Teclado",
 			"push_to_talk": "Pressionar Para Falar",
 			"mute": "Desligar Microfone",
 			"deafen": "Desligar Áudio",
-			"impostor_radio": "Rádio do Impostor"
+			"impostor_radio": "Rádio do Impostor",
+			"hint": "Clica num atalho e prime uma tecla ou botão do rato. Escape desativa-o.",
+			"press_key": "Prime uma tecla…",
+			"disabled": "Desativado"
 		},
 		"overlay": {
 			"title": "Sobreposição",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "Utilizar Aceleração por Hardware",
 			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"echocancellation": "Cancelamento de Eco",
+			"echocancellation_description": "O teste ignora o cancelamento de eco. Usa auscultadores.",
 			"noiseSuppression": "Supressão de Ruído",
+			"autoGainControl": "Ganho automático",
+			"autoGainControl_warning": "Beta: o microfone ajusta o volume automaticamente. Testa primeiro.",
 			"spatial_audio": "Áudio Espacial",
 			"oldsampledebug": "Samplerate Debug",
 			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
@@ -108,7 +141,8 @@
 			"obs_overlay": "Sobreposição do OBS",
 			"obs_url": "Link da Sobreposição do OBS",
 			"voice_server_comp": "Modo de Compatibilidade com servidores Crewlink",
-			"voice_server_comp_warning": "É recomendado mudar para o Servidor de Voz predefinido do BetterCrewLink."
+			"voice_server_comp_warning": "É recomendado mudar para o Servidor de Voz predefinido do BetterCrewLink.",
+			"copy_url": "Copiar URL"
 		},
 		"troubleshooting": {
 			"title": "Resolução de Problemas",

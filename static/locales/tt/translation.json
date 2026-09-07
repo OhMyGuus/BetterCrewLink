@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "Көйләүләр",
 		"language": "Тел",
+		"general": "Гомуми",
 		"warning": "Сез ризамы?",
 		"lobbysettings": {
 			"title": "Бүлмә көйләүләре",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "Бу исән уенчылар өчен тавышны сүндерә очрашулардан башка.",
 			"meetings_only_warning2": "Очрашуларда гына сөйләшү кушылган.",
 			"impostor_radio": "Хыянәтчеләр радиосы",
+			"impostor_radio_private": "Яшерен хыянәтче радиосы",
+			"impostor_radio_private_description": "Якындагы экипаж хыянәтчене радио аша ишетми.",
+			"impostor_radio_private_requires": "Башта хыянәтче радиосын кабызыгыз.",
 			"public_lobby": {
 				"change_settings": "Бүлмә мәгълүматларен үзгәртү",
 				"title": "Исем",
@@ -31,7 +35,26 @@
 				"language": "Тел",
 				"enable_warning": "Бу көйләнүне эшләтеп җибәрү сезнең бүлмәне бүтән BetterCrewLink кулланучылары өчен ачык итәчәк!",
 				"ban_warning": "Килешмәгән текстлар BetterCrewLink-та блокировкага китерәчәк."
-			}
+			},
+			"host_notice": "Лобби көйләүләрен хуҗа билгели.",
+			"host_notice_you": "Сез хуҗа; лобби сезнең көйләүләрне куллана.",
+			"edit_as_host": "Үзгәртү",
+			"tab_current": "Хәзерге лобби",
+			"tab_mine": "Минем көйләүләр",
+			"host": "Хуҗа",
+			"host_you": "Сез",
+			"host_unknown": "Билгесез",
+			"no_lobby": "Сез лоббида түгел. Көйләүләрне күрү өчен кушылыгыз яки уен төзегез.",
+			"mine_notice": "Хуҗа булганда көйләүләрегез һәркемгә кулланыла."
+		},
+		"players": {
+			"title": "Уенчылар",
+			"volume": "Тавыш",
+			"empty": "Башка уенчылар юк. Тавышларын үзгәртү өчен лоббига кушылыгыз.",
+			"disconnected": "Тоташу өзелде",
+			"mute": "Тавышны сүндерү",
+			"unmute": "Тавышны кабызу",
+			"muted": "Тавыш сүндерелгән"
 		},
 		"customplatforms": {
 			"title": "Custom Platform",
@@ -51,18 +74,25 @@
 			"microphone_volume": "Микрофон тавышы",
 			"microphone_sens": "Микрофон сизгерлеге",
 			"microphone_sens_warning": "Әгәр сизгерлекне бераз азрак куйсагыз, эшләмәскә мөмкин.",
+			"auto_gain_disabled": "Автоматик көчәйтү кабызылганда сүндерелә.",
 			"mastervolume": "Уртак тавыш",
 			"crewvolume": "Экипаж тавышы өрәкләр сыман",
 			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Тавышны тикшерү",
-			"test_speaker_stop": "Тавышны тикшерүне туктату"
+			"test_speaker_stop": "Тавышны тикшерүне туктату",
+			"test_microphone_start": "Микрофонны сынау",
+			"test_microphone_stop": "Сынауны туктату",
+			"mode": "Тавыш режимы"
 		},
 		"keyboard": {
 			"title": "Клавиатура кыскартулары",
 			"push_to_talk": "Тавыш активациясе",
 			"mute": "Тавышны сүндерү",
 			"deafen": "Тавышны сүндерү",
-			"impostor_radio": "Хыянәтчеләр радиосы"
+			"impostor_radio": "Хыянәтчеләр радиосы",
+			"hint": "Төймәгә басыгыз, аннары клавиша яки тычкан төймәсен басыгыз. Escape аны сүндерә.",
+			"press_key": "Клавиша басыгыз…",
+			"disabled": "Сүндерелгән"
 		},
 		"overlay": {
 			"title": "Оверлей",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "Аппарат тизләнеше",
 			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"echocancellation": "Эхо бетерүче",
+			"echocancellation_description": "Микрофон сынавы яңгырашны бетерми. Колакчын кулланыгыз.",
 			"noiseSuppression": "Тавыш бетерүче",
+			"autoGainControl": "Автоматик көчәйтү",
+			"autoGainControl_warning": "Бета: микрофон тавышны автоматик көйли. Башта сынагыз.",
 			"spatial_audio": "Киңлектәге тавыш",
 			"oldsampledebug": "Samplerate Debug",
 			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
@@ -108,7 +141,8 @@
 			"obs_overlay": "OBS-браузер оверлее",
 			"obs_url": "OBS-браузер чыганак URL",
 			"voice_server_comp": "VS белән яраклашу шарты",
-			"voice_server_comp_warning": "Тавыш серверын BetterCrewLink тавыш серверына үзгәртү тәкъдим ителә (https://bettercrewl.ink), мәсәлән."
+			"voice_server_comp_warning": "Тавыш серверын BetterCrewLink тавыш серверына үзгәртү тәкъдим ителә (https://bettercrewl.ink), мәсәлән.",
+			"copy_url": "URL-ны күчерү"
 		},
 		"troubleshooting": {
 			"title": "Диагностика",

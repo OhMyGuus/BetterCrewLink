@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "Einstellungen",
 		"language": "Sprache",
+		"general": "Allgemein",
 		"warning": "Bist du sicher?",
 		"lobbysettings": {
 			"title": "Lobby-Einstellungen",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "Sound für lebende Mitspieler außerhalb von Meetings deaktivieren.",
 			"meetings_only_warning2": "Sprechen nur in Treffen aktiviert",
 			"impostor_radio": "Impostor Radio",
+			"impostor_radio_private": "Privater Verräterfunk",
+			"impostor_radio_private_description": "Spieler in der Nähe hören den Verräter nicht im Funk.",
+			"impostor_radio_private_requires": "Aktiviere zuerst den Verräterfunk.",
 			"public_lobby": {
 				"change_settings": "Lobbyinfo ändern",
 				"title": "Titel",
@@ -31,7 +35,26 @@
 				"language": "Sprache",
 				"enable_warning": "Wenn aktiviert, ist deine Lobby für andere BetterCrewLink-Nutzer sichtbar!",
 				"ban_warning": "Unangebrachter Text führt zu einer Sperre auf BetterCrewLink."
-			}
+			},
+			"host_notice": "Der Host legt die Lobby-Einstellungen fest.",
+			"host_notice_you": "Du bist der Host; die Lobby nutzt deine Einstellungen.",
+			"edit_as_host": "Ändern",
+			"tab_current": "Aktuelle Lobby",
+			"tab_mine": "Meine Einstellungen",
+			"host": "Host",
+			"host_you": "Du",
+			"host_unknown": "Unbekannt",
+			"no_lobby": "Nicht in einer Lobby. Tritt bei oder hoste ein Spiel, um die Einstellungen zu sehen.",
+			"mine_notice": "Als Host gelten deine Einstellungen für alle."
+		},
+		"players": {
+			"title": "Spieler",
+			"volume": "Lautstärke",
+			"empty": "Keine anderen Spieler. Tritt einer Lobby bei, um ihre Lautstärke zu ändern.",
+			"disconnected": "Getrennt",
+			"mute": "Stummschalten",
+			"unmute": "Stummschaltung aufheben",
+			"muted": "Stummgeschaltet"
 		},
 		"customplatforms": {
 			"title": "Benutzerdefinierte Plattform",
@@ -51,18 +74,25 @@
 			"microphone_volume": "Mikrofonlautstärke",
 			"microphone_sens": "Mikrofonempfindlichkeit",
 			"microphone_sens_warning": "Falls die Empfindlichkeit zu niedrig eingestellt ist, kann es zu Problemen führen.",
+			"auto_gain_disabled": "Bei automatischer Verstärkung deaktiviert.",
 			"mastervolume": "Hauptlautstärke",
 			"crewvolume": "Crew-Lautstärke wenn tot",
 			"ghostvolumeasimpostor": "Lautstärke der Geister als Impostor",
 			"test_speaker_start": "Lautsprecher testen",
-			"test_speaker_stop": "Lautsprechertest stoppen"
+			"test_speaker_stop": "Lautsprechertest stoppen",
+			"test_microphone_start": "Mikrofon testen",
+			"test_microphone_stop": "Mikrofontest beenden",
+			"mode": "Sprachmodus"
 		},
 		"keyboard": {
 			"title": "Tastenkürzel",
 			"push_to_talk": "Push-to-Talk",
 			"mute": "Stummschalten",
 			"deafen": "Ausgabe aus",
-			"impostor_radio": "Imposter-Radio"
+			"impostor_radio": "Imposter-Radio",
+			"hint": "Klicke auf ein Kürzel und drücke eine Taste oder Maustaste. Escape deaktiviert es.",
+			"press_key": "Taste drücken…",
+			"disabled": "Deaktiviert"
 		},
 		"overlay": {
 			"title": "Overlay",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "Hardwarebeschleunigung",
 			"hardware_acceleration_warning": "Dies deaktiviert die Hardwarebeschleunigung (was die CPU-Nutzung erhöhen kann)",
 			"echocancellation": "Echounterdrückung",
+			"echocancellation_description": "Der Mikrofontest ignoriert die Echounterdrückung. Nutze Kopfhörer.",
 			"noiseSuppression": "Geräuschunterdrückung",
+			"autoGainControl": "Automatische Verstärkung",
+			"autoGainControl_warning": "Beta: Das Mikrofon regelt die Lautstärke automatisch. Teste es zuerst.",
 			"spatial_audio": "Räumliches Audio",
 			"oldsampledebug": "Samplerate Debug",
 			"oldsampledebug_warning": "Dies ist eine Testfunktion, die nur auf Anfrage aktiviert ist. "
@@ -108,7 +141,8 @@
 			"obs_overlay": "OBS-Browser-Overlay",
 			"obs_url": "OBS-Browser-Overlay",
 			"voice_server_comp": "VS Kompatibilitätsmodus",
-			"voice_server_comp_warning": "Es wird empfohlen, den Sprachserver auf einen BetterCrewLink Voiceserver (z.B. https://bettercrewl.ink) zu ändern."
+			"voice_server_comp_warning": "Es wird empfohlen, den Sprachserver auf einen BetterCrewLink Voiceserver (z.B. https://bettercrewl.ink) zu ändern.",
+			"copy_url": "URL kopieren"
 		},
 		"troubleshooting": {
 			"title": "Fehlerbehebung",

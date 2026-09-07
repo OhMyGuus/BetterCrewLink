@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "Configurações",
 		"language": "Idioma",
+		"general": "Geral",
 		"warning": "Você tem certeza?",
 		"lobbysettings": {
 			"title": "Configurações da Sala",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "Isso desativa o som dos jogadores vivos fora das reuniões de emergência.",
 			"meetings_only_warning2": "Conversar apenas na reuniões de emergência se estiver habilitado.",
 			"impostor_radio": "Rádio do Impostor",
+			"impostor_radio_private": "Rádio privado de impostor",
+			"impostor_radio_private_description": "Tripulantes próximos não ouvem o impostor pelo rádio.",
+			"impostor_radio_private_requires": "Ative primeiro o rádio de impostor.",
 			"public_lobby": {
 				"change_settings": "Alterar as Informações da Sala",
 				"title": "Título",
@@ -31,7 +35,26 @@
 				"language": "Idioma",
 				"enable_warning": "Habilitando isso tornará sua sala pública para outros usuários do BetterCrewLink!",
 				"ban_warning": "Texto inapropriado resultará em banimento do BrewCrewLink."
-			}
+			},
+			"host_notice": "O anfitrião controla as configurações da sala.",
+			"host_notice_you": "Você é o anfitrião; a sala usa suas configurações.",
+			"edit_as_host": "Alterar",
+			"tab_current": "Sala atual",
+			"tab_mine": "Minhas configurações",
+			"host": "Anfitrião",
+			"host_you": "Você",
+			"host_unknown": "Desconhecido",
+			"no_lobby": "Você não está em uma sala. Entre ou crie uma para ver as configurações.",
+			"mine_notice": "Suas configurações valem para todos quando você é anfitrião."
+		},
+		"players": {
+			"title": "Jogadores",
+			"volume": "Volume",
+			"empty": "Não há outros jogadores. Entre em uma sala para alterar o volume deles.",
+			"disconnected": "Desconectado",
+			"mute": "Silenciar",
+			"unmute": "Ativar som",
+			"muted": "Silenciado"
 		},
 		"customplatforms": {
 			"title": "Plataforma Personalizada",
@@ -51,18 +74,25 @@
 			"microphone_volume": "Volume do Microfone",
 			"microphone_sens": "Sensibilidade do Microfone",
 			"microphone_sens_warning": "Se você definir a sensibilidade para um nível mais baixo, o microfone pode não funcionar.",
+			"auto_gain_disabled": "Desativado com ganho automático.",
 			"mastervolume": "Volume Principal",
 			"crewvolume": "Volume da Tripulação como Fantasma",
 			"ghostvolumeasimpostor": "Volume do Fantasma como Impostor",
 			"test_speaker_start": "Iniciar o Teste de Alto-falante",
-			"test_speaker_stop": "Parar o Teste de Alto-falante"
+			"test_speaker_stop": "Parar o Teste de Alto-falante",
+			"test_microphone_start": "Testar microfone",
+			"test_microphone_stop": "Parar teste",
+			"mode": "Modo de voz"
 		},
 		"keyboard": {
 			"title": "Atalhos de Teclado",
 			"push_to_talk": "Aperte Para Falar",
 			"mute": "Silenciado",
 			"deafen": "Sem Áudio",
-			"impostor_radio": "Rádio do Impostor"
+			"impostor_radio": "Rádio do Impostor",
+			"hint": "Clique em um atalho e pressione uma tecla ou botão do mouse. Escape o desativa.",
+			"press_key": "Pressione uma tecla…",
+			"disabled": "Desativado"
 		},
 		"overlay": {
 			"title": "Sobreposição",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "Aceleração de Hardware",
 			"hardware_acceleration_warning": "Isso desativa a Aceleração de Hardware (o que pode aumentar o uso da CPU)",
 			"echocancellation": "Cancelamento de Eco",
+			"echocancellation_description": "O teste ignora o cancelamento de eco. Use fones de ouvido.",
 			"noiseSuppression": "Supressão de Ruído",
+			"autoGainControl": "Ganho automático",
+			"autoGainControl_warning": "Beta: o microfone ajusta o volume automaticamente. Teste primeiro.",
 			"spatial_audio": "Áudio Espacial",
 			"oldsampledebug": "Samplerate Debug",
 			"oldsampledebug_warning": "Isso é uma função de teste SOMENTE habilitada quando solicitada."
@@ -108,7 +141,8 @@
 			"obs_overlay": "Sobreposição do OBS",
 			"obs_url": "URL da Sobreposição do OBS",
 			"voice_server_comp": "Modo de Compatibilidade com servidores CrewLink",
-			"voice_server_comp_warning": "É recomendado mudar o Servidor de Voz para o Servidor de Voz do BetterCrewLink (https://bettercrewl.ink)."
+			"voice_server_comp_warning": "É recomendado mudar o Servidor de Voz para o Servidor de Voz do BetterCrewLink (https://bettercrewl.ink).",
+			"copy_url": "Copiar URL"
 		},
 		"troubleshooting": {
 			"title": "Solução de Problemas",

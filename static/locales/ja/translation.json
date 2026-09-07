@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "設定",
 		"language": "言語",
+		"general": "一般",
 		"warning": "よろしいですか？",
 		"lobbysettings": {
 			"title": "ロビー設定",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "会議以外での生存プレイヤーのサウンドを無効にします",
 			"meetings_only_warning2": "会議での発言のみ有効",
 			"impostor_radio": "インポスターラジオ",
+			"impostor_radio_private": "非公開インポスター無線",
+			"impostor_radio_private_description": "近くのクルーには無線中のインポスターの声が聞こえません。",
+			"impostor_radio_private_requires": "先にインポスター無線を有効にしてください。",
 			"public_lobby": {
 				"change_settings": "ロビー情報の変更",
 				"title": "タイトル",
@@ -31,7 +35,26 @@
 				"language": "言語",
 				"enable_warning": "これを有効にすると、あなたのロビーは他のBetterCrewLinkユーザーに公開されます！",
 				"ban_warning": "不適切な表現を使った場合、BetterCrewLinkからBANされます。"
-			}
+			},
+			"host_notice": "ロビー設定はホストが管理します。",
+			"host_notice_you": "あなたがホストです。ロビーではあなたの設定を使います。",
+			"edit_as_host": "変更",
+			"tab_current": "現在のロビー",
+			"tab_mine": "自分の設定",
+			"host": "ホスト",
+			"host_you": "あなた",
+			"host_unknown": "不明",
+			"no_lobby": "ロビーに未接続です。参加または作成すると設定を確認できます。",
+			"mine_notice": "ホスト中はあなたの設定が全員に適用されます。"
+		},
+		"players": {
+			"title": "プレイヤー",
+			"volume": "音量",
+			"empty": "他のプレイヤーはいません。ロビーに参加すると音量を変更できます。",
+			"disconnected": "切断済み",
+			"mute": "ミュート",
+			"unmute": "ミュート解除",
+			"muted": "ミュート中"
 		},
 		"customplatforms": {
 			"title": "その他",
@@ -51,18 +74,25 @@
 			"microphone_volume": "マイク音量",
 			"microphone_sens": "マイク感度",
 			"microphone_sens_warning": "これ以上、感度を下げるとうまくいかないかもしれません。",
+			"auto_gain_disabled": "自動ゲイン調整中は無効です。",
 			"mastervolume": "マスターボリューム",
 			"crewvolume": "幽霊クルーの音量",
 			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "スピーカーテスト",
-			"test_speaker_stop": "スピーカーテスト停止"
+			"test_speaker_stop": "スピーカーテスト停止",
+			"test_microphone_start": "マイクをテスト",
+			"test_microphone_stop": "マイクテストを停止",
+			"mode": "音声モード"
 		},
 		"keyboard": {
 			"title": "キーボードショートカット",
 			"push_to_talk": "押して話す",
 			"mute": "ミュート",
 			"deafen": "スピーカーミュート",
-			"impostor_radio": "インポスターラジオ"
+			"impostor_radio": "インポスターラジオ",
+			"hint": "ショートカットをクリックし、キーかマウスボタンを押してください。Escapeで無効にできます。",
+			"press_key": "キーを押してください…",
+			"disabled": "無効"
 		},
 		"overlay": {
 			"title": "オーバーレイ",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "ハードウェア アクセラレーション",
 			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"echocancellation": "エコーキャンセラー",
+			"echocancellation_description": "マイクテストではエコー除去を使いません。ヘッドホンを使用してください。",
 			"noiseSuppression": "ノイズ防止",
+			"autoGainControl": "自動ゲイン調整",
+			"autoGainControl_warning": "ベータ版：マイク音量を自動調整します。先にテストしてください。",
 			"spatial_audio": "立体音響",
 			"oldsampledebug": "Samplerate Debug",
 			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
@@ -108,7 +141,8 @@
 			"obs_overlay": "OBS ブラウザーのオーバーレイ",
 			"obs_url": "OBSブラウザソースURL",
 			"voice_server_comp": "ボイスサーバー互換性モード",
-			"voice_server_comp_warning": "例えば、ボイスサーバーをBetterCrewLinkボイスサーバー(https://bettercrewl.ink)に変更することをお勧めします。"
+			"voice_server_comp_warning": "例えば、ボイスサーバーをBetterCrewLinkボイスサーバー(https://bettercrewl.ink)に変更することをお勧めします。",
+			"copy_url": "URLをコピー"
 		},
 		"troubleshooting": {
 			"title": "トラブルシューティング",

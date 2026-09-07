@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "Instellingen",
 		"language": "Taal",
+		"general": "Algemeen",
 		"warning": "Weet je het zeker?",
 		"lobbysettings": {
 			"title": "Lobby instellingen",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "Dit zet al het geluid uit voor levende spelers buiten de meetings om.",
 			"meetings_only_warning2": "Alleen praten in meetings aan!",
 			"impostor_radio": "Impostor Radio",
+			"impostor_radio_private": "Privé-impostorradio",
+			"impostor_radio_private_description": "Bemanningsleden dichtbij horen een impostor niet via de radio.",
+			"impostor_radio_private_requires": "Schakel eerst de impostorradio in.",
 			"public_lobby": {
 				"change_settings": "Change Lobby Info",
 				"title": "Title",
@@ -31,7 +35,26 @@
 				"language": "Language",
 				"enable_warning": "Enabling this will make your lobby public to other BetterCrewLink users!",
 				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
-			}
+			},
+			"host_notice": "De host beheert de lobbyinstellingen.",
+			"host_notice_you": "Je bent de host; de lobby gebruikt jouw instellingen.",
+			"edit_as_host": "Wijzigen",
+			"tab_current": "Huidige lobby",
+			"tab_mine": "Mijn instellingen",
+			"host": "Host",
+			"host_you": "Jij",
+			"host_unknown": "Onbekend",
+			"no_lobby": "Niet in een lobby. Neem deel of host een spel om de instellingen te zien.",
+			"mine_notice": "Als host gelden jouw instellingen voor iedereen."
+		},
+		"players": {
+			"title": "Spelers",
+			"volume": "Volume",
+			"empty": "Geen andere spelers. Neem deel aan een lobby om hun volume te wijzigen.",
+			"disconnected": "Verbinding verbroken",
+			"mute": "Dempen",
+			"unmute": "Dempen opheffen",
+			"muted": "Gedempt"
 		},
 		"customplatforms": {
 			"title": "Custom Platform",
@@ -51,18 +74,25 @@
 			"microphone_volume": "Microfoon volume",
 			"microphone_sens": "Microfoon gevoeligheid",
 			"microphone_sens_warning": "Als je de gevoeligheid nog lager zet werkt het waarschijnlijk niet meer.",
+			"auto_gain_disabled": "Uitgeschakeld bij automatische versterking.",
 			"mastervolume": "Master Volume",
 			"crewvolume": "Crew volume als een geest.",
 			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Test speaker",
-			"test_speaker_stop": "Stop Test Speaker"
+			"test_speaker_stop": "Stop Test Speaker",
+			"test_microphone_start": "Microfoon testen",
+			"test_microphone_stop": "Microfoontest stoppen",
+			"mode": "Spraakmodus"
 		},
 		"keyboard": {
 			"title": "Toetsenbord sneltoetsen",
 			"push_to_talk": "Push to Talk",
 			"mute": "Mute",
 			"deafen": "Dempen",
-			"impostor_radio": "Impostor Radio"
+			"impostor_radio": "Impostor Radio",
+			"hint": "Klik op een sneltoets en druk op een toets of muisknop. Escape schakelt hem uit.",
+			"press_key": "Druk op een toets…",
+			"disabled": "Uitgeschakeld"
 		},
 		"overlay": {
 			"title": "Overlay",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "Hardware Acceleration",
 			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"echocancellation": "Echo-onderdrukking",
+			"echocancellation_description": "De microfoontest negeert echo-onderdrukking. Gebruik een koptelefoon.",
 			"noiseSuppression": "Geluidsonderdrukking",
+			"autoGainControl": "Automatische versterking",
+			"autoGainControl_warning": "Bèta: de microfoon past het volume automatisch aan. Test dit eerst.",
 			"spatial_audio": "Ruimtelijke audio",
 			"oldsampledebug": "Samplerate Debug",
 			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
@@ -108,7 +141,8 @@
 			"obs_overlay": "OBS Browser Overlay",
 			"obs_url": "OBS Browser Source URL",
 			"voice_server_comp": "Server compatibiliteit modus",
-			"voice_server_comp_warning": "Het is beter om de standaard server te gebruiken (https://bettercrewl.ink)"
+			"voice_server_comp_warning": "Het is beter om de standaard server te gebruiken (https://bettercrewl.ink)",
+			"copy_url": "URL kopiëren"
 		},
 		"troubleshooting": {
 			"title": "Probleemoplossen",

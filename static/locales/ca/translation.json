@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "Configuració",
 		"language": "Idioma",
+		"general": "General",
 		"warning": "Estàs segur?",
 		"lobbysettings": {
 			"title": "Opcions de la sala",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "Aixó desactiva el so per els jugadors vius",
 			"meetings_only_warning2": "Només es pot parlar en les reunions activat.",
 			"impostor_radio": "Impostor Radio",
+			"impostor_radio_private": "Ràdio privat d'impostors",
+			"impostor_radio_private_description": "Els tripulants propers no senten l'impostor per ràdio.",
+			"impostor_radio_private_requires": "Activa primer la ràdio d'impostors.",
 			"public_lobby": {
 				"change_settings": "Change Lobby Info",
 				"title": "Title",
@@ -31,7 +35,26 @@
 				"language": "Language",
 				"enable_warning": "Enabling this will make your lobby public to other BetterCrewLink users!",
 				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
-			}
+			},
+			"host_notice": "L'amfitrió controla els ajustos de la sala.",
+			"host_notice_you": "Ets l'amfitrió; la sala usa els teus ajustos.",
+			"edit_as_host": "Canvia",
+			"tab_current": "Sala actual",
+			"tab_mine": "Els meus ajustos",
+			"host": "Amfitrió",
+			"host_you": "Tu",
+			"host_unknown": "Desconegut",
+			"no_lobby": "No ets en cap sala. Uneix-t'hi o crea'n una per veure els ajustos.",
+			"mine_notice": "Els teus ajustos s'apliquen a tothom quan ets l'amfitrió."
+		},
+		"players": {
+			"title": "Jugadors",
+			"volume": "Volum",
+			"empty": "No hi ha altres jugadors. Uneix-te a una sala per canviar-ne el volum.",
+			"disconnected": "Desconnectat",
+			"mute": "Silencia",
+			"unmute": "Activa el so",
+			"muted": "Silenciat"
 		},
 		"customplatforms": {
 			"title": "Custom Platform",
@@ -51,18 +74,25 @@
 			"microphone_volume": "Volum del Micròfon",
 			"microphone_sens": "Sensibilitat del Micròfon",
 			"microphone_sens_warning": "Si la sensibilitat és massa baixa potser no funciona",
+			"auto_gain_disabled": "Desactivat mentre el guany automàtic està actiu.",
 			"mastervolume": "Volum General",
 			"crewvolume": "Volum dels Companys com Fantasma",
 			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Provar l'altaveu",
-			"test_speaker_stop": "Parar de Provar l'altaveu"
+			"test_speaker_stop": "Parar de Provar l'altaveu",
+			"test_microphone_start": "Prova el micròfon",
+			"test_microphone_stop": "Atura la prova del micròfon",
+			"mode": "Mode de veu"
 		},
 		"keyboard": {
 			"title": "Dreceres de Teclat",
 			"push_to_talk": "Polsar per Parlar",
 			"mute": "Silenciar",
 			"deafen": "Ensordir",
-			"impostor_radio": "Impostor Radio"
+			"impostor_radio": "Impostor Radio",
+			"hint": "Fes clic a una drecera i prem una tecla o botó del ratolí. Escape la desactiva.",
+			"press_key": "Prem una tecla…",
+			"disabled": "Desactivat"
 		},
 		"overlay": {
 			"title": "Superposició",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "Hardware Acceleration",
 			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"echocancellation": "Cancel·lació de Eco",
+			"echocancellation_description": "La prova ignora la cancel·lació d'eco. Usa auriculars.",
 			"noiseSuppression": "Supressió de Soroll",
+			"autoGainControl": "Guany automàtic",
+			"autoGainControl_warning": "Beta: el micròfon ajusta el volum automàticament. Prova'l primer.",
 			"spatial_audio": "Audio Espacial",
 			"oldsampledebug": "Samplerate Debug",
 			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
@@ -108,7 +141,8 @@
 			"obs_overlay": "Superposició de Navegador de OBS",
 			"obs_url": "OBS Browser Source URL",
 			"voice_server_comp": "Mode de compatibilitat VS",
-			"voice_server_comp_warning": "Es recomana canviar el servidor de veu per un servidor de veu bettercrewlink https://bettercrewl.ink, per exemple."
+			"voice_server_comp_warning": "Es recomana canviar el servidor de veu per un servidor de veu bettercrewlink https://bettercrewl.ink, per exemple.",
+			"copy_url": "Copia l'URL"
 		},
 		"troubleshooting": {
 			"title": "Resolució de problemes",
