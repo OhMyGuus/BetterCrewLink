@@ -48,6 +48,10 @@ interface ConnectionControllerEvents extends Record<string, unknown[]> {
 	lobbyReset: [];
 }
 
+function isRelayUrl(urls: RTCIceServer['urls']): boolean {
+	return ([] as string[]).concat(urls).some((url) => url.startsWith('turn:') || url.startsWith('turns:'));
+}
+
 export class ConnectionController extends TypedEmitter<ConnectionControllerEvents> {
 	private socket?: Socket;
 	private stream?: MediaStream;
@@ -134,10 +138,7 @@ export class ConnectionController extends TypedEmitter<ConnectionControllerEvent
 				return;
 			}
 
-			if (
-				clientPeerConfig.forceRelayOnly &&
-				!clientPeerConfig.iceServers.some((server) => server.urls.toString().includes('turn:'))
-			) {
+			if (clientPeerConfig.forceRelayOnly && !clientPeerConfig.iceServers.some((server) => isRelayUrl(server.urls))) {
 				alert('Server has forced relay mode enabled but provides no relay servers. Default config will be used.');
 				return;
 			}
