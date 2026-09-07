@@ -4,17 +4,10 @@ import { IpcRendererMessages } from '../../common/ipc-messages';
 import { pushToTalkOptions } from '../../common/pushToTalkOptions';
 import { ipcRenderer } from '../lib/electron-bridge';
 import { TypedEmitter } from '../lib/TypedEmitter';
-import VAD, { VADOptions } from '../lib/vad';
+import VAD from '../lib/vad';
 import SettingsStore from '../settings/SettingsStore';
 import { calculateVoiceAudio } from './spatialAudio';
-import { ExtendedAudioElement, PeerAudioNodes } from './types';
-
-interface VadNode {
-	connect: () => void;
-	destroy: () => void;
-	options: VADOptions;
-	init: () => void;
-}
+import { ExtendedAudioElement, LegacyAudioConstraints, PeerAudioNodes, VadNode } from './types';
 
 interface AudioControllerEvents extends Record<string, unknown[]> {
 	talking: [boolean];
@@ -127,16 +120,16 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		const context = this.context;
 		if (!context) return;
 
-		const constraints = {
-			deviceId: undefined as unknown as string,
+		const constraints: LegacyAudioConstraints = {
+			deviceId: undefined,
 			autoGainControl: settings.autoGainControl,
 			channelCount: 2,
 			echoCancellation: settings.echoCancellation,
 			latency: 0,
-			noiseSuppression: settings.noiseSuppression, // @ts-ignore-line
-			googNoiseSuppression: settings.noiseSuppression, // @ts-ignore-line
-			googEchoCancellation: settings.echoCancellation, // @ts-ignore-line
-			googTypingNoiseDetection: settings.noiseSuppression, // @ts-ignore-line
+			noiseSuppression: settings.noiseSuppression,
+			googNoiseSuppression: settings.noiseSuppression,
+			googEchoCancellation: settings.echoCancellation,
+			googTypingNoiseDetection: settings.noiseSuppression,
 			sampleRate: settings.oldSampleDebug ? 48000 : undefined,
 		};
 		if (settings.microphone.toLowerCase() !== 'default') {
