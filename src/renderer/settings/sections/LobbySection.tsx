@@ -76,6 +76,16 @@ const LobbySettingRows: React.FC<RowsProps> = function ({ t, values, disabled, d
 					/>
 				))}
 				<SwitchRow
+					label={t('settings.lobbysettings.impostor_radio_private')}
+					description={t('settings.lobbysettings.impostor_radio_private_description')}
+					disabled={disabled || !values.impostorRadioEnabled}
+					disabledReason={
+						values.impostorRadioEnabled ? disabledReason : t('settings.lobbysettings.impostor_radio_private_requires')
+					}
+					checked={values.impostorRadioPrivate}
+					onChange={(impostorRadioPrivate) => update({ impostorRadioPrivate })}
+				/>
+				<SwitchRow
 					label={t('settings.lobbysettings.ghost_only')}
 					description={t('settings.lobbysettings.ghost_only_warning')}
 					disabled={disabled}

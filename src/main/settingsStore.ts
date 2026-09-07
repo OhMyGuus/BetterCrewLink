@@ -272,6 +272,10 @@ export const settingsStore = new Store<ISettings>({
 					type: 'boolean',
 					default: false,
 				},
+				impostorRadioPrivate: {
+					type: 'boolean',
+					default: false,
+				},
 				deadOnly: {
 					type: 'boolean',
 					default: false,

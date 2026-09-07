@@ -49,6 +49,7 @@ export const defaultLobbySettings: ILobbySettings = {
 	hearImpostorsInVents: false,
 	impostersHearImpostersInvent: false,
 	impostorRadioEnabled: false,
+	impostorRadioPrivate: false,
 	commsSabotage: false,
 	deadOnly: false,
 	hearThroughCameras: false,

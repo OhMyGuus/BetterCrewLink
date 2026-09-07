@@ -50,6 +50,7 @@ export interface ILobbySettings {
 	hearImpostorsInVents: boolean;
 	impostersHearImpostersInvent: boolean;
 	impostorRadioEnabled: boolean;
+	impostorRadioPrivate: boolean;
 	commsSabotage: boolean;
 	deadOnly: boolean;
 	meetingGhostOnly: boolean;

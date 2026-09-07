@@ -68,43 +68,25 @@ ipcMain.handle(IpcMessages.REQUEST_GAME_INFO, () => {
 ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 	if (!readingGame) {
 		readingGame = true;
-		let speaking: number = 0;
-		// Whether the impostor radio is currently held down and was granted. The keyup
-		// branch below used to re-evaluate `isImpostor` instead, and that answer can change
-		// while the key is still down -- a round ending leaves `lastState.players` without
-		// this client in it. When it did, the decrement and the release were both skipped,
-		// `speaking` stayed above zero, and PUSH_TO_TALK false was never sent afterwards.
+		let pushToTalkHeld = false;
 		let impostorRadioHeld = false;
 		resetKeyHooks();
 
 		keyboardWatcher.on('keydown', (keyId: number) => {
-			if (keyCodeMatches(pushToTalkShortcut!, keyId)) {
-				speaking += 1;
-			}
-			if (
-				keyCodeMatches(impostorRadioShortcut!, keyId) &&
-				!impostorRadioHeld &&
-				gameReader.lastState.players?.find((value) => {
-					return value.clientId === gameReader.lastState.clientId;
-				})?.isImpostor
-			) {
-				impostorRadioHeld = true;
-				speaking += 1;
-				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, true);
-			}
-
-			// Cover weird cases which shouldn't happen but just in case
-			if (speaking > 2) {
-				speaking = 2;
-			}
-			if (speaking) {
+			if (keyCodeMatches(pushToTalkShortcut!, keyId) && !pushToTalkHeld) {
+				pushToTalkHeld = true;
 				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, true);
+			}
+			if (keyCodeMatches(impostorRadioShortcut!, keyId) && !impostorRadioHeld) {
+				impostorRadioHeld = true;
+				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, true);
 			}
 		});
 
 		keyboardWatcher.on('keyup', (keyId: number) => {
-			if (keyCodeMatches(pushToTalkShortcut!, keyId)) {
-				speaking -= 1;
+			if (keyCodeMatches(pushToTalkShortcut!, keyId) && pushToTalkHeld) {
+				pushToTalkHeld = false;
+				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, false);
 			}
 			if (keyCodeMatches(deafenShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.TOGGLE_DEAFEN);
@@ -112,20 +94,9 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 			if (keyCodeMatches(muteShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.TOGGLE_MUTE);
 			}
-			// Released on the fact that it was granted, not on whether it would be granted
-			// again now.
 			if (keyCodeMatches(impostorRadioShortcut!, keyId) && impostorRadioHeld) {
 				impostorRadioHeld = false;
-				speaking -= 1;
 				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, false);
-			}
-
-			// Cover weird cases which shouldn't happen but just in case
-			if (speaking < 0) {
-				speaking = 0;
-			}
-			if (!speaking) {
-				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, false);
 			}
 		});
 
