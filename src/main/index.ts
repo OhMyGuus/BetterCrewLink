@@ -2,7 +2,7 @@ import electronUpdater from 'electron-updater';
 import { app, BrowserWindow, ipcMain, session, net, protocol } from 'electron';
 import windowStateKeeper from 'electron-window-state';
 import { platform } from 'os';
-import { join as joinPath } from 'path';
+import { join as joinPath, resolve as resolvePath, sep } from 'path';
 import { pathToFileURL } from 'url';
 import './hook';
 import overlayWindowModule from 'electron-overlay-window';
@@ -79,6 +79,12 @@ function loadView(window: BrowserWindow, view: 'app' | 'lobbies' | 'overlay' | '
 
 function preload(): string {
 	return joinPath(import.meta.dirname, '../preload/index.mjs');
+}
+
+function fetchWithin(baseDir: string, requestPath: string) {
+	const filePath = resolvePath(baseDir, decodeURIComponent(requestPath).replace(/^[\\/]+/, ''));
+	if (!filePath.startsWith(baseDir + sep)) return new Response('Forbidden', { status: 403 });
+	return net.fetch(pathToFileURL(filePath).toString());
 }
 
 function createMainWindow() {
@@ -337,9 +343,8 @@ if (!gotTheLock) {
 	// create main BrowserWindow when electron is ready
 	app.whenReady().then(() => {
 		protocol.handle('static', (request) => {
-			const url = new URL(request.url);
-			const filePath = app.getPath('userData') + '/static/' + decodeURIComponent(url.host + url.pathname);
-			return net.fetch(pathToFileURL(filePath).toString());
+			const { host, pathname } = new URL(request.url);
+			return fetchWithin(resolvePath(app.getPath('userData'), 'static'), host + pathname);
 		});
 
 		protocol.handle('generate', async (request) => {
@@ -353,11 +358,9 @@ if (!gotTheLock) {
 			return net.fetch(pathToFileURL(filePath).toString());
 		});
 
-		protocol.handle('app', (request) => {
-			const { pathname } = new URL(request.url);
-			const filePath = joinPath(import.meta.dirname, '../renderer', decodeURIComponent(pathname));
-			return net.fetch(pathToFileURL(filePath).toString());
-		});
+		protocol.handle('app', (request) =>
+			fetchWithin(resolvePath(import.meta.dirname, '../renderer'), new URL(request.url).pathname)
+		);
 
 		initializeIpcListeners();
 		initializeIpcHandlers();
