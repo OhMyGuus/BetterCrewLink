@@ -676,9 +676,11 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		this.audio.setRadioTransmitting(granted);
 		this.patch({ impostorRadioClientId: granted && myPlayer ? myPlayer.clientId : -1 });
 
-		void radioOnAudio.play().catch(() => {
-			/* autoplay blocked */
-		});
+		if (granted) {
+			void radioOnAudio.play().catch(() => {
+				/* autoplay blocked */
+			});
+		}
 
 		const playerSocketIds = this.connection.playerSocketIds;
 		const targets = (state?.players ?? [])
