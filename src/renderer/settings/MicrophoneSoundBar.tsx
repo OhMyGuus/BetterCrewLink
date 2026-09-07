@@ -6,8 +6,8 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 import { ISettings } from '../../common/ISettings';
-import { ExtendedAudioElement } from '../voice/types';
-import VAD, { VADOptions } from '../lib/vad';
+import { ExtendedAudioElement, LegacyAudioConstraints, VadNode } from '../voice/types';
+import VAD from '../lib/vad';
 
 interface TestMicProps {
 	t: (key: string) => string;
@@ -42,11 +42,7 @@ const useStyles = () => {
 	};
 };
 
-interface VadNode {
-	destroy: () => void;
-	options: VADOptions;
-	init: () => void;
-}
+const sinkIdFor = (speaker: string) => (speaker && speaker.toLowerCase() !== 'default' ? speaker : '');
 
 const TestMicrophoneButton: React.FC<TestMicProps> = function ({ t, settings }: TestMicProps) {
 	const classes = useStyles();
@@ -55,40 +51,24 @@ const TestMicrophoneButton: React.FC<TestMicProps> = function ({ t, settings }: 
 	const [ready, setReady] = useState<boolean>(false);
 	const [monitoring, setMonitoring] = useState<boolean>(false);
 
+	const settingsRef = useRef<ISettings>(settings);
+	const speakerRef = useRef<string>(settings.speaker);
 	const ctxRef = useRef<AudioContext | null>(null);
 	const outputNodeRef = useRef<AudioNode | null>(null);
-	const monitorDestRef = useRef<MediaStreamAudioDestinationNode | null>(null);
+	const gainNodeRef = useRef<GainNode | null>(null);
+	const audioListenerRef = useRef<VadNode | null>(null);
 	const monitorElementRef = useRef<ExtendedAudioElement | null>(null);
+	const monitorTeardownRef = useRef<(() => void) | null>(null);
 
 	const { microphone, speaker, noiseSuppression, autoGainControl, oldSampleDebug } = settings;
 	const { microphoneGain, microphoneGainEnabled, micSensitivity, micSensitivityEnabled } = settings;
 
-	// Disconnects the monitor graph without changing the user's monitoring intent.
-	const disconnectMonitorNodes = () => {
-		const dest = monitorDestRef.current;
-		if (dest) {
-			try {
-				outputNodeRef.current?.disconnect(dest);
-			} catch {
-				/* already disconnected, or context closed */
-			}
-			try {
-				dest.disconnect();
-			} catch {
-				/* already disconnected */
-			}
-			monitorDestRef.current = null;
-		}
-		const element = monitorElementRef.current;
-		if (element) {
-			element.pause();
-			element.srcObject = null;
-			monitorElementRef.current = null;
-		}
-	};
+	useEffect(() => {
+		settingsRef.current = settings;
+	});
 
-	const connectMonitorNodes = () => {
-		if (monitorDestRef.current) return;
+	useEffect(() => {
+		if (!monitoring || !ready) return;
 		const ctx = ctxRef.current;
 		const outputNode = outputNodeRef.current;
 		if (!ctx || !outputNode) return;
@@ -99,40 +79,29 @@ const TestMicrophoneButton: React.FC<TestMicProps> = function ({ t, settings }: 
 		const element = new Audio() as ExtendedAudioElement;
 		element.srcObject = dest.stream;
 		element.autoplay = true;
-		const sinkId = speaker && speaker.toLowerCase() !== 'default' ? speaker : '';
-		element.setSinkId(sinkId).catch(() => {
-			/* fall back to default output */
-		});
-		void element.play().catch(() => {
-			/* playback blocked; user can retry */
-		});
-
-		monitorDestRef.current = dest;
+		element.setSinkId(sinkIdFor(speakerRef.current)).catch(() => {});
+		void element.play().catch(() => setMonitoring(false));
 		monitorElementRef.current = element;
-	};
 
-	const toggleMonitoring = () => {
-		setMonitoring((prev) => !prev);
-	};
-
-	// Reconnects/disconnects monitoring when the toggle or mic stream readiness changes.
-	useEffect(() => {
-		if (monitoring && ready) {
-			connectMonitorNodes();
-		}
-		return () => {
-			disconnectMonitorNodes();
+		const teardown = () => {
+			monitorTeardownRef.current = null;
+			monitorElementRef.current = null;
+			element.pause();
+			element.srcObject = null;
+			try {
+				outputNode.disconnect(dest);
+			} catch {
+				/* empty */
+			}
+			dest.disconnect();
 		};
+		monitorTeardownRef.current = teardown;
+		return teardown;
 	}, [monitoring, ready]);
 
-	// Keep monitor playback on the currently selected speaker.
 	useEffect(() => {
-		const element = monitorElementRef.current;
-		if (!element) return;
-		const sinkId = speaker && speaker.toLowerCase() !== 'default' ? speaker : '';
-		element.setSinkId(sinkId).catch(() => {
-			/* fall back to default output */
-		});
+		speakerRef.current = speaker;
+		monitorElementRef.current?.setSinkId(sinkIdFor(speaker)).catch(() => {});
 	}, [speaker]);
 
 	useEffect(() => {
@@ -152,12 +121,10 @@ const TestMicrophoneButton: React.FC<TestMicProps> = function ({ t, settings }: 
 		let audioListener: VadNode | undefined;
 
 		const handleProcess = (event: AudioProcessingEvent) => {
-			// limit update frequency
 			if (event.timeStamp - lastRefreshTime < minUpdateRate) {
 				return;
 			}
 
-			// update last refresh time
 			lastRefreshTime = event.timeStamp;
 
 			const input = event.inputBuffer.getChannelData(0);
@@ -166,17 +133,16 @@ const TestMicrophoneButton: React.FC<TestMicProps> = function ({ t, settings }: 
 			setRms(rms);
 		};
 
-		// Mirrors AudioController.createInputChain; echo cancellation forced off (would cancel monitor playback).
-		const audio_options = {
+		const audio_options: LegacyAudioConstraints = {
 			deviceId: microphone && microphone.toLowerCase() !== 'default' ? { exact: microphone } : undefined,
 			autoGainControl,
 			channelCount: 2,
 			echoCancellation: false,
 			latency: 0,
-			noiseSuppression, // @ts-ignore-line
-			googNoiseSuppression: noiseSuppression, // @ts-ignore-line
-			googEchoCancellation: false, // @ts-ignore-line
-			googTypingNoiseDetection: noiseSuppression, // @ts-ignore-line
+			noiseSuppression,
+			googNoiseSuppression: noiseSuppression,
+			googEchoCancellation: false,
+			googTypingNoiseDetection: noiseSuppression,
 			sampleRate: oldSampleDebug ? 48000 : undefined,
 		};
 
@@ -196,58 +162,74 @@ const TestMicrophoneButton: React.FC<TestMicProps> = function ({ t, settings }: 
 
 				let outputNode: AudioNode = source;
 				if ((microphoneGainEnabled || micSensitivityEnabled) && !autoGainControl) {
+					const current = settingsRef.current;
 					const gain = ctx.createGain();
 					source.connect(gain);
-					gain.gain.value = microphoneGainEnabled ? microphoneGain / 100 : 1;
+					gain.gain.value = current.microphoneGainEnabled ? current.microphoneGain / 100 : 1;
 					gainNode = gain;
 					outputNode = gain;
 				}
 				outputNode.connect(processor);
 				processor.addEventListener('audioprocess', handleProcess);
 				outputNodeRef.current = outputNode;
-				setReady(true);
+				gainNodeRef.current = gainNode ?? null;
 
 				audioListener = VAD(ctx, source, undefined, {
 					onVoiceStart: () => {
-						if (gainNode && micSensitivityEnabled && !autoGainControl) {
-							gainNode.gain.value = microphoneGainEnabled ? microphoneGain / 100 : 1;
+						const current = settingsRef.current;
+						if (gainNode && current.micSensitivityEnabled && !current.autoGainControl) {
+							gainNode.gain.value = current.microphoneGainEnabled ? current.microphoneGain / 100 : 1;
 						}
 					},
 					onVoiceStop: () => {
-						if (gainNode && micSensitivityEnabled && !autoGainControl) {
+						const current = settingsRef.current;
+						if (gainNode && current.micSensitivityEnabled && !current.autoGainControl) {
 							gainNode.gain.value = 0;
 						}
 					},
 					noiseCaptureDuration: 0,
 					stereo: false,
 				}) as VadNode;
-				audioListener.options.minNoiseLevel = micSensitivityEnabled && !autoGainControl ? micSensitivity : 0.15;
+				audioListener.options.minNoiseLevel =
+					micSensitivityEnabled && !autoGainControl ? settingsRef.current.micSensitivity : 0.15;
 				audioListener.options.maxNoiseLevel = 1;
 				audioListener.init();
+				audioListenerRef.current = audioListener;
+
+				setReady(true);
 			})
 			.catch(() => setError(true));
 
 		return () => {
 			cancelled = true;
-			disconnectMonitorNodes();
+			monitorTeardownRef.current?.();
 			ctxRef.current = null;
 			outputNodeRef.current = null;
+			gainNodeRef.current = null;
+			audioListenerRef.current = null;
 			processor.removeEventListener('audioprocess', handleProcess);
 			audioListener?.destroy();
 			gainNode?.disconnect();
 			stream?.getTracks().forEach((track) => track.stop());
 			ctx.close();
 		};
-	}, [
-		microphone,
-		noiseSuppression,
-		autoGainControl,
-		oldSampleDebug,
-		microphoneGain,
-		microphoneGainEnabled,
-		micSensitivity,
-		micSensitivityEnabled,
-	]);
+	}, [microphone, noiseSuppression, autoGainControl, oldSampleDebug, microphoneGainEnabled, micSensitivityEnabled]);
+
+	useEffect(() => {
+		const gainNode = gainNodeRef.current;
+		if (!gainNode || autoGainControl) return;
+		if (!microphoneGainEnabled && !micSensitivityEnabled) return;
+
+		if (!micSensitivityEnabled) {
+			gainNode.gain.value = microphoneGainEnabled ? microphoneGain / 100 : 1;
+		}
+
+		const audioListener = audioListenerRef.current;
+		if (audioListener) {
+			audioListener.options.minNoiseLevel = micSensitivityEnabled ? micSensitivity : 0.15;
+			audioListener.init();
+		}
+	}, [ready, autoGainControl, microphoneGain, microphoneGainEnabled, micSensitivity, micSensitivityEnabled]);
 
 	if (error) {
 		return <Typography color="error">Could not connect to microphone</Typography>;
@@ -271,7 +253,7 @@ const TestMicrophoneButton: React.FC<TestMicProps> = function ({ t, settings }: 
 					size="small"
 					disabled={!ready}
 					sx={classes.monitorButton}
-					onClick={toggleMonitoring}
+					onClick={() => setMonitoring((prev) => !prev)}
 				>
 					{monitoring ? t('settings.audio.test_microphone_stop') : t('settings.audio.test_microphone_start')}
 				</Button>
