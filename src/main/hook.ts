@@ -69,11 +69,6 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 	if (!readingGame) {
 		readingGame = true;
 		let speaking: number = 0;
-		// Whether the impostor radio is currently held down and was granted. The keyup
-		// branch below used to re-evaluate `isImpostor` instead, and that answer can change
-		// while the key is still down -- a round ending leaves `lastState.players` without
-		// this client in it. When it did, the decrement and the release were both skipped,
-		// `speaking` stayed above zero, and PUSH_TO_TALK false was never sent afterwards.
 		let impostorRadioHeld = false;
 		resetKeyHooks();
 
@@ -112,8 +107,6 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 			if (keyCodeMatches(muteShortcut!, keyId)) {
 				event.sender.send(IpcRendererMessages.TOGGLE_MUTE);
 			}
-			// Released on the fact that it was granted, not on whether it would be granted
-			// again now.
 			if (keyCodeMatches(impostorRadioShortcut!, keyId) && impostorRadioHeld) {
 				impostorRadioHeld = false;
 				speaking -= 1;
