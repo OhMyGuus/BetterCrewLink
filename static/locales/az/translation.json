@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "Tənzimləmələr",
 		"language": "Dil",
+		"general": "Ümumi",
 		"warning": "Əminsiniz?",
 		"lobbysettings": {
 			"title": "Lobbi Tənzimləmələri",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "Görüş xaricində yaşayan oyunçular üçün səsi bağlayır.",
 			"meetings_only_warning2": "Yalnız görüşdə danışıq fəaldır.",
 			"impostor_radio": "Impostor Radio",
+			"impostor_radio_private": "Şəxsi İmpostor Radiosu",
+			"impostor_radio_private_description": "Yaxındakı ekipaj impostoru radioda eşitmir.",
+			"impostor_radio_private_requires": "Əvvəl İmpostor Radiosunu aktiv edin.",
 			"public_lobby": {
 				"change_settings": "Lobbi Məlumatını Dəyişdir",
 				"title": "Başlıq",
@@ -31,7 +35,26 @@
 				"language": "Dil",
 				"enable_warning": "Bunu fəallaşdırmaq, lobbini digər BetterCrewLink istifadəçiləri üçün ictimai edəcək!",
 				"ban_warning": "Uyğunsuz mətn, BetterCrewLink-də qadağa qoyulmasına səbəb olacaqdır."
-			}
+			},
+			"host_notice": "Lobbi ayarlarını host seçir.",
+			"host_notice_you": "Siz hostsunuz; lobbi sizin ayarlarınızı işlədir.",
+			"edit_as_host": "Dəyiş",
+			"tab_current": "Cari lobbi",
+			"tab_mine": "Ayarlarım",
+			"host": "Host",
+			"host_you": "Siz",
+			"host_unknown": "Naməlum",
+			"no_lobby": "Lobbidə deyilsiniz. Ayarları görmək üçün qoşulun və ya oyun yaradın.",
+			"mine_notice": "Host olduqda ayarlarınız hamıya tətbiq edilir."
+		},
+		"players": {
+			"title": "Oyunçular",
+			"volume": "Səs",
+			"empty": "Başqa oyunçu yoxdur. Səslərini dəyişmək üçün lobbiyə qoşulun.",
+			"disconnected": "Bağlantı kəsildi",
+			"mute": "Səssiz et",
+			"unmute": "Səsi aç",
+			"muted": "Səssiz"
 		},
 		"customplatforms": {
 			"title": "Custom Platform",
@@ -51,18 +74,25 @@
 			"microphone_volume": "Mikrofon Səsi",
 			"microphone_sens": "Mikrofon Həssaslığı",
 			"microphone_sens_warning": "Həssaslığı bir az da azaltsanız işləməyə bilər.",
+			"auto_gain_disabled": "Avtomatik qazanc aktiv olanda söndürülür.",
 			"mastervolume": "Əsas Səs Həcmi",
 			"crewvolume": "Ruh kimi İşçi Səs Səviyyəsi",
 			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Dinamiki test edin",
-			"test_speaker_stop": "Testi dayandırın"
+			"test_speaker_stop": "Testi dayandırın",
+			"test_microphone_start": "Mikrofonu sına",
+			"test_microphone_stop": "Mikrofon sınağını dayandır",
+			"mode": "Səs rejimi"
 		},
 		"keyboard": {
 			"title": "Klaviatura Qısayolları",
 			"push_to_talk": "Danışmaq üçün Basın",
 			"mute": "Səsi kəs",
 			"deafen": "Karlaşdır",
-			"impostor_radio": "Impostor Radio"
+			"impostor_radio": "Impostor Radio",
+			"hint": "Qısayola klikləyin, sonra düymə basın. Escape onu söndürür.",
+			"press_key": "Düymə basın…",
+			"disabled": "Söndürülüb"
 		},
 		"overlay": {
 			"title": "Overlay",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "Aparat Təminatı Sürətləndirmə",
 			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"echocancellation": "Əks-səda ləğv etmə",
+			"echocancellation_description": "Mikrofon sınağı əks-səda ləğvini saymır. Qulaqlıq istifadə edin.",
 			"noiseSuppression": "Səs-küy azaltma",
+			"autoGainControl": "Avtomatik qazanc",
+			"autoGainControl_warning": "Beta: mikrofon səsi avtomatik tənzimləyir. Əvvəl sınaqdan keçirin.",
 			"spatial_audio": "Məkan səsi",
 			"oldsampledebug": "Samplerate Debug",
 			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
@@ -108,7 +141,8 @@
 			"obs_overlay": "OBS Səyyah Overlay-ı",
 			"obs_url": "OBS Səyyah Mənbə URL-si",
 			"voice_server_comp": "Səs Server Uyğunluq Rejimi",
-			"voice_server_comp_warning": "Məsələn, səs serverini BetterCrewLink Voice Server (https://bettercrewl.ink) olaraq dəyişdirməyiniz tövsiyə edilir."
+			"voice_server_comp_warning": "Məsələn, səs serverini BetterCrewLink Voice Server (https://bettercrewl.ink) olaraq dəyişdirməyiniz tövsiyə edilir.",
+			"copy_url": "URL-ni kopyala"
 		},
 		"troubleshooting": {
 			"title": "Problemlərin aradan qaldırılması",

@@ -4,17 +4,10 @@ import { IpcRendererMessages } from '../../common/ipc-messages';
 import { pushToTalkOptions } from '../../common/pushToTalkOptions';
 import { ipcRenderer } from '../lib/electron-bridge';
 import { TypedEmitter } from '../lib/TypedEmitter';
-import VAD, { VADOptions } from '../lib/vad';
+import VAD from '../lib/vad';
 import SettingsStore from '../settings/SettingsStore';
 import { calculateVoiceAudio } from './spatialAudio';
-import { ExtendedAudioElement, PeerAudioNodes } from './types';
-
-interface VadNode {
-	connect: () => void;
-	destroy: () => void;
-	options: VADOptions;
-	init: () => void;
-}
+import { ExtendedAudioElement, LegacyAudioConstraints, PeerAudioNodes, VadNode } from './types';
 
 interface AudioControllerEvents extends Record<string, unknown[]> {
 	talking: [boolean];
@@ -46,6 +39,8 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 	private ipcHandlers: [string, (...args: unknown[]) => void][] = [];
 
 	private pushToTalkMode: number = pushToTalkOptions.VOICE;
+	private pushToTalkPressed = false;
+	private radioTransmitting = false;
 	private mutedState = false;
 	private deafenedState = false;
 	private maxDistance = 2;
@@ -127,16 +122,16 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		const context = this.context;
 		if (!context) return;
 
-		const constraints = {
-			deviceId: undefined as unknown as string,
-			autoGainControl: false,
+		const constraints: LegacyAudioConstraints = {
+			deviceId: undefined,
+			autoGainControl: settings.autoGainControl,
 			channelCount: 2,
 			echoCancellation: settings.echoCancellation,
 			latency: 0,
-			noiseSuppression: settings.noiseSuppression, // @ts-ignore-line
-			googNoiseSuppression: settings.noiseSuppression, // @ts-ignore-line
-			googEchoCancellation: settings.echoCancellation, // @ts-ignore-line
-			googTypingNoiseDetection: settings.noiseSuppression, // @ts-ignore-line
+			noiseSuppression: settings.noiseSuppression,
+			googNoiseSuppression: settings.noiseSuppression,
+			googEchoCancellation: settings.echoCancellation,
+			googTypingNoiseDetection: settings.noiseSuppression,
 			sampleRate: settings.oldSampleDebug ? 48000 : undefined,
 		};
 		if (settings.microphone.toLowerCase() !== 'default') {
@@ -162,7 +157,7 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		const source = context.createMediaStreamSource(inputStream);
 		this.inputSource = source;
 
-		if (settings.microphoneGainEnabled || settings.micSensitivityEnabled) {
+		if ((settings.microphoneGainEnabled || settings.micSensitivityEnabled) && !settings.autoGainControl) {
 			const microphoneGain = context.createGain();
 			const destination = context.createMediaStreamDestination();
 			source.connect(microphoneGain);
@@ -176,13 +171,13 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		const audioListener = VAD(context, source, undefined, {
 			onVoiceStart: () => {
 				const current = SettingsStore.store;
-				if (this.microphoneGain && current.micSensitivityEnabled) {
+				if (this.microphoneGain && current.micSensitivityEnabled && !current.autoGainControl) {
 					this.microphoneGain.gain.value = current.microphoneGainEnabled ? current.microphoneGain / 100 : 1;
 				}
 				this.emit('talking', true);
 			},
 			onVoiceStop: () => {
-				if (this.microphoneGain && SettingsStore.store.micSensitivityEnabled) {
+				if (this.microphoneGain && SettingsStore.store.micSensitivityEnabled && !SettingsStore.store.autoGainControl) {
 					this.microphoneGain.gain.value = 0;
 				}
 				this.emit('talking', false);
@@ -191,7 +186,8 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 			stereo: false,
 		}) as VadNode;
 
-		audioListener.options.minNoiseLevel = settings.micSensitivityEnabled ? settings.micSensitivity : 0.15;
+		audioListener.options.minNoiseLevel =
+			settings.micSensitivityEnabled && !settings.autoGainControl ? settings.micSensitivity : 0.15;
 		audioListener.options.maxNoiseLevel = 1;
 		audioListener.init();
 		this.audioListener = audioListener;
@@ -234,6 +230,8 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 
 		this.mutedState = false;
 		this.deafenedState = false;
+		this.pushToTalkPressed = false;
+		this.radioTransmitting = false;
 		this.removeAllListeners();
 	}
 
@@ -319,11 +317,8 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		add(IpcRendererMessages.TOGGLE_DEAFEN, () => this.toggleDeafen());
 		add(IpcRendererMessages.TOGGLE_MUTE, () => this.toggleMute());
 		add(IpcRendererMessages.PUSH_TO_TALK, (_: unknown, pressing: boolean) => {
-			if (this.pushToTalkMode === pushToTalkOptions.VOICE) return;
-			if (this.deafenedState || this.mutedState) return;
-			const track = this.inputStream?.getAudioTracks()[0];
-			if (!track) return;
-			track.enabled = this.pushToTalkMode === pushToTalkOptions.PUSH_TO_TALK ? pressing : !pressing;
+			this.pushToTalkPressed = pressing;
+			this.applyTrackEnabled();
 		});
 	}
 
@@ -337,11 +332,28 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 	private applyTrackEnabled(): void {
 		const track = this.inputStream?.getAudioTracks()[0];
 		if (!track) return;
-		track.enabled = !this.deafenedState && !this.mutedState && this.pushToTalkMode !== pushToTalkOptions.PUSH_TO_TALK;
+		if (this.deafenedState || this.mutedState) {
+			track.enabled = false;
+			return;
+		}
+		if (this.radioTransmitting) {
+			track.enabled = true;
+			return;
+		}
+		if (this.pushToTalkMode === pushToTalkOptions.PUSH_TO_TALK) {
+			track.enabled = this.pushToTalkPressed;
+			return;
+		}
+		track.enabled = this.pushToTalkMode !== pushToTalkOptions.PUSH_TO_MUTE || !this.pushToTalkPressed;
 	}
 
 	setPushToTalkMode(mode: number): void {
 		this.pushToTalkMode = mode;
+		this.applyTrackEnabled();
+	}
+
+	setRadioTransmitting(transmitting: boolean): void {
+		this.radioTransmitting = transmitting;
 		this.applyTrackEnabled();
 	}
 
@@ -363,13 +375,14 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 
 	updateMicrophoneSettings(settings: ISettings): void {
 		if (!this.microphoneGain?.gain) return;
+		if (settings.autoGainControl) return;
 		if (!settings.microphoneGainEnabled && !settings.micSensitivityEnabled) return;
 
 		if (!settings.micSensitivityEnabled) {
 			this.microphoneGain.gain.value = settings.microphoneGainEnabled ? settings.microphoneGain / 100 : 1;
 		}
 		if (this.audioListener?.options) {
-			this.audioListener.options.minNoiseLevel = settings.micSensitivity;
+			this.audioListener.options.minNoiseLevel = settings.micSensitivityEnabled ? settings.micSensitivity : 0.15;
 			this.audioListener.init();
 		}
 	}

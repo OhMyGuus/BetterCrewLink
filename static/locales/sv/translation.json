@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "Inställningar",
 		"language": "Språk",
+		"general": "Allmänt",
 		"warning": "Är du säker?",
 		"lobbysettings": {
 			"title": "Lobby Inställningar",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "Detta inaktiverar ljudet för levande spelare utanför möten.",
 			"meetings_only_warning2": "Endast prata under möten aktiverat.",
 			"impostor_radio": "Impostor Radio",
+			"impostor_radio_private": "Privat förrädarradio",
+			"impostor_radio_private_description": "Närliggande besättning hör inte förrädaren över radion.",
+			"impostor_radio_private_requires": "Slå på förrädarradion först.",
 			"public_lobby": {
 				"change_settings": "Ändra Lobby Information",
 				"title": "Titel",
@@ -31,7 +35,26 @@
 				"language": "Språk",
 				"enable_warning": "Aktivering av detta kommer att göra din lobby offentlig för andra BetterCrewLink-användare!",
 				"ban_warning": "Olämplig text kommer att resultera i en bannlysning från BetterCrewLink."
-			}
+			},
+			"host_notice": "Värden styr lobbyinställningarna.",
+			"host_notice_you": "Du är värd; lobbyn använder dina inställningar.",
+			"edit_as_host": "Ändra",
+			"tab_current": "Nuvarande lobby",
+			"tab_mine": "Mina inställningar",
+			"host": "Värd",
+			"host_you": "Du",
+			"host_unknown": "Okänd",
+			"no_lobby": "Inte i en lobby. Gå med eller skapa ett spel för att se inställningarna.",
+			"mine_notice": "Dina inställningar gäller för alla när du är värd."
+		},
+		"players": {
+			"title": "Spelare",
+			"volume": "Volym",
+			"empty": "Inga andra spelare. Gå med i en lobby för att ändra deras volym.",
+			"disconnected": "Frånkopplad",
+			"mute": "Tysta",
+			"unmute": "Slå på ljud",
+			"muted": "Tystad"
 		},
 		"customplatforms": {
 			"title": "Anpassad Plattform",
@@ -51,18 +74,25 @@
 			"microphone_volume": "Mikrofon Volym",
 			"microphone_sens": "Mikrofonens Känslighet",
 			"microphone_sens_warning": "Om du ställer in känsligheten ännu lägre så kanske det inte fungerar.",
+			"auto_gain_disabled": "Avstängt när automatisk förstärkning är på.",
 			"mastervolume": "Huvudvolym",
 			"crewvolume": "Besättningens volym som spöke",
 			"ghostvolumeasimpostor": "Spökets volym som Impostor",
 			"test_speaker_start": "Testa högtalaren",
-			"test_speaker_stop": "Sluta Testa Högtalaren"
+			"test_speaker_stop": "Sluta Testa Högtalaren",
+			"test_microphone_start": "Testa mikrofon",
+			"test_microphone_stop": "Stoppa mikrofontest",
+			"mode": "Röstläge"
 		},
 		"keyboard": {
 			"title": "Tangentbordsgenvägar",
 			"push_to_talk": "Tryck För Att Prata",
 			"mute": "Stäng Av Mikrofonen",
 			"deafen": "Stäng Av Ljud",
-			"impostor_radio": "Impostor Radio"
+			"impostor_radio": "Impostor Radio",
+			"hint": "Klicka på en genväg och tryck en tangent eller musknapp. Escape stänger av den.",
+			"press_key": "Tryck en tangent…",
+			"disabled": "Avstängt"
 		},
 		"overlay": {
 			"title": "Överlägg",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "Maskinvaruacceleration",
 			"hardware_acceleration_warning": "Detta inaktiverar maskinvaruacceleration (som kan öka CPU-användningen)",
 			"echocancellation": "Eko dämpning",
+			"echocancellation_description": "Mikrofontestet använder inte ekoreducering. Använd hörlurar.",
 			"noiseSuppression": "Ljuddämpning",
+			"autoGainControl": "Automatisk förstärkning",
+			"autoGainControl_warning": "Beta: mikrofonen justerar volymen automatiskt. Testa först.",
 			"spatial_audio": "Rumsligt ljud",
 			"oldsampledebug": "Samplingsfrekvens Felsökning",
 			"oldsampledebug_warning": "Detta är en testfunktion som ENDAST är aktiverad när den tillfrågas."
@@ -108,7 +141,8 @@
 			"obs_overlay": "OBS Webbläsar Överlägg",
 			"obs_url": "OBS Webbläsarkälla URL",
 			"voice_server_comp": "RS Kompatibilitetsläge",
-			"voice_server_comp_warning": "Det är rekommenderat att endast ändra röstservern till en BetterCrewLink Voice Server (https://bettercrewl.ink) till exempel."
+			"voice_server_comp_warning": "Det är rekommenderat att endast ändra röstservern till en BetterCrewLink Voice Server (https://bettercrewl.ink) till exempel.",
+			"copy_url": "Kopiera URL"
 		},
 		"troubleshooting": {
 			"title": "Felsökning",

@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "Налаштування",
 		"language": "Мова",
+		"general": "Загальні",
 		"warning": "Ви впевнені?",
 		"lobbysettings": {
 			"title": "Налаштування кімнати",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "Це відключає звук для живих гравців поза зборами.",
 			"meetings_only_warning2": "Включена розмова тільки на зборах.",
 			"impostor_radio": "Радіо самозванця",
+			"impostor_radio_private": "Приватна рація зрадників",
+			"impostor_radio_private_description": "Гравці поруч не чують зрадника по рації.",
+			"impostor_radio_private_requires": "Спочатку ввімкніть рацію зрадників.",
 			"public_lobby": {
 				"change_settings": "Змінити відомості про кімнату",
 				"title": "Назва",
@@ -31,7 +35,26 @@
 				"language": "Мова",
 				"enable_warning": "Це відкриє кімнату для інших користувачів BetterCrewLink!",
 				"ban_warning": "Недоречні висловлювання приведуть до заборони використання BetterCrewLink."
-			}
+			},
+			"host_notice": "Налаштування лобі задає власник.",
+			"host_notice_you": "Ви власник; лобі використовує ваші налаштування.",
+			"edit_as_host": "Змінити",
+			"tab_current": "Поточне лобі",
+			"tab_mine": "Мої налаштування",
+			"host": "Власник",
+			"host_you": "Ви",
+			"host_unknown": "Невідомо",
+			"no_lobby": "Ви не в лобі. Увійдіть або створіть гру, щоб побачити налаштування.",
+			"mine_notice": "Коли ви власник, ваші налаштування діють для всіх."
+		},
+		"players": {
+			"title": "Гравці",
+			"volume": "Гучність",
+			"empty": "Інших гравців немає. Увійдіть у лобі, щоб змінити їхню гучність.",
+			"disconnected": "Відключено",
+			"mute": "Заглушити",
+			"unmute": "Увімкнути звук",
+			"muted": "Заглушено"
 		},
 		"customplatforms": {
 			"title": "Власна платформа",
@@ -51,18 +74,25 @@
 			"microphone_volume": "Гучність мікрофона",
 			"microphone_sens": "Чутливість мікрофона",
 			"microphone_sens_warning": "Якщо виставити чутливість ще нижче, вона може не спрацювати.",
+			"auto_gain_disabled": "Недоступно при автопідсиленні.",
 			"mastervolume": "Загальна гучність",
 			"crewvolume": "Гучність команди для привида",
 			"ghostvolumeasimpostor": "Гучність привидів для самозванців",
 			"test_speaker_start": "Перевірка динаміка",
-			"test_speaker_stop": "Зупинити перевірку динаміка"
+			"test_speaker_stop": "Зупинити перевірку динаміка",
+			"test_microphone_start": "Перевірити мікрофон",
+			"test_microphone_stop": "Зупинити перевірку",
+			"mode": "Режим голосу"
 		},
 		"keyboard": {
 			"title": "Сполучення клавіш",
 			"push_to_talk": "Активація голосу",
 			"mute": "Вимкнути мікрофон",
 			"deafen": "Заглушити звук",
-			"impostor_radio": "Радіо самозванця"
+			"impostor_radio": "Радіо самозванця",
+			"hint": "Натисніть прив’язку, потім клавішу або кнопку миші. Escape вимикає її.",
+			"press_key": "Натисніть клавішу…",
+			"disabled": "Вимкнено"
 		},
 		"overlay": {
 			"title": "Оверлей",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "Апаратне прискорення",
 			"hardware_acceleration_warning": "Це вимикає Апаратне прискорення (що може підвищити навантаження на процесор)",
 			"echocancellation": "Усунення відлуння",
+			"echocancellation_description": "Перевірка мікрофона не використовує ехопоглинання. Надягніть навушники.",
 			"noiseSuppression": "Зниження шуму",
+			"autoGainControl": "Автопідсилення",
+			"autoGainControl_warning": "Бета: мікрофон сам регулює гучність. Спочатку перевірте його.",
 			"spatial_audio": "Просторовий звук",
 			"oldsampledebug": "Налагодження частоти дискретизації",
 			"oldsampledebug_warning": "Це тестова функція, ввімкніть її ЛИШЕ за запитом."
@@ -108,7 +141,8 @@
 			"obs_overlay": "Оверлей OBS-браузера",
 			"obs_url": "URL OBS-браузера",
 			"voice_server_comp": "Режим сумісності ГС",
-			"voice_server_comp_warning": "Рекомендується просто змінити голосовий сервер, наприклад, на Голосовий сервер BetterCrewLink (https://bettercrewl.ink)."
+			"voice_server_comp_warning": "Рекомендується просто змінити голосовий сервер, наприклад, на Голосовий сервер BetterCrewLink (https://bettercrewl.ink).",
+			"copy_url": "Копіювати URL"
 		},
 		"troubleshooting": {
 			"title": "Вирішення проблем",

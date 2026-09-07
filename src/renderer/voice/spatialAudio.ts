@@ -54,6 +54,11 @@ export function calculateVoiceAudio(input: VoiceAudioInput): VoiceAudioResult {
 	let wallCheckEnabled = false;
 	let skipDistanceCheck = false;
 	let muffleEnabled = false;
+	const onImpostorRadio =
+		activeLobbySettings.impostorRadioEnabled &&
+		other.isImpostor &&
+		impostorRadioClientId !== -1 &&
+		other.clientId === impostorRadioClientId;
 
 	switch (state.gameState) {
 		case GameState.MENU:
@@ -80,15 +85,12 @@ export function calculateVoiceAudio(input: VoiceAudioInput): VoiceAudioResult {
 				endGain = 0;
 			}
 			wallCheckEnabled = activeLobbySettings.wallsBlockAudio && !me.isDead;
-			if (
-				me.isImpostor &&
-				other.isImpostor &&
-				activeLobbySettings.impostorRadioEnabled &&
-				other.clientId === impostorRadioClientId
-			) {
+			if (onImpostorRadio && me.isImpostor) {
 				skipDistanceCheck = true;
 				muffleEnabled = true;
 				result.muffle = { type: 'highpass', frequency: 1000, q: 10 };
+			} else if (onImpostorRadio && !me.isDead && activeLobbySettings.impostorRadioPrivate) {
+				endGain = 0;
 			}
 
 			if (!me.isDead && other.isDead && me.isImpostor && activeLobbySettings.haunting) {

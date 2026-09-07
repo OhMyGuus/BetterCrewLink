@@ -220,6 +220,10 @@ export const settingsStore = new Store<ISettings>({
 			type: 'boolean',
 			default: true,
 		},
+		autoGainControl: {
+			type: 'boolean',
+			default: false,
+		},
 		oldSampleDebug: {
 			type: 'boolean',
 			default: false,
@@ -265,6 +269,10 @@ export const settingsStore = new Store<ISettings>({
 					default: false,
 				},
 				impostorRadioEnabled: {
+					type: 'boolean',
+					default: false,
+				},
+				impostorRadioPrivate: {
 					type: 'boolean',
 					default: false,
 				},

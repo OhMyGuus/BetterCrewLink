@@ -10,7 +10,7 @@ import { ISettings } from '../../../common/ISettings';
 import MicrophoneSoundBar from '../MicrophoneSoundBar';
 import TestSpeakersButton from '../TestSpeakersButton';
 import { pushToTalkOptions } from '../SettingsStore';
-import { ConfirmApi, SettingRow, SettingsSection, SliderRow } from '../SettingsControls';
+import { ConfirmApi, SettingRow, SettingsSection, SliderRow, SwitchRow } from '../SettingsControls';
 
 export interface MediaDevice {
 	id: string;
@@ -80,7 +80,7 @@ const AudioSection: React.FC<AudioSectionProps> = function ({
 								onChange={(value) => setSettings('microphone', value)}
 								onOpen={refreshDevices}
 							/>
-							<MicrophoneSoundBar microphone={settings.microphone} />
+							<MicrophoneSoundBar t={t} settings={settings} />
 						</Stack>
 					}
 				/>
@@ -132,6 +132,8 @@ const AudioSection: React.FC<AudioSectionProps> = function ({
 					max={300}
 					step={2}
 					format={(value) => `${value}%`}
+					disabled={settings.autoGainControl}
+					disabledReason={t('settings.audio.auto_gain_disabled')}
 					toggle={{
 						checked: settings.microphoneGainEnabled,
 						onChange: (checked) => setSettings('microphoneGainEnabled', checked),
@@ -146,6 +148,8 @@ const AudioSection: React.FC<AudioSectionProps> = function ({
 					color={settings.micSensitivity < 0.3 ? 'primary' : 'secondary'}
 					format={(value) => value.toFixed(2)}
 					commitOnly
+					disabled={settings.autoGainControl}
+					disabledReason={t('settings.audio.auto_gain_disabled')}
 					toggle={{
 						checked: settings.micSensitivityEnabled,
 						onChange: (checked) => setSettings('micSensitivityEnabled', checked),
@@ -156,6 +160,30 @@ const AudioSection: React.FC<AudioSectionProps> = function ({
 							t('settings.audio.microphone_sens_warning'),
 							() => setSettings('micSensitivity', 1 - value),
 							Math.abs(value - 0.7) < 0.001 && settings.micSensitivity < 0.3
+						)
+					}
+				/>
+				<SwitchRow
+					label={t('settings.beta.echocancellation')}
+					description={t('settings.beta.echocancellation_description')}
+					checked={settings.echoCancellation}
+					onChange={(checked) => setSettings('echoCancellation', checked)}
+				/>
+				<SwitchRow
+					label={t('settings.beta.noiseSuppression')}
+					checked={settings.noiseSuppression}
+					onChange={(checked) => setSettings('noiseSuppression', checked)}
+				/>
+				<SwitchRow
+					label={t('settings.beta.autoGainControl')}
+					description={t('settings.beta.autoGainControl_warning')}
+					checked={settings.autoGainControl}
+					onChange={(checked) =>
+						confirm(
+							t('settings.warning'),
+							t('settings.beta.autoGainControl_warning'),
+							() => setSettings('autoGainControl', checked),
+							checked
 						)
 					}
 				/>

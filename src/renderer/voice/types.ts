@@ -1,5 +1,6 @@
 import { AudioConnected, ClientBoolMap, SocketClientMap, numberStringMap } from '../../common/AmongUsState';
 import { ILobbySettings } from '../../common/ISettings';
+import { VADOptions } from '../lib/vad';
 
 export interface ExtendedAudioElement extends HTMLAudioElement {
 	setSinkId: (sinkId: string) => Promise<void>;
@@ -48,6 +49,7 @@ export const defaultLobbySettings: ILobbySettings = {
 	hearImpostorsInVents: false,
 	impostersHearImpostersInvent: false,
 	impostorRadioEnabled: false,
+	impostorRadioPrivate: false,
 	commsSabotage: false,
 	deadOnly: false,
 	hearThroughCameras: false,
@@ -73,4 +75,18 @@ export interface VoiceSnapshot {
 	impostorRadioClientId: number;
 	activeLobbySettings: ILobbySettings | null;
 	hostId: number;
+}
+
+export interface VadNode {
+	connect: () => void;
+	destroy: () => void;
+	options: VADOptions;
+	init: () => void;
+}
+
+export interface LegacyAudioConstraints extends MediaTrackConstraints {
+	latency?: ConstrainDouble;
+	googEchoCancellation?: boolean;
+	googNoiseSuppression?: boolean;
+	googTypingNoiseDetection?: boolean;
 }

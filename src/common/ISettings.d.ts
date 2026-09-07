@@ -30,6 +30,7 @@ export interface ISettings {
 	hardware_acceleration: boolean;
 	echoCancellation: boolean;
 	noiseSuppression: boolean;
+	autoGainControl: boolean;
 	oldSampleDebug: boolean;
 
 	enableSpatialAudio: boolean;
@@ -49,6 +50,7 @@ export interface ILobbySettings {
 	hearImpostorsInVents: boolean;
 	impostersHearImpostersInvent: boolean;
 	impostorRadioEnabled: boolean;
+	impostorRadioPrivate: boolean;
 	commsSabotage: boolean;
 	deadOnly: boolean;
 	meetingGhostOnly: boolean;

@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "Настройки",
 		"language": "Язык",
+		"general": "Общие",
 		"warning": "Вы уверены?",
 		"lobbysettings": {
 			"title": "Настройки комнаты",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "Это отключает звук для живых игроков вне собраний.",
 			"meetings_only_warning2": "Включён разговор только на собраниях.",
 			"impostor_radio": "Радио предателя",
+			"impostor_radio_private": "Приватная рация предателей",
+			"impostor_radio_private_description": "Игроки рядом не слышат предателя по рации.",
+			"impostor_radio_private_requires": "Сначала включите рацию предателей.",
 			"public_lobby": {
 				"change_settings": "Изменить сведения о комнате",
 				"title": "Название",
@@ -31,7 +35,26 @@
 				"language": "Язык",
 				"enable_warning": "Это откроет комнату для всех пользователей BetterCrewLink!",
 				"ban_warning": "Неуместные выражения приведут к запрету использования BetterCrewLink."
-			}
+			},
+			"host_notice": "Настройки лобби задаёт владелец.",
+			"host_notice_you": "Вы владелец; лобби использует ваши настройки.",
+			"edit_as_host": "Изменить",
+			"tab_current": "Текущее лобби",
+			"tab_mine": "Мои настройки",
+			"host": "Владелец",
+			"host_you": "Вы",
+			"host_unknown": "Неизвестно",
+			"no_lobby": "Вы не в лобби. Войдите или создайте игру, чтобы увидеть настройки.",
+			"mine_notice": "Когда вы владелец, ваши настройки действуют для всех."
+		},
+		"players": {
+			"title": "Игроки",
+			"volume": "Громкость",
+			"empty": "Других игроков нет. Войдите в лобби, чтобы изменить их громкость.",
+			"disconnected": "Отключён",
+			"mute": "Заглушить",
+			"unmute": "Включить звук",
+			"muted": "Заглушён"
 		},
 		"customplatforms": {
 			"title": "Пользовательская платформа",
@@ -51,18 +74,25 @@
 			"microphone_volume": "Громкость микрофона",
 			"microphone_sens": "Чувствительность микрофона",
 			"microphone_sens_warning": "Если выставить чувствительность ещё ниже, она может не сработать.",
+			"auto_gain_disabled": "Недоступно при автоусилении.",
 			"mastervolume": "Общая громкость",
 			"crewvolume": "Громкость экипажа для призрака",
 			"ghostvolumeasimpostor": "Громкость призраков для предателей",
 			"test_speaker_start": "Проверка динамика",
-			"test_speaker_stop": "Остановить проверку динамика"
+			"test_speaker_stop": "Остановить проверку динамика",
+			"test_microphone_start": "Проверить микрофон",
+			"test_microphone_stop": "Остановить проверку",
+			"mode": "Режим голоса"
 		},
 		"keyboard": {
 			"title": "Сочетание клавиш",
 			"push_to_talk": "Активация голоса",
 			"mute": "Отключить микрофон",
 			"deafen": "Заглушить звук",
-			"impostor_radio": "Радио предателя"
+			"impostor_radio": "Радио предателя",
+			"hint": "Нажмите на привязку, затем клавишу или кнопку мыши. Escape отключает её.",
+			"press_key": "Нажмите клавишу…",
+			"disabled": "Отключено"
 		},
 		"overlay": {
 			"title": "Оверлей",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "Аппаратное ускорение",
 			"hardware_acceleration_warning": "Это отключает Аппаратное ускорение (что может повысить нагрузку на процессор)",
 			"echocancellation": "Эхоподавление",
+			"echocancellation_description": "Проверка микрофона не использует эхоподавление. Наденьте наушники.",
 			"noiseSuppression": "Шумоподавление",
+			"autoGainControl": "Автоусиление",
+			"autoGainControl_warning": "Бета: микрофон сам регулирует громкость. Сначала проверьте его.",
 			"spatial_audio": "Пространственный звук",
 			"oldsampledebug": "Отладка частоты дискретизации",
 			"oldsampledebug_warning": "Это тестовая функция, включайте её ТОЛЬКО по запросу."
@@ -108,7 +141,8 @@
 			"obs_overlay": "Оверлей OBS-браузера",
 			"obs_url": "OBS Browser Source URL",
 			"voice_server_comp": "Режим совместимости с VS",
-			"voice_server_comp_warning": "Рекомендуется просто сменить голосовой сервер, например, на Голосовой сервер BetterCrewLink (https://bettercrewl.ink)."
+			"voice_server_comp_warning": "Рекомендуется просто сменить голосовой сервер, например, на Голосовой сервер BetterCrewLink (https://bettercrewl.ink).",
+			"copy_url": "Копировать URL"
 		},
 		"troubleshooting": {
 			"title": "Диагностика",

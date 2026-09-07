@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "Settings",
 		"language": "Language",
+		"general": "Generelt",
 		"warning": "Are you sure?",
 		"lobbysettings": {
 			"title": "Lobby Settings",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "This disables the sound for alive players outside meetings.",
 			"meetings_only_warning2": "Talking in meetings only enabled.",
 			"impostor_radio": "Impostor Radio",
+			"impostor_radio_private": "Privat bedrager-radio",
+			"impostor_radio_private_description": "Spillere i nærheden kan ikke høre en bedrager i radioen.",
+			"impostor_radio_private_requires": "Slå bedrager-radio til først.",
 			"public_lobby": {
 				"change_settings": "Change Lobby Info",
 				"title": "Title",
@@ -31,7 +35,26 @@
 				"language": "Language",
 				"enable_warning": "Enabling this will make your lobby public to other BetterCrewLink users!",
 				"ban_warning": "Inappropriate text will result in a ban from BetterCrewLink."
-			}
+			},
+			"host_notice": "Værten styrer lobbyens indstillinger.",
+			"host_notice_you": "Du er vært; lobbyen bruger dine indstillinger.",
+			"edit_as_host": "Skift",
+			"tab_current": "Nuværende lobby",
+			"tab_mine": "Mine indstillinger",
+			"host": "Vært",
+			"host_you": "Dig",
+			"host_unknown": "Ukendt",
+			"no_lobby": "Ikke i en lobby. Deltag eller vær vært for at se indstillingerne.",
+			"mine_notice": "Dine indstillinger gælder for alle, når du er vært."
+		},
+		"players": {
+			"title": "Spillere",
+			"volume": "Lydstyrke",
+			"empty": "Ingen andre spillere. Deltag i en lobby for at ændre deres lydstyrke.",
+			"disconnected": "Afbrudt",
+			"mute": "Slå lyd fra",
+			"unmute": "Slå lyd til",
+			"muted": "Lydløs"
 		},
 		"customplatforms": {
 			"title": "Custom Platform",
@@ -51,18 +74,25 @@
 			"microphone_volume": "Microphone Volume",
 			"microphone_sens": "Microphone Sensitivity",
 			"microphone_sens_warning": "If you set the sensitivity any lower it might not work.",
+			"auto_gain_disabled": "Slået fra, mens automatisk forstærkning er aktiv.",
 			"mastervolume": "Master Volume",
 			"crewvolume": "Crew Volume as Ghost",
 			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Test Speaker",
-			"test_speaker_stop": "Stop Test Speaker"
+			"test_speaker_stop": "Stop Test Speaker",
+			"test_microphone_start": "Test mikrofon",
+			"test_microphone_stop": "Stop mikrofontest",
+			"mode": "Stemmetilstand"
 		},
 		"keyboard": {
 			"title": "Keyboard Shortcuts",
 			"push_to_talk": "Push to Talk",
 			"mute": "Mute",
 			"deafen": "Deafen",
-			"impostor_radio": "Impostor Radio"
+			"impostor_radio": "Impostor Radio",
+			"hint": "Klik på en genvej, og tryk på en tast eller museknap. Escape slår den fra.",
+			"press_key": "Tryk på en tast…",
+			"disabled": "Slået fra"
 		},
 		"overlay": {
 			"title": "Overlay",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "Hardware Acceleration",
 			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"echocancellation": "Echo Cancellation",
+			"echocancellation_description": "Mikrofontesten bruger ikke ekkoreduktion. Brug hovedtelefoner.",
 			"noiseSuppression": "Noise Suppression",
+			"autoGainControl": "Automatisk forstærkning",
+			"autoGainControl_warning": "Beta: Mikrofonen justerer lydstyrken automatisk. Test den først.",
 			"spatial_audio": "Spatial Audio",
 			"oldsampledebug": "Samplerate Debug",
 			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
@@ -108,7 +141,8 @@
 			"obs_overlay": "OBS Browser Overlay",
 			"obs_url": "OBS Browser Source URL",
 			"voice_server_comp": "VS Compatibility Mode",
-			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
+			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example.",
+			"copy_url": "Kopiér URL"
 		},
 		"troubleshooting": {
 			"title": "Troubleshooting",

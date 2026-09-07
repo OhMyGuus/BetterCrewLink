@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "Penyetelan",
 		"language": "Bahasa",
+		"general": "Umum",
 		"warning": "Apakah Anda yakin?",
 		"lobbysettings": {
 			"title": "Penyetelan Lobi",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "Ini mematikan suara pemain yang masih hidup di luar meeting.",
 			"meetings_only_warning2": "Berbicara hanya dalam meeting dihidupkan.",
 			"impostor_radio": "Radio Penipu",
+			"impostor_radio_private": "Radio Impostor Pribadi",
+			"impostor_radio_private_description": "Kru di dekat tidak mendengar impostor lewat radio.",
+			"impostor_radio_private_requires": "Aktifkan Radio Impostor dahulu.",
 			"public_lobby": {
 				"change_settings": "Ubah Info Lobi",
 				"title": "Judul",
@@ -31,7 +35,26 @@
 				"language": "Bahasa",
 				"enable_warning": "Menghidupkan ini akan membuat lobi Anda terbuka untuk pengguna BetterCrewLink lainnya!",
 				"ban_warning": "Teks yang tidak pantas akan mengakibatkan pemblokiran (ban) dari BetterCrewLink."
-			}
+			},
+			"host_notice": "Host mengatur setelan lobi.",
+			"host_notice_you": "Kamu host; lobi memakai setelanmu.",
+			"edit_as_host": "Ubah",
+			"tab_current": "Lobi Saat Ini",
+			"tab_mine": "Setelan Saya",
+			"host": "Host",
+			"host_you": "Kamu",
+			"host_unknown": "Tidak diketahui",
+			"no_lobby": "Belum masuk lobi. Gabung atau buat game untuk melihat setelan.",
+			"mine_notice": "Setelanmu berlaku untuk semua saat kamu menjadi host."
+		},
+		"players": {
+			"title": "Pemain",
+			"volume": "Volume",
+			"empty": "Tidak ada pemain lain. Gabung lobi untuk mengubah volume mereka.",
+			"disconnected": "Terputus",
+			"mute": "Bisukan",
+			"unmute": "Bunyikan",
+			"muted": "Dibisukan"
 		},
 		"customplatforms": {
 			"title": "Platform Kustom",
@@ -51,18 +74,25 @@
 			"microphone_volume": "Volume Mikrofon",
 			"microphone_sens": "Sensitivitas Mikrofon",
 			"microphone_sens_warning": "Jika Anda menyetel sensitivitas lebih rendah, itu mungkin tidak berfungsi.",
+			"auto_gain_disabled": "Nonaktif saat penguatan otomatis aktif.",
 			"mastervolume": "Volume Utama",
 			"crewvolume": "Volume Kru sebagai Hantu",
 			"ghostvolumeasimpostor": "Volume Hantu sebagai Penipu",
 			"test_speaker_start": "Uji Speaker",
-			"test_speaker_stop": "Hentikan Uji Speaker"
+			"test_speaker_stop": "Hentikan Uji Speaker",
+			"test_microphone_start": "Tes Mikrofon",
+			"test_microphone_stop": "Hentikan Tes Mikrofon",
+			"mode": "Mode Suara"
 		},
 		"keyboard": {
 			"title": "Pintasan Keyboard",
 			"push_to_talk": "Tekan untuk Berbicara",
 			"mute": "Membungkam",
 			"deafen": "Menulikan",
-			"impostor_radio": "Radio Penipu"
+			"impostor_radio": "Radio Penipu",
+			"hint": "Klik pintasan, lalu tekan tombol papan ketik atau tetikus. Escape menonaktifkannya.",
+			"press_key": "Tekan tombol…",
+			"disabled": "Nonaktif"
 		},
 		"overlay": {
 			"title": "Overlay",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "Akselerasi Perangkat Keras",
 			"hardware_acceleration_warning": "Ini menonaktifkan Akselerasi Perangkat Keras (yang bisa mempertinggi pemakaian CPU)",
 			"echocancellation": "Penghilangan Gema",
+			"echocancellation_description": "Tes mikrofon mengabaikan peredam gema. Gunakan headphone.",
 			"noiseSuppression": "Peredaman Kebisingan",
+			"autoGainControl": "Penguatan Otomatis",
+			"autoGainControl_warning": "Beta: mikrofon mengatur volume otomatis. Tes dahulu.",
 			"spatial_audio": "Audio Spasial",
 			"oldsampledebug": "Debug Laju Sampel",
 			"oldsampledebug_warning": "Ini adalah fungsi uji coba, aktifkanlah HANYA ketika diminta untuk melakukannya."
@@ -108,7 +141,8 @@
 			"obs_overlay": "Overlay OBS Browser",
 			"obs_url": "URL OBS Browser Source",
 			"voice_server_comp": "Mode Kompatibilitas Server Suara",
-			"voice_server_comp_warning": "Disarankan untuk hanya mengubah server suara ke Server Suara BetterCrewLink misalnya (https://bettercrewl.ink)."
+			"voice_server_comp_warning": "Disarankan untuk hanya mengubah server suara ke Server Suara BetterCrewLink misalnya (https://bettercrewl.ink).",
+			"copy_url": "Salin URL"
 		},
 		"troubleshooting": {
 			"title": "Penyelesaian masalah",

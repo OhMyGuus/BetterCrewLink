@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "Innstillinger",
 		"language": "Språk",
+		"general": "Generelt",
 		"warning": "Er du sikker?",
 		"lobbysettings": {
 			"title": "Lobby-innstillinger",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "Dette deaktiverer lyden for levende spillere utenom i møter.",
 			"meetings_only_warning2": "Snakking kun i møter er aktivert.",
 			"impostor_radio": "Impostor-radio",
+			"impostor_radio_private": "Privat bedrager-radio",
+			"impostor_radio_private_description": "Spillere i nærheten hører ikke en bedrager over radioen.",
+			"impostor_radio_private_requires": "Slå på bedrager-radio først.",
 			"public_lobby": {
 				"change_settings": "Endre lobby-info",
 				"title": "Tittel",
@@ -31,7 +35,26 @@
 				"language": "Språk",
 				"enable_warning": "Aktivering av dette vil gjøre din lobby offentlig for andre BetterCrewLink-brukere!",
 				"ban_warning": "Upassende tekst vil resultere i utestengelse fra BetterCrewLink."
-			}
+			},
+			"host_notice": "Verten styrer lobbyinnstillingene.",
+			"host_notice_you": "Du er vert; lobbyen bruker innstillingene dine.",
+			"edit_as_host": "Endre",
+			"tab_current": "Gjeldende lobby",
+			"tab_mine": "Mine innstillinger",
+			"host": "Vert",
+			"host_you": "Du",
+			"host_unknown": "Ukjent",
+			"no_lobby": "Ikke i en lobby. Bli med eller opprett et spill for å se innstillingene.",
+			"mine_notice": "Innstillingene dine gjelder for alle når du er vert."
+		},
+		"players": {
+			"title": "Spillere",
+			"volume": "Volum",
+			"empty": "Ingen andre spillere. Bli med i en lobby for å endre volumet deres.",
+			"disconnected": "Frakoblet",
+			"mute": "Demp",
+			"unmute": "Opphev demping",
+			"muted": "Dempet"
 		},
 		"customplatforms": {
 			"title": "Egendefinert plattform",
@@ -51,18 +74,25 @@
 			"microphone_volume": "Mikrofonvolum",
 			"microphone_sens": "Mikrofonfølsomhet",
 			"microphone_sens_warning": "Hvis du angir følsomheten enda lavere, virker den kanskje ikke.",
+			"auto_gain_disabled": "Deaktivert mens automatisk forsterkning er på.",
 			"mastervolume": "Hovedvolum",
 			"crewvolume": "Crew-volum som spøkelse",
 			"ghostvolumeasimpostor": "Spøkelsesvolum som Impostor",
 			"test_speaker_start": "Test høyttaler",
-			"test_speaker_stop": "Stop testing av høyttaler"
+			"test_speaker_stop": "Stop testing av høyttaler",
+			"test_microphone_start": "Test mikrofon",
+			"test_microphone_stop": "Stopp mikrofontest",
+			"mode": "Stemmemodus"
 		},
 		"keyboard": {
 			"title": "Tastatursnarveier",
 			"push_to_talk": "Trykk for å snakke",
 			"mute": "Slå av mikrofon",
 			"deafen": "Slå av lyd",
-			"impostor_radio": "Impostor-radio"
+			"impostor_radio": "Impostor-radio",
+			"hint": "Klikk på en snarvei og trykk en tast eller museknapp. Escape deaktiverer den.",
+			"press_key": "Trykk en tast…",
+			"disabled": "Deaktivert"
 		},
 		"overlay": {
 			"title": "Overlegg",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "Maskinvareakselerasjon",
 			"hardware_acceleration_warning": "Dette deaktiverer maskinvareakselerasjon (som kan øke CPU-bruk)",
 			"echocancellation": "Ekkodemping",
+			"echocancellation_description": "Mikrofontesten ignorerer ekkofjerning. Bruk hodetelefoner.",
 			"noiseSuppression": "Støyreduksjon",
+			"autoGainControl": "Automatisk forsterkning",
+			"autoGainControl_warning": "Beta: mikrofonen justerer volumet automatisk. Test den først.",
 			"spatial_audio": "Romslig lyd",
 			"oldsampledebug": "Feilsøk Samplerate",
 			"oldsampledebug_warning": "Dette er en testfunksjon, IKKE skru denne på med mindre du blir spurt."
@@ -108,7 +141,8 @@
 			"obs_overlay": "OBS-nettleser overlegg",
 			"obs_url": "OBS-nettleser kildelenke",
 			"voice_server_comp": "VS kompatibilitetsmodus",
-			"voice_server_comp_warning": "Det anbefales å kun endre stemmeserver til en BetterCrewLink-stemmeserver (https://bettercrewl.ink) for eksempel."
+			"voice_server_comp_warning": "Det anbefales å kun endre stemmeserver til en BetterCrewLink-stemmeserver (https://bettercrewl.ink) for eksempel.",
+			"copy_url": "Kopier URL"
 		},
 		"troubleshooting": {
 			"title": "Feilsøking",

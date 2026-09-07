@@ -14,6 +14,8 @@ import { ConnectionController } from './ConnectionController';
 import { defaultLobbySettings, VoiceSnapshot } from './types';
 // @ts-ignore
 import radioOnSound from '../../../static/sounds/radio_on.wav';
+// @ts-ignore
+import radioOffSound from '../../../static/sounds/radio_beep2.wav';
 
 interface HostInfo {
 	map: MapType;
@@ -32,6 +34,10 @@ interface VoiceControllerEvents extends Record<string, unknown[]> {
 const radioOnAudio = new Audio();
 radioOnAudio.src = radioOnSound;
 radioOnAudio.volume = 0.02;
+
+const radioOffAudio = new Audio();
+radioOffAudio.src = radioOffSound;
+radioOffAudio.volume = 0.09;
 
 const OVERLAY_VOICE_KEYS: (keyof VoiceSnapshot)[] = [
 	'otherTalking',
@@ -117,6 +123,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 	private localTalking = false;
 	private playerConfigs: playerConfigMap = {};
 	private impostorRadioPressed = false;
+	private radioTransmitting = false;
 
 	private host: HostInfo = emptyHost();
 
@@ -201,6 +208,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		this.otherVAD = {};
 		this.localTalking = false;
 		this.impostorRadioPressed = false;
+		this.radioTransmitting = false;
 		this.playerConfigs = {};
 		this.host = emptyHost();
 		this.prev = emptyPrev();
@@ -357,6 +365,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 			settings.microphone,
 			settings.echoCancellation,
 			settings.noiseSuppression,
+			settings.autoGainControl,
 			settings.oldSampleDebug,
 			settings.microphoneGainEnabled,
 			settings.micSensitivityEnabled,
@@ -457,6 +466,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		this.handlePlayerIdentity(state, myPlayer);
 		this.handlePublicLobby(state, myPlayer);
 		this.cleanupImpostorRadio(state, myPlayer);
+		this.applyImpostorRadio();
 		this.updatePeerAudio(state, myPlayer);
 		this.publishMobileAndObs(state, myPlayer);
 	}
@@ -658,46 +668,57 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		const { gameState: state } = gameStore.getSnapshot();
 		const myPlayer = state?.players?.find((player) => player.isLocal);
 		const current = this.snapshot.impostorRadioClientId;
-		if (
-			!myPlayer ||
-			!myPlayer.isImpostor ||
-			myPlayer.isDead ||
-			!(current === myPlayer.clientId || current === -1) ||
-			!this.activeLobbySettings.impostorRadioEnabled
-		) {
-			return;
-		}
+		const granted =
+			this.impostorRadioPressed &&
+			state?.gameState === GameState.TASKS &&
+			myPlayer !== undefined &&
+			myPlayer.isImpostor &&
+			!myPlayer.isDead &&
+			(current === -1 || current === myPlayer.clientId) &&
+			this.activeLobbySettings.impostorRadioEnabled;
 
-		void radioOnAudio.play().catch(() => {
+		if (granted === this.radioTransmitting) return;
+		this.radioTransmitting = granted;
+		this.audio.setRadioTransmitting(granted);
+		this.patch({ impostorRadioClientId: granted && myPlayer ? myPlayer.clientId : -1 });
+
+		void (granted ? radioOnAudio : radioOffAudio).play().catch(() => {
 			/* autoplay blocked */
 		});
 
-		this.patch({ impostorRadioClientId: this.impostorRadioPressed ? myPlayer.clientId : -1 });
-
 		const playerSocketIds = this.connection.playerSocketIds;
-		const targets = (state.players ?? [])
-			.filter((player) => !player.isLocal && player.isImpostor && !player.bugged && !player.isDead)
+		const targets = (state?.players ?? [])
+			.filter((player) => !player.isLocal && !player.bugged)
 			.map((player) => playerSocketIds[player.clientId])
 			.filter(Boolean);
-		this.connection.sendToPeers(targets, JSON.stringify({ impostorRadio: this.impostorRadioPressed }));
+		this.connection.sendToPeers(targets, JSON.stringify({ impostorRadio: granted }));
 	}
 
 	private cleanupImpostorRadio(state: AmongUsState, myPlayer: Player | undefined): void {
-		if (!state.players || !myPlayer) return;
 		const current = this.snapshot.impostorRadioClientId;
 		if (current === -1) return;
 
-		const stillActive = state.players.some(
-			(player) =>
-				!player.isLocal &&
-				player.clientId === current &&
-				player.isImpostor &&
-				!player.isDead &&
-				!player.disconnected &&
-				!player.bugged
-		);
+		if (!state.players || !myPlayer || state.gameState !== GameState.TASKS) {
+			this.patch({ impostorRadioClientId: -1 });
+			return;
+		}
+		if (current === myPlayer.clientId) return;
 
-		if ((!stillActive && current !== myPlayer.clientId) || !myPlayer.isImpostor) {
+		const peerId = this.connection.playerSocketIds[current];
+		const stillActive =
+			Boolean(peerId) &&
+			this.audio.hasPeer(peerId) &&
+			state.players.some(
+				(player) =>
+					!player.isLocal &&
+					player.clientId === current &&
+					player.isImpostor &&
+					!player.isDead &&
+					!player.disconnected &&
+					!player.bugged
+			);
+
+		if (!stillActive) {
 			this.patch({ impostorRadioClientId: -1 });
 		}
 	}
@@ -766,7 +787,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		if (this.connection.isMobileRunning) {
 			this.connection.signalTo(state.lobbyCode + '_mobile', {
 				gameState: state,
-				activeLobbySettings: this.activeLobbySettings,
+				lobbySettings: this.activeLobbySettings,
 			});
 		}
 
