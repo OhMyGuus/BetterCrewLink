@@ -1,4 +1,4 @@
-import { app, ipcMain } from 'electron';
+import { app, ipcMain, WebContents } from 'electron';
 import GameReader from './GameReader';
 import keyboardWatcherModule from 'node-keyboard-watcher';
 const { keyboardWatcher } = keyboardWatcherModule;
@@ -22,7 +22,23 @@ let pushToTalkShortcut: K | undefined;
 let deafenShortcut: K | undefined;
 let muteShortcut: K | undefined;
 let impostorRadioShortcut: K | undefined;
+let keySender: WebContents | undefined;
+let pushToTalkHeld = false;
+let impostorRadioHeld = false;
+
+function releaseHeldKeys(): void {
+	if (pushToTalkHeld) {
+		pushToTalkHeld = false;
+		keySender?.send(IpcRendererMessages.PUSH_TO_TALK, false);
+	}
+	if (impostorRadioHeld) {
+		impostorRadioHeld = false;
+		keySender?.send(IpcRendererMessages.IMPOSTOR_RADIO, false);
+	}
+}
+
 function resetKeyHooks(): void {
+	releaseHeldKeys();
 	pushToTalkShortcut = store.get('pushToTalkShortcut', 'V') as K;
 	deafenShortcut = store.get('deafenShortcut', 'RControl') as K;
 	muteShortcut = store.get('muteShortcut', 'RAlt') as K;
@@ -68,8 +84,7 @@ ipcMain.handle(IpcMessages.REQUEST_GAME_INFO, () => {
 ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 	if (!readingGame) {
 		readingGame = true;
-		let pushToTalkHeld = false;
-		let impostorRadioHeld = false;
+		keySender = event.sender;
 		resetKeyHooks();
 
 		keyboardWatcher.on('keydown', (keyId: number) => {
