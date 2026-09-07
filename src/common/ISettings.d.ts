@@ -30,6 +30,7 @@ export interface ISettings {
 	hardware_acceleration: boolean;
 	echoCancellation: boolean;
 	noiseSuppression: boolean;
+	autoGainControl: boolean;
 	oldSampleDebug: boolean;
 
 	enableSpatialAudio: boolean;

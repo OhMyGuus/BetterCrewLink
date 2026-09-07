@@ -76,6 +76,8 @@
 				"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 				"test_speaker_start": "Test Speaker",
 				"test_speaker_stop": "Stop Test Speaker",
+				"test_microphone_start": "Test Microphone",
+				"test_microphone_stop": "Stop Test Microphone",
 				"mode": "Voice Transmission"
 			},
 			"keyboard": {
@@ -122,6 +124,8 @@
 				"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 				"echocancellation": "Echo Cancellation",
 				"noiseSuppression": "Noise Suppression",
+				"autoGainControl": "Automatic Gain Control",
+				"autoGainControl_warning": "This is a beta feature. It lets your microphone driver automatically adjust volume. Use the Test Microphone button to check how it sounds.",
 				"spatial_audio": "Spatial Audio",
 				"oldsampledebug": "Samplerate Debug",
 				"oldsampledebug_warning": "This is a test function ONLY enabled when asked."

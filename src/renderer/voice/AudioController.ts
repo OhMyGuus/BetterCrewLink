@@ -129,7 +129,7 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 
 		const constraints = {
 			deviceId: undefined as unknown as string,
-			autoGainControl: false,
+			autoGainControl: settings.autoGainControl,
 			channelCount: 2,
 			echoCancellation: settings.echoCancellation,
 			latency: 0,
@@ -162,7 +162,7 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		const source = context.createMediaStreamSource(inputStream);
 		this.inputSource = source;
 
-		if (settings.microphoneGainEnabled || settings.micSensitivityEnabled) {
+		if ((settings.microphoneGainEnabled || settings.micSensitivityEnabled) && !settings.autoGainControl) {
 			const microphoneGain = context.createGain();
 			const destination = context.createMediaStreamDestination();
 			source.connect(microphoneGain);
@@ -176,13 +176,13 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		const audioListener = VAD(context, source, undefined, {
 			onVoiceStart: () => {
 				const current = SettingsStore.store;
-				if (this.microphoneGain && current.micSensitivityEnabled) {
+				if (this.microphoneGain && current.micSensitivityEnabled && !current.autoGainControl) {
 					this.microphoneGain.gain.value = current.microphoneGainEnabled ? current.microphoneGain / 100 : 1;
 				}
 				this.emit('talking', true);
 			},
 			onVoiceStop: () => {
-				if (this.microphoneGain && SettingsStore.store.micSensitivityEnabled) {
+				if (this.microphoneGain && SettingsStore.store.micSensitivityEnabled && !SettingsStore.store.autoGainControl) {
 					this.microphoneGain.gain.value = 0;
 				}
 				this.emit('talking', false);
@@ -191,7 +191,8 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 			stereo: false,
 		}) as VadNode;
 
-		audioListener.options.minNoiseLevel = settings.micSensitivityEnabled ? settings.micSensitivity : 0.15;
+		audioListener.options.minNoiseLevel =
+			settings.micSensitivityEnabled && !settings.autoGainControl ? settings.micSensitivity : 0.15;
 		audioListener.options.maxNoiseLevel = 1;
 		audioListener.init();
 		this.audioListener = audioListener;
@@ -363,6 +364,7 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 
 	updateMicrophoneSettings(settings: ISettings): void {
 		if (!this.microphoneGain?.gain) return;
+		if (settings.autoGainControl) return;
 		if (!settings.microphoneGainEnabled && !settings.micSensitivityEnabled) return;
 
 		if (!settings.micSensitivityEnabled) {

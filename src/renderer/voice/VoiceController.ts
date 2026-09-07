@@ -357,6 +357,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 			settings.microphone,
 			settings.echoCancellation,
 			settings.noiseSuppression,
+			settings.autoGainControl,
 			settings.oldSampleDebug,
 			settings.microphoneGainEnabled,
 			settings.micSensitivityEnabled,
@@ -766,7 +767,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		if (this.connection.isMobileRunning) {
 			this.connection.signalTo(state.lobbyCode + '_mobile', {
 				gameState: state,
-				activeLobbySettings: this.activeLobbySettings,
+				lobbySettings: this.activeLobbySettings,
 			});
 		}
 

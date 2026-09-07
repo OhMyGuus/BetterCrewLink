@@ -67,19 +67,9 @@ const AdvancedSection: React.FC<AdvancedSectionProps> = function ({ t, settings,
 					}
 				/>
 				<SwitchRow
-					label={t('settings.beta.echocancellation')}
-					checked={settings.echoCancellation}
-					onChange={(checked) => setSettings('echoCancellation', checked)}
-				/>
-				<SwitchRow
 					label={t('settings.beta.spatial_audio')}
 					checked={settings.enableSpatialAudio}
 					onChange={(checked) => setSettings('enableSpatialAudio', checked)}
-				/>
-				<SwitchRow
-					label={t('settings.beta.noiseSuppression')}
-					checked={settings.noiseSuppression}
-					onChange={(checked) => setSettings('noiseSuppression', checked)}
 				/>
 				<SwitchRow
 					label={t('settings.beta.oldsampledebug')}

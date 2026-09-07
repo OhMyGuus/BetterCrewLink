@@ -220,6 +220,10 @@ export const settingsStore = new Store<ISettings>({
 			type: 'boolean',
 			default: true,
 		},
+		autoGainControl: {
+			type: 'boolean',
+			default: false,
+		},
 		oldSampleDebug: {
 			type: 'boolean',
 			default: false,
