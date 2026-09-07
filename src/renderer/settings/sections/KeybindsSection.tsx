@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { TFunction } from 'i18next';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
@@ -80,6 +80,8 @@ const ShortcutField: React.FC<ShortcutFieldProps> = function ({
 	onStopRecording,
 	onCapture,
 }) {
+	// What the last key press captured, held until that key is released.
+	const pendingCapture = useRef<string | null>(null);
 	const unset = !value || value === 'Disabled';
 	return (
 		<Box
@@ -88,16 +90,34 @@ const ShortcutField: React.FC<ShortcutFieldProps> = function ({
 			aria-label={label}
 			onFocus={onStartRecording}
 			onBlur={onStopRecording}
+			// Captured on the way down, committed on the way up. The key watcher polls
+			// GetAsyncKeyState against a map it seeds as up, so hooking a key while it is
+			// physically held makes the next poll report a press the user never gave -- and
+			// its release then fires the shortcut that was just assigned. Waiting for the
+			// release is the only way to hook it in a state the watcher will agree with,
+			// because the main process cannot ask whether a key is down.
 			onKeyDown={(ev) => {
 				if (ev.key === 'Tab') return;
 				ev.preventDefault();
-				const captured = keyFromEvent(ev);
+				pendingCapture.current = keyFromEvent(ev) ?? null;
+			}}
+			onKeyUp={(ev) => {
+				if (ev.key === 'Tab') return;
+				ev.preventDefault();
+				const captured = pendingCapture.current;
+				pendingCapture.current = null;
 				if (captured) onCapture(captured);
+			}}
+			onMouseUp={(ev) => {
+				if (!recording || ev.button <= 2) return;
+				ev.preventDefault();
+				onCapture(`MouseButton${ev.button + 1}`);
 			}}
 			onMouseDown={(ev) => {
 				if (recording && ev.button > 2) {
+					// Committed on mouseup, for the reason above -- the extra mouse buttons
+					// are polled by the same watcher.
 					ev.preventDefault();
-					onCapture(`MouseButton${ev.button + 1}`);
 					return;
 				}
 				if (ev.button !== 0) return;
