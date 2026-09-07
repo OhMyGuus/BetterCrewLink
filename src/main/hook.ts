@@ -188,7 +188,7 @@ const keycodeMap = {
 	Enter: 0x0d,
 	Up: 0x26,
 	Down: 0x28,
-	Left: 0x24,
+	Left: 0x25,
 	Right: 0x27,
 	Home: 0x24,
 	End: 0x23,
@@ -228,6 +228,12 @@ const keycodeMap = {
 	Numpad7: 0x67,
 	Numpad8: 0x68,
 	Numpad9: 0x69,
+	NumpadMultiply: 0x6a,
+	NumpadAdd: 0x6b,
+	NumpadSubtract: 0x6d,
+	NumpadDecimal: 0x6e,
+	NumpadDivide: 0x6f,
+	CapsLock: 0x14,
 	Disabled: -1,
 };
 type K = keyof typeof keycodeMap;
