@@ -14,6 +14,8 @@ import { ConnectionController } from './ConnectionController';
 import { defaultLobbySettings, VoiceSnapshot } from './types';
 // @ts-ignore
 import radioOnSound from '../../../static/sounds/radio_on.wav';
+// @ts-ignore
+import radioOffSound from '../../../static/sounds/radio_beep2.wav';
 
 interface HostInfo {
 	map: MapType;
@@ -32,6 +34,10 @@ interface VoiceControllerEvents extends Record<string, unknown[]> {
 const radioOnAudio = new Audio();
 radioOnAudio.src = radioOnSound;
 radioOnAudio.volume = 0.02;
+
+const radioOffAudio = new Audio();
+radioOffAudio.src = radioOffSound;
+radioOffAudio.volume = 0.09;
 
 const OVERLAY_VOICE_KEYS: (keyof VoiceSnapshot)[] = [
 	'otherTalking',
@@ -676,7 +682,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		this.audio.setRadioTransmitting(granted);
 		this.patch({ impostorRadioClientId: granted && myPlayer ? myPlayer.clientId : -1 });
 
-		void radioOnAudio.play().catch(() => {
+		void (granted ? radioOnAudio : radioOffAudio).play().catch(() => {
 			/* autoplay blocked */
 		});
 
