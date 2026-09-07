@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "Agordoj",
 		"language": "Lingvo",
+		"general": "Ĝenerala",
 		"warning": "Ĉu vi certas?",
 		"lobbysettings": {
 			"title": "Ludejaj agordoj",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "Tio malebligas paroladon de vivantoj ekster renkontiĝoj.",
 			"meetings_only_warning2": "Parolebleco nur renkontiĝe/atendeje estas ŝaltita.",
 			"impostor_radio": "Trompista radio",
+			"impostor_radio_private": "Privata trompula radio",
+			"impostor_radio_private_description": "Proksimaj ŝipanoj ne aŭdas trompulon per la radio.",
+			"impostor_radio_private_requires": "Unue ŝaltu la trompulan radion.",
 			"public_lobby": {
 				"change_settings": "Ŝanĝi ludejajn informojn",
 				"title": "Titolo",
@@ -31,7 +35,26 @@
 				"language": "Lingvo",
 				"enable_warning": "Ŝaltinte ĉi tion vi igos la ludejon publika por aliaj uzantoj de BetterCrewLink!",
 				"ban_warning": "Maldecaj mesaĝoj kaŭzos forbaron el BetterCrewLink."
-			}
+			},
+			"host_notice": "La gastiganto regas la ludejajn agordojn.",
+			"host_notice_you": "Vi estas la gastiganto; la ludejo uzas viajn agordojn.",
+			"edit_as_host": "Ŝanĝi",
+			"tab_current": "Nuna ludejo",
+			"tab_mine": "Miaj agordoj",
+			"host": "Gastiganto",
+			"host_you": "Vi",
+			"host_unknown": "Nekonata",
+			"no_lobby": "Vi ne estas en ludejo. Aliĝu aŭ gastigu ludon por vidi agordojn.",
+			"mine_notice": "Viaj agordoj validas por ĉiuj kiam vi gastigas."
+		},
+		"players": {
+			"title": "Ludantoj",
+			"volume": "Laŭteco",
+			"empty": "Neniuj aliaj ludantoj. Aliĝu al ludejo por ŝanĝi ilian laŭtecon.",
+			"disconnected": "Malkonektita",
+			"mute": "Silentigi",
+			"unmute": "Malsilentigi",
+			"muted": "Silentigita"
 		},
 		"customplatforms": {
 			"title": "Agordita platformo",
@@ -51,18 +74,25 @@
 			"microphone_volume": "Mikrofona laŭto",
 			"microphone_sens": "Mikrofona sentiveco",
 			"microphone_sens_warning": "Se vi plu malgrandigos la sentivecon, eble okazos problemoj.",
+			"auto_gain_disabled": "Malŝaltita dum aŭtomata laŭtecigo estas aktiva.",
 			"mastervolume": "Ĝenerala laŭto",
 			"crewvolume": "Laŭto fantome",
 			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Testi la laŭtparolilon",
-			"test_speaker_stop": "Ĉesi testi la laŭtparolilon"
+			"test_speaker_stop": "Ĉesi testi la laŭtparolilon",
+			"test_microphone_start": "Testi mikrofonon",
+			"test_microphone_stop": "Ĉesigi mikrofonteston",
+			"mode": "Voĉreĝimo"
 		},
 		"keyboard": {
 			"title": "Fulmoklavoj",
 			"push_to_talk": "Parolado ĉe premo",
 			"mute": "Mutiĝi",
 			"deafen": "Surdiĝi",
-			"impostor_radio": "Trompista radio"
+			"impostor_radio": "Trompista radio",
+			"hint": "Alklaku fulmoklavon kaj premu klavon aŭ musbutonon. Escape malŝaltas ĝin.",
+			"press_key": "Premu klavon…",
+			"disabled": "Malŝaltita"
 		},
 		"overlay": {
 			"title": "Plustavolo",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "Aparata plirapidigo",
 			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"echocancellation": "Seneĥigo",
+			"echocancellation_description": "La mikrofontesto ignoras eĥan nuligon. Uzu aŭdilojn.",
 			"noiseSuppression": "Senbruigo",
+			"autoGainControl": "Aŭtomata laŭtecigo",
+			"autoGainControl_warning": "Beta: la mikrofono aŭtomate ĝustigas laŭtecon. Unue testu ĝin.",
 			"spatial_audio": "Laŭspacaj sonoj",
 			"oldsampledebug": "Samplerate Debug",
 			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
@@ -108,7 +141,8 @@
 			"obs_overlay": "Plustavolo de foliumilo de OBS",
 			"obs_url": "Fonta retadreso de foliumilo de OBS",
 			"voice_server_comp": "Reĝimo de voĉservila kongruo",
-			"voice_server_comp_warning": "Ni rekomendas nur ŝanĝi la voĉservilon al ekz. la voĉservilo de BetterCrewLink (https://bettercrewl.ink)."
+			"voice_server_comp_warning": "Ni rekomendas nur ŝanĝi la voĉservilon al ekz. la voĉservilo de BetterCrewLink (https://bettercrewl.ink).",
+			"copy_url": "Kopii URL-on"
 		},
 		"troubleshooting": {
 			"title": "Problemsolvado",

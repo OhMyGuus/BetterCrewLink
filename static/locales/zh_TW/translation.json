@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "設定",
 		"language": "語言",
+		"general": "一般",
 		"warning": "你確定嗎?",
 		"lobbysettings": {
 			"title": "大廳設定",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "這將禁用所有會議外存活玩家的語音功能。",
 			"meetings_only_warning2": "已啟用「僅限會議內語音」功能",
 			"impostor_radio": "偽裝者私密通話",
+			"impostor_radio_private": "私人偽裝者無線電",
+			"impostor_radio_private_description": "附近的船員聽不到無線電中的偽裝者。",
+			"impostor_radio_private_requires": "請先啟用偽裝者無線電。",
 			"public_lobby": {
 				"change_settings": "更改大廳資訊",
 				"title": "標題",
@@ -31,7 +35,26 @@
 				"language": "語言",
 				"enable_warning": "啟用這個選項將會讓你的大廳對其他 BetterCrewLink 使用者公開!",
 				"ban_warning": "不當言論將會被 BetterCrewLink ban 掉。"
-			}
+			},
+			"host_notice": "房主控制大廳設定。",
+			"host_notice_you": "你是房主；大廳會使用你的設定。",
+			"edit_as_host": "變更",
+			"tab_current": "目前大廳",
+			"tab_mine": "我的設定",
+			"host": "房主",
+			"host_you": "你",
+			"host_unknown": "未知",
+			"no_lobby": "尚未連線大廳。加入或建立遊戲即可查看設定。",
+			"mine_notice": "你是房主時，設定會套用至所有人。"
+		},
+		"players": {
+			"title": "玩家",
+			"volume": "音量",
+			"empty": "目前沒有其他玩家。加入大廳即可調整他們的音量。",
+			"disconnected": "已中斷連線",
+			"mute": "靜音",
+			"unmute": "取消靜音",
+			"muted": "已靜音"
 		},
 		"customplatforms": {
 			"title": "自訂平台",
@@ -51,18 +74,25 @@
 			"microphone_volume": "麥克風音量",
 			"microphone_sens": "麥克風靈敏度",
 			"microphone_sens_warning": "如果你設定的靈敏度過低，可能導致麥克風無法正常運作。",
+			"auto_gain_disabled": "啟用自動增益時無法使用。",
 			"mastervolume": "主音量",
 			"crewvolume": "作為幽靈時的船員音量",
 			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "喇叭測試",
-			"test_speaker_stop": "停止喇叭測試"
+			"test_speaker_stop": "停止喇叭測試",
+			"test_microphone_start": "測試麥克風",
+			"test_microphone_stop": "停止麥克風測試",
+			"mode": "語音模式"
 		},
 		"keyboard": {
 			"title": "快捷鍵",
 			"push_to_talk": "按鍵說話",
 			"mute": "關麥",
 			"deafen": "靜音",
-			"impostor_radio": "偽裝者私密通話"
+			"impostor_radio": "偽裝者私密通話",
+			"hint": "點選快捷鍵，再按下鍵盤或滑鼠按鍵。按 Escape 可停用。",
+			"press_key": "請按鍵…",
+			"disabled": "已停用"
 		},
 		"overlay": {
 			"title": "遊戲內疊層",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "硬體加速",
 			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"echocancellation": "回音消除",
+			"echocancellation_description": "麥克風測試不使用回音消除。請戴耳機。",
 			"noiseSuppression": "降噪",
+			"autoGainControl": "自動增益",
+			"autoGainControl_warning": "測試功能：麥克風會自動調整音量。請先測試。",
 			"spatial_audio": "空間音訊",
 			"oldsampledebug": "Samplerate Debug",
 			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
@@ -108,7 +141,8 @@
 			"obs_overlay": "OBS Browser 疊層",
 			"obs_url": "OBS Browser Source 網址",
 			"voice_server_comp": "語音伺服器相容模式",
-			"voice_server_comp_warning": "建議將語音伺服器更改為BetterCrewLink Voice Server，例如: https://bettercrewl.ink 。"
+			"voice_server_comp_warning": "建議將語音伺服器更改為BetterCrewLink Voice Server，例如: https://bettercrewl.ink 。",
+			"copy_url": "複製 URL"
 		},
 		"troubleshooting": {
 			"title": "故障排除",

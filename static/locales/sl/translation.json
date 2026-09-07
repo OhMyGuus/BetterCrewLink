@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "Nastavitve",
 		"language": "Jezik",
+		"general": "Splošno",
 		"warning": "Ali ste prepričani?",
 		"lobbysettings": {
 			"title": "Nastavitve čakalnice",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "Ta možnost onemogoči pogovor za žive igralce, ko ti niso na sestanku.",
 			"meetings_only_warning2": "Omogočen je samo pogovor med sestankom.",
 			"impostor_radio": "Vsiljivčev oddajnik",
+			"impostor_radio_private": "Zasebni radio sleparjev",
+			"impostor_radio_private_description": "Bližnji člani posadke sleparja po radiu ne slišijo.",
+			"impostor_radio_private_requires": "Najprej vklopite radio sleparjev.",
 			"public_lobby": {
 				"change_settings": "Spremeni informacije čakalnice",
 				"title": "Ime",
@@ -31,7 +35,26 @@
 				"language": "Jezik",
 				"enable_warning": "Vključitev tega bo prikazala čakalnico na javnem seznamu ostalim igralcem BetterCrewLink-a!",
 				"ban_warning": "Neprimerne besede so lahko razlog za ban."
-			}
+			},
+			"host_notice": "Gostitelj določa nastavitve lobija.",
+			"host_notice_you": "Vi ste gostitelj; lobi uporablja vaše nastavitve.",
+			"edit_as_host": "Spremeni",
+			"tab_current": "Trenutni lobi",
+			"tab_mine": "Moje nastavitve",
+			"host": "Gostitelj",
+			"host_you": "Vi",
+			"host_unknown": "Neznano",
+			"no_lobby": "Niste v lobiju. Pridružite se ali ga ustvarite za ogled nastavitev.",
+			"mine_notice": "Ko ste gostitelj, vaše nastavitve veljajo za vse."
+		},
+		"players": {
+			"title": "Igralci",
+			"volume": "Glasnost",
+			"empty": "Ni drugih igralcev. Pridružite se lobiju za spremembo glasnosti.",
+			"disconnected": "Odklopljen",
+			"mute": "Utišaj",
+			"unmute": "Vklopi zvok",
+			"muted": "Utišan"
 		},
 		"customplatforms": {
 			"title": "Drugo",
@@ -51,18 +74,25 @@
 			"microphone_volume": "Jakost mikrofona",
 			"microphone_sens": "Občutljivost mikrofona",
 			"microphone_sens_warning": "Če nastavite občutljivost še nižje, morda ne bo več delovalo pravilno.",
+			"auto_gain_disabled": "Izklopljeno med samodejnim ojačanjem.",
 			"mastervolume": "Generalna jakost zvoka",
 			"crewvolume": "Glasnost živih igralcev, ko si duh",
 			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Preizkusi zvočnike",
-			"test_speaker_stop": "Ustavi preizkus zvočnikov"
+			"test_speaker_stop": "Ustavi preizkus zvočnikov",
+			"test_microphone_start": "Preizkusi mikrofon",
+			"test_microphone_stop": "Ustavi preizkus",
+			"mode": "Glasovni način"
 		},
 		"keyboard": {
 			"title": "Bližjice na tipkovnici",
 			"push_to_talk": "Tipka za govor",
 			"mute": "Utišan",
 			"deafen": "Oglušen",
-			"impostor_radio": "Vsiljivčev oddajnik"
+			"impostor_radio": "Vsiljivčev oddajnik",
+			"hint": "Kliknite bližnjico in pritisnite tipko ali gumb miške. Escape jo izklopi.",
+			"press_key": "Pritisnite tipko…",
+			"disabled": "Izklopljeno"
 		},
 		"overlay": {
 			"title": "Prikaz govorca",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "Pospeševanje s pomočjo strojne opreme",
 			"hardware_acceleration_warning": "To onemogoči strojno pospeševanje (lahko vpliva na povečano uporabo procesorja)",
 			"echocancellation": "Odstrani odmevanje",
+			"echocancellation_description": "Preizkus mikrofona ne uporablja odpravljanja odmeva. Uporabite slušalke.",
 			"noiseSuppression": "Odstrani šume",
+			"autoGainControl": "Samodejno ojačanje",
+			"autoGainControl_warning": "Beta: mikrofon samodejno prilagaja glasnost. Najprej ga preizkusite.",
 			"spatial_audio": "Prostorski zvok",
 			"oldsampledebug": "Hitrost vzorčenja za razhroščevanje",
 			"oldsampledebug_warning": "To je testna funkcija, omogoči LE V PRIMERU, ko to zahtevajo."
@@ -108,7 +141,8 @@
 			"obs_overlay": "OBS Browser Overlay",
 			"obs_url": "OBS Browser Source URL",
 			"voice_server_comp": "GS združljivostni način",
-			"voice_server_comp_warning": "Priporočeno je, da samo spremenite glasovni strežnik na uradni bettercrewlink strežnik na naslovu https://bettercrewl.ink."
+			"voice_server_comp_warning": "Priporočeno je, da samo spremenite glasovni strežnik na uradni bettercrewlink strežnik na naslovu https://bettercrewl.ink.",
+			"copy_url": "Kopiraj URL"
 		},
 		"troubleshooting": {
 			"title": "Odpravljanje napak",

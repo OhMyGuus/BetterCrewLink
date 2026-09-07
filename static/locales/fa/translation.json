@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "تنظیمات",
 		"language": "زبان",
+		"general": "عمومی",
 		"warning": "آیا مطمئن هستید؟",
 		"lobbysettings": {
 			"title": "ورودی تنظیمات",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "این صدا را غیر فعال میکند برای بازیکننده های زنده ی خارج از ملاقات.",
 			"meetings_only_warning2": "حرف زدن فقط در ملاقات فعال است.",
 			"impostor_radio": "رادیوی ایمپستر",
+			"impostor_radio_private": "رادیوی خصوصی خائن",
+			"impostor_radio_private_description": "خدمه نزدیک صدای خائن را در رادیو نمی‌شنوند.",
+			"impostor_radio_private_requires": "ابتدا رادیوی خائن را فعال کنید.",
 			"public_lobby": {
 				"change_settings": "تغییر اطلاعات ورودی",
 				"title": "عنوان",
@@ -31,7 +35,26 @@
 				"language": "زبان",
 				"enable_warning": "فعال کردن این باعث میشود که ورودی تو برای دیگر استفاده کننده های بترکرولینک همگانی شود!",
 				"ban_warning": "متن نامناسب منجر به محرومیت از بترکرولینک میشود."
-			}
+			},
+			"host_notice": "میزبان تنظیمات لابی را تعیین می‌کند.",
+			"host_notice_you": "شما میزبان هستید؛ لابی از تنظیمات شما استفاده می‌کند.",
+			"edit_as_host": "تغییر",
+			"tab_current": "لابی فعلی",
+			"tab_mine": "تنظیمات من",
+			"host": "میزبان",
+			"host_you": "شما",
+			"host_unknown": "ناشناخته",
+			"no_lobby": "در لابی نیستید. برای دیدن تنظیمات وارد شوید یا بازی بسازید.",
+			"mine_notice": "وقتی میزبانید، تنظیمات شما برای همه اعمال می‌شود."
+		},
+		"players": {
+			"title": "بازیکنان",
+			"volume": "صدا",
+			"empty": "بازیکن دیگری نیست. برای تغییر صدای آن‌ها وارد لابی شوید.",
+			"disconnected": "قطع‌شده",
+			"mute": "بی‌صدا",
+			"unmute": "وصل صدا",
+			"muted": "بی‌صداشده"
 		},
 		"customplatforms": {
 			"title": "پلتفرم مناسب",
@@ -51,18 +74,25 @@
 			"microphone_volume": "ولوم میکروفون",
 			"microphone_sens": "حساسیت میکروفون",
 			"microphone_sens_warning": "اگر حساسیت را پائینتر بیاورید شاید کار نکند.",
+			"auto_gain_disabled": "هنگام فعال بودن تقویت خودکار غیرفعال است.",
 			"mastervolume": "ولوم اصلی",
 			"crewvolume": "حجم خدمه بعنوان ارواح",
 			"ghostvolumeasimpostor": "صدای ارواح برای ایمپوستر",
 			"test_speaker_start": "اسپیکر امتحان کن",
-			"test_speaker_stop": "تمام کردن اسپیکر امتحان کن"
+			"test_speaker_stop": "تمام کردن اسپیکر امتحان کن",
+			"test_microphone_start": "آزمایش میکروفون",
+			"test_microphone_stop": "توقف آزمایش میکروفون",
+			"mode": "حالت صدا"
 		},
 		"keyboard": {
 			"title": "میانبر کیبورد",
 			"push_to_talk": "فشار دید تا صحبت کنید",
 			"mute": "سکوت",
 			"deafen": "صدا را بستن",
-			"impostor_radio": "رادیوی ایمپستر"
+			"impostor_radio": "رادیوی ایمپستر",
+			"hint": "روی میانبر کلیک کنید، سپس کلید یا دکمه ماوس را بزنید. Escape آن را غیرفعال می‌کند.",
+			"press_key": "یک کلید بزنید…",
+			"disabled": "غیرفعال"
 		},
 		"overlay": {
 			"title": "پوشش",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "Hardware Acceleration",
 			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"echocancellation": "Echo Cancellation",
+			"echocancellation_description": "آزمایش میکروفون حذف پژواک را نادیده می‌گیرد. از هدفون استفاده کنید.",
 			"noiseSuppression": "Noise Suppression",
+			"autoGainControl": "تقویت خودکار",
+			"autoGainControl_warning": "آزمایشی: میکروفون صدا را خودکار تنظیم می‌کند. ابتدا آزمایش کنید.",
 			"spatial_audio": "Spatial Audio",
 			"oldsampledebug": "Samplerate Debug",
 			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
@@ -108,7 +141,8 @@
 			"obs_overlay": "OBS Browser Overlay",
 			"obs_url": "OBS Browser Source URL",
 			"voice_server_comp": "VS Compatibility Mode",
-			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example."
+			"voice_server_comp_warning": "It is recommended to just change the voice server to a BetterCrewLink Voice Server (https://bettercrewl.ink) for example.",
+			"copy_url": "کپی URL"
 		},
 		"troubleshooting": {
 			"title": "Troubleshooting",

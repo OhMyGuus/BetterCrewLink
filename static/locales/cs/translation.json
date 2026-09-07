@@ -2,6 +2,7 @@
 	"settings": {
 		"title": "Nastavení",
 		"language": "Jazyk",
+		"general": "Obecné",
 		"warning": "Jsi si jist?",
 		"lobbysettings": {
 			"title": "Nastavení lobby",
@@ -23,6 +24,9 @@
 			"meetings_only_warning": "Živí hráči se uslyší pouze při schůzích.",
 			"meetings_only_warning2": "Mluvení pouze při schůzích povoleno.",
 			"impostor_radio": "Impostoři mají vysílačky",
+			"impostor_radio_private": "Soukromé rádio podvodníků",
+			"impostor_radio_private_description": "Blízcí členové posádky podvodníka v rádiu neslyší.",
+			"impostor_radio_private_requires": "Nejprve zapněte rádio podvodníků.",
 			"public_lobby": {
 				"change_settings": "Změnit informace o Lobby",
 				"title": "Název",
@@ -31,7 +35,26 @@
 				"language": "Jazyk",
 				"enable_warning": "Povolením zveřejníte své lobby ostatním BetterCrewLink uživatelům!",
 				"ban_warning": "Nevhodný text povede k zabanování z BetterCrewLink."
-			}
+			},
+			"host_notice": "Nastavení lobby určuje hostitel.",
+			"host_notice_you": "Jste hostitel; lobby používá vaše nastavení.",
+			"edit_as_host": "Změnit",
+			"tab_current": "Aktuální lobby",
+			"tab_mine": "Moje nastavení",
+			"host": "Hostitel",
+			"host_you": "Vy",
+			"host_unknown": "Neznámý",
+			"no_lobby": "Nejste v lobby. Připojte se nebo ji založte a uvidíte nastavení.",
+			"mine_notice": "Když jste hostitel, vaše nastavení platí pro všechny."
+		},
+		"players": {
+			"title": "Hráči",
+			"volume": "Hlasitost",
+			"empty": "Žádní další hráči. Připojte se do lobby a změňte jejich hlasitost.",
+			"disconnected": "Odpojeno",
+			"mute": "Ztlumit",
+			"unmute": "Zapnout zvuk",
+			"muted": "Ztlumeno"
 		},
 		"customplatforms": {
 			"title": "Vlastní platforma",
@@ -51,18 +74,25 @@
 			"microphone_volume": "Hlasitost mikrofonu",
 			"microphone_sens": "Citlivost mikrofonu",
 			"microphone_sens_warning": "Pokud nastavíte citlivost níže, mikrofon nemusí fungovat.",
+			"auto_gain_disabled": "Vypnuto při automatickém zesílení.",
 			"mastervolume": "Celková hlasitost",
 			"crewvolume": "Hlasitost živých když jsi duch",
 			"ghostvolumeasimpostor": "Ghost Volume as Impostor",
 			"test_speaker_start": "Zkusit mikrofon",
-			"test_speaker_stop": "Zastavit zkoušku mikrofonu"
+			"test_speaker_stop": "Zastavit zkoušku mikrofonu",
+			"test_microphone_start": "Otestovat mikrofon",
+			"test_microphone_stop": "Zastavit test mikrofonu",
+			"mode": "Režim hlasu"
 		},
 		"keyboard": {
 			"title": "Klávesové zkratky",
 			"push_to_talk": "Push to talk",
 			"mute": "Ztlumit mikrofon",
 			"deafen": "Ztlumit zvuk",
-			"impostor_radio": "Impostor vysílačka"
+			"impostor_radio": "Impostor vysílačka",
+			"hint": "Klikněte na zkratku a stiskněte klávesu nebo tlačítko myši. Escape ji vypne.",
+			"press_key": "Stiskněte klávesu…",
+			"disabled": "Vypnuto"
 		},
 		"overlay": {
 			"title": "Překrytí",
@@ -97,7 +127,10 @@
 			"hardware_acceleration": "Hardwarová Akcelerace",
 			"hardware_acceleration_warning": "This disables Hardware Acceleration (which can increase CPU usage)",
 			"echocancellation": "Odstranění ozvěny",
+			"echocancellation_description": "Test mikrofonu ignoruje potlačení ozvěny. Použijte sluchátka.",
 			"noiseSuppression": "Potlačení šumu",
+			"autoGainControl": "Automatické zesílení",
+			"autoGainControl_warning": "Beta: mikrofon upravuje hlasitost automaticky. Nejprve jej otestujte.",
 			"spatial_audio": "Prostorový zvuk",
 			"oldsampledebug": "Samplerate Debug",
 			"oldsampledebug_warning": "This is a test function ONLY enabled when asked."
@@ -108,7 +141,8 @@
 			"obs_overlay": "OBS Webové Překrytí",
 			"obs_url": "OBS URL Webového Překrytí",
 			"voice_server_comp": "Kompatabilita zvukového serveru",
-			"voice_server_comp_warning": "Doporučujeme pouze změnit hlasový server na BetterCrewLink Voice Server (např: https://bettercrewl.ink.)."
+			"voice_server_comp_warning": "Doporučujeme pouze změnit hlasový server na BetterCrewLink Voice Server (např: https://bettercrewl.ink.).",
+			"copy_url": "Kopírovat URL"
 		},
 		"troubleshooting": {
 			"title": "Řešení problémů",
