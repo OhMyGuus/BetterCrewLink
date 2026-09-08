@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import { AmongUsState } from '../../../common/AmongUsState';
 import { ILobbySettings } from '../../../common/ISettings';
 import languages from '../../language/languages';
-import { defaultLobbySettings } from '../../voice/types';
+import { defaultLobbySettings, GRACE_PERIOD_MAX, GRACE_PERIOD_MIN, GRACE_PERIOD_STEP } from '../../voice/types';
 import { ConfirmApi, SelectRow, SettingRow, SettingsSection, SliderRow, SwitchRow } from '../SettingsControls';
 
 type LobbyTab = 'current' | 'mine';
@@ -36,6 +36,8 @@ interface RowsProps {
 }
 
 const LobbySettingRows: React.FC<RowsProps> = function ({ t, values, disabled, disabledReason, update, confirm }) {
+	const meetingsOnlyCleared: Partial<ILobbySettings> = { ghostsCanTalkIngame: false, gracePeriod: 0 };
+
 	const toggles: { key: keyof ILobbySettings; label: string }[] = [
 		{ key: 'wallsBlockAudio', label: t('settings.lobbysettings.wallsblockaudio') },
 		{ key: 'visionHearing', label: t('settings.lobbysettings.visiononly') },
@@ -95,7 +97,7 @@ const LobbySettingRows: React.FC<RowsProps> = function ({ t, values, disabled, d
 						confirm(
 							t('settings.warning'),
 							t('settings.lobbysettings.ghost_only_warning'),
-							() => update({ meetingGhostOnly: false, deadOnly: checked }),
+							() => update({ meetingGhostOnly: false, deadOnly: checked, ...meetingsOnlyCleared }),
 							checked
 						)
 					}
@@ -110,10 +112,30 @@ const LobbySettingRows: React.FC<RowsProps> = function ({ t, values, disabled, d
 						confirm(
 							t('settings.warning'),
 							t('settings.lobbysettings.meetings_only_warning'),
-							() => update({ meetingGhostOnly: checked, deadOnly: false }),
+							() => update({ meetingGhostOnly: checked, deadOnly: false, ...(checked ? {} : meetingsOnlyCleared) }),
 							checked
 						)
 					}
+				/>
+				<SwitchRow
+					label={t('settings.lobbysettings.ghosts_can_talk_ingame')}
+					description={t('settings.lobbysettings.ghosts_can_talk_ingame_description')}
+					disabled={disabled || !values.meetingGhostOnly}
+					disabledReason={values.meetingGhostOnly ? disabledReason : t('settings.lobbysettings.meetings_only_requires')}
+					checked={values.ghostsCanTalkIngame}
+					onChange={(ghostsCanTalkIngame) => update({ ghostsCanTalkIngame })}
+				/>
+				<SliderRow
+					label={t('settings.lobbysettings.grace_period')}
+					description={t('settings.lobbysettings.grace_period_description')}
+					disabled={disabled || !values.meetingGhostOnly}
+					disabledReason={values.meetingGhostOnly ? disabledReason : t('settings.lobbysettings.meetings_only_requires')}
+					value={values.gracePeriod}
+					min={GRACE_PERIOD_MIN}
+					max={GRACE_PERIOD_MAX}
+					step={GRACE_PERIOD_STEP}
+					format={(value) => `${value.toFixed(1)}s`}
+					onChange={(gracePeriod) => update({ gracePeriod })}
 				/>
 			</SettingsSection>
 

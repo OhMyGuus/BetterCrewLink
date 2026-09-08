@@ -515,7 +515,8 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 		activeLobbySettings: ILobbySettings,
 		me: Player,
 		other: Player,
-		impostorRadioClientId: number
+		impostorRadioClientId: number,
+		inGracePeriod: boolean
 	): number | null {
 		const peer = this.peers.get(peerId);
 		const destination = this.masterGain;
@@ -530,6 +531,7 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 			other,
 			maxDistance: this.maxDistance,
 			impostorRadioClientId,
+			inGracePeriod,
 		});
 
 		if (result.panMaxDistance !== null) {

@@ -54,6 +54,8 @@ export interface ILobbySettings {
 	commsSabotage: boolean;
 	deadOnly: boolean;
 	meetingGhostOnly: boolean;
+	ghostsCanTalkIngame: boolean;
+	gracePeriod: number;
 	hearThroughCameras: boolean;
 	wallsBlockAudio: boolean;
 	publicLobby_on: boolean;

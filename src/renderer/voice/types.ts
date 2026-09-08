@@ -55,11 +55,23 @@ export const defaultLobbySettings: ILobbySettings = {
 	hearThroughCameras: false,
 	wallsBlockAudio: false,
 	meetingGhostOnly: false,
+	ghostsCanTalkIngame: false,
+	gracePeriod: 0,
 	visionHearing: false,
 	publicLobby_on: false,
 	publicLobby_title: '',
 	publicLobby_language: 'en',
 };
+
+export const GRACE_PERIOD_MIN = 0;
+export const GRACE_PERIOD_MAX = 10;
+export const GRACE_PERIOD_STEP = 0.5;
+
+export function clampGracePeriod(value: unknown): number {
+	const seconds = Number(value);
+	if (!Number.isFinite(seconds)) return GRACE_PERIOD_MIN;
+	return Math.min(Math.max(seconds, GRACE_PERIOD_MIN), GRACE_PERIOD_MAX);
+}
 
 export interface VoiceSnapshot {
 	connected: boolean;

@@ -11,7 +11,7 @@ import SettingsStore from '../settings/SettingsStore';
 import { gameStore } from '../state/gameStore';
 import { AudioController } from './AudioController';
 import { ConnectionController } from './ConnectionController';
-import { defaultLobbySettings, VoiceSnapshot } from './types';
+import { clampGracePeriod, defaultLobbySettings, VoiceSnapshot } from './types';
 // @ts-ignore
 import radioOnSound from '../../../static/sounds/radio_on.wav';
 // @ts-ignore
@@ -124,6 +124,8 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 	private playerConfigs: playerConfigMap = {};
 	private impostorRadioPressed = false;
 	private radioTransmitting = false;
+	/** Wall-clock deadline of the running grace period; 0 when none is running. */
+	private gracePeriodEndsAt = 0;
 
 	private host: HostInfo = emptyHost();
 
@@ -356,7 +358,9 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 
 		if (Object.prototype.hasOwnProperty.call(data, 'maxDistance')) {
 			if (this.host.parsedHostId !== this.connection.getClient(peerId)?.clientId) return;
-			this.patch({ activeLobbySettings: { ...defaultLobbySettings, ...data } as ILobbySettings });
+			const received = { ...defaultLobbySettings, ...data } as ILobbySettings;
+			received.gracePeriod = clampGracePeriod(received.gracePeriod);
+			this.patch({ activeLobbySettings: received });
 		}
 	}
 
@@ -531,6 +535,8 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		const previous = this.prev.gameState;
 		this.prev.gameState = state.gameState;
 
+		this.updateGracePeriod(state.gameState, previous);
+
 		if (state.gameState === GameState.LOBBY) {
 			this.patch({ otherDead: {} });
 		} else if (state.gameState !== GameState.TASKS && state.players) {
@@ -562,6 +568,19 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 			this.connection.leaveLobby();
 			this.patch({ otherDead: {} });
 		}
+	}
+
+	private updateGracePeriod(current: GameState, previous: GameState): void {
+		if (current === GameState.LOBBY || current === GameState.MENU || current === GameState.UNKNOWN) {
+			this.gracePeriodEndsAt = 0;
+			return;
+		}
+		if (current !== GameState.TASKS) return;
+		if (previous !== GameState.LOBBY && previous !== GameState.DISCUSSION) return;
+
+		const settings = this.activeLobbySettings;
+		if (!settings.meetingGhostOnly || settings.gracePeriod <= 0) return;
+		this.gracePeriodEndsAt = Date.now() + settings.gracePeriod * 1000;
 	}
 
 	private handleLobbyConnection(state: AmongUsState, myPlayer: Player | undefined): void {
@@ -728,6 +747,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 
 		const settings = SettingsStore.store;
 		const activeLobbySettings = this.activeLobbySettings;
+		const inGracePeriod = this.gracePeriodEndsAt > Date.now();
 		const playerSocketIds = this.connection.playerSocketIds;
 		const handledPeerIds: string[] = [];
 		const otherTalking = { ...this.snapshot.otherTalking };
@@ -746,7 +766,8 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 				activeLobbySettings,
 				myPlayer,
 				player,
-				this.snapshot.impostorRadioClientId
+				this.snapshot.impostorRadioClientId,
+				inGracePeriod
 			);
 			if (gain === null) continue;
 
