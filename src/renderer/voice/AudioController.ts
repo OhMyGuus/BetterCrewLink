@@ -584,21 +584,10 @@ function rebuildEffectChain(
 	}
 }
 
-/**
- * Only the release is ramped, the way a noise gate is built.
- *
- * When the gate closes the microphone signal is still mid-decay, so cutting it to zero is a step
- * the size of whatever you were saying - that is the click the other players hear at the end of
- * every sentence. When it opens the signal is by definition close to silence, so there is nothing
- * to smooth, and a fade-in would only soften the first consonant of every word on top of the
- * delay the voice detector already costs.
- */
 const MICROPHONE_RELEASE_SECONDS = 0.02;
 
 function openMicrophoneGate(node: GainNode, level: number): void {
 	const now = node.context.currentTime;
-	// Cancels a release still in flight. Without it that ramp keeps running to zero and mutes the
-	// word that just re-opened the gate, because scheduled events outlive a plain value write.
 	node.gain.cancelScheduledValues(now);
 	node.gain.setValueAtTime(level, now);
 }
