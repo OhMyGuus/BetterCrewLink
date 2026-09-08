@@ -172,13 +172,13 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 			onVoiceStart: () => {
 				const current = SettingsStore.store;
 				if (this.microphoneGain && current.micSensitivityEnabled && !current.autoGainControl) {
-					this.microphoneGain.gain.value = current.microphoneGainEnabled ? current.microphoneGain / 100 : 1;
+					openMicrophoneGate(this.microphoneGain, current.microphoneGainEnabled ? current.microphoneGain / 100 : 1);
 				}
 				this.emit('talking', true);
 			},
 			onVoiceStop: () => {
 				if (this.microphoneGain && SettingsStore.store.micSensitivityEnabled && !SettingsStore.store.autoGainControl) {
-					this.microphoneGain.gain.value = 0;
+					closeMicrophoneGate(this.microphoneGain);
 				}
 				this.emit('talking', false);
 			},
@@ -582,4 +582,32 @@ function rebuildEffectChain(
 			/* destination already gone */
 		}
 	}
+}
+
+/**
+ * Only the release is ramped, the way a noise gate is built.
+ *
+ * When the gate closes the microphone signal is still mid-decay, so cutting it to zero is a step
+ * the size of whatever you were saying - that is the click the other players hear at the end of
+ * every sentence. When it opens the signal is by definition close to silence, so there is nothing
+ * to smooth, and a fade-in would only soften the first consonant of every word on top of the
+ * delay the voice detector already costs.
+ */
+const MICROPHONE_RELEASE_SECONDS = 0.02;
+
+function openMicrophoneGate(node: GainNode, level: number): void {
+	const now = node.context.currentTime;
+	// Cancels a release still in flight. Without it that ramp keeps running to zero and mutes the
+	// word that just re-opened the gate, because scheduled events outlive a plain value write.
+	node.gain.cancelScheduledValues(now);
+	node.gain.setValueAtTime(level, now);
+}
+
+function closeMicrophoneGate(node: GainNode): void {
+	const current = node.gain.value;
+	if (current === 0) return;
+	const now = node.context.currentTime;
+	node.gain.cancelScheduledValues(now);
+	node.gain.setValueAtTime(current, now);
+	node.gain.linearRampToValueAtTime(0, now + MICROPHONE_RELEASE_SECONDS);
 }
