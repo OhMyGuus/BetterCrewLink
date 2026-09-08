@@ -20,6 +20,28 @@ const REVERB_URL = import.meta.env.DEV
 	? `${window.location.origin}/sounds/reverb.ogx`
 	: 'app://bundle/sounds/reverb.ogx';
 
+/**
+ * Peer gain is recomputed once per game frame and the game is read at 5 Hz, so every change -
+ * a player walking out of range, a meeting starting, a mute - lands as a step held for 200 ms.
+ * A step in gain is a discontinuity in the waveform, which is what a click is. Twenty
+ * milliseconds is long enough to remove it and far too short to hear as a fade.
+ */
+const GAIN_RAMP_SECONDS = 0.02;
+
+/**
+ * The current value is read before cancelling, so an in-flight ramp is continued from where it
+ * actually is rather than snapping back to the value the cancelled event started from.
+ */
+function rampGain(node: GainNode, target: number): void {
+	const param = node.gain;
+	const current = param.value;
+	if (current === target) return;
+	const now = node.context.currentTime;
+	param.cancelScheduledValues(now);
+	param.setValueAtTime(current, now);
+	param.linearRampToValueAtTime(target, now + GAIN_RAMP_SECONDS);
+}
+
 export class AudioController extends TypedEmitter<AudioControllerEvents> {
 	private started = false;
 	private startToken = 0;
@@ -476,21 +498,21 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 
 	silenceAllPeers(): void {
 		for (const peer of this.peers.values()) {
-			peer.gain.gain.value = 0;
+			rampGain(peer.gain, 0);
 		}
 	}
 
 	silencePeersExcept(peerIds: string[]): void {
 		for (const [peerId, peer] of this.peers) {
 			if (!peerIds.includes(peerId)) {
-				peer.gain.gain.value = 0;
+				rampGain(peer.gain, 0);
 			}
 		}
 	}
 
 	setPeerGain(peerId: string, gain: number): void {
 		const peer = this.peers.get(peerId);
-		if (peer) peer.gain.gain.value = gain;
+		if (peer) rampGain(peer.gain, gain);
 	}
 
 	/**
