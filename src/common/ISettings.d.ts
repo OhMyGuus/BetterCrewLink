@@ -55,7 +55,6 @@ export interface ILobbySettings {
 	deadOnly: boolean;
 	meetingGhostOnly: boolean;
 	ghostsCanTalkIngame: boolean;
-	/** Seconds of audio kept alive after a round starts. Only meaningful with `meetingGhostOnly`. */
 	gracePeriod: number;
 	hearThroughCameras: boolean;
 	wallsBlockAudio: boolean;
