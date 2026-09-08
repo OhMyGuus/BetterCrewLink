@@ -184,13 +184,13 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 			onVoiceStart: () => {
 				const current = SettingsStore.store;
 				if (this.microphoneGain && current.micSensitivityEnabled && !current.autoGainControl) {
-					this.microphoneGain.gain.value = current.microphoneGainEnabled ? current.microphoneGain / 100 : 1;
+					openMicrophoneGate(this.microphoneGain, current.microphoneGainEnabled ? current.microphoneGain / 100 : 1);
 				}
 				this.emit('talking', true);
 			},
 			onVoiceStop: () => {
 				if (this.microphoneGain && SettingsStore.store.micSensitivityEnabled && !SettingsStore.store.autoGainControl) {
-					this.microphoneGain.gain.value = 0;
+					closeMicrophoneGate(this.microphoneGain);
 				}
 				this.emit('talking', false);
 			},
@@ -594,4 +594,21 @@ function rebuildEffectChain(
 			/* destination already gone */
 		}
 	}
+}
+
+const MICROPHONE_RELEASE_SECONDS = 0.02;
+
+function openMicrophoneGate(node: GainNode, level: number): void {
+	const now = node.context.currentTime;
+	node.gain.cancelScheduledValues(now);
+	node.gain.setValueAtTime(level, now);
+}
+
+function closeMicrophoneGate(node: GainNode): void {
+	const current = node.gain.value;
+	if (current === 0) return;
+	const now = node.context.currentTime;
+	node.gain.cancelScheduledValues(now);
+	node.gain.setValueAtTime(current, now);
+	node.gain.linearRampToValueAtTime(0, now + MICROPHONE_RELEASE_SECONDS);
 }
