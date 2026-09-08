@@ -135,7 +135,7 @@ export class AudioController extends TypedEmitter<AudioControllerEvents> {
 			sampleRate: settings.oldSampleDebug ? 48000 : undefined,
 		};
 		if (settings.microphone.toLowerCase() !== 'default') {
-			constraints.deviceId = settings.microphone;
+			constraints.deviceId = { exact: settings.microphone };
 		}
 
 		let inputStream: MediaStream;
