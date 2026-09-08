@@ -360,9 +360,6 @@ export default class GameReader {
 					if (map !== MapType.MIRA_HQ) {
 						const allDoors = this.readMemory<number>('ptr', shipPtr, this.offsets.shipstatus_allDoors);
 						const doorCount = Math.min(this.readMemory<number>('int', allDoors, this.offsets.playerCount), 16);
-						// Fungle's doors are MushroomWallDoors, whose open flag sits at its own offset;
-						// two x64 bundles predate it, so fall back rather than read an undefined offset
-						// and report every doorway shut for the whole match.
 						const isOpenOffset =
 							map === MapType.FUNGLE
 								? (this.offsets.mushroomDoor_isOpen ?? this.offsets.door_isOpen)
@@ -372,8 +369,6 @@ export default class GameReader {
 								'ptr',
 								allDoors + this.offsets.playerAddrPtr + doorNr * (this.is_64bit ? 0x8 : 0x4)
 							);
-							// Passed as an argument rather than added into the address, so that a door
-							// pointer of 0 returns the default instead of reading 0x0 + offset.
 							const doorOpen = this.readMemory<number>('int', door, isOpenOffset) === 1;
 							//	const doorId = this.readMemory<number>('int', door + this.offsets.door_doorId);
 							//console.log(doorId);
