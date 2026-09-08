@@ -360,12 +360,16 @@ export default class GameReader {
 					if (map !== MapType.MIRA_HQ) {
 						const allDoors = this.readMemory<number>('ptr', shipPtr, this.offsets.shipstatus_allDoors);
 						const doorCount = Math.min(this.readMemory<number>('int', allDoors, this.offsets.playerCount), 16);
+						const isOpenOffset =
+							map === MapType.FUNGLE
+								? (this.offsets.mushroomDoor_isOpen ?? this.offsets.door_isOpen)
+								: this.offsets.door_isOpen;
 						for (let doorNr = 0; doorNr < doorCount; doorNr++) {
 							const door = this.readMemory<number>(
 								'ptr',
 								allDoors + this.offsets.playerAddrPtr + doorNr * (this.is_64bit ? 0x8 : 0x4)
 							);
-							const doorOpen = this.readMemory<number>('int', door + this.offsets.door_isOpen) === 1;
+							const doorOpen = this.readMemory<number>('int', door, isOpenOffset) === 1;
 							//	const doorId = this.readMemory<number>('int', door + this.offsets.door_doorId);
 							//console.log(doorId);
 							if (!doorOpen) {
