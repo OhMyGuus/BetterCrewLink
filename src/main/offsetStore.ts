@@ -36,7 +36,6 @@ export interface IOffsets {
 	shipstatus_allDoors: number[];
 	door_doorId: number;
 	door_isOpen: number;
-	/** Fungle only. Absent from the two x64 bundles that predate it. */
 	mushroomDoor_isOpen?: number;
 	deconDoorUpperOpen: number[];
 	deconDoorLowerOpen: number[];
