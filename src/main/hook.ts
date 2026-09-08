@@ -25,6 +25,7 @@ let impostorRadioShortcut: K | undefined;
 let keySender: WebContents | undefined;
 let pushToTalkHeld = false;
 let impostorRadioHeld = false;
+const toggleGrants = new Map<number, { mute: boolean; deafen: boolean }>();
 
 function releaseHeldKeys(): void {
 	if (pushToTalkHeld) {
@@ -43,7 +44,6 @@ function resetKeyHooks(): void {
 	deafenShortcut = store.get('deafenShortcut', 'RControl') as K;
 	muteShortcut = store.get('muteShortcut', 'RAlt') as K;
 	impostorRadioShortcut = store.get('impostorRadioShortcut', 'F') as K;
-	keyboardWatcher.clearKeyHooks();
 	addKeyHandler(pushToTalkShortcut);
 	addKeyHandler(deafenShortcut);
 	addKeyHandler(muteShortcut);
@@ -96,6 +96,12 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 				impostorRadioHeld = true;
 				event.sender.send(IpcRendererMessages.IMPOSTOR_RADIO, true);
 			}
+			if (!toggleGrants.has(keyId)) {
+				toggleGrants.set(keyId, {
+					mute: keyCodeMatches(muteShortcut!, keyId),
+					deafen: keyCodeMatches(deafenShortcut!, keyId),
+				});
+			}
 		});
 
 		keyboardWatcher.on('keyup', (keyId: number) => {
@@ -103,10 +109,12 @@ ipcMain.handle(IpcHandlerMessages.START_HOOK, async (event) => {
 				pushToTalkHeld = false;
 				event.sender.send(IpcRendererMessages.PUSH_TO_TALK, false);
 			}
-			if (keyCodeMatches(deafenShortcut!, keyId)) {
+			const grant = toggleGrants.get(keyId);
+			toggleGrants.delete(keyId);
+			if (grant?.deafen) {
 				event.sender.send(IpcRendererMessages.TOGGLE_DEAFEN);
 			}
-			if (keyCodeMatches(muteShortcut!, keyId)) {
+			if (grant?.mute) {
 				event.sender.send(IpcRendererMessages.TOGGLE_MUTE);
 			}
 			if (keyCodeMatches(impostorRadioShortcut!, keyId) && impostorRadioHeld) {
