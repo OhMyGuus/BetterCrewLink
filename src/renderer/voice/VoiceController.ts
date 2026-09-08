@@ -570,14 +570,6 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		}
 	}
 
-	/**
-	 * Keeps voices alive for a moment after a round starts, so "Meetings/Lobby Only" does not cut
-	 * everyone off mid-sentence. Only transitions *into* TASKS are stamped: a meeting already lets
-	 * everyone talk, so a grace period entering DISCUSSION would have nothing to do.
-	 *
-	 * The deadline is fixed here rather than recomputed from a start time, so a host moving the
-	 * slider later in the round cannot re-open a window that has already closed.
-	 */
 	private updateGracePeriod(current: GameState, previous: GameState): void {
 		if (current === GameState.LOBBY || current === GameState.MENU) {
 			this.gracePeriodEndsAt = 0;

@@ -67,11 +67,6 @@ export const GRACE_PERIOD_MIN = 0;
 export const GRACE_PERIOD_MAX = 10;
 export const GRACE_PERIOD_STEP = 0.5;
 
-/**
- * Lobby settings arrive from the host over the data channel, so the slider's range is not a
- * guarantee: an out-of-range grace period would keep the window open for the whole round and
- * turn "Meetings/Lobby Only" into a no-op for everyone.
- */
 export function clampGracePeriod(value: unknown): number {
 	const seconds = Number(value);
 	if (!Number.isFinite(seconds)) return GRACE_PERIOD_MIN;

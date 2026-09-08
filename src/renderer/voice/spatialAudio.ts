@@ -17,10 +17,6 @@ export interface VoiceAudioInput {
 	other: Player;
 	maxDistance: number;
 	impostorRadioClientId: number;
-	/**
-	 * True while the round's grace period is still running. Decided by the caller so this stays a
-	 * pure function of its input, and so the deadline is read once per frame rather than per peer.
-	 */
 	inGracePeriod: boolean;
 }
 
@@ -83,8 +79,6 @@ export function calculateVoiceAudio(input: VoiceAudioInput): VoiceAudioResult {
 				} else if (!inGracePeriod) {
 					endGain = 0;
 				}
-				// Nothing here lets the living hear the dead, grace period included: the haunting
-				// branch below zeroes that combination for every case that reaches it.
 			}
 			if (!me.isDead && activeLobbySettings.commsSabotage && state.comsSabotaged && !me.isImpostor) {
 				endGain = 0;

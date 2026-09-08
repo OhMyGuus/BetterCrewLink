@@ -36,9 +36,6 @@ interface RowsProps {
 }
 
 const LobbySettingRows: React.FC<RowsProps> = function ({ t, values, disabled, disabledReason, update, confirm }) {
-	// Both sub-settings below only mean anything inside Meetings/Lobby Only, so every path that
-	// leaves that mode has to clear them. Otherwise they stay in the buffer, get broadcast to the
-	// lobby, and silently come back the next time the host re-enables the mode.
 	const meetingsOnlyCleared: Partial<ILobbySettings> = { ghostsCanTalkIngame: false, gracePeriod: 0 };
 
 	const toggles: { key: keyof ILobbySettings; label: string }[] = [
