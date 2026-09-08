@@ -570,11 +570,11 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		}
 	}
 
-private updateGracePeriod(current: GameState, previous: GameState): void {
-	if (current === GameState.LOBBY || current === GameState.MENU || current === GameState.UNKNOWN) {
-		this.gracePeriodEndsAt = 0;
-		return;
-	}
+	private updateGracePeriod(current: GameState, previous: GameState): void {
+		if (current === GameState.LOBBY || current === GameState.MENU || current === GameState.UNKNOWN) {
+			this.gracePeriodEndsAt = 0;
+			return;
+		}
 		if (current !== GameState.TASKS) return;
 		if (previous !== GameState.LOBBY && previous !== GameState.DISCUSSION) return;
 
