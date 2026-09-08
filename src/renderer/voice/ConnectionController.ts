@@ -425,7 +425,18 @@ export class ConnectionController extends TypedEmitter<ConnectionControllerEvent
 		}
 		this.setClients(clients);
 
-		const config = SettingsStore.store.natFix ? DEFAULT_ICE_CONFIG_TURN : this.iceConfig;
+		// The NAT fix means "route everything through a relay", not "route everything through
+		// this particular relay". Substituting the constant throws away what the server sent,
+		// so a self-hosted deployment with its own relay has its players' audio sent through
+		// turn.bettercrewl.ink instead -- and any transport, port or credential that operator
+		// configured is discarded with it. Force the policy onto the list we were given, and
+		// fall back to the built-in relay only when the server offered none to force through.
+		const serverAdvertisesRelay = (this.iceConfig.iceServers ?? []).some((server) => isRelayUrl(server.urls));
+		const config: RTCConfiguration = SettingsStore.store.natFix
+			? serverAdvertisesRelay
+				? { ...this.iceConfig, iceTransportPolicy: 'relay' }
+				: DEFAULT_ICE_CONFIG_TURN
+			: this.iceConfig;
 		const connection = new PeerConnection({
 			stream: this.stream as MediaStream,
 			initiator,
