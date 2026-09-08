@@ -25,10 +25,6 @@ let impostorRadioShortcut: K | undefined;
 let keySender: WebContents | undefined;
 let pushToTalkHeld = false;
 let impostorRadioHeld = false;
-// Whether the key that is currently down was bound to mute or deafen at the moment it went
-// down. The toggles are fired from this rather than from the bindings as they stand at
-// keyup, because a binding can be reassigned while its key is still held -- which is
-// exactly what happens when a player assigns one of these shortcuts.
 const toggleGrants = new Map<number, { mute: boolean; deafen: boolean }>();
 
 function releaseHeldKeys(): void {
@@ -48,18 +44,6 @@ function resetKeyHooks(): void {
 	deafenShortcut = store.get('deafenShortcut', 'RControl') as K;
 	muteShortcut = store.get('muteShortcut', 'RAlt') as K;
 	impostorRadioShortcut = store.get('impostorRadioShortcut', 'F') as K;
-	// Deliberately no clearKeyHooks() here. The watcher polls, and its map is what it
-	// compares against: clearing re-seeds every key as up, so the next poll invents a
-	// keydown for any key that is physically down at that moment, and loses the keyup for
-	// any key it was already tracking. The invented press is what fires mute or deafen the
-	// instant one of them is assigned. (The lost release used to leave the microphone open
-	// as well; releaseHeldKeys above now covers that.)
-	//
-	// addKeyHook ignores a key already in the map, so re-applying the shortcuts leaves
-	// every key exactly as the watcher last saw it. The cost is that a key which stops
-	// being a shortcut keeps being polled until exit; it matches no binding, so nothing
-	// acts on it. The addon offers no way to unhook a single key -- its RemoveKeyHandler
-	// is an empty function -- which is why this used to wipe everything.
 	addKeyHandler(pushToTalkShortcut);
 	addKeyHandler(deafenShortcut);
 	addKeyHandler(muteShortcut);

@@ -90,12 +90,6 @@ const ShortcutField: React.FC<ShortcutFieldProps> = function ({
 			aria-label={label}
 			onFocus={onStartRecording}
 			onBlur={onStopRecording}
-			// Captured on the way down, committed on the way up. The key watcher polls
-			// GetAsyncKeyState against a map it seeds as up, so hooking a key while it is
-			// physically held makes the next poll report a press the user never gave -- and
-			// its release then fires the shortcut that was just assigned. Waiting for the
-			// release is the only way to hook it in a state the watcher will agree with,
-			// because the main process cannot ask whether a key is down.
 			onKeyDown={(ev) => {
 				if (ev.key === 'Tab') return;
 				ev.preventDefault();
@@ -115,8 +109,6 @@ const ShortcutField: React.FC<ShortcutFieldProps> = function ({
 			}}
 			onMouseDown={(ev) => {
 				if (recording && ev.button > 2) {
-					// Committed on mouseup, for the reason above -- the extra mouse buttons
-					// are polled by the same watcher.
 					ev.preventDefault();
 					return;
 				}
