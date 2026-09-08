@@ -140,14 +140,6 @@ const BASE_URL_error = 'https://cdn.jsdelivr.net/gh/OhMyGuus/BetterCrewlink-Offs
 const store = new Store<IOffsetsStore>({ name: 'offsets' });
 const lookupStore = new Store<IOffsetsLookup>({ name: 'lookup' });
 
-// One attempt per host and nothing else used to stand between a working install and an
-// error message. Two things went wrong with that. A non-200 was handed to response.json()
-// as if it were the payload, so whether a 404 or a rate-limit page threw depended on what
-// the host happened to return; and raw.githubusercontent.com rate limits per IP, so a
-// household where several people start the game at once, or anyone behind a shared
-// address, could be turned away and told to check their internet connection. Both hosts
-// are tried, then tried again after a pause, and a request that hangs is cut off rather
-// than holding up the start.
 const FETCH_TIMEOUT = 10000;
 const FETCH_ROUNDS = 3;
 const RETRY_DELAY = 1500;
