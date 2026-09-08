@@ -50,7 +50,7 @@
 		"node-keyboard-watcher": "github:OhMyGuus/node-keyboard-watcher#v1.0.6",
 		"process": "0.11.10",
 		"registry-js": "1.16.1",
-		"structron": "0.2.6",
+		"structron": "0.4.3",
 		"vdf-parser": "1.2.1"
 	},
 	"devDependencies": {
@@ -88,7 +88,7 @@
 		"source-code-pro": "2.42.0",
 		"typeface-varela": "1.1.13",
 		"typescript": "6.0.3",
-		"typescript-eslint": "8.69.0",
+		"typescript-eslint": "8.70.0",
 		"valid-url": "1.0.9",
 		"vite": "7.3.6"
 	},

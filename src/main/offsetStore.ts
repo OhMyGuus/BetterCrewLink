@@ -36,6 +36,7 @@ export interface IOffsets {
 	shipstatus_allDoors: number[];
 	door_doorId: number;
 	door_isOpen: number;
+	mushroomDoor_isOpen?: number;
 	deconDoorUpperOpen: number[];
 	deconDoorLowerOpen: number[];
 	hqHudSystemType_CompletedConsoles: number[];
@@ -140,25 +141,38 @@ const BASE_URL_error = 'https://cdn.jsdelivr.net/gh/OhMyGuus/BetterCrewlink-Offs
 const store = new Store<IOffsetsStore>({ name: 'offsets' });
 const lookupStore = new Store<IOffsetsLookup>({ name: 'lookup' });
 
-async function fetchOffsetLookupJson(error: boolean = false): Promise<IOffsetsLookup> {
-	const url = error ? BASE_URL_error : BASE_URL;
-	return fetch(`${url}/lookup.json`)
-		.then((response) => response.json())
-		.then((data) => {
-			return data as IOffsetsLookup;
-		})
-		.catch(() => {
-			if (!error) {
-				return fetchOffsetLookupJson(true);
-			} else {
-				throw Errors.LOOKUP_FETCH_ERROR;
+const FETCH_TIMEOUT = 10000;
+const FETCH_ROUNDS = 3;
+const RETRY_DELAY = 1500;
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function fetchJsonFromMirrors<T>(path: string, failure: string): Promise<T> {
+	let lastError: unknown;
+	for (let round = 0; round < FETCH_ROUNDS; round++) {
+		for (const base of [BASE_URL, BASE_URL_error]) {
+			try {
+				const response = await fetch(`${base}/${path}`, { signal: AbortSignal.timeout(FETCH_TIMEOUT) });
+				if (!response.ok) {
+					throw new Error(`${base}/${path} responded with HTTP ${response.status}`);
+				}
+				return (await response.json()) as T;
+			} catch (error) {
+				lastError = error;
+				console.warn('Offset fetch failed:', error instanceof Error ? error.message : String(error));
 			}
-		});
+		}
+		if (round < FETCH_ROUNDS - 1) {
+			await sleep(RETRY_DELAY * (round + 1));
+		}
+	}
+	console.warn(`Giving up on ${path}:`, lastError);
+	throw failure;
 }
 
 export async function fetchOffsetLookup(): Promise<IOffsetsLookup> {
 	try {
-		const lookups = await fetchOffsetLookupJson();
+		const lookups = await fetchJsonFromMirrors<IOffsetsLookup>('lookup.json', Errors.LOOKUP_FETCH_ERROR);
 		lookupStore.set(lookups);
 		return lookups;
 	} catch {
@@ -168,22 +182,6 @@ export async function fetchOffsetLookup(): Promise<IOffsetsLookup> {
 	}
 }
 
-async function fetchOffsetsJson(is_64bit: boolean, filename: string, error: boolean = false): Promise<IOffsets> {
-	const url = error ? BASE_URL_error : BASE_URL;
-	const OFFSETS_URL = `${url}/offsets`;
-	return fetch(`${OFFSETS_URL}/${is_64bit ? 'x64' : 'x86'}/${filename}`)
-		.then((response) => response.json())
-		.then((data) => {
-			return data as IOffsets;
-		})
-		.catch(() => {
-			if (!error) {
-				return fetchOffsetsJson(is_64bit, filename, true);
-			} else {
-				throw Errors.OFFSETS_FETCH_ERROR;
-			}
-		});
-}
 export async function fetchOffsets(is_64bit: boolean, filename: string, offsetsVersion: number): Promise<IOffsets> {
 	// offsetsVersion in case we need to update people's cached file
 	// >= version to allow testing with local file updates (eg remote vers 2, local vers 3)
@@ -196,7 +194,10 @@ export async function fetchOffsets(is_64bit: boolean, filename: string, offsetsV
 		console.log('Loading cached offsets');
 		return store.get('IOffsets');
 	}
-	const offsets = await fetchOffsetsJson(is_64bit, filename);
+	const offsets = await fetchJsonFromMirrors<IOffsets>(
+		`offsets/${is_64bit ? 'x64' : 'x86'}/${filename}`,
+		Errors.OFFSETS_FETCH_ERROR
+	);
 	store.set('filename', filename);
 	store.set('is_64bit', is_64bit);
 	store.set('offsetsVersion', offsetsVersion ? offsetsVersion : 0);

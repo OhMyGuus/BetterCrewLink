@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { TFunction } from 'i18next';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
@@ -80,6 +80,8 @@ const ShortcutField: React.FC<ShortcutFieldProps> = function ({
 	onStopRecording,
 	onCapture,
 }) {
+	// What the last key press captured, held until that key is released.
+	const pendingCapture = useRef<string | null>(null);
 	const unset = !value || value === 'Disabled';
 	return (
 		<Box
@@ -91,13 +93,23 @@ const ShortcutField: React.FC<ShortcutFieldProps> = function ({
 			onKeyDown={(ev) => {
 				if (ev.key === 'Tab') return;
 				ev.preventDefault();
-				const captured = keyFromEvent(ev);
+				pendingCapture.current = keyFromEvent(ev) ?? null;
+			}}
+			onKeyUp={(ev) => {
+				if (ev.key === 'Tab') return;
+				ev.preventDefault();
+				const captured = pendingCapture.current;
+				pendingCapture.current = null;
 				if (captured) onCapture(captured);
+			}}
+			onMouseUp={(ev) => {
+				if (!recording || ev.button <= 2) return;
+				ev.preventDefault();
+				onCapture(`MouseButton${ev.button + 1}`);
 			}}
 			onMouseDown={(ev) => {
 				if (recording && ev.button > 2) {
 					ev.preventDefault();
-					onCapture(`MouseButton${ev.button + 1}`);
 					return;
 				}
 				if (ev.button !== 0) return;
