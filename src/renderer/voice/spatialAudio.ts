@@ -17,6 +17,11 @@ export interface VoiceAudioInput {
 	other: Player;
 	maxDistance: number;
 	impostorRadioClientId: number;
+	/**
+	 * True while the round's grace period is still running. Decided by the caller so this stays a
+	 * pure function of its input, and so the deadline is read once per frame rather than per peer.
+	 */
+	inGracePeriod: boolean;
 }
 
 /**
@@ -35,7 +40,7 @@ function distance(panPos: [number, number]): number {
 }
 
 export function calculateVoiceAudio(input: VoiceAudioInput): VoiceAudioResult {
-	const { state, settings, activeLobbySettings, me, other, maxDistance, impostorRadioClientId } = input;
+	const { state, settings, activeLobbySettings, me, other, maxDistance, impostorRadioClientId, inGracePeriod } = input;
 
 	const result: VoiceAudioResult = {
 		gain: 0,
@@ -72,7 +77,14 @@ export function calculateVoiceAudio(input: VoiceAudioInput): VoiceAudioResult {
 			endGain = 1;
 
 			if (activeLobbySettings.meetingGhostOnly) {
-				endGain = 0;
+				if (activeLobbySettings.ghostsCanTalkIngame && me.isDead && other.isDead) {
+					// Ghosts reach each other across the whole map, the way everyone does in a meeting.
+					skipDistanceCheck = true;
+				} else if (!inGracePeriod) {
+					endGain = 0;
+				}
+				// Nothing here lets the living hear the dead, grace period included: the haunting
+				// branch below zeroes that combination for every case that reaches it.
 			}
 			if (!me.isDead && activeLobbySettings.commsSabotage && state.comsSabotaged && !me.isImpostor) {
 				endGain = 0;

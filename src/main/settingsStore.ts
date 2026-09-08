@@ -284,6 +284,14 @@ export const settingsStore = new Store<ISettings>({
 					type: 'boolean',
 					default: false,
 				},
+				ghostsCanTalkIngame: {
+					type: 'boolean',
+					default: false,
+				},
+				gracePeriod: {
+					type: 'number',
+					default: 0,
+				},
 				visionHearing: {
 					type: 'boolean',
 					default: false,
@@ -322,6 +330,8 @@ export const settingsStore = new Store<ISettings>({
 				wallsBlockAudio: false,
 				deadOnly: false,
 				meetingGhostOnly: false,
+				ghostsCanTalkIngame: false,
+				gracePeriod: 0,
 				visionHearing: false,
 				publicLobby_on: false,
 				publicLobby_title: '',
