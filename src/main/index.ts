@@ -88,22 +88,23 @@ function fetchWithin(baseDir: string, requestPath: string) {
 }
 
 function createMainWindow() {
-	const mainWindowState = windowStateKeeper({});
+	const mainWindowState = windowStateKeeper({
+		defaultWidth: 250,
+		defaultHeight: 350,
+	});
 
 	const window = new BrowserWindow({
 		title: 'BetterCrewLink',
-		width: 250,
-		height: 350,
-		maxWidth: 250,
+		width: mainWindowState.width,
+		height: mainWindowState.height,
 		minWidth: 250,
-		maxHeight: 350,
 		minHeight: 350,
 		x: mainWindowState.x,
 		y: mainWindowState.y,
-		resizable: false,
+		resizable: true,
 		frame: false,
 		fullscreenable: false,
-		maximizable: false,
+		maximizable: true,
 		webPreferences: {
 			contextIsolation: true,
 			nodeIntegration: false,
