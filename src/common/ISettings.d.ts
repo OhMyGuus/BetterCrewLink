@@ -35,7 +35,7 @@ export interface ISettings {
 
 	enableSpatialAudio: boolean;
 	oldSampleDebug: boolean;
-	playerConfigMap: playerConfigMap;
+	playerConfigs: playerConfigs;
 	obsOverlay: boolean;
 	obsSecret: string | undefined;
 
@@ -66,9 +66,12 @@ export interface ILobbySettings {
 export interface SocketConfig {
 	volume: number;
 	isMuted: boolean;
-	lastUsed?: number;
 }
 
-export interface playerConfigMap {
-	[socketId: number]: SocketConfig;
+export interface StoredPlayerConfig extends SocketConfig {
+	index: number;
+}
+
+export interface playerConfigs {
+	[playerConfigId: number]: StoredPlayerConfig;
 }

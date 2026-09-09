@@ -44,11 +44,11 @@ export async function initSettings(): Promise<ISettings> {
 	return currentSettings;
 }
 
-type ISettingOrSocketConfig<K extends keyof ISettings | `playerConfigMap.${number}`> = K extends keyof ISettings
+type ISettingOrSocketConfig<K extends keyof ISettings | `playerConfigs.${number}`> = K extends keyof ISettings
 	? ISettings[K]
 	: SocketConfig;
 
-export const setSetting = <K extends keyof ISettings | `playerConfigMap.${number}`>(
+export const setSetting = <K extends keyof ISettings | `playerConfigs.${number}`>(
 	setting: K,
 	value: ISettingOrSocketConfig<K>,
 	persist = true

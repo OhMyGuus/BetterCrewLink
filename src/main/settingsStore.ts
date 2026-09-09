@@ -1,10 +1,13 @@
 import Store from 'electron-store';
 import { ipcMain, BrowserWindow } from 'electron';
 import { GamePlatform } from '../common/GamePlatform';
-import { ILobbySettings, ISettings, playerConfigMap, SocketConfig } from '../common/ISettings';
+import { ILobbySettings, ISettings, playerConfigs, SocketConfig, StoredPlayerConfig } from '../common/ISettings';
 import { pushToTalkOptions } from '../common/pushToTalkOptions';
 
 export { pushToTalkOptions };
+
+const PLAYER_CONFIG_PREFIX = 'playerConfigs.';
+const PLAYER_CONFIG_LIMIT = 200;
 
 export const settingsStore = new Store<ISettings>({
 	migrations: {
@@ -95,6 +98,17 @@ export const settingsStore = new Store<ISettings>({
 		},
 		'3.1.5': (store) => {
 			store.set('playerConfigMap', {});
+		},
+		'3.2.3': (store) => {
+			if (Object.keys(store.get('playerConfigs', {})).length > 0) return;
+			// @ts-ignore
+			const legacy = (store.get('playerConfigMap', {}) ?? {}) as Record<string, SocketConfig>;
+			const carried = Object.entries(legacy)
+				.slice(0, PLAYER_CONFIG_LIMIT)
+				.map(([id, config], index) => [id, { volume: config.volume, isMuted: config.isMuted, index }]);
+			store.set('playerConfigs', Object.fromEntries(carried) as playerConfigs);
+			// @ts-ignore
+			store.delete('playerConfigMap');
 		},
 	},
 	schema: {
@@ -228,7 +242,7 @@ export const settingsStore = new Store<ISettings>({
 			type: 'boolean',
 			default: false,
 		},
-		playerConfigMap: {
+		playerConfigs: {
 			type: 'object',
 			default: {},
 			additionalProperties: {
@@ -241,6 +255,10 @@ export const settingsStore = new Store<ISettings>({
 					isMuted: {
 						type: 'boolean',
 						default: false,
+					},
+					index: {
+						type: 'number',
+						default: 0,
 					},
 				},
 			},
@@ -396,15 +414,21 @@ adoptLegacyLobbySettings();
 
 const unsavedSettings = new Map<string, unknown>();
 
-const PLAYER_CONFIG_PREFIX = 'playerConfigMap.';
-const PLAYER_CONFIG_LIMIT = 200;
+function storedPlayerConfigs(): [string, StoredPlayerConfig][] {
+	return Object.entries(settingsStore.get('playerConfigs', {}) as playerConfigs);
+}
+
+function nextPlayerConfigIndex(): number {
+	let highest = -1;
+	for (const [, config] of storedPlayerConfigs()) if ((config?.index ?? -1) > highest) highest = config.index;
+	return highest + 1;
+}
 
 function evictOldestPlayerConfigs(): void {
-	const map = settingsStore.get('playerConfigMap', {}) as playerConfigMap;
-	const entries = Object.entries(map) as [string, SocketConfig][];
+	const entries = storedPlayerConfigs();
 	if (entries.length <= PLAYER_CONFIG_LIMIT) return;
-	const kept = entries.sort(([, a], [, b]) => (b?.lastUsed ?? 0) - (a?.lastUsed ?? 0)).slice(0, PLAYER_CONFIG_LIMIT);
-	settingsStore.set('playerConfigMap', Object.fromEntries(kept) as playerConfigMap);
+	const kept = entries.sort(([, a], [, b]) => (b?.index ?? 0) - (a?.index ?? 0)).slice(0, PLAYER_CONFIG_LIMIT);
+	settingsStore.set('playerConfigs', Object.fromEntries(kept) as playerConfigs);
 }
 
 function assignPath(target: Record<string, unknown>, path: string, value: unknown): void {
@@ -445,7 +469,7 @@ export function initSettingsIpc(): void {
 		if (persist) {
 			unsavedSettings.delete(key);
 			if (key.startsWith(PLAYER_CONFIG_PREFIX)) {
-				settingsStore.set(key as never, { ...(value as SocketConfig), lastUsed: Date.now() } as never);
+				settingsStore.set(key as never, { ...(value as SocketConfig), index: nextPlayerConfigIndex() } as never);
 				evictOldestPlayerConfigs();
 			} else {
 				settingsStore.set(key as never, value as never);

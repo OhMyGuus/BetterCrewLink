@@ -86,11 +86,10 @@ const PlayersSection: React.FC<PlayersSectionProps> = function ({ t, gameState, 
 		return <Alert severity="info">{t('settings.players.empty')}</Alert>;
 	}
 
-	const configFor = (player: Player): SocketConfig =>
-		settings.playerConfigMap?.[player.playerConfigId] ?? DEFAULT_CONFIG;
+	const configFor = (player: Player): SocketConfig => settings.playerConfigs?.[player.playerConfigId] ?? DEFAULT_CONFIG;
 
 	const updateConfig = (player: Player, partial: Partial<SocketConfig>, persist = true) => {
-		setSetting(`playerConfigMap.${player.playerConfigId}`, { ...configFor(player), ...partial }, persist);
+		setSetting(`playerConfigs.${player.playerConfigId}`, { ...configFor(player), ...partial }, persist);
 	};
 
 	return (
