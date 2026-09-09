@@ -53,7 +53,11 @@ export const setSetting = <K extends keyof ISettings | `playerConfigMap.${number
 	value: ISettingOrSocketConfig<K>,
 	persist = true
 ): void => {
-	SettingsStore.set(setting as string, value, persist);
+	const stored =
+		typeof setting === 'string' && setting.startsWith('playerConfigMap.')
+			? { ...(value as SocketConfig), lastUsed: Date.now() }
+			: value;
+	SettingsStore.set(setting as string, stored, persist);
 };
 
 export default SettingsStore;

@@ -66,6 +66,7 @@ export interface ILobbySettings {
 export interface SocketConfig {
 	volume: number;
 	isMuted: boolean;
+	lastUsed?: number;
 }
 
 export interface playerConfigMap {
