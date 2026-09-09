@@ -1,7 +1,7 @@
 import Store from 'electron-store';
 import { ipcMain, BrowserWindow } from 'electron';
 import { GamePlatform } from '../common/GamePlatform';
-import { ILobbySettings, ISettings } from '../common/ISettings';
+import { ILobbySettings, ISettings, playerConfigMap, SocketConfig } from '../common/ISettings';
 import { pushToTalkOptions } from '../common/pushToTalkOptions';
 
 export { pushToTalkOptions };
@@ -396,6 +396,17 @@ adoptLegacyLobbySettings();
 
 const unsavedSettings = new Map<string, unknown>();
 
+const PLAYER_CONFIG_PREFIX = 'playerConfigMap.';
+const PLAYER_CONFIG_LIMIT = 200;
+
+function evictOldestPlayerConfigs(): void {
+	const map = settingsStore.get('playerConfigMap', {}) as playerConfigMap;
+	const entries = Object.entries(map) as [string, SocketConfig][];
+	if (entries.length <= PLAYER_CONFIG_LIMIT) return;
+	const kept = entries.sort(([, a], [, b]) => (b?.lastUsed ?? 0) - (a?.lastUsed ?? 0)).slice(0, PLAYER_CONFIG_LIMIT);
+	settingsStore.set('playerConfigMap', Object.fromEntries(kept) as playerConfigMap);
+}
+
 function assignPath(target: Record<string, unknown>, path: string, value: unknown): void {
 	const segments = path.split('.');
 	let cursor = target;
@@ -433,7 +444,12 @@ export function initSettingsIpc(): void {
 	ipcMain.on('settings:set', (_event, key: string, value: unknown, persist = true) => {
 		if (persist) {
 			unsavedSettings.delete(key);
-			settingsStore.set(key as never, value as never);
+			if (key.startsWith(PLAYER_CONFIG_PREFIX)) {
+				settingsStore.set(key as never, { ...(value as SocketConfig), lastUsed: Date.now() } as never);
+				evictOldestPlayerConfigs();
+			} else {
+				settingsStore.set(key as never, value as never);
+			}
 		} else {
 			unsavedSettings.set(key, value);
 		}

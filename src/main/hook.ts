@@ -3,22 +3,10 @@ import GameReader from './GameReader';
 import keyboardWatcherModule from 'node-keyboard-watcher';
 const { keyboardWatcher } = keyboardWatcherModule;
 import Store from 'electron-store';
-import { ISettings, playerConfigMap, SocketConfig } from '../common/ISettings';
+import { ISettings } from '../common/ISettings';
 import { IpcHandlerMessages, IpcMessages, IpcRendererMessages, IpcSyncMessages } from '../common/ipc-messages';
 
 const store = new Store<ISettings>();
-
-const PLAYER_CONFIG_LIMIT = 200;
-const currentPlayerConfigMap = store.get('playerConfigMap', {});
-const playerConfigEntries = Object.entries(currentPlayerConfigMap) as [string, SocketConfig][];
-console.log('CONFIG count: ', playerConfigEntries.length);
-if (playerConfigEntries.length > PLAYER_CONFIG_LIMIT) {
-	const kept = playerConfigEntries
-		.sort(([, a], [, b]) => (b?.lastUsed ?? 0) - (a?.lastUsed ?? 0))
-		.slice(0, PLAYER_CONFIG_LIMIT);
-	store.set('playerConfigMap', Object.fromEntries(kept) as playerConfigMap);
-	console.log('CONFIG pruned to: ', kept.length);
-}
 
 let readingGame = false;
 export let gameReader: GameReader;
