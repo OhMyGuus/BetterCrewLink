@@ -11,11 +11,13 @@ import SettingsStore from '../settings/SettingsStore';
 import { gameStore } from '../state/gameStore';
 import { AudioController } from './AudioController';
 import { ConnectionController } from './ConnectionController';
-import { clampGracePeriod, defaultLobbySettings, VoiceSnapshot } from './types';
+import { clampGracePeriod, defaultLobbySettings, ExtendedAudioElement, VoiceSnapshot } from './types';
 // @ts-ignore
 import radioOnSound from '../../../static/sounds/radio_on.wav';
 // @ts-ignore
 import radioOffSound from '../../../static/sounds/radio_beep2.wav';
+// @ts-ignore
+import muteCueSound from '../../../static/sounds/radio_beep1.wav';
 
 interface HostInfo {
 	map: MapType;
@@ -38,6 +40,36 @@ radioOnAudio.volume = 0.02;
 const radioOffAudio = new Audio();
 radioOffAudio.src = radioOffSound;
 radioOffAudio.volume = 0.09;
+
+function cueAudio(src: string, volume: number, rate: number): ExtendedAudioElement {
+	const audio = new Audio() as ExtendedAudioElement & { preservesPitch?: boolean };
+	audio.src = src;
+	audio.volume = volume;
+	audio.preservesPitch = false;
+	audio.playbackRate = rate;
+	return audio;
+}
+
+const mutedAudio = cueAudio(muteCueSound, 0.1, 0.8);
+const unmutedAudio = cueAudio(muteCueSound, 0.1, 1.3);
+const deafenedAudio = cueAudio(radioOffSound, 0.1, 0.8);
+const undeafenedAudio = cueAudio(radioOffSound, 0.1, 1.3);
+
+const cueAudios: ExtendedAudioElement[] = [
+	radioOnAudio as ExtendedAudioElement,
+	radioOffAudio as ExtendedAudioElement,
+	mutedAudio,
+	unmutedAudio,
+	deafenedAudio,
+	undeafenedAudio,
+];
+
+function setCueSink(speaker: string): void {
+	const sinkId = !speaker || speaker.toLowerCase() === 'default' ? '' : speaker;
+	for (const audio of cueAudios) {
+		void audio.setSinkId?.(sinkId)?.catch(() => undefined);
+	}
+}
 
 const OVERLAY_VOICE_KEYS: (keyof VoiceSnapshot)[] = [
 	'otherTalking',
@@ -124,6 +156,8 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 	private playerConfigs: playerConfigMap = {};
 	private impostorRadioPressed = false;
 	private radioTransmitting = false;
+	private cueMuted = false;
+	private cueDeafened = false;
 	/** Wall-clock deadline of the running grace period; 0 when none is running. */
 	private gracePeriodEndsAt = 0;
 
@@ -154,6 +188,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		this.prev.microphoneGain = settings.microphoneGain;
 		this.prev.micSensitivity = settings.micSensitivity;
 		this.prev.speaker = settings.speaker;
+		setCueSink(settings.speaker);
 		this.prev.inputSignature = VoiceController.inputSignature(settings);
 		this.prev.serverURL = settings.serverURL;
 		this.prev.myLobbySettings = settings.myLobbySettings;
@@ -272,7 +307,12 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 			})
 		);
 
-		add(this.audio.on('muteStateChanged', (muted, deafened) => this.patch({ muted, deafened })));
+		add(
+			this.audio.on('muteStateChanged', (muted, deafened) => {
+				this.playMuteCue(muted, deafened);
+				this.patch({ muted, deafened });
+			})
+		);
 
 		add(
 			this.audio.on('peerAudioReady', (peerId) => {
@@ -364,6 +404,20 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		}
 	}
 
+	private playMuteCue(muted: boolean, deafened: boolean): void {
+		const changedDeafen = deafened !== this.cueDeafened;
+		const changedMute = muted !== this.cueMuted;
+		this.cueMuted = muted;
+		this.cueDeafened = deafened;
+		if (!SettingsStore.store.muteCueSounds) return;
+		let cue: ExtendedAudioElement | undefined;
+		if (changedDeafen) cue = deafened ? deafenedAudio : undeafenedAudio;
+		else if (changedMute) cue = muted ? mutedAudio : unmutedAudio;
+		if (!cue) return;
+		cue.currentTime = 0;
+		void cue.play().catch(() => undefined);
+	}
+
 	private static inputSignature(settings: ISettings): string {
 		return [
 			settings.microphone,
@@ -412,6 +466,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		if (settings.speaker !== this.prev.speaker) {
 			this.prev.speaker = settings.speaker;
 			this.audio.setSpeaker(settings.speaker);
+			setCueSink(settings.speaker);
 		}
 
 		if (settings.microphoneGain !== this.prev.microphoneGain || settings.micSensitivity !== this.prev.micSensitivity) {

@@ -216,6 +216,10 @@ export const settingsStore = new Store<ISettings>({
 			type: 'boolean',
 			default: true,
 		},
+		muteCueSounds: {
+			type: 'boolean',
+			default: true,
+		},
 		noiseSuppression: {
 			type: 'boolean',
 			default: true,

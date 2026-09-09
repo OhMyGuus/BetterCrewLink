@@ -73,6 +73,7 @@
 				"title": "Audio",
 				"microphone": "Microphone",
 				"speaker": "Speaker",
+				"mute_cue_sounds": "Mute and deafen sounds",
 				"voice_activity": "Voice Activity",
 				"push_to_talk": "Push to Talk",
 				"push_to_mute": "Push to Mute",

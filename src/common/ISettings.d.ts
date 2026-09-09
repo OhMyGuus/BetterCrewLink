@@ -29,6 +29,7 @@ export interface ISettings {
 	mobileHost: boolean;
 	hardware_acceleration: boolean;
 	echoCancellation: boolean;
+	muteCueSounds: boolean;
 	noiseSuppression: boolean;
 	autoGainControl: boolean;
 	oldSampleDebug: boolean;
