@@ -72,7 +72,7 @@ export default class GameReader {
 	is_64bit = false;
 	is_linux = false;
 	oldGameState = GameState.UNKNOWN;
-	lastState: AmongUsState = {} as AmongUsState;
+	lastState: AmongUsState = { map: MapType.UNKNOWN, closedDoors: [] } as unknown as AmongUsState;
 	amongUs: ProcessObject | null = null;
 	gameAssembly: ModuleObject | null = null;
 	colorsInitialized = false;
@@ -283,8 +283,21 @@ export default class GameReader {
 					this.gameAssembly.modBaseAddr,
 					this.offsets.gameoptionsData
 				);
-				maxPlayers = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MaxPLayers);
-				map = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MapId);
+				const maxPlayersFromOptions = this.readMemory<number>(
+					'byte',
+					gameOptionsPtr,
+					this.offsets.gameOptions_MaxPLayers
+				);
+				if (typeof maxPlayersFromOptions === 'number') maxPlayers = maxPlayersFromOptions;
+
+				const mapFromOptions = this.readMemory<number>('byte', gameOptionsPtr, this.offsets.gameOptions_MapId);
+				if (typeof mapFromOptions === 'number') {
+					map = mapFromOptions;
+				} else {
+					const shipStatusPtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets.shipStatus);
+					const mapFromShip = this.readMemory<number>('byte', shipStatusPtr, this.offsets.shipStatus_map);
+					if (typeof mapFromShip === 'number') map = mapFromShip;
+				}
 				if (state === GameState.TASKS) {
 					const shipPtr = this.readMemory<number>('ptr', this.gameAssembly.modBaseAddr, this.offsets.shipStatus);
 
