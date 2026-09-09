@@ -27,7 +27,60 @@ const namedKeys = new Set([
 	'LAlt',
 	'RControl',
 	'LControl',
+	'Insert',
+	'PrintScreen',
+	'ScrollLock',
+	'Pause',
+	'NumLock',
+	'ContextMenu',
 ]);
+
+const positionalKeys = new Set([
+	'Semicolon',
+	'Equal',
+	'Comma',
+	'Minus',
+	'Period',
+	'Slash',
+	'Backquote',
+	'BracketLeft',
+	'Backslash',
+	'BracketRight',
+	'Quote',
+]);
+
+const numpadKeys = new Set([
+	'Numpad0',
+	'Numpad1',
+	'Numpad2',
+	'Numpad3',
+	'Numpad4',
+	'Numpad5',
+	'Numpad6',
+	'Numpad7',
+	'Numpad8',
+	'Numpad9',
+	'NumpadAdd',
+	'NumpadSubtract',
+	'NumpadMultiply',
+	'NumpadDivide',
+	'NumpadDecimal',
+	'NumpadEnter',
+]);
+
+const positionalGlyphs: Record<string, string> = {
+	Semicolon: ';',
+	Equal: '=',
+	Comma: ',',
+	Minus: '-',
+	Period: '.',
+	Slash: '/',
+	Backquote: '`',
+	BracketLeft: '[',
+	Backslash: '\\',
+	BracketRight: ']',
+	Quote: "'",
+};
 
 export type ShortcutSetting = 'pushToTalkShortcut' | 'impostorRadioShortcut' | 'muteShortcut' | 'deafenShortcut';
 
@@ -44,11 +97,17 @@ function keyFromEvent(ev: React.KeyboardEvent): string | undefined {
 	if (key === ' ') key = 'Space';
 
 	const code = ev.code;
-	if (code && code.startsWith('Numpad')) key = code;
+	if (code && (numpadKeys.has(code) || positionalKeys.has(code))) key = code;
 
 	if (key === 'Control' || key === 'Alt' || key === 'Shift') key = (ev.location === 1 ? 'L' : 'R') + key;
 
-	if (!/^[0-9A-Z]$/.test(key) && !/^F[0-9]{1,2}$/.test(key) && !namedKeys.has(key) && !key.startsWith('Numpad')) {
+	if (
+		!/^[0-9A-Z]$/.test(key) &&
+		!/^F([1-9]|1[0-9]|2[0-4])$/.test(key) &&
+		!namedKeys.has(key) &&
+		!numpadKeys.has(key) &&
+		!positionalKeys.has(key)
+	) {
 		return undefined;
 	}
 	return key === 'Escape' ? 'Disabled' : key;
@@ -58,7 +117,7 @@ function describeShortcut(value: string, t: TFunction): string {
 	if (!value || value === 'Disabled') return t('settings.keyboard.disabled');
 	const mouse = /^MouseButton(\d+)$/.exec(value);
 	if (mouse) return `Mouse ${mouse[1]}`;
-	return value;
+	return positionalGlyphs[value] ?? value;
 }
 
 interface ShortcutFieldProps {
