@@ -30,8 +30,7 @@ export const initializeIpcListeners = (): void => {
 
 		if (platform.launchType === PlatformRunType.URI) {
 			// Just open the URI if we can to launch the game
-			// TODO: Try to add error checking here
-			shell.openExternal(platform.runPath);
+			shell.openExternal(platform.runPath).catch(error);
 		} else if (platform.launchType === PlatformRunType.EXE) {
 			try {
 				const process = spawn(path.join(platform.runPath, platform.execute[0]), platform.execute.slice(1), {
