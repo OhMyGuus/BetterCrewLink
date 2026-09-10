@@ -565,7 +565,8 @@ function rebuildEffectChain(
 	wantReverb: boolean,
 	wantMuffle: boolean
 ): void {
-	if (peer.reverbConnected === wantReverb && peer.muffleConnected === wantMuffle) return;
+	const useReverb = wantReverb && peer.reverb.buffer !== null;
+	if (peer.reverbConnected === useReverb && peer.muffleConnected === wantMuffle) return;
 
 	for (const node of [peer.gain, peer.muffle, peer.reverb]) {
 		try {
@@ -577,14 +578,14 @@ function rebuildEffectChain(
 
 	const chain: AudioNode[] = [peer.gain];
 	if (wantMuffle) chain.push(peer.muffle);
-	if (wantReverb) chain.push(peer.reverb);
+	if (useReverb) chain.push(peer.reverb);
 	chain.push(destination);
 
 	try {
 		for (let index = 0; index < chain.length - 1; index++) {
 			chain[index].connect(chain[index + 1]);
 		}
-		peer.reverbConnected = wantReverb;
+		peer.reverbConnected = useReverb;
 		peer.muffleConnected = wantMuffle;
 	} catch (error) {
 		console.warn('Failed to rebuild audio effect chain', error);
