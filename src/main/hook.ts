@@ -8,13 +8,6 @@ import { IpcHandlerMessages, IpcMessages, IpcRendererMessages, IpcSyncMessages }
 
 const store = new Store<ISettings>();
 
-const currentPlayerConfigMap = store.get('playerConfigMap', {});
-const playerConfigMapLength = Object.keys(currentPlayerConfigMap).length;
-console.log('CONFIG count: ', playerConfigMapLength);
-if (playerConfigMapLength > 50) {
-	store.set('playerConfigMap', {});
-}
-
 let readingGame = false;
 export let gameReader: GameReader;
 

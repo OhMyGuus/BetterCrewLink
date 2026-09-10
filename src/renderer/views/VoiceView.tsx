@@ -112,7 +112,7 @@ const VoiceView: React.FC<VoiceProps> = function ({ t, error: initialError }: Vo
 		return gameState.players.filter((player) => !player.isLocal);
 	}, [gameState?.players, myPlayer]);
 
-	const playerConfigs = settings.playerConfigMap;
+	const playerConfigs = settings.playerConfigs;
 
 	let displayedLobbyCode = gameState.lobbyCode;
 	if (displayedLobbyCode !== 'MENU' && settings.hideCode) displayedLobbyCode = 'LOBBY';
@@ -233,7 +233,7 @@ const VoiceView: React.FC<VoiceProps> = function ({ t, error: initialError }: Vo
 											size={otherPlayerAvatarSize}
 											socketConfig={playerConfig}
 											onConfigChange={(config, persist) =>
-												setSetting(`playerConfigMap.${player.playerConfigId}`, config, persist)
+												setSetting(`playerConfigs.${player.playerConfigId}`, config, persist)
 											}
 											mod={gameState.mod}
 										/>

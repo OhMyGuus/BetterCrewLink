@@ -1,7 +1,7 @@
 import { AmongUsState, ClientBoolMap, GameState, Player } from '../../common/AmongUsState';
 import { MapType } from '../../common/AmongusMap';
 import { GameInfo } from '../../common/GameInfo';
-import { ILobbySettings, ISettings, playerConfigMap } from '../../common/ISettings';
+import { ILobbySettings, ISettings, playerConfigs } from '../../common/ISettings';
 import { IpcMessages, IpcOverlayMessages, IpcRendererMessages } from '../../common/ipc-messages';
 import { ObsVoiceState } from '../../common/ObsOverlay';
 import { VoiceState } from '../../common/AmongUsState';
@@ -121,7 +121,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 
 	private otherVAD: ClientBoolMap = {};
 	private localTalking = false;
-	private playerConfigs: playerConfigMap = {};
+	private playerConfigs: playerConfigs = {};
 	private impostorRadioPressed = false;
 	private radioTransmitting = false;
 	/** Wall-clock deadline of the running grace period; 0 when none is running. */
@@ -149,7 +149,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		const token = ++this.startToken;
 
 		const settings = SettingsStore.store;
-		this.playerConfigs = settings.playerConfigMap;
+		this.playerConfigs = settings.playerConfigs;
 		this.prev.pushToTalkMode = settings.pushToTalkMode;
 		this.prev.microphoneGain = settings.microphoneGain;
 		this.prev.micSensitivity = settings.micSensitivity;
@@ -391,7 +391,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 	}
 
 	private onSettings(settings: ISettings): void {
-		this.playerConfigs = settings.playerConfigMap;
+		this.playerConfigs = settings.playerConfigs;
 
 		const inputSignature = VoiceController.inputSignature(settings);
 		if (inputSignature !== this.prev.inputSignature) {
