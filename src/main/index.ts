@@ -15,12 +15,12 @@ import Store from 'electron-store';
 import { ISettings } from '../common/ISettings';
 import { gameReader } from './hook';
 import { GenerateHat } from './avatarGenerator';
+import { appVersion } from './appVersion';
 import minimist from 'minimist';
 const args = minimist(process.argv);
 const isDevelopment = !app.isPackaged;
 const devTools = (isDevelopment || args.dev === 1) && true;
 const { autoUpdater } = electronUpdater;
-const appVersion: string = isDevelopment ? 'DEV' : autoUpdater.currentVersion.version;
 
 app.userAgentFallback = `BetterCrewLink/${appVersion} (win32)`;
 
