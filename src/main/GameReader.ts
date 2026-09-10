@@ -353,9 +353,10 @@ export default class GameReader {
 					if (map !== MapType.MIRA_HQ) {
 						const allDoors = this.readMemory<number>('ptr', shipPtr, this.offsets.shipstatus_allDoors);
 						const doorCount = Math.min(this.readMemory<number>('int', allDoors, this.offsets.playerCount), 16);
+						const mushroomDoorIsOpen = this.offsets.mushroomDoor_isOpen;
 						const isOpenOffset =
-							map === MapType.FUNGLE
-								? (this.offsets.mushroomDoor_isOpen ?? this.offsets.door_isOpen)
+							map === MapType.FUNGLE && mushroomDoorIsOpen !== undefined && mushroomDoorIsOpen >= 0
+								? mushroomDoorIsOpen
 								: this.offsets.door_isOpen;
 						for (let doorNr = 0; doorNr < doorCount; doorNr++) {
 							const door = this.readMemory<number>(
