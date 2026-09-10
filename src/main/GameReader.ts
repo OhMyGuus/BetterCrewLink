@@ -26,14 +26,7 @@ import fs from 'fs';
 import path from 'path';
 import { AmongusMod, modList } from '../common/Mods';
 import { GameInfo } from '../common/GameInfo';
-import { app } from 'electron';
-
-let appVersion = '';
-if (process.env.NODE_ENV !== 'production') {
-	appVersion = 'DEV';
-} else {
-	appVersion = app.getVersion();
-}
+import { appVersion } from './appVersion';
 
 interface ValueType<T> {
 	read(buffer: BufferSource, offset: number): T;
