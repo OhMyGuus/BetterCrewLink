@@ -98,6 +98,11 @@ const AudioSection: React.FC<AudioSectionProps> = function ({
 						</Stack>
 					}
 				/>
+				<SwitchRow
+					label={t('settings.audio.mute_cue_sounds')}
+					checked={settings.muteCueSounds}
+					onChange={(checked) => setSettings('muteCueSounds', checked)}
+				/>
 			</SettingsSection>
 
 			<SettingsSection title={t('settings.audio.mode')}>
