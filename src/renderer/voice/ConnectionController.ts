@@ -52,6 +52,22 @@ function isRelayUrl(urls: RTCIceServer['urls']): boolean {
 	return ([] as string[]).concat(urls).some((url) => url.startsWith('turn:') || url.startsWith('turns:'));
 }
 
+function withTcpRelays(servers: RTCIceServer[]): RTCIceServer[] {
+	const advertised = new Set(servers.flatMap((server) => ([] as string[]).concat(server.urls).map(String)));
+	const out: RTCIceServer[] = [];
+	for (const server of servers) {
+		out.push(server);
+		for (const url of ([] as string[]).concat(server.urls).map(String)) {
+			if (!url.startsWith('turn:') || url.includes('transport=')) continue;
+			const overTcp = `${url}?transport=tcp`;
+			if (advertised.has(overTcp)) continue;
+			advertised.add(overTcp);
+			out.push({ ...server, urls: overTcp });
+		}
+	}
+	return out;
+}
+
 export class ConnectionController extends TypedEmitter<ConnectionControllerEvents> {
 	private socket?: Socket;
 	private stream?: MediaStream;
@@ -425,7 +441,17 @@ export class ConnectionController extends TypedEmitter<ConnectionControllerEvent
 		}
 		this.setClients(clients);
 
-		const config = SettingsStore.store.natFix ? DEFAULT_ICE_CONFIG_TURN : this.iceConfig;
+		const serverAdvertisesRelay = (this.iceConfig.iceServers ?? []).some((server) => isRelayUrl(server.urls));
+		const chosen: RTCConfiguration = SettingsStore.store.natFix
+			? serverAdvertisesRelay
+				? { ...this.iceConfig, iceTransportPolicy: 'relay' }
+				: DEFAULT_ICE_CONFIG_TURN
+			: this.iceConfig;
+		const config: RTCConfiguration = {
+			...chosen,
+			iceServers: withTcpRelays(chosen.iceServers ?? []),
+			bundlePolicy: 'max-bundle',
+		};
 		const connection = new PeerConnection({
 			stream: this.stream as MediaStream,
 			initiator,
