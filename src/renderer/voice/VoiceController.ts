@@ -33,15 +33,7 @@ interface VoiceControllerEvents extends Record<string, unknown[]> {
 	change: [];
 }
 
-const radioOnAudio = new Audio();
-radioOnAudio.src = radioOnSound;
-radioOnAudio.volume = 0.02;
-
-const radioOffAudio = new Audio();
-radioOffAudio.src = radioOffSound;
-radioOffAudio.volume = 0.09;
-
-function cueAudio(src: string, volume: number, rate: number): ExtendedAudioElement {
+function cueAudio(src: string, volume: number, rate = 1): ExtendedAudioElement {
 	const audio = new Audio() as ExtendedAudioElement & { preservesPitch?: boolean };
 	audio.src = src;
 	audio.volume = volume;
@@ -50,14 +42,21 @@ function cueAudio(src: string, volume: number, rate: number): ExtendedAudioEleme
 	return audio;
 }
 
+function playCue(audio: ExtendedAudioElement): void {
+	audio.currentTime = 0;
+	void audio.play().catch(() => undefined);
+}
+
+const radioOnAudio = cueAudio(radioOnSound, 0.02);
+const radioOffAudio = cueAudio(radioOffSound, 0.09);
 const mutedAudio = cueAudio(muteCueSound, 0.1, 0.8);
 const unmutedAudio = cueAudio(muteCueSound, 0.1, 1.3);
 const deafenedAudio = cueAudio(radioOffSound, 0.1, 0.8);
 const undeafenedAudio = cueAudio(radioOffSound, 0.1, 1.3);
 
 const cueAudios: ExtendedAudioElement[] = [
-	radioOnAudio as ExtendedAudioElement,
-	radioOffAudio as ExtendedAudioElement,
+	radioOnAudio,
+	radioOffAudio,
 	mutedAudio,
 	unmutedAudio,
 	deafenedAudio,
@@ -414,8 +413,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		if (changedDeafen) cue = deafened ? deafenedAudio : undeafenedAudio;
 		else if (changedMute) cue = muted ? mutedAudio : unmutedAudio;
 		if (!cue) return;
-		cue.currentTime = 0;
-		void cue.play().catch(() => undefined);
+		playCue(cue);
 	}
 
 	private static inputSignature(settings: ISettings): string {
@@ -756,9 +754,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		this.audio.setRadioTransmitting(granted);
 		this.patch({ impostorRadioClientId: granted && myPlayer ? myPlayer.clientId : -1 });
 
-		void (granted ? radioOnAudio : radioOffAudio).play().catch(() => {
-			/* autoplay blocked */
-		});
+		playCue(granted ? radioOnAudio : radioOffAudio);
 
 		const playerSocketIds = this.connection.playerSocketIds;
 		const targets = (state?.players ?? [])
