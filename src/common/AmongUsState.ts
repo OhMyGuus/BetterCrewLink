@@ -1,4 +1,4 @@
-import { CameraLocation, MapType } from './AmongusMap';
+import { MapType } from './AmongusMap';
 import { ModsType } from './Mods';
 
 export interface AmongUsState {
@@ -11,7 +11,7 @@ export interface AmongUsState {
 	clientId: number;
 	hostId: number;
 	comsSabotaged: boolean;
-	currentCamera: CameraLocation;
+	currentCamera: number;
 	map: MapType;
 	lightRadius: number;
 	lightRadiusChanged: boolean;
