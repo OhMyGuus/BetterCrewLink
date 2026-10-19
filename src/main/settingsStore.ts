@@ -256,6 +256,10 @@ export const settingsStore = new Store<ISettings>({
 					type: 'boolean',
 					default: false,
 				},
+				killVoiceGraceEnabled: {
+					type: 'boolean',
+					default: false,
+				},
 				commsSabotage: {
 					type: 'boolean',
 					default: false,
@@ -324,6 +328,7 @@ export const settingsStore = new Store<ISettings>({
 			default: {
 				maxDistance: 5.32,
 				haunting: false,
+				killVoiceGraceEnabled: false,
 				commsSabotage: false,
 				hearImpostorsInVents: false,
 				hearThroughCameras: false,

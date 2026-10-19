@@ -126,6 +126,10 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 	private radioTransmitting = false;
 	/** Wall-clock deadline of the running grace period; 0 when none is running. */
 	private gracePeriodEndsAt = 0;
+	/** How long after a kill the impostor(s) can still hear their victim, if enabled for the lobby. */
+	private static readonly KILL_GRACE_PERIOD_MS = 2000;
+	private killGraceWasAliveByClient: Record<number, boolean> = {};
+	private killGraceEndsAtByClient: Record<number, number> = {};
 
 	private host: HostInfo = emptyHost();
 
@@ -209,6 +213,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 
 		this.otherVAD = {};
 		this.localTalking = false;
+		this.resetKillGrace();
 		this.impostorRadioPressed = false;
 		this.radioTransmitting = false;
 		this.playerConfigs = {};
@@ -471,6 +476,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 		this.handlePublicLobby(state, myPlayer);
 		this.cleanupImpostorRadio(state, myPlayer);
 		this.applyImpostorRadio();
+		this.trackKillGrace(state.players, state.gameState);
 		this.updatePeerAudio(state, myPlayer);
 		this.publishMobileAndObs(state, myPlayer);
 	}
@@ -539,6 +545,7 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 
 		if (state.gameState === GameState.LOBBY) {
 			this.patch({ otherDead: {} });
+			this.resetKillGrace();
 		} else if (state.gameState !== GameState.TASKS && state.players) {
 			const otherDead = { ...this.snapshot.otherDead };
 			for (const player of state.players) {
@@ -567,7 +574,51 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 			this.connection.setMobileRunning(false);
 			this.connection.leaveLobby();
 			this.patch({ otherDead: {} });
+			this.resetKillGrace();
 		}
+	}
+
+	/**
+	 * Detects the alive -> dead transition for each player (i.e. the moment a kill lands) and keeps a
+	 * short "grace window" open per victim, so impostors can keep hearing a just-killed crewmate for a
+	 * little while instead of being cut off the instant `isDead` flips. Only observes deaths while the
+	 * round is actually in progress (`GameState.TASKS`) - a `players` list that is undefined, or any
+	 * other game state (lobby, meeting, menu), leaves existing grace windows untouched rather than
+	 * clearing them, since callers are expected to call `resetKillGrace()` explicitly on lobby/game
+	 * transitions.
+	 */
+	private trackKillGrace(players: Player[] | undefined, gameState: GameState, now: number = Date.now()): void {
+		if (!players || gameState !== GameState.TASKS) return;
+
+		for (const player of players) {
+			const clientId = player.clientId;
+			const isAlive = !player.isDead && !player.disconnected;
+			// Default an unseen player to their current state so joining mid-round never looks like a kill.
+			const wasAlive = this.killGraceWasAliveByClient[clientId] ?? isAlive;
+			if (wasAlive && !isAlive) {
+				this.killGraceEndsAtByClient[clientId] = now + VoiceController.KILL_GRACE_PERIOD_MS;
+			}
+			this.killGraceWasAliveByClient[clientId] = isAlive;
+		}
+
+		for (const key of Object.keys(this.killGraceEndsAtByClient)) {
+			const clientId = Number(key);
+			if (this.killGraceEndsAtByClient[clientId] <= now) {
+				delete this.killGraceEndsAtByClient[clientId];
+			}
+		}
+	}
+
+	/** True while `clientId`'s grace window (opened by a kill `trackKillGrace()` just observed) is still open. */
+	private isKillGraceActive(clientId: number, now: number = Date.now()): boolean {
+		const endsAt = this.killGraceEndsAtByClient[clientId];
+		return endsAt !== undefined && endsAt > now;
+	}
+
+	/** Clears all tracked kill-grace state, e.g. on returning to the lobby/menu or leaving a game. */
+	private resetKillGrace(): void {
+		this.killGraceWasAliveByClient = {};
+		this.killGraceEndsAtByClient = {};
 	}
 
 	private updateGracePeriod(current: GameState, previous: GameState): void {
@@ -767,7 +818,8 @@ export class VoiceController extends TypedEmitter<VoiceControllerEvents> {
 				myPlayer,
 				player,
 				this.snapshot.impostorRadioClientId,
-				inGracePeriod
+				inGracePeriod,
+				this.isKillGraceActive(player.clientId)
 			);
 			if (gain === null) continue;
 

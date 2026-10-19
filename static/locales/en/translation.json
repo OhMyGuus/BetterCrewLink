@@ -13,6 +13,7 @@
 			"wallsblockaudio": "Walls Block Audio",
 			"visiononly": "Hear People in Vision Only",
 			"impostorshearsghost": "Impostors Hear Dead",
+			"kill_voice_grace": "Impostors Hear Victim Briefly After a Kill",
 			"hear_imposters_invents": "Hear Impostors in Vents",
 			"private_talk_invents": "Private Talk in Vents",
 			"comms_sabotage_audio": "Comms Sabotage Disables Voice",

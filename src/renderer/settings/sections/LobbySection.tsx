@@ -42,6 +42,7 @@ const LobbySettingRows: React.FC<RowsProps> = function ({ t, values, disabled, d
 		{ key: 'wallsBlockAudio', label: t('settings.lobbysettings.wallsblockaudio') },
 		{ key: 'visionHearing', label: t('settings.lobbysettings.visiononly') },
 		{ key: 'haunting', label: t('settings.lobbysettings.impostorshearsghost') },
+		{ key: 'killVoiceGraceEnabled', label: t('settings.lobbysettings.kill_voice_grace') },
 		{ key: 'hearImpostorsInVents', label: t('settings.lobbysettings.hear_imposters_invents') },
 		{ key: 'impostersHearImpostersInvent', label: t('settings.lobbysettings.private_talk_invents') },
 		{ key: 'commsSabotage', label: t('settings.lobbysettings.comms_sabotage_audio') },

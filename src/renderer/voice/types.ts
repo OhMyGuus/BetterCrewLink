@@ -46,6 +46,7 @@ export const DEFAULT_ICE_CONFIG_TURN: RTCConfiguration = {
 export const defaultLobbySettings: ILobbySettings = {
 	maxDistance: 5.32,
 	haunting: false,
+	killVoiceGraceEnabled: false,
 	hearImpostorsInVents: false,
 	impostersHearImpostersInvent: false,
 	impostorRadioEnabled: false,
